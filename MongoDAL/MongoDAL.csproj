@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>MongoDAL</RootNamespace>
+    <AssemblyName>MongoDAL</AssemblyName>
+    <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
+    <Description>A generic data access layer for MongoDB to use LINQ with ASPNetCore applications.
+Check the project site on github for more details.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
+    <PackageReference Include="Pluralize.NET" Version="0.1.84" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
