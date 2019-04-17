@@ -20,11 +20,18 @@ namespace DemoAPI.Models
         {
             DB.Save<Person>(this);
         }
-
+        
         public Person FindLast()
         {
             return (from p in DB.Collection<Person>()
-                    select p).LastOrDefault();
+                    orderby p.ModifiedOn descending
+                    select p).FirstOrDefault();
         }
+
+        public void Delete()
+        {
+            DB.Delete<Person>(this.Id);
+        }
+         
     }
 }

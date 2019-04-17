@@ -7,6 +7,10 @@ namespace MongoDAL
         /// <summary>
         /// Registers MongoDB DAL as a service with the IOC services collection.
         /// </summary>
+        /// <param name="Database">MongoDB database name</param>
+        /// <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
+        /// <param name="Port">MongoDB port number. Defaults to 27017</param>
+        /// <returns></returns>
         public static IServiceCollection AddMongoDAL(
             this IServiceCollection services, 
             string Database, 
