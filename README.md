@@ -107,6 +107,6 @@ if there are properties of your entities that you don't want persisted to mongod
 ```
 
 ### Examples
-check the `DemoAPI/Controllers/DemoController.cs` for basic examples.
+[click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/DemoAPI/Controllers/DemoController.cs) for basic examples.
 
-for more in-depth examples, check here: [https://github.com/dj-nitehawk/KiwilinkCRM](https://github.com/dj-nitehawk/KiwilinkCRM)
+for more in-depth examples, check the ASPNetCore-WebAPI project [here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API).
