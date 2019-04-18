@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 namespace MongoDAL
 {
+    [BsonIgnoreExtraElements]
     public class MongoEntity
     {
         [BsonId]

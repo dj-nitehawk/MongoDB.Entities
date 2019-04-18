@@ -5,7 +5,6 @@ using System.Linq;
 namespace DemoAPI.Models
 
 {
-    [MongoIgnoreExtras]
     public class Person : MongoEntity
     {
         public string Name { get; set; }

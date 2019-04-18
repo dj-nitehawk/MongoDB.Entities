@@ -2,7 +2,6 @@
 
 namespace DemoAPI.Models
 {
-    [MongoIgnoreExtras]
     public class Address : MongoEntity
     {
         public string Line1 { get; set; }
