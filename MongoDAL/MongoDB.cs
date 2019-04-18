@@ -5,6 +5,7 @@ using Pluralize.NET;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Linq.Expressions;
+using MongoDB.Bson.Serialization.Conventions;
 
 namespace MongoDAL
 {
@@ -21,6 +22,9 @@ namespace MongoDAL
 
             _db = new MongoClient($"mongodb://{Host}:{Port}").GetDatabase(Database);
             _plural = new Pluralizer();
+
+            var conventions = new ConventionPack { new IgnoreExtraElementsConvention(true) };
+            ConventionRegistry.Register("IgnoreExtraElements", conventions, type => true);
         }
 
         private static string CollectionName<T>()
