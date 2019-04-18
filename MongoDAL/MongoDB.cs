@@ -56,7 +56,7 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            if (entity.Id == null) entity.Id = ObjectId.GenerateNewId().ToString();
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
 
             entity.ModifiedOn = DateTime.UtcNow;
 
