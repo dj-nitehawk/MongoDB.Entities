@@ -5,12 +5,11 @@
     <RootNamespace>MongoDAL</RootNamespace>
     <AssemblyName>MongoDAL</AssemblyName>
     <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
-    <Description>A generic data access layer for MongoDB to use LINQ with ASPNetCore applications.
-Check the project site on github for more details.
-</Description>
+    <Description>A generic data access layer for ASPNetCore applications to use LINQ with MongoDB.
+Check the project site on github for more details.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDAL</PackageProjectUrl>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
