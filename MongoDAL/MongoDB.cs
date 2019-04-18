@@ -14,17 +14,40 @@ namespace MongoDAL
         private static IMongoDatabase _db;
         private static Pluralizer _plural;
 
-        internal DB(string Database, string Host, string Port)
+        internal DB(string database, string host, int port)
+        {
+
+            Initialize(
+                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
+                database);
+        }
+
+        internal DB(MongoClientSettings settings, string database)
+        {
+            Initialize(settings, database);
+        }
+
+        private void Initialize(MongoClientSettings settings, string database)
         {
             if (_db != null) throw new InvalidOperationException("Database connection is already initialized!");
+            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException("Database", "Database name cannot be empty");
 
-            if (string.IsNullOrEmpty(Database)) throw new ArgumentNullException("Database", "Database name cannot be empty");
+            try
+            {
+                _db = new MongoClient(settings).GetDatabase(database);
+            }
+            catch (Exception)
+            {
 
-            _db = new MongoClient($"mongodb://{Host}:{Port}").GetDatabase(Database);
+                throw;
+            }
+
+            ConventionRegistry.Register(
+                "IgnoreExtraElements",
+                new ConventionPack { new IgnoreExtraElementsConvention(true) },
+                type => true);
+
             _plural = new Pluralizer();
-
-            var conventions = new ConventionPack { new IgnoreExtraElementsConvention(true) };
-            ConventionRegistry.Register("IgnoreExtraElements", conventions, type => true);
         }
 
         private static string CollectionName<T>()
