@@ -11,10 +11,24 @@ or use the nuget package manager and search for `MongoDAL`
 
 ### Startup.cs
 
-* import the package with `using MongoDAL;`
-* add the following in `ConfigureServices` method:
+import the package with `using MongoDAL;`
+
+then add the following in `ConfigureServices` method:
+
+#### Basic version:
 ```csharp
-services.AddMongoDAL("DatabaseName","HostAddress","PortNumber")
+  services.AddMongoDAL("DatabaseName","HostAddress","PortNumber");
+```
+
+#### Advanced version:
+```csharp
+  services.AddMongoDAL(
+      new MongoClientSettings()
+      {
+        Server = new MongoServerAddress("HostAddress", "PortNumber"),
+        Credential = MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
+       },
+       "DatabaseName");
 ```
 
 ### Entities
@@ -98,5 +112,7 @@ if there are properties of your entities that you don't want persisted to mongod
     }
 ```
 
-### Example Project
-for a more indepth example project using MongoDAL, please check out the source code published here: [https://github.com/dj-nitehawk/KiwilinkCRM](https://github.com/dj-nitehawk/KiwilinkCRM)
+### Examples
+[click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/DemoAPI/Controllers/DemoController.cs) for basic examples.
+
+for more in-depth examples, check the ASPNetCore-WebAPI project [here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API).
