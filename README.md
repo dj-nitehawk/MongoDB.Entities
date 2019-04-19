@@ -74,9 +74,15 @@ entities can be embedded within entities or can be referenced by their `Id`.
     public class Person : MongoEntity
     {
         public string Name { get; set; }
-        public string AddressId { get; set; }
+        
+		[MongoRef]
+		public string AddressId { get; set; }
+		
+		[MongoRef]
+		public string[] VehicleIDs { get; set; }
      }
 ```
+decorate properties you want treated as references with the `MongoRef` attribute. to mark a collection of Ids, simply store them in a string[].
 
 ### Ignoring Entity Properties
 if there are properties of your entities that you don't want persisted to mongodb, simply use the `MongoIgnoreAttribute` like so:
