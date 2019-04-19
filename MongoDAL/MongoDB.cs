@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Linq.Expressions;
 using MongoDB.Bson.Serialization.Conventions;
+using System.Threading.Tasks;
 
 namespace MongoDAL
 {
@@ -20,7 +21,7 @@ namespace MongoDAL
         /// <param name="database">Name of the database</param>
         /// <param name="host">Adderss of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
-        public DB(string database, string host ="127.0.0.1", int port = 27017)
+        public DB(string database, string host = "127.0.0.1", int port = 27017)
         {
 
             Initialize(
@@ -89,12 +90,27 @@ namespace MongoDAL
         public static void Save<T>(T entity) where T : MongoEntity
         {
             CheckIfInitialized();
-
             if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
-
             entity.ModifiedOn = DateTime.UtcNow;
 
             collection<T>().ReplaceOne(
+                x => x.Id.Equals(entity.Id),
+                entity,
+                new UpdateOptions() { IsUpsert = true });
+        }
+
+        /// <summary>
+        /// Persists an entity to MongoDB
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <param name="entity">The instance to persist</param>
+        public static Task SaveAsync<T>(T entity) where T : MongoEntity
+        {
+            CheckIfInitialized();
+            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
+            entity.ModifiedOn = DateTime.UtcNow;
+
+            return collection<T>().ReplaceOneAsync(
                 x => x.Id.Equals(entity.Id),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
@@ -113,6 +129,17 @@ namespace MongoDAL
         }
 
         /// <summary>
+        /// Deletes a single entity from MongoDB
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <param name="id">The Id of the entity to delete</param>
+        public static Task DeleteAsync<T>(string id)where T : MongoEntity
+        {
+            CheckIfInitialized();
+            return collection<T>().DeleteOneAsync(x=> x.Id.Equals(id));
+        }
+
+        /// <summary>
         /// Delete multiple entities from MongoDB
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
@@ -122,6 +149,17 @@ namespace MongoDAL
             CheckIfInitialized();
 
             collection<T>().DeleteMany(expression);
+        }
+
+        /// <summary>
+        /// Delete multiple entities from MongoDB
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <param name="expression">A lambda expression for matching entities to delete.</param>
+        public static Task DeleteManyAsync<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        {
+            CheckIfInitialized();
+            return collection<T>().DeleteManyAsync(expression);
         }
 
         private static void CheckIfInitialized()

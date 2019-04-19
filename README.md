@@ -2,8 +2,6 @@
 # MongoDAL
 An easy to use Data Access Layer for .Net Core applications to use LINQ with MongoDB.
 
-## How To Use
-
 ## Install
 install nuget package with the command: `Install-Package MongoDAL` 
 
@@ -77,7 +75,7 @@ when updating entities, if an entity with a matching `Id` is found in the databa
 linq queries can be written against any entity collection in mongodb like so:
 ```csharp
     var myAddress = (from a in DB.Collection<Address>()
-                     where a.City.Contains("123")
+                     where a.Street.Contains("123")
                      select a).SingleOrDefault();
 ```
 most linq operations are available. check out the mongodb [c# driver linq documentation](http://mongodb.github.io/mongo-csharp-driver/2.7/reference/driver/crud/linq/) for more details.
@@ -125,6 +123,17 @@ if there are properties of your entities that you don't want persisted to mongod
         [MongoIgnore]
         public string SomeProperty { get; set; }
     }
+```
+
+## Async Support
+async overloads are available for all provided methods.
+
+in order to write queries against collections, make sure to import the mongodb linq extensions with `using MongoDB.Driver.Linq;` and write queries as follows:
+
+```csharp
+  var latsPerson = await (from p in DB.Collection<Person>()
+                          orderby p.ModifiedOn descending
+                          select p).FirstOrDefaultAsync();
 ```
 
 ## Examples

@@ -1,12 +1,15 @@
 ﻿using System;
 using DemoConsole.Models;
+using System.Threading.Tasks;
 //using MongoDB.Driver;
+//using MongoDB.Driver.Linq;
+//using MongoDAL;
 
 namespace DemoConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //INITIALIZE - Basic
             new MongoDAL.DB("Demo");
@@ -30,6 +33,9 @@ namespace DemoConsole
 
             person.Save();
 
+            //CREATE Async
+            //await DB.SaveAsync<Person>(person);
+
             var address = new Address
             {
                 Line1 = "line 1",
@@ -42,6 +48,11 @@ namespace DemoConsole
             //READ
             var lastPerson = person.FindLast();
 
+            //READ Async
+            //var lastPerson = await DB.Collection<Person>()
+            //    .OrderByDescending(p=> p.ModifiedOn)
+            //    .FirstOrDefaultAsync();
+
             //UPDATE
             lastPerson.Name = "Updated at " + DateTime.UtcNow.ToString();
             lastPerson.Save();
@@ -50,8 +61,10 @@ namespace DemoConsole
             //lastPerson.Delete();
             //address.DeleteByOwnerId(lastPerson.Id);   
 
+            //DELETE Async
+            //await DB.DeleteAsync<Person>(lastPerson.Id);
+
             Console.WriteLine("CRUD Complete...");
-            Console.ReadKey();
         }
     }
 }
