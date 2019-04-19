@@ -3,7 +3,6 @@
 An easy to use Data Access Layer for .Net Core applications to use LINQ with MongoDB.
 
 ## How To Use
----
 
 ## Install
 install nuget package with the command: `Install-Package MongoDAL` 
@@ -129,6 +128,6 @@ if there are properties of your entities that you don't want persisted to mongod
 ```
 
 ## Examples
-[click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/DemoAPI/Controllers/DemoController.cs) for basic examples.
+[click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/DemoConsole/Program.cs) for basic examples.
 
 for more in-depth examples, check the ASPNetCore-WebAPI project [here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API).
