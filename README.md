@@ -1,26 +1,28 @@
 
 # MongoDAL
-A generic data access layer for ASPNetCore applications to use LINQ with MongoDB.
+An easy to use Data Access Layer for .Net Core applications to use LINQ with MongoDB.
 
 ## How To Use
+---
 
-### Install
+## Install
 install nuget package with the command: `Install-Package MongoDAL` 
 
 or use the nuget package manager and search for `MongoDAL`
 
-### Startup.cs
+## Initialize
+first import the package with `using MongoDAL;`
 
-import the package with `using MongoDAL;`
+then initialize as below according to the platform you're using.
 
-then add the following in `ConfigureServices` method:
-
-#### Basic version:
+#### ASP.Net Core (Basic initialization):
+add the following inside `ConfigureServices` method of `Startup.cs` file:
 ```csharp
   services.AddMongoDAL("DatabaseName","HostAddress","PortNumber");
 ```
 
-#### Advanced version:
+#### ASP.Net Core (Advanced initialization):
+add the following inside `ConfigureServices` method of `Startup.cs` file:
 ```csharp
   services.AddMongoDAL(
       new MongoClientSettings()
@@ -31,7 +33,21 @@ then add the following in `ConfigureServices` method:
        "DatabaseName");
 ```
 
-### Entities
+#### .Net Core (Basic initialization):
+```csharp
+  new DB("Demo");
+```
+
+#### .Net Core (Advanced initialization):
+```csharp
+  new MongoDAL.DB(new MongoClientSettings()
+  {
+      Server = new MongoServerAddress("localhost", 27017),
+      Credential = MongoCredential.CreateCredential("Demo", "username", "password")
+  }, "Demo");
+```
+
+## Entities
 create your entities by inheriting from `MongoEntity` like so:
 ```csharp
     public class Address : MongoEntity
@@ -42,7 +58,7 @@ create your entities by inheriting from `MongoEntity` like so:
     }
 ```
 
-### Save Entities (create/update)
+## Save Entities (create/update)
 you can persist an entity to mongodb by calling the `Save<T>` method of the `DB` static class. there's no need to initialize the `DB` class.
 ```csharp
     var address = new Address {
@@ -58,7 +74,7 @@ once saved to mongodb, you can access the auto generated `Id` of the entity like
 ```
 when updating entities, if an entity with a matching `Id` is found in the database, it will be overwritten with the entity you supply to the `Save<T>()` method. so you have to be mindful of schema changes to your entities in order to avoid data loss.
 
-### Find Entities
+## Find Entities
 linq queries can be written against any entity collection in mongodb like so:
 ```csharp
     var myAddress = (from a in DB.Collection<Address>()
@@ -67,13 +83,13 @@ linq queries can be written against any entity collection in mongodb like so:
 ```
 most linq operations are available. check out the mongodb [c# driver linq documentation](http://mongodb.github.io/mongo-csharp-driver/2.7/reference/driver/crud/linq/) for more details.
 
-### Delete Entities
+## Delete Entities
 single entities can be deleted by supplying the `Id` of the entity to delete. multiple entities can be deleted by supplying a lamba expression as shown below:
 ```csharp
     DB.Delete<Address>(myAddress.Id);
     DB.DeleteMany<Address>(a => a.Country.Equals("USA"));
 ```
-### Entity Relationships
+## Entity Relationships
 entities can be embedded within entities or can be referenced by their `Id`.
 #### Embedded Entities
 ```csharp
@@ -84,6 +100,7 @@ entities can be embedded within entities or can be referenced by their `Id`.
      }
 ```
 #### Referenced Entities
+decorate properties you want treated as references with the `MongoRef` attribute. to mark a collection of Ids, simply store them in a string[].
 ```csharp
     public class Person : MongoEntity
     {
@@ -96,9 +113,8 @@ entities can be embedded within entities or can be referenced by their `Id`.
 		public string[] VehicleIDs { get; set; }
      }
 ```
-decorate properties you want treated as references with the `MongoRef` attribute. to mark a collection of Ids, simply store them in a string[].
 
-### Ignoring Entity Properties
+## Ignoring Entity Properties
 if there are properties of your entities that you don't want persisted to mongodb, simply use the `MongoIgnoreAttribute` like so:
 ```csharp
     public class Address : MongoEntity
@@ -112,7 +128,7 @@ if there are properties of your entities that you don't want persisted to mongod
     }
 ```
 
-### Examples
+## Examples
 [click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/DemoAPI/Controllers/DemoController.cs) for basic examples.
 
 for more in-depth examples, check the ASPNetCore-WebAPI project [here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API).

@@ -15,6 +15,7 @@ Check the project site on github for more details.</Description>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Pluralize.NET" Version="0.1.84" />
   </ItemGroup>
 

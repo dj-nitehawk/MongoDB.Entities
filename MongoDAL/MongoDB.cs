@@ -11,10 +11,16 @@ namespace MongoDAL
 {
     public class DB
     {
-        private static IMongoDatabase _db;
+        private static IMongoDatabase _db = null;
         private static Pluralizer _plural;
 
-        internal DB(string database, string host, int port)
+        /// <summary>
+        /// Initializes the MongoDB connection with the given connection parameters.
+        /// </summary>
+        /// <param name="database">Name of the database</param>
+        /// <param name="host">Adderss of the MongoDB server</param>
+        /// <param name="port">Port number of the server</param>
+        public DB(string database, string host ="127.0.0.1", int port = 27017)
         {
 
             Initialize(
@@ -22,7 +28,12 @@ namespace MongoDAL
                 database);
         }
 
-        internal DB(MongoClientSettings settings, string database)
+        /// <summary>
+        /// Initializes the MongoDB connection with an advanced set of parameters.
+        /// </summary>
+        /// <param name="settings">A MongoClientSettings object</param>
+        /// <param name="database">Name of the database</param>
+        public DB(MongoClientSettings settings, string database)
         {
             Initialize(settings, database);
         }
@@ -30,7 +41,7 @@ namespace MongoDAL
         private void Initialize(MongoClientSettings settings, string database)
         {
             if (_db != null) throw new InvalidOperationException("Database connection is already initialized!");
-            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException("Database", "Database name cannot be empty");
+            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException("Database", "Database name cannot be empty!");
 
             try
             {
@@ -38,7 +49,7 @@ namespace MongoDAL
             }
             catch (Exception)
             {
-
+                _db = null;
                 throw;
             }
 
@@ -117,7 +128,7 @@ namespace MongoDAL
         {
             if (_db == null)
             {
-                throw new InvalidOperationException("Database connection is not initialized. Add 'services.AddMongoDAL()' in Startup.cs");
+                throw new InvalidOperationException("Database connection is not initialized. Check Readme.md on how to initialize.");
             }
         }
     }
