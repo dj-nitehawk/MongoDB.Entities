@@ -144,7 +144,7 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static void DeleteMany<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static void Delete<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
         {
             CheckIfInitialized();
 
@@ -156,7 +156,7 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static Task DeleteManyAsync<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
         {
             CheckIfInitialized();
             return collection<T>().DeleteManyAsync(expression);
@@ -169,5 +169,6 @@ namespace MongoDAL
                 throw new InvalidOperationException("Database connection is not initialized. Check Readme.md on how to initialize.");
             }
         }
+        
     }
 }

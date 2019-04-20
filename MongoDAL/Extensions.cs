@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace MongoDAL
 {
-    public static class IOCExtensions
+    public static class Extensions
     {
         /// <summary>
         /// Registers MongoDB DAL as a service with the IOC services collection.
@@ -35,6 +36,32 @@ namespace MongoDAL
         {
             services.AddSingleton<DB>(new DB(Settings, Database));
             return services;
+        }
+
+        /// <summary>
+        /// Returns a reference to this entity.
+        /// </summary>
+        public static MongoRef<T> CreateRef<T>(this T entity) where T : MongoEntity
+        {
+            return new MongoRef<T>(entity);
+        }
+
+        //todo: remarks
+        public static MongoRefs<T> CreateRefs<T>(this T entity) where T : MongoEntity
+        {
+            return new MongoRefs<T>(entity);
+        }
+
+        //todo: remarks
+        public static MongoRefs<T> CreateRefs<T>(this IEnumerable<T> entities) where T : MongoEntity
+        {
+            return new MongoRefs<T>(entities);
+        }
+
+        //tood: test extensions for all methods.
+        public static void Save<T>(this T entity) where T : MongoEntity
+        {
+            DB.Save<T>(entity);
         }
     }
 }

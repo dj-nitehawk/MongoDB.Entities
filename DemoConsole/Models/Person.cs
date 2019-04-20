@@ -11,16 +11,13 @@ namespace DemoConsole.Models
         public int Age { get; set; }
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
+        public MongoRef<Address> HomeAddress { get; set; }
+        public MongoRefs<Address> AllAddresses { get; set; }
 
-        //[MongoIgnore]
-        //public Address[] Addresses { get; set; }
-
-        public MongoRef<Address> Address { get; set; }
-
-        public void Save()
-        {
-            DB.Save<Person>(this);
-        }
+        //public void Save()
+        //{
+        //    DB.Save<Person>(this);
+        //}
 
         public Person FindLast()
         {

@@ -9,18 +9,16 @@ namespace DemoConsole.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
+        public MongoRef<Person> Owner { get; set; }
 
-        [MongoRef]
-        public string OwnerId { get; set; }
-
-        public void Save()
-        {
-            DB.Save<Address>(this);
-        }
+        //public void Save()
+        //{
+        //    DB.Save<Address>(this);
+        //}
 
         public void DeleteByOwnerId(string ownerID)
         {
-            DB.DeleteMany<Address>(a => a.OwnerId.Equals(ownerID));
+            DB.Delete<Address>(a => a.Owner.Id.Equals(ownerID));
         }
     }
 }

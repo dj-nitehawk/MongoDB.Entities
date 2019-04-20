@@ -14,5 +14,6 @@ namespace MongoDAL
 
         [JsonIgnore]
         public DateTime ModifiedOn { get; set; }
-    }
+
+     }
 }
