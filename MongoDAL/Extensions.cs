@@ -41,25 +41,25 @@ namespace MongoDAL
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static MongoRef<T> CreateRef<T>(this T entity) where T : MongoEntity
+        public static Reference<T> ToReference<T>(this T entity) where T : Entity
         {
-            return new MongoRef<T>(entity);
+            return new Reference<T>(entity);
         }
 
-        //todo: remarks
-        public static MongoRefs<T> CreateRefs<T>(this T entity) where T : MongoEntity
-        {
-            return new MongoRefs<T>(entity);
-        }
+        ////todo: remarks
+        //public static ReferenceCollection<T> ToReferenceCollection<T>(this T entity) where T : Entity
+        //{
+        //    return new ReferenceCollection<T>(entity);
+        //}
 
-        //todo: remarks
-        public static MongoRefs<T> CreateRefs<T>(this IEnumerable<T> entities) where T : MongoEntity
-        {
-            return new MongoRefs<T>(entities);
-        }
+        ////todo: remarks
+        //public static ReferenceCollection<T> ToReferenceCollection<T>(this IEnumerable<T> entities) where T : Entity
+        //{
+        //    return new ReferenceCollection<T>(entities);
+        //}
 
         //tood: test extensions for all methods.
-        public static void Save<T>(this T entity) where T : MongoEntity
+        public static void Save<T>(this T entity) where T : Entity
         {
             DB.Save<T>(entity);
         }

@@ -5,14 +5,14 @@ using System.Linq;
 namespace DemoAPI.Models
 
 {
-    public class Person : MongoEntity
+    public class Person : Entity
     {
         public string Name { get; set; }
         public int Age { get; set; }
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
 
-        [MongoIgnore]
+        [Ignore]
         public Address[] Addresses { get; set; }
 
         public void Save()
@@ -29,7 +29,7 @@ namespace DemoAPI.Models
 
         public void Delete()
         {
-            DB.Delete<Person>(this.Id);
+            DB.Delete<Person>(this.ID);
         }
          
     }

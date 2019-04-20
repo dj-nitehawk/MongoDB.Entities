@@ -24,7 +24,7 @@ namespace DemoAPI.Controllers
             var address = new Address {
                 Line1 = "line 1",
                 City = "Colarado",
-                OwnerId = person.Id };
+                OwnerId = person.ID };
 
             address.Save();
 

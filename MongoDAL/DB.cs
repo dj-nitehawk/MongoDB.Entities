@@ -87,14 +87,14 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        public static void Save<T>(T entity) where T : MongoEntity
+        public static void Save<T>(T entity) where T : Entity
         {
             CheckIfInitialized();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
+            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
             collection<T>().ReplaceOne(
-                x => x.Id.Equals(entity.Id),
+                x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
         }
@@ -104,14 +104,14 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        public static Task SaveAsync<T>(T entity) where T : MongoEntity
+        public static Task SaveAsync<T>(T entity) where T : Entity
         {
             CheckIfInitialized();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
+            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
             return collection<T>().ReplaceOneAsync(
-                x => x.Id.Equals(entity.Id),
+                x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
         }
@@ -121,11 +121,11 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static void Delete<T>(string id) where T : MongoEntity
+        public static void Delete<T>(string id) where T : Entity
         {
             CheckIfInitialized();
 
-            collection<T>().DeleteOne(x => x.Id.Equals(id));
+            collection<T>().DeleteOne(x => x.ID.Equals(id));
         }
 
         /// <summary>
@@ -133,10 +133,10 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static Task DeleteAsync<T>(string id)where T : MongoEntity
+        public static Task DeleteAsync<T>(string id)where T : Entity
         {
             CheckIfInitialized();
-            return collection<T>().DeleteOneAsync(x=> x.Id.Equals(id));
+            return collection<T>().DeleteOneAsync(x=> x.ID.Equals(id));
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static void Delete<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             CheckIfInitialized();
 
@@ -156,7 +156,7 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             CheckIfInitialized();
             return collection<T>().DeleteManyAsync(expression);

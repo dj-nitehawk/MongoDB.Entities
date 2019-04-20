@@ -41,20 +41,20 @@ namespace DemoConsole
             {
                 Line1 = "line 1",
                 City = "Colarado",
-                Owner = person.CreateRef()
+                Owner = person.ToReference()
             };
 
             address.Save();
 
-            person.HomeAddress = address.CreateRef();
+            person.HomeAddress = address.ToReference();
 
             var addressList = new List<Address>();
             addressList.Add(address);
             addressList.Add(address);
             addressList.Add(address);
 
-            person.AllAddresses = address.CreateRefs();
-            person.AllAddresses = addressList.CreateRefs();
+            //person.AllAddresses = address.ToReferenceCollection();
+            //person.AllAddresses = addressList.ToReferenceCollection();
 
             person.Save();
             
@@ -64,7 +64,7 @@ namespace DemoConsole
 
             lastPerson.Save();
 
-            //var x = await person.HomeAddress.FetchEntityAsync();
+            var x = await person.HomeAddress.ToEntityAsync();
 
             //READ Async
             //var lastPerson = await (from p in DB.Collection<Person>()

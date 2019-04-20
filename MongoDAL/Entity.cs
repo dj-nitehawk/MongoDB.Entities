@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 namespace MongoDAL
 {
     [BsonIgnoreExtraElements]
-    public class MongoEntity
+    public class Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string ID { get; set; }
 
         [JsonIgnore]
         public DateTime ModifiedOn { get; set; }
