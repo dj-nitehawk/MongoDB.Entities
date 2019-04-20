@@ -12,14 +12,16 @@ namespace DemoConsole.Models
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
 
-        [MongoIgnore]
-        public Address[] Addresses { get; set; }
+        //[MongoIgnore]
+        //public Address[] Addresses { get; set; }
+
+        public MongoRef<Address> Address { get; set; }
 
         public void Save()
         {
             DB.Save<Person>(this);
         }
-        
+
         public Person FindLast()
         {
             return (from p in DB.Collection<Person>()
@@ -31,6 +33,6 @@ namespace DemoConsole.Models
         {
             DB.Delete<Person>(this.Id);
         }
-         
+
     }
 }

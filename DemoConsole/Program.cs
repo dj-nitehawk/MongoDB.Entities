@@ -3,7 +3,7 @@ using DemoConsole.Models;
 using System.Threading.Tasks;
 //using MongoDB.Driver;
 //using MongoDB.Driver.Linq;
-//using MongoDAL;
+using MongoDAL;
 
 namespace DemoConsole
 {
@@ -45,8 +45,14 @@ namespace DemoConsole
 
             address.Save();
 
+            person.Address = new MongoRef<Address>(address);
+            person.Save();
+            
+           
             //READ
             var lastPerson = person.FindLast();
+
+            var x = person.Address.Entity;
 
             //READ Async
             //var lastPerson = await (from p in DB.Collection<Person>()
