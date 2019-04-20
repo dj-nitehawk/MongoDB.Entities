@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 //using MongoDB.Driver;
 //using MongoDB.Driver.Linq;
 using MongoDAL;
-using System.Collections.Generic;
 
 namespace DemoConsole
 {
@@ -41,30 +40,19 @@ namespace DemoConsole
             {
                 Line1 = "line 1",
                 City = "Colarado",
-                Owner = person.CreateRef()
+                OwnerId = person.Id
             };
 
             address.Save();
 
-            person.HomeAddress = address.CreateRef();
-
-            var addressList = new List<Address>();
-            addressList.Add(address);
-            addressList.Add(address);
-            addressList.Add(address);
-
-            person.AllAddresses = address.CreateRefs();
-            person.AllAddresses = addressList.CreateRefs();
-
+            person.Address = new MongoRef<Address>(address);
             person.Save();
             
            
             //READ
             var lastPerson = person.FindLast();
 
-            lastPerson.Save();
-
-            //var x = await person.HomeAddress.FetchEntityAsync();
+            var x = person.Address.Entity;
 
             //READ Async
             //var lastPerson = await (from p in DB.Collection<Person>()

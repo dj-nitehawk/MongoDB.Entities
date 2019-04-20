@@ -20,7 +20,7 @@ namespace DemoAPI.Models
 
         public void DeleteByOwnerId(string ownerID)
         {
-            DB.Delete<Address>(a => a.OwnerId.Equals(ownerID));
+            DB.DeleteMany<Address>(a => a.OwnerId.Equals(ownerID));
         }
     }
 }
