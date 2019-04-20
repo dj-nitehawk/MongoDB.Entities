@@ -134,7 +134,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 ```
 ```csharp
-  var lastPerson = await (from p in DB.Collection<Person>()
+  var latsPerson = await (from p in DB.Collection<Person>()
                           orderby p.ModifiedOn descending
                           select p).FirstOrDefaultAsync();
 ```
