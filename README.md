@@ -128,8 +128,11 @@ if there are properties of your entities that you don't want persisted to mongod
 ## Async Support
 async overloads are available for all provided methods.
 
-in order to write queries against collections, make sure to import the mongodb linq extensions with `using MongoDB.Driver.Linq;` and write queries as follows:
-
+in order to write async queries against collections, make sure to import the mongodb linq extensions and write queries as follows:
+```csharp
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+```
 ```csharp
   var latsPerson = await (from p in DB.Collection<Person>()
                           orderby p.ModifiedOn descending

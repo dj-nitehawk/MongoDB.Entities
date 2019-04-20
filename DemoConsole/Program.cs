@@ -49,9 +49,9 @@ namespace DemoConsole
             var lastPerson = person.FindLast();
 
             //READ Async
-            //var lastPerson = await DB.Collection<Person>()
-            //    .OrderByDescending(p=> p.ModifiedOn)
-            //    .FirstOrDefaultAsync();
+            //var lastPerson = await (from p in DB.Collection<Person>()
+            //                        orderby p.ModifiedOn descending
+            //                        select p).FirstOrDefaultAsync();
 
             //UPDATE
             lastPerson.Name = "Updated at " + DateTime.UtcNow.ToString();
