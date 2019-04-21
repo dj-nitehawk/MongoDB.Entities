@@ -9,7 +9,7 @@ namespace DemoConsole.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
-        public RefOne<Person> Owner { get; set; }
+        public One<Person> Owner { get; set; }
 
         //public void Save()
         //{

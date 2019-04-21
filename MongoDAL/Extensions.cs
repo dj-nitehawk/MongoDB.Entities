@@ -47,15 +47,23 @@ namespace MongoDAL
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static RefOne<T> ToReference<T>(this T entity) where T : Entity
+        public static One<T> ToReference<T>(this T entity) where T : Entity
         {
-            return new RefOne<T>(entity);
+            return new One<T>(entity);
         }
-        
-        //tood: test extensions for all methods.
+
+        //todo: doc
+        public static Many<TParent, TChild> Initialize<TParent, TChild>(this Many<TParent,TChild> refmany, TParent parent) where TParent:Entity where TChild:Entity
+        {
+            return new Many<TParent, TChild>(parent);
+        }
+
+        //todo: test extensions for all methods.
         public static void SaveToDB<T>(this T entity) where T : Entity
         {
             DB.Save<T>(entity);
         }
     }
+
+
 }

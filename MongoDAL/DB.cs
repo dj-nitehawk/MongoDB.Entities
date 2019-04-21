@@ -130,6 +130,9 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
+            //todo: delete all ManyRefs to the entity being deleted.
+            // decide if this is a good idea. have to do this for all overloads.
+
             Coll<T>().DeleteOne(x => x.ID.Equals(id));
         }
 
@@ -141,6 +144,9 @@ namespace MongoDAL
         public static Task DeleteAsync<T>(string id) where T : Entity
         {
             CheckIfInitialized();
+
+            //todo: delete all Many refs to the entity being deleted.
+
             return Coll<T>().DeleteOneAsync(x => x.ID.Equals(id));
         }
 

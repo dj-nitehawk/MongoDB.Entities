@@ -13,6 +13,8 @@ namespace DemoConsole
     {
         static async Task Main(string[] args)
         {
+            //todo: cleanup examples and readme.md
+
             //INITIALIZE - Basic
             new MongoDAL.DB("Demo");
 
@@ -38,30 +40,31 @@ namespace DemoConsole
             //CREATE Async
             //await DB.SaveAsync<Person>(person);
 
-            var address = new Address
+            var ad1 = new Address
             {
-                Line1 = "test 1",
-                City = "test 1",
+                Line1 = "add 1",
+                Line2 = person.ID,
                 Owner = person.ToReference()
             };
 
-            address.SaveToDB();
+            ad1.SaveToDB();
 
-            person.HomeAddress = address.ToReference();
+            person.HomeAddress = ad1.ToReference();
 
-            person.AllAddresses = new RefMany<Person, Address>(person);
-            person.AllAddresses.Add(address);
-            person.AllAddresses.Add(address);
+            var ad2 = new Address() { Line1 = "add 2", Line2 = person.ID, Owner = person.ToReference() };
+            ad2.SaveToDB();
 
-            
-            var q = person.AllAddresses.Collection.FirstOrDefault();
+            person.AllAddresses.Add(ad1);
+            person.AllAddresses.Add(ad2);
+
+            var q = person.AllAddresses.Collection.OrderByDescending(a => a.ModifiedOn).FirstOrDefault();
 
             //person.AllAddresses.Remove(address);
 
 
             person.SaveToDB();
-            
-           
+
+
             //READ
             var lastPerson = person.FindLast();
 

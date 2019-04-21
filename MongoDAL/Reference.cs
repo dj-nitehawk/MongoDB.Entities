@@ -14,7 +14,7 @@ namespace MongoDAL
     /// Represents a reference to an entity in MongoDB.
     /// </summary>
     /// <typeparam name="T">Any type that inherits from MongoEntity</typeparam>
-    public class RefOne<T> where T : Entity
+    public class One<T> where T : Entity
     {
         /// <summary>
         /// The Id of the entity referenced by this instance.
@@ -26,7 +26,7 @@ namespace MongoDAL
         /// Initializes a reference to an entity in MongoDB. 
         /// </summary>
         /// <param name="entity">The actual entity this reference represents.</param>
-        public RefOne(T entity)
+        internal One(T entity)
         {
             entity.ThrowIfUnsaved();
             ID = entity.ID;
@@ -51,6 +51,7 @@ namespace MongoDAL
         }
     }
 
+    //todo: doc
     internal class Reference : Entity
     {
         [BsonRepresentation(BsonType.ObjectId)]
@@ -60,18 +61,18 @@ namespace MongoDAL
         public string ChildID { get; set; }
     }
 
-    public class RefMany<TParent, TChild> where TParent : Entity where TChild : Entity
+    //todo: doc
+    public class Many<TParent, TChild> where TParent : Entity where TChild : Entity
     {
         private TParent _parent = null;
         private IMongoCollection<Reference> _collection = null;
 
         public string StoredIn { get; set; }
+
         public IMongoQueryable<TChild> Collection
         {
             get
             {
-                CheckIfInitialized();
-
                 var myRefs = from r in _collection.AsQueryable()
                              where r.ParentID.Equals(_parent.ID)
                              select r;
@@ -83,17 +84,17 @@ namespace MongoDAL
             }
         }
 
-        public RefMany(TParent parent)
+        internal Many(TParent parent)
         {
-            parent.ThrowIfUnsaved();
             _parent = parent;
             _collection = DB.Coll<TParent, TChild>();
             StoredIn = typeof(TParent).Name + "_" + typeof(TChild).Name;
         }
 
-        public void Add(TChild child)
+        private Reference RefToSave(TChild child)
         {
-            CheckIfInitialized();
+            _parent.ThrowIfUnsaved();
+            child.ThrowIfUnsaved();
 
             var refr = _collection.AsQueryable()
                 .SingleOrDefault(r =>
@@ -111,15 +112,30 @@ namespace MongoDAL
                 };
             }
 
+            return refr;
+        }
+
+        public void Add(TChild child)
+        {
+            var refr = RefToSave(child);
+
             _collection.ReplaceOne(
                 x => x.ID.Equals(refr.ID),
                 refr,
                 new UpdateOptions() { IsUpsert = true });
         }
 
-        private void CheckIfInitialized()
+        public Task AddAsync(TChild child)
         {
-            if (_parent == null) throw new InvalidOperationException("Please call Initialize() first before calling this method!");
+            var refr = RefToSave(child);
+
+            return _collection.ReplaceOneAsync(
+                 x => x.ID.Equals(refr.ID),
+                 refr,
+                 new UpdateOptions() { IsUpsert = true });
         }
+
+        //todo: Remove and RemoveAsync
+
     }
 }

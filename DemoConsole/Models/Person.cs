@@ -12,8 +12,13 @@ namespace DemoConsole.Models
         public int Age { get; set; }
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
-        public RefOne<Address> HomeAddress { get; set; }
-        public RefMany<Person,Address> AllAddresses { get; set; }
+        public One<Address> HomeAddress { get; set; }
+        public Many<Person,Address> AllAddresses { get; set; }
+
+        public Person()
+        {
+            AllAddresses = AllAddresses.Initialize(this);
+        }
 
         public void Save()
         {
