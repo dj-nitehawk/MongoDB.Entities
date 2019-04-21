@@ -65,14 +65,30 @@ namespace MongoDAL
         private TParent _parent = null;
         private IMongoCollection<Reference> _collection = null;
 
-        public string Collection { get; set; }
+        public string StoredIn { get; set; }
+        public IMongoQueryable<TChild> Collection
+        {
+            get
+            {
+                CheckIfInitialized();
+
+                var myRefs = from r in _collection.AsQueryable()
+                             where r.ParentID.Equals(_parent.ID)
+                             select r;
+
+                return from r in myRefs
+                       join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
+                       from ch in children
+                       select ch;
+            }
+        }
 
         public RefMany(TParent parent)
         {
             parent.ThrowIfUnsaved();
             _parent = parent;
             _collection = DB.Coll<TParent, TChild>();
-            Collection = typeof(TParent).Name + "_" + typeof(TChild).Name;
+            StoredIn = typeof(TParent).Name + "_" + typeof(TChild).Name;
         }
 
         public void Add(TChild child)
@@ -86,12 +102,13 @@ namespace MongoDAL
 
             if (refr == null)
             {
-                refr = new Reference() {
+                refr = new Reference()
+                {
                     ID = ObjectId.GenerateNewId().ToString(),
                     ModifiedOn = DateTime.UtcNow,
                     ParentID = _parent.ID,
                     ChildID = child.ID,
-                };                
+                };
             }
 
             _collection.ReplaceOne(
@@ -104,5 +121,5 @@ namespace MongoDAL
         {
             if (_parent == null) throw new InvalidOperationException("Please call Initialize() first before calling this method!");
         }
-    } 
+    }
 }

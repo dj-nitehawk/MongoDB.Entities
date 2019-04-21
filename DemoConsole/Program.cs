@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 //using MongoDB.Driver.Linq;
 using MongoDAL;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DemoConsole
 {
@@ -39,8 +40,8 @@ namespace DemoConsole
 
             var address = new Address
             {
-                Line1 = "line 1",
-                City = "Colarado",
+                Line1 = "test 1",
+                City = "test 1",
                 Owner = person.ToReference()
             };
 
@@ -52,11 +53,12 @@ namespace DemoConsole
             person.AllAddresses.Add(address);
             person.AllAddresses.Add(address);
 
-            //person.AllAddresses.Add(address);
-            //person.AllAddresses.Remove(address);
-            //person.AllAddresses.Collection.where(expression).SingleOrDefault();
-
             
+            var q = person.AllAddresses.Collection.FirstOrDefault();
+
+            //person.AllAddresses.Remove(address);
+
+
             person.SaveToDB();
             
            
