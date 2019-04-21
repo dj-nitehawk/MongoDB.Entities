@@ -67,9 +67,14 @@ namespace MongoDAL
             return _plural.Pluralize(typeof(T).Name);
         }
 
-        private static IMongoCollection<T> collection<T>()
+        private static IMongoCollection<T> Coll<T>()
         {
             return _db.GetCollection<T>(CollectionName<T>());
+        }
+
+        internal static IMongoCollection<Reference> Coll<TParent, TChild>()
+        {
+            return _db.GetCollection<Reference>(typeof(TParent).Name + "_" + typeof(TChild).Name);
         }
 
         /// <summary>
@@ -79,7 +84,7 @@ namespace MongoDAL
         public static IMongoQueryable<T> Collection<T>()
         {
             CheckIfInitialized();
-            return collection<T>().AsQueryable();
+            return Coll<T>().AsQueryable();
         }
 
         /// <summary>
@@ -93,7 +98,7 @@ namespace MongoDAL
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            collection<T>().ReplaceOne(
+            Coll<T>().ReplaceOne(
                 x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
@@ -110,7 +115,7 @@ namespace MongoDAL
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            return collection<T>().ReplaceOneAsync(
+            return Coll<T>().ReplaceOneAsync(
                 x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
@@ -125,7 +130,7 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            collection<T>().DeleteOne(x => x.ID.Equals(id));
+            Coll<T>().DeleteOne(x => x.ID.Equals(id));
         }
 
         /// <summary>
@@ -133,10 +138,10 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static Task DeleteAsync<T>(string id)where T : Entity
+        public static Task DeleteAsync<T>(string id) where T : Entity
         {
             CheckIfInitialized();
-            return collection<T>().DeleteOneAsync(x=> x.ID.Equals(id));
+            return Coll<T>().DeleteOneAsync(x => x.ID.Equals(id));
         }
 
         /// <summary>
@@ -148,7 +153,7 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            collection<T>().DeleteMany(expression);
+            Coll<T>().DeleteMany(expression);
         }
 
         /// <summary>
@@ -159,7 +164,7 @@ namespace MongoDAL
         public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             CheckIfInitialized();
-            return collection<T>().DeleteManyAsync(expression);
+            return Coll<T>().DeleteManyAsync(expression);
         }
 
         private static void CheckIfInitialized()
@@ -169,6 +174,6 @@ namespace MongoDAL
                 throw new InvalidOperationException("Database connection is not initialized. Check Readme.md on how to initialize.");
             }
         }
-        
+
     }
 }

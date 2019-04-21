@@ -10,7 +10,7 @@ namespace DemoAPI.Models
         public string Country { get; set; }
         public string ZipCode { get; set; }
 
-        [Reference]
+        [RefOne]
         public string OwnerId { get; set; }
 
         public void Save()

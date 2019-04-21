@@ -1,7 +1,6 @@
 ﻿using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
 
 namespace MongoDAL
 {
@@ -12,8 +11,6 @@ namespace MongoDAL
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
 
-        [JsonIgnore]
         public DateTime ModifiedOn { get; set; }
-
      }
 }

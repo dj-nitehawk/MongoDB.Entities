@@ -1,11 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 
 namespace MongoDAL
 {
     public static class Extensions
     {
+        internal static void ThrowIfUnsaved(this Entity entity)
+        {
+            if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
+        }
+
         /// <summary>
         /// Registers MongoDB DAL as a service with the IOC services collection.
         /// </summary>
@@ -41,25 +47,13 @@ namespace MongoDAL
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static Reference<T> ToReference<T>(this T entity) where T : Entity
+        public static RefOne<T> ToReference<T>(this T entity) where T : Entity
         {
-            return new Reference<T>(entity);
+            return new RefOne<T>(entity);
         }
-
-        ////todo: remarks
-        //public static ReferenceCollection<T> ToReferenceCollection<T>(this T entity) where T : Entity
-        //{
-        //    return new ReferenceCollection<T>(entity);
-        //}
-
-        ////todo: remarks
-        //public static ReferenceCollection<T> ToReferenceCollection<T>(this IEnumerable<T> entities) where T : Entity
-        //{
-        //    return new ReferenceCollection<T>(entities);
-        //}
-
+        
         //tood: test extensions for all methods.
-        public static void Save<T>(this T entity) where T : Entity
+        public static void SaveToDB<T>(this T entity) where T : Entity
         {
             DB.Save<T>(entity);
         }

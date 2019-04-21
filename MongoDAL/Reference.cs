@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,22 +14,22 @@ namespace MongoDAL
     /// Represents a reference to an entity in MongoDB.
     /// </summary>
     /// <typeparam name="T">Any type that inherits from MongoEntity</typeparam>
-    public class Reference<T> where T : Entity
+    public class RefOne<T> where T : Entity
     {
         /// <summary>
         /// The Id of the entity referenced by this instance.
         /// </summary>
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// Initializes a reference to an entity in MongoDB. 
         /// </summary>
         /// <param name="entity">The actual entity this reference represents.</param>
-        public Reference(T entity)
+        public RefOne(T entity)
         {
-            CheckIfEntityIsSaved(entity.ID);
-            Id = entity.ID;
+            entity.ThrowIfUnsaved();
+            ID = entity.ID;
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace MongoDAL
         /// <returns>The actual entity</returns>
         public T ToEntity()
         {
-            return DB.Collection<T>().SingleOrDefault(e => e.ID.Equals(Id));
+            return DB.Collection<T>().SingleOrDefault(e => e.ID.Equals(ID));
         }
 
         /// <summary>
@@ -46,60 +47,62 @@ namespace MongoDAL
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync()
         {
-            return DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(Id));
-        }
-
-        private void CheckIfEntityIsSaved(string id)
-        {
-            if (string.IsNullOrEmpty(id)) throw new InvalidOperationException("Please save the entity before adding references to it!");
+            return DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
         }
     }
 
-    ////todo: remarks
-    //public class ReferenceCollection<T> where T : Entity
-    //{
-    //    [BsonRepresentation(BsonType.ObjectId)]
-    //    public Collection<string> IDs { get; set; } = new Collection<string>();
+    internal class Reference : Entity
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ParentID { get; set; }
 
-    //    //todo: remarks
-    //    internal ReferenceCollection(T entity)
-    //    {
-    //        CheckIfEntityIsSaved(entity);
-    //        IDs.Add(entity.ID);
-    //    }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ChildID { get; set; }
+    }
 
-    //    //todo: remarks
-    //    internal ReferenceCollection(IEnumerable<T> entities)
-    //    {
-    //        var hasUnsaved = (from e in entities
-    //                          where string.IsNullOrEmpty(e.ID)
-    //                          select e).Any();
+    public class RefMany<TParent, TChild> where TParent : Entity where TChild : Entity
+    {
+        private TParent _parent = null;
+        private IMongoCollection<Reference> _collection = null;
 
-    //        if (hasUnsaved) throw new InvalidCastException("Save all entities before attempting to set references to them!");
+        public string Collection { get; set; }
 
-    //        foreach (var e in entities)
-    //        {
-    //            IDs.Add(e.ID);
-    //        }
-    //    }
+        public RefMany(TParent parent)
+        {
+            parent.ThrowIfUnsaved();
+            _parent = parent;
+            _collection = DB.Coll<TParent, TChild>();
+            Collection = typeof(TParent).Name + "_" + typeof(TChild).Name;
+        }
 
-    //    //todo: collection management...
-    //    public void Add(T entity)
-    //    {
-    //        CheckIfEntityIsSaved(entity);
-    //        IDs.Add(entity.ID);
-    //    }
+        public void Add(TChild child)
+        {
+            CheckIfInitialized();
 
-    //    //public void Remove(T entity)
-    //    //{
-    //    //    CheckIfEntityIsSaved(entity);
-    //    //}
+            var refr = _collection.AsQueryable()
+                .SingleOrDefault(r =>
+                r.ParentID.Equals(_parent.ID) &&
+                r.ChildID.Equals(child.ID));
 
-    //    //todo: get entities
+            if (refr == null)
+            {
+                refr = new Reference() {
+                    ID = ObjectId.GenerateNewId().ToString(),
+                    ModifiedOn = DateTime.UtcNow,
+                    ParentID = _parent.ID,
+                    ChildID = child.ID,
+                };                
+            }
 
-    //    private void CheckIfEntityIsSaved(T entity)
-    //    {
-    //        if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before adding references to it!");
-    //    }
-    //}
+            _collection.ReplaceOne(
+                x => x.ID.Equals(refr.ID),
+                refr,
+                new UpdateOptions() { IsUpsert = true });
+        }
+
+        private void CheckIfInitialized()
+        {
+            if (_parent == null) throw new InvalidOperationException("Please call Initialize() first before calling this method!");
+        }
+    } 
 }

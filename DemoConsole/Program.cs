@@ -32,7 +32,7 @@ namespace DemoConsole
                 RetirementDate = DateTime.UtcNow
             };
 
-            person.Save();
+            person.SaveToDB();
 
             //CREATE Async
             //await DB.SaveAsync<Person>(person);
@@ -44,25 +44,26 @@ namespace DemoConsole
                 Owner = person.ToReference()
             };
 
-            address.Save();
+            address.SaveToDB();
 
             person.HomeAddress = address.ToReference();
 
-            var addressList = new List<Address>();
-            addressList.Add(address);
-            addressList.Add(address);
-            addressList.Add(address);
+            person.AllAddresses = new RefMany<Person, Address>(person);
+            person.AllAddresses.Add(address);
+            person.AllAddresses.Add(address);
 
-            //person.AllAddresses = address.ToReferenceCollection();
-            //person.AllAddresses = addressList.ToReferenceCollection();
+            //person.AllAddresses.Add(address);
+            //person.AllAddresses.Remove(address);
+            //person.AllAddresses.Collection.where(expression).SingleOrDefault();
 
-            person.Save();
+            
+            person.SaveToDB();
             
            
             //READ
             var lastPerson = person.FindLast();
 
-            lastPerson.Save();
+            lastPerson.SaveToDB();
 
             var x = await person.HomeAddress.ToEntityAsync();
 
@@ -73,7 +74,7 @@ namespace DemoConsole
 
             //UPDATE
             lastPerson.Name = "Updated at " + DateTime.UtcNow.ToString();
-            lastPerson.Save();
+            lastPerson.SaveToDB();
 
             //DELETE
             //lastPerson.Delete();

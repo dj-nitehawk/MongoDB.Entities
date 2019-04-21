@@ -12,14 +12,13 @@ namespace DemoConsole.Models
         public int Age { get; set; }
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
-        public Reference<Address> HomeAddress { get; set; }
-        //public ReferenceCollection<Address> AllAddresses { get; set; }
-        public Collection<Reference<Address>> AllAddresses { get; set; }
+        public RefOne<Address> HomeAddress { get; set; }
+        public RefMany<Person,Address> AllAddresses { get; set; }
 
-        //public void Save()
-        //{
-        //    DB.Save<Person>(this);
-        //}
+        public void Save()
+        {
+            //this.SaveToDB();
+        }
 
         public Person FindLast()
         {

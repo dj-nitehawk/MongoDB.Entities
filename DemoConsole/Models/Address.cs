@@ -9,7 +9,7 @@ namespace DemoConsole.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
-        public Reference<Person> Owner { get; set; }
+        public RefOne<Person> Owner { get; set; }
 
         //public void Save()
         //{
@@ -18,7 +18,7 @@ namespace DemoConsole.Models
 
         public void DeleteByOwnerId(string ownerID)
         {
-            DB.Delete<Address>(a => a.Owner.Id.Equals(ownerID));
+            DB.Delete<Address>(a => a.Owner.ID.Equals(ownerID));
         }
     }
 }
