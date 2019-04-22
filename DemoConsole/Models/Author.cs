@@ -1,5 +1,4 @@
 ﻿using MongoDAL;
-using System.Linq;
 
 namespace DemoConsole.Models
 
@@ -13,13 +12,6 @@ namespace DemoConsole.Models
         public Author()
         {
             Books = Books.Initialize(this);
-        }
-
-        public Author FindLast()
-        {
-            return (from p in DB.Collection<Author>()
-                    orderby p.ModifiedOn descending
-                    select p).FirstOrDefault();
         }
 
     }

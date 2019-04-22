@@ -126,7 +126,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes a single entity from MongoDB
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
@@ -139,13 +140,13 @@ namespace MongoDAL
                                                             .Select(d => d.GetValue("name").ToString())
                                                             .ToArray();
             //Book
-            var typeName = typeof(T).Name; 
+            var typeName = typeof(T).Name;
 
             //Book_Author, Book_Shop, Book_Review
             var parentCollections = collectionNames.Where(name => name.StartsWith(typeName + "_"));
 
             //Author_Book, Author_Profile, Author_Email
-            var childCollections = collectionNames.Where(name => name.EndsWith("_" + typeName)); 
+            var childCollections = collectionNames.Where(name => name.EndsWith("_" + typeName));
 
             var tasks = new List<Task>();
 
@@ -176,6 +177,7 @@ namespace MongoDAL
 
         /// <summary>
         /// Delete multiple entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -183,16 +185,19 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            //todo: delete refernces from both side collections Product_Category and Category_Product
+            foreach (var e in DB.Collection<T>().Where(expression).ToArray())
+            {
+                DeleteAsync<T>(e.ID).Wait();
+            }
 
-            return Coll<T>().DeleteManyAsync(expression);
+            return Task.CompletedTask;
         }
 
         private static void CheckIfInitialized()
         {
             if (_db == null)
             {
-                throw new InvalidOperationException("Database connection is not initialized. Check Readme.md on how to initialize.");
+                throw new InvalidOperationException("Database connection is not initialized!");
             }
         }
 
