@@ -31,7 +31,8 @@ namespace DemoConsole
             var book2 = new Book { Title = "book 2" };
             book2.SaveChanges();
 
-            var author = new Author {
+            var author = new Author
+            {
                 Name = "person 1",
                 BestSeller = book1.ToReference()
             };
@@ -40,7 +41,8 @@ namespace DemoConsole
             author.Books.Add(book1);
             author.Books.Add(book2);
 
-            author.Books.Remove(book2);
+
+            DB.Delete<Book>("ddf");
             
             Console.WriteLine("CRUD Complete...");
         }

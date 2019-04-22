@@ -7,6 +7,7 @@ using MongoDB.Driver.Linq;
 using System.Linq.Expressions;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MongoDAL
 {
@@ -133,9 +134,34 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            //todo: delete references from Parent_Child and Child_Parent collections.
+            var collectionNames = _db.ListCollectionsAsync().Result
+                                                            .ToListAsync<BsonDocument>().Result
+                                                            .Select(d => d.GetValue("name").ToString())
+                                                            .ToArray();
+            //Book
+            var typeName = typeof(T).Name; 
 
-            return Coll<T>().DeleteOneAsync(x => x.ID.Equals(id));
+            //Book_Author, Book_Shop, Book_Review
+            var parentCollections = collectionNames.Where(name => name.StartsWith(typeName + "_"));
+
+            //Author_Book, Author_Profile, Author_Email
+            var childCollections = collectionNames.Where(name => name.EndsWith("_" + typeName)); 
+
+            var tasks = new List<Task>();
+
+            foreach (var colname in parentCollections)
+            {
+                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ParentID.Equals(id)));
+            }
+
+            foreach (var colname in childCollections)
+            {
+                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ChildID.Equals(id)));
+            }
+
+            tasks.Add(Coll<T>().DeleteOneAsync(x => x.ID.Equals(id)));
+
+            return Task.WhenAll(tasks);
         }
 
         /// <summary>
