@@ -10,9 +10,12 @@ namespace Examples.Models
         public One<Author> MainAuthor { get; set; } //Specify a reference to an entity        
         public Many<Book, Author> Authors { get; set; } //Specify references to multiple entities
 
+        [Ignore]
+        public int DontSaveThis { get; set; } //Property is not saved to database
+
         public Book()
         {
-            Authors = Authors.Initialize(this); //Initialize the one-to-many relationship
+            Authors = Authors.Initialize(this); //Initialize one-to-many relationship
         }
     }
 }

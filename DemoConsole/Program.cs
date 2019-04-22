@@ -17,7 +17,6 @@ namespace Examples
             //SAVING
             var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
             var book2 = new Book { Title = "I Am That I Am" }; book2.Save();
-
             var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
             var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
 
@@ -48,7 +47,7 @@ namespace Examples
             var authors = (from a in book2.Authors.AsQueryable()
                            select a).ToArray();
 
-            //  Get referenced entity
+            //  Get entity of referenced relationship
             var mainAuthor = (from b in DB.Collection<Book>()
                               where b.Title == book1.Title
                               select b.MainAuthor)
@@ -67,9 +66,9 @@ namespace Examples
             DB.Delete<Book>(b => b.ID == book2.ID);
 
             //THE END
-            Console.WriteLine("CRUD Complete...");
+            Console.WriteLine("Example complete...");
 
-            //todo: test each step + readme
+            //todo: readme
         }
     }
 }

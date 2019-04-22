@@ -107,6 +107,7 @@ namespace MongoDAL
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
         {
             DeleteAllAsync<T>(entities).Wait();
+            entities = null;
         }
 
         /// <summary>
@@ -119,7 +120,7 @@ namespace MongoDAL
 
             foreach (var e in entities)
             {
-               tasks.Add( DB.DeleteAsync<T>(e.ID));
+                tasks.Add(DB.DeleteAsync<T>(e.ID));
             }
 
             return Task.WhenAll(tasks);
