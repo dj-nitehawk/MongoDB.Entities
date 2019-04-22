@@ -94,14 +94,7 @@ namespace MongoDAL
         /// <param name="entity">The instance to persist</param>
         public static void Save<T>(T entity) where T : Entity
         {
-            CheckIfInitialized();
-            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
-            entity.ModifiedOn = DateTime.UtcNow;
-
-            Coll<T>().ReplaceOne(
-                x => x.ID.Equals(entity.ID),
-                entity,
-                new UpdateOptions() { IsUpsert = true });
+            SaveAsync<T>(entity).Wait();
         }
 
         /// <summary>
@@ -128,12 +121,7 @@ namespace MongoDAL
         /// <param name="id">The Id of the entity to delete</param>
         public static void Delete<T>(string id) where T : Entity
         {
-            CheckIfInitialized();
-
-            //todo: delete all ManyRefs to the entity being deleted.
-            // decide if this is a good idea. have to do this for all overloads.
-
-            Coll<T>().DeleteOne(x => x.ID.Equals(id));
+            DeleteAsync<T>(id).Wait();
         }
 
         /// <summary>
@@ -145,7 +133,7 @@ namespace MongoDAL
         {
             CheckIfInitialized();
 
-            //todo: delete all Many refs to the entity being deleted.
+            //todo: delete references from Parent_Child and Child_Parent collections.
 
             return Coll<T>().DeleteOneAsync(x => x.ID.Equals(id));
         }
@@ -157,9 +145,7 @@ namespace MongoDAL
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         public static void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            CheckIfInitialized();
-
-            Coll<T>().DeleteMany(expression);
+            DeleteAsync<T>(expression).Wait();
         }
 
         /// <summary>
@@ -170,6 +156,9 @@ namespace MongoDAL
         public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             CheckIfInitialized();
+
+            //todo: delete refernces from both side collections Product_Category and Category_Product
+
             return Coll<T>().DeleteManyAsync(expression);
         }
 

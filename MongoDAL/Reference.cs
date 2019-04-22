@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MongoDAL
 {
     /// <summary>
-    /// Represents a reference to an entity in MongoDB.
+    /// A one-to-one reference for an Entity.
     /// </summary>
     /// <typeparam name="T">Any type that inherits from MongoEntity</typeparam>
     public class One<T> where T : Entity
@@ -51,7 +51,6 @@ namespace MongoDAL
         }
     }
 
-    //todo: doc
     internal class Reference : Entity
     {
         [BsonRepresentation(BsonType.ObjectId)]
@@ -61,14 +60,27 @@ namespace MongoDAL
         public string ChildID { get; set; }
     }
 
-    //todo: doc
+    /// <summary>
+    /// A one-to-many reference collection.
+    /// <para>You have to initialize all instances of this class before accessing any of it's members.</para>
+    /// <para>Use as follows in the constructor of enclosing class:</para>
+    /// <code>Property = Property.Initialize(this);</code>
+    /// </summary>
+    /// <typeparam name="TParent">Type of the parent Entity.</typeparam>
+    /// <typeparam name="TChild">Type of the child Entity.</typeparam>
     public class Many<TParent, TChild> where TParent : Entity where TChild : Entity
     {
         private TParent _parent = null;
         private IMongoCollection<Reference> _collection = null;
 
+        /// <summary>
+        /// The name of the collection where the references are stored in MongoDB.
+        /// </summary>
         public string StoredIn { get; set; }
 
+        /// <summary>
+        /// An IQueryable collection of child Entities.
+        /// </summary>
         public IMongoQueryable<TChild> Collection
         {
             get
@@ -91,7 +103,20 @@ namespace MongoDAL
             StoredIn = typeof(TParent).Name + "_" + typeof(TChild).Name;
         }
 
-        private Reference RefToSave(TChild child)
+        /// <summary>
+        /// Adds a new child reference.
+        /// </summary>
+        /// <param name="child">The child Entity to add.</param>
+        public void Add(TChild child)
+        {
+            AddAsync(child).Wait();
+        }
+
+        /// <summary>
+        /// Adds a new child reference.
+        /// </summary>
+        /// <param name="child">The child Entity to add.</param>
+        public Task AddAsync(TChild child)
         {
             _parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
@@ -111,23 +136,6 @@ namespace MongoDAL
                     ChildID = child.ID,
                 };
             }
-
-            return refr;
-        }
-
-        public void Add(TChild child)
-        {
-            var refr = RefToSave(child);
-
-            _collection.ReplaceOne(
-                x => x.ID.Equals(refr.ID),
-                refr,
-                new UpdateOptions() { IsUpsert = true });
-        }
-
-        public Task AddAsync(TChild child)
-        {
-            var refr = RefToSave(child);
 
             return _collection.ReplaceOneAsync(
                  x => x.ID.Equals(refr.ID),

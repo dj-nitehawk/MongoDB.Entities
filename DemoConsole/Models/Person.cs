@@ -14,7 +14,7 @@ namespace DemoConsole.Models
         public DateTime? RetirementDate { get; set; }
         public One<Address> HomeAddress { get; set; }
         public Many<Person,Address> AllAddresses { get; set; }
-
+        
         public Person()
         {
             AllAddresses = AllAddresses.Initialize(this);
