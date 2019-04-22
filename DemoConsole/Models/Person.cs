@@ -13,16 +13,11 @@ namespace DemoConsole.Models
         public string[] PhoneNumbers { get; set; }
         public DateTime? RetirementDate { get; set; }
         public One<Address> HomeAddress { get; set; }
-        public Many<Person,Address> AllAddresses { get; set; }
-        
+        public Many<Person, Address> AllAddresses { get; set; }
+
         public Person()
         {
             AllAddresses = AllAddresses.Initialize(this);
-        }
-
-        public void Save()
-        {
-            //this.SaveToDB();
         }
 
         public Person FindLast()
@@ -30,11 +25,6 @@ namespace DemoConsole.Models
             return (from p in DB.Collection<Person>()
                     orderby p.ModifiedOn descending
                     select p).FirstOrDefault();
-        }
-
-        public void Delete()
-        {
-            DB.Delete<Person>(this.ID);
         }
 
     }

@@ -26,8 +26,23 @@ namespace DemoConsole
             //    Credential = MongoCredential.CreateCredential("Demo", "username", "password")
             //}, "Demo");
 
+            var ad1 = new Address { Line1 = "address 1" };
+            ad1.SaveChanges();
 
+            var ad2 = new Address { Line1 = "address 2" };
+            ad2.SaveChanges();
 
+            var person = new Person {
+                Name = "person 1",
+                HomeAddress = ad1.ToReference()
+            };
+
+            person.SaveChanges();
+            person.AllAddresses.Add(ad1);
+            person.AllAddresses.Add(ad2);
+
+            person.AllAddresses.Remove(ad2);
+            
             Console.WriteLine("CRUD Complete...");
         }
     }

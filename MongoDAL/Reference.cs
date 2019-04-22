@@ -105,6 +105,8 @@ namespace MongoDAL
 
         /// <summary>
         /// Adds a new child reference.
+        /// <para>WARNING:</para>
+        /// Make sure to save the enclosing/parent Entity before calling this method.
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         public void Add(TChild child)
@@ -143,7 +145,22 @@ namespace MongoDAL
                  new UpdateOptions() { IsUpsert = true });
         }
 
-        //todo: Remove and RemoveAsync
+        /// <summary>
+        /// Removes a child reference.
+        /// </summary>
+        /// <param name="child">The child Entity to remove the reference of.</param>
+        public void Remove(TChild child)
+        {
+            RemoveAsync(child).Wait();
+        }
 
+        /// <summary>
+        /// Removes a child reference.
+        /// </summary>
+        /// <param name="child">The child Entity to remove the reference of.</param>
+        public Task RemoveAsync(TChild child)
+        {
+            return _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
+        }
     }
 }
