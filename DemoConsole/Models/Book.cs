@@ -1,6 +1,6 @@
 ﻿using MongoDAL;
 
-namespace DemoConsole.Models
+namespace Examples.Models
 {
     public class Book : Entity
     {
@@ -11,11 +11,6 @@ namespace DemoConsole.Models
         public Book()
         {
             Authors = Authors.Initialize(this);
-        }
-
-        public void DeleteByAuthorId(string id)
-        {
-            DB.Delete<Book>(a => a.MainAuthor.ID.Equals(id));
         }
     }
 }

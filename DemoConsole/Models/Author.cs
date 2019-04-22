@@ -1,7 +1,6 @@
 ﻿using MongoDAL;
 
-namespace DemoConsole.Models
-
+namespace Examples.Models
 {
     public class Author : Entity
     {

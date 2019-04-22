@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MongoDAL
@@ -84,7 +83,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes an Entity from the database.
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static void Delete<T>(this T entity) where T : Entity
         {
@@ -92,7 +92,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes an Entity from the database.
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static Task DeleteAsync<T>(this T entity) where T : Entity
         {
@@ -100,7 +101,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes all Entities from database.
+        /// Deletes multiple entities from the database
+        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
         {
@@ -108,7 +110,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes all Entities from database.
+        /// Deletes multiple entities from the database
+        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {

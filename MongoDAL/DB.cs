@@ -116,7 +116,8 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Deletes a single entity from MongoDB
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
@@ -166,7 +167,7 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Delete multiple entities from MongoDB
+        /// Deletes matching entities from MongoDB
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -176,7 +177,7 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Delete multiple entities from MongoDB
+        /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
