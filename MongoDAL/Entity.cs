@@ -9,8 +9,8 @@ namespace MongoDAL
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
+        public string ID { get; internal set; }
 
-        public DateTime ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; internal set; }
      }
 }

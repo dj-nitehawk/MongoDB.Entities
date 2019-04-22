@@ -12,6 +12,5 @@ namespace Examples.Models
         {
             Books = Books.Initialize(this);
         }
-
     }
 }

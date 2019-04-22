@@ -67,7 +67,7 @@ namespace MongoDAL
         /// <para>WARNING:</para>
         /// <para>The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static void SaveChanges<T>(this T entity) where T : Entity
+        public static void Save<T>(this T entity) where T : Entity
         {
             SaveChangesAsync<T>(entity).Wait();
         }
