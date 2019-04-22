@@ -105,8 +105,7 @@ namespace MongoDAL
 
         /// <summary>
         /// Adds a new child reference.
-        /// <para>WARNING:</para>
-        /// Make sure to save the enclosing/parent Entity before calling this method.
+        /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         public void Add(TChild child)
@@ -116,6 +115,7 @@ namespace MongoDAL
 
         /// <summary>
         /// Adds a new child reference.
+        /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         public Task AddAsync(TChild child)

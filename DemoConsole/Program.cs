@@ -1,6 +1,5 @@
 ﻿using System;
 using DemoConsole.Models;
-using System.Threading.Tasks;
 //using MongoDB.Driver;
 //using MongoDB.Driver.Linq;
 using MongoDAL;
@@ -11,37 +10,37 @@ namespace DemoConsole
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             //todo: cleanup examples and readme.md
 
             //INITIALIZE - Basic
-            new MongoDAL.DB("Demo");
+            new DB("Demo");
 
             //INITIALIZE - Advanced
             //
-            //new MongoDAL.DB(new MongoClientSettings()
+            //new DB(new MongoClientSettings()
             //{
             //    Server = new MongoServerAddress("localhost", 27017),
             //    Credential = MongoCredential.CreateCredential("Demo", "username", "password")
             //}, "Demo");
 
-            var ad1 = new Address { Line1 = "address 1" };
-            ad1.SaveChanges();
+            var book1 = new Book { Title = "book 1" };
+            book1.SaveChanges();
 
-            var ad2 = new Address { Line1 = "address 2" };
-            ad2.SaveChanges();
+            var book2 = new Book { Title = "book 2" };
+            book2.SaveChanges();
 
-            var person = new Person {
+            var author = new Author {
                 Name = "person 1",
-                HomeAddress = ad1.ToReference()
+                BestSeller = book1.ToReference()
             };
 
-            person.SaveChanges();
-            person.AllAddresses.Add(ad1);
-            person.AllAddresses.Add(ad2);
+            author.SaveChanges();
+            author.Books.Add(book1);
+            author.Books.Add(book2);
 
-            person.AllAddresses.Remove(ad2);
+            author.Books.Remove(book2);
             
             Console.WriteLine("CRUD Complete...");
         }
