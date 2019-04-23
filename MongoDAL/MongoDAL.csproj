@@ -5,7 +5,7 @@
     <RootNamespace>MongoDAL</RootNamespace>
     <AssemblyName>MongoDAL</AssemblyName>
     <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
-    <Description>A data access library for MongoDB with an elegant api, full LINQ support and built-in entity relationship management.</Description>
+    <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDAL</PackageProjectUrl>
     <Version>3.0</Version>
