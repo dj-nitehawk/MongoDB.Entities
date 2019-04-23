@@ -123,7 +123,7 @@ to delete entities in bulk, use a lambda expression as follows:
     book.Save()
 ```
 
-as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could also embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`.
+as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`. or better yet you can create a class that does not inherit from `Entity` in order to embed something as an unlinked document.
 
 #### One-to-many:
 
