@@ -255,7 +255,7 @@ the data stored in `Price` will be lost if you do not manually handle the transf
 
 ## Examples
 
-to see working examples please [click here](https://github.com/dj-nitehawk/MongoDAL/blob/Examples/Program.cs)
+to see working examples please [click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/Examples/Program.cs)
 
 to see MongoDAL used in a real-world application, check the ASP.Net Core WebAPI project [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
 
