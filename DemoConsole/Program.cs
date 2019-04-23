@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Examples.Models;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+
 using MongoDAL;
 
 namespace Examples
@@ -38,7 +37,7 @@ namespace Examples
             //    "DatabaseName");
 
             //SAVING
-            var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
+                var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
                 var book2 = new Book { Title = "I Am That I Am" }; book2.Save();
                 var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
                 var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
@@ -99,7 +98,7 @@ namespace Examples
             //THE END
                 Console.WriteLine("Example complete...");
 
-            //todo: readme + wiki + unit tests
+            //todo: readme
         }
     }
 }

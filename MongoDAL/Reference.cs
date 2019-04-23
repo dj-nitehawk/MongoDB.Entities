@@ -3,13 +3,20 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MongoDAL
 {
+    internal class Reference : Entity
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ParentID { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ChildID { get; set; }
+    }
+
     /// <summary>
     /// A one-to-one reference for an Entity.
     /// </summary>
@@ -49,15 +56,6 @@ namespace MongoDAL
         {
             return DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
         }
-    }
-
-    internal class Reference : Entity
-    {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ParentID { get; set; }
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ChildID { get; set; }
     }
 
     /// <summary>

@@ -5,11 +5,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
+using MongoDB.Bson.Serialization;
+using System.Linq;
 
 namespace MongoDAL
 {
     public static class Extensions
     {
+        private class Holder<T>
+        {
+            public T Data { get; set; }
+        }
+
+        private static T Duplicate<T>(this T source)
+        {
+            var holder = new Holder<T> { Data = source };
+            return BsonSerializer.Deserialize<Holder<T>>(holder.ToBson()).Data;
+        }
+
         internal static void ThrowIfUnsaved(this Entity entity)
         {
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
@@ -68,10 +81,9 @@ namespace MongoDAL
         /// </summary>
         public static T ToDocument<T>(this T entity) where T : Entity
         {
-            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
-            entity.ID = new Guid(entity.ID).ToString();
-            return entity;
-
+            var res = entity.Duplicate();
+            res.ID = ObjectId.GenerateNewId().ToString();
+            return res;
         }
 
         /// <summary>
@@ -79,13 +91,12 @@ namespace MongoDAL
         /// </summary>
         public static T[] ToDocument<T>(this T[] entities) where T : Entity
         {
-            foreach (var e in entities)
+            var res = entities.Duplicate();
+            foreach (var e in res)
             {
-                if (string.IsNullOrEmpty(e.ID)) e.ID = ObjectId.GenerateNewId().ToString();
-                e.ID = new Guid(e.ID).ToString();
+                e.ID = ObjectId.GenerateNewId().ToString();
             }
-
-            return entities;
+            return res;
         }
 
         /// <summary>
@@ -93,13 +104,12 @@ namespace MongoDAL
         /// </summary>
         public static IEnumerable<T> ToDocument<T>(this IEnumerable<T> entities) where T : Entity
         {
-            foreach (var e in entities)
+            var res = entities.Duplicate();
+            foreach (var e in res)
             {
-                if (string.IsNullOrEmpty(e.ID)) e.ID = ObjectId.GenerateNewId().ToString();
-                e.ID = new Guid(e.ID).ToString();
+                e.ID = ObjectId.GenerateNewId().ToString();
             }
-
-            return entities;
+            return res;
         }
 
         /// <summary>
@@ -147,7 +157,6 @@ namespace MongoDAL
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
         {
             DeleteAllAsync<T>(entities).Wait();
-            entities = null;
         }
 
         /// <summary>
