@@ -1,18 +1,16 @@
 ﻿using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
 
 namespace MongoDAL
 {
     [BsonIgnoreExtraElements]
-    public class MongoEntity
+    public class Entity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        public string ID { get; internal set; }
 
-        [JsonIgnore]
-        public DateTime ModifiedOn { get; set; }
-    }
+        public DateTime ModifiedOn { get; internal set; }
+     }
 }

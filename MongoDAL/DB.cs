@@ -7,6 +7,7 @@ using MongoDB.Driver.Linq;
 using System.Linq.Expressions;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MongoDAL
 {
@@ -67,9 +68,14 @@ namespace MongoDAL
             return _plural.Pluralize(typeof(T).Name);
         }
 
-        private static IMongoCollection<T> collection<T>()
+        private static IMongoCollection<T> Coll<T>()
         {
             return _db.GetCollection<T>(CollectionName<T>());
+        }
+
+        internal static IMongoCollection<Reference> Coll<TParent, TChild>()
+        {
+            return _db.GetCollection<Reference>(typeof(TParent).Name + "_" + typeof(TChild).Name);
         }
 
         /// <summary>
@@ -79,7 +85,7 @@ namespace MongoDAL
         public static IMongoQueryable<T> Collection<T>()
         {
             CheckIfInitialized();
-            return collection<T>().AsQueryable();
+            return Coll<T>().AsQueryable();
         }
 
         /// <summary>
@@ -87,16 +93,9 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        public static void Save<T>(T entity) where T : MongoEntity
+        public static void Save<T>(T entity) where T : Entity
         {
-            CheckIfInitialized();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
-            entity.ModifiedOn = DateTime.UtcNow;
-
-            collection<T>().ReplaceOne(
-                x => x.Id.Equals(entity.Id),
-                entity,
-                new UpdateOptions() { IsUpsert = true });
+            SaveAsync<T>(entity).Wait();
         }
 
         /// <summary>
@@ -104,70 +103,104 @@ namespace MongoDAL
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        public static Task SaveAsync<T>(T entity) where T : MongoEntity
+        public static Task SaveAsync<T>(T entity) where T : Entity
         {
             CheckIfInitialized();
-            if (string.IsNullOrEmpty(entity.Id)) entity.Id = ObjectId.GenerateNewId().ToString();
+            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            return collection<T>().ReplaceOneAsync(
-                x => x.Id.Equals(entity.Id),
+            return Coll<T>().ReplaceOneAsync(
+                x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>
-        /// Deletes a single entity from MongoDB
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static void Delete<T>(string id) where T : MongoEntity
+        public static void Delete<T>(string id) where T : Entity
         {
-            CheckIfInitialized();
-
-            collection<T>().DeleteOne(x => x.Id.Equals(id));
+            DeleteAsync<T>(id).Wait();
         }
 
         /// <summary>
-        /// Deletes a single entity from MongoDB
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static Task DeleteAsync<T>(string id)where T : MongoEntity
+        public static Task DeleteAsync<T>(string id) where T : Entity
         {
             CheckIfInitialized();
-            return collection<T>().DeleteOneAsync(x=> x.Id.Equals(id));
+
+            var collectionNames = _db.ListCollectionsAsync().Result
+                                                            .ToListAsync<BsonDocument>().Result
+                                                            .Select(d => d.GetValue("name").ToString())
+                                                            .ToArray();
+            //Book
+            var typeName = typeof(T).Name;
+
+            //Book_Author, Book_Shop, Book_Review
+            var parentCollections = collectionNames.Where(name => name.StartsWith(typeName + "_"));
+
+            //Author_Book, Author_Profile, Author_Email
+            var childCollections = collectionNames.Where(name => name.EndsWith("_" + typeName));
+
+            var tasks = new List<Task>();
+
+            foreach (var colname in parentCollections)
+            {
+                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ParentID.Equals(id)));
+            }
+
+            foreach (var colname in childCollections)
+            {
+                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ChildID.Equals(id)));
+            }
+
+            tasks.Add(Coll<T>().DeleteOneAsync(x => x.ID.Equals(id)));
+
+            return Task.WhenAll(tasks);
         }
 
         /// <summary>
-        /// Delete multiple entities from MongoDB
+        /// Deletes matching entities from MongoDB
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static void DeleteMany<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            CheckIfInitialized();
-
-            collection<T>().DeleteMany(expression);
+            DeleteAsync<T>(expression).Wait();
         }
 
         /// <summary>
-        /// Delete multiple entities from MongoDB
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static Task DeleteManyAsync<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             CheckIfInitialized();
-            return collection<T>().DeleteManyAsync(expression);
+
+            foreach (var e in DB.Collection<T>().Where(expression).ToArray())
+            {
+                DeleteAsync<T>(e.ID).Wait();
+            }
+
+            return Task.CompletedTask;
         }
 
         private static void CheckIfInitialized()
         {
             if (_db == null)
             {
-                throw new InvalidOperationException("Database connection is not initialized. Check Readme.md on how to initialize.");
+                throw new InvalidOperationException("Database connection is not initialized!");
             }
         }
+
     }
 }
