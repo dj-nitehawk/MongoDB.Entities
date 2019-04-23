@@ -23,7 +23,7 @@ then initialize as below according to the platform you're using.
 #### ASP.Net Core (Basic initialization):
 add the following inside `ConfigureServices` method of `Startup.cs` file:
 ```csharp
-  services.AddMongoDAL("DatabaseName","HostAddress","PortNumber");
+  services.AddMongoDAL("DatabaseName","HostAddress",PortNumber);
 ```
 #### ASP.Net Core (Advanced initialization):
 add the following inside `ConfigureServices` method of `Startup.cs` file:
@@ -31,7 +31,8 @@ add the following inside `ConfigureServices` method of `Startup.cs` file:
   services.AddMongoDAL(
       new MongoClientSettings()
       {
-        Server = new MongoServerAddress("HostAddress", "PortNumber"),
+        Server = 
+            new MongoServerAddress("HostAddress", PortNumber),
         Credential = 
             MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
        },
@@ -40,16 +41,18 @@ add the following inside `ConfigureServices` method of `Startup.cs` file:
 
 #### .Net Core (Basic initialization):
 ```csharp
-  new DB("Demo");
+  new DB("bookshop");
 ```
 
 #### .Net Core (Advanced initialization):
 ```csharp
   new MongoDAL.DB(new MongoClientSettings()
   {
-      Server = new MongoServerAddress("localhost", 27017),
-      Credential = MongoCredential.CreateCredential("Demo", "username", "password")
-  }, "Demo");
+      Server = 
+          new MongoServerAddress("localhost", 27017),
+      Credential = 
+          MongoCredential.CreateCredential("bookshop", "username", "password")
+  }, "bookshop");
 ```
 
 
@@ -91,8 +94,8 @@ simply call `Save()` on any entity to save the changes. new entities are automat
 to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will guarantee it to be a unique copy of the entity that is not linked to anything else in the database.
 
 ```csharp
-	book.Author = author.ToDocument();	
-	book.OtherAuthors = (new Author[] { author2, author3 }).ToDocument();
+    book.Author = author.ToDocument();	
+    book.OtherAuthors = (new Author[] { author2, author3 }).ToDocument();
 ```
 
 #### Deleting entities:
@@ -121,7 +124,7 @@ to delete entities in bulk, use a lambda expression as follows:
     book.Save()
 ```
 
-as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could also embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state.
+as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could also embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`.
 
 #### One-to-many:
 
