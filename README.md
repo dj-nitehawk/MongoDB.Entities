@@ -45,7 +45,7 @@ add the following inside `ConfigureServices` method of `Startup.cs` file:
 
 #### .Net Core (Advanced initialization):
 ```csharp
-  new MongoDAL.DB(new MongoClientSettings()
+  new DB(new MongoClientSettings()
   {
       Server = 
           new MongoServerAddress("localhost", 27017),
