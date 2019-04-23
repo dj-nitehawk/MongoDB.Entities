@@ -1,3 +1,5 @@
+![Nuget](https://img.shields.io/nuget/v/MongoDAL.svg) 
+![Nuget](https://img.shields.io/nuget/dt/MongoDAL.svg)
 # MongoDAL
 A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.
 
@@ -93,6 +95,19 @@ to store an unlinked copy of an entity,  call the `ToDocument()` method. doing s
 	book.OtherAuthors = (new Author[] { author2, author3 }).ToDocument();
 ```
 
+#### Deleting entities:
+
+```csharp
+	book.OtherAuthors.DeleteAll()
+    book.Delete();
+```
+
+to delete entities in bulk, use a lambda expression as follows:
+
+```csharp
+	DB.Delete<Book>(b => b.Title.Contains("Trump"));
+```
+
 
 
 ## Relationships (Embedded)
@@ -115,7 +130,7 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
     book.Save();
 ```
 
-
+**Tip: ** If you are going to store more than a handful of entities within another entity, it is best to store them as references as shown in the next section.
 
 ## Relationships (Referenced)
 
@@ -144,15 +159,16 @@ call the `ToReference()` method of the entity you want to store as a reference l
 
 ```charp
 	book.Authors.Add(author);
+	book.Authors.Remove(author);
 ```
 
-there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join table from `Book_Author` to `AwesomeBook_Author` in order to get the references working again.
+there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join collection from `Book_Author` to `AwesomeBook_Author` in order to get the references working again. also if you delete an entity that is referenced somewhere in the database, all references pointing to that entity is automatically deleted.
 
 #### ToEntity() shortcut:
 
 a reference can be turned back in to an entity with the `ToEntity()` method.
 
-```
+```csharp
 	var author = book.MainAuthor.ToEntity();
 	var author = book.Authors.Collection().FirstOrDefault().ToEntity();
 ```
@@ -161,7 +177,9 @@ a reference can be turned back in to an entity with the `ToEntity()` method.
 
 ## Queries
 
-#### Main collections:
+data can be queried using LINQ or lambda expressions. most LINQ operations are available. see the mongodb [c# driver linq documentation](http://mongodb.github.io/mongo-csharp-driver/2.7/reference/driver/crud/linq/) for more details.
+
+#### Entity collections:
 
 ```csharp
     var author = (from a in DB.Collection<Author>()
@@ -183,6 +201,8 @@ a reference can be turned back in to an entity with the `ToEntity()` method.
                  select a;
 ```
 
+the `.Collection()` method of entities and references return an `IQueryable` which you can write queries against.
+
 
 
 
@@ -196,17 +216,45 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 ```
 ```csharp
-  var lastPerson = await (from p in DB.Collection<Person>()
-                          orderby p.ModifiedOn descending
-                          select p).FirstOrDefaultAsync();
+     var lastAuthor = await (from a in author.Collection()
+                             orderby a.ModifiedOn descending
+                             select a).FirstOrDefaultAsync();
 ```
 
 
 
 ## Schema Changes
 
+be mindful when changing the schema of your entities. the documents/entities stored in mongodb are always overwritten with the current schema of you entities. for example:
+
+###### Old schema:
+
+```csharp
+    public class Book : Entity
+    {
+        public string Title { get; set; }
+        public int Price { get; set; }
+    }
+```
+
+###### New schema:
+
+```csharp
+    public class Book : Entity
+    {
+        public string Title { get; set; }
+        public int SellingPrice { get; set; }
+    }
+```
+
+the data stored in `Price` will be lost if you do not manually handle the transfer the data from the old property to the new property upon saving.
+
 
 
 ## Examples
 
 
+
+## Donations
+if MongoDAL has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking the button below:
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)

@@ -61,7 +61,7 @@ namespace Examples
 
             ////One-To-Many (Referenced)
                 book2.Authors.Add(author2); //References are automatically saved. No need to save the entity.      
-
+ 
             //QUERIES
             //
             ////Main collections
@@ -79,7 +79,7 @@ namespace Examples
                                   select b.MainAuthor)
                                   .SingleOrDefault()
                                   .ToEntity();
-
+     
             ////Collection shortcut
                 var result = from a in author.Collection()
                              select a;
