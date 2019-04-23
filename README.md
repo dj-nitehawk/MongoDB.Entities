@@ -1,4 +1,4 @@
-![Nuget](https://img.shields.io/nuget/v/MongoDAL.svg) ![Nuget](https://img.shields.io/nuget/dt/MongoDAL.svg)
+[![](https://img.shields.io/nuget/v/MongoDAL.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDAL.svg)](#) [![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
 # MongoDAL
 A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.
 
@@ -264,4 +264,4 @@ to see MongoDAL used in a real-world application, check the ASP.Net Core WebAPI 
 ## Donations
 if MongoDAL has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking the button below:
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
