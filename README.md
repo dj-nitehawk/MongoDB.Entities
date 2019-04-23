@@ -81,7 +81,7 @@ if there are properties of entities you don't want persisted to mongodb, simply 
 
 #### Saving entities:
 
-simply call `Save()` on any entity to save the changes. new entities are automatically assigned an `ID` when they are persisted to the database.
+call `Save()` on any entity to save the changes. new entities are automatically assigned an `ID` when they are persisted to the database.
 
 ```csharp
 	var book = new Book { Title = "The Power Of Now" }; 
@@ -90,7 +90,7 @@ simply call `Save()` on any entity to save the changes. new entities are automat
 
 #### Embedding entities as documents:
 
-to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will guarantee it to be a unique copy of the entity that is not linked to anything else in the database.
+to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will guarantee it to be a unique duplicate of the original entity that is not linked to anything else in the database.
 
 ```csharp
     book.Author = author.ToDocument();	
@@ -123,7 +123,7 @@ to delete entities in bulk, use a lambda expression as follows:
     book.Save()
 ```
 
-as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`. or better yet you can create a class that does not inherit from `Entity` in order to embed something as an unlinked document.
+as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could embed the `author` without calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`. or better yet you can create a class that does not inherit from `Entity` in order to embed something as an unlinked/ independant document.
 
 #### One-to-many:
 
@@ -132,7 +132,7 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
     book.Save();
 ```
 
-**Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them as references as shown in the next section.
+**Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them as references as described below.
 
 ## Relationships (Referenced)
 
@@ -227,7 +227,7 @@ in order to write async queries against collections, make sure to import the mon
 
 ## Schema Changes
 
-be mindful when changing the schema of your entities. the documents/entities stored in mongodb are always overwritten with the current schema of you entities. for example:
+be mindful when changing the schema of your entities. the documents/entities stored in mongodb are always overwritten with the current schema/ shape of your entities. for example:
 
 ###### Old schema:
 
@@ -249,7 +249,7 @@ be mindful when changing the schema of your entities. the documents/entities sto
     }
 ```
 
-the data stored in `Price` will be lost if you do not manually handle the transfer the data from the old property to the new property upon saving.
+the data stored in `Price` will be lost if you do not manually handle the transfer of data from the old property to the new property upon saving.
 
 
 
