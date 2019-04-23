@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MongoDB.Driver.Linq;
 
 namespace MongoDAL
 {
@@ -46,6 +48,14 @@ namespace MongoDAL
         }
 
         /// <summary>
+        /// An IQueryable collection of Entities.
+        /// </summary>
+        public static IMongoQueryable<T> Collection<T>(this T entity) where T : Entity
+        {
+            return DB.Collection<T>();
+        }
+
+        /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
         public static One<T> ToReference<T>(this T entity) where T : Entity
@@ -54,12 +64,42 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Initializes a new reference collection.
+        /// Creates a new copy of the Entity ready for embedding with a new ID that is different from the source.
         /// </summary>
-        /// <param name="parent">The parent Entity needed to initialize the collection.</param>
-        public static Many<TParent, TChild> Initialize<TParent, TChild>(this Many<TParent, TChild> refmany, TParent parent) where TParent : Entity where TChild : Entity
+        public static T ToDocument<T>(this T entity) where T : Entity
         {
-            return new Many<TParent, TChild>(parent);
+            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
+            entity.ID = new Guid(entity.ID).ToString();
+            return entity;
+
+        }
+
+        /// <summary>
+        /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
+        /// </summary>
+        public static T[] ToDocument<T>(this T[] entities) where T : Entity
+        {
+            foreach (var e in entities)
+            {
+                if (string.IsNullOrEmpty(e.ID)) e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = new Guid(e.ID).ToString();
+            }
+
+            return entities;
+        }
+
+        /// <summary>
+        /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
+        /// </summary>
+        public static IEnumerable<T> ToDocument<T>(this IEnumerable<T> entities) where T : Entity
+        {
+            foreach (var e in entities)
+            {
+                if (string.IsNullOrEmpty(e.ID)) e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = new Guid(e.ID).ToString();
+            }
+
+            return entities;
         }
 
         /// <summary>
@@ -69,7 +109,7 @@ namespace MongoDAL
         /// </summary>
         public static void Save<T>(this T entity) where T : Entity
         {
-            SaveChangesAsync<T>(entity).Wait();
+            SaveAsync<T>(entity).Wait();
         }
 
         /// <summary>
@@ -77,7 +117,7 @@ namespace MongoDAL
         /// <para>WARNING:</para>
         /// <para>The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static Task SaveChangesAsync<T>(this T entity) where T : Entity
+        public static Task SaveAsync<T>(this T entity) where T : Entity
         {
             return DB.SaveAsync<T>(entity);
         }
@@ -125,6 +165,16 @@ namespace MongoDAL
 
             return Task.WhenAll(tasks);
         }
+
+        /// <summary>
+        /// Initializes a new reference collection.
+        /// </summary>
+        /// <param name="parent">The parent Entity needed to initialize the collection.</param>
+        public static Many<TParent, TChild> Initialize<TParent, TChild>(this Many<TParent, TChild> refmany, TParent parent) where TParent : Entity where TChild : Entity
+        {
+            return new Many<TParent, TChild>(parent);
+        }
+
     }
 
 

@@ -81,7 +81,7 @@ namespace MongoDAL
         /// <summary>
         /// An IQueryable collection of child Entities.
         /// </summary>
-        public IMongoQueryable<TChild> AsQueryable()
+        public IMongoQueryable<TChild> Collection()
         {
             var myRefs = from r in _collection.AsQueryable()
                                      where r.ParentID.Equals(_parent.ID)
