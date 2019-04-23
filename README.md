@@ -1,5 +1,4 @@
-![Nuget](https://img.shields.io/nuget/v/MongoDAL.svg) 
-![Nuget](https://img.shields.io/nuget/dt/MongoDAL.svg)
+![Nuget](https://img.shields.io/nuget/v/MongoDAL.svg) ![Nuget](https://img.shields.io/nuget/dt/MongoDAL.svg)
 # MongoDAL
 A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.
 
@@ -185,7 +184,7 @@ data can be queried using LINQ or lambda expressions. most LINQ operations are a
 #### Entity collections:
 
 ```csharp
-	var author = (from a in DB.Collection<Author>()
+    var author = (from a in DB.Collection<Author>()
                   where a.Name.Contains("Eckhart")
                   select a).FirstOrDefault();
 ```
@@ -264,4 +263,5 @@ to see MongoDAL used in a real-world application, check the ASP.Net Core WebAPI 
 
 ## Donations
 if MongoDAL has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking the button below:
+
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
