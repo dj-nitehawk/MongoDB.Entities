@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson.Serialization;
-using System.Linq;
 
 namespace MongoDAL
 {
