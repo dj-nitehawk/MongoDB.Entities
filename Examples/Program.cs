@@ -97,8 +97,6 @@ namespace Examples
 
             //THE END
                 Console.WriteLine("Example complete...");
-
-            //todo: readme
         }
     }
 }

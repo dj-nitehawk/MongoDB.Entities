@@ -107,7 +107,7 @@ to store an unlinked copy of an entity,  call the `ToDocument()` method. doing s
 to delete entities in bulk, use a lambda expression as follows:
 
 ```csharp
-	DB.Delete<Book>(b => b.Title.Contains("Trump"));
+    DB.Delete<Book>(b => b.Title.Contains("Trump"));
 ```
 
 
@@ -160,8 +160,8 @@ call the `ToReference()` method of the entity you want to store as a reference l
 #### One-to-many:
 
 ```charp
-	book.Authors.Add(author);
-	book.Authors.Remove(author);
+    book.Authors.Add(author);
+    book.Authors.Remove(author);
 ```
 
 there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join collection from `Book_Author` to `AwesomeBook_Author` in order to get the references working again. also if you delete an entity that is referenced somewhere in the database, all references pointing to that entity is automatically deleted.
