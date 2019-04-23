@@ -98,7 +98,7 @@ to store an unlinked copy of an entity,  call the `ToDocument()` method. doing s
 #### Deleting entities:
 
 ```csharp
-	book.OtherAuthors.DeleteAll()
+    book.OtherAuthors.DeleteAll()
     book.Delete();
 ```
 
@@ -116,9 +116,9 @@ to delete entities in bulk, use a lambda expression as follows:
 
 ```csharp
     var author = new Author { Name = "Eckhart Tolle" }
-	author.Save();
+    author.Save();
     book.Author = author;
-	book.Save()
+    book.Save()
 ```
 
 as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could also embed the `author` by not calling `author.Save()` in order to embed it in an unlinked state.
@@ -130,7 +130,7 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
     book.Save();
 ```
 
-**Tip: ** If you are going to store more than a handful of entities within another entity, it is best to store them as references as shown in the next section.
+**Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them as references as shown in the next section.
 
 ## Relationships (Referenced)
 
@@ -182,7 +182,7 @@ data can be queried using LINQ or lambda expressions. most LINQ operations are a
 #### Entity collections:
 
 ```csharp
-    var author = (from a in DB.Collection<Author>()
+	var author = (from a in DB.Collection<Author>()
                   where a.Name.Contains("Eckhart")
                   select a).FirstOrDefault();
 ```
@@ -212,13 +212,13 @@ async overloads are available for all provided methods.
 
 in order to write async queries against collections, make sure to import the mongodb linq extensions and write queries as follows:
 ```csharp
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+    using MongoDB.Driver;
+    using MongoDB.Driver.Linq;
 ```
 ```csharp
-     var lastAuthor = await (from a in author.Collection()
-                             orderby a.ModifiedOn descending
-                             select a).FirstOrDefaultAsync();
+    var lastAuthor = await (from a in author.Collection()
+                            orderby a.ModifiedOn descending
+                            select a).FirstOrDefaultAsync();
 ```
 
 
@@ -252,6 +252,10 @@ the data stored in `Price` will be lost if you do not manually handle the transf
 
 
 ## Examples
+
+to see working examples please [click here](https://github.com/dj-nitehawk/MongoDAL/blob/Examples/Program.cs)
+
+to see MongoDAL used in a real-world application, check the ASP.Net Core WebAPI project [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
 
 
 
