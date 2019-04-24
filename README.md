@@ -74,7 +74,7 @@ if there are properties of entities you don't want persisted to mongodb, simply 
 ```csharp
     public class Book : Entity
     {
-    	[Ignore]
+        [Ignore]
         public string SomeProperty { get; set; }
     }
 ```
@@ -84,8 +84,8 @@ if there are properties of entities you don't want persisted to mongodb, simply 
 call `Save()` on any entity to save the changes. new entities are automatically assigned an `ID` when they are persisted to the database.
 
 ```csharp
-	var book = new Book { Title = "The Power Of Now" }; 
-	book.Save();
+    var book = new Book { Title = "The Power Of Now" }; 
+    book.Save();
 ```
 
 #### Embedding entities as documents:
@@ -93,7 +93,7 @@ call `Save()` on any entity to save the changes. new entities are automatically 
 to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will guarantee it to be a unique duplicate of the original entity that is not linked to anything else in the database.
 
 ```csharp
-    book.Author = author.ToDocument();	
+    book.Author = author.ToDocument();
     book.OtherAuthors = (new Author[] { author2, author3 }).ToDocuments();
 ```
 
@@ -132,7 +132,7 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
     book.Save();
 ```
 
-**Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them as references as described below.
+**Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them by reference as described below.
 
 ## Relationships (Referenced)
 
@@ -171,8 +171,8 @@ there's no need to call `book.Save()` because references are automatically creat
 a reference can be turned back in to an entity with the `ToEntity()` method.
 
 ```csharp
-	var author = book.MainAuthor.ToEntity();
-	var author = book.Authors.Collection().FirstOrDefault().ToEntity();
+    var author = book.MainAuthor.ToEntity();
+    var author = book.Authors.Collection().FirstOrDefault().ToEntity();
 ```
 
 
@@ -199,8 +199,8 @@ data can be queried using LINQ or lambda expressions. most LINQ operations are a
 #### Shortcut for collections:
 
 ```csharp
-    var result = from a in author.Collection()
-                 select a;
+    var authorsQueryable = from a in author.Collection()
+                           select a;
 ```
 
 the `.Collection()` method of entities and references return an `IQueryable` which you can write queries against.
