@@ -94,7 +94,7 @@ to store an unlinked copy of an entity,  call the `ToDocument()` method. doing s
 
 ```csharp
     book.Author = author.ToDocument();	
-    book.OtherAuthors = (new Author[] { author2, author3 }).ToDocument();
+    book.OtherAuthors = (new Author[] { author2, author3 }).ToDocuments();
 ```
 
 #### Deleting entities:
