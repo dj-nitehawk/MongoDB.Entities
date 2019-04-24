@@ -88,7 +88,7 @@ namespace MongoDAL
         /// <summary>
         /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
         /// </summary>
-        public static T[] ToDocument<T>(this T[] entities) where T : Entity
+        public static T[] ToDocuments<T>(this T[] entities) where T : Entity
         {
             var res = entities.Duplicate();
             foreach (var e in res)
@@ -101,7 +101,7 @@ namespace MongoDAL
         /// <summary>
         /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
         /// </summary>
-        public static IEnumerable<T> ToDocument<T>(this IEnumerable<T> entities) where T : Entity
+        public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : Entity
         {
             var res = entities.Duplicate();
             foreach (var e in res)

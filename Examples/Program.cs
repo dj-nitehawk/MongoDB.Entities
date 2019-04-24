@@ -44,7 +44,7 @@ namespace Examples
 
             //EMBEDDING CHILDREN
                 book1.RelatedAuthor = author2.ToDocument();
-                book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocument();
+                book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
                 book1.Review = new Review { Stars =5, Reviewer = "New York Times" };            
 
             //RELATIONSHIPS
