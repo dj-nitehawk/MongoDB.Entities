@@ -8,8 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDAL</PackageProjectUrl>
-    <Version>3.1</Version>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <Version>3.2</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
+    <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
+    <PackageReleaseNotes>1. embedded unlinked entities now have empty ids.
+2. documentation improvements
+3. minor code changes</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
