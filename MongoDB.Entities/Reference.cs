@@ -82,13 +82,13 @@ namespace MongoDB.Entities
         public IMongoQueryable<TChild> Collection()
         {
             var myRefs = from r in _collection.AsQueryable()
-                                     where r.ParentID.Equals(_parent.ID)
-                                     select r;
+                         where r.ParentID.Equals(_parent.ID)
+                         select r;
 
-                return from r in myRefs
-                       join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
-                       from ch in children
-                       select ch;
+            return from r in myRefs
+                   join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
+                   from ch in children
+                   select ch;
         }
 
         internal Many(TParent parent)
@@ -119,10 +119,9 @@ namespace MongoDB.Entities
             child.ThrowIfUnsaved();
 
             var refr = _collection.AsQueryable()
-                .SingleOrDefault(r =>
-                r.ParentID.Equals(_parent.ID) &&
-                r.ChildID.Equals(child.ID));
-
+                                  .SingleOrDefault(r =>
+                                                   r.ParentID.Equals(_parent.ID) &&
+                                                   r.ChildID.Equals(child.ID));
             if (refr == null)
             {
                 refr = new Reference()
@@ -134,10 +133,9 @@ namespace MongoDB.Entities
                 };
             }
 
-            return _collection.ReplaceOneAsync(
-                 x => x.ID.Equals(refr.ID),
-                 refr,
-                 new UpdateOptions() { IsUpsert = true });
+            return _collection.ReplaceOneAsync(x => x.ID.Equals(refr.ID),
+                                                    refr,
+                                                    new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>

@@ -151,9 +151,9 @@ namespace MongoDB.Entities
 
             var tasks = new List<Task>();
 
-            foreach (var colname in parentCollections)
+            foreach (var collection in parentCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ParentID.Equals(id)));
+                tasks.Add(_db.GetCollection<Reference>(collection).DeleteManyAsync(r => r.ParentID.Equals(id)));
             }
 
             foreach (var colname in childCollections)
@@ -186,11 +186,14 @@ namespace MongoDB.Entities
         {
             CheckIfInitialized();
 
-            var entities = DB.Collection<T>().Where(expression).ToArray();
+            var IDs = DB.Collection<T>()
+                        .Where(expression)
+                        .Select(e => e.ID)
+                        .ToArray();
 
-            foreach (var e in entities)
+            foreach (var id in IDs)
             {
-                DeleteAsync<T>(e.ID).Wait();
+                DeleteAsync<T>(id).Wait();
             }
 
             return Task.CompletedTask;
