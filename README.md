@@ -1,6 +1,6 @@
 [![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#) [![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
 # MongoDB.Entities
-A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.
+It is a data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management features. The library aims to tuck away the complexity of the official C# driver and help fast-track application development with MongoDB. Both SQL and NoSQL type data modelling is possible. Developers coming from an Entity Framework background will feel right at home.
 
 
 
