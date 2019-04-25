@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace MongoDAL
+namespace MongoDB.Entities
 {
     /// <summary>
     /// Indicates that this property should be ignored when this class is persisted to MongoDB.

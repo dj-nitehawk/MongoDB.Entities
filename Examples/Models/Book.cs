@@ -1,4 +1,4 @@
-﻿using MongoDAL;
+﻿using MongoDB.Entities;
 
 namespace Examples.Models
 {

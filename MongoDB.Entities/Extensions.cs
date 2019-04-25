@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson.Serialization;
 
-namespace MongoDAL
+namespace MongoDB.Entities
 {
     public static class Extensions
     {
@@ -28,13 +28,13 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Registers MongoDB DAL as a service with the IOC services collection.
+        /// Registers MongoDB.Entities as a service with the IOC services collection.
         /// </summary>
         /// <param name="Database">MongoDB database name.</param>
         /// <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
         /// <param name="Port">MongoDB port number. Defaults to 27017</param>
         /// <returns></returns>
-        public static IServiceCollection AddMongoDAL(
+        public static IServiceCollection AddMongoDBEntities(
             this IServiceCollection services,
             string Database,
             string Host = "127.0.0.1",
@@ -45,12 +45,12 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Registers MongoDB DAL as a service with the IOC services collection.
+        /// Registers MongoDB.Entities as a service with the IOC services collection.
         /// </summary>
         /// <param name="Settings">A 'MongoClientSettings' object with customized connection parameters such as authentication credentials.</param>
         /// <param name="Database">MongoDB database name.</param>
         /// <returns></returns>
-        public static IServiceCollection AddMongoDAL(
+        public static IServiceCollection AddMongoDBEntities(
             this IServiceCollection services,
             MongoClientSettings Settings,
             string Database)

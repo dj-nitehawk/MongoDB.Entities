@@ -9,7 +9,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace MongoDAL
+namespace MongoDB.Entities
 {
     public class DB
     {

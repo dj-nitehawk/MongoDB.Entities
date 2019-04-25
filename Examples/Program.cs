@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Examples.Models;
-
-using MongoDAL;
+using MongoDB.Entities;
 
 namespace Examples
 {
@@ -16,7 +15,7 @@ namespace Examples
                 new DB("bookshop","localhost",27017);
 
             ////Asp.Net Core
-                //services.AddMongoDAL("DatabaseName", "HostAddress", "PortNumber");
+                //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
 
             //ADVANCED INITIALIZATION
             //
@@ -28,7 +27,7 @@ namespace Examples
                 //}, "Demo");
 
             ////Asp.Net Core
-            //services.AddMongoDAL(
+            //services.AddMongoDBEntities(
             //   new MongoClientSettings()
             //   {
             //       Server = new MongoServerAddress("HostAddress", "PortNumber"),

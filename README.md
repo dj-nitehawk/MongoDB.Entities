@@ -1,5 +1,5 @@
-[![](https://img.shields.io/nuget/v/MongoDAL.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDAL.svg)](#) [![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
-# MongoDAL
+[![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#) [![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
+# MongoDB.Entities
 A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.
 
 
@@ -8,26 +8,26 @@ A data access library for MongoDB with an elegant api, LINQ support and built-in
 
 install the nuget package with command: 
 ```
-Install-Package MongoDAL
+Install-Package MongoDB.Entities
 ```
 
 
 
 ## Initialize
 
-first import the package with `using MongoDAL;`
+first import the package with `using MongoDB.Entities;`
 
 then initialize as below according to the platform you're using.
 
 #### ASP.Net Core (Basic initialization):
 add the following inside `ConfigureServices` method of `Startup.cs` file:
 ```csharp
-  services.AddMongoDAL("DatabaseName","HostAddress",PortNumber);
+  services.AddMongoDBEntities("DatabaseName","HostAddress",PortNumber);
 ```
 #### ASP.Net Core (Advanced initialization):
 add the following inside `ConfigureServices` method of `Startup.cs` file:
 ```csharp
-  services.AddMongoDAL(
+  services.AddMongoDBEntities(
       new MongoClientSettings()
       {
         Server = 
@@ -255,13 +255,13 @@ the data stored in `Price` will be lost if you do not manually handle the transf
 
 ## Examples
 
-to see working examples please [click here](https://github.com/dj-nitehawk/MongoDAL/blob/master/Examples/Program.cs)
+to see working examples please [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples/Program.cs)
 
-to see MongoDAL used in a real-world application, check the ASP.Net Core WebAPI project [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
+to see this library used in a real-world application, check the ASP.Net Core WebAPI project [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
 
 
 
 ## Donations
-if MongoDAL has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking the button below:
+if this library has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking the button below:
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)

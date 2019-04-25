@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MongoDAL
+namespace MongoDB.Entities
 {
     [BsonIgnoreExtraElements]
     public class Entity
