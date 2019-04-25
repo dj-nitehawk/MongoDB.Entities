@@ -81,7 +81,7 @@ namespace MongoDAL
         public static T ToDocument<T>(this T entity) where T : Entity
         {
             var res = entity.Duplicate();
-            res.ID = ObjectId.GenerateNewId().ToString();
+            res.ID = ObjectId.Empty.ToString();
             return res;
         }
 
@@ -93,7 +93,7 @@ namespace MongoDAL
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = ObjectId.Empty.ToString();
             }
             return res;
         }
@@ -106,7 +106,7 @@ namespace MongoDAL
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = ObjectId.Empty.ToString();
             }
             return res;
         }

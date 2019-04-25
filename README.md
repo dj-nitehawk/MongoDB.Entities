@@ -90,7 +90,7 @@ call `Save()` on any entity to save the changes. new entities are automatically 
 
 #### Embedding entities as documents:
 
-to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will guarantee it to be a unique duplicate of the original entity that is not linked to anything else in the database.
+to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will store an independant duplicate of the original entity that has no relationship to the original entity.
 
 ```csharp
     book.Author = author.ToDocument();
@@ -123,7 +123,7 @@ to delete entities in bulk, use a lambda expression as follows:
     book.Save()
 ```
 
-as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also assigned to a property of the `book`. the `author` entity now lives in two locations (in the collection and also in the `book` entity) and both are linked by the `ID`.  you could embed the `author` without calling `author.Save()` in order to embed it in an unlinked state with an `ID` value of `null`. or better yet you can create a class that does not inherit from `Entity` in order to embed something as an unlinked/ independant document.
+as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also stored in `book.Author` property. so, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and are linked by the `ID`. if the goal is to embed something as an independant/unlinked document, it is best to use a class that does not inherit from the `Entity` class. or you use the `.ToDocument()` method of an entity as explained earlier.
 
 #### One-to-many:
 

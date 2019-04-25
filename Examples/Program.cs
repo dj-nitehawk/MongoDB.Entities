@@ -45,8 +45,9 @@ namespace Examples
             //EMBEDDING CHILDREN
                 book1.RelatedAuthor = author2.ToDocument();
                 book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
-                book1.Review = new Review { Stars =5, Reviewer = "New York Times" };            
-
+                book1.Review = new Review { Stars =5, Reviewer = "New York Times" };
+                book1.Save();
+                
             //RELATIONSHIPS
             //
             /////One-To-One (Embedded)
@@ -92,6 +93,7 @@ namespace Examples
 
             ////Delete multiple entities
                 book2.OtherAuthors.DeleteAll();
+                book2.OtherAuthors = null;
 
             ////Delete by lambda expression
                 DB.Delete<Book>(b => b.ID == book2.ID);
