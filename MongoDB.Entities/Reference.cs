@@ -110,7 +110,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Adds a new child reference.
-        /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         public Task AddAsync(TChild child)

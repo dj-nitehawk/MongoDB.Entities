@@ -79,9 +79,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Exposes MongoDB collections as Iqueryable in order to facilitate LINQ queries.
+        /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoQueryable<T> Collection<T>()
         {
             CheckIfInitialized();
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         public static void Save<T>(T entity) where T : Entity
         {
@@ -119,7 +119,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
         public static void Delete<T>(string id) where T : Entity
         {
@@ -186,7 +186,9 @@ namespace MongoDB.Entities
         {
             CheckIfInitialized();
 
-            foreach (var e in DB.Collection<T>().Where(expression).ToArray())
+            var entities = DB.Collection<T>().Where(expression).ToArray();
+
+            foreach (var e in entities)
             {
                 DeleteAsync<T>(e.ID).Wait();
             }

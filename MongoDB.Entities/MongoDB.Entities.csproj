@@ -7,15 +7,17 @@
     <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/README.md</PackageProjectUrl>
-    <Version>3.2.1.1</Version>
-    <AssemblyVersion>3.2.1.1</AssemblyVersion>
-    <FileVersion>3.2.1.1</FileVersion>
+    <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
+    <Version>3.2</Version>
+    <AssemblyVersion>3.2.0.0</AssemblyVersion>
+    <FileVersion>3.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>New icon added to package</PackageReleaseNotes>
+    <PackageReleaseNotes>1.) Minor performance improvements
+2.) Minor code changes
+3.) Documentation improvements</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB Entities</Product>
-    <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
+    <RepositoryUrl></RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/dj-nitehawk/MongoDB.Entities/master/icon.png</PackageIconUrl>
   </PropertyGroup>
 

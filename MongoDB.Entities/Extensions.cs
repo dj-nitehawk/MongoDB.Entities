@@ -113,8 +113,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING:</para>
-        /// <para>The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
         public static void Save<T>(this T entity) where T : Entity
         {
@@ -123,8 +122,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING:</para>
-        /// <para>The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
         public static Task SaveAsync<T>(this T entity) where T : Entity
         {
