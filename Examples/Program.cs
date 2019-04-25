@@ -42,10 +42,10 @@ namespace Examples
                 var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
                 var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
 
-            //EMBEDDING CHILDREN
+            //EMBEDDING DOCUMENTS
+                book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
                 book1.RelatedAuthor = author2.ToDocument();
                 book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
-                book1.Review = new Review { Stars =5, Reviewer = "New York Times" };
                 book1.Save();
                 
             //RELATIONSHIPS

@@ -76,7 +76,7 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Creates a new copy of the Entity ready for embedding with a new ID that is different from the source.
+        /// Creates an unlinked duplicate of the original Entity ready for embedding with a blank ID.
         /// </summary>
         public static T ToDocument<T>(this T entity) where T : Entity
         {
@@ -86,7 +86,7 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
+        /// Creates a unlinked duplicates of the original Entities ready for embedding with blank IDs.
         /// </summary>
         public static T[] ToDocuments<T>(this T[] entities) where T : Entity
         {
@@ -99,7 +99,7 @@ namespace MongoDAL
         }
 
         /// <summary>
-        /// Creates a new copies of the Entities ready for embedding with a new ID that is different from the source.
+        ///Creates a unlinked duplicates of the original Entities ready for embedding with blank IDs.
         /// </summary>
         public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : Entity
         {
