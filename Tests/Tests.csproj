@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>MongoDB.Entities.Test</AssemblyName>
+    <AssemblyName>MongoDB.Entities.Tests</AssemblyName>
 
     <RootNamespace>MongoDB.Entities.Test</RootNamespace>
   </PropertyGroup>

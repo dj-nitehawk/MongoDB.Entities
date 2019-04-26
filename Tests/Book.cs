@@ -1,6 +1,6 @@
 ﻿using MongoDB.Entities;
 
-namespace Tests
+namespace MongoDB.Entities.Tests
 {
     public class Book : Entity
     {

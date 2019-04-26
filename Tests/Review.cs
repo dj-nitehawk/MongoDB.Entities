@@ -1,4 +1,4 @@
-﻿namespace Tests
+﻿namespace MongoDB.Entities.Tests
 {
     public class Review
     {
