@@ -57,6 +57,7 @@ namespace MongoDB.Entities
             return DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
         }
     }
+
     /// <summary>
     /// A one-to-many reference collection.
     /// <para>You have to initialize all instances of this class before accessing any of it's members.</para>
@@ -68,39 +69,33 @@ namespace MongoDB.Entities
     public class Many<TParent, TChild> where TParent : Entity where TChild : Entity
     {
         private TParent _parent = null;
-        private IMongoCollection<Reference> _collection = DB.Coll<TParent, TChild>();
-
-        /// <summary>
-        /// Ignore this property. It is a workaround for correct bson deserialization of one-to-many references.
-        /// </summary>
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ParentID { get; set; }
+        private IMongoCollection<Reference> _collection = null;
 
         /// <summary>
         /// The name of the collection where the references are stored in MongoDB.
         /// </summary>
-        public string StoredIn { get; set; } = typeof(TParent).Name + "_" + typeof(TChild).Name;
-
-        internal Many(TParent parent)
-        {
-            _parent = parent;
-        }
+        public string StoredIn { get; set; }
 
         /// <summary>
         /// An IQueryable collection of child Entities.
         /// </summary>
         public IMongoQueryable<TChild> Collection()
         {
-            HydrateParentId();
-
             var myRefs = from r in _collection.AsQueryable()
-                         where r.ParentID.Equals(ParentID)
+                         where r.ParentID.Equals(_parent.ID)
                          select r;
 
             return from r in myRefs
                    join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
                    from ch in children
                    select ch;
+        }
+
+        internal Many(TParent parent)
+        {
+            _parent = parent;
+            _collection = DB.Coll<TParent, TChild>();
+            StoredIn = typeof(TParent).Name + "_" + typeof(TChild).Name;
         }
 
         /// <summary>
@@ -120,12 +115,12 @@ namespace MongoDB.Entities
         /// <param name="child">The child Entity to add.</param>
         public Task AddAsync(TChild child)
         {
-            HydrateParentId();
+            _parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
 
             var refr = _collection.AsQueryable()
                                   .SingleOrDefault(r =>
-                                                   r.ParentID.Equals(ParentID) &&
+                                                   r.ParentID.Equals(_parent.ID) &&
                                                    r.ChildID.Equals(child.ID));
             if (refr == null)
             {
@@ -133,7 +128,7 @@ namespace MongoDB.Entities
                 {
                     ID = ObjectId.GenerateNewId().ToString(),
                     ModifiedOn = DateTime.UtcNow,
-                    ParentID = ParentID,
+                    ParentID = _parent.ID,
                     ChildID = child.ID,
                 };
             }
@@ -159,16 +154,6 @@ namespace MongoDB.Entities
         public Task RemoveAsync(TChild child)
         {
             return _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
-        }
-
-        private void HydrateParentId()
-        {
-            if (string.IsNullOrEmpty(ParentID))
-            {
-                _parent.ThrowIfUnsaved();
-                ParentID = _parent.ID;
-                _parent.Save();
-            }
         }
     }
 }

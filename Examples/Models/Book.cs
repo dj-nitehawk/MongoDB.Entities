@@ -14,7 +14,6 @@ namespace Examples.Models
         [Ignore]
         public int DontSaveThis { get; set; } //Property is not saved to database
 
-        public Book() => Authors = Authors.Initialize(this); //Initialize one-to-many relationship       
-    
+        public Book() => Authors = Authors.Initialize(this); //Initialize one-to-many relationship        
     }
 }
