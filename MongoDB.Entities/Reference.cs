@@ -68,7 +68,7 @@ namespace MongoDB.Entities
     public class Many<TParent, TChild> where TParent : Entity where TChild : Entity
     {
         private TParent _parent = null;
-        private IMongoCollection<Reference> _collection = DB.Coll<TParent, TChild>();
+        private IMongoCollection<Reference> _collection = null;
 
         /// <summary>
         /// Ignore this property. It is a workaround for correct bson deserialization of one-to-many references.
@@ -81,9 +81,15 @@ namespace MongoDB.Entities
         /// </summary>
         public string StoredIn { get; set; } = typeof(TParent).Name + "_" + typeof(TChild).Name;
 
+        internal Many()
+        {
+            _collection = DB.Coll<TParent, TChild>();
+        }
+
         internal Many(TParent parent)
         {
             _parent = parent;
+            _collection = DB.Coll<TParent, TChild>();
         }
 
         /// <summary>
