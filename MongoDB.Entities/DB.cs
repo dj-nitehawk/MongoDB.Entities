@@ -8,9 +8,20 @@ using System.Linq.Expressions;
 using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization;
 
 namespace MongoDB.Entities
 {
+    public class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
+    {
+        public void Apply(BsonMemberMap mMap)
+        {
+            if (mMap.MemberType.Name == "Many`2") {
+                mMap.SetShouldSerializeMethod(o => false);
+            }
+        }
+    }
+
     public class DB
     {
         private static IMongoDatabase _db = null;
@@ -58,6 +69,11 @@ namespace MongoDB.Entities
             ConventionRegistry.Register(
                 "IgnoreExtraElements",
                 new ConventionPack { new IgnoreExtraElementsConvention(true) },
+                type => true);
+
+            ConventionRegistry.Register(
+                "IgnoreManyProperties", 
+                new ConventionPack { new IgnoreManyPropertiesConvention() }, 
                 type => true);
 
             _plural = new Pluralizer();

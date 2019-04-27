@@ -8,9 +8,6 @@ namespace MongoDB.Entities.Tests
         public One<Book> BestSeller { get; set; }
         public Many<Author, Book> Books { get; set; }
 
-        public Author()
-        {
-            Books = Books.Initialize(this);
-        }
+        public Author() => Books = Books.Initialize(this);
     }
 }

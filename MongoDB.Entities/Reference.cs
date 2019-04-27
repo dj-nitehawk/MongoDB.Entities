@@ -72,11 +72,6 @@ namespace MongoDB.Entities
         private IMongoCollection<Reference> _collection = null;
 
         /// <summary>
-        /// The name of the collection where the references are stored in MongoDB.
-        /// </summary>
-        public string StoredIn { get; set; }
-
-        /// <summary>
         /// An IQueryable collection of child Entities.
         /// </summary>
         public IMongoQueryable<TChild> Collection()
@@ -97,7 +92,6 @@ namespace MongoDB.Entities
         {
             _parent = parent;
             _collection = DB.Coll<TParent, TChild>();
-            StoredIn = typeof(TParent).Name + "_" + typeof(TChild).Name;
         }
 
         /// <summary>
