@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Entities;
+using System.Linq;
 
 namespace MongoDB.Entities.Tests
 {
@@ -10,6 +10,7 @@ namespace MongoDB.Entities.Tests
         public static void Init(TestContext context)
         {
             new DB("mongotest");
+            DB.Collection<Book>().Count();
         }
     }
 }
