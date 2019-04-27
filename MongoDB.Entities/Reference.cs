@@ -91,6 +91,8 @@ namespace MongoDB.Entities
                    select ch;
         }
 
+        internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
+
         internal Many(TParent parent)
         {
             _parent = parent;

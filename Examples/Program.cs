@@ -14,93 +14,105 @@ namespace Examples
             ////.Net Core
                 new DB("bookshop","localhost",27017);
 
-            ////Asp.Net Core
-                //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
+            var book = new Book { Title = "power of now" };
+            book.Save();
 
-            //ADVANCED INITIALIZATION
-            //
-            ////.Net Core
-                //new DB(new MongoClientSettings()
-                //{
-                //    Server = new MongoServerAddress("localhost", 27017),
-                //    Credential = MongoCredential.CreateCredential("Demo", "username", "password")
-                //}, "Demo");
+            var author = new Author { Name = "tolle" };
+            author.Save();
 
-            ////Asp.Net Core
-            //services.AddMongoDBEntities(
-            //   new MongoClientSettings()
-            //   {
-            //       Server = new MongoServerAddress("HostAddress", "PortNumber"),
-            //       Credential = MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
-            //   },
-            //    "DatabaseName");
+            var res = book.Collection().First();
 
-            //SAVING
-                var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
-                var book2 = new Book { Title = "I Am That I Am" }; book2.Save();
-                var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
-                var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
+            var auths = res.Authors;
 
-            //EMBEDDING DOCUMENTS
-                book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
-                book1.RelatedAuthor = author2.ToDocument();
-                book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
-                book1.Save();
+            Console.Write("");
+
+            //////Asp.Net Core
+            //    //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
+
+            ////ADVANCED INITIALIZATION
+            ////
+            //////.Net Core
+            //    //new DB(new MongoClientSettings()
+            //    //{
+            //    //    Server = new MongoServerAddress("localhost", 27017),
+            //    //    Credential = MongoCredential.CreateCredential("Demo", "username", "password")
+            //    //}, "Demo");
+
+            //////Asp.Net Core
+            ////services.AddMongoDBEntities(
+            ////   new MongoClientSettings()
+            ////   {
+            ////       Server = new MongoServerAddress("HostAddress", "PortNumber"),
+            ////       Credential = MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
+            ////   },
+            ////    "DatabaseName");
+
+            ////SAVING
+            //    var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
+            //    var book2 = new Book { Title = "I Am That I Am" }; book2.Save();
+            //    var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
+            //    var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
+
+            ////EMBEDDING DOCUMENTS
+            //    book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
+            //    book1.RelatedAuthor = author2.ToDocument();
+            //    book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
+            //    book1.Save();
                 
-            //RELATIONSHIPS
-            //
-            /////One-To-One (Embedded)
-                book1.RelatedAuthor = author2;
+            ////RELATIONSHIPS
+            ////
+            ///////One-To-One (Embedded)
+            //    book1.RelatedAuthor = author2;
 
-            ////One-To-One (Referenced)
-                book1.MainAuthor = author1.ToReference();
-                book1.Save();
+            //////One-To-One (Referenced)
+            //    book1.MainAuthor = author1.ToReference();
+            //    book1.Save();
 
-            ////One-To-Many (Embedded)
-                book2.OtherAuthors = new Author[] { author1, author2 };
-                book2.Save();
+            //////One-To-Many (Embedded)
+            //    book2.OtherAuthors = new Author[] { author1, author2 };
+            //    book2.Save();
 
-            ////One-To-Many (Referenced)
-                book2.Authors.Add(author2); //References are automatically saved. No need to save the entity.      
+            //////One-To-Many (Referenced)
+            //    book2.Authors.Add(author2); //References are automatically saved. No need to save the entity.      
  
-            //QUERIES
-            //
-            ////Main collections
-                var author = (from a in DB.Collection<Author>()
-                              where a.Name.Contains("Eckhart")
-                              select a).FirstOrDefault();
+            ////QUERIES
+            ////
+            //////Main collections
+            //    var author = (from a in DB.Collection<Author>()
+            //                  where a.Name.Contains("Eckhart")
+            //                  select a).FirstOrDefault();
 
-            ////Reference collections
-                var authors = (from a in book2.Authors.Collection()
-                               select a).ToArray();
+            //////Reference collections
+            //    var authors = (from a in book2.Authors.Collection()
+            //                   select a).ToArray();
 
-            ////Get entity of referenced relationship
-                var mainAuthor = (from b in DB.Collection<Book>()
-                                  where b.Title == book1.Title
-                                  select b.MainAuthor)
-                                  .SingleOrDefault()
-                                  .ToEntity();
+            //////Get entity of referenced relationship
+            //    var mainAuthor = (from b in DB.Collection<Book>()
+            //                      where b.Title == book1.Title
+            //                      select b.MainAuthor)
+            //                      .SingleOrDefault()
+            //                      .ToEntity();
      
-            ////Collection shortcut
-                var result = from a in author.Collection()
-                             select a;
+            //////Collection shortcut
+            //    var result = from a in author.Collection()
+            //                 select a;
 
-            //DELETE
-            //
-            ////Delete single entity
-                book1.RelatedAuthor.Delete();
-                book1.RelatedAuthor = null;
-                book1.Save();
+            ////DELETE
+            ////
+            //////Delete single entity
+            //    book1.RelatedAuthor.Delete();
+            //    book1.RelatedAuthor = null;
+            //    book1.Save();
 
-                book1.Delete(); //References pointing to this entity are also deleted
+            //    book1.Delete(); //References pointing to this entity are also deleted
 
-            ////Delete multiple entities
-                book2.OtherAuthors.DeleteAll();
-                book2.OtherAuthors = null;
-                book2.Save();
+            //////Delete multiple entities
+            //    book2.OtherAuthors.DeleteAll();
+            //    book2.OtherAuthors = null;
+            //    book2.Save();
 
-            ////Delete by lambda expression
-                DB.Delete<Book>(b => b.ID == book2.ID);
+            //////Delete by lambda expression
+            //    DB.Delete<Book>(b => b.ID == book2.ID);
 
             //THE END
                 Console.WriteLine("Example complete...");

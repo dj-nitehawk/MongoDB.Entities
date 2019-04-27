@@ -29,9 +29,11 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = "aotmrrceb1" };
             var book2 = new Book { Title = "aotmrrceb2" };
             book1.Save(); book2.Save();
+            author.Save();
             author.Books.Add(book1);
             author.Books.Add(book2);
-            //todo: query and test
+            var books = author.Collection().Where(a => a.ID == author.ID).Single().Books.Collection().ToArray();
+            Assert.AreEqual(book2.Title, books[1].Title);
         }
 
         [TestMethod]
