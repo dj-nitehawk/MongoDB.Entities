@@ -45,7 +45,7 @@ namespace MongoDB.Entities
         /// <returns>The actual entity</returns>
         public T ToEntity()
         {
-            return DB.Collection<T>().SingleOrDefault(e => e.ID.Equals(ID));
+            return ToEntityAsync().Result;
         }
 
         /// <summary>
