@@ -39,7 +39,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void embedding_with_ToDocument_returns_correct_document()
+        public void embedding_with_ToDocument_returns_correct_doc()
         {
             var book = new Book { Title = "Test" };
             var author = new Author { Name = "ewtdrcd" };
@@ -67,7 +67,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void embedding_with_ToDocuments_returns_correct_documents()
+        public void embedding_with_ToDocuments_returns_correct_docs()
         {
             var book = new Book { Title = "Test" }; book.Save();
             var author1 = new Author { Name = "ewtrcd1" }; author1.Save();

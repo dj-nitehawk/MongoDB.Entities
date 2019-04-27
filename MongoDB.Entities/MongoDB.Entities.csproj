@@ -12,8 +12,9 @@
     <AssemblyVersion>3.4.0.0</AssemblyVersion>
     <FileVersion>3.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) Improved entity deletion by lambda expression
-2.) Added unit/e2e tests</PackageReleaseNotes>
+    <PackageReleaseNotes>1.) Fixed occassional entity relationship bug
+2.) Improved entity deletion by lambda expression
+3.) Added unit/e2e tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB Entities</Product>
     <RepositoryUrl></RepositoryUrl>
