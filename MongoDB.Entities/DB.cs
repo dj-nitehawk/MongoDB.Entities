@@ -92,7 +92,7 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<Reference> Coll<TParent, TChild>(string property)
         {
-            return _db.GetCollection<Reference>("[" + typeof(TParent).Name + "_" + typeof(TChild).Name + "(" + property + ")]");
+            return _db.GetCollection<Reference>("[" + typeof(TParent).Name + "~" + typeof(TChild).Name + "(" + property + ")]");
         }
 
         /// <summary>
@@ -153,6 +153,7 @@ namespace MongoDB.Entities
         {
             CheckIfInitialized();
 
+            //todo: update readme about new init of many
             //todo: clean prop names from coll names or use contains _Book / _Author
             var collectionNames = _db.ListCollectionsAsync().Result
                                                             .ToListAsync<BsonDocument>().Result
@@ -161,11 +162,11 @@ namespace MongoDB.Entities
             //Book
             var typeName = typeof(T).Name;
 
-            //[PropName]Book_Author, [PropName]Book_Shop, [PropName]Book_Review
-            //var parentCollections = collectionNames.Where(name => name.StartsWith(typeName + "_")).ToArray();
+            //[Book~Author(PropName)], [Book~Review(PropName)], [Book~Publisher(PropName)]
+            var parentCollections = collectionNames.Where(name => name.Contains(typeName + "~")).ToArray();
 
-            //Author_Book, Author_Profile, Author_Email
-            //var childCollections = collectionNames.Where(name => name.EndsWith("_" + typeName)).ToArray();
+            //[Author~Book(PropName)], [Author~Profile(PropName)], [Author_Email(PropName)]
+            var childCollections = collectionNames.Where(name => name.Contains("~" + typeName)).ToArray();
 
             var tasks = new List<Task>();
 

@@ -45,12 +45,12 @@ namespace MongoDB.Entities.Test
             book1.GoodAuthors.Add(author);
             book2.GoodAuthors.Add(author);
 
-            book1.Delete();
-            Assert.AreEqual(1, author.Books.Collection().Count());
-            Assert.AreEqual(book2.Title, author.Books.Collection().First().Title);
-
             author.Delete();
             Assert.AreEqual(0, book2.GoodAuthors.Collection().Count());
+
+            book1.Delete();
+            Assert.AreEqual(0, author.Books.Collection().Count());
+
         }
 
         [TestMethod]
