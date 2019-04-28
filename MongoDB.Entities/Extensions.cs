@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson.Serialization;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -173,12 +175,14 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Initializes a new reference collection.
+        /// Initializes supplied property with a new Many object.
         /// </summary>
-        /// <param name="parent">The parent Entity needed to initialize the collection.</param>
-        public static Many<TChild> Initialize<TChild>(this Many<TChild> many, object parent) where TChild : Entity
+        /// <param name="expression">() => PropertyName</param>
+        public static void InitProperty<TChild>(this Entity parent, Expression<Func<Many<TChild>>> expression) where TChild : Entity
         {
-            return new Many<TChild>(parent);
+            var body = (MemberExpression)expression.Body;
+            var property = (PropertyInfo)body.Member;
+            property.SetValue(parent, new Many<TChild>(parent, property.Name));
         }
 
     }

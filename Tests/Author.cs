@@ -1,6 +1,4 @@
-﻿using MongoDB.Entities;
-
-namespace MongoDB.Entities.Tests
+﻿namespace MongoDB.Entities.Tests
 {
     public class Author : Entity
     {
@@ -8,6 +6,6 @@ namespace MongoDB.Entities.Tests
         public One<Book> BestSeller { get; set; }
         public Many<Book> Books { get; set; }
 
-        public Author() => Books = Books.Initialize(this);
+        public Author() => this.InitProperty(() => Books);
     }
 }

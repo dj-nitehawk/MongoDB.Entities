@@ -16,7 +16,8 @@ namespace MongoDB.Entities
     {
         public void Apply(BsonMemberMap mMap)
         {
-            if (mMap.MemberType.Name == "Many`1") {
+            if (mMap.MemberType.Name == "Many`1")
+            {
                 mMap.SetShouldSerializeMethod(o => false);
             }
         }
@@ -72,8 +73,8 @@ namespace MongoDB.Entities
                 type => true);
 
             ConventionRegistry.Register(
-                "IgnoreManyProperties", 
-                new ConventionPack { new IgnoreManyPropertiesConvention() }, 
+                "IgnoreManyProperties",
+                new ConventionPack { new IgnoreManyPropertiesConvention() },
                 type => true);
 
             _plural = new Pluralizer();
@@ -89,9 +90,9 @@ namespace MongoDB.Entities
             return _db.GetCollection<T>(CollectionName<T>());
         }
 
-        internal static IMongoCollection<Reference> Coll<TParent, TChild>()
+        internal static IMongoCollection<Reference> Coll<TParent, TChild>(string property)
         {
-            return _db.GetCollection<Reference>(typeof(TParent).Name + "_" + typeof(TChild).Name);
+            return _db.GetCollection<Reference>(typeof(TParent).Name + "_" + typeof(TChild).Name + "[" + property + "]");
         }
 
         /// <summary>

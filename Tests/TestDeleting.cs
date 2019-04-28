@@ -42,8 +42,8 @@ namespace MongoDB.Entities.Test
             author.Books.Add(book1);
             author.Books.Add(book2);
 
-            book1.Authors.Add(author);
-            book2.Authors.Add(author);
+            book1.GoodAuthors.Add(author);
+            book2.GoodAuthors.Add(author);
 
             book1.Delete();
             Assert.AreEqual(1, author.Books.Collection().Count());
@@ -59,11 +59,11 @@ namespace MongoDB.Entities.Test
             var book = new Book { Title = "Test" }; book.Save();
             var author1 = new Author { Name = "ewtrcd1" }; author1.Save();
             var author2 = new Author { Name = "ewtrcd2" }; author2.Save();
-            book.Authors.Add(author1);
+            book.GoodAuthors.Add(author1);
             book.OtherAuthors = (new Author[] { author1, author2 });
             book.Save();
             book.OtherAuthors.DeleteAll();
-            Assert.AreEqual(0, book.Authors.Collection().Count());
+            Assert.AreEqual(0, book.GoodAuthors.Collection().Count());
             Assert.AreEqual(null, author1.Collection().Where(a => a.ID == author1.ID).SingleOrDefault());
         }
 

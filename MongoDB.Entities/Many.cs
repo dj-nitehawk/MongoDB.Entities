@@ -36,15 +36,15 @@ namespace MongoDB.Entities
 
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
 
-        internal Many(object parent)
+        internal Many(object parent, string property)
         {
-            Init((dynamic)parent);
+            Init((dynamic)parent, property);
         }
 
-        private void Init<TParent>(TParent parent) where TParent : Entity
+        private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
             _parent = parent;
-            _collection = DB.Coll<TParent, TChild>();
+            _collection = DB.Coll<TParent, TChild>(property);
         }
 
         /// <summary>
