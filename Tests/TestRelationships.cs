@@ -72,19 +72,5 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, book.GoodAuthors.Collection().Count());
             Assert.AreEqual(author1.Name, book.GoodAuthors.Collection().First().Name);
         }
-
-        [TestMethod]
-        public void test_more_than_1_one2many_properties_on_entity()
-        {
-            var book1 = new Book { Title = "tmt1o2mpoeb1" }; book1.Save();
-            var book2 = new Book { Title = "tmt1o2mpoeb1" }; book1.Save();
-
-            var author1 = new Author { Name = "tmt1o2mpoea1" }; author1.Save();
-            var author2 = new Author { Name = "tmt1o2mpoea1" }; author2.Save();
-
-            book1.GoodAuthors.Add(author1);
-            book1.BadAuthors.Add(author1);
-            //todo: test
-        }
     }
 }

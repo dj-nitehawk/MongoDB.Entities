@@ -153,8 +153,6 @@ namespace MongoDB.Entities
         {
             CheckIfInitialized();
 
-            //todo: update readme about new init of many
-            //todo: clean prop names from coll names or use contains _Book / _Author
             var collectionNames = _db.ListCollectionsAsync().Result
                                                             .ToListAsync<BsonDocument>().Result
                                                             .Select(d => d.GetValue("name").ToString())
