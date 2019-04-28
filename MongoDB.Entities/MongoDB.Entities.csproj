@@ -8,17 +8,16 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>3.4</Version>
+    <Version>3.5</Version>
     <AssemblyVersion>3.4.0.0</AssemblyVersion>
     <FileVersion>3.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) Fixed occassional entity relationship bug
-2.) Improved entity deletion by lambda expression
-3.) Added unit/e2e tests</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
-    <Product>MongoDB Entities</Product>
+    <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/dj-nitehawk/MongoDB.Entities/master/icon.png</PackageIconUrl>
+    <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities entity-framework nosql orm linq netcore repository aspnetcore netcore2 database persistance dal dao repo</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
