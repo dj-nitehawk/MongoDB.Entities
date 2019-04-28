@@ -13,11 +13,10 @@ namespace MongoDB.Entities
     /// <para>Use as follows in the constructor of enclosing class:</para>
     /// <code>Property = Property.Initialize(this);</code>
     /// </summary>
-    /// <typeparam name="TParent">Type of the parent Entity.</typeparam>
     /// <typeparam name="TChild">Type of the child Entity.</typeparam>
-    public class Many<TParent, TChild> where TParent : Entity where TChild : Entity
+    public class Many<TChild> where TChild : Entity
     {
-        private TParent _parent = null;
+        private Entity _parent = null;
         private IMongoCollection<Reference> _collection = null;
 
         /// <summary>
@@ -37,7 +36,12 @@ namespace MongoDB.Entities
 
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
 
-        internal Many(TParent parent)
+        internal Many(object parent)
+        {
+            Init((dynamic)parent);
+        }
+
+        private void Init<TParent>(TParent parent) where TParent : Entity
         {
             _parent = parent;
             _collection = DB.Coll<TParent, TChild>();

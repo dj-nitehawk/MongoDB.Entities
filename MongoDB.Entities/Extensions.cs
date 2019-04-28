@@ -176,9 +176,9 @@ namespace MongoDB.Entities
         /// Initializes a new reference collection.
         /// </summary>
         /// <param name="parent">The parent Entity needed to initialize the collection.</param>
-        public static Many<TParent, TChild> Initialize<TParent, TChild>(this Many<TParent, TChild> refmany, TParent parent) where TParent : Entity where TChild : Entity
+        public static Many<TChild> Initialize<TChild>(this Many<TChild> many, object parent) where TChild : Entity
         {
-            return new Many<TParent, TChild>(parent);
+            return new Many<TChild>(parent);
         }
 
     }

@@ -16,7 +16,7 @@ namespace MongoDB.Entities
     {
         public void Apply(BsonMemberMap mMap)
         {
-            if (mMap.MemberType.Name == "Many`2") {
+            if (mMap.MemberType.Name == "Many`1") {
                 mMap.SetShouldSerializeMethod(o => false);
             }
         }
