@@ -157,7 +157,7 @@ if you call `book.OtherAuthors.DeleteAll()` the respective `author` entities are
 
 ## Relationships (Referenced)
 
-referenced relationships require a bit of special handling. a **one-to-one** relationship is defined by using the `One<T>` class and **one-to-many** relationships are defined by using the `Many<TChild>` class. it is also a good idea to initialize the `Many` properties with the `Initialize()` method from the parent entity as shown below in order to avoid null-reference exceptions during runtime.
+referenced relationships require a bit of special handling. a **one-to-one** relationship is defined by using the `One<T>` class and **one-to-many** relationships are defined by using the `Many<TChild>` class. it is also a good idea to initialize the `Many` properties with the `InitProperty()` method of the parent entity as shown below in order to avoid null-reference exceptions during runtime.
 
 ```csharp
     public class Book : Entity
@@ -165,7 +165,10 @@ referenced relationships require a bit of special handling. a **one-to-one** rel
         public One<Author> MainAuthor { get; set; }
         public Many<Author> Authors { get; set; }
         
-        public Book() => Authors = Authors.Initialize(this);
+        public Book()
+        {
+            this.InitProperty( () => Authors );
+        }
     }
 ```
 
@@ -186,14 +189,13 @@ call the `ToReference()` method of the entity you want to store as a reference l
 the original `author` in the `Authors` collection is unaffected.
 
 ###### Entity Deletion:
-If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor.ToEntity()` will then return `null`. 
-`.ToEntity()` method is described below.
+If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor.ToEntity()` will then return `null`. the `.ToEntity()` method is described below.
 
 #### One-to-many:
 ```charp
     book.Authors.Add(author);
 ```
-there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join collection from `Book_Author` to `AwesomeBook_Author` in order to get the references working again. 
+there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `[Parent~Children(PropertyName)]` in the database. you don't have to pay any attention to these special collections unless you rename your entities or properties. for ex: if you rename the `Book` entity to `AwesomeBook` and property holding it to `GoodAuthors` just rename the corresponding join collection from `[Book~Author(Authors)]` to `[AwesomeBook~Author(GoodAuthors)]` in order to get the references working again. 
 
 ###### Reference Removal:
 ```charp

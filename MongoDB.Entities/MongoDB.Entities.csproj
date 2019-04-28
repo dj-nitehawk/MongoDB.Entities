@@ -12,7 +12,7 @@
     <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <FileVersion>3.5.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) support for more than 1 Many properties in one Entity
+    <PackageReleaseNotes>1.) support for more than 1 'Many' properties in one Entity
 2.) api change: Many&lt;TParent,TChild&gt; to Many&lt;Child&gt;
 3.) refactored reference classes
 4.) more tests added</PackageReleaseNotes>
