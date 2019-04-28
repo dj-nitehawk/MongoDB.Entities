@@ -136,7 +136,7 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
 
 ## Relationships (Referenced)
 
-referenced relationships require a bit of special handling. a **one-to-one** relationship is defined by using the `One<T>` class and **one-to-many** relationships are defined by using the `Many<TChild>` class. it is also a good idea to initialize the `Many` properties with the `Initialize()` method as shown below in order to avoid null-reference exceptions during runtime.
+referenced relationships require a bit of special handling. a **one-to-one** relationship is defined by using the `One<T>` class and **one-to-many** relationships are defined by using the `Many<TChild>` class. it is also a good idea to initialize the `Many` properties with the `Initialize()` method from the parent entity as shown below in order to avoid null-reference exceptions during runtime.
 
 ```csharp
     public class Book : Entity
