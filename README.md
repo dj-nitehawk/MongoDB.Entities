@@ -122,8 +122,18 @@ to delete entities in bulk, use a lambda expression as follows:
     book.Author = author;
     book.Save()
 ```
-
 as mentioned earlier, calling `Save()` persists `author` to the "Authors" collection in the database. it is also stored in `book.Author` property. so, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and are linked by the `ID`. if the goal is to embed something as an independant/unlinked document, it is best to use a class that does not inherit from the `Entity` class or simply use the `.ToDocument()` method of an entity as explained earlier.
+
+###### Embed Removal:
+to remove the embedded `author`, simply do:
+```csharp
+	book.Author = null;
+	book.Save();
+```
+the original `author` in the `Authors` collection is unaffected.
+
+###### Entity Deletion:
+if you call `book.Author.Delete()`, the author entity is deleted from the `Authors` collection.
 
 #### One-to-many:
 
@@ -131,8 +141,19 @@ as mentioned earlier, calling `Save()` persists `author` to the "Authors" collec
     book.OtherAuthors = new Author[] { author1, author2 };
     book.Save();
 ```
-
 **Tip:** If you are going to store more than a handful of entities within another entity, it is best to store them by reference as described below.
+
+###### Embed Removal:
+```csharp
+    book.OtherAuthors = null;
+    book.Save();
+```
+the original `author` entities in the `Authors` collection are unaffected.
+
+###### Entity Deletion:
+if you call `book.OtherAuthors.DeleteAll()` the respective `author` entities are deleted from the `Authors` collection.
+
+
 
 ## Relationships (Referenced)
 
@@ -157,14 +178,30 @@ call the `ToReference()` method of the entity you want to store as a reference l
     book.Save();
 ```
 
-#### One-to-many:
+###### Reference Removal:
+```csharp
+    book.MainAuthor = null;
+    book.Save();
+```
+the original `author` in the `Authors` collection is unaffected.
 
+###### Entity Deletion:
+If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor` will be then be `null`.
+
+#### One-to-many:
 ```charp
     book.Authors.Add(author);
+```
+there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join collection from `Book_Author` to `AwesomeBook_Author` in order to get the references working again. 
+
+###### Reference Removal:
+```charp
     book.Authors.Remove(author);
 ```
+the original `author` in the `Authors` collection is unaffected.
 
-there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `Book_Author` in the database. you don't have to pay any attention to these special collections unless you rename your entities. for ex: if you rename the `Book` entity to `AwesomeBook` just rename the corresponding join collection from `Book_Author` to `AwesomeBook_Author` in order to get the references working again. also if you delete an entity that is referenced somewhere in the database, all references pointing to that entity is automatically deleted.
+###### Entity Deletion:
+If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.Authors` will not have `author` as a child.
 
 #### ToEntity() shortcut:
 
