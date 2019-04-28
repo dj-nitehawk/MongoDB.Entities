@@ -186,7 +186,7 @@ call the `ToReference()` method of the entity you want to store as a reference l
 the original `author` in the `Authors` collection is unaffected.
 
 ###### Entity Deletion:
-If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor` will be then be `null`.
+If you delete an entity that is referenced as above by calling `author.Delete()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor.ToEntity()` will then be `null`.
 
 #### One-to-many:
 ```charp

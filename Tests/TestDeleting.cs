@@ -66,5 +66,16 @@ namespace MongoDB.Entities.Test
             Assert.AreEqual(0, book.Authors.Collection().Count());
             Assert.AreEqual(null, author1.Collection().Where(a => a.ID == author1.ID).SingleOrDefault());
         }
+
+        [TestMethod]
+        public void deleting_a_one2many_ref_entity_makes_parent_null()
+        {
+            var book = new Book { Title = "Test" }; book.Save();
+            var author = new Author { Name = "ewtrcd1" }; author.Save();
+            book.MainAuthor = author.ToReference();
+            book.Save();
+            author.Delete();
+            Assert.AreEqual(null, book.MainAuthor.ToEntity());
+        }
     }
 }
