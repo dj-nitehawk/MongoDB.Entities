@@ -49,8 +49,8 @@ namespace MongoDB.Entities.Test
             Assert.AreEqual(1, author.Books.Collection().Count());
             Assert.AreEqual(book2.Title, author.Books.Collection().First().Title);
 
-            Assert.AreEqual(1, author.Books.Collection().Count());
-            Assert.AreEqual(book2.Title, author.Books.Collection().Single().Title);
+            author.Delete();
+            Assert.AreEqual(0, book2.GoodAuthors.Collection().Count());
         }
 
         [TestMethod]
