@@ -9,7 +9,7 @@ namespace MongoDB.Entities.Tests
         [AssemblyInitialize]
         public static void Init(TestContext context)
         {
-            new DB("mongotest");
+            new DB("mongodb-entities-test");
             DB.Collection<Book>().Count();
         }
     }
