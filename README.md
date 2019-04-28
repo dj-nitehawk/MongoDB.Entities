@@ -133,7 +133,7 @@ to remove the embedded `author`, simply do:
 the original `author` in the `Authors` collection is unaffected.
 
 ###### Entity Deletion:
-if you call `book.Author.Delete()`, the author entity is deleted from the `Authors` collection.
+if you call `book.Author.Delete()`, the author entity is deleted from the `Authors` collection if it was a linked entity.
 
 #### One-to-many:
 
@@ -151,7 +151,7 @@ if you call `book.Author.Delete()`, the author entity is deleted from the `Autho
 the original `author` entities in the `Authors` collection are unaffected.
 
 ###### Entity Deletion:
-if you call `book.OtherAuthors.DeleteAll()` the respective `author` entities are deleted from the `Authors` collection.
+if you call `book.OtherAuthors.DeleteAll()` the respective `author` entities are deleted from the `Authors` collection if they were linked entities.
 
 
 
