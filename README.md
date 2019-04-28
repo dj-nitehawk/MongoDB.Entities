@@ -195,7 +195,7 @@ If you delete an entity that is referenced as above by calling `author.Delete()`
 ```charp
     book.Authors.Add(author);
 ```
-there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `[Parent~Children(PropertyName)]` in the database. you don't have to pay any attention to these special collections unless you rename your entities or properties. for ex: if you rename the `Book` entity to `AwesomeBook` and property holding it to `GoodAuthors` just rename the corresponding join collection from `[Book~Author(Authors)]` to `[AwesomeBook~Author(GoodAuthors)]` in order to get the references working again. 
+there's no need to call `book.Save()` because references are automatically created and saved using special joining collections in the form of `[Parent~Child(PropertyName)]` in the database. you don't have to pay any attention to these special collections unless you rename your entities or properties. for ex: if you rename the `Book` entity to `AwesomeBook` and property holding it to `GoodAuthors` just rename the corresponding join collection from `[Book~Author(Authors)]` to `[AwesomeBook~Author(GoodAuthors)]` in order to get the references working again. 
 
 ###### Reference Removal:
 ```charp
