@@ -175,16 +175,34 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Initializes supplied property with a new Many object.
+        /// Initializes supplied property with a new One-To-Many reference collection.
         /// </summary>
-        /// <param name="expression">() => PropertyName</param>
-        public static void InitProperty<TChild>(this Entity parent, Expression<Func<Many<TChild>>> expression) where TChild : Entity
+        /// <param name="propertyToInit">() => PropertyName</param>
+        public static void InitOneToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : Entity
         {
-            var body = (MemberExpression)expression.Body;
+            var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
             property.SetValue(parent, new Many<TChild>(parent, property.Name));
         }
 
+        /// <summary>
+        /// Initializes supplied property with a new Many-To-Many reference collection.
+        /// </summary>
+        /// <param name="propertyToInit">() = > PropertyName</param>
+        /// <param name="propertyOtherSide">x => x.PropertyName</param>
+        /// <param name="side"></param>
+        public static void InitManyToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide, Side side) where TChild : Entity
+        {
+            var body = (MemberExpression)propertyToInit.Body;
+            var property = (PropertyInfo)body.Member;
+
+            var osBody = (MemberExpression)propertyOtherSide.Body;
+            var osProperty = (PropertyInfo)osBody.Member;
+
+            property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, side != 0));
+        }
+
+        //todo: write tests and debug many to many
     }
 
 

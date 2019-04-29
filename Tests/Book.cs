@@ -16,8 +16,8 @@ namespace MongoDB.Entities.Tests
 
         public Book()
         {
-            this.InitProperty(() => GoodAuthors);
-            this.InitProperty(() => BadAuthors);
+            this.InitOneToMany(() => GoodAuthors);
+            this.InitOneToMany(() => BadAuthors);
         }
 
     }

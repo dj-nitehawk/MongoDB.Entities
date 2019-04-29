@@ -6,6 +6,6 @@
         public One<Book> BestSeller { get; set; }
         public Many<Book> Books { get; set; }
 
-        public Author() => this.InitProperty(() => Books);
+        public Author() => this.InitOneToMany(() => Books);
     }
 }

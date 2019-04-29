@@ -46,11 +46,11 @@ namespace MongoDB.Entities
                        join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
                        from ch in children
                        select ch;
-            }            
+            }
         }
-        
+
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
-        
+
         internal Many(object parent, string property)
         {
             Init((dynamic)parent, property);
@@ -58,9 +58,9 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
             _parent = parent;
-            _collection = DB.GetRefCollection($"[{ typeof(TParent).Name}~{ typeof(TChild).Name}({ property}]");
+            _collection = DB.GetRefCollection($"[{ typeof(TParent).Name}~{ typeof(TChild).Name}({property})]");
         }
-                
+
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
         {
             Init((dynamic)parent, propertyParent, propertyChild, isInverse);
@@ -69,9 +69,17 @@ namespace MongoDB.Entities
         {
             _parent = parent;
             _inverse = isInverse;
-            _collection = DB.GetRefCollection($"[({propertyChild}){typeof(TParent).Name}~{typeof(TChild).Name}({propertyParent})]");
+
+            if (_inverse)
+            {
+                _collection = DB.GetRefCollection($"[({propertyParent}){typeof(TChild).Name}~{typeof(TParent).Name}({propertyChild})]");
+            }
+            else
+            {
+                _collection = DB.GetRefCollection($"[({propertyChild}){typeof(TParent).Name}~{typeof(TChild).Name}({propertyParent})]");
+            }
         }
-        
+
         /// <summary>
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
