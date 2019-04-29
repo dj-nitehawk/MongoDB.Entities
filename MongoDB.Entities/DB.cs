@@ -85,14 +85,14 @@ namespace MongoDB.Entities
             return _plural.Pluralize(typeof(T).Name);
         }
 
-        private static IMongoCollection<T> Coll<T>()
+        private static IMongoCollection<T> GetCollection<T>()
         {
             return _db.GetCollection<T>(CollectionName<T>());
         }
 
-        internal static IMongoCollection<Reference> Coll<TParent, TChild>(string property)
+        internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
-            return _db.GetCollection<Reference>("[" + typeof(TParent).Name + "~" + typeof(TChild).Name + "(" + property + ")]");
+            return _db.GetCollection<Reference>(name);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace MongoDB.Entities
         public static IMongoQueryable<T> Collection<T>()
         {
             CheckIfInitialized();
-            return Coll<T>().AsQueryable();
+            return GetCollection<T>().AsQueryable();
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            return Coll<T>().ReplaceOneAsync(
+            return GetCollection<T>().ReplaceOneAsync(
                 x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
@@ -178,7 +178,7 @@ namespace MongoDB.Entities
                 tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ChildID.Equals(id)));
             }
 
-            tasks.Add(Coll<T>().DeleteOneAsync(x => x.ID.Equals(id)));
+            tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(id)));
 
             return Task.WhenAll(tasks);
         }

@@ -44,7 +44,7 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
             _parent = parent;
-            _collection = DB.Coll<TParent, TChild>(property);
+            _collection = DB.GetRefCollection("[" + typeof(TParent).Name + "~" + typeof(TChild).Name + "(" + property + ")]");
         }
 
         /// <summary>
