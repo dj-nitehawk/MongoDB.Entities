@@ -160,10 +160,10 @@ namespace MongoDB.Entities
             //Book
             var typeName = typeof(T).Name;
 
-            //[Book~Author(PropName)], [Book~Review(PropName)], [Book~Publisher(PropName)]
+            //[(PropName)Book~Author(PropName)] / [Book~Author(PropName)]
             var parentCollections = collectionNames.Where(name => name.Contains(typeName + "~")).ToArray();
 
-            //[Author~Book(PropName)], [Author~Profile(PropName)], [Author_Email(PropName)]
+            //[(PropName)Author~Book(PropName)] / [Author~Book(PropName)]
             var childCollections = collectionNames.Where(name => name.Contains("~" + typeName)).ToArray();
 
             var tasks = new List<Task>();

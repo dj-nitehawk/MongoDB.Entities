@@ -16,6 +16,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TChild">Type of the child Entity.</typeparam>
     public class Many<TChild> where TChild : Entity
     {
+        private bool _inverse = false;
         private Entity _parent = null;
         private IMongoCollection<Reference> _collection = null;
 
@@ -24,29 +25,53 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoQueryable<TChild> Collection()
         {
-            var myRefs = from r in _collection.AsQueryable()
-                         where r.ParentID.Equals(_parent.ID)
-                         select r;
+            if (_inverse)
+            {
+                var myRefs = from r in _collection.AsQueryable()
+                             where r.ChildID.Equals(_parent.ID)
+                             select r;
 
-            return from r in myRefs
-                   join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
-                   from ch in children
-                   select ch;
+                return from r in myRefs
+                       join c in DB.Collection<TChild>() on r.ParentID equals c.ID into children
+                       from ch in children
+                       select ch;
+            }
+            else
+            {
+                var myRefs = from r in _collection.AsQueryable()
+                             where r.ParentID.Equals(_parent.ID)
+                             select r;
+
+                return from r in myRefs
+                       join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
+                       from ch in children
+                       select ch;
+            }            
         }
-
+        
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
-
+        
         internal Many(object parent, string property)
         {
             Init((dynamic)parent, property);
         }
-
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
             _parent = parent;
-            _collection = DB.GetRefCollection("[" + typeof(TParent).Name + "~" + typeof(TChild).Name + "(" + property + ")]");
+            _collection = DB.GetRefCollection($"[{ typeof(TParent).Name}~{ typeof(TChild).Name}({ property}]");
         }
-
+                
+        internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
+        {
+            Init((dynamic)parent, propertyParent, propertyChild, isInverse);
+        }
+        private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : Entity
+        {
+            _parent = parent;
+            _inverse = isInverse;
+            _collection = DB.GetRefCollection($"[({propertyChild}){typeof(TParent).Name}~{typeof(TChild).Name}({propertyParent})]");
+        }
+        
         /// <summary>
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
@@ -67,24 +92,46 @@ namespace MongoDB.Entities
             _parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
 
-            var refr = _collection.AsQueryable()
-                                  .SingleOrDefault(r =>
-                                                   r.ParentID.Equals(_parent.ID) &&
-                                                   r.ChildID.Equals(child.ID));
-            if (refr == null)
+            Reference rfrnc = null;
+
+            if (_inverse)
             {
-                refr = new Reference()
+                rfrnc = _collection.AsQueryable()
+                                   .SingleOrDefault(r =>
+                                                    r.ChildID.Equals(_parent.ID) &&
+                                                    r.ParentID.Equals(child.ID));
+                if (rfrnc == null)
                 {
-                    ID = ObjectId.GenerateNewId().ToString(),
-                    ModifiedOn = DateTime.UtcNow,
-                    ParentID = _parent.ID,
-                    ChildID = child.ID,
-                };
+                    rfrnc = new Reference()
+                    {
+                        ID = ObjectId.GenerateNewId().ToString(),
+                        ModifiedOn = DateTime.UtcNow,
+                        ParentID = child.ID,
+                        ChildID = _parent.ID,
+                    };
+                }
+            }
+            else
+            {
+                rfrnc = _collection.AsQueryable()
+                                   .SingleOrDefault(r =>
+                                                    r.ParentID.Equals(_parent.ID) &&
+                                                    r.ChildID.Equals(child.ID));
+                if (rfrnc == null)
+                {
+                    rfrnc = new Reference()
+                    {
+                        ID = ObjectId.GenerateNewId().ToString(),
+                        ModifiedOn = DateTime.UtcNow,
+                        ParentID = _parent.ID,
+                        ChildID = child.ID,
+                    };
+                }
             }
 
-            return _collection.ReplaceOneAsync(x => x.ID.Equals(refr.ID),
-                                                    refr,
-                                                    new UpdateOptions() { IsUpsert = true });
+            return _collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID),
+                                               rfrnc,
+                                               new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>
@@ -102,7 +149,14 @@ namespace MongoDB.Entities
         /// <param name="child">The child Entity to remove the reference of.</param>
         public Task RemoveAsync(TChild child)
         {
-            return _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
+            if (_inverse)
+            {
+                return _collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID));
+            }
+            else
+            {
+                return _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
+            }
         }
     }
 }
