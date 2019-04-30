@@ -24,13 +24,23 @@ Supports both `ASP.Net Core` and `.Net Core` applications.
     //Create and persist an entity
         var book = new Book { Title = "The Power Of Now" };
         book.Save();
+ 
+    //Embed as document
+        var dickens = new Author { Name = "Charles Dickens" };
+        dickens.Save();
+        book.RelatedAuthor = dickens.ToDocument();
+    
+    //One-To-One Relationship
+        var hemmingway = new Author { Name = "Ernest Hemmingway" };
+        hemmingway.Save();
+        book.MainAuthor = hemmingway.ToReference();
 
-    //One-To-Many Relationship
+    //One-To-Many relationship
         var author = new Author { Name = "Eckhart Tolle" };
         author.Save();
         book.Authors.Add(author);
 
-    //Many-To-Many Relationship
+    //Many-To-Many relationship
         var genre = new Genre { Name = "Self Help" };
         genre.Save();
         genre.AllBooks.Add(book);
