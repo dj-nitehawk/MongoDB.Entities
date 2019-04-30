@@ -1,6 +1,6 @@
 [![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#)
 # MongoDB.Entities
-The goal of this library is to simplify access to mongodb by wrapping up the official C# mongodb driver and providing some additional useful features on top of it. You get all the power of the official driver and then some. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
+The goal of this library is to simplify access to mongodb by wrapping up the official C# mongodb driver and providing some additional features on top of it. You get all the power of the official driver and then some. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
 
 
 You never have to deal with `ObjectIds` or `BsonDocuments`. Everything will be type safe. You can get the best of both worlds by modelling your entities in either **Document/NoSQL** stye or **Relational/SQL** style or a mix of both. 
@@ -18,7 +18,38 @@ Supports both `ASP.Net Core` and `.Net Core` applications.
 
 ## Code Sample
 ```csharp
+    //Initialize database connection
+        new DB("bookshop");
 
+    //Create and persist an entity
+        var book = new Book { Title = "The Power Of Now" };
+        book.Save();
+
+    //One-To-Many Relationship
+        var author = new Author { Name = "Eckhart Tolle" };
+        author.Save();
+        book.Authors.Add(author);
+
+    //Many-To-Many Relationship
+        var genre = new Genre { Name = "Self Help" };
+        genre.Save();
+        genre.AllBooks.Add(book);
+
+    //Queries
+        var eckhart = DB.Collection<Author>()
+                        .Where(a => a.Name.Contains("Eckhart"))
+                        .SingleOrDefault();
+
+        var powerofnow = genre.AllBooks.Collection()
+                                       .Where(b => b.Title.Contains("Power"))
+                                       .SingleOrDefault();
+
+        var selfhelp = book.AllGenres.Collection().First();
+
+    //Delete
+        genre.Delete();
+        book.Delete();
+        author.Delete();
 ```
 
 

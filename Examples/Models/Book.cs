@@ -10,6 +10,7 @@ namespace Examples.Models
         public Review Review { get; set; } //Store an unlinked object
         public One<Author> MainAuthor { get; set; } //Specify a reference to an entity 
         public Many<Author> Authors { get; set; } //Specify references to multiple entities
+        public Many<Genre> AllGenres { get; set; }//Owner side of many-to-many relationship
 
         [Ignore]
         public int DontSaveThis { get; set; } //Property is not saved to database
@@ -17,6 +18,7 @@ namespace Examples.Models
         public Book()
         {
             this.InitOneToMany(() => Authors);
+            this.InitManyToMany(() => AllGenres, genre => genre.AllBooks, Side.Owner);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Examples
             //BASIC INITIALIZATION
             //
             ////.Net Core
-                new DB("bookshop","localhost",27017);
+            new DB("bookshop", "localhost", 27017);
 
             ////Asp.Net Core
             //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
@@ -40,6 +40,7 @@ namespace Examples
             var book2 = new Book { Title = "I Am That I Am" }; book2.Save();
             var author1 = new Author { Name = "Eckhart Tolle" }; author1.Save();
             var author2 = new Author { Name = "Nisargadatta Maharaj" }; author2.Save();
+            var genre1 = new Genre { Name = "Self Help" }; genre1.Save();
 
             //EMBEDDING DOCUMENTS
             book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
@@ -62,6 +63,10 @@ namespace Examples
 
             ////One-To-Many (Referenced)
             book2.Authors.Add(author2); //References are automatically saved. No need to save the entity.      
+
+            ////Many-To-Many (Referenced)
+            genre1.AllBooks.Add(book1);
+            genre1.AllBooks.Add(book2);
 
             //QUERIES
             //
