@@ -10,6 +10,7 @@ namespace MongoDB.Entities.Tests
         public One<Author> MainAuthor { get; set; }
         public Many<Author> GoodAuthors { get; set; }
         public Many<Author> BadAuthors { get; set; }
+        public Many<Genre> AllGenres { get; set; }
 
         [Ignore]
         public int DontSaveThis { get; set; }
@@ -18,6 +19,7 @@ namespace MongoDB.Entities.Tests
         {
             this.InitOneToMany(() => GoodAuthors);
             this.InitOneToMany(() => BadAuthors);
+            this.InitManyToMany(() => AllGenres, g => g.AllBooks, Side.Owner);
         }
 
     }

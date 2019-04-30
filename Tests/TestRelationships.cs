@@ -72,5 +72,53 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, book.GoodAuthors.Collection().Count());
             Assert.AreEqual(author1.Name, book.GoodAuthors.Collection().First().Name);
         }
+
+        [TestMethod]
+        public void adding_many2many_returns_correct_children()
+        {
+            var book1 = new Book { Title = "ac2mrceb1" }; book1.Save();
+            var book2 = new Book { Title = "ac2mrceb2" }; book2.Save();
+
+            var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
+            var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
+
+            book1.AllGenres.Add(gen1);
+            book1.AllGenres.Add(gen2);
+            book1.AllGenres.Add(gen1);
+            Assert.AreEqual(2, DB.Collection<Book>().Where(b => b.ID == book1.ID).Single().AllGenres.Collection().Count());
+            Assert.AreEqual(gen1.Name, book1.AllGenres.Collection().First().Name);
+
+            gen1.AllBooks.Add(book1);
+            gen1.AllBooks.Add(book2);
+            gen1.AllBooks.Add(book1);
+            Assert.AreEqual(2, gen1.Collection().Where(g => g.ID == gen1.ID).Single().AllBooks.Collection().Count());
+            Assert.AreEqual(gen1.Name, book2.Collection().Where(b => b.ID == book2.ID).Single().AllGenres.Collection().First().Name);
+
+            gen2.AllBooks.Add(book1);
+            gen2.AllBooks.Add(book2);
+            Assert.AreEqual(2, book1.AllGenres.Collection().Count());
+            Assert.AreEqual(gen2.Name, book2.Collection().Where(b => b.ID == book2.ID).Single().AllGenres.Collection().First().Name);
+        }
+
+        [TestMethod]
+        public void removing_many2many_returns_correct_children()
+        {
+            var book1 = new Book { Title = "rm2mrceb1" }; book1.Save();
+            var book2 = new Book { Title = "rm2mrceb2" }; book2.Save();
+
+            var gen1 = new Genre { Name = "rm2mrceg1" }; gen1.Save();
+            var gen2 = new Genre { Name = "rm2mrceg1" }; gen2.Save();
+
+            book1.AllGenres.Add(gen1);
+            book1.AllGenres.Add(gen2);
+            book2.AllGenres.Add(gen1);
+            book2.AllGenres.Add(gen2);
+
+            book1.AllGenres.Remove(gen1);
+            Assert.AreEqual(1, book1.AllGenres.Collection().Count());
+            Assert.AreEqual(gen2.Name, book1.AllGenres.Collection().Single().Name);
+            Assert.AreEqual(1, gen1.AllBooks.Collection().Count());
+            Assert.AreEqual(book2.Title, gen1.AllBooks.Collection().First().Title);
+        }
     }
 }

@@ -57,6 +57,7 @@ namespace MongoDB.Entities
         }
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
+            _inverse = false;
             _parent = parent;
             _collection = DB.GetRefCollection($"[{ typeof(TParent).Name}~{ typeof(TChild).Name}({property})]");
         }
