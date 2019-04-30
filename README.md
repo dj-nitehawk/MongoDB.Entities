@@ -27,18 +27,18 @@ Supports both `ASP.Net Core` and `.Net Core` applications.
  
     //Embed as document
         var dickens = new Author { Name = "Charles Dickens" };
-        dickens.Save();
         book.RelatedAuthor = dickens.ToDocument();
+        dickens.Save();
     
-    //One-To-One Relationship
+    //One-To-One relationship
         var hemmingway = new Author { Name = "Ernest Hemmingway" };
         hemmingway.Save();
         book.MainAuthor = hemmingway.ToReference();
 
     //One-To-Many relationship
-        var author = new Author { Name = "Eckhart Tolle" };
-        author.Save();
-        book.Authors.Add(author);
+        var tolle = new Author { Name = "Eckhart Tolle" };
+        tolle.Save();
+        book.Authors.Add(tolle);
 
     //Many-To-Many relationship
         var genre = new Genre { Name = "Self Help" };
@@ -59,7 +59,7 @@ Supports both `ASP.Net Core` and `.Net Core` applications.
     //Delete
         genre.Delete();
         book.Delete();
-        author.Delete();
+        tolle.Delete();
 ```
 
 

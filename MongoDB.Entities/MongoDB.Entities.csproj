@@ -12,8 +12,8 @@
     <AssemblyVersion>3.6.0.0</AssemblyVersion>
     <FileVersion>3.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) added support for many-to-many relationships
-2.) more tests added
+    <PackageReleaseNotes>1.) new: support for many-to-many relationships
+2.) added more tests
 3.) misc. code improvements
 4.) documentation updates</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
