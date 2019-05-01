@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MongoDB.Entities</name>
+    </assembly>
+    <members>
+        <member name="T:MongoDB.Entities.IgnoreAttribute">
+            <summary>
+            Indicates that this property should be ignored when this class is persisted to MongoDB.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.DB.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes the MongoDB connection with the given connection parameters.
+            </summary>
+            <param name="database">Name of the database</param>
+            <param name="host">Adderss of the MongoDB server</param>
+            <param name="port">Port number of the server</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.#ctor(MongoDB.Driver.MongoClientSettings,System.String)">
+            <summary>
+            Initializes the MongoDB connection with an advanced set of parameters.
+            </summary>
+            <param name="settings">A MongoClientSettings object</param>
+            <param name="database">Name of the database</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.Collection``1">
+            <summary>
+            Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
+            </summary>
+            <typeparam name="T">Any class that inherits from Entity</typeparam>
+        </member>
+        <member name="M:MongoDB.Entities.DB.Save``1(``0)">
+            <summary>
+            Persists an entity to MongoDB
+            </summary>
+            <typeparam name="T">Any class that inherits from Entity</typeparam>
+            <param name="entity">The instance to persist</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.SaveAsync``1(``0)">
+            <summary>
+            Persists an entity to MongoDB
+            </summary>
+            <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+            <param name="entity">The instance to persist</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.Delete``1(System.String)">
+            <summary>
+            Deletes a single entity from MongoDB.
+            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+            <typeparam name="T">Any class that inherits from Entity</typeparam>
+            <param name="id">The Id of the entity to delete</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.DeleteAsync``1(System.String)">
+            <summary>
+            Deletes a single entity from MongoDB.
+            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+            <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+            <param name="id">The Id of the entity to delete</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.Delete``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Deletes matching entities from MongoDB
+            </summary>
+            <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+            <param name="expression">A lambda expression for matching entities to delete.</param>
+        </member>
+        <member name="M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            Deletes matching entities from MongoDB
+            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+            <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+            <param name="expression">A lambda expression for matching entities to delete.</param>
+        </member>
+        <member name="P:MongoDB.Entities.Entity.ID">
+            <summary>
+            This property is auto managed. Don't ever change this manually.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.AddMongoDBEntities(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.String,System.Int32)">
+            <summary>
+            Registers MongoDB.Entities as a service with the IOC services collection.
+            </summary>
+            <param name="Database">MongoDB database name.</param>
+            <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
+            <param name="Port">MongoDB port number. Defaults to 27017</param>
+            <returns></returns>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.AddMongoDBEntities(Microsoft.Extensions.DependencyInjection.IServiceCollection,MongoDB.Driver.MongoClientSettings,System.String)">
+            <summary>
+            Registers MongoDB.Entities as a service with the IOC services collection.
+            </summary>
+            <param name="Settings">A 'MongoClientSettings' object with customized connection parameters such as authentication credentials.</param>
+            <param name="Database">MongoDB database name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.Collection``1(``0)">
+            <summary>
+            An IQueryable collection of Entities.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.ToReference``1(``0)">
+            <summary>
+            Returns a reference to this entity.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.ToDocument``1(``0)">
+            <summary>
+            Creates an unlinked duplicate of the original Entity ready for embedding with a blank ID.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.ToDocuments``1(``0[])">
+            <summary>
+            Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.ToDocuments``1(System.Collections.Generic.IEnumerable{``0})">
+             <summary>
+            Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
+             </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.Save``1(``0)">
+            <summary>
+            Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
+            <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.SaveAsync``1(``0)">
+            <summary>
+            Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
+            <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.Delete``1(``0)">
+            <summary>
+            Deletes a single entity from MongoDB.
+            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.DeleteAsync``1(``0)">
+            <summary>
+            Deletes a single entity from MongoDB.
+            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.DeleteAll``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Deletes multiple entities from the database
+            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Deletes multiple entities from the database
+            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.InitOneToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})">
+            <summary>
+            Initializes supplied property with a new One-To-Many reference collection.
+            </summary>
+            <param name="propertyToInit">() => PropertyName</param>
+        </member>
+        <member name="M:MongoDB.Entities.Extensions.InitManyToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.Side)">
+            <summary>
+            Initializes supplied property with a new Many-To-Many reference collection.
+            </summary>
+            <param name="propertyToInit">() = > PropertyName</param>
+            <param name="propertyOtherSide">x => x.PropertyName</param>
+            <param name="side"></param>
+        </member>
+        <member name="T:MongoDB.Entities.Many`1">
+            <summary>
+            A one-to-many reference collection.
+            <para>You have to initialize all instances of this class before accessing any of it's members.</para>
+            <para>Use as follows in the constructor of enclosing class:</para>
+            <code>Property = Property.Initialize(this);</code>
+            </summary>
+            <typeparam name="TChild">Type of the child Entity.</typeparam>
+        </member>
+        <member name="M:MongoDB.Entities.Many`1.Collection">
+            <summary>
+            An IQueryable collection of child Entities.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.Many`1.Add(`0)">
+            <summary>
+            Adds a new child reference.
+            <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
+            </summary>
+            <param name="child">The child Entity to add.</param>
+        </member>
+        <member name="M:MongoDB.Entities.Many`1.AddAsync(`0)">
+            <summary>
+            Adds a new child reference.
+            <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+            </summary>
+            <param name="child">The child Entity to add.</param>
+        </member>
+        <member name="M:MongoDB.Entities.Many`1.Remove(`0)">
+            <summary>
+            Removes a child reference.
+            </summary>
+            <param name="child">The child Entity to remove the reference of.</param>
+        </member>
+        <member name="M:MongoDB.Entities.Many`1.RemoveAsync(`0)">
+            <summary>
+            Removes a child reference.
+            </summary>
+            <param name="child">The child Entity to remove the reference of.</param>
+        </member>
+        <member name="T:MongoDB.Entities.One`1">
+            <summary>
+            A one-to-one reference for an Entity.
+            </summary>
+            <typeparam name="T">Any type that inherits from MongoEntity</typeparam>
+        </member>
+        <member name="P:MongoDB.Entities.One`1.ID">
+            <summary>
+            The Id of the entity referenced by this instance.
+            </summary>
+        </member>
+        <member name="M:MongoDB.Entities.One`1.#ctor(`0)">
+            <summary>
+            Initializes a reference to an entity in MongoDB. 
+            </summary>
+            <param name="entity">The actual entity this reference represents.</param>
+        </member>
+        <member name="M:MongoDB.Entities.One`1.ToEntity">
+            <summary>
+            Fetches the actual entity this reference represents from the database.
+            </summary>
+            <returns>The actual entity</returns>
+        </member>
+        <member name="M:MongoDB.Entities.One`1.ToEntityAsync">
+            <summary>
+            Fetches the actual entity this reference represents from the database.
+            </summary>
+            <returns>A Task containing the actual entity</returns>
+        </member>
+    </members>
+</doc>
