@@ -128,9 +128,9 @@ namespace MongoDB.Entities
         /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static Task SaveAsync<T>(this T entity) where T : Entity
+        async public static Task SaveAsync<T>(this T entity) where T : Entity
         {
-            return DB.SaveAsync<T>(entity);
+            await DB.SaveAsync<T>(entity);
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task DeleteAsync<T>(this T entity) where T : Entity
+        async public static Task DeleteAsync<T>(this T entity) where T : Entity
         {
-            return DB.DeleteAsync<T>(entity.ID);
+            await DB.DeleteAsync<T>(entity.ID);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
+        async public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
             var tasks = new List<Task>();
 
@@ -173,7 +173,7 @@ namespace MongoDB.Entities
                 tasks.Add(DB.DeleteAsync<T>(e.ID));
             }
 
-            return Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
         }
 
         /// <summary>

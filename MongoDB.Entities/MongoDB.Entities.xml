@@ -84,6 +84,7 @@
             <summary>
             Registers MongoDB.Entities as a service with the IOC services collection.
             </summary>
+            <param name="services"></param>
             <param name="Database">MongoDB database name.</param>
             <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
             <param name="Port">MongoDB port number. Defaults to 27017</param>
@@ -93,6 +94,7 @@
             <summary>
             Registers MongoDB.Entities as a service with the IOC services collection.
             </summary>
+            <param name="services"></param>
             <param name="Settings">A 'MongoClientSettings' object with customized connection parameters such as authentication credentials.</param>
             <param name="Database">MongoDB database name.</param>
             <returns></returns>
@@ -162,12 +164,14 @@
             <summary>
             Initializes supplied property with a new One-To-Many reference collection.
             </summary>
+            <param name="parent"></param>
             <param name="propertyToInit">() => PropertyName</param>
         </member>
         <member name="M:MongoDB.Entities.Extensions.InitManyToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.Side)">
             <summary>
             Initializes supplied property with a new Many-To-Many reference collection.
             </summary>
+            <param name="parent"></param>
             <param name="propertyToInit">() = > PropertyName</param>
             <param name="propertyOtherSide">x => x.PropertyName</param>
             <param name="side"></param>

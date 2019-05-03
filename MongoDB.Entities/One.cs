@@ -40,9 +40,9 @@ namespace MongoDB.Entities
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
         /// <returns>A Task containing the actual entity</returns>
-        public Task<T> ToEntityAsync()
+        async public Task<T> ToEntityAsync()
         {
-            return DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
+            return await DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
         }
     }
 }

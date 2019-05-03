@@ -12,7 +12,8 @@
     <AssemblyVersion>3.7.0.0</AssemblyVersion>
     <FileVersion>3.7.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) enabled xml documentation</PackageReleaseNotes>
+    <PackageReleaseNotes>1.) better async operations
+2.) enabled xml documentation</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -96,7 +96,7 @@ namespace MongoDB.Entities
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
-        public Task AddAsync(TChild child)
+        async public Task AddAsync(TChild child)
         {
             _parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
@@ -105,10 +105,10 @@ namespace MongoDB.Entities
 
             if (_inverse)
             {
-                rfrnc = _collection.AsQueryable()
-                                   .SingleOrDefault(r =>
-                                                    r.ChildID.Equals(_parent.ID) &&
-                                                    r.ParentID.Equals(child.ID));
+                rfrnc = await _collection.AsQueryable()
+                                         .SingleOrDefaultAsync(r =>
+                                                               r.ChildID.Equals(_parent.ID) &&
+                                                               r.ParentID.Equals(child.ID));
                 if (rfrnc == null)
                 {
                     rfrnc = new Reference()
@@ -122,10 +122,10 @@ namespace MongoDB.Entities
             }
             else
             {
-                rfrnc = _collection.AsQueryable()
-                                   .SingleOrDefault(r =>
-                                                    r.ParentID.Equals(_parent.ID) &&
-                                                    r.ChildID.Equals(child.ID));
+                rfrnc = await _collection.AsQueryable()
+                                          .SingleOrDefaultAsync(r =>
+                                                                r.ParentID.Equals(_parent.ID) &&
+                                                                r.ChildID.Equals(child.ID));
                 if (rfrnc == null)
                 {
                     rfrnc = new Reference()
@@ -138,9 +138,9 @@ namespace MongoDB.Entities
                 }
             }
 
-            return _collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID),
-                                               rfrnc,
-                                               new UpdateOptions() { IsUpsert = true });
+            await _collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID),
+                                              rfrnc,
+                                              new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>
@@ -156,15 +156,15 @@ namespace MongoDB.Entities
         /// Removes a child reference.
         /// </summary>
         /// <param name="child">The child Entity to remove the reference of.</param>
-        public Task RemoveAsync(TChild child)
+        async public Task RemoveAsync(TChild child)
         {
             if (_inverse)
             {
-                return _collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID));
+                await _collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID));
             }
             else
             {
-                return _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
+                await _collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID));
             }
         }
     }

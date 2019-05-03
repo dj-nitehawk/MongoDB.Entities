@@ -149,15 +149,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
-        public static Task DeleteAsync<T>(string id) where T : Entity
+        async public static Task DeleteAsync<T>(string id) where T : Entity
         {
             CheckIfInitialized();
 
-            //todo: await this...
-            var collectionNames = _db.ListCollectionsAsync().Result
-                                                            .ToListAsync<BsonDocument>().Result
-                                                            .Select(d => d.GetValue("name").ToString())
-                                                            .ToArray();
+            var collectionNames = await _db.ListCollectionNames().ToListAsync();
+
             //Book
             var typeName = typeof(T).Name;
 
@@ -181,7 +178,7 @@ namespace MongoDB.Entities
 
             tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(id)));
 
-            return Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
         }
 
         /// <summary>
@@ -200,21 +197,20 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
+        async public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
+            //todo: write test for this method.
             CheckIfInitialized();
 
-            var IDs = DB.Collection<T>()
-                        .Where(expression)
-                        .Select(e => e.ID)
-                        .ToArray();
+            var IDs = await DB.Collection<T>()
+                              .Where(expression)
+                              .Select(e => e.ID)
+                              .ToListAsync();
 
             foreach (var id in IDs)
             {
                 DeleteAsync<T>(id).Wait();
-            }
-
-            return Task.CompletedTask;
+            }            
         }
 
         private static void CheckIfInitialized()
