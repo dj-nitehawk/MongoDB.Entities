@@ -32,6 +32,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Registers MongoDB.Entities as a service with the IOC services collection.
         /// </summary>
+        /// <param name="services"></param>
         /// <param name="Database">MongoDB database name.</param>
         /// <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
         /// <param name="Port">MongoDB port number. Defaults to 27017</param>
@@ -49,6 +50,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Registers MongoDB.Entities as a service with the IOC services collection.
         /// </summary>
+        /// <param name="services"></param>
         /// <param name="Settings">A 'MongoClientSettings' object with customized connection parameters such as authentication credentials.</param>
         /// <param name="Database">MongoDB database name.</param>
         /// <returns></returns>
@@ -177,6 +179,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Initializes supplied property with a new One-To-Many reference collection.
         /// </summary>
+        /// <param name="parent"></param>
         /// <param name="propertyToInit">() => PropertyName</param>
         public static void InitOneToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : Entity
         {
@@ -188,6 +191,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Initializes supplied property with a new Many-To-Many reference collection.
         /// </summary>
+        /// <param name="parent"></param>
         /// <param name="propertyToInit">() = > PropertyName</param>
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
         /// <param name="side"></param>
@@ -202,7 +206,6 @@ namespace MongoDB.Entities
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, side != 0));
         }
 
-        //todo: write tests and debug many to many
     }
 
 

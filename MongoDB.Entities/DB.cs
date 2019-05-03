@@ -120,13 +120,13 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        public static Task SaveAsync<T>(T entity) where T : Entity
+        async public static Task SaveAsync<T>(T entity) where T : Entity
         {
             CheckIfInitialized();
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            return GetCollection<T>().ReplaceOneAsync(
+            await GetCollection<T>().ReplaceOneAsync(
                 x => x.ID.Equals(entity.ID),
                 entity,
                 new UpdateOptions() { IsUpsert = true });
@@ -153,6 +153,7 @@ namespace MongoDB.Entities
         {
             CheckIfInitialized();
 
+            //todo: await this...
             var collectionNames = _db.ListCollectionsAsync().Result
                                                             .ToListAsync<BsonDocument>().Result
                                                             .Select(d => d.GetValue("name").ToString())

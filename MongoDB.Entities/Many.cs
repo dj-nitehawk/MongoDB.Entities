@@ -18,7 +18,7 @@ namespace MongoDB.Entities
     {
         private bool _inverse = false;
         private Entity _parent = null;
-        private IMongoCollection<Reference> _collection = null;
+        private IMongoCollection<Reference> _collection = null; //todo: expose the _collection so joins can be written
 
         /// <summary>
         /// An IQueryable collection of child Entities.

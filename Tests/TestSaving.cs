@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MongoDB.Entities.Tests
@@ -67,12 +68,29 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void embedding_with_ToDocuments_returns_correct_docs()
+        public void embedding_with_ToDocuments_Arr_returns_correct_docs()
         {
             var book = new Book { Title = "Test" }; book.Save();
             var author1 = new Author { Name = "ewtrcd1" }; author1.Save();
             var author2 = new Author { Name = "ewtrcd2" }; author2.Save();
             book.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
+            book.Save();
+            var authors = book.Collection()
+                              .Where(b => b.ID == book.ID)
+                              .Select(b => b.OtherAuthors).Single();
+            Assert.AreEqual(authors.Count(), 2);
+            Assert.AreEqual(author2.Name, authors[1].Name);
+            Assert.AreEqual("000000000000000000000000", authors[0].ID);
+        }
+
+        [TestMethod]
+        public void embedding_with_ToDocuments_IEnumerable_returns_correct_docs()
+        {
+            var book = new Book { Title = "Test" }; book.Save();
+            var author1 = new Author { Name = "ewtrcd1" }; author1.Save();
+            var author2 = new Author { Name = "ewtrcd2" }; author2.Save();
+            var list = new List<Author>() { author1, author2 };
+            book.OtherAuthors = list.ToDocuments().ToArray();
             book.Save();
             var authors = book.Collection()
                               .Where(b => b.ID == book.ID)
