@@ -199,7 +199,6 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         async public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            //todo: write test for this method.
             CheckIfInitialized();
 
             var IDs = await DB.Collection<T>()

@@ -185,6 +185,11 @@
             </summary>
             <typeparam name="TChild">Type of the child Entity.</typeparam>
         </member>
+        <member name="M:MongoDB.Entities.Many`1.References">
+            <summary>
+            An IQueryable collection oc references
+            </summary>
+        </member>
         <member name="M:MongoDB.Entities.Many`1.Collection">
             <summary>
             An IQueryable collection of child Entities.
