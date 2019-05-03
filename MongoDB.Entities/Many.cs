@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// A one-to-many reference collection.
-    /// <para>You have to initialize all instances of this class before accessing any of it's members.</para>
-    /// <para>Use as follows in the constructor of enclosing class:</para>
-    /// <code>Property = Property.Initialize(this);</code>
+    /// A one-to-many/many-to-many reference collection.
+    /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
+    /// <para>Initialize from the constructor of the parent entity as follows:</para>
+    /// <code>this.InitOneToMany(() => Property)</code>
+    /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child Entity.</typeparam>
     public class Many<TChild> where TChild : Entity
@@ -21,7 +22,7 @@ namespace MongoDB.Entities
         private IMongoCollection<Reference> _collection = null;
 
         /// <summary>
-        /// An IQueryable collection of child Entities.
+        /// An IQueryable collection of child Entities for the parent.
         /// </summary>
         public IMongoQueryable<TChild> Collection()
         {

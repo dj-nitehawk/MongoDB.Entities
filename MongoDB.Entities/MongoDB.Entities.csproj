@@ -13,7 +13,8 @@
     <FileVersion>3.7.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>1.) better async operations
-2.) enabled xml documentation</PackageReleaseNotes>
+2.) new attributes for specifying the side of many-to-many relationships
+3.) enabled xml documentation</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

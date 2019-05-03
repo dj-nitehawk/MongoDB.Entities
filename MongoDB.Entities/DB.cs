@@ -12,17 +12,6 @@ using MongoDB.Bson.Serialization;
 
 namespace MongoDB.Entities
 {
-    public class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
-    {
-        public void Apply(BsonMemberMap mMap)
-        {
-            if (mMap.MemberType.Name == "Many`1")
-            {
-                mMap.SetShouldSerializeMethod(o => false);
-            }
-        }
-    }
-
     public class DB
     {
         private static IMongoDatabase _db = null;
@@ -126,15 +115,15 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
-            await GetCollection<T>().ReplaceOneAsync(
-                x => x.ID.Equals(entity.ID),
-                entity,
-                new UpdateOptions() { IsUpsert = true });
+            await GetCollection<T>()
+                  .ReplaceOneAsync(x => x.ID.Equals(entity.ID),
+                                   entity,
+                                   new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
-        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
@@ -145,7 +134,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
-        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
@@ -166,14 +155,14 @@ namespace MongoDB.Entities
 
             var tasks = new List<Task>();
 
-            foreach (var collection in parentCollections)
+            foreach (var cName in parentCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(collection).DeleteManyAsync(r => r.ParentID.Equals(id)));
+                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(id)));
             }
 
-            foreach (var colname in childCollections)
+            foreach (var cName in childCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(colname).DeleteManyAsync(r => r.ChildID.Equals(id)));
+                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(id)));
             }
 
             tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(id)));
@@ -183,6 +172,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -193,7 +183,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes matching entities from MongoDB
-        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -209,7 +199,7 @@ namespace MongoDB.Entities
             foreach (var id in IDs)
             {
                 DeleteAsync<T>(id).Wait();
-            }            
+            }
         }
 
         private static void CheckIfInitialized()
@@ -220,5 +210,16 @@ namespace MongoDB.Entities
             }
         }
 
+    }
+
+    internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
+    {
+        public void Apply(BsonMemberMap mMap)
+        {
+            if (mMap.MemberType.Name == "Many`1")
+            {
+                mMap.SetShouldSerializeMethod(o => false);
+            }
+        }
     }
 }

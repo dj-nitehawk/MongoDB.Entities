@@ -9,11 +9,13 @@ namespace Benchmark.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
+
+        [OwnerSide]
         public Many<Category> Categories { get; set; }
 
         public BlogPost()
         {
-            this.InitManyToMany(() => Categories, c => c.Posts, Side.Owner);
+            this.InitManyToMany(() => Categories, c => c.Posts);
         }
     }
 }

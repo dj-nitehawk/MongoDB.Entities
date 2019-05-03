@@ -136,7 +136,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
-        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static void Delete<T>(this T entity) where T : Entity
         {
@@ -145,7 +145,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
-        /// <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         async public static Task DeleteAsync<T>(this T entity) where T : Entity
         {
@@ -154,7 +154,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes multiple entities from the database
-        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
         {
@@ -163,7 +163,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes multiple entities from the database
-        /// <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         async public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
@@ -195,18 +195,25 @@ namespace MongoDB.Entities
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() = > PropertyName</param>
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
-        /// <param name="side"></param>
         public static void InitManyToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : Entity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
-            var isOwnerSide = property.GetCustomAttributes<OwnerSide>().Count() > 0;
-        
+            var hasOwnerAttrib = property.GetCustomAttributes<OwnerSide>().Count() > 0;
+            var hasInverseAttrib = property.GetCustomAttributes<InverseSide>().Count() > 0;
+            if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
+            if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
+
             var osBody = (MemberExpression)propertyOtherSide.Body;
             var osProperty = (PropertyInfo)osBody.Member;
-            var isInverseSide = osProperty.GetCustomAttributes<InverseSide>().Count() > 0;
+            var osHasOwnerAttrib = osProperty.GetCustomAttributes<OwnerSide>().Count() > 0;
+            var osHasInverseAttrib = osProperty.GetCustomAttributes<InverseSide>().Count() > 0;
+            if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
+            if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
-            property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, side != 0));
+            if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
+
+            property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
 
     }

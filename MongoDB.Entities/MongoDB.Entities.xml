@@ -9,6 +9,16 @@
             Indicates that this property should be ignored when this class is persisted to MongoDB.
             </summary>
         </member>
+        <member name="T:MongoDB.Entities.OwnerSide">
+            <summary>
+            Indicates that this property is the owner side of a many-to-many relationship
+            </summary>
+        </member>
+        <member name="T:MongoDB.Entities.InverseSide">
+            <summary>
+            Indicates that this property is the inverse side of a many-to-many relationship
+            </summary>
+        </member>
         <member name="M:MongoDB.Entities.DB.#ctor(System.String,System.String,System.Int32)">
             <summary>
             Initializes the MongoDB connection with the given connection parameters.
@@ -47,7 +57,7 @@
         <member name="M:MongoDB.Entities.DB.Delete``1(System.String)">
             <summary>
             Deletes a single entity from MongoDB.
-            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
             <typeparam name="T">Any class that inherits from Entity</typeparam>
             <param name="id">The Id of the entity to delete</param>
@@ -55,7 +65,7 @@
         <member name="M:MongoDB.Entities.DB.DeleteAsync``1(System.String)">
             <summary>
             Deletes a single entity from MongoDB.
-            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
             <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
             <param name="id">The Id of the entity to delete</param>
@@ -63,6 +73,7 @@
         <member name="M:MongoDB.Entities.DB.Delete``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             Deletes matching entities from MongoDB
+            <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
             <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
             <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -70,7 +81,7 @@
         <member name="M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>
             Deletes matching entities from MongoDB
-            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
             <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
             <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -139,25 +150,25 @@
         <member name="M:MongoDB.Entities.Extensions.Delete``1(``0)">
             <summary>
             Deletes a single entity from MongoDB.
-            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
         </member>
         <member name="M:MongoDB.Entities.Extensions.DeleteAsync``1(``0)">
             <summary>
             Deletes a single entity from MongoDB.
-            <para>HINT: If this entity is referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
         </member>
         <member name="M:MongoDB.Entities.Extensions.DeleteAll``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Deletes multiple entities from the database
-            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
         </member>
         <member name="M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Deletes multiple entities from the database
-            <para>HINT: If these entities are referenced by one-to-many relationships, those references are also deleted.</para>
+            <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
             </summary>
         </member>
         <member name="M:MongoDB.Entities.Extensions.InitOneToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})">
@@ -167,32 +178,28 @@
             <param name="parent"></param>
             <param name="propertyToInit">() => PropertyName</param>
         </member>
-        <member name="M:MongoDB.Entities.Extensions.InitManyToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Entities.Side)">
+        <member name="M:MongoDB.Entities.Extensions.InitManyToMany``1(MongoDB.Entities.Entity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
             Initializes supplied property with a new Many-To-Many reference collection.
             </summary>
             <param name="parent"></param>
             <param name="propertyToInit">() = > PropertyName</param>
             <param name="propertyOtherSide">x => x.PropertyName</param>
-            <param name="side"></param>
         </member>
         <member name="T:MongoDB.Entities.Many`1">
             <summary>
-            A one-to-many reference collection.
-            <para>You have to initialize all instances of this class before accessing any of it's members.</para>
-            <para>Use as follows in the constructor of enclosing class:</para>
-            <code>Property = Property.Initialize(this);</code>
+            A one-to-many/many-to-many reference collection.
+            <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
+            <para>Initialize from the constructor of the parent entity as follows:</para>
+            <code>this.InitOneToMany(() => Property)</code>
+            <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
             </summary>
             <typeparam name="TChild">Type of the child Entity.</typeparam>
-        </member>
-        <member name="M:MongoDB.Entities.Many`1.References">
-            <summary>
-            An IQueryable collection oc references
-            </summary>
         </member>
         <member name="M:MongoDB.Entities.Many`1.Collection">
             <summary>
             An IQueryable collection of child Entities.
+            <para>Already filtered to match the correct children.</para>
             </summary>
         </member>
         <member name="M:MongoDB.Entities.Many`1.Add(`0)">

@@ -10,13 +10,13 @@ namespace MongoDB.Entities
     public class IgnoreAttribute : BsonIgnoreAttribute { }
 
     /// <summary>
-    /// Indicates that this property is the owner side of a many to many relationship
+    /// Indicates that this property is the owner side of a many-to-many relationship
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class OwnerSide : Attribute { }
 
     /// <summary>
-    /// Indicates that this property is the inverse side of a many to many relationship
+    /// Indicates that this property is the inverse side of a many-to-many relationship
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class InverseSide : Attribute { }
