@@ -8,6 +8,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Bson.Serialization;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Linq;
 
 namespace MongoDB.Entities
 {
@@ -195,13 +196,15 @@ namespace MongoDB.Entities
         /// <param name="propertyToInit">() = > PropertyName</param>
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
         /// <param name="side"></param>
-        public static void InitManyToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide, Side side) where TChild : Entity
+        public static void InitManyToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : Entity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
-
+            var isOwnerSide = property.GetCustomAttributes<OwnerSide>().Count() > 0;
+        
             var osBody = (MemberExpression)propertyOtherSide.Body;
             var osProperty = (PropertyInfo)osBody.Member;
+            var isInverseSide = osProperty.GetCustomAttributes<InverseSide>().Count() > 0;
 
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, side != 0));
         }
