@@ -8,23 +8,22 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>3.7</Version>
-    <AssemblyVersion>3.7.0.0</AssemblyVersion>
-    <FileVersion>3.7.0.0</FileVersion>
+    <Version>3.7.1</Version>
+    <AssemblyVersion>3.7.1.0</AssemblyVersion>
+    <FileVersion>3.7.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>1.) better async operations
-2.) new attributes for specifying the side of many-to-many relationships
-3.) enabled xml documentation</PackageReleaseNotes>
+    <PackageReleaseNotes>fixed xml documentation missing from nuget package</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/dj-nitehawk/MongoDB.Entities/master/icon.png</PackageIconUrl>
     <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities entity-framework nosql orm linq netcore repository aspnetcore netcore2 database persistance dal dao repo</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Dropbox\Documents\VS-SOURCE-CONTROL\MongoDB.Entities\MongoDB.Entities\MongoDB.Entities.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile />
   </PropertyGroup>
 
   <ItemGroup>
