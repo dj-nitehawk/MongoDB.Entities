@@ -76,11 +76,13 @@ namespace MongoDB.Entities
 
         private static IMongoCollection<T> GetCollection<T>()
         {
+            CheckIfInitialized();
             return _db.GetCollection<T>(CollectionName<T>());
         }
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
+            CheckIfInitialized();
             return _db.GetCollection<Reference>(name);
         }
 
