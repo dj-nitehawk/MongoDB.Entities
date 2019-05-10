@@ -33,7 +33,7 @@ namespace MongoDB.Entities
         /// <returns>The actual entity</returns>
         public T ToEntity()
         {
-            return ToEntityAsync().Result;
+            return ToEntityAsync().GetAwaiter().GetResult();
         }
 
         /// <summary>

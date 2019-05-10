@@ -91,7 +91,7 @@ namespace MongoDB.Entities
         /// <param name="child">The child Entity to add.</param>
         public void Add(TChild child)
         {
-            AddAsync(child).Wait();
+            AddAsync(child).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace MongoDB.Entities
         /// <param name="child">The child Entity to remove the reference of.</param>
         public void Remove(TChild child)
         {
-            RemoveAsync(child).Wait();
+            RemoveAsync(child).GetAwaiter().GetResult();
         }
 
         /// <summary>

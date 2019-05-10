@@ -103,7 +103,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The instance to persist</param>
         public static void Save<T>(T entity) where T : Entity
         {
-            SaveAsync<T>(entity).Wait();
+            SaveAsync<T>(entity).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace MongoDB.Entities
         /// <param name="id">The Id of the entity to delete</param>
         public static void Delete<T>(string id) where T : Entity
         {
-            DeleteAsync<T>(id).Wait();
+            DeleteAsync<T>(id).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         public static void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            DeleteAsync<T>(expression).Wait();
+            DeleteAsync<T>(expression).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace MongoDB.Entities
 
             foreach (var id in IDs)
             {
-                DeleteAsync<T>(id).Wait();
+                DeleteAsync<T>(id).GetAwaiter().GetResult();
             }
         }
 
