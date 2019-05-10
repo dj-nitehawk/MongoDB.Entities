@@ -12,7 +12,8 @@
     <AssemblyVersion>3.7.2.0</AssemblyVersion>
     <FileVersion>3.7.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- async improvements
+    <PackageReleaseNotes>- more connection init checks
+- async improvements
 - minor code changes
 </PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
