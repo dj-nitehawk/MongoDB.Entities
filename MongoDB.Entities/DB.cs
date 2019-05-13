@@ -109,7 +109,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         async public static Task SaveAsync<T>(T entity) where T : Entity
         {
@@ -118,9 +118,9 @@ namespace MongoDB.Entities
             entity.ModifiedOn = DateTime.UtcNow;
 
             await GetCollection<T>()
-                  .ReplaceOneAsync(x => x.ID.Equals(entity.ID),
-                                   entity,
-                                   new UpdateOptions() { IsUpsert = true });
+                 .ReplaceOneAsync(x => x.ID.Equals(entity.ID),
+                  entity,
+                  new UpdateOptions() { IsUpsert = true });
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
         async public static Task DeleteAsync<T>(string id) where T : Entity
         {
@@ -176,7 +176,7 @@ namespace MongoDB.Entities
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         public static void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
@@ -187,12 +187,10 @@ namespace MongoDB.Entities
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from MongoEntity</typeparam>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         async public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            CheckIfInitialized();
-
             var IDs = await DB.Collection<T>()
                               .Where(expression)
                               .Select(e => e.ID)
@@ -200,7 +198,32 @@ namespace MongoDB.Entities
 
             foreach (var id in IDs)
             {
-                DeleteAsync<T>(id).GetAwaiter().GetResult();
+                await DeleteAsync<T>(id);
+            }
+        }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        public static void Delete<T>(IEnumerable<String> IDs) where T : Entity
+        {
+            DeleteAsync<T>(IDs).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        async public static Task DeleteAsync<T>(IEnumerable<String> IDs) where T : Entity
+        {
+            foreach (var id in IDs)
+            {
+                await DeleteAsync<T>(id);
             }
         }
 

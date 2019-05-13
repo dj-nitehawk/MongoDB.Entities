@@ -8,7 +8,7 @@ namespace MongoDB.Entities
     /// <summary>
     /// A one-to-one reference for an Entity.
     /// </summary>
-    /// <typeparam name="T">Any type that inherits from MongoEntity</typeparam>
+    /// <typeparam name="T">Any type that inherits from Entity</typeparam>
     public class One<T> where T : Entity
     {
         /// <summary>

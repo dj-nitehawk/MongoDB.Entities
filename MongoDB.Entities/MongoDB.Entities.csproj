@@ -12,8 +12,10 @@
     <AssemblyVersion>3.8.0.0</AssemblyVersion>
     <FileVersion>3.8.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- more tests
+    <PackageReleaseNotes>- delete entities by IDs
+- improvements to async deletions by lambda
 - improvements to child collection shortcut
+- more tests added
 </PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
