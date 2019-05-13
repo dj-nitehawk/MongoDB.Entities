@@ -15,6 +15,7 @@
     <PackageReleaseNotes>- delete entities by IDs
 - improvements to async deletions by lambda
 - improvements to child collection shortcut
+- removed unneeded init checks
 - more tests added
 </PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>

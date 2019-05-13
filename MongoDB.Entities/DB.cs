@@ -76,7 +76,6 @@ namespace MongoDB.Entities
 
         private static IMongoCollection<T> GetCollection<T>()
         {
-            CheckIfInitialized();
             return _db.GetCollection<T>(CollectionName<T>());
         }
 
