@@ -50,7 +50,6 @@ namespace MongoDB.Entities.Test
 
             book1.Delete();
             Assert.AreEqual(0, author.Books.Collection().Count());
-
         }
 
         [TestMethod]

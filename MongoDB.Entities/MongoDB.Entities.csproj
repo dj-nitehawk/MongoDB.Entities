@@ -13,11 +13,10 @@
     <FileVersion>3.8.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- delete entities by IDs
-- improvements to async deletions by lambda
-- improvements to child collection shortcut
+- improved async deletions by lambda
+- improved child collection shortcut
 - removed unneeded init checks
-- more tests added
-</PackageReleaseNotes>
+- added more tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

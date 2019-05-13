@@ -226,6 +226,8 @@ namespace MongoDB.Entities
             }
         }
 
+        //todo: find entity by ID + ID[] + lambda
+
         private static void CheckIfInitialized()
         {
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
