@@ -26,6 +26,8 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoQueryable<TChild> Collection()
         {
+            _parent.ThrowIfUnsaved();
+
             if (_inverse)
             {
                 var myRefs = from r in _collection.AsQueryable()

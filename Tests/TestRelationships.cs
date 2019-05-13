@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
+using System;
 using System.Linq;
 
 namespace MongoDB.Entities.Tests
@@ -71,6 +72,13 @@ namespace MongoDB.Entities.Tests
             book.GoodAuthors.Add(author2);
             Assert.AreEqual(2, book.GoodAuthors.Collection().Count());
             Assert.AreEqual(author1.Name, book.GoodAuthors.Collection().First().Name);
+        }
+
+        [TestMethod]
+        public void accessing_coll_shortcut_on_unsaved_parent_throws()
+        {
+            var book = new Book { Title = "acsoupt" };
+            Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.Collection().Count());
         }
 
         [TestMethod]

@@ -206,10 +206,7 @@ namespace MongoDB.Entities
 
         private static void CheckIfInitialized()
         {
-            if (_db == null)
-            {
-                throw new InvalidOperationException("Database connection is not initialized!");
-            }
+            if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
 
     }
