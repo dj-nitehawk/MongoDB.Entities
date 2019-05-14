@@ -228,6 +228,47 @@ namespace MongoDB.Entities
 
         //todo: find entity by ID + ID[] + lambda
 
+        //todo: full text search
+        
+        //todo: DefineIndexAsync(name,background,descending,params) + sync version + doc
+
+        //todo: write test + sync version + doc
+        async public static Task DefineTextIndexAsync<T>(string name, bool background, params Expression<Func<T, object>>[] propertiesToIndex)
+        {
+            var keyDefs = new List<IndexKeysDefinition<T>>();
+
+            foreach (var property in propertiesToIndex)
+            {
+                keyDefs.Add(Builders<T>
+                           .IndexKeys
+                           .Text((property.Body as MemberExpression).Member.Name));
+            }
+
+            var indexDef = Builders<T>.IndexKeys.Combine(keyDefs);
+            var indexModel = new CreateIndexModel<T>(indexDef,
+                                                     new CreateIndexOptions()
+                                                     {
+                                                         Name = name,
+                                                         Background = background
+                                                     });
+            try
+            {
+                await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
+            }
+            catch (MongoCommandException x)
+            {
+                if (x.Code == 85)
+                {
+                    await GetCollection<T>().Indexes.DropOneAsync(name);
+                    await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
+                }
+                else
+                {
+                    throw x;
+                }
+            }
+        }
+
         private static void CheckIfInitialized()
         {
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");

@@ -9,6 +9,12 @@ namespace MongoDB.Entities.Tests
         public static void Init(TestContext context)
         {
             new DB("mongodb-entities-test");
+
+            DB.DefineTextIndexAsync<Author>(
+               "my_text_index",
+               true,
+              //a => a.Renamed,
+               a => a.Name).Wait();
         }
     }
 }
