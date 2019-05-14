@@ -228,13 +228,32 @@ namespace MongoDB.Entities
 
         //todo: find entity by ID + ID[] + lambda
 
-        //todo: full text search
-        
         //todo: DefineIndexAsync(name,background,descending,params) + sync version + doc
 
-        //todo: write test + sync version + doc
+        //todo: update wiki about indexes and SearchText
+
+        /// <summary>
+        /// Define a text index for a given Entity
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="name">Index name</param>
+        /// <param name="background">Set to true to do indexing in the background</param>
+        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        public static void DefineTextIndex<T>(string name, bool background, params Expression<Func<T, object>>[] propertiesToIndex)
+        {
+            DefineTextIndexAsync<T>(name, background, propertiesToIndex).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Define a text index for a given Entity
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="name">Index name</param>
+        /// <param name="background">Set to true to do indexing in the background</param>
+        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
         async public static Task DefineTextIndexAsync<T>(string name, bool background, params Expression<Func<T, object>>[] propertiesToIndex)
         {
+            CheckIfInitialized();
             var keyDefs = new List<IndexKeysDefinition<T>>();
 
             foreach (var property in propertiesToIndex)
@@ -267,6 +286,31 @@ namespace MongoDB.Entities
                     throw x;
                 }
             }
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DefineTextIndex before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <returns>A List of Entities of given type</returns>
+        public static List<T> SearchText<T>(string searchTerm)
+        {
+            return SearchTextAsync<T>(searchTerm).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DefineTextIndex before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <returns>A List of Entities of given type</returns>
+        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm)
+        {
+            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = false });
+            return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
         }
 
         private static void CheckIfInitialized()

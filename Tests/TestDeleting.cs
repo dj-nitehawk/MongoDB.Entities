@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
-using MongoDB.Entities.Tests;
 using System.Linq;
 
-namespace MongoDB.Entities.Test
+namespace MongoDB.Entities.Tests
 {
     [TestClass]
-    public class MyTestClass
+    public class Deleting
     {
         [TestMethod]
         public void delete_by_id_removes_entity_from_collection()

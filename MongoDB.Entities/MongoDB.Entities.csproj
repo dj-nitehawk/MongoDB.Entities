@@ -12,11 +12,13 @@
     <AssemblyVersion>3.8.0.0</AssemblyVersion>
     <FileVersion>3.8.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- delete entities by IDs
-- improved async deletions by lambda
-- improved child collection shortcut
-- removed unneeded init checks
-- added more tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- new: creating text indexes
+- new: full text search
+- new: delete entities by ID(s)
+- improve: async deletions by lambda
+- improve: child collection shortcut
+- removed: unneeded init checks
+- added: more tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
