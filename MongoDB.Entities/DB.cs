@@ -127,10 +127,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="id">The Id of the entity to delete</param>
-        public static void Delete<T>(string id) where T : Entity
+        /// <param name="ID">The Id of the entity to delete</param>
+        public static void Delete<T>(string ID) where T : Entity
         {
-            DeleteAsync<T>(id).GetAwaiter().GetResult();
+            DeleteAsync<T>(ID).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -138,8 +138,8 @@ namespace MongoDB.Entities
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="id">The Id of the entity to delete</param>
-        async public static Task DeleteAsync<T>(string id) where T : Entity
+        /// <param name="ID">The Id of the entity to delete</param>
+        async public static Task DeleteAsync<T>(string ID) where T : Entity
         {
             CheckIfInitialized();
 
@@ -158,15 +158,15 @@ namespace MongoDB.Entities
 
             foreach (var cName in parentCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(id)));
+                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID)));
             }
 
             foreach (var cName in childCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(id)));
+                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID)));
             }
 
-            tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(id)));
+            tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(ID)));
 
             await Task.WhenAll(tasks);
         }
@@ -228,7 +228,19 @@ namespace MongoDB.Entities
 
         //todo: find entity by ID + ID[] + lambda
 
-        //todo: update wiki about indexes and SearchText
+        //todo: test
+        async public static Task<T> Find<T>(string ID) where T : Entity
+        {
+           return (await Find<T>(e => e.ID == ID)).FirstOrDefault();
+        }
+
+        //todo: test
+        async public static Task<List<T>> Find<T>(Expression<Func<T, bool>> expression)
+        {
+            return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
+        }
+
+        //todo: update wiki: indexes + SearchText + find by ID(s)
 
         /// <summary>
         /// Define an index for a given Entity collection.
