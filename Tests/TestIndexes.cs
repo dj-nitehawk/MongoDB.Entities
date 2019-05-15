@@ -10,11 +10,12 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void full_text_search_with_index_returns_correct_result()
         {
-            DB.DefineTextIndex<Author>(
-                "Author_Name-Surname",
-                true,
-                a => a.Name,
-                a => a.Surname);
+            DB.DefineIndex<Author>(
+                "Author[Name|Surname]",
+                Type.Text,
+                Priority.Foreground,
+                x => x.Name,
+                x => x.Surname);
 
             var author1 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
             author1.Save();
@@ -25,6 +26,23 @@ namespace MongoDB.Entities.Tests
             var res = DB.SearchText<Author>(author1.Surname);
 
             Assert.AreEqual(author1.Surname, res.First().Surname);
+        }
+
+        [TestMethod]
+        public void creating_indexes_work()
+        {
+            DB.DefineIndex<Author>(
+                "Author[Age|Surname]",
+                Type.Descending,
+                Priority.Foreground,
+                x => x.Age,
+                x => x.Surname);
+
+            DB.DefineIndex<Book>(
+                "Book[Title]",
+                Type.Ascending,
+                Priority.Foreground,
+                x => x.Title);
         }
     }
 }

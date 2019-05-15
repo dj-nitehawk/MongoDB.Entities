@@ -12,8 +12,8 @@
     <AssemblyVersion>3.8.0.0</AssemblyVersion>
     <FileVersion>3.8.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- new: creating text indexes
-- new: full text search
+    <PackageReleaseNotes>- new: full text search
+- new: creating indexes (text,ascending,descending)
 - new: delete entities by ID(s)
 - improve: async deletions by lambda
 - improve: child collection shortcut

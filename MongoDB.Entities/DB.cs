@@ -228,39 +228,64 @@ namespace MongoDB.Entities
 
         //todo: find entity by ID + ID[] + lambda
 
-        //todo: DefineIndexAsync(name,background,descending,params) + sync version + doc
-
         //todo: update wiki about indexes and SearchText
 
         /// <summary>
-        /// Define a text index for a given Entity
+        /// Define an index for a given Entity collection.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="name">Index name</param>
-        /// <param name="background">Set to true to do indexing in the background</param>
+        /// <param name="name">The name of the index to create</param>
+        /// <param name="type">Specify the type of index to create</param>
+        /// <param name="priority">Specify the indexing priority for this index</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        public static void DefineTextIndex<T>(string name, bool background, params Expression<Func<T, object>>[] propertiesToIndex)
+        public static void DefineIndex<T>(string name, Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
         {
-            DefineTextIndexAsync<T>(name, background, propertiesToIndex).GetAwaiter().GetResult();
+            DefineIndexAsync<T>(name, type, priority, propertiesToIndex).GetAwaiter().GetResult();
         }
 
         /// <summary>
-        /// Define a text index for a given Entity
+        /// Define an index for a given Entity collection.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="name">Index name</param>
-        /// <param name="background">Set to true to do indexing in the background</param>
+        /// <param name="name">The name of the index to be created</param>
+        /// <param name="type">Specify the type of index to create</param>
+        /// <param name="priority">Specify the indexing priority for this index</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        async public static Task DefineTextIndexAsync<T>(string name, bool background, params Expression<Func<T, object>>[] propertiesToIndex)
+        async public static Task DefineIndexAsync<T>(string name, Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
         {
             CheckIfInitialized();
             var keyDefs = new List<IndexKeysDefinition<T>>();
 
             foreach (var property in propertiesToIndex)
             {
-                keyDefs.Add(Builders<T>
-                           .IndexKeys
-                           .Text((property.Body as MemberExpression).Member.Name));
+                var member = property.Body as MemberExpression;
+                if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
+                if (member == null) throw new ArgumentException("Unable to get property name");
+                var propName = member.Member.Name;
+
+                switch (type)
+                {
+                    case Type.Ascending:
+
+                        keyDefs.Add(Builders<T>
+                               .IndexKeys
+                               .Ascending(propName));
+                        break;
+
+                    case Type.Descending:
+
+                        keyDefs.Add(Builders<T>
+                               .IndexKeys
+                               .Descending(propName));
+                        break;
+
+                    case Type.Text:
+
+                        keyDefs.Add(Builders<T>
+                               .IndexKeys
+                               .Text(propName));
+                        break;
+                }
             }
 
             var indexDef = Builders<T>.IndexKeys.Combine(keyDefs);
@@ -268,7 +293,7 @@ namespace MongoDB.Entities
                                                      new CreateIndexOptions()
                                                      {
                                                          Name = name,
-                                                         Background = background
+                                                         Background = (priority == Priority.Background)
                                                      });
             try
             {
@@ -276,7 +301,7 @@ namespace MongoDB.Entities
             }
             catch (MongoCommandException x)
             {
-                if (x.Code == 85)
+                if (x.Code == 85 || x.Code == 86)
                 {
                     await GetCollection<T>().Indexes.DropOneAsync(name);
                     await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
@@ -319,6 +344,19 @@ namespace MongoDB.Entities
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
 
+    }
+
+    public enum Type
+    {
+        Ascending,
+        Descending,
+        Text
+    }
+
+    public enum Priority
+    {
+        Foreground,
+        Background
     }
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
