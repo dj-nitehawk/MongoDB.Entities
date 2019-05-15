@@ -309,6 +309,7 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         async public static Task<List<T>> SearchTextAsync<T>(string searchTerm)
         {
+            CheckIfInitialized();
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = false });
             return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
         }
