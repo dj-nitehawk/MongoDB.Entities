@@ -11,7 +11,6 @@ namespace MongoDB.Entities.Tests
         public void full_text_search_with_index_returns_correct_result()
         {
             DB.DefineIndex<Author>(
-                "Author[Name|Surname]",
                 Type.Text,
                 Priority.Foreground,
                 x => x.Name,
@@ -32,14 +31,13 @@ namespace MongoDB.Entities.Tests
         public void creating_indexes_work()
         {
             DB.DefineIndex<Author>(
-                "Author[Age|Surname]",
                 Type.Descending,
                 Priority.Foreground,
+                x => x.Surname,
                 x => x.Age,
                 x => x.Surname);
 
             DB.DefineIndex<Book>(
-                "Book[Title]",
                 Type.Ascending,
                 Priority.Foreground,
                 x => x.Title);

@@ -1,18 +1,18 @@
 [![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#)
 # MongoDB.Entities
-The goal of this library is to simplify access to mongodb by wrapping up the official C# mongodb driver and providing some additional features on top of it. You get all the power of the official driver and then some. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
+The goal of this library is to simplify access to mongodb by wrapping up the official C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
 
 
-You never have to deal with `ObjectIds` or `BsonDocuments`. Everything will be type safe. You can get the best of both worlds by modelling your entities in either **Document/NoSQL** stye or **Relational/SQL** style or a mix of both. 
 
-
-There is built-in automatic support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships. 
-
-
-Data can be queried using either LINQ or lambda expressions.
-
-
-Supports both `ASP.Net Core` and `.Net Core` applications.
+### Advantages:
+- Never have to deal with `ObjectIds` or `BsonDocuments`. 
+- Everything is type safe. No magic strings needed.
+- Model your entities in either **Document/NoSQL** stye or **Relational/SQL** style or a mix of both.
+- Built-in automatic support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
+- Data can be queried using either LINQ or lambda expressions.
+- Programatically define indexes.
+- Full text search with text indexes.
+- Supports both `ASP.Net Core` and `.Net Core` applications.
 
 
 

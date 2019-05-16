@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver;
-using Pluralize.NET;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Linq.Expressions;
@@ -15,7 +14,6 @@ namespace MongoDB.Entities
     public class DB
     {
         private static IMongoDatabase _db = null;
-        private static Pluralizer _plural;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -65,18 +63,11 @@ namespace MongoDB.Entities
                 "IgnoreManyProperties",
                 new ConventionPack { new IgnoreManyPropertiesConvention() },
                 type => true);
-
-            _plural = new Pluralizer();
-        }
-
-        private static string CollectionName<T>()
-        {
-            return _plural.Pluralize(typeof(T).Name);
         }
 
         private static IMongoCollection<T> GetCollection<T>()
         {
-            return _db.GetCollection<T>(CollectionName<T>());
+            return _db.GetCollection<T>(typeof(T).Name);
         }
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
@@ -274,74 +265,77 @@ namespace MongoDB.Entities
         /// Define an index for a given Entity collection.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="name">The name of the index to create</param>
         /// <param name="type">Specify the type of index to create</param>
         /// <param name="priority">Specify the indexing priority for this index</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        public static void DefineIndex<T>(string name, Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
         {
-            DefineIndexAsync<T>(name, type, priority, propertiesToIndex).GetAwaiter().GetResult();
+            DefineIndexAsync<T>(type, priority, propertiesToIndex).GetAwaiter().GetResult();
         }
 
         /// <summary>
         /// Define an index for a given Entity collection.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="name">The name of the index to be created</param>
         /// <param name="type">Specify the type of index to create</param>
         /// <param name="priority">Specify the indexing priority for this index</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        async public static Task DefineIndexAsync<T>(string name, Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
         {
             CheckIfInitialized();
-            var keyDefs = new List<IndexKeysDefinition<T>>();
+
+            var propNames = new SortedSet<string>();
 
             foreach (var property in propertiesToIndex)
             {
                 var member = property.Body as MemberExpression;
                 if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
                 if (member == null) throw new ArgumentException("Unable to get property name");
-                var propName = member.Member.Name;
+                propNames.Add(member.Member.Name);
+            }
 
+            var keyDefs = new List<IndexKeysDefinition<T>>();
+
+            foreach (var prop in propNames)
+            {
                 switch (type)
                 {
                     case Type.Ascending:
-
-                        keyDefs.Add(Builders<T>
-                               .IndexKeys
-                               .Ascending(propName));
+                        keyDefs.Add(Builders<T>.IndexKeys.Ascending(prop));
                         break;
-
                     case Type.Descending:
-
-                        keyDefs.Add(Builders<T>
-                               .IndexKeys
-                               .Descending(propName));
+                        keyDefs.Add(Builders<T>.IndexKeys.Descending(prop));
                         break;
-
                     case Type.Text:
-
-                        keyDefs.Add(Builders<T>
-                               .IndexKeys
-                               .Text(propName));
+                        keyDefs.Add(Builders<T>.IndexKeys.Text(prop));
                         break;
                 }
             }
 
+            var name = typeof(T).Name;
+            if (type == Type.Text)
+            {
+                name = $"{name}[TEXT]";
+            }
+            else
+            {
+                name = $"{name}[{string.Join("-", propNames)}]";
+            }
+
             var indexDef = Builders<T>.IndexKeys.Combine(keyDefs);
-            var indexModel = new CreateIndexModel<T>(indexDef,
-                                                     new CreateIndexOptions()
-                                                     {
-                                                         Name = name,
-                                                         Background = (priority == Priority.Background)
-                                                     });
+            var indexModel = new CreateIndexModel<T>(indexDef, new CreateIndexOptions()
+            {
+                Name = name,
+                Background = (priority == Priority.Background)
+            });
+
             try
             {
                 await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
             }
             catch (MongoCommandException x)
             {
-                if (x.Code == 85 || x.Code == 86)
+                if (x.Code == 85)
                 {
                     await GetCollection<T>().Indexes.DropOneAsync(name);
                     await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
