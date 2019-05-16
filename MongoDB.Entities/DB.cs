@@ -226,21 +226,49 @@ namespace MongoDB.Entities
             }
         }
 
-        //todo: find entity by ID + ID[] + lambda
-
-        //todo: test
-        async public static Task<T> Find<T>(string ID) where T : Entity
+        /// <summary>
+        /// Find an Entity by it's ID
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="ID">The unique ID of the entity to find</param>
+        /// <returns>The entity matching the ID supplied</returns>
+        public static T Find<T>(string ID) where T : Entity
         {
-           return (await Find<T>(e => e.ID == ID)).FirstOrDefault();
+            return FindAsync<T>(ID).GetAwaiter().GetResult();
         }
 
-        //todo: test
-        async public static Task<List<T>> Find<T>(Expression<Func<T, bool>> expression)
+        /// <summary>
+        /// Find an Entity by it's ID
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="ID">The unique ID of the entity to find</param>
+        /// <returns>The entity matching the ID supplied</returns>
+        async public static Task<T> FindAsync<T>(string ID) where T : Entity
+        {
+            return await (await DB.GetCollection<T>().FindAsync(d => d.ID == ID)).SingleOrDefaultAsync();
+        }
+
+        /// <summary>
+        /// Find an Entity by supplying a lambda expression.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="expression">A lambda expression for matching Entities</param>
+        /// <returns>A list of Entities matching the supplied lambda expression</returns>
+        public static List<T> Find<T>(Expression<Func<T, bool>> expression)
+        {
+            return FindAsync<T>(expression).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Find an Entity by supplying a lambda expression.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="expression">A lambda expression for matching Entities</param>
+        /// <returns>A list of Entities matching the supplied lambda expression</returns>
+        async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression)
         {
             return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
         }
-
-        //todo: update wiki: indexes + SearchText + find by ID(s)
 
         /// <summary>
         /// Define an index for a given Entity collection.

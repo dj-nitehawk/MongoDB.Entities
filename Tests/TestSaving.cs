@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using MongoDB.Driver.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -98,6 +100,25 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(authors.Count(), 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
             Assert.AreEqual("000000000000000000000000", authors[0].ID);
+        }
+
+        [TestMethod]
+        public void find_by_lambda_returns_correct_documents()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid }; author1.Save();
+            var author2 = new Author { Name = guid }; author2.Save();
+            var res = DB.Find<Author>(a => a.Name == guid);
+            Assert.AreEqual(2, res.Count());
+        }
+
+        [TestMethod]
+        public void find_by_id_returns_correct_document()
+        {
+            var book1 = new Book { Title = "fbircdb1" }; book1.Save();
+            var book2 = new Book { Title = "fbircdb2" }; book2.Save();
+            Assert.AreEqual(null, DB.Find<Book>(new ObjectId().ToString()));
+            Assert.AreEqual(book2.ID, DB.Find<Book>(book2.ID).ID);
         }
     }
 }
