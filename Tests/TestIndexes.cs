@@ -32,15 +32,15 @@ namespace MongoDB.Entities.Tests
         {
             DB.DefineIndex<Author>(
                 Type.Descending,
-                Priority.Foreground,
+                new Options { Background = true},
                 x => x.Surname,
                 x => x.Age,
-                x => x.Surname);
+                x => x.Name);
 
             DB.DefineIndex<Book>(
                 Type.Ascending,
-                Priority.Foreground,
-                x => x.Title);
+                new Options { Background = false},
+                x => x.Title);            
         }
     }
 }

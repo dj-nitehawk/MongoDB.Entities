@@ -39,6 +39,7 @@ namespace MongoDB.Entities
             Initialize(settings, database);
         }
 
+        //todo: proxy MongoClientSettings
         private void Initialize(MongoClientSettings settings, string database)
         {
             if (_db != null) throw new InvalidOperationException("Database connection is already initialized!");
@@ -266,11 +267,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="type">Specify the type of index to create</param>
-        /// <param name="priority">Specify the indexing priority for this index</param>
+        /// <param name="options">Specify the indexing options</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        public static void DefineIndex<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
         {
-            DefineIndexAsync<T>(type, priority, propertiesToIndex).GetAwaiter().GetResult();
+            DefineIndexAsync<T>(type, options, propertiesToIndex).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -278,9 +279,24 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="type">Specify the type of index to create</param>
-        /// <param name="priority">Specify the indexing priority for this index</param>
+        /// <param name="priority">Specify the indexing priority</param>
         /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        {
+            DefineIndexAsync<T>(
+                type,
+                priority,
+                propertiesToIndex).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Define an index for a given Entity collection.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="type">Specify the type of index to create</param>
+        /// <param name="options">Specify the indexing options</param>
+        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        async public static Task DefineIndexAsync<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
         {
             CheckIfInitialized();
 
@@ -312,23 +328,19 @@ namespace MongoDB.Entities
                 }
             }
 
-            var name = typeof(T).Name;
+            options.Name = typeof(T).Name;
             if (type == Type.Text)
             {
-                name = $"{name}[TEXT]";
+                options.Name = $"{options.Name}[TEXT]";
             }
             else
             {
-                name = $"{name}[{string.Join("-", propNames)}]";
+                options.Name = $"{options.Name}[{string.Join("-", propNames)}]";
             }
 
-            var indexDef = Builders<T>.IndexKeys.Combine(keyDefs);
-            var indexModel = new CreateIndexModel<T>(indexDef, new CreateIndexOptions()
-            {
-                Name = name,
-                Background = (priority == Priority.Background)
-            });
-
+            var indexModel = new CreateIndexModel<T>(
+                                    Builders<T>.IndexKeys.Combine(keyDefs),
+                                    options.ToCreateIndexOptions());
             try
             {
                 await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
@@ -337,7 +349,7 @@ namespace MongoDB.Entities
             {
                 if (x.Code == 85)
                 {
-                    await GetCollection<T>().Indexes.DropOneAsync(name);
+                    await GetCollection<T>().Indexes.DropOneAsync(options.Name);
                     await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
                 }
                 else
@@ -345,6 +357,21 @@ namespace MongoDB.Entities
                     throw x;
                 }
             }
+        }
+
+        /// <summary>
+        /// Define an index for a given Entity collection.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="type">Specify the type of index to create</param>
+        /// <param name="priority">Specify the indexing priority</param>
+        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        {
+            await DefineIndexAsync<T>(
+                type,
+                new Options { Background = (priority == Priority.Background) },
+                propertiesToIndex);
         }
 
         /// <summary>
@@ -380,6 +407,7 @@ namespace MongoDB.Entities
 
     }
 
+    //todo: add other index types
     public enum Type
     {
         Ascending,
@@ -393,6 +421,23 @@ namespace MongoDB.Entities
         Background
     }
 
+    public class Options : CreateIndexOptions
+    {
+        internal CreateIndexOptions ToCreateIndexOptions()
+        {
+            return BsonSerializer.Deserialize<CreateIndexOptions>(this.ToBson());
+        }
+    }
+
+    //todo: refactor to use this
+    public class Settings : MongoClientSettings
+    {
+        internal MongoClientSettings ToMongoClientSettings()
+        {
+            return BsonSerializer.Deserialize<MongoClientSettings>(this.ToBson());
+        }
+    }
+
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
     {
         public void Apply(BsonMemberMap mMap)
@@ -403,4 +448,6 @@ namespace MongoDB.Entities
             }
         }
     }
+
+    //todo: update wiki
 }
