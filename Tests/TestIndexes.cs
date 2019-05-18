@@ -40,7 +40,12 @@ namespace MongoDB.Entities.Tests
             DB.DefineIndex<Book>(
                 Type.Ascending,
                 new Options { Background = false},
-                x => x.Title);            
+                x => x.Title);
+
+            DB.DefineIndex<Author>(
+                Type.Hashed,
+                Priority.Foreground,
+                x => x.Name);
         }
     }
 }

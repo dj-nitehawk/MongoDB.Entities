@@ -39,7 +39,6 @@ namespace MongoDB.Entities
             Initialize(settings, database);
         }
 
-        //todo: proxy MongoClientSettings
         private void Initialize(MongoClientSettings settings, string database)
         {
             if (_db != null) throw new InvalidOperationException("Database connection is already initialized!");
@@ -322,6 +321,18 @@ namespace MongoDB.Entities
                     case Type.Descending:
                         keyDefs.Add(Builders<T>.IndexKeys.Descending(prop));
                         break;
+                    case Type.Geo2D:
+                        keyDefs.Add(Builders<T>.IndexKeys.Geo2D(prop));
+                        break;
+                    case Type.Geo2DSphere:
+                        keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(prop));
+                        break;
+                    case Type.GeoHaystack:
+                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(prop));
+                        break;
+                    case Type.Hashed:
+                        keyDefs.Add(Builders<T>.IndexKeys.Hashed(prop));
+                        break;
                     case Type.Text:
                         keyDefs.Add(Builders<T>.IndexKeys.Text(prop));
                         break;
@@ -407,11 +418,14 @@ namespace MongoDB.Entities
 
     }
 
-    //todo: add other index types
     public enum Type
     {
         Ascending,
         Descending,
+        Geo2D,
+        Geo2DSphere,
+        GeoHaystack,
+        Hashed,
         Text
     }
 
@@ -426,15 +440,6 @@ namespace MongoDB.Entities
         internal CreateIndexOptions ToCreateIndexOptions()
         {
             return BsonSerializer.Deserialize<CreateIndexOptions>(this.ToBson());
-        }
-    }
-
-    //todo: refactor to use this
-    public class Settings : MongoClientSettings
-    {
-        internal MongoClientSettings ToMongoClientSettings()
-        {
-            return BsonSerializer.Deserialize<MongoClientSettings>(this.ToBson());
         }
     }
 
