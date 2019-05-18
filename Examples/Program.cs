@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Examples.Models;
 using MongoDB.Entities;
@@ -15,7 +16,7 @@ namespace Examples
             new DB("bookshop", "localhost", 27017);
 
             ////Asp.Net Core
-            //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
+            //services.AddMongoDBEntities("DatabaseName", "HostAddress", PortNumber);
 
             //ADVANCED INITIALIZATION
             //
@@ -30,10 +31,12 @@ namespace Examples
             //services.AddMongoDBEntities(
             //   new MongoClientSettings()
             //   {
-            //       Server = new MongoServerAddress("HostAddress", "PortNumber"),
+            //       Server = new MongoServerAddress("HostAddress", PortNumber),
             //       Credential = MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
             //   },
             //    "DatabaseName");
+
+            var stopWatch = new Stopwatch(); stopWatch.Start();
 
             //SAVING
             var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
@@ -108,7 +111,8 @@ namespace Examples
             DB.Delete<Book>(b => b.ID == book2.ID);
 
             //THE END
-            Console.WriteLine("Example complete...");
+            Console.WriteLine($"All operations completed in {stopWatch.Elapsed.TotalSeconds.ToString("0.00")} seconds.");
+            Console.ReadLine();
         }
     }
 }

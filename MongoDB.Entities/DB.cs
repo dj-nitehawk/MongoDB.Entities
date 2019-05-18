@@ -47,6 +47,7 @@ namespace MongoDB.Entities
             try
             {
                 _db = new MongoClient(settings).GetDatabase(database);
+                _db.ListCollections().ToList().Count(); //get the collection count so that db connection is established
             }
             catch (Exception)
             {
