@@ -216,6 +216,17 @@ namespace MongoDB.Entities
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
 
+        /// <summary>
+        /// Adds a key definition to the index
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="index"></param>
+        /// <param name="propertyToIndex">x => x.PropertyName</param>
+        /// <param name="type">The type of the key</param>
+        public static void Key<T>(this Index<T> index, Expression<Func<T, object>> propertyToIndex, Type type) where T : Entity
+        {
+            index.Keys.Add(new Key<T>(propertyToIndex, type));
+        }
     }
 
 
