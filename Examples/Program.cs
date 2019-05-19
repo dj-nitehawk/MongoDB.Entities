@@ -90,25 +90,25 @@ namespace Examples
             var result = from a in author.Collection()
                          select a;
 
-            //DELETE
-            //
-            ////Delete single entity
-            //book1.RelatedAuthor.Delete();
-            //book1.RelatedAuthor = null;
-            //book1.Save();
+			//DELETE
+			//
+			////Delete single entity
+			book1.RelatedAuthor.Delete();
+			book1.RelatedAuthor = null;
+			book1.Save();
 
-            //book1.Delete(); //References pointing to this entity are also deleted
+			//book1.Delete(); //References pointing to this entity are also deleted
 
-            ////Delete multiple entities
-            //book2.OtherAuthors.DeleteAll();
-            //book2.OtherAuthors = null;
-            //book2.Save();
+			////Delete multiple entities
+			book2.OtherAuthors.DeleteAll();
+			book2.OtherAuthors = null;
+			book2.Save();
 
-            ////Delete by lambda expression
-            //DB.Delete<Book>(b => b.ID == book2.ID);
+			////Delete by lambda expression
+			DB.Delete<Book>(b => b.ID == book2.ID);
 
-            //THE END
-            Console.WriteLine("Example complete...");
+			//THE END
+			Console.WriteLine("Example complete...");
         }
     }
 }
