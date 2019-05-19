@@ -83,6 +83,11 @@ namespace MongoDB.Entities
             await GetCollection<T>().Indexes.CreateOneAsync(model);
         }
 
+        internal async static Task DropIndexAsync<T>(string name)
+        {
+            await GetCollection<T>().Indexes.DropOneAsync(name);
+        }
+
         /// <summary>
         /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>
@@ -92,7 +97,7 @@ namespace MongoDB.Entities
             CheckIfInitialized();
             return GetCollection<T>().AsQueryable();
         }
-
+                
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>

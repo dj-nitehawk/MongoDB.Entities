@@ -32,8 +32,11 @@ namespace MongoDB.Entities
         /// </summary>
         async public Task CreateAsync()
         {
-            //var propNames = new SortedSet<string>();
+            if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
+
+            var propNames = new HashSet<string>();
             var keyDefs = new HashSet<IndexKeysDefinition<T>>();
+            var isTextIndex = false;
 
             foreach (var key in Keys)
             {
@@ -59,19 +62,48 @@ namespace MongoDB.Entities
                         break;
                     case Type.Text:
                         keyDefs.Add(Builders<T>.IndexKeys.Text(key.Property));
+                        isTextIndex = true;
                         break;
                 }
 
-                //var member = key.Property.Body as MemberExpression;
-                //if (member == null) member = (key.Property.Body as UnaryExpression)?.Operand as MemberExpression;
-                //if (member == null) throw new ArgumentException("Unable to get property name");
-                //propNames.Add(member.Member.Name);
+                var member = key.Property.Body as MemberExpression;
+                if (member == null) member = (key.Property.Body as UnaryExpression)?.Operand as MemberExpression;
+                if (member == null) throw new ArgumentException("Unable to get property name");
+                propNames.Add(member.Member.Name);
             }
 
-            await DB.CreateIndexAsync<T>(
-                new CreateIndexModel<T>(
-                    Builders<T>.IndexKeys.Combine(keyDefs),
-                    _options.ToCreateIndexOptions()));
+            if (string.IsNullOrEmpty(_options.Name))
+            {
+                _options.Name = typeof(T).Name;
+                if (isTextIndex)
+                {
+                    _options.Name = $"{_options.Name}[TEXT]";
+                }
+                else
+                {
+                    _options.Name = $"{_options.Name}[{string.Join("-", propNames)}]";
+                }
+            }
+
+            var model = new CreateIndexModel<T>(
+                                Builders<T>.IndexKeys.Combine(keyDefs),
+                                _options.ToCreateIndexOptions());
+            try
+            {
+                await DB.CreateIndexAsync<T>(model);
+            }
+            catch (MongoCommandException x)
+            {
+                if (x.Code == 85 || x.Code == 86)
+                {
+                    await DB.DropIndexAsync<T>(_options.Name);
+                    await DB.CreateIndexAsync<T>(model);
+                }
+                else
+                {
+                    throw x;
+                }
+            }
         }
 
         /// <summary>
@@ -79,12 +111,14 @@ namespace MongoDB.Entities
         /// <para>TIP: Setting options is not required.</para>
         /// </summary>
         /// <param name="options">x => x.Option1 = Value1, x => x.Option2 = Value2</param>
-        public void Options(params Action<Options>[] options)
+        public Index<T> Options(params Action<Options>[] options)
         {
             foreach (var opt in options)
             {
                 opt(_options);
             }
+
+            return this;
         }
     }
 
