@@ -20,4 +20,12 @@ namespace MongoDB.Entities
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class InverseSide : Attribute { }
+
+	/// <summary>
+	/// Allows user to specify a different collection name to an entity
+	/// </summary>
+	[AttributeUsage(AttributeTargets.Class)]
+	public class Collection : Attribute {
+		public string Name { get; set; }
+	}
 }

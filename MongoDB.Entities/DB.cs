@@ -8,6 +8,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization;
+using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -47,6 +48,7 @@ namespace MongoDB.Entities
             try
             {
                 _db = new MongoClient(settings).GetDatabase(database);
+                _db.ListCollections().ToList().Count(); //get the collection count so that db connection is established
             }
             catch (Exception)
             {
@@ -67,13 +69,24 @@ namespace MongoDB.Entities
 
         private static IMongoCollection<T> GetCollection<T>()
         {
-            return _db.GetCollection<T>(typeof(T).Name);
+            return _db.GetCollection<T>(GetCollectionName<T>());
         }
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
             CheckIfInitialized();
             return _db.GetCollection<Reference>(name);
+        }
+
+        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
+        {
+            CheckIfInitialized();
+            await GetCollection<T>().Indexes.CreateOneAsync(model);
+        }
+
+        internal async static Task DropIndexAsync<T>(string name)
+        {
+            await GetCollection<T>().Indexes.DropOneAsync(name);
         }
 
         /// <summary>
@@ -85,7 +98,7 @@ namespace MongoDB.Entities
             CheckIfInitialized();
             return GetCollection<T>().AsQueryable();
         }
-
+                
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
@@ -261,129 +274,131 @@ namespace MongoDB.Entities
             return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
         }
 
-        /// <summary>
-        /// Define an index for a given Entity collection.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="type">Specify the type of index to create</param>
-        /// <param name="options">Specify the indexing options</param>
-        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        public static void DefineIndex<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
-        {
-            DefineIndexAsync<T>(type, options, propertiesToIndex).GetAwaiter().GetResult();
-        }
+        ///// <summary>
+        ///// Define an index for a given Entity collection.
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        ///// <param name="type">Specify the type of index to create</param>
+        ///// <param name="options">Specify the indexing options</param>
+        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        //public static void DefineIndex<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
+        //{
+        //    DefineIndexAsync<T>(type, options, propertiesToIndex).GetAwaiter().GetResult();
+        //}
 
-        /// <summary>
-        /// Define an index for a given Entity collection.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="type">Specify the type of index to create</param>
-        /// <param name="priority">Specify the indexing priority</param>
-        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
-        {
-            DefineIndexAsync<T>(
-                type,
-                priority,
-                propertiesToIndex).GetAwaiter().GetResult();
-        }
+        ///// <summary>
+        ///// Define an index for a given Entity collection.
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        ///// <param name="type">Specify the type of index to create</param>
+        ///// <param name="priority">Specify the indexing priority</param>
+        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        //public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        //{
+        //    DefineIndexAsync<T>(
+        //        type,
+        //        priority,
+        //        propertiesToIndex).GetAwaiter().GetResult();
+        //}
 
-        /// <summary>
-        /// Define an index for a given Entity collection.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="type">Specify the type of index to create</param>
-        /// <param name="options">Specify the indexing options</param>
-        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        async public static Task DefineIndexAsync<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
-        {
-            CheckIfInitialized();
+        ///// <summary>
+        ///// Define an index for a given Entity collection.
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        ///// <param name="type">Specify the type of index to create</param>
+        ///// <param name="options">Specify the indexing options</param>
+        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        //async public static Task DefineIndexAsync<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
+        //{
+        //    CheckIfInitialized();
 
-            var propNames = new SortedSet<string>();
+        //    var propNames = new SortedSet<string>();
 
-            foreach (var property in propertiesToIndex)
-            {
-                var member = property.Body as MemberExpression;
-                if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
-                if (member == null) throw new ArgumentException("Unable to get property name");
-                propNames.Add(member.Member.Name);
-            }
+        //    var keyDefs = new List<IndexKeysDefinition<T>>();
 
-            var keyDefs = new List<IndexKeysDefinition<T>>();
+        //    foreach (var property in propertiesToIndex)
+        //    {
+        //        var member = property.Body as MemberExpression;
+        //        if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
+        //        if (member == null) throw new ArgumentException("Unable to get property name");
+        //        propNames.Add(member.Member.Name);
 
-            foreach (var prop in propNames)
-            {
-                switch (type)
-                {
-                    case Type.Ascending:
-                        keyDefs.Add(Builders<T>.IndexKeys.Ascending(prop));
-                        break;
-                    case Type.Descending:
-                        keyDefs.Add(Builders<T>.IndexKeys.Descending(prop));
-                        break;
-                    case Type.Geo2D:
-                        keyDefs.Add(Builders<T>.IndexKeys.Geo2D(prop));
-                        break;
-                    case Type.Geo2DSphere:
-                        keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(prop));
-                        break;
-                    case Type.GeoHaystack:
-                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(prop));
-                        break;
-                    case Type.Hashed:
-                        keyDefs.Add(Builders<T>.IndexKeys.Hashed(prop));
-                        break;
-                    case Type.Text:
-                        keyDefs.Add(Builders<T>.IndexKeys.Text(prop));
-                        break;
-                }
-            }
+        //    }
 
-            options.Name = typeof(T).Name;
-            if (type == Type.Text)
-            {
-                options.Name = $"{options.Name}[TEXT]";
-            }
-            else
-            {
-                options.Name = $"{options.Name}[{string.Join("-", propNames)}]";
-            }
 
-            var indexModel = new CreateIndexModel<T>(
-                                    Builders<T>.IndexKeys.Combine(keyDefs),
-                                    options.ToCreateIndexOptions());
-            try
-            {
-                await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
-            }
-            catch (MongoCommandException x)
-            {
-                if (x.Code == 85)
-                {
-                    await GetCollection<T>().Indexes.DropOneAsync(options.Name);
-                    await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
-                }
-                else
-                {
-                    throw x;
-                }
-            }
-        }
+        //    foreach (var prop in propNames)
+        //    {
+        //        switch (type)
+        //        {
+        //            case Type.Ascending:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Ascending(prop));
+        //                break;
+        //            case Type.Descending:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Descending(prop));
+        //                break;
+        //            case Type.Geo2D:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Geo2D(prop));
+        //                break;
+        //            case Type.Geo2DSphere:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(prop));
+        //                break;
+        //            case Type.GeoHaystack:
+        //                keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(prop));
+        //                break;
+        //            case Type.Hashed:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Hashed(prop));
+        //                break;
+        //            case Type.Text:
+        //                keyDefs.Add(Builders<T>.IndexKeys.Text(prop));
+        //                break;
+        //        }
+        //    }
 
-        /// <summary>
-        /// Define an index for a given Entity collection.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="type">Specify the type of index to create</param>
-        /// <param name="priority">Specify the indexing priority</param>
-        /// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
-        {
-            await DefineIndexAsync<T>(
-                type,
-                new Options { Background = (priority == Priority.Background) },
-                propertiesToIndex);
-        }
+        //    options.Name = typeof(T).Name;
+        //    if (type == Type.Text)
+        //    {
+        //        options.Name = $"{options.Name}[TEXT]";
+        //    }
+        //    else
+        //    {
+        //        options.Name = $"{options.Name}[{string.Join("-", propNames)}]";
+        //    }
+
+        //    var indexModel = new CreateIndexModel<T>(
+        //                            Builders<T>.IndexKeys.Combine(keyDefs),
+        //                            options.ToCreateIndexOptions());
+        //    try
+        //    {
+        //        await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
+        //    }
+        //    catch (MongoCommandException x)
+        //    {
+        //        if (x.Code == 85)
+        //        {
+        //            await GetCollection<T>().Indexes.DropOneAsync(options.Name);
+        //            await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
+        //        }
+        //        else
+        //        {
+        //            throw x;
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Define an index for a given Entity collection.
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        ///// <param name="type">Specify the type of index to create</param>
+        ///// <param name="priority">Specify the indexing priority</param>
+        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
+        //async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
+        //{
+        //    await DefineIndexAsync<T>(
+        //        type,
+        //        new Options { Background = (priority == Priority.Background) },
+        //        propertiesToIndex);
+        //}
 
         /// <summary>
         /// Search the text index of a collection for Entities matching the search term.
@@ -416,32 +431,19 @@ namespace MongoDB.Entities
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
 
-    }
+		public static string GetCollectionName<T>() 
+		{
+			string result = typeof(T).Name;
 
-    public enum Type
-    {
-        Ascending,
-        Descending,
-        Geo2D,
-        Geo2DSphere,
-        GeoHaystack,
-        Hashed,
-        Text
-    }
+			Collection collectionattr = typeof(T).GetTypeInfo().GetCustomAttribute<Collection>();
+			if (collectionattr != null) 
+			{
+				result = collectionattr.Name;
+			}
 
-    public enum Priority
-    {
-        Foreground,
-        Background
-    }
-
-    public class Options : CreateIndexOptions
-    {
-        internal CreateIndexOptions ToCreateIndexOptions()
-        {
-            return BsonSerializer.Deserialize<CreateIndexOptions>(this.ToBson());
-        }
-    }
+			return result;
+		}
+	}
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
     {

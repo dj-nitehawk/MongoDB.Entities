@@ -63,10 +63,10 @@ namespace MongoDB.Entities
         {
             _inverse = false;
             _parent = parent;
-            _collection = DB.GetRefCollection($"[{ typeof(TParent).Name}~{ typeof(TChild).Name}({property})]");
-        }
+			_collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
+		}
 
-        internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
+		internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
         {
             Init((dynamic)parent, propertyParent, propertyChild, isInverse);
         }
@@ -78,13 +78,14 @@ namespace MongoDB.Entities
 
             if (_inverse)
             {
-                _collection = DB.GetRefCollection($"[({propertyParent}){typeof(TChild).Name}~{typeof(TParent).Name}({propertyChild})]");
-            }
-            else
+				_collection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
+			}
+			else
             {
-                _collection = DB.GetRefCollection($"[({propertyChild}){typeof(TParent).Name}~{typeof(TChild).Name}({propertyParent})]");
-            }
-        }
+				_collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
+
+			}
+		}
 
         /// <summary>
         /// Adds a new child reference.
