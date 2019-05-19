@@ -302,15 +302,18 @@ namespace MongoDB.Entities
 
             var propNames = new SortedSet<string>();
 
+            var keyDefs = new List<IndexKeysDefinition<T>>();
+
             foreach (var property in propertiesToIndex)
             {
                 var member = property.Body as MemberExpression;
                 if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
                 if (member == null) throw new ArgumentException("Unable to get property name");
                 propNames.Add(member.Member.Name);
+
             }
 
-            var keyDefs = new List<IndexKeysDefinition<T>>();
+            
 
             foreach (var prop in propNames)
             {
