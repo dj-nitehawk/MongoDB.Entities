@@ -47,7 +47,7 @@ namespace MongoDB.Entities
             try
             {
                 _db = new MongoClient(settings).GetDatabase(database);
-                _db.ListCollections().ToList().Count(); //get the collection count so that db connection is established
+                _db.ListCollections().ToList().Count(); //get the collection count so that first db connection is established
             }
             catch (Exception)
             {
@@ -68,6 +68,7 @@ namespace MongoDB.Entities
 
         private static IMongoCollection<T> GetCollection<T>()
         {
+            CheckIfInitialized();
             return _db.GetCollection<T>(typeof(T).Name);
         }
 
@@ -79,7 +80,6 @@ namespace MongoDB.Entities
 
         internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
         {
-            CheckIfInitialized();
             await GetCollection<T>().Indexes.CreateOneAsync(model);
         }
 
@@ -94,7 +94,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoQueryable<T> Collection<T>()
         {
-            CheckIfInitialized();
             return GetCollection<T>().AsQueryable();
         }
                 
@@ -115,7 +114,6 @@ namespace MongoDB.Entities
         /// <param name="entity">The instance to persist</param>
         async public static Task SaveAsync<T>(T entity) where T : Entity
         {
-            CheckIfInitialized();
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
@@ -145,7 +143,6 @@ namespace MongoDB.Entities
         async public static Task DeleteAsync<T>(string ID) where T : Entity
         {
             CheckIfInitialized();
-
             var collectionNames = await _db.ListCollectionNames().ToListAsync();
 
             //Book
@@ -273,132 +270,6 @@ namespace MongoDB.Entities
             return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
         }
 
-        ///// <summary>
-        ///// Define an index for a given Entity collection.
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        ///// <param name="type">Specify the type of index to create</param>
-        ///// <param name="options">Specify the indexing options</param>
-        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        //public static void DefineIndex<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
-        //{
-        //    DefineIndexAsync<T>(type, options, propertiesToIndex).GetAwaiter().GetResult();
-        //}
-
-        ///// <summary>
-        ///// Define an index for a given Entity collection.
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        ///// <param name="type">Specify the type of index to create</param>
-        ///// <param name="priority">Specify the indexing priority</param>
-        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        //public static void DefineIndex<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
-        //{
-        //    DefineIndexAsync<T>(
-        //        type,
-        //        priority,
-        //        propertiesToIndex).GetAwaiter().GetResult();
-        //}
-
-        ///// <summary>
-        ///// Define an index for a given Entity collection.
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        ///// <param name="type">Specify the type of index to create</param>
-        ///// <param name="options">Specify the indexing options</param>
-        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        //async public static Task DefineIndexAsync<T>(Type type, Options options, params Expression<Func<T, object>>[] propertiesToIndex)
-        //{
-        //    CheckIfInitialized();
-
-        //    var propNames = new SortedSet<string>();
-
-        //    var keyDefs = new List<IndexKeysDefinition<T>>();
-
-        //    foreach (var property in propertiesToIndex)
-        //    {
-        //        var member = property.Body as MemberExpression;
-        //        if (member == null) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
-        //        if (member == null) throw new ArgumentException("Unable to get property name");
-        //        propNames.Add(member.Member.Name);
-
-        //    }
-
-
-        //    foreach (var prop in propNames)
-        //    {
-        //        switch (type)
-        //        {
-        //            case Type.Ascending:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Ascending(prop));
-        //                break;
-        //            case Type.Descending:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Descending(prop));
-        //                break;
-        //            case Type.Geo2D:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Geo2D(prop));
-        //                break;
-        //            case Type.Geo2DSphere:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(prop));
-        //                break;
-        //            case Type.GeoHaystack:
-        //                keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(prop));
-        //                break;
-        //            case Type.Hashed:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Hashed(prop));
-        //                break;
-        //            case Type.Text:
-        //                keyDefs.Add(Builders<T>.IndexKeys.Text(prop));
-        //                break;
-        //        }
-        //    }
-
-        //    options.Name = typeof(T).Name;
-        //    if (type == Type.Text)
-        //    {
-        //        options.Name = $"{options.Name}[TEXT]";
-        //    }
-        //    else
-        //    {
-        //        options.Name = $"{options.Name}[{string.Join("-", propNames)}]";
-        //    }
-
-        //    var indexModel = new CreateIndexModel<T>(
-        //                            Builders<T>.IndexKeys.Combine(keyDefs),
-        //                            options.ToCreateIndexOptions());
-        //    try
-        //    {
-        //        await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
-        //    }
-        //    catch (MongoCommandException x)
-        //    {
-        //        if (x.Code == 85)
-        //        {
-        //            await GetCollection<T>().Indexes.DropOneAsync(options.Name);
-        //            await GetCollection<T>().Indexes.CreateOneAsync(indexModel);
-        //        }
-        //        else
-        //        {
-        //            throw x;
-        //        }
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Define an index for a given Entity collection.
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        ///// <param name="type">Specify the type of index to create</param>
-        ///// <param name="priority">Specify the indexing priority</param>
-        ///// <param name="propertiesToIndex">x => x.Prop1, x => x.Prop2, x => x.PropEtc</param>
-        //async public static Task DefineIndexAsync<T>(Type type, Priority priority, params Expression<Func<T, object>>[] propertiesToIndex)
-        //{
-        //    await DefineIndexAsync<T>(
-        //        type,
-        //        new Options { Background = (priority == Priority.Background) },
-        //        propertiesToIndex);
-        //}
-
         /// <summary>
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
@@ -420,7 +291,6 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         async public static Task<List<T>> SearchTextAsync<T>(string searchTerm)
         {
-            CheckIfInitialized();
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = false });
             return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
         }

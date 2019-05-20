@@ -12,8 +12,9 @@
     <AssemblyVersion>4.3.0.0</AssemblyVersion>
     <FileVersion>4.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- change: better index defining system
-- improve: first db connection is established at initialization</PackageReleaseNotes>
+    <PackageReleaseNotes>- change: better indexing api
+- improve: first db connection is established at initialization
+- improve: init checks</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
