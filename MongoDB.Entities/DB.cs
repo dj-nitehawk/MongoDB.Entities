@@ -8,6 +8,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization;
+using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -69,7 +70,7 @@ namespace MongoDB.Entities
         private static IMongoCollection<T> GetCollection<T>()
         {
             CheckIfInitialized();
-            return _db.GetCollection<T>(typeof(T).Name);
+            return _db.GetCollection<T>(GetCollectionName<T>());
         }
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
@@ -300,7 +301,19 @@ namespace MongoDB.Entities
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
 
-    }
+		public static string GetCollectionName<T>() 
+		{
+			string result = typeof(T).Name;
+
+			Collection collectionattr = typeof(T).GetTypeInfo().GetCustomAttribute<Collection>();
+			if (collectionattr != null) 
+			{
+				result = collectionattr.Name;
+			}
+
+			return result;
+		}
+	}
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
     {

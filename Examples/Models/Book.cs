@@ -2,7 +2,8 @@
 
 namespace Examples.Models
 {
-    public class Book : Entity
+	[Collection(Name = "test_book")]
+	public class Book : Entity
     {
         public string Title { get; set; }
         public Author RelatedAuthor { get; set; } //Store an entity       

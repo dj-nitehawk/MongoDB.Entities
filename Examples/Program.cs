@@ -100,7 +100,7 @@ namespace Examples
             book1.RelatedAuthor = null;
             book1.Save();
 
-            book1.Delete(); //References pointing to this entity are also deleted
+            //book1.Delete(); //References pointing to this entity are also deleted
 
             ////Delete multiple entities
             book2.OtherAuthors.DeleteAll();
