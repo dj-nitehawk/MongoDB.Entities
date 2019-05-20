@@ -43,5 +43,4 @@ namespace MongoDB.Entities.Tests
     }
 
     //todo: create indexes for ref collections on db init (do benchmark without index to compare)
-    //todo: update wiki for indexes
 }
