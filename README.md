@@ -1,6 +1,6 @@
 [![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#)
 # MongoDB.Entities
-The goal of this library is to simplify access to mongodb by wrapping up the official C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
+This library simplifies access to mongodb by abstracting away the C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
 
 
 
@@ -57,9 +57,9 @@ The goal of this library is to simplify access to mongodb by wrapping up the off
         var selfhelp = book.AllGenres.Collection().First();
 
     //Delete
-        genre.Delete();
         book.Delete();
-        tolle.Delete();
+        book.Authors.DeleteAll();
+        DB.Delete<Genre>(genre.ID);
 ```
 
 
@@ -69,12 +69,14 @@ in order to get started using the library please see the [wiki pages](https://gi
 
 
 
-## Example Projects
+## Examples
 .net core console project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 
 e2e/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
 
 asp.net core web-api project: [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
+
+solutions to stackoverflow questions: [click here](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
 
 
 

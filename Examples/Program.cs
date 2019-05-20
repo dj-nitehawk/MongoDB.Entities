@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Examples.Models;
 using MongoDB.Entities;
@@ -15,7 +16,7 @@ namespace Examples
             new DB("bookshop", "localhost", 27017);
 
             ////Asp.Net Core
-            //services.AddMongoDBEntities("DatabaseName", "HostAddress", "PortNumber");
+            //services.AddMongoDBEntities("DatabaseName", "HostAddress", PortNumber);
 
             //ADVANCED INITIALIZATION
             //
@@ -30,10 +31,12 @@ namespace Examples
             //services.AddMongoDBEntities(
             //   new MongoClientSettings()
             //   {
-            //       Server = new MongoServerAddress("HostAddress", "PortNumber"),
+            //       Server = new MongoServerAddress("HostAddress", PortNumber),
             //       Credential = MongoCredential.CreateCredential("DatabaseName", "UserName", "Password")
             //   },
             //    "DatabaseName");
+
+            var stopWatch = new Stopwatch(); stopWatch.Start();
 
             //SAVING
             var book1 = new Book { Title = "The Power Of Now" }; book1.Save();
@@ -90,25 +93,26 @@ namespace Examples
             var result = from a in author.Collection()
                          select a;
 
-			//DELETE
-			//
-			////Delete single entity
-			book1.RelatedAuthor.Delete();
-			book1.RelatedAuthor = null;
-			book1.Save();
+            //DELETE
+            //
+            ////Delete single entity
+            book1.RelatedAuthor.Delete();
+            book1.RelatedAuthor = null;
+            book1.Save();
 
-			//book1.Delete(); //References pointing to this entity are also deleted
+            //book1.Delete(); //References pointing to this entity are also deleted
 
-			////Delete multiple entities
-			book2.OtherAuthors.DeleteAll();
-			book2.OtherAuthors = null;
-			book2.Save();
+            ////Delete multiple entities
+            book2.OtherAuthors.DeleteAll();
+            book2.OtherAuthors = null;
+            book2.Save();
 
-			////Delete by lambda expression
-			DB.Delete<Book>(b => b.ID == book2.ID);
+            ////Delete by lambda expression
+            DB.Delete<Book>(b => b.ID == book2.ID);
 
-			//THE END
-			Console.WriteLine("Example complete...");
+            //THE END
+            Console.WriteLine($"All operations completed in {stopWatch.Elapsed.TotalSeconds.ToString("0.00")} seconds.");
+            Console.ReadLine();
         }
     }
 }
