@@ -12,9 +12,11 @@
     <AssemblyVersion>4.3.0.0</AssemblyVersion>
     <FileVersion>4.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- change: better indexing api
+    <PackageReleaseNotes>- change: better index defining api
+- new: customize collection names with attribute (thanks paolobriones)
 - improve: first db connection is established at initialization
-- improve: init checks</PackageReleaseNotes>
+- improve: init checks
+- add: more tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

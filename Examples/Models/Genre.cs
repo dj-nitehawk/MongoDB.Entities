@@ -2,8 +2,6 @@
 
 namespace Examples.Models
 {
-
-	[Collection(Name = "test_genre")]
 	public class Genre : Entity
     {
         public string Name { get; set; }

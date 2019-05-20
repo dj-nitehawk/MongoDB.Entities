@@ -1,5 +1,6 @@
 ﻿namespace MongoDB.Entities.Tests
 {
+    [Name("Writer")]
     public class Author : Entity
     {
         public string Name { get; set; }

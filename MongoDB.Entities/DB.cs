@@ -73,6 +73,18 @@ namespace MongoDB.Entities
             return _db.GetCollection<T>(GetCollectionName<T>());
         }
 
+        internal static string GetCollectionName<T>()
+        {
+            string result = typeof(T).Name;
+
+            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
+            if (attrib != null)
+            {
+                result = attrib.Name;
+            }
+            return result;
+        }
+
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
             CheckIfInitialized();
@@ -88,7 +100,7 @@ namespace MongoDB.Entities
         {
             await GetCollection<T>().Indexes.DropOneAsync(name);
         }
-
+ 
         /// <summary>
         /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>
@@ -97,7 +109,7 @@ namespace MongoDB.Entities
         {
             return GetCollection<T>().AsQueryable();
         }
-                
+
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
@@ -147,13 +159,13 @@ namespace MongoDB.Entities
             var collectionNames = await _db.ListCollectionNames().ToListAsync();
 
             //Book
-            var typeName = typeof(T).Name;
+            var entityName = GetCollectionName<T>();
 
             //[(PropName)Book~Author(PropName)] / [Book~Author(PropName)]
-            var parentCollections = collectionNames.Where(name => name.Contains(typeName + "~")).ToArray();
+            var parentCollections = collectionNames.Where(name => name.Contains(entityName + "~")).ToArray();
 
             //[(PropName)Author~Book(PropName)] / [Author~Book(PropName)]
-            var childCollections = collectionNames.Where(name => name.Contains("~" + typeName)).ToArray();
+            var childCollections = collectionNames.Where(name => name.Contains("~" + entityName)).ToArray();
 
             var tasks = new List<Task>();
 
@@ -300,20 +312,7 @@ namespace MongoDB.Entities
         {
             if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
-
-		public static string GetCollectionName<T>() 
-		{
-			string result = typeof(T).Name;
-
-			Collection collectionattr = typeof(T).GetTypeInfo().GetCustomAttribute<Collection>();
-			if (collectionattr != null) 
-			{
-				result = collectionattr.Name;
-			}
-
-			return result;
-		}
-	}
+    }
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
     {

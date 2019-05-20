@@ -13,19 +13,27 @@ namespace MongoDB.Entities
     /// Indicates that this property is the owner side of a many-to-many relationship
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class OwnerSide : Attribute { }
+    public class OwnerSideAttribute : Attribute { }
 
     /// <summary>
     /// Indicates that this property is the inverse side of a many-to-many relationship
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class InverseSide : Attribute { }
+    public class InverseSideAttribute : Attribute { }
 
-	/// <summary>
-	/// Allows user to specify a different collection name to an entity
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Class)]
-	public class Collection : Attribute {
-		public string Name { get; set; }
-	}
+    /// <summary>
+    /// Use this attribute to specify a custom MongoDB collection name for an Entity.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class NameAttribute : Attribute
+    {
+        public string Name { get; }
+
+        /// <param name="name">The name you want to use for the collection</param>
+        public NameAttribute(string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            Name = name;
+        }
+    }
 }

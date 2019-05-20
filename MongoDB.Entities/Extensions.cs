@@ -199,15 +199,15 @@ namespace MongoDB.Entities
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
-            var hasOwnerAttrib = property.GetCustomAttributes<OwnerSide>().Count() > 0;
-            var hasInverseAttrib = property.GetCustomAttributes<InverseSide>().Count() > 0;
+            var hasOwnerAttrib = property.GetCustomAttributes<OwnerSideAttribute>().Count() > 0;
+            var hasInverseAttrib = property.GetCustomAttributes<InverseSideAttribute>().Count() > 0;
             if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
             var osBody = (MemberExpression)propertyOtherSide.Body;
             var osProperty = (PropertyInfo)osBody.Member;
-            var osHasOwnerAttrib = osProperty.GetCustomAttributes<OwnerSide>().Count() > 0;
-            var osHasInverseAttrib = osProperty.GetCustomAttributes<InverseSide>().Count() > 0;
+            var osHasOwnerAttrib = osProperty.GetCustomAttributes<OwnerSideAttribute>().Count() > 0;
+            var osHasInverseAttrib = osProperty.GetCustomAttributes<InverseSideAttribute>().Count() > 0;
             if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 

@@ -74,7 +74,7 @@ namespace MongoDB.Entities
 
             if (string.IsNullOrEmpty(_options.Name))
             {
-                _options.Name = typeof(T).Name;
+                _options.Name = DB.GetCollectionName<T>();
                 if (isTextIndex)
                 {
                     _options.Name = $"{_options.Name}[TEXT]";
