@@ -100,7 +100,12 @@ namespace MongoDB.Entities
         {
             await GetCollection<T>().Indexes.DropOneAsync(name);
         }
- 
+
+        async internal static Task UpdateAsync<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> definition)
+        {
+            await GetCollection<T>().UpdateManyAsync(filter, definition);
+        }
+
         /// <summary>
         /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>

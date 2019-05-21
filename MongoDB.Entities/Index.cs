@@ -10,7 +10,7 @@ namespace MongoDB.Entities
 {
     /// <summary>
     /// Represents an index for a given Entity
-    /// <para>TIP: Define the keys first with .Key(...) method and finally call the .Create() method.</para>
+    /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
     /// </summary>
     /// <typeparam name="T">Any class that inherits from Entity</typeparam>
     public class Index<T> where T : Entity
@@ -118,6 +118,18 @@ namespace MongoDB.Entities
                 opt(_options);
             }
 
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a key definition to the index
+        /// <para>TIP: At least one key definition is required</para>
+        /// </summary>
+        /// <param name="propertyToIndex">x => x.PropertyName</param>
+        /// <param name="type">The type of the key</param>
+        public Index<T> Key(Expression<Func<T, object>> propertyToIndex, Type type)
+        {
+            Keys.Add(new Key<T>(propertyToIndex, type));
             return this;
         }
     }
