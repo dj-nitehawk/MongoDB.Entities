@@ -55,7 +55,7 @@ namespace MongoDB.Entities
         {
             if (_filter == null) throw new ArgumentException("Please use Match() method first!");
             if (_defs.Count == 0) throw new ArgumentException("Please use Set() method first!");
-            await DB.UpdateAsync<T>(_filter, Builders<T>.Update.Combine(_defs));
+            await DB.UpdateAsync(_filter, Builders<T>.Update.Combine(_defs));
         }
     }
 }

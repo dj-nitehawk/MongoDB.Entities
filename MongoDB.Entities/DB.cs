@@ -289,6 +289,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Represents an index for a given Entity
+        /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public static Index<T> Index<T>() where T : Entity
+        {
+            return new Index<T>();
+        }
+
+        /// <summary>
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
         /// </summary>
@@ -311,6 +321,16 @@ namespace MongoDB.Entities
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = false });
             return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
+        }
+
+        /// <summary>
+        /// Represents a batch update command
+        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Set() and finally call .Execute() to run the command.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        public static Update<T> Update<T>() where T : Entity
+        {
+            return new Update<T>();
         }
 
         private static void CheckIfInitialized()

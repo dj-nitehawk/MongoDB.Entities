@@ -16,11 +16,11 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
             var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
 
-            new Update<Author>()
-                .Match(a => a.Surname == guid)
-                .Set(a => a.Name, guid)
-                .Set(a => a.Surname, author1.Name)
-                .Execute();
+            DB.Update<Author>()
+              .Match(a => a.Surname == guid)
+              .Set(a => a.Name, guid)
+              .Set(a => a.Surname, author1.Name)
+              .Execute();
 
             var count = author1.Collection().Where(a => a.Name == guid && a.Surname == author1.Name).Count();
             Assert.AreEqual(2, count);
