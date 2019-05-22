@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace MongoDB.Entities
     /// <typeparam name="TChild">Type of the child Entity.</typeparam>
     public class Many<TChild> where TChild : Entity
     {
+        private static HashSet<string> _indexedCollections = new HashSet<string>();
+
         private bool _inverse = false;
         private Entity _parent = null;
         private IMongoCollection<Reference> _collection = null;
@@ -61,12 +64,13 @@ namespace MongoDB.Entities
 
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
-            _inverse = false;
             _parent = parent;
-			_collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
-		}
+            _inverse = false;
+            _collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
+            SetupIndex(_collection.CollectionNamespace.CollectionName);
+        }
 
-		internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
+        internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
         {
             Init((dynamic)parent, propertyParent, propertyChild, isInverse);
         }
@@ -78,14 +82,44 @@ namespace MongoDB.Entities
 
             if (_inverse)
             {
-				_collection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
-			}
-			else
+                _collection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
+            }
+            else
             {
-				_collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
+                _collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
+            }
 
-			}
-		}
+            SetupIndex(_collection.CollectionNamespace.CollectionName);
+        }
+
+        private void SetupIndex(string collection)
+        {
+            if (!_indexedCollections.Contains(collection)) //only create indexes once per unique ref collection
+            {
+                Task.Run(() =>
+                {
+                    _collection.Indexes.CreateMany(
+                    new[] {
+                        new CreateIndexModel<Reference>(
+                            Builders<Reference>.IndexKeys.Ascending(r => r.ParentID),
+                            new CreateIndexOptions
+                            {
+                                Background = true,
+                                Name = collection + "{ParentID}"
+                            }),
+                        new CreateIndexModel<Reference>(
+                            Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
+                            new CreateIndexOptions
+                            {
+                                Background = true,
+                                Name = collection + "{ChildID}"
+                            })
+                    });
+
+                    _indexedCollections.Add(collection);
+                });
+            }
+        }
 
         /// <summary>
         /// Adds a new child reference.
