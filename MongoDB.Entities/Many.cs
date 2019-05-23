@@ -67,7 +67,7 @@ namespace MongoDB.Entities
             _parent = parent;
             _inverse = false;
             _collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
-            SetupIndex(_collection.CollectionNamespace.CollectionName);
+            SetupIndex(_collection);
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -89,16 +89,17 @@ namespace MongoDB.Entities
                 _collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
             }
 
-            SetupIndex(_collection.CollectionNamespace.CollectionName);
+            SetupIndex(_collection);
         }
 
-        private void SetupIndex(string collection)
+        private static void SetupIndex(IMongoCollection<Reference> collection)
         {
-            if (!_indexedCollections.Contains(collection)) //only create indexes once per unique ref collection
+            if (!_indexedCollections.Contains(collection.CollectionNamespace.CollectionName)) //only create indexes once per unique ref collection
             {
+                _indexedCollections.Add(collection.CollectionNamespace.CollectionName);
                 Task.Run(() =>
                 {
-                    _collection.Indexes.CreateMany(
+                    collection.Indexes.CreateMany(
                     new[] {
                         new CreateIndexModel<Reference>(
                             Builders<Reference>.IndexKeys.Ascending(r => r.ParentID),
@@ -108,16 +109,14 @@ namespace MongoDB.Entities
                                 Name = "[ParentID]"
                             })
                         ,
-                        new CreateIndexModel<Reference>(
-                            Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
-                            new CreateIndexOptions
-                            {
-                                Background = true,
-                                Name = "[ChildID]"
-                            })
+                        //new CreateIndexModel<Reference>(
+                        //    Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
+                        //    new CreateIndexOptions
+                        //    {
+                        //        Background = true,
+                        //        Name = "[ChildID]"
+                        //    })
                     });
-
-                    _indexedCollections.Add(collection);
                 });
             }
         }
