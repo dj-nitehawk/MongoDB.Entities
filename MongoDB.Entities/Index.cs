@@ -40,25 +40,33 @@ namespace MongoDB.Entities
 
             foreach (var key in Keys)
             {
+                string keyType = string.Empty;
+
                 switch (key.Type)
                 {
                     case Type.Ascending:
                         keyDefs.Add(Builders<T>.IndexKeys.Ascending(key.Property));
+                        keyType = "(Asc)";
                         break;
                     case Type.Descending:
                         keyDefs.Add(Builders<T>.IndexKeys.Descending(key.Property));
+                        keyType = "(Dsc)";
                         break;
                     case Type.Geo2D:
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2D(key.Property));
+                        keyType = "(G2d)";
                         break;
                     case Type.Geo2DSphere:
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.Property));
+                        keyType = "(Gsp)";
                         break;
                     case Type.GeoHaystack:
                         keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.Property));
+                        keyType = "(Ghs)";
                         break;
                     case Type.Hashed:
                         keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.Property));
+                        keyType = "(Hsh)";
                         break;
                     case Type.Text:
                         keyDefs.Add(Builders<T>.IndexKeys.Text(key.Property));
@@ -69,19 +77,18 @@ namespace MongoDB.Entities
                 var member = key.Property.Body as MemberExpression;
                 if (member == null) member = (key.Property.Body as UnaryExpression)?.Operand as MemberExpression;
                 if (member == null) throw new ArgumentException("Unable to get property name");
-                propNames.Add(member.Member.Name);
+                propNames.Add(member.Member.Name + keyType);
             }
 
             if (string.IsNullOrEmpty(_options.Name))
             {
-                _options.Name = DB.GetCollectionName<T>();
                 if (isTextIndex)
                 {
-                    _options.Name = $"{_options.Name}[TEXT]";
+                    _options.Name = "[TEXT]";
                 }
                 else
                 {
-                    _options.Name = $"{_options.Name}[{string.Join("-", propNames)}]";
+                    _options.Name = string.Join(" | ", propNames);
                 }
             }
 
@@ -94,7 +101,7 @@ namespace MongoDB.Entities
             }
             catch (MongoCommandException x)
             {
-                if (x.Code == 85 || x.Code == 86)
+                if (x.Code == 85)
                 {
                     await DB.DropIndexAsync<T>(_options.Name);
                     await DB.CreateIndexAsync<T>(model);

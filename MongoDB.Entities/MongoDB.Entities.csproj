@@ -12,7 +12,8 @@
     <AssemblyVersion>4.5.0.0</AssemblyVersion>
     <FileVersion>4.5.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- create indexes automatically for reference/join collections</PackageReleaseNotes>
+    <PackageReleaseNotes>- new: auto index creation for join collections
+- change: better auto naming of indexes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

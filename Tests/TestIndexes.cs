@@ -33,12 +33,28 @@ namespace MongoDB.Entities.Tests
             DB.Index<Book>()
               .Key(x => x.AllGenres, Type.Geo2D)
               .Key(x => x.Title, Type.Descending)
+              .Key(x=>x.ModifiedOn, Type.Descending)
+              .Options(o => o.Background = true)
+              .Create();
+
+            DB.Index<Book>()
+              .Key(x => x.AllGenres, Type.Geo2D)
+              .Key(x => x.Title, Type.Descending)
+              .Key(x => x.ModifiedOn, Type.Ascending)
               .Options(o => o.Background = true)
               .Create();
 
             DB.Index<Author>()
               .Key(x => x.Age, Type.Hashed)
               .Create();
+
+            DB.Index<Author>()
+                .Key(x => x.Age, Type.Ascending)
+                .Create();
+
+            DB.Index<Author>()
+                .Key(x => x.Age, Type.Descending)
+                .Create();
         }
     }
 }

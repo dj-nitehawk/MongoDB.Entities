@@ -105,14 +105,15 @@ namespace MongoDB.Entities
                             new CreateIndexOptions
                             {
                                 Background = true,
-                                Name = collection + "{ParentID}"
-                            }),
+                                Name = "[ParentID]"
+                            })
+                        ,
                         new CreateIndexModel<Reference>(
                             Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
                             new CreateIndexOptions
                             {
                                 Background = true,
-                                Name = collection + "{ChildID}"
+                                Name = "[ChildID]"
                             })
                     });
 
