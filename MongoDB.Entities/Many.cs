@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    public class ManyBase
+    {
+        //shared state for all Many<T> instances
+        internal static HashSet<string> _indexedCollections = new HashSet<string>();
+    }
+
     /// <summary>
     /// A one-to-many/many-to-many reference collection.
     /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
@@ -16,10 +22,8 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child Entity.</typeparam>
-    public class Many<TChild> where TChild : Entity
+    public class Many<TChild> : ManyBase where TChild : Entity
     {
-        private static HashSet<string> _indexedCollections = new HashSet<string>();
-
         private bool _inverse = false;
         private Entity _parent = null;
         private IMongoCollection<Reference> _collection = null;
@@ -67,7 +71,7 @@ namespace MongoDB.Entities
             _parent = parent;
             _inverse = false;
             _collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
-            SetupIndex(_collection);
+            SetupIndexes(_collection);
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -89,12 +93,13 @@ namespace MongoDB.Entities
                 _collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
             }
 
-            SetupIndex(_collection);
+            SetupIndexes(_collection);
         }
 
-        private static void SetupIndex(IMongoCollection<Reference> collection)
+        private static void SetupIndexes(IMongoCollection<Reference> collection)
         {
-            if (!_indexedCollections.Contains(collection.CollectionNamespace.CollectionName)) //only create indexes once per unique ref collection
+            //only create indexes once per unique ref collection
+            if (!_indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
             {
                 _indexedCollections.Add(collection.CollectionNamespace.CollectionName);
                 Task.Run(() =>
@@ -109,13 +114,13 @@ namespace MongoDB.Entities
                                 Name = "[ParentID]"
                             })
                         ,
-                        //new CreateIndexModel<Reference>(
-                        //    Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
-                        //    new CreateIndexOptions
-                        //    {
-                        //        Background = true,
-                        //        Name = "[ChildID]"
-                        //    })
+                        new CreateIndexModel<Reference>(
+                            Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
+                            new CreateIndexOptions
+                            {
+                                Background = true,
+                                Name = "[ChildID]"
+                            })
                     });
                 });
             }
