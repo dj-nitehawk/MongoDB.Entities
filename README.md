@@ -12,6 +12,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Data can be queried using either LINQ or lambda expressions.
 - Programatically define indexes.
 - Full text search with text indexes.
+- Supports `decimal` type without attributes.
 - Supports both `ASP.Net Core` and `.Net Core` applications.
 
 

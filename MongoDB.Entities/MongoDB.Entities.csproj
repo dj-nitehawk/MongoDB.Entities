@@ -8,12 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>4.5</Version>
-    <AssemblyVersion>4.5.0.0</AssemblyVersion>
-    <FileVersion>4.5.0.0</FileVersion>
+    <Version>4.6</Version>
+    <AssemblyVersion>4.6.0.0</AssemblyVersion>
+    <FileVersion>4.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- new: auto index creation for join collections
-- change: better auto naming of indexes</PackageReleaseNotes>
+    <PackageReleaseNotes>- new: support decimal properties without attributes
+- improve: test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

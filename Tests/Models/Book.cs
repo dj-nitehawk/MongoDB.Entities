@@ -4,6 +4,7 @@ namespace MongoDB.Entities.Tests
     public class Book : Entity
     {
         public string Title { get; set; }
+        public decimal SellingPrice { get; set; }
         public Author RelatedAuthor { get; set; }
         public Author[] OtherAuthors { get; set; }
         public Review Review { get; set; }

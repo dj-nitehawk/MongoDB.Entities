@@ -120,5 +120,23 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(null, DB.Find<Book>(new ObjectId().ToString()));
             Assert.AreEqual(book2.ID, DB.Find<Book>(book2.ID).ID);
         }
+
+        [TestMethod]
+        public void decimal_properties_work_correctly()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var book1 = new Book { Title = guid, SellingPrice = 100.123m }; book1.Save();
+            var book2 = new Book { Title = guid, SellingPrice = 100.123m }; book2.Save();
+
+            var res = DB.Collection<Book>()
+                        .Where(b => b.Title == guid)
+                        .GroupBy(b => b.Title)
+                        .Select(g => new {
+                            Title = g.Key,
+                            Sum = g.Sum(b=>b.SellingPrice)
+                        }).Single();
+
+            Assert.AreEqual(book1.SellingPrice + book2.SellingPrice, res.Sum);
+        }
     }
 }

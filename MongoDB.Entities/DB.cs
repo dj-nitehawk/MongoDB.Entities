@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization;
 using System.Reflection;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace MongoDB.Entities
 {
@@ -55,6 +56,9 @@ namespace MongoDB.Entities
                 _db = null;
                 throw;
             }
+
+            BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
+            BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
             ConventionRegistry.Register(
                 "IgnoreExtraElements",
