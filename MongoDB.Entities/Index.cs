@@ -17,7 +17,7 @@ namespace MongoDB.Entities
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
 
-        private Options _options = new Options { Background = true };
+        private CreateIndexOptions _options = new CreateIndexOptions { Background = true };
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
@@ -44,31 +44,31 @@ namespace MongoDB.Entities
 
                 switch (key.Type)
                 {
-                    case Type.Ascending:
+                    case KeyType.Ascending:
                         keyDefs.Add(Builders<T>.IndexKeys.Ascending(key.Property));
                         keyType = "(Asc)";
                         break;
-                    case Type.Descending:
+                    case KeyType.Descending:
                         keyDefs.Add(Builders<T>.IndexKeys.Descending(key.Property));
                         keyType = "(Dsc)";
                         break;
-                    case Type.Geo2D:
+                    case KeyType.Geo2D:
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2D(key.Property));
                         keyType = "(G2d)";
                         break;
-                    case Type.Geo2DSphere:
+                    case KeyType.Geo2DSphere:
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.Property));
                         keyType = "(Gsp)";
                         break;
-                    case Type.GeoHaystack:
+                    case KeyType.GeoHaystack:
                         keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.Property));
                         keyType = "(Ghs)";
                         break;
-                    case Type.Hashed:
+                    case KeyType.Hashed:
                         keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.Property));
                         keyType = "(Hsh)";
                         break;
-                    case Type.Text:
+                    case KeyType.Text:
                         keyDefs.Add(Builders<T>.IndexKeys.Text(key.Property));
                         isTextIndex = true;
                         break;
@@ -94,14 +94,14 @@ namespace MongoDB.Entities
 
             var model = new CreateIndexModel<T>(
                                 Builders<T>.IndexKeys.Combine(keyDefs),
-                                _options.ToCreateIndexOptions());
+                                _options);
             try
             {
                 await DB.CreateIndexAsync<T>(model);
             }
             catch (MongoCommandException x)
             {
-                if (x.Code == 85)
+                if (x.Code == 85 || x.Code == 86)
                 {
                     await DB.DropIndexAsync<T>(_options.Name);
                     await DB.CreateIndexAsync<T>(model);
@@ -118,7 +118,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Setting options is not required.</para>
         /// </summary>
         /// <param name="options">x => x.Option1 = Value1, x => x.Option2 = Value2</param>
-        public Index<T> Options(params Action<Options>[] options)
+        public Index<T> Options(params Action<CreateIndexOptions>[] options)
         {
             foreach (var opt in options)
             {
@@ -134,7 +134,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="propertyToIndex">x => x.PropertyName</param>
         /// <param name="type">The type of the key</param>
-        public Index<T> Key(Expression<Func<T, object>> propertyToIndex, Type type)
+        public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
         {
             Keys.Add(new Key<T>(propertyToIndex, type));
             return this;
@@ -144,16 +144,16 @@ namespace MongoDB.Entities
     internal class Key<T> where T : Entity
     {
         internal Expression<Func<T, object>> Property { get; set; }
-        internal Type Type { get; set; }
+        internal KeyType Type { get; set; }
 
-        internal Key(Expression<Func<T, object>> prop, Type type)
+        internal Key(Expression<Func<T, object>> prop, KeyType type)
         {
             Property = prop;
             Type = type;
         }
     }
 
-    public enum Type
+    public enum KeyType
     {
         Ascending,
         Descending,
@@ -162,13 +162,5 @@ namespace MongoDB.Entities
         GeoHaystack,
         Hashed,
         Text
-    }
-
-    public class Options : CreateIndexOptions
-    {
-        internal CreateIndexOptions ToCreateIndexOptions()
-        {
-            return BsonSerializer.Deserialize<CreateIndexOptions>(this.ToBson());
-        }
     }
 }

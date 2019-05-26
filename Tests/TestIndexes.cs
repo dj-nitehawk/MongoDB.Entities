@@ -12,8 +12,8 @@ namespace MongoDB.Entities.Tests
         {
             DB.Index<Author>()
               .Options(o => o.Background = false)
-              .Key(a => a.Name, Type.Text)
-              .Key(a => a.Surname, Type.Text)
+              .Key(a => a.Name, KeyType.Text)
+              .Key(a => a.Surname, KeyType.Text)
               .Create();
 
             var author1 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
@@ -31,29 +31,29 @@ namespace MongoDB.Entities.Tests
         public void creating_compound_index_works()
         {
             DB.Index<Book>()
-              .Key(x => x.AllGenres, Type.Geo2D)
-              .Key(x => x.Title, Type.Descending)
-              .Key(x=>x.ModifiedOn, Type.Descending)
+              .Key(x => x.AllGenres, KeyType.Geo2D)
+              .Key(x => x.Title, KeyType.Descending)
+              .Key(x=>x.ModifiedOn, KeyType.Descending)
               .Options(o => o.Background = true)
               .Create();
 
             DB.Index<Book>()
-              .Key(x => x.AllGenres, Type.Geo2D)
-              .Key(x => x.Title, Type.Descending)
-              .Key(x => x.ModifiedOn, Type.Ascending)
+              .Key(x => x.AllGenres, KeyType.Geo2D)
+              .Key(x => x.Title, KeyType.Descending)
+              .Key(x => x.ModifiedOn, KeyType.Ascending)
               .Options(o => o.Background = true)
               .Create();
 
             DB.Index<Author>()
-              .Key(x => x.Age, Type.Hashed)
+              .Key(x => x.Age, KeyType.Hashed)
               .Create();
 
             DB.Index<Author>()
-                .Key(x => x.Age, Type.Ascending)
+                .Key(x => x.Age, KeyType.Ascending)
                 .Create();
 
             DB.Index<Author>()
-                .Key(x => x.Age, Type.Descending)
+                .Key(x => x.Age, KeyType.Descending)
                 .Create();
         }
     }
