@@ -247,76 +247,15 @@ namespace MongoDB.Entities
                 await DeleteAsync<T>(id);
             }
         }
-
+               
         /// <summary>
-        /// Find an Entity by it's ID
+        /// Represents an index for a given Entity
+        /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="ID">The unique ID of the entity to find</param>
-        /// <returns>The entity matching the ID supplied</returns>
-        public static T Find<T>(string ID) where T : Entity
+        public static Index<T> Index<T>() where T : Entity
         {
-            return FindAsync<T>(ID).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Find an Entity by it's ID
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="ID">The unique ID of the entity to find</param>
-        /// <returns>The entity matching the ID supplied</returns>
-        async public static Task<T> FindAsync<T>(string ID) where T : Entity
-        {
-            return await (await GetCollection<T>().FindAsync(d => d.ID == ID)).SingleOrDefaultAsync();
-        }
-
-        /// <summary>
-        /// Find Entities by supplying a lambda expression.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="expression">A lambda expression for matching Entities</param>
-        /// <param name="options">Options for finding documents (not required)</param>
-        /// <returns>A list of Entities matching the supplied lambda expression</returns>
-        public static List<T> Find<T>(Expression<Func<T, bool>> expression, FindOptions<T, T> options = null)
-        {
-            return FindAsync<T>(expression, options).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Find Entities by supplying a lambda expression.
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="expression">A lambda expression for matching Entities</param>
-        /// <param name="options">Options for finding documents (not required)</param>
-        /// <returns>A list of Entities matching the supplied lambda expression</returns>
-        async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression, FindOptions<T, T> options = null)
-        {
-
-            return await (await GetCollection<T>().FindAsync(expression, options)).ToListAsync();
-        }
-
-        /// <summary>
-        /// Find Entities by supplying a MongoDB Filter
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="filter">A MongoDB filter for matching Entities</param>
-        /// <param name="options">Options for finding documents (not required)</param>
-        /// <returns>A list of Entities matching the supplied filter and options</returns>
-        public static List<T> Find<T>(FilterDefinition<T> filter, FindOptions<T, T> options = null)
-        {
-            return FindAsync<T>(filter, options).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Find Entities by supplying a MongoDB Filter
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="filter">A MongoDB filter for matching Entities</param>
-        /// <param name="options">Options for finding documents (not required)</param>
-        /// <returns>A list of Entities matching the supplied filter and options</returns>
-        async public static Task<List<T>> FindAsync<T>(FilterDefinition<T> filter, FindOptions<T, T> options = null)
-        {
-            return await (await GetCollection<T>().FindAsync(filter, options)).ToListAsync();
+            return new Index<T>();
         }
 
         /// <summary>
@@ -359,59 +298,58 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Represents an index for a given Entity
-        /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static Index<T> Index<T>() where T : Entity
-        {
-            return new Index<T>();
-        }
-
-        /// <summary>
-        /// Gets the MongoDB Filter definition builder for the Entity
+        /// Represents a Find command
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        /// <returns></returns>
-        public static FilterDefinitionBuilder<T> Filter<T>()
+        public static Find<T> Find<T>() where T : Entity
         {
-            return Builders<T>.Filter;
+            return new Find<T>();
         }
 
-        /// <summary>
-        /// Gets a Sort Definition for the given Entity
-        /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        /// <param name="sortByProperty">x => x.PropName</param>
-        /// <param name="sortByDescending">Set to true for sorting by descending order. Defaults to ascending order.</param>
-        /// <returns></returns>
-        public static SortDefinition<T> Sort<T>(Expression<Func<T, object>> sortByProperty, bool sortByDescending = false)
-        {
-            if (sortByDescending)
-            {
-                return Builders<T>.Sort.Descending(sortByProperty);
-            }
+        ///// <summary>
+        ///// Gets the MongoDB Filter definition builder for the Entity
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        ///// <returns></returns>
+        //public static FilterDefinitionBuilder<T> Filter<T>()
+        //{
+        //    return Builders<T>.Filter;
+        //}
 
-            return Builders<T>.Sort.Ascending(sortByProperty);
-        }
+        ///// <summary>
+        ///// Gets a Sort Definition for the given Entity
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        ///// <param name="sortByProperty">x => x.PropName</param>
+        ///// <param name="sortByDescending">Set to true for sorting by descending order. Defaults to ascending order.</param>
+        ///// <returns></returns>
+        //public static SortDefinition<T> Sort<T>(Expression<Func<T, object>> sortByProperty, bool sortByDescending = false)
+        //{
+        //    if (sortByDescending)
+        //    {
+        //        return Builders<T>.Sort.Descending(sortByProperty);
+        //    }
 
-        /// <summary>
-        /// Gets a Find Options object with specified paging and sorting
-        /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        /// <param name="skip">The number of documents to skip</param>
-        /// <param name="limit">The number of documents to take</param>
-        /// <param name="sort">The sort definition to use</param>
-        /// <returns></returns>
-        public static FindOptions<T, T> FindOptions<T>(int? skip = null, int? limit = null, SortDefinition<T> sort = null)
-        {
-            return new FindOptions<T, T>
-            {
-                Skip = skip,
-                Limit = limit,
-                Sort = sort
-            };
-        }
+        //    return Builders<T>.Sort.Ascending(sortByProperty);
+        //}
+
+        ///// <summary>
+        ///// Gets a Find Options object with specified paging and sorting
+        ///// </summary>
+        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        ///// <param name="skip">The number of documents to skip</param>
+        ///// <param name="limit">The number of documents to take</param>
+        ///// <param name="sort">The sort definition to use</param>
+        ///// <returns></returns>
+        //public static FindOptions<T, T> FindOptions<T>(int? skip = null, int? limit = null, SortDefinition<T> sort = null)
+        //{
+        //    return new FindOptions<T, T>
+        //    {
+        //        Skip = skip,
+        //        Limit = limit,
+        //        Sort = sort
+        //    };
+        //}
 
         private static void CheckIfInitialized()
         {
