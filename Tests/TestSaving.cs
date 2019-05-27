@@ -122,6 +122,12 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_by_filter_returns_correct_documents()
+        {
+
+        }
+
+        [TestMethod]
         public void decimal_properties_work_correctly()
         {
             var guid = Guid.NewGuid().ToString();

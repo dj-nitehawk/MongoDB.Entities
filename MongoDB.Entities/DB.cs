@@ -271,7 +271,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find an Entity by supplying a lambda expression.
+        /// Find Entities by supplying a lambda expression.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching Entities</param>
@@ -282,7 +282,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find an Entity by supplying a lambda expression.
+        /// Find Entities by supplying a lambda expression.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching Entities</param>
@@ -290,6 +290,30 @@ namespace MongoDB.Entities
         async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression)
         {
             return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
+        }
+
+        /// <summary>
+        /// Find Entities by supplying a MongoDB Filter
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="filter">A MongoDB filter for matching Entities</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <returns>A list of Entities matching the supplied filter and options</returns>
+        public static List<T> Find<T>(FilterDefinition<T> filter, FindOptions<T, T> options = null)
+        {
+            return FindAsync<T>(filter, options).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Find Entities by supplying a MongoDB Filter
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="filter">A MongoDB filter for matching Entities</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <returns>A list of Entities matching the supplied filter and options</returns>
+        async public static Task<List<T>> FindAsync<T>(FilterDefinition<T> filter, FindOptions<T, T> options = null)
+        {
+            return await (await DB.GetCollection<T>().FindAsync(filter, options)).ToListAsync();
         }
 
         /// <summary>
@@ -320,10 +344,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <returns>A List of Entities of given type</returns>
-        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm)
+        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false)
         {
-            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = false });
+            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
         }
 
