@@ -212,7 +212,7 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         async public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            var IDs = await DB.Collection<T>()
+            var IDs = await Collection<T>()
                               .Where(expression)
                               .Select(e => e.ID)
                               .ToListAsync();
@@ -267,7 +267,7 @@ namespace MongoDB.Entities
         /// <returns>The entity matching the ID supplied</returns>
         async public static Task<T> FindAsync<T>(string ID) where T : Entity
         {
-            return await (await DB.GetCollection<T>().FindAsync(d => d.ID == ID)).SingleOrDefaultAsync();
+            return await (await GetCollection<T>().FindAsync(d => d.ID == ID)).SingleOrDefaultAsync();
         }
 
         /// <summary>
@@ -275,10 +275,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching Entities</param>
+        /// <param name="options">Options for finding documents (not required)</param>
         /// <returns>A list of Entities matching the supplied lambda expression</returns>
-        public static List<T> Find<T>(Expression<Func<T, bool>> expression)
+        public static List<T> Find<T>(Expression<Func<T, bool>> expression, FindOptions<T, T> options = null)
         {
-            return FindAsync<T>(expression).GetAwaiter().GetResult();
+            return FindAsync<T>(expression, options).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -286,10 +287,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching Entities</param>
+        /// <param name="options">Options for finding documents (not required)</param>
         /// <returns>A list of Entities matching the supplied lambda expression</returns>
-        async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression)
+        async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression, FindOptions<T, T> options = null)
         {
-            return await (await DB.GetCollection<T>().FindAsync(expression)).ToListAsync();
+
+            return await (await GetCollection<T>().FindAsync(expression, options)).ToListAsync();
         }
 
         /// <summary>
@@ -313,7 +316,46 @@ namespace MongoDB.Entities
         /// <returns>A list of Entities matching the supplied filter and options</returns>
         async public static Task<List<T>> FindAsync<T>(FilterDefinition<T> filter, FindOptions<T, T> options = null)
         {
-            return await (await DB.GetCollection<T>().FindAsync(filter, options)).ToListAsync();
+            return await (await GetCollection<T>().FindAsync(filter, options)).ToListAsync();
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <returns>A List of Entities of given type</returns>
+        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
+        {
+            return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <returns>A List of Entities of given type</returns>
+        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
+        {
+            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
+            return await (await GetCollection<T>().FindAsync(filter, options)).ToListAsync();
+        }
+
+        /// <summary>
+        /// Represents a batch update command
+        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Set() and finally call .Execute() to run the command.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        public static Update<T> Update<T>() where T : Entity
+        {
+            return new Update<T>();
         }
 
         /// <summary>
@@ -327,39 +369,48 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Search the text index of a collection for Entities matching the search term.
-        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="searchTerm">The text to search the index for</param>
-        /// <returns>A List of Entities of given type</returns>
-        public static List<T> SearchText<T>(string searchTerm)
-        {
-            return SearchTextAsync<T>(searchTerm).GetAwaiter().GetResult();
-        }
-
-        /// <summary>
-        /// Search the text index of a collection for Entities matching the search term.
-        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="searchTerm">The text to search the index for</param>
-        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
-        /// <returns>A List of Entities of given type</returns>
-        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false)
-        {
-            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
-            return await (await GetCollection<T>().FindAsync(filter)).ToListAsync();
-        }
-
-        /// <summary>
-        /// Represents a batch update command
-        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Set() and finally call .Execute() to run the command.</para>
+        /// Gets the MongoDB Filter definition builder for the Entity
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static Update<T> Update<T>() where T : Entity
+        /// <returns></returns>
+        public static FilterDefinitionBuilder<T> Filter<T>()
         {
-            return new Update<T>();
+            return Builders<T>.Filter;
+        }
+
+        /// <summary>
+        /// Gets a Sort Definition for the given Entity
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <param name="sortByProperty">x => x.PropName</param>
+        /// <param name="sortByDescending">Set to true for sorting by descending order. Defaults to ascending order.</param>
+        /// <returns></returns>
+        public static SortDefinition<T> Sort<T>(Expression<Func<T, object>> sortByProperty, bool sortByDescending = false)
+        {
+            if (sortByDescending)
+            {
+                return Builders<T>.Sort.Descending(sortByProperty);
+            }
+
+            return Builders<T>.Sort.Ascending(sortByProperty);
+        }
+
+        /// <summary>
+        /// Gets a Find Options object with specified paging and sorting
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <param name="skip">The number of documents to skip</param>
+        /// <param name="limit">The number of documents to take</param>
+        /// <param name="sort">The sort definition to use</param>
+        /// <returns></returns>
+        public static FindOptions<T, T> FindOptions<T>(int? skip = null, int? limit = null, SortDefinition<T> sort = null)
+        {
+            return new FindOptions<T, T>
+            {
+                Skip = skip,
+                Limit = limit,
+                Sort = sort
+            };
         }
 
         private static void CheckIfInitialized()

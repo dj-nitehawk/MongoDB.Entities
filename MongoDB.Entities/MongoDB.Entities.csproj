@@ -8,11 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>4.8</Version>
-    <AssemblyVersion>4.8.0.0</AssemblyVersion>
-    <FileVersion>4.8.0.0</FileVersion>
+    <Version>5.0</Version>
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <FileVersion>5.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- api method for finding entities by filter + options
+    <PackageReleaseNotes>- api method for finding entities by filter
+- expose shortcut for filter builder
+- specify paging and sorting for all find methods
 - specify case sensitivity of full text searches</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

@@ -215,7 +215,6 @@ namespace MongoDB.Entities
 
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
+
     }
-
-
 }

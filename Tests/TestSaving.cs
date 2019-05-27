@@ -124,6 +124,18 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void find_by_filter_returns_correct_documents()
         {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Surname = guid }; three.Save();
+
+            var filter  = DB.Filter<Author>().Where(a => a.Surname == guid);
+            var sort    = DB.Sort<Author>(a => a.Name, true);
+            var options = DB.FindOptions<Author>(2, 1, sort);
+
+            var result  = DB.Find<Author>(filter, options);
+
+            Assert.AreEqual(one.Name, result.First().Name);
 
         }
 
@@ -137,9 +149,10 @@ namespace MongoDB.Entities.Tests
             var res = DB.Collection<Book>()
                         .Where(b => b.Title == guid)
                         .GroupBy(b => b.Title)
-                        .Select(g => new {
+                        .Select(g => new
+                        {
                             Title = g.Key,
-                            Sum = g.Sum(b=>b.SellingPrice)
+                            Sum = g.Sum(b => b.SellingPrice)
                         }).Single();
 
             Assert.AreEqual(book1.SellingPrice + book2.SellingPrice, res.Sum);
