@@ -110,6 +110,11 @@ namespace MongoDB.Entities
             await GetCollection<T>().UpdateManyAsync(filter, definition);
         }
 
+        async internal static Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options)
+        {
+            return await (await GetCollection<T>().FindAsync(filter, options)).ToListAsync();
+        }
+
         /// <summary>
         /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>
@@ -247,7 +252,7 @@ namespace MongoDB.Entities
                 await DeleteAsync<T>(id);
             }
         }
-               
+
         /// <summary>
         /// Represents an index for a given Entity
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
@@ -298,7 +303,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Represents a Find command
+        /// Represents a MongoDB Find command
+        /// <para>TIP: Specify your criteria using .Filter() .Sort() .Skip() .Take() .Project() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         public static Find<T> Find<T>() where T : Entity
@@ -306,50 +312,17 @@ namespace MongoDB.Entities
             return new Find<T>();
         }
 
-        ///// <summary>
-        ///// Gets the MongoDB Filter definition builder for the Entity
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        ///// <returns></returns>
-        //public static FilterDefinitionBuilder<T> Filter<T>()
-        //{
-        //    return Builders<T>.Filter;
-        //}
-
-        ///// <summary>
-        ///// Gets a Sort Definition for the given Entity
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        ///// <param name="sortByProperty">x => x.PropName</param>
-        ///// <param name="sortByDescending">Set to true for sorting by descending order. Defaults to ascending order.</param>
-        ///// <returns></returns>
-        //public static SortDefinition<T> Sort<T>(Expression<Func<T, object>> sortByProperty, bool sortByDescending = false)
-        //{
-        //    if (sortByDescending)
-        //    {
-        //        return Builders<T>.Sort.Descending(sortByProperty);
-        //    }
-
-        //    return Builders<T>.Sort.Ascending(sortByProperty);
-        //}
-
-        ///// <summary>
-        ///// Gets a Find Options object with specified paging and sorting
-        ///// </summary>
-        ///// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        ///// <param name="skip">The number of documents to skip</param>
-        ///// <param name="limit">The number of documents to take</param>
-        ///// <param name="sort">The sort definition to use</param>
-        ///// <returns></returns>
-        //public static FindOptions<T, T> FindOptions<T>(int? skip = null, int? limit = null, SortDefinition<T> sort = null)
-        //{
-        //    return new FindOptions<T, T>
-        //    {
-        //        Skip = skip,
-        //        Limit = limit,
-        //        Sort = sort
-        //    };
-        //}
+        /// <summary>
+        /// Represents a MongoDB Find command
+        /// <para>TIP: Specify your criteria using .Filter() .Sort() .Skip() .Take() .Project() methods and finally call .Execute()</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
+        /// <returns></returns>
+        public static Find<T, TProjection> Find<T, TProjection>() where T : Entity
+        {
+            return new Find<T, TProjection>();
+        }
 
         private static void CheckIfInitialized()
         {
