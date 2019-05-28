@@ -9,11 +9,17 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Everything is type safe. No magic strings needed.
 - Model your entities in either **Document/NoSQL** stye or **Relational/SQL** style or a mix of both.
 - Built-in automatic support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
-- Data can be queried using either LINQ or lambda expressions.
+- Data can be queried using either LINQ, lambda expressions or filters.
+- Sorting, paging and projecting is convenient.
 - Programatically define indexes.
 - Full text search with text indexes.
 - Supports `decimal` type without attributes.
 - Supports both `ASP.Net Core` and `.Net Core` applications.
+
+
+
+## Documentation
+the API is described in the [wiki](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/1.-Getting-Started).
 
 
 
@@ -65,12 +71,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 
 
 
-## Wiki/Getting Started
-in order to get started using the library please see the [wiki pages](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/1.-Getting-Started).
-
-
-
-## Examples
+## Code Examples
 .net core console project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 
 e2e/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
