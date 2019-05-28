@@ -69,6 +69,17 @@ namespace MongoDB.Entities
             return await ExecuteAsync();
         }
 
+        public List<TProjection> By(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        {
+            return ByAsync(filter).GetAwaiter().GetResult();
+        }
+
+        async public Task<List<TProjection>> ByAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        {
+            Match(filter);
+            return await ExecuteAsync();
+        }
+
         /// <summary>
         /// Specify an Entity ID as the matching criteria
         /// </summary>

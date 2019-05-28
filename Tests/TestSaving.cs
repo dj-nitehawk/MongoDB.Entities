@@ -129,6 +129,18 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_by_filter_basic_returns_correct_documents()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid }; author1.Save();
+            var author2 = new Author { Name = guid }; author2.Save();
+
+            var res = DB.Find<Author>().By(f => f.Eq(a => a.Name, guid));
+
+            Assert.AreEqual(2, res.Count());
+        }
+
+        [TestMethod]
         public void find_by_filter_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
@@ -149,7 +161,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(three.Name, res.First().Name);
         }
-        
+
         private class Test { public string Tester { get; set; } }
         [TestMethod]
         public void find_with_projection_to_custom_type_works()
