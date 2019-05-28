@@ -265,7 +265,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Search the text index of a collection for Entities matching the search term.
-        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
@@ -279,7 +279,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Search the text index of a collection for Entities matching the search term.
-        /// <para>TIP: Make sure to define a text index with DefineIndex before searching</para>
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
