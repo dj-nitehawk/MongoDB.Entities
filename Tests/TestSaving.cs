@@ -110,11 +110,9 @@ namespace MongoDB.Entities.Tests
             var author1 = new Author { Name = guid }; author1.Save();
             var author2 = new Author { Name = guid }; author2.Save();
 
-            //todo: here
+            var res = DB.Find<Author>().By(a => a.Name == guid);
 
-            //var res = DB.Find<Author>(a => a.Name == guid);
-            //Assert.AreEqual(2, res.Count());
-            throw new Exception();
+            Assert.AreEqual(2, res.Count());
         }
 
         [TestMethod]
@@ -123,11 +121,11 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = "fbircdb1" }; book1.Save();
             var book2 = new Book { Title = "fbircdb2" }; book2.Save();
 
-            //todo: here
+            var res1 = DB.Find<Book>().By(new ObjectId().ToString());
+            var res2 = DB.Find<Book>().By(book2.ID);
 
-            //Assert.AreEqual(null, DB.Find<Book>(new ObjectId().ToString()));
-            //Assert.AreEqual(book2.ID, DB.Find<Book>(book2.ID).ID);
-            throw new Exception();
+            Assert.AreEqual(null, res1);
+            Assert.AreEqual(book2.ID, res2.ID);
         }
 
         [TestMethod]
@@ -137,17 +135,19 @@ namespace MongoDB.Entities.Tests
             var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
             var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
             var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
 
             var res = DB.Find<Author>()
-                        .Filter(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
+                        .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
                         .Sort(a => a.Age, Order.Descending)
                         .Sort(a => a.Name, Order.Descending)
                         .Skip(1)
                         .Take(1)
                         .Project(a => new Author { Name = a.Name })
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute();
 
-            Assert.AreEqual(two.Name, res.First().Name);
+            Assert.AreEqual(three.Name, res.First().Name);
         }
 
         [TestMethod]

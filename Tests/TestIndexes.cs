@@ -11,7 +11,7 @@ namespace MongoDB.Entities.Tests
         public void full_text_search_with_index_returns_correct_result()
         {
             DB.Index<Author>()
-              .Options(o => o.Background = false)
+              .Option(o => o.Background = false)
               .Key(a => a.Name, KeyType.Text)
               .Key(a => a.Surname, KeyType.Text)
               .Create();
@@ -33,15 +33,15 @@ namespace MongoDB.Entities.Tests
             DB.Index<Book>()
               .Key(x => x.AllGenres, KeyType.Geo2D)
               .Key(x => x.Title, KeyType.Descending)
-              .Key(x=>x.ModifiedOn, KeyType.Descending)
-              .Options(o => o.Background = true)
+              .Key(x => x.ModifiedOn, KeyType.Descending)
+              .Option(o => o.Background = true)
               .Create();
 
             DB.Index<Book>()
               .Key(x => x.AllGenres, KeyType.Geo2D)
               .Key(x => x.Title, KeyType.Descending)
               .Key(x => x.ModifiedOn, KeyType.Ascending)
-              .Options(o => o.Background = true)
+              .Option(o => o.Background = true)
               .Create();
 
             DB.Index<Author>()

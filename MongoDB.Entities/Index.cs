@@ -117,14 +117,10 @@ namespace MongoDB.Entities
         /// Set the options for this index definition
         /// <para>TIP: Setting options is not required.</para>
         /// </summary>
-        /// <param name="options">x => x.Option1 = Value1, x => x.Option2 = Value2</param>
-        public Index<T> Options(params Action<CreateIndexOptions>[] options)
+        /// <param name="option">x => x.OptionName = OptionValue</param>
+        public Index<T> Option(Action<CreateIndexOptions> option)
         {
-            foreach (var opt in options)
-            {
-                opt(_options);
-            }
-
+            option(_options);
             return this;
         }
 

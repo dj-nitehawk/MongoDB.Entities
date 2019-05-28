@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -15,7 +15,40 @@ namespace MongoDB.Entities
         private List<SortDefinition<T>> _sorts = new List<SortDefinition<T>>();
         private FindOptions<T, TProjection> _options = new FindOptions<T, TProjection>();
 
-        public Find<T, TProjection> Filter(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        public TProjection By(string ID)
+        {
+            return ByAsync(ID).GetAwaiter().GetResult();
+
+        }
+
+        async public Task<TProjection> ByAsync(string ID)
+        {
+            Match(ID);
+            return (await ExecuteAsync()).SingleOrDefault();
+        }
+
+        public List<TProjection> By(Expression<Func<T, bool>> expression)
+        {
+            return ByAsync(expression).GetAwaiter().GetResult();
+        }
+
+        async public Task<List<TProjection>> ByAsync(Expression<Func<T, bool>> expression)
+        {
+            Match(expression);
+            return await ExecuteAsync();
+        }
+
+        public Find<T, TProjection> Match(string ID)
+        {
+            return Match(f => f.Eq(t => t.ID, ID));
+        }
+
+        public Find<T, TProjection> Match(Expression<Func<T, bool>> expression)
+        {
+            return Match(f => f.Where(expression));
+        }
+
+        public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             _filter = filter(Builders<T>.Filter);
             return this;
@@ -54,6 +87,12 @@ namespace MongoDB.Entities
             return this;
         }
 
+        public Find<T, TProjection> Option(Action<FindOptions<T, TProjection>> option)
+        {
+            option(_options);
+            return this;
+        }
+
         public List<TProjection> Execute()
         {
             return ExecuteAsync().GetAwaiter().GetResult();
@@ -73,18 +112,5 @@ namespace MongoDB.Entities
     }
 
     //todo: xml docu
-
-    //todo: need these api methods
-
-    //async public static Task<T> FindAsync<T>(string ID, FindOptions<T, T> options = null) where T : Entity
-    //{
-    //    return await (await GetCollection<T>().FindAsync(d => d.ID == ID, options)).SingleOrDefaultAsync();
-    //}
-
-    //async public static Task<List<T>> FindAsync<T>(Expression<Func<T, bool>> expression, FindOptions<T, T> options = null)
-    //{
-
-    //    return await (await GetCollection<T>().FindAsync(expression, options)).ToListAsync();
-    //}
 
 }

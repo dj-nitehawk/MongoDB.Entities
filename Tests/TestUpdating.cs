@@ -20,6 +20,7 @@ namespace MongoDB.Entities.Tests
               .Match(a => a.Surname == guid)
               .Set(a => a.Name, guid)
               .Set(a => a.Surname, author1.Name)
+              .Option(o => o.BypassDocumentValidation = true)
               .Execute();
 
             var count = author1.Collection().Where(a => a.Name == guid && a.Surname == author1.Name).Count();

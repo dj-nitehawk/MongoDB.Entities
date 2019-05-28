@@ -105,9 +105,9 @@ namespace MongoDB.Entities
             await GetCollection<T>().Indexes.DropOneAsync(name);
         }
 
-        async internal static Task UpdateAsync<T>(Expression<Func<T, bool>> filter, UpdateDefinition<T> definition)
+        async internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options)
         {
-            await GetCollection<T>().UpdateManyAsync(filter, definition);
+            await GetCollection<T>().UpdateManyAsync(filter, definition, options);
         }
 
         async internal static Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options)
