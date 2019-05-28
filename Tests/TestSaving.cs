@@ -149,11 +149,30 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(three.Name, res.First().Name);
         }
-
+        
+        private class Test { public string Tester { get; set; } }
         [TestMethod]
-        public void find_with_projection_to_anonymouse_type_works()
+        public void find_with_projection_to_custom_type_works()
         {
-            //todo: write test
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = DB.Find<Author, Test>()
+                        .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
+                        .Sort(a => a.Age, Order.Descending)
+                        .Sort(a => a.Name, Order.Descending)
+                        .Skip(1)
+                        .Take(1)
+                        .Project(a => new Test { Tester = a.Name })
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
+                        .Execute()
+                        .FirstOrDefault();
+
+            Assert.AreEqual(three.Name, res.Tester);
+
         }
 
         [TestMethod]

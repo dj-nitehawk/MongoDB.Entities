@@ -12,9 +12,9 @@
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <FileVersion>5.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- api method for finding entities by filter
-- expose shortcut for filter builder
-- specify paging and sorting for all find methods
+    <PackageReleaseNotes>- new api for finding entities by id, expression, filters
+- specify paging and sorting for find methods
+- specify options for finding entities
 - specify case sensitivity of full text searches</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

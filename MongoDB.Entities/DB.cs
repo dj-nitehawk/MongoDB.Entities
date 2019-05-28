@@ -304,7 +304,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Represents a MongoDB Find command
-        /// <para>TIP: Specify your criteria using .Filter() .Sort() .Skip() .Take() .Project() methods and finally call .Execute()</para>
+        /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         public static Find<T> Find<T>() where T : Entity
@@ -314,7 +314,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Represents a MongoDB Find command
-        /// <para>TIP: Specify your criteria using .Filter() .Sort() .Skip() .Take() .Project() methods and finally call .Execute()</para>
+        /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>

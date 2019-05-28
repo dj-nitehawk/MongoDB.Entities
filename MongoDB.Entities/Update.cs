@@ -29,7 +29,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify the Entity matching criteria
         /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.ID, "xxxxx") &amp; f.Gt(x => x.Property, Value)</param>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             _filter = filter(Builders<T>.Filter);
@@ -37,7 +37,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the property and it's value to set.
+        /// Specify the property and it's value to set (use multiple times if needed)
         /// </summary>
         /// <param name="property">x => x.Property</param>
         /// <param name="value">The value to set on the property</param>
@@ -49,7 +49,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the options for this update command
+        /// Specify an option for this update command (use multiple times if needed)
         /// <para>TIP: Setting options is not required</para>
         /// </summary>
         /// <param name="option">x => x.OptionName = OptionValue</param>
