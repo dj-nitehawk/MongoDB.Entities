@@ -16,7 +16,10 @@ namespace MongoDB.Entities
         private Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private UpdateOptions options = new UpdateOptions();
-        
+        private IClientSessionHandle session = null;
+
+        internal Update(IClientSessionHandle session = null) => this.session = session;
+
         /// <summary>
         /// Specify the Entity matching criteria
         /// </summary>
@@ -75,7 +78,7 @@ namespace MongoDB.Entities
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Set() method first!");
-            await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs),options);
+            await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
         }
     }
 }

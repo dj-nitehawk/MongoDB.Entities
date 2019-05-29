@@ -12,7 +12,10 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// </summary>
     /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-    public class Find<T> : Find<T, T> where T : Entity { }
+    public class Find<T> : Find<T, T> where T : Entity
+    {
+        internal Find(IClientSessionHandle session = null) : base(session) { }
+    }
 
     /// <summary>
     /// Represents a MongoDB Find command
@@ -25,6 +28,9 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
         private FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
+        private IClientSessionHandle session = null;
+
+        internal Find(IClientSessionHandle session = null) => this.session = session;
 
         /// <summary>
         /// Find a single Entity by ID
@@ -184,7 +190,7 @@ namespace MongoDB.Entities
         async public Task<List<TProjection>> ExecuteAsync()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
-            return await DB.FindAsync(filter, options);
+            return await DB.FindAsync(filter, options, session);
         }
     }
 

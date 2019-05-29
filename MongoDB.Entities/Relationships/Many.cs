@@ -185,9 +185,9 @@ namespace MongoDB.Entities
                 }
             }
 
-            _ = session == null
-                ? await collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true })
-                : await collection.ReplaceOneAsync(session, x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true });
+            await (session == null
+                   ? collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true })
+                   : collection.ReplaceOneAsync(session, x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true }));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(TChild child, IClientSessionHandle session = null)
         {
-            RemoveAsync(child).GetAwaiter().GetResult();
+            RemoveAsync(child, session).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -209,15 +209,15 @@ namespace MongoDB.Entities
         {
             if (inverse)
             {
-                _ = session == null
-                    ? await collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
-                    : await collection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID));
+                await (session == null
+                       ? collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
+                       : collection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
             }
             else
             {
-                _ = session == null
-                    ? await collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
-                    : await collection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID));
+                await (session == null
+                       ? collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
+                       : collection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
 
             }
         }
