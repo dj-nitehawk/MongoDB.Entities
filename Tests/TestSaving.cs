@@ -110,7 +110,7 @@ namespace MongoDB.Entities.Tests
             var author1 = new Author { Name = guid }; author1.Save();
             var author2 = new Author { Name = guid }; author2.Save();
 
-            var res = DB.Find<Author>().By(a => a.Name == guid);
+            var res = DB.Find<Author>().Many(a => a.Name == guid);
 
             Assert.AreEqual(2, res.Count());
         }
@@ -121,8 +121,8 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = "fbircdb1" }; book1.Save();
             var book2 = new Book { Title = "fbircdb2" }; book2.Save();
 
-            var res1 = DB.Find<Book>().By(new ObjectId().ToString());
-            var res2 = DB.Find<Book>().By(book2.ID);
+            var res1 = DB.Find<Book>().One(new ObjectId().ToString());
+            var res2 = DB.Find<Book>().One(book2.ID);
 
             Assert.AreEqual(null, res1);
             Assert.AreEqual(book2.ID, res2.ID);
@@ -135,7 +135,7 @@ namespace MongoDB.Entities.Tests
             var author1 = new Author { Name = guid }; author1.Save();
             var author2 = new Author { Name = guid }; author2.Save();
 
-            var res = DB.Find<Author>().By(f => f.Eq(a => a.Name, guid));
+            var res = DB.Find<Author>().Many(f => f.Eq(a => a.Name, guid));
 
             Assert.AreEqual(2, res.Count());
         }

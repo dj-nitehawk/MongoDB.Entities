@@ -37,9 +37,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="ID">The unique ID of an Entity</param>
         /// <returns>A single entity or null if not found</returns>
-        public TProjection By(string ID)
+        public TProjection One(string ID)
         {
-            return ByAsync(ID).GetAwaiter().GetResult();
+            return OneAsync(ID).GetAwaiter().GetResult();
 
         }
 
@@ -48,7 +48,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="ID">The unique ID of an Entity</param>
         /// <returns>A single entity or null if not found</returns>
-        async public Task<TProjection> ByAsync(string ID)
+        async public Task<TProjection> OneAsync(string ID)
         {
             Match(ID);
             return (await ExecuteAsync()).SingleOrDefault();
@@ -59,9 +59,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="expression">x => x.Property == Value</param>
         /// <returns>A list of Entities</returns>
-        public List<TProjection> By(Expression<Func<T, bool>> expression)
+        public List<TProjection> Many(Expression<Func<T, bool>> expression)
         {
-            return ByAsync(expression).GetAwaiter().GetResult();
+            return ManyAsync(expression).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -69,18 +69,28 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="expression">x => x.Property == Value</param>
         /// <returns>A list of Entities</returns>
-        async public Task<List<TProjection>> ByAsync(Expression<Func<T, bool>> expression)
+        async public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression)
         {
             Match(expression);
             return await ExecuteAsync();
         }
 
-        public List<TProjection> By(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        /// <summary>
+        /// Find entities by supplying filters
+        /// </summary>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        /// <returns>A list of Entities</returns>
+        public List<TProjection> Many(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            return ByAsync(filter).GetAwaiter().GetResult();
+            return ManyAsync(filter).GetAwaiter().GetResult();
         }
 
-        async public Task<List<TProjection>> ByAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        /// <summary>
+        /// Find entities by supplying filters
+        /// </summary>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        /// <returns>A list of Entities</returns>
+        async public Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             Match(filter);
             return await ExecuteAsync();

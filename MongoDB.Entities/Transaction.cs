@@ -4,16 +4,24 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-//todo: xml docs
 //todo: tests
 
 namespace MongoDB.Entities
 {
+    /// <summary>
+    /// Represents a transaction used to carry out inter related write operations.
+    /// <para>TIP: Remember to always call .Dispose() after use or enclose in a 'Using' statement.</para>
+    /// <para>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</para>
+    /// </summary>
     public class Transaction : IDisposable
     {
         public IClientSessionHandle Session { get; }
         private IMongoClient client;
 
+        /// <summary>
+        /// Instantiates and begins a transaction.
+        /// </summary>
+        /// <param name="options">Client session options for this transaction</param>
         public Transaction(ClientSessionOptions options = null)
         {
             client = DB.GetClient();
@@ -21,13 +29,25 @@ namespace MongoDB.Entities
             Session.StartTransaction();
         }
 
-        public void CommitTransaction() => Session.CommitTransaction();
-        async public void CommitTransactionAsync() => await Session.CommitTransactionAsync();
+        /// <summary>
+        /// Commits a tranaction to MongoDB
+        /// </summary>
+        public void Commit() => Session.CommitTransaction();
 
-        public Index<T> Index<T>() where T : Entity
-        {
-            return new Index<T>(Session);
-        }
+        /// <summary>
+        /// Commits a tranaction to MongoDB
+        /// </summary>
+        async public void CommitAsync() => await Session.CommitTransactionAsync();
+
+        /// <summary>
+        /// Aborts and rolls back a tranaction
+        /// </summary>
+        public void Abort() => Session.AbortTransaction();
+
+        /// <summary>
+        /// Aborts and rolls back a tranaction
+        /// </summary>
+        async public void AbortAsync() => await Session.AbortTransactionAsync();
 
         public Update<T> Update<T>() where T : Entity
         {
@@ -94,6 +114,9 @@ namespace MongoDB.Entities
             return await DB.SearchTextAsync<T>(searchTerm, caseSensitive, options, Session);
         }
 
+        /// <summary>
+        /// Ends the transaction and disposes the session.
+        /// </summary>
         public void Dispose()
         {
             Session.Dispose();

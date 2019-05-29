@@ -7,19 +7,19 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ### Advantages:
 - Never have to deal with `ObjectIds` or `BsonDocuments`. 
 - Everything is type safe. No magic strings needed.
-- Model your entities in either **Document/NoSQL** stye or **Relational/SQL** style or a mix of both.
 - Built-in automatic support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
 - Data can be queried using either LINQ, lambda expressions or filters.
 - Sorting, paging and projecting is convenient.
 - Programatically define indexes.
 - Full text search with text indexes.
-- Supports `decimal` type without attributes.
+- Multi-document transaction support.
+- Use `decimal` type properties without attributes.
 - Supports both `ASP.Net Core` and `.Net Core` applications.
 
 
 
 ## Documentation
-the API is described in the [wiki](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/1.-Getting-Started).
+the easy to use API is described in the [wiki pages](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/1.-Getting-Started).
 
 
 
@@ -53,6 +53,10 @@ the API is described in the [wiki](https://github.com/dj-nitehawk/MongoDB.Entiti
         genre.AllBooks.Add(book);
 
     //Queries
+        var author = DB.Find<Author>().One("ID");
+
+        var authors = DB.Find<Author>().Many(a => a.Publisher == "Harper Collins");
+
         var eckhart = DB.Collection<Author>()
                         .Where(a => a.Name.Contains("Eckhart"))
                         .SingleOrDefault();
@@ -61,7 +65,7 @@ the API is described in the [wiki](https://github.com/dj-nitehawk/MongoDB.Entiti
                                        .Where(b => b.Title.Contains("Power"))
                                        .SingleOrDefault();
 
-        var selfhelp = book.AllGenres.Collection().First();
+        var genre = book.AllGenres.Collection().First();
 
     //Delete
         book.Delete();

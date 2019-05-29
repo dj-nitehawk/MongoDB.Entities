@@ -26,8 +26,7 @@ namespace MongoDB.Entities
         public DB(string database, string host = "127.0.0.1", int port = 27017)
         {
             Initialize(
-                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
-                database);
+                new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database);
         }
 
         /// <summary>
@@ -100,18 +99,14 @@ namespace MongoDB.Entities
             return db.Client;
         }
 
-        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model, IClientSessionHandle session = null)
+        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
         {
-            await (session == null
-                   ? GetCollection<T>().Indexes.CreateOneAsync(model)
-                   : GetCollection<T>().Indexes.CreateOneAsync(session, model));
+            await GetCollection<T>().Indexes.CreateOneAsync(model);
         }
 
-        internal async static Task DropIndexAsync<T>(string name, IClientSessionHandle session = null)
+        internal async static Task DropIndexAsync<T>(string name)
         {
-            await (session == null
-                   ? GetCollection<T>().Indexes.DropOneAsync(name)
-                   : GetCollection<T>().Indexes.DropOneAsync(session, name));
+            await GetCollection<T>().Indexes.DropOneAsync(name);
         }
 
         async internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null)

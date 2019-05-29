@@ -15,9 +15,6 @@ namespace MongoDB.Entities
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
         private CreateIndexOptions options = new CreateIndexOptions { Background = true };
-        private IClientSessionHandle session = null;
-
-        internal Index(IClientSessionHandle session = null) => this.session = session;
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
@@ -97,14 +94,14 @@ namespace MongoDB.Entities
                                 options);
             try
             {
-                await DB.CreateIndexAsync<T>(model, session);
+                await DB.CreateIndexAsync<T>(model);
             }
             catch (MongoCommandException x)
             {
                 if (x.Code == 85 || x.Code == 86)
                 {
-                    await DB.DropIndexAsync<T>(options.Name, session);
-                    await DB.CreateIndexAsync<T>(model, session);
+                    await DB.DropIndexAsync<T>(options.Name);
+                    await DB.CreateIndexAsync<T>(model);
                 }
                 else
                 {
