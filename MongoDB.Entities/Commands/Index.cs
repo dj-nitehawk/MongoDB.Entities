@@ -14,8 +14,10 @@ namespace MongoDB.Entities
     public class Index<T> where T : Entity
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
+        private CreateIndexOptions options = new CreateIndexOptions { Background = true };
+        private IClientSessionHandle session = null;
 
-        private CreateIndexOptions _options = new CreateIndexOptions { Background = true };
+        internal Index(IClientSessionHandle session = null) => this.session = session;
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
@@ -78,31 +80,31 @@ namespace MongoDB.Entities
                 propNames.Add(member.Member.Name + keyType);
             }
 
-            if (string.IsNullOrEmpty(_options.Name))
+            if (string.IsNullOrEmpty(options.Name))
             {
                 if (isTextIndex)
                 {
-                    _options.Name = "[TEXT]";
+                    options.Name = "[TEXT]";
                 }
                 else
                 {
-                    _options.Name = string.Join(" | ", propNames);
+                    options.Name = string.Join(" | ", propNames);
                 }
             }
 
             var model = new CreateIndexModel<T>(
                                 Builders<T>.IndexKeys.Combine(keyDefs),
-                                _options);
+                                options);
             try
             {
-                await DB.CreateIndexAsync<T>(model);
+                await DB.CreateIndexAsync<T>(model, session);
             }
             catch (MongoCommandException x)
             {
                 if (x.Code == 85 || x.Code == 86)
                 {
-                    await DB.DropIndexAsync<T>(_options.Name);
-                    await DB.CreateIndexAsync<T>(model);
+                    await DB.DropIndexAsync<T>(options.Name, session);
+                    await DB.CreateIndexAsync<T>(model, session);
                 }
                 else
                 {
@@ -118,7 +120,7 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Index<T> Option(Action<CreateIndexOptions> option)
         {
-            option(_options);
+            option(options);
             return this;
         }
 

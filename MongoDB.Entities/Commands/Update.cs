@@ -13,9 +13,9 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
     public class Update<T> where T : Entity
     {
-        private Collection<UpdateDefinition<T>> _defs = new Collection<UpdateDefinition<T>>();
-        private FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
-        private UpdateOptions _options = new UpdateOptions();
+        private Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
+        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+        private UpdateOptions options = new UpdateOptions();
         
         /// <summary>
         /// Specify the Entity matching criteria
@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            _filter = filter(Builders<T>.Filter);
+            this.filter = filter(Builders<T>.Filter);
             return this;
         }
 
@@ -44,7 +44,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public Update<T> Set<TProp>(Expression<Func<T, TProp>> property, TProp value)
         {
-            _defs.Add(Builders<T>.Update.Set(property, value));
+            defs.Add(Builders<T>.Update.Set(property, value));
             return this;
         }
 
@@ -55,7 +55,7 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Update<T> Option(Action<UpdateOptions> option)
         {
-            option(_options);
+            option(options);
             return this;
         }
 
@@ -73,9 +73,9 @@ namespace MongoDB.Entities
         async public Task ExecuteAsync()
 
         {
-            if (_filter == null) throw new ArgumentException("Please use Match() method first!");
-            if (_defs.Count == 0) throw new ArgumentException("Please use Set() method first!");
-            await DB.UpdateAsync(_filter, Builders<T>.Update.Combine(_defs),_options);
+            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use Set() method first!");
+            await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs),options);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MongoDB.Entities
 {
     public class DB
     {
-        private static IMongoDatabase _db = null;
+        protected private static IMongoDatabase db = null;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -25,7 +25,6 @@ namespace MongoDB.Entities
         /// <param name="port">Port number of the server</param>
         public DB(string database, string host = "127.0.0.1", int port = 27017)
         {
-
             Initialize(
                 new MongoClientSettings { Server = new MongoServerAddress(host, port) },
                 database);
@@ -43,17 +42,17 @@ namespace MongoDB.Entities
 
         private void Initialize(MongoClientSettings settings, string database)
         {
-            if (_db != null) throw new InvalidOperationException("Database connection is already initialized!");
+            if (db != null) throw new InvalidOperationException("Database connection is already initialized!");
             if (string.IsNullOrEmpty(database)) throw new ArgumentNullException("Database", "Database name cannot be empty!");
 
             try
             {
-                _db = new MongoClient(settings).GetDatabase(database);
-                _db.ListCollections().ToList().Count(); //get the collection count so that first db connection is established
+                db = new MongoClient(settings).GetDatabase(database);
+                db.ListCollections().ToList().Count(); //get the collection count so that first db connection is established
             }
             catch (Exception)
             {
-                _db = null;
+                db = null;
                 throw;
             }
 
@@ -74,7 +73,7 @@ namespace MongoDB.Entities
         private static IMongoCollection<T> GetCollection<T>()
         {
             CheckIfInitialized();
-            return _db.GetCollection<T>(GetCollectionName<T>());
+            return db.GetCollection<T>(GetCollectionName<T>());
         }
 
         internal static string GetCollectionName<T>()
@@ -92,17 +91,27 @@ namespace MongoDB.Entities
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
             CheckIfInitialized();
-            return _db.GetCollection<Reference>(name);
+            return db.GetCollection<Reference>(name);
         }
 
-        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
+        internal static IMongoClient GetClient()
         {
-            await GetCollection<T>().Indexes.CreateOneAsync(model);
+            CheckIfInitialized();
+            return db.Client;
         }
 
-        internal async static Task DropIndexAsync<T>(string name)
+        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model, IClientSessionHandle session = null)
         {
-            await GetCollection<T>().Indexes.DropOneAsync(name);
+            await (session == null
+                   ? GetCollection<T>().Indexes.CreateOneAsync(model)
+                   : GetCollection<T>().Indexes.CreateOneAsync(session, model));
+        }
+
+        internal async static Task DropIndexAsync<T>(string name, IClientSessionHandle session = null)
+        {
+            await (session == null
+                   ? GetCollection<T>().Indexes.DropOneAsync(name)
+                   : GetCollection<T>().Indexes.DropOneAsync(session, name));
         }
 
         async internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options)
@@ -170,7 +179,7 @@ namespace MongoDB.Entities
         async public static Task DeleteAsync<T>(string ID) where T : Entity
         {
             CheckIfInitialized();
-            var collectionNames = await _db.ListCollectionNames().ToListAsync();
+            var collectionNames = await db.ListCollectionNames().ToListAsync();
 
             //Book
             var entityName = GetCollectionName<T>();
@@ -185,12 +194,12 @@ namespace MongoDB.Entities
 
             foreach (var cName in parentCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID)));
+                tasks.Add(db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID)));
             }
 
             foreach (var cName in childCollections)
             {
-                tasks.Add(_db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID)));
+                tasks.Add(db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID)));
             }
 
             tasks.Add(GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(ID)));
@@ -326,7 +335,7 @@ namespace MongoDB.Entities
 
         private static void CheckIfInitialized()
         {
-            if (_db == null) throw new InvalidOperationException("Database connection is not initialized!");
+            if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
         }
     }
 

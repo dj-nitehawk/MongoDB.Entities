@@ -22,9 +22,9 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
     public class Find<T, TProjection> where T : Entity
     {
-        private FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
-        private List<SortDefinition<T>> _sorts = new List<SortDefinition<T>>();
-        private FindOptions<T, TProjection> _options = new FindOptions<T, TProjection>();
+        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+        private List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
+        private FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
 
         /// <summary>
         /// Find a single Entity by ID
@@ -104,7 +104,7 @@ namespace MongoDB.Entities
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            _filter = filter(Builders<T>.Filter);
+            this.filter = filter(Builders<T>.Filter);
             return this;
         }
 
@@ -118,10 +118,10 @@ namespace MongoDB.Entities
             switch (sortOrder)
             {
                 case Order.Ascending:
-                    _sorts.Add(Builders<T>.Sort.Ascending(propertyToSortBy));
+                    sorts.Add(Builders<T>.Sort.Ascending(propertyToSortBy));
                     break;
                 case Order.Descending:
-                    _sorts.Add(Builders<T>.Sort.Descending(propertyToSortBy));
+                    sorts.Add(Builders<T>.Sort.Descending(propertyToSortBy));
                     break;
             }
 
@@ -134,7 +134,7 @@ namespace MongoDB.Entities
         /// <param name="skipCount">The number to skip</param>
         public Find<T, TProjection> Skip(int skipCount)
         {
-            _options.Skip = skipCount;
+            options.Skip = skipCount;
             return this;
         }
 
@@ -144,7 +144,7 @@ namespace MongoDB.Entities
         /// <param name="takeCount">The number to limit/take</param>
         public Find<T, TProjection> Take(int takeCount)
         {
-            _options.Limit = takeCount;
+            options.Limit = takeCount;
             return this;
         }
 
@@ -154,7 +154,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new Test { PropName = x.Prop }</param>
         public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
-            _options.Projection = Builders<T>.Projection.Expression(expression);
+            options.Projection = Builders<T>.Projection.Expression(expression);
             return this;
         }
 
@@ -164,7 +164,7 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Find<T, TProjection> Option(Action<FindOptions<T, TProjection>> option)
         {
-            option(_options);
+            option(options);
             return this;
         }
 
@@ -183,8 +183,8 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         async public Task<List<TProjection>> ExecuteAsync()
         {
-            if (_sorts.Count > 0) _options.Sort = Builders<T>.Sort.Combine(_sorts);
-            return await DB.FindAsync(_filter, _options);
+            if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
+            return await DB.FindAsync(filter, options);
         }
     }
 
