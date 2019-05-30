@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-//todo: tests
-
 namespace MongoDB.Entities
 {
     /// <summary>
@@ -66,7 +64,7 @@ namespace MongoDB.Entities
 
         public void Save<T>(T entity) where T : Entity
         {
-            DB.Save<T>(entity, Session);
+            SaveAsync<T>(entity).GetAwaiter().GetResult();
         }
 
         async public Task SaveAsync<T>(T entity) where T : Entity
@@ -76,7 +74,7 @@ namespace MongoDB.Entities
 
         public void Delete<T>(string ID) where T : Entity
         {
-            DB.Delete<T>(ID, Session);
+            DeleteAsync<T>(ID).GetAwaiter().GetResult();
         }
 
         async public Task DeleteAsync<T>(string ID) where T : Entity
@@ -86,7 +84,7 @@ namespace MongoDB.Entities
 
         public void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            DB.Delete<T>(expression, Session);
+            DeleteAsync<T>(expression).GetAwaiter().GetResult();
         }
 
         async public Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
@@ -96,7 +94,7 @@ namespace MongoDB.Entities
 
         public void Delete<T>(IEnumerable<String> IDs) where T : Entity
         {
-            DB.Delete<T>(IDs, Session);
+            DeleteAsync<T>(IDs).GetAwaiter().GetResult();
         }
 
         async public Task DeleteAsync<T>(IEnumerable<String> IDs) where T : Entity
@@ -106,7 +104,7 @@ namespace MongoDB.Entities
 
         public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
         {
-            return DB.SearchText<T>(searchTerm, caseSensitive, options, Session);
+            return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
         }
 
         async public Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)

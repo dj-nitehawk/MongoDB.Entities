@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace MongoDB.Entities
     public class Find<T, TProjection> where T : Entity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
+        private Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private IClientSessionHandle session = null;
 

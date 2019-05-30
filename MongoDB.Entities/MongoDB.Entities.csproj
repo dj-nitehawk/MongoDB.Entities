@@ -13,6 +13,7 @@
     <FileVersion>5.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- support for multi-document transactions
+- support for all definition builder operations in batch updates
 - misc. changes
 - more tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>

@@ -40,14 +40,25 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the property and it's value to set (use multiple times if needed)
+        /// Specify the property and it's value to modify (use multiple times if needed)
         /// </summary>
         /// <param name="property">x => x.Property</param>
         /// <param name="value">The value to set on the property</param>
         /// <returns></returns>
-        public Update<T> Set<TProp>(Expression<Func<T, TProp>> property, TProp value)
+        public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
         {
             defs.Add(Builders<T>.Update.Set(property, value));
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
+        /// <returns></returns>
+        public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+        {
+            defs.Add(operation(Builders<T>.Update));
             return this;
         }
 

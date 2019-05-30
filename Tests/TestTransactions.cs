@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace MongoDB.Entities.Tests
 {
+    //NOTE: transactions are only supported on replica-sets. you need at least a single-node replica-set.
+    //      use /MongoDB.Entities/Utilities/mongod.cfg to run mongodb in replica-set mode
+    //      then run rs.initiate() in a mongo console
+
     [TestClass]
     public class Transactions
     {
@@ -20,8 +24,8 @@ namespace MongoDB.Entities.Tests
             {
                 TN.Update<Author>()
                   .Match(a => a.Surname == guid)
-                  .Set(a => a.Name, guid)
-                  .Set(a => a.Surname, author1.Name)
+                  .Modify(a => a.Name, guid)
+                  .Modify(a => a.Surname, author1.Name)
                   .Execute();
 
                 TN.Abort();
@@ -45,8 +49,8 @@ namespace MongoDB.Entities.Tests
             {
                 TN.Update<Author>()
                   .Match(a => a.Surname == guid)
-                  .Set(a => a.Name, guid)
-                  .Set(a => a.Surname, author1.Name)
+                  .Modify(a => a.Name, guid)
+                  .Modify(a => a.Surname, author1.Name)
                   .Execute();
 
                 TN.Commit();
@@ -79,12 +83,40 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book1.ID, res.ID);
         }
 
-        //todo: delete
+        [TestMethod]
+        public void delete_in_transaction_works()
+        {
+            var book1 = new Book { Title = "caftrcd1" };
+            book1.Save();
 
-        //todo: searchtext
+            using (var TN = new Transaction())
+            {
+                TN.Delete<Book>(book1.ID);
+                TN.Commit();
+            }
 
-        //todo: create wiki page for transactions
+            Assert.AreEqual(null, DB.Find<Book>().One(book1.ID));
+        }
 
-        //todo: update wiki about DB.Find<T>().By to DB.Find<T>().Many
+        [TestMethod]
+        public void full_text_search_transaction_returns_correct_results()
+        {
+            DB.Index<Author>()
+              .Option(o => o.Background = false)
+              .Key(a => a.Name, KeyType.Text)
+              .Key(a => a.Surname, KeyType.Text)
+              .Create();
+
+            var author1 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
+            var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
+            DB.Save(author1);
+            DB.Save(author2);
+
+            using (var TN = new Transaction())
+            {
+                var tres = TN.SearchText<Author>(author1.Surname);
+                Assert.AreEqual(author1.Surname, tres.First().Surname);
+            }
+        }
     }
 }
