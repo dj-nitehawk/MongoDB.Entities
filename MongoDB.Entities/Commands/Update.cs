@@ -30,7 +30,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria
+        /// Specify the Entity matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)

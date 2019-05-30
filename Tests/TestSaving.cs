@@ -155,7 +155,7 @@ namespace MongoDB.Entities.Tests
                         .Sort(a => a.Name, Order.Descending)
                         .Skip(1)
                         .Take(1)
-                        .Project(a => new Author { Name = a.Name })
+                        .Project(p=> p.Include("Name").Include("Surname"))
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute();
 
@@ -205,5 +205,6 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(book1.SellingPrice + book2.SellingPrice, res.Sum);
         }
+
     }
 }

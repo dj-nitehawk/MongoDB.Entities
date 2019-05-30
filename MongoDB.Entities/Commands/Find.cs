@@ -87,7 +87,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find entities by supplying filters
+        /// Find entities by supplying a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <returns>A list of Entities</returns>
@@ -116,7 +116,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the matching criteria with MongoDB filters
+        /// Specify the matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
@@ -172,6 +172,17 @@ namespace MongoDB.Entities
         public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
             options.Projection = Builders<T>.Projection.Expression(expression);
+            return this;
+        }
+
+        /// <summary>
+        /// Specify how to project the results using a projection expression
+        /// </summary>
+        /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+        /// <returns></returns>
+        public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
+        {
+            options.Projection = projection(Builders<T>.Projection);
             return this;
         }
 
