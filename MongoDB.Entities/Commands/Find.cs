@@ -159,7 +159,7 @@ namespace MongoDB.Entities
         /// Specify how many entiteis to Take/Limit
         /// </summary>
         /// <param name="takeCount">The number to limit/take</param>
-        public Find<T, TProjection> Take(int takeCount)
+        public Find<T, TProjection> Limit(int takeCount)
         {
             options.Limit = takeCount;
             return this;

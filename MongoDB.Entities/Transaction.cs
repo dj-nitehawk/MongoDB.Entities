@@ -62,6 +62,11 @@ namespace MongoDB.Entities
             return new Find<T, TProjection>(Session);
         }
 
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
+        {
+            return DB.Fluent<T>(options, Session);
+        }
+
         public void Save<T>(T entity) where T : Entity
         {
             SaveAsync<T>(entity).GetAwaiter().GetResult();

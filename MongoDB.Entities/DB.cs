@@ -294,7 +294,7 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false,FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
             return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
         }
@@ -307,7 +307,7 @@ namespace MongoDB.Entities
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
-        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
         async public static Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
@@ -347,6 +347,20 @@ namespace MongoDB.Entities
         public static Find<T, TProjection> Find<T, TProjection>() where T : Entity
         {
             return new Find<T, TProjection>();
+        }
+
+        /// <summary>
+        /// Enables building of an aggregation pipeline. 
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns></returns>
+        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+        {
+            return session == null
+                   ? GetCollection<T>().Aggregate(options)
+                   : GetCollection<T>().Aggregate(session, options);
         }
 
         private static void CheckIfInitialized()

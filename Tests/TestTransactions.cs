@@ -68,6 +68,8 @@ namespace MongoDB.Entities.Tests
             var book2 = new Book { Title = "caftrcd1" };
 
             Book res;
+            Book fnt;
+
 
             using (var TN = new Transaction())
             {
@@ -75,12 +77,14 @@ namespace MongoDB.Entities.Tests
                 TN.Save(book2);
 
                 res = TN.Find<Book>().One(book1.ID);
+                fnt = TN.Fluent<Book>().Match(b => b.ID == book2.ID).SingleOrDefault();
 
                 TN.Commit();
             }
 
             Assert.IsNotNull(res);
             Assert.AreEqual(book1.ID, res.ID);
+            Assert.AreEqual(book2.ID, fnt.ID);
         }
 
         [TestMethod]

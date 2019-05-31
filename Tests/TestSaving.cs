@@ -154,8 +154,8 @@ namespace MongoDB.Entities.Tests
                         .Sort(a => a.Age, Order.Descending)
                         .Sort(a => a.Name, Order.Descending)
                         .Skip(1)
-                        .Take(1)
-                        .Project(p=> p.Include("Name").Include("Surname"))
+                        .Limit(1)
+                        .Project(p => p.Include("Name").Include("Surname"))
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute();
 
@@ -177,7 +177,7 @@ namespace MongoDB.Entities.Tests
                         .Sort(a => a.Age, Order.Descending)
                         .Sort(a => a.Name, Order.Descending)
                         .Skip(1)
-                        .Take(1)
+                        .Limit(1)
                         .Project(a => new Test { Tester = a.Name })
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute()
@@ -185,6 +185,27 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(three.Name, res.Tester);
 
+        }
+
+        [TestMethod]
+        public void find_with_aggregation_pipeline_returns_correct_docs()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = DB.Fluent<Author>()
+                        .Match(a => a.Surname == guid && a.Age > 10)
+                        .SortByDescending(a => a.Age)
+                        .ThenByDescending(a => a.Name)
+                        .Skip(1)
+                        .Limit(1)
+                        .Project(a => new { Test = a.Name })
+                        .FirstOrDefault();
+
+            Assert.AreEqual(three.Name, res.Test);
         }
 
         [TestMethod]
