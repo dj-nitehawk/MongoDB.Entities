@@ -75,7 +75,7 @@ namespace Benchmark
             var resCat = await cat2.Collection().Where(c => c.ID == cat2.ID).SingleAsync();
             if (resCat.Name != cat2.Name) throw new Exception("this is the wrong category");
 
-            var resPost = await resCat.Posts.Collection().SingleAsync();
+            var resPost = await resCat.Posts.Children().SingleAsync();
             if (resPost.Title != post.Title) throw new Exception("this is the wrong post");
         }
     }
