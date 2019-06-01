@@ -79,7 +79,7 @@ namespace Examples
                               select a).FirstOrDefault();
 
             ////Reference collections
-                var authors = (from a in book2.Authors.Children()
+                var authors = (from a in book2.Authors.Collection()
                                select a).ToArray();
 
             ////Get entity of referenced relationship

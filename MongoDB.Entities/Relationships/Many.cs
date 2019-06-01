@@ -29,19 +29,9 @@ namespace MongoDB.Entities
         private IMongoCollection<Reference> collection = null;
 
         /// <summary>
-        /// The IQueryable of References for this relationship.
+        /// An IQueryable collection of child Entities for the parent.
         /// </summary>
-        public IMongoQueryable<Reference> Collection => collection.AsQueryable();
-
-        /// <summary>
-        /// The IAggregateFluent of References for this relationship.
-        /// </summary>
-        public IAggregateFluent<Reference> Aggregate => collection.Aggregate();
-
-        /// <summary>
-        /// An IQueryable of child Entities for this specific parent.
-        /// </summary>
-        public IMongoQueryable<TChild> Children()
+        public IMongoQueryable<TChild> Collection()
         {
             parent.ThrowIfUnsaved();
 

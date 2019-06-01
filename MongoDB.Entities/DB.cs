@@ -166,7 +166,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T:Entity
         {
             SaveAsync<T>(entities, session).GetAwaiter().GetResult();
         }
@@ -399,16 +399,6 @@ namespace MongoDB.Entities
             return session == null
                    ? GetCollection<T>().Aggregate(options)
                    : GetCollection<T>().Aggregate(session, options);
-        }
-
-        /// <summary>
-        /// Returns a new instance of the supplied Entity type
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <returns></returns>
-        public static T Entity<T>() where T : Entity, new()
-        {
-            return new T();
         }
 
         private static void CheckIfInitialized()
