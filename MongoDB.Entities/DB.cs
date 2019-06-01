@@ -417,6 +417,17 @@ namespace MongoDB.Entities
                    : GetCollection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
         }
 
+        //todo: test
+        /// <summary>
+        /// Returns a new instance of the supplied Entity type
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <returns></returns>
+        public static T Entity<T>() where T : Entity, new()
+        {
+            return new T();
+        }
+
         private static void CheckIfInitialized()
         {
             if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
