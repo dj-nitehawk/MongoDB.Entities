@@ -8,12 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>5.3</Version>
-    <AssemblyVersion>5.3.0.0</AssemblyVersion>
-    <FileVersion>5.3.0.0</FileVersion>
+    <Version>6.0</Version>
+    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <FileVersion>6.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- bulk save entities
+    <PackageReleaseNotes>- bulk save entities + extension
 - transaction support for bulk save
+- start an aggregation pipeline with a filter expression
+- extension to append match stage to pipeline with a filter expression
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
