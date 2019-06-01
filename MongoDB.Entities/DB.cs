@@ -166,7 +166,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T:Entity
+        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
         {
             SaveAsync<T>(entities, session).GetAwaiter().GetResult();
         }
@@ -399,6 +399,22 @@ namespace MongoDB.Entities
             return session == null
                    ? GetCollection<T>().Aggregate(options)
                    : GetCollection<T>().Aggregate(session, options);
+        }
+
+        //todo: transaction support + test
+        /// <summary>
+        /// Start an aggregation pipeline with a filter expression
+        /// </summary>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns></returns>
+        public static IAggregateFluent<T> Fluent<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, AggregateOptions options = null, IClientSessionHandle session = null)
+        {
+            return session == null
+                   ? GetCollection<T>().Aggregate(options).Match(filter(Builders<T>.Filter))
+                   : GetCollection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
         }
 
         private static void CheckIfInitialized()

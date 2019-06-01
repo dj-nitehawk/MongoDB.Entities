@@ -227,5 +227,16 @@ namespace MongoDB.Entities
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
 
+        //todo: test
+        /// <summary>
+        /// Appends a match stage to the pipeline with a filter expression
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        {
+            return aggregate.Match(filter(Builders<T>.Filter));
+        }
     }
 }

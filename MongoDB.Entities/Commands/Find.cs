@@ -214,6 +214,7 @@ namespace MongoDB.Entities
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return await DB.FindAsync(filter, options, session);
         }
+
     }
 
     public enum Order
