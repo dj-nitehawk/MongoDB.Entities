@@ -77,6 +77,16 @@ namespace MongoDB.Entities
             await DB.SaveAsync<T>(entity, Session);
         }
 
+        public void Save<T>(IEnumerable<T> entities) where T : Entity
+        {
+            SaveAsync<T>(entities).GetAwaiter().GetResult();
+        }
+
+        async public Task SaveAsync<T>(IEnumerable<T> entities) where T : Entity
+        {
+            await DB.SaveAsync<T>(entities, Session);
+        }
+
         public void Delete<T>(string ID) where T : Entity
         {
             DeleteAsync<T>(ID).GetAwaiter().GetResult();

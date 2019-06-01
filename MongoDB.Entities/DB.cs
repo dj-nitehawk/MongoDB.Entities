@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using MongoDB.Bson.Serialization;
 using System.Reflection;
 using MongoDB.Bson.Serialization.Serializers;
+using System.Collections.ObjectModel;
 
 namespace MongoDB.Entities
 {
@@ -160,6 +161,43 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T:Entity
+        {
+            SaveAsync<T>(entities, session).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        async public static Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        {
+            var models = new Collection<WriteModel<T>>();
+            foreach (var ent in entities)
+            {
+                if (string.IsNullOrEmpty(ent.ID)) ent.ID = ObjectId.GenerateNewId().ToString();
+                ent.ModifiedOn = DateTime.UtcNow;
+
+                var upsert = new ReplaceOneModel<T>(
+                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        replacement: ent)
+                { IsUpsert = true };
+                models.Add(upsert);
+            }
+
+            await (session == null
+                   ? GetCollection<T>().BulkWriteAsync(models)
+                   : GetCollection<T>().BulkWriteAsync(session, models));
+        }
+
+        /// <summary>
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
@@ -294,7 +332,7 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false,FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
             return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
         }

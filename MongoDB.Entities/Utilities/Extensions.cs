@@ -124,7 +124,25 @@ namespace MongoDB.Entities
         /// </summary>
         async public static Task SaveAsync<T>(this T entity) where T : Entity
         {
-            await DB.SaveAsync<T>(entity);
+            await DB.SaveAsync(entity);
+        }
+
+        /// <summary>
+        /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
+        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// </summary>
+        public static void Save<T>(this IEnumerable<T> entities) where T : Entity
+        {
+            SaveAsync(entities).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
+        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// </summary>
+        async public static Task SaveAsync<T>(this IEnumerable<T> entities) where T : Entity
+        {
+            await DB.SaveAsync(entities);
         }
 
         /// <summary>

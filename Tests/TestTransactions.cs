@@ -122,5 +122,37 @@ namespace MongoDB.Entities.Tests
                 Assert.AreEqual(author1.Surname, tres.First().Surname);
             }
         }
+
+        [TestMethod]
+        public void bulk_save_entities_transaction_returns_correct_results()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var entities = new[] {
+                new Book{Title="one "+guid},
+                new Book{Title="two "+guid},
+                new Book{Title="thr "+guid}
+            };
+
+            using (var TN = new Transaction())
+            {
+                TN.Save(entities);
+                TN.Commit();
+            }
+
+            var res = DB.Find<Book>().Many(b => b.Title.Contains(guid));
+            Assert.AreEqual(entities.Count(), res.Count());
+
+            foreach (var ent in res)
+            {
+                ent.Title = "updated " + guid;
+            }
+            res.Save();
+
+            res = DB.Find<Book>().Many(b => b.Title.Contains(guid));
+            Assert.AreEqual(3, res.Count());
+            Assert.AreEqual("updated " + guid, res.First().Title);
+        }
+
     }
 }
