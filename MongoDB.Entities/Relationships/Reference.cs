@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a parent child relationship between two entities.
+    /// Represents a parent-child relationship between two entities.
     /// <para>TIP: The ParentID and ChildID switches around for many-to-many relationships depending on the side of the relationship you're accessing.</para>
     /// </summary>
     public class Reference : Entity

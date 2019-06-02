@@ -77,7 +77,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find entities by supplying filters
+        /// Find entities by supplying a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <returns>A list of Entities</returns>

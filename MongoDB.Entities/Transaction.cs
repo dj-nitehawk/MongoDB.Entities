@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a transaction used to carry out inter related write operations.
+    /// Represents a transaction used to carry out inter-related write operations.
     /// <para>TIP: Remember to always call .Dispose() after use or enclose in a 'Using' statement.</para>
     /// <para>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</para>
     /// </summary>

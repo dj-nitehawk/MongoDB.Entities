@@ -119,7 +119,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Returns the MongoDB collection for a given Entity type
+        /// Gets the IMongoCollection for a given Entity type.
+        /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoCollection<T> Collection<T>()
@@ -129,13 +130,13 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
+        /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Collection<T>().AsQueryable(options);
 
         /// <summary>
-        /// Enables building of an aggregation pipeline. 
+        /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>

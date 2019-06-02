@@ -58,7 +58,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the IMongoCollection for a given Entity type
+        /// Gets the IMongoCollection for a given Entity type.
+        /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoCollection<T> Collection<T>(this T Entity) where T : Entity
@@ -67,7 +68,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// An IQueryable collection of Entities.
+        /// An IQueryable collection of sibling Entities.
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : Entity
         {
@@ -75,7 +76,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// An IAggregateFluent collection of Entities.
+        /// An IAggregateFluent collection of sibling Entities.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>

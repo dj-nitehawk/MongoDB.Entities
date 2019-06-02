@@ -21,7 +21,7 @@ namespace MongoDB.Entities
         internal Update(IClientSessionHandle session = null) => this.session = session;
 
         /// <summary>
-        /// Specify the Entity matching criteria
+        /// Specify the Entity matching criteria with a lambda expression
         /// </summary>
         /// <param name="expression">A lambda expression to select the Entities to update</param>
         public Update<T> Match(Expression<Func<T, bool>> expression)
