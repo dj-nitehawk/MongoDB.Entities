@@ -26,7 +26,7 @@ namespace Benchmark
         async static Task Start()
         {
             new DB("mongodb-entities-benchmark");
-            Console.WriteLine("Total posts in collection: " + (await DB.Collection<BlogPost>().CountAsync()).ToString());
+            Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
 
             var mainWatch = new Stopwatch();
             var batchWatch = new Stopwatch();
@@ -51,7 +51,7 @@ namespace Benchmark
             }
 
             Console.WriteLine("ALL COMPLETED IN: " + mainWatch.Elapsed.TotalSeconds.ToString() + " seconds");
-            Console.WriteLine("Total posts in collection: " + (await DB.Collection<BlogPost>().CountAsync()).ToString());
+            Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
         }
 
         async static Task DoWork(int iteration)
@@ -72,10 +72,10 @@ namespace Benchmark
             await post.Categories.AddAsync(cat1);
             await cat2.Posts.AddAsync(post);
 
-            var resCat = await cat2.Collection().Where(c => c.ID == cat2.ID).SingleAsync();
+            var resCat = await cat2.Queryable().Where(c => c.ID == cat2.ID).SingleAsync();
             if (resCat.Name != cat2.Name) throw new Exception("this is the wrong category");
 
-            var resPost = await resCat.Posts.Collection().SingleAsync();
+            var resPost = await resCat.Posts.Queryable().SingleAsync();
             if (resPost.Title != post.Title) throw new Exception("this is the wrong post");
         }
     }

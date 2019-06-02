@@ -16,7 +16,7 @@ namespace MongoDB.Entities.Tests
             author.Save();
             book.MainAuthor = author.ToReference();
             book.Save();
-            var res = book.Collection()
+            var res = book.Queryable()
                           .Where(b => b.ID == book.ID)
                           .Single()
                           .MainAuthor.ToEntity();
@@ -33,11 +33,11 @@ namespace MongoDB.Entities.Tests
             author.Save();
             author.Books.Add(book1);
             author.Books.Add(book2);
-            var books = author.Collection()
+            var books = author.Queryable()
                               .Where(a => a.ID == author.ID)
                               .Single()
                               .Books
-                              .Collection().ToArray();
+                              .Queryable().ToArray();
             Assert.AreEqual(book2.Title, books[1].Title);
         }
 
@@ -50,15 +50,15 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "rotmrrcea2" }; author2.Save();
             book.GoodAuthors.Add(author1);
             book.GoodAuthors.Add(author2);
-            var remAuthor = DB.Collection<Author>()
+            var remAuthor = DB.Queryable<Author>()
                               .Where(a => a.ID == author2.ID)
                               .Single();
             book.GoodAuthors.Remove(remAuthor);
-            var resBook = book.Collection()
+            var resBook = book.Queryable()
                               .Where(b => b.ID == book.ID)
                               .Single();
-            Assert.AreEqual(1, resBook.GoodAuthors.Collection().Count());
-            Assert.AreEqual(author1.Name, resBook.GoodAuthors.Collection().First().Name);
+            Assert.AreEqual(1, resBook.GoodAuthors.Queryable().Count());
+            Assert.AreEqual(author1.Name, resBook.GoodAuthors.Queryable().First().Name);
         }
 
         [TestMethod]
@@ -70,15 +70,15 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "csomrcc1" }; author2.Save();
             book.GoodAuthors.Add(author1);
             book.GoodAuthors.Add(author2);
-            Assert.AreEqual(2, book.GoodAuthors.Collection().Count());
-            Assert.AreEqual(author1.Name, book.GoodAuthors.Collection().First().Name);
+            Assert.AreEqual(2, book.GoodAuthors.Queryable().Count());
+            Assert.AreEqual(author1.Name, book.GoodAuthors.Queryable().First().Name);
         }
 
         [TestMethod]
         public void accessing_coll_shortcut_on_unsaved_parent_throws()
         {
             var book = new Book { Title = "acsoupt" };
-            Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.Collection().Count());
+            Assert.ThrowsException<InvalidOperationException>(() => book.GoodAuthors.Queryable().Count());
         }
 
         [TestMethod]
@@ -93,19 +93,19 @@ namespace MongoDB.Entities.Tests
             book1.AllGenres.Add(gen1);
             book1.AllGenres.Add(gen2);
             book1.AllGenres.Add(gen1);
-            Assert.AreEqual(2, DB.Collection<Book>().Where(b => b.ID == book1.ID).Single().AllGenres.Collection().Count());
-            Assert.AreEqual(gen1.Name, book1.AllGenres.Collection().First().Name);
+            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().AllGenres.Queryable().Count());
+            Assert.AreEqual(gen1.Name, book1.AllGenres.Queryable().First().Name);
 
             gen1.AllBooks.Add(book1);
             gen1.AllBooks.Add(book2);
             gen1.AllBooks.Add(book1);
-            Assert.AreEqual(2, gen1.Collection().Where(g => g.ID == gen1.ID).Single().AllBooks.Collection().Count());
-            Assert.AreEqual(gen1.Name, book2.Collection().Where(b => b.ID == book2.ID).Single().AllGenres.Collection().First().Name);
+            Assert.AreEqual(2, gen1.Queryable().Where(g => g.ID == gen1.ID).Single().AllBooks.Queryable().Count());
+            Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().AllGenres.Queryable().First().Name);
 
             gen2.AllBooks.Add(book1);
             gen2.AllBooks.Add(book2);
-            Assert.AreEqual(2, book1.AllGenres.Collection().Count());
-            Assert.AreEqual(gen2.Name, book2.Collection().Where(b => b.ID == book2.ID).Single().AllGenres.Collection().First().Name);
+            Assert.AreEqual(2, book1.AllGenres.Queryable().Count());
+            Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().AllGenres.Queryable().First().Name);
         }
 
         [TestMethod]
@@ -123,10 +123,10 @@ namespace MongoDB.Entities.Tests
             book2.AllGenres.Add(gen2);
 
             book1.AllGenres.Remove(gen1);
-            Assert.AreEqual(1, book1.AllGenres.Collection().Count());
-            Assert.AreEqual(gen2.Name, book1.AllGenres.Collection().Single().Name);
-            Assert.AreEqual(1, gen1.AllBooks.Collection().Count());
-            Assert.AreEqual(book2.Title, gen1.AllBooks.Collection().First().Title);
+            Assert.AreEqual(1, book1.AllGenres.Queryable().Count());
+            Assert.AreEqual(gen2.Name, book1.AllGenres.Queryable().Single().Name);
+            Assert.AreEqual(1, gen1.AllBooks.Queryable().Count());
+            Assert.AreEqual(book2.Title, gen1.AllBooks.Queryable().First().Title);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "Test" };
             book.Save();
-            var title = book.Collection().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
+            var title = book.Queryable().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
             Assert.AreEqual("Test", title);
         }
 
@@ -35,7 +35,7 @@ namespace MongoDB.Entities.Tests
             var book = new Book { Title = "Test" };
             book.Review = new Review { Stars = 5, Reviewer = "enercd" };
             book.Save();
-            var res = book.Collection()
+            var res = book.Queryable()
                           .Where(b => b.ID == book.ID)
                           .Select(b => b.Review.Reviewer)
                           .SingleOrDefault();
@@ -49,7 +49,7 @@ namespace MongoDB.Entities.Tests
             var author = new Author { Name = "ewtdrcd" };
             book.RelatedAuthor = author.ToDocument();
             book.Save();
-            var res = book.Collection()
+            var res = book.Queryable()
                           .Where(b => b.ID == book.ID)
                           .Select(b => b.RelatedAuthor.Name)
                           .SingleOrDefault();
@@ -63,7 +63,7 @@ namespace MongoDB.Entities.Tests
             var author = new Author { Name = "Test Author" };
             book.RelatedAuthor = author.ToDocument();
             book.Save();
-            var res = book.Collection()
+            var res = book.Queryable()
                           .Where(b => b.ID == book.ID)
                           .Select(b => b.RelatedAuthor.ID)
                           .SingleOrDefault();
@@ -78,7 +78,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "ewtrcd2" }; author2.Save();
             book.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
             book.Save();
-            var authors = book.Collection()
+            var authors = book.Queryable()
                               .Where(b => b.ID == book.ID)
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Count(), 2);
@@ -95,7 +95,7 @@ namespace MongoDB.Entities.Tests
             var list = new List<Author>() { author1, author2 };
             book.OtherAuthors = list.ToDocuments().ToArray();
             book.Save();
-            var authors = book.Collection()
+            var authors = book.Queryable()
                               .Where(b => b.ID == book.ID)
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Count(), 2);
@@ -215,7 +215,7 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = guid, SellingPrice = 100.123m }; book1.Save();
             var book2 = new Book { Title = guid, SellingPrice = 100.123m }; book2.Save();
 
-            var res = DB.Collection<Book>()
+            var res = DB.Queryable<Book>()
                         .Where(b => b.Title == guid)
                         .GroupBy(b => b.Title)
                         .Select(g => new

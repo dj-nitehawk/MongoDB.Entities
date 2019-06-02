@@ -60,9 +60,22 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of Entities.
         /// </summary>
-        public static IMongoQueryable<T> Collection<T>(this T entity) where T : Entity
+        public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : Entity
         {
-            return DB.Collection<T>();
+            return DB.Queryable<T>(options);
+        }
+
+        //todo: test
+        /// <summary>
+        /// An IQueryable collection of Entities.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : Entity
+        {
+            return DB.Fluent<T>(options, session);
         }
 
         /// <summary>

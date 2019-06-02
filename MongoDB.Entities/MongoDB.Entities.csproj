@@ -17,6 +17,7 @@
 - start an aggregation pipeline with a filter expression
 - extension to append match stage to pipeline with a filter expression
 - expose join collections of many properties
+- .Collection() is now .Queryable()
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

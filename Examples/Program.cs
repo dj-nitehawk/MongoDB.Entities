@@ -74,23 +74,23 @@ namespace Examples
             //QUERIES
             //
             ////Main collections
-                var author = (from a in DB.Collection<Author>()
+                var author = (from a in DB.Queryable<Author>()
                               where a.Name.Contains("Eckhart")
                               select a).FirstOrDefault();
 
             ////Reference collections
-                var authors = (from a in book2.Authors.Collection()
+                var authors = (from a in book2.Authors.Queryable()
                                select a).ToArray();
 
             ////Get entity of referenced relationship
-                var mainAuthor = (from b in DB.Collection<Book>()
+                var mainAuthor = (from b in DB.Queryable<Book>()
                                   where b.Title == book1.Title
                                   select b.MainAuthor)
                                   .SingleOrDefault()
                                   .ToEntity();
 
             ////Collection shortcut
-                var result = from a in author.Collection()
+                var result = from a in author.Queryable()
                              select a;
 
             //DELETE

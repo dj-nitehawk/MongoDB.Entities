@@ -42,7 +42,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         async public Task<T> ToEntityAsync()
         {
-            return await DB.Collection<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
+            return await DB.Queryable<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
         }
     }
 }

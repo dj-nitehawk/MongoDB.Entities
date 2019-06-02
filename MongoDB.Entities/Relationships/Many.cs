@@ -26,52 +26,65 @@ namespace MongoDB.Entities
     {
         private bool inverse = false;
         private Entity parent = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IMongoCollection<Reference> JoinCollection { get; private set; } = null;
+        private IMongoCollection<Reference> collection = null;
 
         /// <summary>
         /// IQueryable of the join collection for this relationship
         /// </summary>
-        public IMongoQueryable<Reference> JoinQueryable => JoinCollection.AsQueryable();
+        /// <param name="options">An optional AggregateOptions object</param>
+        public IMongoQueryable<Reference> JoinQueryable(AggregateOptions options = null) => collection.AsQueryable(options);
 
         /// <summary>
         /// The IAggregateFluent of the join collection for this relationship
         /// </summary>
-        public IAggregateFluent<Reference> JoinFluent => JoinCollection.Aggregate();
+        /// <param name="options">An optional AggregateOptions object</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public IAggregateFluent<Reference> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null) => collection.Aggregate(session, options);
 
         /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
-        public IMongoQueryable<TChild> Collection()
+        public IMongoQueryable<TChild> Queryable()
         {
             parent.ThrowIfUnsaved();
 
             if (inverse)
             {
-                var myRefs = from r in JoinQueryable
+                var myRefs = from r in JoinQueryable()
                              where r.ChildID.Equals(parent.ID)
                              select r;
 
                 return from r in myRefs
-                       join c in DB.Collection<TChild>() on r.ParentID equals c.ID into children
+                       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID into children
                        from ch in children
                        select ch;
             }
             else
             {
-                var myRefs = from r in JoinQueryable
+                var myRefs = from r in JoinQueryable()
                              where r.ParentID.Equals(parent.ID)
                              select r;
 
                 return from r in myRefs
-                       join c in DB.Collection<TChild>() on r.ChildID equals c.ID into children
+                       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID into children
                        from ch in children
                        select ch;
             }
         }
+
+        //public IAggregateFluent<TChild> Fluent(IClientSessionHandle session = null)
+        //{
+        //    parent.ThrowIfUnsaved();
+
+        //    if (inverse)
+        //    {
+        //        return JoinFluent(session)
+        //               .Match(r=> r);
+        //    }
+        //    else
+        //    {
+        //    }
+        //}
 
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
 
@@ -84,8 +97,8 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             inverse = false;
-            JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
-            SetupIndexes(JoinCollection);
+            collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
+            SetupIndexes(collection);
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -100,14 +113,14 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
+                collection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
             }
             else
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
+                collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
             }
 
-            SetupIndexes(JoinCollection);
+            SetupIndexes(collection);
         }
 
         private static void SetupIndexes(IMongoCollection<Reference> collection)
@@ -166,9 +179,9 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                rfrnc = await JoinQueryable.SingleOrDefaultAsync(r =>
-                                                                 r.ChildID.Equals(parent.ID) &&
-                                                                 r.ParentID.Equals(child.ID));
+                rfrnc = await JoinQueryable().SingleOrDefaultAsync(r =>
+                                                                   r.ChildID.Equals(parent.ID) &&
+                                                                   r.ParentID.Equals(child.ID));
                 if (rfrnc == null)
                 {
                     rfrnc = new Reference()
@@ -182,9 +195,9 @@ namespace MongoDB.Entities
             }
             else
             {
-                rfrnc = await JoinQueryable.SingleOrDefaultAsync(r =>
-                                                                 r.ParentID.Equals(parent.ID) &&
-                                                                 r.ChildID.Equals(child.ID));
+                rfrnc = await JoinQueryable().SingleOrDefaultAsync(r =>
+                                                                   r.ParentID.Equals(parent.ID) &&
+                                                                   r.ChildID.Equals(child.ID));
                 if (rfrnc == null)
                 {
                     rfrnc = new Reference()
@@ -198,8 +211,8 @@ namespace MongoDB.Entities
             }
 
             await (session == null
-                   ? JoinCollection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true })
-                   : JoinCollection.ReplaceOneAsync(session, x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true }));
+                   ? collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true })
+                   : collection.ReplaceOneAsync(session, x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true }));
         }
 
         /// <summary>
@@ -222,14 +235,14 @@ namespace MongoDB.Entities
             if (inverse)
             {
                 await (session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
+                       ? collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
+                       : collection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
             }
             else
             {
                 await (session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
+                       ? collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
+                       : collection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
 
             }
         }
