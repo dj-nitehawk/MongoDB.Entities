@@ -85,32 +85,25 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            ProjectionDefinition<TChild, TChild> projection =
-                new BsonDocument()
-                    .Add("list", "$list")
-                    .Add("_id", 0);
-
             if (inverse)
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
-                        .Lookup<Reference, TChild, children>(
+                        .Lookup<Reference, TChild, Joined>(
                             foreignCollection: DB.Collection<TChild>(),
                             localField: (Reference r) => r.ParentID,
-                            foreignField: (TChild c) => c.ID, nr => nr.list)
-                        .Unwind<children, TChild>(ch => ch.list)
-                        .Project(projection);
+                            foreignField: (TChild c) => c.ID, j => j.Children)
+                        .ReplaceRoot(j => j.Children[0]);
             }
             else
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
-                        .Lookup<Reference, TChild, children>(
+                        .Lookup<Reference, TChild, Joined>(
                             foreignCollection: DB.Collection<TChild>(),
                             localField: (Reference r) => r.ChildID,
-                            foreignField: (TChild c) => c.ID, nr => nr.list)
-                        .Unwind<children, TChild>(ch => ch.list)
-                        .Project(projection);
+                            foreignField: (TChild c) => c.ID, j => j.Children)
+                        .ReplaceRoot(j => j.Children[0]);
             }
         }
 
@@ -275,9 +268,9 @@ namespace MongoDB.Entities
             }
         }
 
-        private class children
+        private class Joined : Reference
         {
-            public TChild[] list { get; set; }
+            public TChild[] Children { get; set; }
         }
     }
 }
