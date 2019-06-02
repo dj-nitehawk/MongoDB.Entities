@@ -80,7 +80,7 @@ namespace MongoDB.Entities
                 result = attrib.Name;
             }
             return result;
-        }       
+        }
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
@@ -133,7 +133,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Collection<T>().AsQueryable(options);
-        
+
         /// <summary>
         /// Enables building of an aggregation pipeline. 
         /// </summary>
@@ -163,7 +163,7 @@ namespace MongoDB.Entities
                    ? Collection<T>().Aggregate(options).Match(filter(Builders<T>.Filter))
                    : Collection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
         }
-        
+
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>

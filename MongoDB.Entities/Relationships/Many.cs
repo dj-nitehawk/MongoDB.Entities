@@ -39,7 +39,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="options">An optional AggregateOptions object</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<Reference> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null) => collection.Aggregate(session, options);
+        public IAggregateFluent<Reference> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)
+        {
+            return session == null
+                ? collection.Aggregate(options)
+                : collection.Aggregate(session, options);
+        }
 
         /// <summary>
         /// An IQueryable of child Entities for the parent.
@@ -72,21 +77,42 @@ namespace MongoDB.Entities
             }
         }
 
-        //public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle session = null)
-        //{
-        //    parent.ThrowIfUnsaved();
+        /// <summary>
+        /// An IAggregateFluent of child Entities for the parent.
+        /// </summary>
+        /// <param name="session"></param>
+        public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle session = null)
+        {
+            parent.ThrowIfUnsaved();
 
-        //    if (inverse)
-        //    {
-        //        var res = JoinFluent(session)
-        //                    .Match(f => f.Eq(r => r.ChildID, parent.ID))
-        //                    .Lookup(
-        //            );
-        //    }
-        //    else
-        //    {
-        //    }
-        //}
+            ProjectionDefinition<TChild, TChild> projection =
+                new BsonDocument()
+                    .Add("list", "$list")
+                    .Add("_id", 0);
+
+            if (inverse)
+            {
+                return JoinFluent(session)
+                        .Match(f => f.Eq(r => r.ChildID, parent.ID))
+                        .Lookup<Reference, TChild, children>(
+                            foreignCollection: DB.Collection<TChild>(),
+                            localField: (Reference r) => r.ParentID,
+                            foreignField: (TChild c) => c.ID, nr => nr.list)
+                        .Unwind<children, TChild>(ch => ch.list)
+                        .Project(projection);
+            }
+            else
+            {
+                return JoinFluent(session)
+                        .Match(f => f.Eq(r => r.ParentID, parent.ID))
+                        .Lookup<Reference, TChild, children>(
+                            foreignCollection: DB.Collection<TChild>(),
+                            localField: (Reference r) => r.ChildID,
+                            foreignField: (TChild c) => c.ID, nr => nr.list)
+                        .Unwind<children, TChild>(ch => ch.list)
+                        .Project(projection);
+            }
+        }
 
         internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
 
@@ -247,6 +273,11 @@ namespace MongoDB.Entities
                        : collection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
 
             }
+        }
+
+        private class children
+        {
+            public TChild[] list { get; set; }
         }
     }
 }

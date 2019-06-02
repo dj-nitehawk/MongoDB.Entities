@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void adding_one2many_references_returns_correct_entities()
+        public void adding_one2many_references_returns_correct_entities_queryable()
         {
             var author = new Author { Name = "author" };
             var book1 = new Book { Title = "aotmrrceb1" };
@@ -38,6 +39,24 @@ namespace MongoDB.Entities.Tests
                               .Single()
                               .Books
                               .ChildrenQueryable().ToArray();
+            Assert.AreEqual(book2.Title, books[1].Title);
+        }
+
+        [TestMethod]
+        public void adding_one2many_references_returns_correct_entities_fluent()
+        {
+            var author = new Author { Name = "author" };
+            var book1 = new Book { Title = "aotmrrcebf1" };
+            var book2 = new Book { Title = "aotmrrcebf2" };
+            book1.Save(); book2.Save();
+            author.Save();
+            author.Books.Add(book1);
+            author.Books.Add(book2);
+            var books = author.Queryable()
+                              .Where(a => a.ID == author.ID)
+                              .Single()
+                              .Books
+                              .ChildrenFluent().ToList();
             Assert.AreEqual(book2.Title, books[1].Title);
         }
 
