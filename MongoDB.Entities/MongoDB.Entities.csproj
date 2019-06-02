@@ -22,6 +22,7 @@
 - expose join collections of many properties as .JoinQueryable() and .JoinFluent()
 - expose children of many properties as .ChildrenFluent()
 - retrieve collection name by type + extension
+- improve extension targetting
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

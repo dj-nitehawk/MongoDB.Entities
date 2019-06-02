@@ -120,7 +120,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
+        {            
             this.filter = filter(Builders<T>.Filter);
             return this;
         }

@@ -61,7 +61,7 @@ namespace MongoDB.Entities
         /// Gets the IMongoCollection for a given Entity type
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T Entity)
+        public static IMongoCollection<T> Collection<T>(this T Entity) where T : Entity
         {
             return DB.Collection<T>();
         }
@@ -92,7 +92,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="aggregate"></param>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter) where T : Entity
         {
             return aggregate.Match(filter(Builders<T>.Filter));
         }
