@@ -60,9 +60,8 @@ namespace MongoDB.Entities
                              select r;
 
                 return from r in myRefs
-                       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID into children
-                       from ch in children
-                       select ch;
+                       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID
+                       select c;
             }
             else
             {
@@ -71,9 +70,8 @@ namespace MongoDB.Entities
                              select r;
 
                 return from r in myRefs
-                       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID into children
-                       from ch in children
-                       select ch;
+                       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID
+                       select c;
             }
         }
 
