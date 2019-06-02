@@ -148,22 +148,6 @@ namespace MongoDB.Entities
                    : Collection<T>().Aggregate(session, options);
         }
 
-        //todo: transaction support + test
-        /// <summary>
-        /// Start an aggregation pipeline with a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="options">The options for the aggregation. This is not required.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <returns></returns>
-        public static IAggregateFluent<T> Fluent<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, AggregateOptions options = null, IClientSessionHandle session = null)
-        {
-            return session == null
-                   ? Collection<T>().Aggregate(options).Match(filter(Builders<T>.Filter))
-                   : Collection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
-        }
-
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
@@ -418,7 +402,6 @@ namespace MongoDB.Entities
             return new Find<T, TProjection>();
         }
 
-        //todo: test
         /// <summary>
         /// Returns a new instance of the supplied Entity type
         /// </summary>

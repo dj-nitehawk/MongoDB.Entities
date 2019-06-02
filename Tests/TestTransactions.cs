@@ -77,7 +77,10 @@ namespace MongoDB.Entities.Tests
                 TN.Save(book2);
 
                 res = TN.Find<Book>().One(book1.ID);
+                res = book1.Fluent(TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+                fnt = TN.Fluent<Book>().FirstOrDefault();
                 fnt = TN.Fluent<Book>().Match(b => b.ID == book2.ID).SingleOrDefault();
+                fnt = TN.Fluent<Book>().Match(f => f.Eq(b => b.ID , book2.ID)).SingleOrDefault();
 
                 TN.Commit();
             }

@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the collection name of a given Entity type
+        /// Gets the IMongoCollection for a given Entity type
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoCollection<T> Collection<T>(this T Entity)
@@ -74,9 +74,8 @@ namespace MongoDB.Entities
             return DB.Queryable<T>(options);
         }
 
-        //todo: test
         /// <summary>
-        /// An IQueryable collection of Entities.
+        /// An IAggregateFluent collection of Entities.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
@@ -87,7 +86,6 @@ namespace MongoDB.Entities
             return DB.Fluent<T>(options, session);
         }
 
-        //todo: test
         /// <summary>
         /// Appends a match stage to the pipeline with a filter expression
         /// </summary>
