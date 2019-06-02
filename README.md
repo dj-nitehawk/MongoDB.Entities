@@ -57,15 +57,15 @@ the easy to use API is described in the [wiki pages](https://github.com/dj-niteh
 
         var authors = DB.Find<Author>().Many(a => a.Publisher == "Harper Collins");
 
-        var eckhart = DB.Collection<Author>()
+        var eckhart = DB.Queryable<Author>()
                         .Where(a => a.Name.Contains("Eckhart"))
                         .SingleOrDefault();
 
-        var powerofnow = genre.AllBooks.Collection()
+        var powerofnow = genre.AllBooks.ChildrenQueryable()
                                        .Where(b => b.Title.Contains("Power"))
                                        .SingleOrDefault();
 
-        var genre = book.AllGenres.Collection().First();
+        var genre = book.AllGenres.ChildrenQueryable().First();
 
     //Delete
         book.Delete();
