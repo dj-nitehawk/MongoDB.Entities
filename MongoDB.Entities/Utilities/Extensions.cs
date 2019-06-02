@@ -61,9 +61,9 @@ namespace MongoDB.Entities
         /// Gets the collection name of a given Entity type
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static string CollectionName<T>(this T Entity)
+        public static IMongoCollection<T> Collection<T>(this T Entity)
         {
-            return DB.GetCollectionName<T>();
+            return DB.Collection<T>();
         }
 
         /// <summary>

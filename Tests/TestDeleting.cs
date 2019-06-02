@@ -45,10 +45,10 @@ namespace MongoDB.Entities.Tests
             book2.GoodAuthors.Add(author);
 
             author.Delete();
-            Assert.AreEqual(0, book2.GoodAuthors.Queryable().Count());
+            Assert.AreEqual(0, book2.GoodAuthors.ChildrenQueryable().Count());
 
             book1.Delete();
-            Assert.AreEqual(0, author.Books.Queryable().Count());
+            Assert.AreEqual(0, author.Books.ChildrenQueryable().Count());
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace MongoDB.Entities.Tests
             book.OtherAuthors = (new Author[] { author1, author2 });
             book.Save();
             book.OtherAuthors.DeleteAll();
-            Assert.AreEqual(0, book.GoodAuthors.Queryable().Count());
+            Assert.AreEqual(0, book.GoodAuthors.ChildrenQueryable().Count());
             Assert.AreEqual(null, author1.Queryable().Where(a => a.ID == author1.ID).SingleOrDefault());
         }
 

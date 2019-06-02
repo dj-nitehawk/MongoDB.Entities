@@ -70,11 +70,17 @@ namespace MongoDB.Entities
                 type => true);
         }
 
-        private static IMongoCollection<T> GetCollection<T>()
+        internal static string GetCollectionName<T>()
         {
-            CheckIfInitialized();
-            return db.GetCollection<T>(GetCollectionName<T>());
-        }
+            string result = typeof(T).Name;
+
+            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
+            if (attrib != null)
+            {
+                result = attrib.Name;
+            }
+            return result;
+        }       
 
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
@@ -90,49 +96,43 @@ namespace MongoDB.Entities
 
         internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
         {
-            await GetCollection<T>().Indexes.CreateOneAsync(model);
+            await Collection<T>().Indexes.CreateOneAsync(model);
         }
 
         internal async static Task DropIndexAsync<T>(string name)
         {
-            await GetCollection<T>().Indexes.DropOneAsync(name);
+            await Collection<T>().Indexes.DropOneAsync(name);
         }
 
         async internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null)
         {
             await (session == null
-                   ? GetCollection<T>().UpdateManyAsync(filter, definition, options)
-                   : GetCollection<T>().UpdateManyAsync(session, filter, definition, options));
+                   ? Collection<T>().UpdateManyAsync(filter, definition, options)
+                   : Collection<T>().UpdateManyAsync(session, filter, definition, options));
         }
 
         async internal static Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null)
         {
             return await (session == null
-                ? (await GetCollection<T>().FindAsync(filter, options)).ToListAsync()
-                : (await GetCollection<T>().FindAsync(session, filter, options)).ToListAsync());
+                ? (await Collection<T>().FindAsync(filter, options)).ToListAsync()
+                : (await Collection<T>().FindAsync(session, filter, options)).ToListAsync());
         }
 
         /// <summary>
-        /// Gets the collection name of a given Entity type
+        /// Returns the MongoDB collection for a given Entity type
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static string GetCollectionName<T>()
+        public static IMongoCollection<T> Collection<T>()
         {
-            string result = typeof(T).Name;
-
-            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
-            if (attrib != null)
-            {
-                result = attrib.Name;
-            }
-            return result;
+            CheckIfInitialized();
+            return db.GetCollection<T>(GetCollectionName<T>());
         }
 
         /// <summary>
         /// Exposes MongoDB collections as IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => GetCollection<T>().AsQueryable(options);
+        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Collection<T>().AsQueryable(options);
         
         /// <summary>
         /// Enables building of an aggregation pipeline. 
@@ -144,8 +144,8 @@ namespace MongoDB.Entities
         public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
         {
             return session == null
-                   ? GetCollection<T>().Aggregate(options)
-                   : GetCollection<T>().Aggregate(session, options);
+                   ? Collection<T>().Aggregate(options)
+                   : Collection<T>().Aggregate(session, options);
         }
 
         //todo: transaction support + test
@@ -160,8 +160,8 @@ namespace MongoDB.Entities
         public static IAggregateFluent<T> Fluent<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, AggregateOptions options = null, IClientSessionHandle session = null)
         {
             return session == null
-                   ? GetCollection<T>().Aggregate(options).Match(filter(Builders<T>.Filter))
-                   : GetCollection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
+                   ? Collection<T>().Aggregate(options).Match(filter(Builders<T>.Filter))
+                   : Collection<T>().Aggregate(session, options).Match(filter(Builders<T>.Filter));
         }
         
         /// <summary>
@@ -187,8 +187,8 @@ namespace MongoDB.Entities
             entity.ModifiedOn = DateTime.UtcNow;
 
             await (session == null
-                   ? GetCollection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true })
-                   : GetCollection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true }));
+                   ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true })
+                   : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true }));
         }
 
         /// <summary>
@@ -224,8 +224,8 @@ namespace MongoDB.Entities
             }
 
             await (session == null
-                   ? GetCollection<T>().BulkWriteAsync(models)
-                   : GetCollection<T>().BulkWriteAsync(session, models));
+                   ? Collection<T>().BulkWriteAsync(models)
+                   : Collection<T>().BulkWriteAsync(session, models));
         }
 
         /// <summary>
@@ -278,8 +278,8 @@ namespace MongoDB.Entities
             }
 
             tasks.Add(session == null
-                      ? GetCollection<T>().DeleteOneAsync(x => x.ID.Equals(ID))
-                      : GetCollection<T>().DeleteOneAsync(session, x => x.ID.Equals(ID)));
+                      ? Collection<T>().DeleteOneAsync(x => x.ID.Equals(ID))
+                      : Collection<T>().DeleteOneAsync(session, x => x.ID.Equals(ID)));
 
             await Task.WhenAll(tasks);
         }
@@ -382,8 +382,8 @@ namespace MongoDB.Entities
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return await (session == null
-                          ? (await GetCollection<T>().FindAsync(filter, options)).ToListAsync()
-                          : (await GetCollection<T>().FindAsync(session, filter, options)).ToListAsync());
+                          ? (await Collection<T>().FindAsync(filter, options)).ToListAsync()
+                          : (await Collection<T>().FindAsync(session, filter, options)).ToListAsync());
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
-        public IMongoQueryable<TChild> Queryable()
+        public IMongoQueryable<TChild> ChildrenQueryable()
         {
             parent.ThrowIfUnsaved();
 
@@ -72,7 +72,7 @@ namespace MongoDB.Entities
             }
         }
 
-        //public IAggregateFluent<TChild> Fluent(IClientSessionHandle session = null)
+        //public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle session = null)
         //{
         //    parent.ThrowIfUnsaved();
 
@@ -81,7 +81,6 @@ namespace MongoDB.Entities
         //        var res = JoinFluent(session)
         //                    .Match(f => f.Eq(r => r.ChildID, parent.ID))
         //                    .Lookup(
-        //                       foreignCollection: DB.coll
         //            );
         //    }
         //    else
