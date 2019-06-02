@@ -58,6 +58,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets the collection name of a given Entity type
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public static string CollectionName<T>(this T Entity)
+        {
+            return DB.GetCollectionName<T>();
+        }
+
+        /// <summary>
         /// An IQueryable collection of Entities.
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : Entity
@@ -76,6 +85,18 @@ namespace MongoDB.Entities
         public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : Entity
         {
             return DB.Fluent<T>(options, session);
+        }
+
+        //todo: test
+        /// <summary>
+        /// Appends a match stage to the pipeline with a filter expression
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        {
+            return aggregate.Match(filter(Builders<T>.Filter));
         }
 
         /// <summary>
@@ -238,18 +259,6 @@ namespace MongoDB.Entities
             if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
 
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
-        }
-
-        //todo: test
-        /// <summary>
-        /// Appends a match stage to the pipeline with a filter expression
-        /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="aggregate"></param>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            return aggregate.Match(filter(Builders<T>.Filter));
         }
     }
 }

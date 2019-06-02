@@ -78,8 +78,11 @@ namespace MongoDB.Entities
 
         //    if (inverse)
         //    {
-        //        return JoinFluent(session)
-        //               .Match(r=> r);
+        //        var res = JoinFluent(session)
+        //                    .Match(f => f.Eq(r => r.ChildID, parent.ID))
+        //                    .Lookup(
+        //                       foreignCollection: DB.coll
+        //            );
         //    }
         //    else
         //    {

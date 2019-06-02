@@ -76,18 +76,6 @@ namespace MongoDB.Entities
             return db.GetCollection<T>(GetCollectionName<T>());
         }
 
-        internal static string GetCollectionName<T>()
-        {
-            string result = typeof(T).Name;
-
-            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
-            if (attrib != null)
-            {
-                result = attrib.Name;
-            }
-            return result;
-        }
-
         internal static IMongoCollection<Reference> GetRefCollection(string name)
         {
             CheckIfInitialized();
@@ -122,6 +110,22 @@ namespace MongoDB.Entities
             return await (session == null
                 ? (await GetCollection<T>().FindAsync(filter, options)).ToListAsync()
                 : (await GetCollection<T>().FindAsync(session, filter, options)).ToListAsync());
+        }
+
+        /// <summary>
+        /// Gets the collection name of a given Entity type
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public static string GetCollectionName<T>()
+        {
+            string result = typeof(T).Name;
+
+            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
+            if (attrib != null)
+            {
+                result = attrib.Name;
+            }
+            return result;
         }
 
         /// <summary>
