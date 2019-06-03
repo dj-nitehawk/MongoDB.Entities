@@ -94,6 +94,51 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="childID">An child ID</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : Entity
+        {
+            return ParentsFluent<TParent>(new[] { childID }, session);
+        }
+
+        /// <summary>
+        /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="childIDs">An IEnumerable of child IDs</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null) where TParent : Entity
+        {
+            if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
+
+            if (inverse)
+            {
+                return JoinFluent(session)
+                       .Match(f => f.In(j => j.ParentID, childIDs))
+                       .Lookup<JoinRecord, TParent, Joined<TParent>>(
+                            DB.Collection<TParent>(),
+                            j => j.ChildID,
+                            p => p.ID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0]);
+            }
+            else
+            {
+                return JoinFluent(session)
+                       .Match(f => f.In(j => j.ChildID, childIDs))
+                       .Lookup<JoinRecord, TParent, Joined<TParent>>(
+                            DB.Collection<TParent>(),
+                            r => r.ParentID,
+                            p => p.ID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0]);
+            }
+        }
+
+        /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
         public IMongoQueryable<TChild> ChildrenQueryable()
@@ -134,23 +179,23 @@ namespace MongoDB.Entities
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
-                        .Lookup<JoinRecord, TChild, Joined>(
+                        .Lookup<JoinRecord, TChild, Joined<TChild>>(
                             DB.Collection<TChild>(),
                             r => r.ParentID,
                             c => c.ID,
-                            j => j.Children)
-                        .ReplaceRoot(j => j.Children[0]);
+                            j => j.Results)
+                        .ReplaceRoot(j => j.Results[0]);
             }
             else
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
-                        .Lookup<JoinRecord, TChild, Joined>(
+                        .Lookup<JoinRecord, TChild, Joined<TChild>>(
                             DB.Collection<TChild>(),
                             r => r.ChildID,
                             c => c.ID,
-                            j => j.Children)
-                        .ReplaceRoot(j => j.Children[0]);
+                            j => j.Results)
+                        .ReplaceRoot(j => j.Results[0]);
             }
         }
 
@@ -315,9 +360,13 @@ namespace MongoDB.Entities
             }
         }
 
-        private class Joined : JoinRecord
+        /// <summary>
+        /// A class used to hold join results when joining relationships
+        /// </summary>
+        /// <typeparam name="T">The type of the resulting objects</typeparam>
+        public class Joined<T> : JoinRecord
         {
-            public TChild[] Children { get; set; }
+            public T[] Results { get; set; }
         }
     }
 }

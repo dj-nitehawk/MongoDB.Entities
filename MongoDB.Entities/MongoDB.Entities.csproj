@@ -13,7 +13,9 @@
     <FileVersion>6.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- optimize Many&lt;T&gt;.JoinQueryable()
-- get parents of a relationship via Many&lt;T&gt;.ParentsQueryable()</PackageReleaseNotes>
+- get parents of a relationship via Many&lt;T&gt;.ParentsQueryable()
+- get parents of a relationship via Many&lt;T&gt;.ParentsFluent()
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

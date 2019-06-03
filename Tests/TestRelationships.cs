@@ -175,5 +175,33 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(genre.Name, genres.First().Name);
 
         }
+
+        [TestMethod]
+        public void getting_parents_of_a_relationship_with_fluent_works()
+        {
+
+            var book = new Book { Title = "Planet Of The Apes" };
+            book.Save();
+
+            var genre = new Genre { Name = "SciFi" };
+            genre.Save();
+
+            book.Genres.Add(genre);
+
+            var books = book.Genres
+                            .ParentsFluent<Book>(genre.ID)
+                            .ToList();
+
+            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(book.Title, books.First().Title);
+
+            var genres = genre.Books
+                              .ParentsFluent<Genre>(new[] { book.ID })
+                              .ToList();
+
+            Assert.AreEqual(1, genres.Count());
+            Assert.AreEqual(genre.Name, genres.First().Name);
+
+        }
     }
 }
