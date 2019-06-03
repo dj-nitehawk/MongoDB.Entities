@@ -222,7 +222,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Initializes supplied property with a new One-To-Many reference collection.
+        /// Initializes supplied property with a new One-To-Many relationship.
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() => PropertyName</param>
@@ -234,7 +234,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Initializes supplied property with a new Many-To-Many reference collection.
+        /// Initializes supplied property with a new Many-To-Many relationship.
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() = > PropertyName</param>

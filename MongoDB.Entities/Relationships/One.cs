@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// A one-to-one reference for an Entity.
+    /// Represents a one-to-one relationship with an Entity.
     /// </summary>
     /// <typeparam name="T">Any type that inherits from Entity</typeparam>
     public class One<T> where T : Entity

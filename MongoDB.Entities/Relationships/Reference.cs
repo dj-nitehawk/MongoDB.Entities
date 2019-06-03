@@ -7,7 +7,7 @@ namespace MongoDB.Entities
     /// Represents a parent-child relationship between two entities.
     /// <para>TIP: The ParentID and ChildID switches around for many-to-many relationships depending on the side of the relationship you're accessing.</para>
     /// </summary>
-    public class Reference : Entity
+    public class JoinRecord : Entity
     {
         /// <summary>
         /// The ID of the parent Entity for both one-to-many and the owner side of many-to-many relationships.

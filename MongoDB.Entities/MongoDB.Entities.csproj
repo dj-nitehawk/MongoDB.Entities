@@ -8,22 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>6.0</Version>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
-    <FileVersion>6.0.0.0</FileVersion>
+    <Version>6.1</Version>
+    <AssemblyVersion>6.1.0.0</AssemblyVersion>
+    <FileVersion>6.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- [breaking] .Collection() of DB was renamed to .Queryable()
-- [breaking] .Collection() of Many&lt;T&gt; is now .ChildrenQueryable()
-- [breaking] .Collection() of DB now gets the mongodb collection
-- bulk save entities + extension
-- transaction support for bulk save
-- start an aggregation pipeline with a filter expression
-- extension to append match stage to pipeline with a filter expression
-- expose join collections of many properties as .JoinQueryable() and .JoinFluent()
-- expose children of many properties as .ChildrenFluent()
-- retrieve collection name by type + extension
-- improve extension targetting
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- expose join collections with Many&lt;T&gt;.JoinCollection()
+- optimize Many&lt;T&gt;.JoinQueryable()
+- minor code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
-    /// A one-to-many/many-to-many reference collection.
+    /// Represents a one-to-many/many-to-many relationship between two Entities.
     /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
     /// <para>Initialize from the constructor of the parent entity as follows:</para>
     /// <code>this.InitOneToMany(() => Property)</code>
@@ -26,24 +26,30 @@ namespace MongoDB.Entities
     {
         private bool inverse = false;
         private Entity parent = null;
-        private IMongoCollection<Reference> collection = null;
 
         /// <summary>
-        /// IQueryable of the join collection for this relationship
+        /// Gets the IMongoCollection of JoinRecords for this relationship.
+        /// <para>TIP: Try never to use this unless really neccessary.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null;
+
+        /// <summary>
+        /// An IQueryable of JoinRecords for this relationship
         /// </summary>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<Reference> JoinQueryable(AggregateOptions options = null) => collection.AsQueryable(options);
+        public IMongoQueryable<JoinRecord> JoinQueryable(AggregateOptions options = null) => JoinCollection.AsQueryable(options);
 
         /// <summary>
-        /// The IAggregateFluent of the join collection for this relationship
+        /// An IAggregateFluent of JoinRecords for this relationship
         /// </summary>
         /// <param name="options">An optional AggregateOptions object</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<Reference> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)
+        public IAggregateFluent<JoinRecord> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)
         {
             return session == null
-                ? collection.Aggregate(options)
-                : collection.Aggregate(session, options);
+                ? JoinCollection.Aggregate(options)
+                : JoinCollection.Aggregate(session, options);
         }
 
         /// <summary>
@@ -87,9 +93,9 @@ namespace MongoDB.Entities
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
-                        .Lookup<Reference, TChild, Joined>(
+                        .Lookup<JoinRecord, TChild, Joined>(
                             foreignCollection: DB.Collection<TChild>(),
-                            localField: (Reference r) => r.ParentID,
+                            localField: (JoinRecord r) => r.ParentID,
                             foreignField: (TChild c) => c.ID, j => j.Children)
                         .ReplaceRoot(j => j.Children[0]);
             }
@@ -97,9 +103,9 @@ namespace MongoDB.Entities
             {
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
-                        .Lookup<Reference, TChild, Joined>(
+                        .Lookup<JoinRecord, TChild, Joined>(
                             foreignCollection: DB.Collection<TChild>(),
-                            localField: (Reference r) => r.ChildID,
+                            localField: (JoinRecord r) => r.ChildID,
                             foreignField: (TChild c) => c.ID, j => j.Children)
                         .ReplaceRoot(j => j.Children[0]);
             }
@@ -116,8 +122,8 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             inverse = false;
-            collection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
-            SetupIndexes(collection);
+            JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]");
+            SetupIndexes(JoinCollection);
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -132,17 +138,17 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                collection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
+                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]");
             }
             else
             {
-                collection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
+                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]");
             }
 
-            SetupIndexes(collection);
+            SetupIndexes(JoinCollection);
         }
 
-        private static void SetupIndexes(IMongoCollection<Reference> collection)
+        private static void SetupIndexes(IMongoCollection<JoinRecord> collection)
         {
             //only create indexes once per unique ref collection
             if (!indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
@@ -152,16 +158,16 @@ namespace MongoDB.Entities
                 {
                     collection.Indexes.CreateMany(
                     new[] {
-                        new CreateIndexModel<Reference>(
-                            Builders<Reference>.IndexKeys.Ascending(r => r.ParentID),
+                        new CreateIndexModel<JoinRecord>(
+                            Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
                             new CreateIndexOptions
                             {
                                 Background = true,
                                 Name = "[ParentID]"
                             })
                         ,
-                        new CreateIndexModel<Reference>(
-                            Builders<Reference>.IndexKeys.Ascending(r => r.ChildID),
+                        new CreateIndexModel<JoinRecord>(
+                            Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
                             new CreateIndexOptions
                             {
                                 Background = true,
@@ -174,7 +180,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Adds a new child reference.
-        /// <para>WARNING: Make sure to save the enclosing/parent Entity before calling this method.</para>
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
@@ -194,16 +200,16 @@ namespace MongoDB.Entities
             parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
 
-            Reference rfrnc = null;
+            JoinRecord join = null;
 
             if (inverse)
             {
-                rfrnc = await JoinQueryable().SingleOrDefaultAsync(r =>
+                join = await JoinQueryable().SingleOrDefaultAsync(r =>
                                                                    r.ChildID.Equals(parent.ID) &&
                                                                    r.ParentID.Equals(child.ID));
-                if (rfrnc == null)
+                if (join == null)
                 {
-                    rfrnc = new Reference()
+                    join = new JoinRecord()
                     {
                         ID = ObjectId.GenerateNewId().ToString(),
                         ModifiedOn = DateTime.UtcNow,
@@ -214,12 +220,12 @@ namespace MongoDB.Entities
             }
             else
             {
-                rfrnc = await JoinQueryable().SingleOrDefaultAsync(r =>
+                join = await JoinQueryable().SingleOrDefaultAsync(r =>
                                                                    r.ParentID.Equals(parent.ID) &&
                                                                    r.ChildID.Equals(child.ID));
-                if (rfrnc == null)
+                if (join == null)
                 {
-                    rfrnc = new Reference()
+                    join = new JoinRecord()
                     {
                         ID = ObjectId.GenerateNewId().ToString(),
                         ModifiedOn = DateTime.UtcNow,
@@ -230,8 +236,8 @@ namespace MongoDB.Entities
             }
 
             await (session == null
-                   ? collection.ReplaceOneAsync(x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true })
-                   : collection.ReplaceOneAsync(session, x => x.ID.Equals(rfrnc.ID), rfrnc, new UpdateOptions() { IsUpsert = true }));
+                   ? JoinCollection.ReplaceOneAsync(x => x.ID.Equals(join.ID), join, new UpdateOptions() { IsUpsert = true })
+                   : JoinCollection.ReplaceOneAsync(session, x => x.ID.Equals(join.ID), join, new UpdateOptions() { IsUpsert = true }));
         }
 
         /// <summary>
@@ -254,19 +260,19 @@ namespace MongoDB.Entities
             if (inverse)
             {
                 await (session == null
-                       ? collection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
-                       : collection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
+                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
+                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
             }
             else
             {
                 await (session == null
-                       ? collection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
-                       : collection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
+                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
+                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
 
             }
         }
 
-        private class Joined : Reference
+        private class Joined : JoinRecord
         {
             public TChild[] Children { get; set; }
         }

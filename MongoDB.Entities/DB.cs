@@ -82,10 +82,10 @@ namespace MongoDB.Entities
             return result;
         }
 
-        internal static IMongoCollection<Reference> GetRefCollection(string name)
+        internal static IMongoCollection<JoinRecord> GetRefCollection(string name)
         {
             CheckIfInitialized();
-            return db.GetCollection<Reference>(name);
+            return db.GetCollection<JoinRecord>(name);
         }
 
         internal static IMongoClient GetClient()
@@ -251,15 +251,15 @@ namespace MongoDB.Entities
             foreach (var cName in parentCollections)
             {
                 tasks.Add(session == null
-                          ? db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID))
-                          : db.GetCollection<Reference>(cName).DeleteManyAsync(session, r => r.ParentID.Equals(ID)));
+                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID))
+                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ParentID.Equals(ID)));
             }
 
             foreach (var cName in childCollections)
             {
                 tasks.Add(session == null
-                          ? db.GetCollection<Reference>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID))
-                          : db.GetCollection<Reference>(cName).DeleteManyAsync(session, r => r.ChildID.Equals(ID)));
+                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID))
+                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ChildID.Equals(ID)));
             }
 
             tasks.Add(session == null
