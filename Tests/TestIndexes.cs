@@ -31,14 +31,14 @@ namespace MongoDB.Entities.Tests
         public void creating_compound_index_works()
         {
             DB.Index<Book>()
-              .Key(x => x.AllGenres, KeyType.Geo2D)
+              .Key(x => x.Genres, KeyType.Geo2D)
               .Key(x => x.Title, KeyType.Descending)
               .Key(x => x.ModifiedOn, KeyType.Descending)
               .Option(o => o.Background = true)
               .Create();
 
             DB.Index<Book>()
-              .Key(x => x.AllGenres, KeyType.Geo2D)
+              .Key(x => x.Genres, KeyType.Geo2D)
               .Key(x => x.Title, KeyType.Descending)
               .Key(x => x.ModifiedOn, KeyType.Ascending)
               .Option(o => o.Background = true)

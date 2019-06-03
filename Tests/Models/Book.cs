@@ -13,7 +13,7 @@ namespace MongoDB.Entities.Tests
         public Many<Author> BadAuthors { get; set; }
 
         [OwnerSide]
-        public Many<Genre> AllGenres { get; set; }
+        public Many<Genre> Genres { get; set; }
 
         [Ignore]
         public int DontSaveThis { get; set; }
@@ -22,7 +22,7 @@ namespace MongoDB.Entities.Tests
         {
             this.InitOneToMany(() => GoodAuthors);
             this.InitOneToMany(() => BadAuthors);
-            this.InitManyToMany(() => AllGenres, g => g.AllBooks);
+            this.InitManyToMany(() => Genres, g => g.Books);
         }
 
     }

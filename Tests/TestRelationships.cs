@@ -109,22 +109,22 @@ namespace MongoDB.Entities.Tests
             var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
             var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
 
-            book1.AllGenres.Add(gen1);
-            book1.AllGenres.Add(gen2);
-            book1.AllGenres.Add(gen1);
-            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().AllGenres.ChildrenQueryable().Count());
-            Assert.AreEqual(gen1.Name, book1.AllGenres.ChildrenQueryable().First().Name);
+            book1.Genres.Add(gen1);
+            book1.Genres.Add(gen2);
+            book1.Genres.Add(gen1);
+            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
+            Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
-            gen1.AllBooks.Add(book1);
-            gen1.AllBooks.Add(book2);
-            gen1.AllBooks.Add(book1);
-            Assert.AreEqual(2, gen1.Queryable().Where(g => g.ID == gen1.ID).Single().AllBooks.ChildrenQueryable().Count());
-            Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().AllGenres.ChildrenQueryable().First().Name);
+            gen1.Books.Add(book1);
+            gen1.Books.Add(book2);
+            gen1.Books.Add(book1);
+            Assert.AreEqual(2, gen1.Queryable().Where(g => g.ID == gen1.ID).Single().Books.ChildrenQueryable().Count());
+            Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
 
-            gen2.AllBooks.Add(book1);
-            gen2.AllBooks.Add(book2);
-            Assert.AreEqual(2, book1.AllGenres.ChildrenQueryable().Count());
-            Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().AllGenres.ChildrenQueryable().First().Name);
+            gen2.Books.Add(book1);
+            gen2.Books.Add(book2);
+            Assert.AreEqual(2, book1.Genres.ChildrenQueryable().Count());
+            Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
         }
 
         [TestMethod]
@@ -136,16 +136,41 @@ namespace MongoDB.Entities.Tests
             var gen1 = new Genre { Name = "rm2mrceg1" }; gen1.Save();
             var gen2 = new Genre { Name = "rm2mrceg1" }; gen2.Save();
 
-            book1.AllGenres.Add(gen1);
-            book1.AllGenres.Add(gen2);
-            book2.AllGenres.Add(gen1);
-            book2.AllGenres.Add(gen2);
+            book1.Genres.Add(gen1);
+            book1.Genres.Add(gen2);
+            book2.Genres.Add(gen1);
+            book2.Genres.Add(gen2);
 
-            book1.AllGenres.Remove(gen1);
-            Assert.AreEqual(1, book1.AllGenres.ChildrenQueryable().Count());
-            Assert.AreEqual(gen2.Name, book1.AllGenres.ChildrenQueryable().Single().Name);
-            Assert.AreEqual(1, gen1.AllBooks.ChildrenQueryable().Count());
-            Assert.AreEqual(book2.Title, gen1.AllBooks.ChildrenQueryable().First().Title);
+            book1.Genres.Remove(gen1);
+            Assert.AreEqual(1, book1.Genres.ChildrenQueryable().Count());
+            Assert.AreEqual(gen2.Name, book1.Genres.ChildrenQueryable().Single().Name);
+            Assert.AreEqual(1, gen1.Books.ChildrenQueryable().Count());
+            Assert.AreEqual(book2.Title, gen1.Books.ChildrenQueryable().First().Title);
         }
+
+        //[TestMethod]
+        //public void MyTestMethod()
+        //{
+
+        //    var book = new Book { Title = "Planet Of The Apes" };
+        //    book.Save();
+
+        //    var genre = new Genre { Name = "SciFi" };
+        //    genre.Save();
+
+        //    book.Genres.Add(genre);
+        //    genre.Books.Add(book);
+
+        //    //find all books of a genre
+
+        //    var books = book.Genres.JoinQueryable()
+        //                           .Where(j => j.ChildID == genre.ID)
+        //                           .Join(book.Queryable(),
+        //                                 j => j.ParentID,
+        //                                 b => b.ID,
+        //                                 (j, b) => b)
+        //                           .ToArray();
+
+        //}
     }
 }

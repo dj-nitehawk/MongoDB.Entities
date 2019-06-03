@@ -5,8 +5,8 @@
         public string Name { get; set; }
 
         [InverseSide]
-        public Many<Book> AllBooks { get; set; }
+        public Many<Book> Books { get; set; }
 
-        public Genre() => this.InitManyToMany(() => AllBooks, b => b.AllGenres);
+        public Genre() => this.InitManyToMany(() => Books, b => b.Genres);
     }
 }

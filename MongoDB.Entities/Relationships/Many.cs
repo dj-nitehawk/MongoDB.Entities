@@ -61,23 +61,37 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                var myRefs = from r in JoinQueryable()
-                             where r.ChildID.Equals(parent.ID)
-                             select r;
+                return JoinQueryable()
+                       .Where(j => j.ChildID == parent.ID)
+                       .Join(
+                           DB.Collection<TChild>(),
+                           j => j.ParentID,
+                           c => c.ID,
+                           (j, c) => c);
+                //var myRefs = from r in JoinQueryable()
+                //             where r.ChildID.Equals(parent.ID)
+                //             select r;
 
-                return from r in myRefs
-                       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID
-                       select c;
+                //return from r in myRefs
+                //       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID
+                //       select c;
             }
             else
             {
-                var myRefs = from r in JoinQueryable()
-                             where r.ParentID.Equals(parent.ID)
-                             select r;
+                return JoinQueryable()
+                       .Where(j => j.ParentID == parent.ID)
+                       .Join(
+                           DB.Collection<TChild>(),
+                           j => j.ChildID,
+                           c => c.ID,
+                           (j, c) => c);
+                //var myRefs = from r in JoinQueryable()
+                //             where r.ParentID.Equals(parent.ID)
+                //             select r;
 
-                return from r in myRefs
-                       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID
-                       select c;
+                //return from r in myRefs
+                //       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID
+                //       select c;
             }
         }
 
@@ -94,9 +108,10 @@ namespace MongoDB.Entities
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined>(
-                            foreignCollection: DB.Collection<TChild>(),
-                            localField: (JoinRecord r) => r.ParentID,
-                            foreignField: (TChild c) => c.ID, j => j.Children)
+                            DB.Collection<TChild>(),
+                            r => r.ParentID,
+                            c => c.ID,
+                            j => j.Children)
                         .ReplaceRoot(j => j.Children[0]);
             }
             else
@@ -104,9 +119,10 @@ namespace MongoDB.Entities
                 return JoinFluent(session)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined>(
-                            foreignCollection: DB.Collection<TChild>(),
-                            localField: (JoinRecord r) => r.ChildID,
-                            foreignField: (TChild c) => c.ID, j => j.Children)
+                            DB.Collection<TChild>(),
+                            r => r.ChildID,
+                            c => c.ID,
+                            j => j.Children)
                         .ReplaceRoot(j => j.Children[0]);
             }
         }
