@@ -148,29 +148,32 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book2.Title, gen1.Books.ChildrenQueryable().First().Title);
         }
 
-        //[TestMethod]
-        //public void MyTestMethod()
-        //{
+        [TestMethod]
+        public void getting_parents_of_a_relationship_works()
+        {
 
-        //    var book = new Book { Title = "Planet Of The Apes" };
-        //    book.Save();
+            var book = new Book { Title = "Planet Of The Apes" };
+            book.Save();
 
-        //    var genre = new Genre { Name = "SciFi" };
-        //    genre.Save();
+            var genre = new Genre { Name = "SciFi" };
+            genre.Save();
 
-        //    book.Genres.Add(genre);
-        //    genre.Books.Add(book);
+            book.Genres.Add(genre);
 
-        //    //find all books of a genre
+            var books = book.Genres
+                            .ParentsQueryable<Book>(genre.ID)
+                            .ToArray();
 
-        //    var books = book.Genres.JoinQueryable()
-        //                           .Where(j => j.ChildID == genre.ID)
-        //                           .Join(book.Queryable(),
-        //                                 j => j.ParentID,
-        //                                 b => b.ID,
-        //                                 (j, b) => b)
-        //                           .ToArray();
+            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(book.Title, books.First().Title);
 
-        //}
+            var genres = genre.Books
+                              .ParentsQueryable<Genre>(new[] { book.ID })
+                              .ToArray();
+
+            Assert.AreEqual(1, genres.Count());
+            Assert.AreEqual(genre.Name, genres.First().Name);
+
+        }
     }
 }

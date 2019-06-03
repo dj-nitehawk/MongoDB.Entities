@@ -4,6 +4,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -31,7 +32,6 @@ namespace MongoDB.Entities
         /// Gets the IMongoCollection of JoinRecords for this relationship.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null;
 
         /// <summary>
@@ -53,6 +53,47 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Get an IQueryable of parents matching a single child ID for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="childID">A child ID</param>
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID) where TParent : Entity
+        {
+            return ParentsQueryable<TParent>(new[] { childID });
+        }
+
+        /// <summary>
+        /// Get an IQueryable of parents matching multiple child IDs for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="childIDs">An IEnumerable of child IDs</param>
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs) where TParent : Entity
+        {
+            if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
+
+            if (inverse)
+            {
+                return JoinQueryable()
+                       .Where(j => childIDs.Contains(j.ParentID))
+                       .Join(
+                           DB.Collection<TParent>(),
+                           j => j.ChildID,
+                           p => p.ID,
+                           (j, p) => p);
+            }
+            else
+            {
+                return JoinQueryable()
+                       .Where(j => childIDs.Contains(j.ChildID))
+                       .Join(
+                           DB.Collection<TParent>(),
+                           j => j.ParentID,
+                           p => p.ID,
+                           (j, p) => p);
+            }
+        }
+
+        /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
         public IMongoQueryable<TChild> ChildrenQueryable()
@@ -68,13 +109,6 @@ namespace MongoDB.Entities
                            j => j.ParentID,
                            c => c.ID,
                            (j, c) => c);
-                //var myRefs = from r in JoinQueryable()
-                //             where r.ChildID.Equals(parent.ID)
-                //             select r;
-
-                //return from r in myRefs
-                //       join c in DB.Queryable<TChild>() on r.ParentID equals c.ID
-                //       select c;
             }
             else
             {
@@ -85,13 +119,6 @@ namespace MongoDB.Entities
                            j => j.ChildID,
                            c => c.ID,
                            (j, c) => c);
-                //var myRefs = from r in JoinQueryable()
-                //             where r.ParentID.Equals(parent.ID)
-                //             select r;
-
-                //return from r in myRefs
-                //       join c in DB.Queryable<TChild>() on r.ChildID equals c.ID
-                //       select c;
             }
         }
 
