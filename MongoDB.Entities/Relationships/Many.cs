@@ -134,21 +134,31 @@ namespace MongoDB.Entities
             }
         }
 
+        /// <summary>
+        /// Get an IAggregateFluent of parents matching a supplied IAggregateFluent of children for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="children">An IAggregateFluent of children</param>
+        /// <param name="session">An optional session if using within a transaction</param>
         public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children, IClientSessionHandle session = null) where TParent : Entity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
             if (inverse)
             {
-                return null;
-                //return JoinFluent(session)
-                //       .Match(f => f.In(j => j.ParentID, childIDs))
-                //       .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                //            DB.Collection<TParent>(),
-                //            j => j.ChildID,
-                //            p => p.ID,
-                //            j => j.Results)
-                //       .ReplaceRoot(j => j.Results[0]);
+                return children
+                       .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
+                            JoinCollection,
+                            c => c.ID,
+                            r => r.ParentID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0])
+                       .Lookup<JoinRecord, TParent, Joined<TParent>>(
+                            DB.Collection<TParent>(),
+                            r => r.ChildID,
+                            p => p.ID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0]);
             }
             else
             {

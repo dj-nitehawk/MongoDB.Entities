@@ -13,7 +13,8 @@
     <FileVersion>6.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- .ParentsQueryable() now returns unique children only
-- get parents of a relationship by supplying an IQueryable of children</PackageReleaseNotes>
+- get parents of a relationship by supplying an IQueryable or IAggregateFluent of children
+- updated tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
