@@ -151,39 +151,55 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void getting_parents_of_a_relationship_queryable_works()
         {
+            var guid = Guid.NewGuid().ToString();
 
-            var book = new Book { Title = "Planet Of The Apes" };
+            var book = new Book { Title = "Planet Of The Apes " + guid };
             book.Save();
 
-            var genre = new Genre { Name = "SciFi" };
+            var genre = new Genre { Name = "SciFi " + guid };
             genre.Save();
 
             book.Genres.Add(genre);
 
             var books = book.Genres
-                            .ParentsQueryable<Book>(genre.Queryable())
+                            .ParentsQueryable<Book>(genre.ID)
                             .ToArray();
 
             Assert.AreEqual(1, books.Count());
-            Assert.AreEqual(book.Title, books.First().Title);
+            Assert.AreEqual(book.Title, books.Single().Title);
+
+            books = book.Genres
+                    .ParentsQueryable<Book>(genre.Queryable().Where(g => g.ID == genre.ID))
+                    .ToArray();
+
+            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(book.Title, books.Single().Title);
 
             var genres = genre.Books
-                              .ParentsQueryable<Genre>(new[] { book.ID })
+                              .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
                               .ToArray();
 
             Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.First().Name);
+            Assert.AreEqual(genre.Name, genres.Single().Name);
 
+            genres = genre.Books
+                     .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
+                     .ToArray();
+
+            Assert.AreEqual(1, genres.Count());
+            Assert.AreEqual(genre.Name, genres.Single().Name);
         }
 
         [TestMethod]
         public void getting_parents_of_a_relationship_fluent_works()
         {
 
-            var book = new Book { Title = "Planet Of The Apes" };
+            var guid = Guid.NewGuid().ToString();
+
+            var book = new Book { Title = "Planet Of The Apes " + guid };
             book.Save();
 
-            var genre = new Genre { Name = "SciFi" };
+            var genre = new Genre { Name = "SciFi " + guid };
             genre.Save();
 
             book.Genres.Add(genre);

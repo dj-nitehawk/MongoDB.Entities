@@ -95,35 +95,44 @@ namespace MongoDB.Entities
             }
         }
 
-        //public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children) where TParent : Entity
-        //{
-        //    if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
+        /// <summary>
+        /// Get an IQueryable of parents matching a supplied IQueryable of children for this relationship.
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <param name="children">An IQueryable of children</param>
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children) where TParent : Entity
+        {
+            if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
-        //    if (inverse)
-        //    {
-        //        return JoinQueryable()
-        //               .Where(j => children.Select(c => c.ID).Contains(j.ParentID))
-        //               .Join(
-        //                   DB.Collection<TParent>(),
-        //                   j => j.ChildID,
-        //                   p => p.ID,
-        //                   (j, p) => p)
-        //               .Distinct();
-        //    }
-        //    else
-        //    {
-        //        var x = children.Select(c => new JoinRecord { ChildID = c.ID });
-
-        //        return JoinQueryable()
-        //               .Where(j => x.Contains(j.ChildID))
-        //               .Join(
-        //                   DB.Collection<TParent>(),
-        //                   j => j.ParentID,
-        //                   p => p.ID,
-        //                   (j, p) => p)
-        //               .Distinct();
-        //    }
-        //}
+            if (inverse)
+            {
+                return children
+                        .Join(
+                             JoinQueryable(),
+                             c => c.ID,
+                             j => j.ParentID,
+                             (c, j) => j)
+                        .Join(
+                           DB.Collection<TParent>(),
+                           j => j.ChildID,
+                           p => p.ID,
+                           (j, p) => p);
+            }
+            else
+            {
+                return children
+                       .Join(
+                            JoinQueryable(),
+                            c => c.ID,
+                            j => j.ChildID,
+                            (c, j) => j)
+                       .Join(
+                            DB.Collection<TParent>(),
+                            j => j.ParentID,
+                            p => p.ID,
+                            (j, p) => p);
+            }
+        }
 
         /// <summary>
         /// Get an IAggregateFluent of parents matching a single child ID for this relationship.

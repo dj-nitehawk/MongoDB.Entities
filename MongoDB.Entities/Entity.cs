@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace MongoDB.Entities
 {
     [BsonIgnoreExtraElements]
-    public class Entity
+    public abstract class Entity
     {
         /// <summary>
         /// This property is auto managed. Don't ever change this manually.
