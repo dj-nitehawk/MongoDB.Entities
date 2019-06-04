@@ -134,6 +134,40 @@ namespace MongoDB.Entities
             }
         }
 
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children, IClientSessionHandle session = null) where TParent : Entity
+        {
+            if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
+
+            if (inverse)
+            {
+                return null;
+                //return JoinFluent(session)
+                //       .Match(f => f.In(j => j.ParentID, childIDs))
+                //       .Lookup<JoinRecord, TParent, Joined<TParent>>(
+                //            DB.Collection<TParent>(),
+                //            j => j.ChildID,
+                //            p => p.ID,
+                //            j => j.Results)
+                //       .ReplaceRoot(j => j.Results[0]);
+            }
+            else
+            {
+                return children
+                       .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
+                            JoinCollection,
+                            c => c.ID,
+                            r => r.ChildID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0])
+                       .Lookup<JoinRecord, TParent, Joined<TParent>>(
+                            DB.Collection<TParent>(),
+                            r => r.ParentID,
+                            p => p.ID,
+                            j => j.Results)
+                       .ReplaceRoot(j => j.Results[0]);
+            }
+        }
+
         /// <summary>
         /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
         /// </summary>

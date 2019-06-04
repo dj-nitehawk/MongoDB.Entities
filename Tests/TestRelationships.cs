@@ -209,14 +209,28 @@ namespace MongoDB.Entities.Tests
                             .ToList();
 
             Assert.AreEqual(1, books.Count());
-            Assert.AreEqual(book.Title, books.First().Title);
+            Assert.AreEqual(book.Title, books.Single().Title);
+
+            books = book.Genres
+                    .ParentsFluent<Book>(genre.Fluent().Match(g => g.ID == genre.ID))
+                    .ToList();
+
+            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(book.Title, books.Single().Title);
 
             var genres = genre.Books
                               .ParentsFluent<Genre>(new[] { book.ID })
                               .ToList();
 
             Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.First().Name);
+            Assert.AreEqual(genre.Name, genres.Single().Name);
+
+            genres = genre.Books
+                    .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
+                    .ToList();
+              
+            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(book.Title, books.Single().Title);
 
         }
     }
