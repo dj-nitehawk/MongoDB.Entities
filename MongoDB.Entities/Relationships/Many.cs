@@ -79,7 +79,8 @@ namespace MongoDB.Entities
                            DB.Collection<TParent>(),
                            j => j.ChildID,
                            p => p.ID,
-                           (j, p) => p);
+                           (j, p) => p)
+                       .Distinct();
             }
             else
             {
@@ -89,9 +90,40 @@ namespace MongoDB.Entities
                            DB.Collection<TParent>(),
                            j => j.ParentID,
                            p => p.ID,
-                           (j, p) => p);
+                           (j, p) => p)
+                       .Distinct();
             }
         }
+
+        //public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children) where TParent : Entity
+        //{
+        //    if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
+
+        //    if (inverse)
+        //    {
+        //        return JoinQueryable()
+        //               .Where(j => children.Select(c => c.ID).Contains(j.ParentID))
+        //               .Join(
+        //                   DB.Collection<TParent>(),
+        //                   j => j.ChildID,
+        //                   p => p.ID,
+        //                   (j, p) => p)
+        //               .Distinct();
+        //    }
+        //    else
+        //    {
+        //        var x = children.Select(c => new JoinRecord { ChildID = c.ID });
+
+        //        return JoinQueryable()
+        //               .Where(j => x.Contains(j.ChildID))
+        //               .Join(
+        //                   DB.Collection<TParent>(),
+        //                   j => j.ParentID,
+        //                   p => p.ID,
+        //                   (j, p) => p)
+        //               .Distinct();
+        //    }
+        //}
 
         /// <summary>
         /// Get an IAggregateFluent of parents matching a single child ID for this relationship.

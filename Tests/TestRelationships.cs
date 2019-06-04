@@ -149,7 +149,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void getting_parents_of_a_relationship_works()
+        public void getting_parents_of_a_relationship_queryable_works()
         {
 
             var book = new Book { Title = "Planet Of The Apes" };
@@ -161,7 +161,7 @@ namespace MongoDB.Entities.Tests
             book.Genres.Add(genre);
 
             var books = book.Genres
-                            .ParentsQueryable<Book>(genre.ID)
+                            .ParentsQueryable<Book>(genre.Queryable())
                             .ToArray();
 
             Assert.AreEqual(1, books.Count());
@@ -177,7 +177,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void getting_parents_of_a_relationship_with_fluent_works()
+        public void getting_parents_of_a_relationship_fluent_works()
         {
 
             var book = new Book { Title = "Planet Of The Apes" };
