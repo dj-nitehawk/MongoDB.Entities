@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -65,6 +66,24 @@ namespace MongoDB.Entities
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
         {
             return DB.Fluent<T>(options, Session);
+        }
+
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, string IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : Entity
+        {
+            return (new GeoNear<T>
+            {
+                near = NearCoordinates,
+                distanceField = DB.PropertyName(DistanceField),
+                spherical = Spherical,
+                maxDistance = MaxDistance,
+                minDistance = MinDistance,
+                query = Query,
+                distanceMultiplier = DistanceMultiplier,
+                limit = Limit,
+                includeLocs = IncludeLocations,
+                key = IndexKey,
+            })
+            .ToFluent(options, Session);
         }
 
         public void Save<T>(T entity) where T : Entity

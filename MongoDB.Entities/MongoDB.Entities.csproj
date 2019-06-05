@@ -8,11 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>6.3.1</Version>
-    <AssemblyVersion>6.3.1.0</AssemblyVersion>
-    <FileVersion>6.3.0.0</FileVersion>
+    <Version>6.4</Version>
+    <AssemblyVersion>6.4.0.0</AssemblyVersion>
+    <FileVersion>6.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- xml doc update</PackageReleaseNotes>
+    <PackageReleaseNotes>- start fluent pipeline with GeoNear stage
+- minor code changes
+- xml doc update</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

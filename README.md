@@ -13,6 +13,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Programatically define indexes.
 - Full text search with text indexes.
 - Multi-document transaction support.
+- Start a GeoNear aggregation pipeline.
 - Use `decimal` type properties without attributes.
 - Supports both `ASP.Net Core` and `.Net Core` applications.
 

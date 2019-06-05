@@ -28,18 +28,22 @@ namespace MongoDB.Entities
         /// <summary>
         /// Converts a Coordinates2D instance to a GeoJsonPoint of GeoJson2DGeographicCoordinates 
         /// </summary>
-        /// <returns></returns>
         public GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint()
         {
             return GeoJson.Point(GeoJson.Geographic(coordinates[0], coordinates[1]));
         }
-    }
 
-    /// <summary>
-    /// Represents a $GeoNear fluent aggregation pipeline
-    /// </summary>
-    /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-    public class GeoNear<T> where T : Entity
+        /// <summary>
+        /// Create a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
+        /// </summary>
+        /// <returns></returns>
+        public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
+        {
+            return GeoJson.Point(GeoJson.Geographic(longitude, latitude));
+        }
+    }
+    
+    internal class GeoNear<T> where T : Entity
     {
         public Coordinates2D near { get; set; }
         public string distanceField { get; set; }
@@ -52,50 +56,7 @@ namespace MongoDB.Entities
         [BsonIgnoreIfNull] public int? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
 
-        /// <summary>
-        /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
-        /// </summary>
-        /// <param name="NearCoordinates">The coordinates from which to find documents from</param>
-        /// <param name="DistanceField">x => x.Distance</param>
-        /// <param name="Spherical">Calculate distances using spherical geometry or not</param>
-        /// <param name="MaxDistance">The maximum distance from the center point that the documents can be</param>
-        /// <param name="MinDistance">The minimum distance from the center point that the documents can be</param>
-        /// <param name="Limit">The maximum number of documents to return</param>
-        /// <param name="Query">Limits the results to the documents that match the query</param>
-        /// <param name="DistanceMultiplier">The factor to multiply all distances returned by the query</param>
-        /// <param name="IncludeLocations">Specify the output field to store the point used to calculate the distance</param>
-        /// <param name="IndexKey"></param>
-        public GeoNear(
-            Coordinates2D NearCoordinates,
-            Expression<Func<T, object>> DistanceField,
-            bool Spherical = true,
-            int? MaxDistance = null,
-            int? MinDistance = null,
-            int? Limit = null,
-            BsonDocument Query = null,
-            int? DistanceMultiplier = null,
-            string IncludeLocations = null,
-            string IndexKey = null)
-        {
-            near = NearCoordinates;
-            distanceField = PropertyName(DistanceField);
-            spherical = Spherical;
-            maxDistance = MaxDistance;
-            minDistance = MinDistance;
-            query = Query;
-            distanceMultiplier = DistanceMultiplier;
-            limit = Limit;
-            includeLocs = IncludeLocations;
-            key = IndexKey;
-        }
-
-        /// <summary>
-        /// Returns an IAggregateFluent query pipeline ready for further processing.
-        /// </summary>
-        /// <param name="session"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public IAggregateFluent<T> Fluent(IClientSessionHandle session = null, AggregateOptions options = null)
+        internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
         {
             var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
@@ -103,13 +64,5 @@ namespace MongoDB.Entities
                     ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
                     : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
         }
-
-        private string PropertyName(Expression<Func<T, object>> property)
-        {
-            if (!(property.Body is MemberExpression member)) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
-            if (member == null) throw new ArgumentException("Unable to get property name");
-            return member.Member.Name;
-        }
-
     }
 }
