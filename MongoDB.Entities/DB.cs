@@ -308,7 +308,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(IEnumerable<String> IDs, IClientSessionHandle session = null) where T : Entity
+        public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
             DeleteAsync<T>(IDs, session).GetAwaiter().GetResult();
         }
@@ -320,7 +320,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        async public static Task DeleteAsync<T>(IEnumerable<String> IDs, IClientSessionHandle session = null) where T : Entity
+        async public static Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
             foreach (var id in IDs)
             {
