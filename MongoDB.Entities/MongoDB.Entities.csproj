@@ -8,13 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>6.3</Version>
-    <AssemblyVersion>6.3.0.0</AssemblyVersion>
+    <Version>6.3.1</Version>
+    <AssemblyVersion>6.3.1.0</AssemblyVersion>
     <FileVersion>6.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- .ParentsQueryable() now returns unique entities only
-- get parents of a relationship by supplying an IQueryable or IAggregateFluent of children
-- updated tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- xml doc update</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
