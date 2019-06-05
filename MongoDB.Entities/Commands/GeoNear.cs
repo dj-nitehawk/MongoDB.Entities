@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
 using System;
@@ -41,15 +42,15 @@ namespace MongoDB.Entities
     public class GeoNear<T> where T : Entity
     {
         public Coordinates2D near { get; set; }
-        public bool spherical { get; set; }
-        public int limit { get; set; }
-        public int? maxDistance { get; set; }
-        public BsonDocument query { get; set; }
-        public int? distanceMultiplier { get; set; }
         public string distanceField { get; set; }
-        //public string includeLocs { get; set; }
-        public int? minDistance { get; set; }
-        //public string key { get; set; }
+        public bool spherical { get; set; }
+        [BsonIgnoreIfNull] public int? limit { get; set; }
+        [BsonIgnoreIfNull] public int? maxDistance { get; set; }
+        [BsonIgnoreIfNull] public BsonDocument query { get; set; }
+        [BsonIgnoreIfNull] public int? distanceMultiplier { get; set; }
+        [BsonIgnoreIfNull] public string includeLocs { get; set; }
+        [BsonIgnoreIfNull] public int? minDistance { get; set; }
+        [BsonIgnoreIfNull] public string key { get; set; }
 
         /// <summary>
         /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
@@ -70,22 +71,22 @@ namespace MongoDB.Entities
             bool Spherical = true,
             int? MaxDistance = null,
             int? MinDistance = null,
-            int Limit = 100,
+            int? Limit = null,
             BsonDocument Query = null,
-            int? DistanceMultiplier = null)
-            //string IncludeLocations = "",
-            //string IndexKey = "")
+            int? DistanceMultiplier = null,
+            string IncludeLocations = null,
+            string IndexKey = null)
         {
             near = NearCoordinates;
             distanceField = PropertyName(DistanceField);
             spherical = Spherical;
             maxDistance = MaxDistance;
             minDistance = MinDistance;
-            query = Query == null ? new BsonDocument() : Query;
+            query = Query;
             distanceMultiplier = DistanceMultiplier;
             limit = Limit;
-            //includeLocs = IncludeLocations;
-            //key = IndexKey;
+            includeLocs = IncludeLocations;
+            key = IndexKey;
         }
 
         /// <summary>
