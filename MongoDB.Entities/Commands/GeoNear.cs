@@ -43,7 +43,7 @@ namespace MongoDB.Entities
         }
     }
     
-    internal class GeoNear<T> where T : Entity
+    public class GeoNear<T> where T : Entity
     {
         public Coordinates2D near { get; set; }
         public string distanceField { get; set; }
@@ -56,7 +56,7 @@ namespace MongoDB.Entities
         [BsonIgnoreIfNull] public int? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
 
-        internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
+        public IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
         {
             var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
