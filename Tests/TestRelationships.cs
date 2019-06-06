@@ -159,7 +159,11 @@ namespace MongoDB.Entities.Tests
             var genre = new Genre { Name = "SciFi " + guid };
             genre.Save();
 
+            var genre1 = new Genre { Name = "Thriller " + guid };
+            genre1.Save();
+
             book.Genres.Add(genre);
+            book.Genres.Add(genre1);
 
             var books = book.Genres
                             .ParentsQueryable<Book>(genre.ID)
@@ -169,18 +173,18 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book.Title, books.Single().Title);
 
             books = book.Genres
-                    .ParentsQueryable<Book>(genre.Queryable().Where(g => g.ID == genre.ID))
+                    .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
                     .ToArray();
 
-            Assert.AreEqual(1, books.Count());
-            Assert.AreEqual(book.Title, books.Single().Title);
+            Assert.AreEqual(2, books.Count());
+            Assert.AreEqual(book.Title, books.Where(b => b.ID == book.ID).Single().Title);
 
             var genres = genre.Books
                               .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
                               .ToArray();
 
             Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Single().Name);
+            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).Single().Name);
 
             genres = genre.Books
                      .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
@@ -202,7 +206,11 @@ namespace MongoDB.Entities.Tests
             var genre = new Genre { Name = "SciFi " + guid };
             genre.Save();
 
+            var genre1 = new Genre { Name = "Thriller " + guid };
+            genre1.Save();
+
             book.Genres.Add(genre);
+            book.Genres.Add(genre1);
 
             var books = book.Genres
                             .ParentsFluent<Book>(genre.ID)
@@ -212,8 +220,8 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book.Title, books.Single().Title);
 
             books = book.Genres
-                    .ParentsFluent<Book>(genre.Fluent().Match(g => g.ID == genre.ID))
-                    .ToList();
+                            .ParentsFluent<Book>(genre.Fluent().Match(g => g.Name.Contains(guid)))
+                            .ToList();
 
             Assert.AreEqual(1, books.Count());
             Assert.AreEqual(book.Title, books.Single().Title);
@@ -222,13 +230,13 @@ namespace MongoDB.Entities.Tests
                               .ParentsFluent<Genre>(new[] { book.ID })
                               .ToList();
 
-            Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Single().Name);
+            Assert.AreEqual(2, genres.Count());
+            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).Single().Name);
 
             genres = genre.Books
                     .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
                     .ToList();
-              
+
             Assert.AreEqual(1, books.Count());
             Assert.AreEqual(book.Title, books.Single().Title);
 

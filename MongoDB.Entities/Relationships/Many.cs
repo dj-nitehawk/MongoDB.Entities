@@ -160,7 +160,8 @@ namespace MongoDB.Entities
                             r => r.ChildID,
                             p => p.ID,
                             j => j.Results)
-                       .ReplaceRoot(j => j.Results[0]);
+                       .ReplaceRoot(j => j.Results[0])
+                       .Distinct();
             }
             else
             {
@@ -176,7 +177,8 @@ namespace MongoDB.Entities
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
-                       .ReplaceRoot(j => j.Results[0]);
+                       .ReplaceRoot(j => j.Results[0])
+                       .Distinct();
             }
         }
 
@@ -211,7 +213,8 @@ namespace MongoDB.Entities
                             j => j.ChildID,
                             p => p.ID,
                             j => j.Results)
-                       .ReplaceRoot(j => j.Results[0]);
+                       .ReplaceRoot(j => j.Results[0])
+                       .Distinct();
             }
             else
             {
@@ -222,7 +225,8 @@ namespace MongoDB.Entities
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
-                       .ReplaceRoot(j => j.Results[0]);
+                       .ReplaceRoot(j => j.Results[0])
+                       .Distinct();
             }
         }
 

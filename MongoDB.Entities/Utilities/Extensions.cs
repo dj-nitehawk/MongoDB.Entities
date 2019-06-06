@@ -87,6 +87,22 @@ namespace MongoDB.Entities
             return DB.Fluent<T>(options, session);
         }
 
+        public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : Entity
+        {
+            PipelineStageDefinition<T, T> groupStage =
+                new BsonDocument(
+                "$group", new BsonDocument()
+                          .Add("_id", "$_id")
+                          .Add("doc", new BsonDocument()
+                                      .Add("$first", "$$ROOT")));
+
+            PipelineStageDefinition<T, T> rootStage =
+                new BsonDocument("$replaceRoot", new BsonDocument()
+                                                 .Add("newRoot", "$doc"));
+
+            return aggregate.AppendStage(groupStage).AppendStage(rootStage);
+        }
+
         /// <summary>
         /// Appends a match stage to the pipeline with a filter expression
         /// </summary>
