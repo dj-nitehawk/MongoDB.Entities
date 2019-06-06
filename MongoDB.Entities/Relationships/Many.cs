@@ -119,7 +119,8 @@ namespace MongoDB.Entities
                            DB.Collection<TParent>(),
                            j => j.ChildID,
                            p => p.ID,
-                           (j, p) => p);
+                           (j, p) => p)
+                        .Distinct();
             }
             else
             {
@@ -133,7 +134,8 @@ namespace MongoDB.Entities
                             DB.Collection<TParent>(),
                             j => j.ParentID,
                             p => p.ID,
-                            (j, p) => p);
+                            (j, p) => p)
+                       .Distinct();
             }
         }
 

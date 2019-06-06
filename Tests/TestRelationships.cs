@@ -176,22 +176,22 @@ namespace MongoDB.Entities.Tests
                     .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
                     .ToArray();
 
-            Assert.AreEqual(2, books.Count());
+            Assert.AreEqual(1, books.Count());
             Assert.AreEqual(book.Title, books.Where(b => b.ID == book.ID).Single().Title);
 
             var genres = genre.Books
                               .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
                               .ToArray();
 
-            Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).Single().Name);
+            Assert.AreEqual(2, genres.Count());
+            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).First().Name);
 
             genres = genre.Books
                      .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
                      .ToArray();
 
-            Assert.AreEqual(1, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Single().Name);
+            Assert.AreEqual(2, genres.Count());
+            Assert.AreEqual(genre.Name, genres.Last().Name);
         }
 
         [TestMethod]

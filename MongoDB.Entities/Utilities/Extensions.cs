@@ -87,6 +87,10 @@ namespace MongoDB.Entities
             return DB.Fluent<T>(options, session);
         }
 
+        /// <summary>
+        /// Adds a distinct aggregation stage to a fluent pipeline. 
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : Entity
         {
             PipelineStageDefinition<T, T> groupStage =
