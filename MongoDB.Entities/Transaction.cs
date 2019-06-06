@@ -68,19 +68,19 @@ namespace MongoDB.Entities
             return DB.Fluent<T>(options, Session);
         }
 
-        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, string IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : Entity
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : Entity
         {
             return (new GeoNear<T>
             {
                 near = NearCoordinates,
-                distanceField = DB.PropertyName(DistanceField),
+                distanceField = DistanceField.FullPath(),
                 spherical = Spherical,
                 maxDistance = MaxDistance,
                 minDistance = MinDistance,
                 query = Query,
                 distanceMultiplier = DistanceMultiplier,
                 limit = Limit,
-                includeLocs = IncludeLocations,
+                includeLocs = IncludeLocations.FullPath(),
                 key = IndexKey,
             })
             .ToFluent(options, Session);

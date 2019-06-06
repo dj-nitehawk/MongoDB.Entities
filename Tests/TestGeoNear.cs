@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using System.Linq;
 using System;
-using MongoDB.Bson;
 
 namespace MongoDB.Entities.Tests
 {

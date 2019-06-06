@@ -418,19 +418,19 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, string IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : Entity
+        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : Entity
         {
             return (new GeoNear<T>
             {
                 near = NearCoordinates,
-                distanceField = PropertyName(DistanceField),
+                distanceField = DistanceField.FullPath(),
                 spherical = Spherical,
                 maxDistance = MaxDistance,
                 minDistance = MinDistance,
                 query = Query,
                 distanceMultiplier = DistanceMultiplier,
                 limit = Limit,
-                includeLocs = IncludeLocations,
+                includeLocs = IncludeLocations.FullPath(),
                 key = IndexKey,
             })
             .ToFluent(options, session);
@@ -449,13 +449,6 @@ namespace MongoDB.Entities
         private static void CheckIfInitialized()
         {
             if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
-        }
-
-        internal static string PropertyName<T>(Expression<Func<T, object>> property) where T : Entity
-        {
-            if (!(property.Body is MemberExpression member)) member = (property.Body as UnaryExpression)?.Operand as MemberExpression;
-            if (member == null) throw new ArgumentException("Unable to get property name");
-            return member.Member.Name;
         }
     }
 

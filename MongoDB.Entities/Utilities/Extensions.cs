@@ -30,6 +30,17 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
+        internal static string FullPath<T>(this Expression<Func<T, object>> expression)
+        {
+            if (expression == null) return null;
+            var name = expression.Parameters[0].Name;
+            return expression.ToString()
+                       .Replace($"{name} => {name}.", "")
+                       .Replace($"{name} => Convert({name}.", "")
+                       .Replace(", Object)", "")
+                       .Replace("get_Item(-1).", "");
+        }
+
         /// <summary>
         /// Registers MongoDB.Entities as a service with the IOC services collection.
         /// </summary>
@@ -279,5 +290,6 @@ namespace MongoDB.Entities
 
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
+
     }
 }

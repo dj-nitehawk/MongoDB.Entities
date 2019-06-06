@@ -2,9 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -42,7 +39,7 @@ namespace MongoDB.Entities
             return GeoJson.Point(GeoJson.Geographic(longitude, latitude));
         }
     }
-    
+
     public class GeoNear<T> where T : Entity
     {
         public Coordinates2D near { get; set; }

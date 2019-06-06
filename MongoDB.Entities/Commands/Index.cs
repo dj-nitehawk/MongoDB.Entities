@@ -42,39 +42,35 @@ namespace MongoDB.Entities
                 switch (key.Type)
                 {
                     case KeyType.Ascending:
-                        keyDefs.Add(Builders<T>.IndexKeys.Ascending(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Ascending(key.PropertyName));
                         keyType = "(Asc)";
                         break;
                     case KeyType.Descending:
-                        keyDefs.Add(Builders<T>.IndexKeys.Descending(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Descending(key.PropertyName));
                         keyType = "(Dsc)";
                         break;
                     case KeyType.Geo2D:
-                        keyDefs.Add(Builders<T>.IndexKeys.Geo2D(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Geo2D(key.PropertyName));
                         keyType = "(G2d)";
                         break;
                     case KeyType.Geo2DSphere:
-                        keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.PropertyName));
                         keyType = "(Gsp)";
                         break;
                     case KeyType.GeoHaystack:
-                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.PropertyName));
                         keyType = "(Ghs)";
                         break;
                     case KeyType.Hashed:
-                        keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.PropertyName));
                         keyType = "(Hsh)";
                         break;
                     case KeyType.Text:
-                        keyDefs.Add(Builders<T>.IndexKeys.Text(key.Property));
+                        keyDefs.Add(Builders<T>.IndexKeys.Text(key.PropertyName));
                         isTextIndex = true;
                         break;
                 }
-
-                var member = key.Property.Body as MemberExpression;
-                if (member == null) member = (key.Property.Body as UnaryExpression)?.Operand as MemberExpression;
-                if (member == null) throw new ArgumentException("Unable to get property name");
-                propNames.Add(member.Member.Name + keyType);
+                propNames.Add(key.PropertyName + keyType);
             }
 
             if (string.IsNullOrEmpty(options.Name))
@@ -131,17 +127,18 @@ namespace MongoDB.Entities
         {
             Keys.Add(new Key<T>(propertyToIndex, type));
             return this;
+
         }
     }
 
     internal class Key<T> where T : Entity
     {
-        internal Expression<Func<T, object>> Property { get; set; }
+        internal string PropertyName { get; set; }
         internal KeyType Type { get; set; }
 
         internal Key(Expression<Func<T, object>> prop, KeyType type)
         {
-            Property = prop;
+            PropertyName = prop.FullPath();
             Type = type;
         }
     }

@@ -12,7 +12,9 @@
     <AssemblyVersion>6.6.0.0</AssemblyVersion>
     <FileVersion>6.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- changed GeoNear class access level to public</PackageReleaseNotes>
+    <PackageReleaseNotes>- specify nested properties with lambda for index keys
+- specify nested properties with lambda for GeoNear options
+- changed GeoNear class access level to public</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
