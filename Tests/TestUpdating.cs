@@ -47,5 +47,27 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, res.Count());
             Assert.AreEqual(guid, res.First().Name);
         }
+
+        [TestMethod]
+        public void nested_properties_update_correctly()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var book = new Book
+            {
+                Title = "mnpuc title " + guid,
+                Review = new Review { Rating = 10.10 }
+            };
+            book.Save();
+
+            DB.Update<Book>()
+                .Match(b => b.Review.Rating == 10.10)
+                .Modify(b => b.Review.Rating, 22.22)
+                .Execute();
+
+            var res = DB.Find<Book>().One(book.ID);
+
+            Assert.AreEqual(22.22, res.Review.Rating);
+        }
     }
 }

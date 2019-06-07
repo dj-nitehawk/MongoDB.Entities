@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents an index for a given Entity
+    /// Represents an index creation command
     /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
     /// </summary>
     /// <typeparam name="T">Any class that inherits from Entity</typeparam>

@@ -4,5 +4,6 @@
     {
         public int Stars { get; set; }
         public string Reviewer { get; set; }
+        public double Rating { get; set; }
     }
 }
