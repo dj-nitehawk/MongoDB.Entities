@@ -1,4 +1,4 @@
-[![](https://img.shields.io/nuget/v/MongoDB.Entities.svg)](#) [![](https://img.shields.io/nuget/dt/MongoDB.Entities.svg)](#)
+[![nuget](https://buildstats.info/nuget/MongoDB.Entities)](https://www.nuget.org/packages/MongoDB.Entities)
 # MongoDB.Entities
 This library simplifies access to mongodb by abstracting away the C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
 
