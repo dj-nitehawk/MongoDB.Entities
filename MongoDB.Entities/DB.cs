@@ -239,7 +239,11 @@ namespace MongoDB.Entities
         async public static Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
             CheckIfInitialized();
-            var joinCollections = (await db.ListCollectionNames().ToListAsync()).Where(c=>c.Contains("~"));
+            var joinCollections = (await db.ListCollectionNames().ToListAsync())
+                                    .Where(c => 
+                                           c.Contains("~") && 
+                                           c.Contains(GetCollectionName<T>()));
+
             var tasks = new List<Task>();
 
             foreach (var cName in joinCollections)
