@@ -126,12 +126,12 @@ namespace MongoDB.Entities
             await DB.DeleteAsync<T>(expression, Session);
         }
 
-        public void Delete<T>(IEnumerable<String> IDs) where T : Entity
+        public void Delete<T>(IEnumerable<string> IDs) where T : Entity
         {
             DeleteAsync<T>(IDs).GetAwaiter().GetResult();
         }
 
-        async public Task DeleteAsync<T>(IEnumerable<String> IDs) where T : Entity
+        async public Task DeleteAsync<T>(IEnumerable<string> IDs) where T : Entity
         {
             await DB.DeleteAsync<T>(IDs, Session);
         }

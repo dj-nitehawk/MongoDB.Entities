@@ -215,7 +215,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Delete<T>(this T entity) where T : Entity
         {
-            DeleteAsync<T>(entity).GetAwaiter().GetResult();
+            DeleteAsync(entity).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
         {
-            DeleteAllAsync<T>(entities).GetAwaiter().GetResult();
+            DeleteAllAsync(entities).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -242,14 +242,7 @@ namespace MongoDB.Entities
         /// </summary>
         async public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
-            var tasks = new List<Task>();
-
-            foreach (var e in entities)
-            {
-                tasks.Add(DB.DeleteAsync<T>(e.ID));
-            }
-
-            await Task.WhenAll(tasks);
+            await DB.DeleteAsync<T>(entities.Select(e => e.ID));
         }
 
         /// <summary>

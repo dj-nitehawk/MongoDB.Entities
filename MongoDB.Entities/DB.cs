@@ -11,7 +11,6 @@ using MongoDB.Bson.Serialization;
 using System.Reflection;
 using MongoDB.Bson.Serialization.Serializers;
 using System.Collections.ObjectModel;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MongoDB.Entities
 {
@@ -217,6 +216,30 @@ namespace MongoDB.Entities
                    : Collection<T>().BulkWriteAsync(session, models));
         }
 
+        async private static Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        {
+            CheckIfInitialized();
+            var joinCollections = (await db.ListCollectionNames().ToListAsync())
+                                    .Where(c =>
+                                           c.Contains("~") &&
+                                           c.Contains(GetCollectionName<T>()));
+
+            var tasks = new HashSet<Task>();
+
+            foreach (var cName in joinCollections)
+            {
+                tasks.Add(session == null
+                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
+            }
+
+            tasks.Add(session == null
+                       ? Collection<T>().DeleteOneAsync(x => IDs.Contains(x.ID))
+                       : Collection<T>().DeleteOneAsync(session, x => IDs.Contains(x.ID)));
+
+            await Task.WhenAll(tasks);
+        }
+
         /// <summary>
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
@@ -238,43 +261,26 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         async public static Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
-            CheckIfInitialized();
-            var joinCollections = (await db.ListCollectionNames().ToListAsync())
-                                    .Where(c => 
-                                           c.Contains("~") && 
-                                           c.Contains(GetCollectionName<T>()));
-
-            var tasks = new List<Task>();
-
-            foreach (var cName in joinCollections)
-            {
-                tasks.Add(session == null
-                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID) || r.ParentID.Equals(ID))
-                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ChildID.Equals(ID) || r.ParentID.Equals(ID)));
-            }
-
-            tasks.Add(session == null
-                      ? Collection<T>().DeleteOneAsync(x => x.ID.Equals(ID))
-                      : Collection<T>().DeleteOneAsync(session, x => x.ID.Equals(ID)));
-
-            await Task.WhenAll(tasks);
+            await DeleteCascading<T>(new[] { ID }, session);
         }
 
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
         {
-            DeleteAsync<T>(expression, session).GetAwaiter().GetResult();
+            DeleteAsync(expression, session).GetAwaiter().GetResult();
         }
 
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -286,15 +292,13 @@ namespace MongoDB.Entities
                               .Select(e => e.ID)
                               .ToListAsync();
 
-            foreach (var id in IDs)
-            {
-                await DeleteAsync<T>(id, session);
-            }
+            await DeleteCascading<T>(IDs, session);
         }
 
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -307,16 +311,14 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         async public static Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
-            foreach (var id in IDs)
-            {
-                await DeleteAsync<T>(id, session);
-            }
+            await DeleteCascading<T>(IDs, session);
         }
 
         /// <summary>
