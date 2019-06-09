@@ -11,6 +11,7 @@ using MongoDB.Bson.Serialization;
 using System.Reflection;
 using MongoDB.Bson.Serialization.Serializers;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace MongoDB.Entities
 {
@@ -72,14 +73,17 @@ namespace MongoDB.Entities
 
         internal static string GetCollectionName<T>()
         {
-            string result = typeof(T).Name;
+            string collection = typeof(T).Name;
 
-            var attrib = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
-            if (attrib != null)
+            var attribute = typeof(T).GetTypeInfo().GetCustomAttribute<NameAttribute>();
+            if (attribute != null)
             {
-                result = attrib.Name;
+                collection = attribute.Name;
             }
-            return result;
+
+            if (string.IsNullOrWhiteSpace(collection) || collection.Contains("~")) throw new ArgumentException("This is an illegal name for a collection!");
+
+            return collection;
         }
 
         internal static IMongoCollection<JoinRecord> GetRefCollection(string name)
@@ -235,31 +239,14 @@ namespace MongoDB.Entities
         async public static Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
             CheckIfInitialized();
-            var collectionNames = await db.ListCollectionNames().ToListAsync();
-
-            //Book
-            var entityName = GetCollectionName<T>();
-
-            //[(PropName)Book~Author(PropName)] / [Book~Author(PropName)]
-            var parentCollections = collectionNames.Where(name => name.Contains(entityName + "~")).ToArray();
-
-            //[(PropName)Author~Book(PropName)] / [Author~Book(PropName)]
-            var childCollections = collectionNames.Where(name => name.Contains("~" + entityName)).ToArray();
-
+            var joinCollections = (await db.ListCollectionNames().ToListAsync()).Where(c=>c.Contains("~"));
             var tasks = new List<Task>();
 
-            foreach (var cName in parentCollections)
+            foreach (var cName in joinCollections)
             {
                 tasks.Add(session == null
-                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ParentID.Equals(ID))
-                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ParentID.Equals(ID)));
-            }
-
-            foreach (var cName in childCollections)
-            {
-                tasks.Add(session == null
-                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID))
-                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ChildID.Equals(ID)));
+                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => r.ChildID.Equals(ID) || r.ParentID.Equals(ID))
+                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => r.ChildID.Equals(ID) || r.ParentID.Equals(ID)));
             }
 
             tasks.Add(session == null
