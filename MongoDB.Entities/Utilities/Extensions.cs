@@ -30,7 +30,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
-        internal static string FullPath<T>(this Expression<Func<T, object>> expression)
+        public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
             var name = expression.Parameters[0].Name;
@@ -38,7 +38,8 @@ namespace MongoDB.Entities
                        .Replace($"{name} => {name}.", "")
                        .Replace($"{name} => Convert({name}.", "")
                        .Replace(", Object)", "")
-                       .Replace("get_Item(-1).", "");
+                       .Replace("get_Item(-1).", "")
+                       .Replace("[-1]","");
         }
 
         /// <summary>

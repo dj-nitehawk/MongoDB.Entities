@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace MongoDB.Entities.Tests
 {
@@ -227,5 +228,14 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book1.SellingPrice + book2.SellingPrice, res.Sum);
         }
 
+        [TestMethod]
+        public void nested_prop_full_path_test()
+        {
+            Expression<Func<Book, object>> exp = x => x.MoreReviews[-1].Rating;
+
+            var res = exp.FullPath();
+
+            Assert.AreEqual("MoreReviews.Rating", res);
+        }
     }
 }
