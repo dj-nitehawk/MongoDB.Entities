@@ -146,6 +146,11 @@ namespace MongoDB.Entities
             return await DB.SearchTextAsync<T>(searchTerm, caseSensitive, options, Session);
         }
 
+        public IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null)
+        {
+            return DB.SearchTextFluent<T>(searchTerm, caseSensitive, options, Session);
+        }
+
         /// <summary>
         /// Ends the transaction and disposes the session.
         /// </summary>

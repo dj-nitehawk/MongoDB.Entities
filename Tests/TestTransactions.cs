@@ -123,6 +123,9 @@ namespace MongoDB.Entities.Tests
             {
                 var tres = TN.SearchText<Author>(author1.Surname);
                 Assert.AreEqual(author1.Surname, tres.First().Surname);
+
+                var tflu = TN.SearchTextFluent<Author>(author2.Surname).SortByDescending(x=>x.ModifiedOn);
+                Assert.AreEqual(author2.Surname, tflu.First().Surname);
             }
         }
 

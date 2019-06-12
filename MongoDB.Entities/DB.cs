@@ -365,6 +365,22 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
+        public static IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null, IClientSessionHandle session = null)
+        {
+            var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
+            return session == null
+                   ? Collection<T>().Aggregate(options).Match(filter)
+                   : Collection<T>().Aggregate(session, options).Match(filter);
+        }
+
+        /// <summary>
         /// Represents a batch update command
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Set() and finally call .Execute() to run the command.</para>
         /// </summary>
