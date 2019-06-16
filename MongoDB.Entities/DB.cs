@@ -382,7 +382,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Represents a batch update command
-        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Set() and finally call .Execute() to run the command.</para>
+        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         public static Update<T> Update<T>() where T : Entity
