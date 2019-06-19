@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using MongoDB.Driver.Linq;
-using MongoDB.Bson.Serialization;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -39,7 +39,7 @@ namespace MongoDB.Entities
                        .Replace($"{name} => Convert({name}.", "")
                        .Replace(", Object)", "")
                        .Replace("get_Item(-1).", "")
-                       .Replace("[-1]","");
+                       .Replace("[-1]", "");
         }
 
         /// <summary>
