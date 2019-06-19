@@ -6,7 +6,7 @@ using System.Linq;
 namespace MongoDB.Entities.Tests
 {
     //NOTE: transactions are only supported on replica-sets. you need at least a single-node replica-set.
-    //      use /MongoDB.Entities/Utilities/mongod.cfg to run mongodb in replica-set mode
+    //      use mongod.cfg at root level of repo to run mongodb in replica-set mode
     //      then run rs.initiate() in a mongo console
 
     [TestClass]

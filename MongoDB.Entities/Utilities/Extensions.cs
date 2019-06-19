@@ -52,7 +52,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public static IServiceCollection AddMongoDBEntities(this IServiceCollection services, string Database, string Host = "127.0.0.1", int Port = 27017)
         {
-            services.AddSingleton<DB>(new DB(Database, Host, Port));
+            services.AddSingleton(new DB(Database, Host, Port));
             return services;
         }
 
@@ -65,7 +65,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public static IServiceCollection AddMongoDBEntities(this IServiceCollection services, MongoClientSettings Settings, string Database)
         {
-            services.AddSingleton<DB>(new DB(Settings, Database));
+            services.AddSingleton(new DB(Settings, Database));
             return services;
         }
 
