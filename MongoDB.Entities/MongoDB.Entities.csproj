@@ -14,7 +14,7 @@
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- xml doc update
 - optimize tests
-- minor code changes</PackageReleaseNotes>
+- code cleanup</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
