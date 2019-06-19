@@ -232,10 +232,12 @@ namespace MongoDB.Entities.Tests
         public void nested_prop_full_path_test()
         {
             Expression<Func<Book, object>> exp = x => x.MoreReviews[-1].Rating;
-
             var res = exp.FullPath();
-
             Assert.AreEqual("MoreReviews.Rating", res);
+
+            Expression<Func<Book, object>> exp1 = x => x.MoreReviews[-1].Books[-1].MoreReviews[-1].Books[-1].ModifiedOn;
+            var res1 = exp1.FullPath();
+            Assert.AreEqual("MoreReviews.Books.MoreReviews.Books.ModifiedOn", res1);
         }
     }
 }
