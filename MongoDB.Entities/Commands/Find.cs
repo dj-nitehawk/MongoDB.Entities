@@ -49,7 +49,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="ID">The unique ID of an Entity</param>
         /// <returns>A single entity or null if not found</returns>
-        async public Task<TProjection> OneAsync(string ID)
+        public async Task<TProjection> OneAsync(string ID)
         {
             Match(ID);
             return (await ExecuteAsync()).SingleOrDefault();
@@ -70,7 +70,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="expression">x => x.Property == Value</param>
         /// <returns>A list of Entities</returns>
-        async public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression)
+        public async Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression)
         {
             Match(expression);
             return await ExecuteAsync();
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <returns>A list of Entities</returns>
-        async public Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        public async Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             Match(filter);
             return await ExecuteAsync();
@@ -209,7 +209,7 @@ namespace MongoDB.Entities
         /// Run the Find command in MongoDB server and get the results
         /// </summary>
         /// <returns>A list of entities</returns>
-        async public Task<List<TProjection>> ExecuteAsync()
+        public async Task<List<TProjection>> ExecuteAsync()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return await DB.FindAsync(filter, options, session);

@@ -27,7 +27,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
         /// </summary>
-        async public Task CreateAsync()
+        public async Task CreateAsync()
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 

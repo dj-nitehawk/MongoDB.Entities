@@ -377,7 +377,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        async public Task AddAsync(TChild child, IClientSessionHandle session = null)
+        public async Task AddAsync(TChild child, IClientSessionHandle session = null)
         {
             parent.ThrowIfUnsaved();
             child.ThrowIfUnsaved();
@@ -437,7 +437,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child Entity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        async public Task RemoveAsync(TChild child, IClientSessionHandle session = null)
+        public async Task RemoveAsync(TChild child, IClientSessionHandle session = null)
         {
             if (inverse)
             {

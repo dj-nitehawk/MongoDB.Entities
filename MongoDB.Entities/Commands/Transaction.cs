@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Commits a tranaction to MongoDB
         /// </summary>
-        async public void CommitAsync() => await Session.CommitTransactionAsync();
+        public async void CommitAsync() => await Session.CommitTransactionAsync();
 
         /// <summary>
         /// Aborts and rolls back a tranaction
@@ -46,7 +46,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Aborts and rolls back a tranaction
         /// </summary>
-        async public void AbortAsync() => await Session.AbortTransactionAsync();
+        public async void AbortAsync() => await Session.AbortTransactionAsync();
 
         public Update<T> Update<T>() where T : Entity
         {
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
             SaveAsync<T>(entity).GetAwaiter().GetResult();
         }
 
-        async public Task SaveAsync<T>(T entity) where T : Entity
+        public async Task SaveAsync<T>(T entity) where T : Entity
         {
             await DB.SaveAsync<T>(entity, Session);
         }
@@ -101,7 +101,7 @@ namespace MongoDB.Entities
             SaveAsync<T>(entities).GetAwaiter().GetResult();
         }
 
-        async public Task SaveAsync<T>(IEnumerable<T> entities) where T : Entity
+        public async Task SaveAsync<T>(IEnumerable<T> entities) where T : Entity
         {
             await DB.SaveAsync<T>(entities, Session);
         }
@@ -111,7 +111,7 @@ namespace MongoDB.Entities
             DeleteAsync<T>(ID).GetAwaiter().GetResult();
         }
 
-        async public Task DeleteAsync<T>(string ID) where T : Entity
+        public async Task DeleteAsync<T>(string ID) where T : Entity
         {
             await DB.DeleteAsync<T>(ID, Session);
         }
@@ -121,7 +121,7 @@ namespace MongoDB.Entities
             DeleteAsync<T>(expression).GetAwaiter().GetResult();
         }
 
-        async public Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
+        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
             await DB.DeleteAsync<T>(expression, Session);
         }
@@ -131,7 +131,7 @@ namespace MongoDB.Entities
             DeleteAsync<T>(IDs).GetAwaiter().GetResult();
         }
 
-        async public Task DeleteAsync<T>(IEnumerable<string> IDs) where T : Entity
+        public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : Entity
         {
             await DB.DeleteAsync<T>(IDs, Session);
         }
@@ -141,7 +141,7 @@ namespace MongoDB.Entities
             return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
         }
 
-        async public Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
+        public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
         {
             return await DB.SearchTextAsync<T>(searchTerm, caseSensitive, options, Session);
         }

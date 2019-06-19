@@ -187,7 +187,7 @@ namespace MongoDB.Entities
         /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        async public static Task SaveAsync<T>(this T entity) where T : Entity
+        public static async Task SaveAsync<T>(this T entity) where T : Entity
         {
             await DB.SaveAsync(entity);
         }
@@ -205,7 +205,7 @@ namespace MongoDB.Entities
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        async public static Task SaveAsync<T>(this IEnumerable<T> entities) where T : Entity
+        public static async Task SaveAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
             await DB.SaveAsync(entities);
         }
@@ -223,7 +223,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        async public static Task DeleteAsync<T>(this T entity) where T : Entity
+        public static async Task DeleteAsync<T>(this T entity) where T : Entity
         {
             await DB.DeleteAsync<T>(entity.ID);
         }
@@ -241,7 +241,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        async public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
+        public static async Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
             await DB.DeleteAsync<T>(entities.Select(e => e.ID));
         }

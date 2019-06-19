@@ -84,7 +84,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the batch update command in MongoDB.
         /// </summary>
-        async public Task ExecuteAsync()
+        public async Task ExecuteAsync()
 
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");

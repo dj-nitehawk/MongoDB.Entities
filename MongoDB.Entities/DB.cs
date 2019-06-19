@@ -16,7 +16,7 @@ namespace MongoDB.Entities
 {
     public class DB
     {
-        protected private static IMongoDatabase db = null;
+        private protected static IMongoDatabase db = null;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -97,24 +97,24 @@ namespace MongoDB.Entities
             return db.Client;
         }
 
-        internal async static Task CreateIndexAsync<T>(CreateIndexModel<T> model)
+        internal static async Task CreateIndexAsync<T>(CreateIndexModel<T> model)
         {
             await Collection<T>().Indexes.CreateOneAsync(model);
         }
 
-        internal async static Task DropIndexAsync<T>(string name)
+        internal static async Task DropIndexAsync<T>(string name)
         {
             await Collection<T>().Indexes.DropOneAsync(name);
         }
 
-        async internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null)
+        internal static async Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null)
         {
             await (session == null
                    ? Collection<T>().UpdateManyAsync(filter, definition, options)
                    : Collection<T>().UpdateManyAsync(session, filter, definition, options));
         }
 
-        async internal static Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null)
+        internal static async Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null)
         {
             return await (session == null
                 ? (await Collection<T>().FindAsync(filter, options)).ToListAsync()
@@ -169,7 +169,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        async public static Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        public static async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
         {
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
@@ -196,7 +196,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        async public static Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        public static async Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
         {
             var models = new Collection<WriteModel<T>>();
             foreach (var ent in entities)
@@ -216,7 +216,7 @@ namespace MongoDB.Entities
                    : Collection<T>().BulkWriteAsync(session, models));
         }
 
-        async private static Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        private static async Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
             CheckIfInitialized();
             var joinCollections = (await db.ListCollectionNames().ToListAsync())
@@ -259,7 +259,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        async public static Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
             await DeleteCascading<T>(new[] { ID }, session);
         }
@@ -285,7 +285,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        async public static Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        public static async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
         {
             var IDs = await Queryable<T>()
                               .Where(expression)
@@ -316,7 +316,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        async public static Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
             await DeleteCascading<T>(IDs, session);
         }
@@ -356,7 +356,7 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        async public static Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return await (session == null
