@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     public class Transaction : IDisposable
     {
         public IClientSessionHandle Session { get; }
-        private IMongoClient client;
+        private readonly IMongoClient client;
 
         /// <summary>
         /// Instantiates and begins a transaction.

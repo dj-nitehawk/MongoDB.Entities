@@ -13,10 +13,10 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
     public class Update<T> where T : Entity
     {
-        private Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
+        private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private UpdateOptions options = new UpdateOptions();
-        private IClientSessionHandle session = null;
+        private readonly UpdateOptions options = new UpdateOptions();
+        private readonly IClientSessionHandle session = null;
 
         internal Update(IClientSessionHandle session = null) => this.session = session;
 

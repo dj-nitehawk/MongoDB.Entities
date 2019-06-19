@@ -27,9 +27,9 @@ namespace MongoDB.Entities
     public class Find<T, TProjection> where T : Entity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
-        private FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
-        private IClientSessionHandle session = null;
+        private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
+        private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
+        private readonly IClientSessionHandle session = null;
 
         internal Find(IClientSessionHandle session = null) => this.session = session;
 
