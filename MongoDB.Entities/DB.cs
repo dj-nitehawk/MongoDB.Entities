@@ -446,6 +446,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Exposes the mongodb Filter Definition Builder for a given type.
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        public static FilterDefinitionBuilder<T> Filter<T>() where T: Entity
+        {
+            return Builders<T>.Filter;
+        }
+
+        /// <summary>
         /// Returns a new instance of the supplied Entity type
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
