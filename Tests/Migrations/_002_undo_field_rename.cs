@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace MongoDB.Entities.Tests
+﻿namespace MongoDB.Entities.Tests
 {
-    class _002_undo_field_rename : IMigration
+    public class _002_undo_field_rename : IMigration
     {
         public void Upgrade()
         {
-            throw new NotImplementedException();
+            DB.Update<Book>()
+              .Modify(b => b.Rename("Price", "SellingPrice"))
+              .Execute();
         }
     }
 }

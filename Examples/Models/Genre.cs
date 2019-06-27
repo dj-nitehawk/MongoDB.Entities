@@ -2,7 +2,7 @@
 
 namespace Examples.Models
 {
-	public class Genre : Entity
+    public class Genre : Entity
     {
         public string Name { get; set; }
 

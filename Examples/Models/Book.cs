@@ -2,7 +2,7 @@
 
 namespace Examples.Models
 {
-	public class Book : Entity
+    public class Book : Entity
     {
         public string Title { get; set; }
         public Author RelatedAuthor { get; set; } //Store an entity       

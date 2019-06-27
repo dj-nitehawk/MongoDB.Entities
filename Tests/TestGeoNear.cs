@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
-using System.Linq;
 using System;
+using System.Linq;
 
 namespace MongoDB.Entities.Tests
 {

@@ -56,6 +56,6 @@ namespace MongoDB.Entities.Tests
                 .Key(x => x.Age, KeyType.Descending)
                 .Create();
         }
-        
+
     }
 }

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MongoDB.Entities
+﻿namespace MongoDB.Entities
 {
     [Name("_migration_history_")]
-    internal class Migration : Entity
+    public class Migration : Entity
     {
-
+        public int Number { get; set; }
+        public string Name { get; set; }
+        public double TimeTakenSeconds { get; set; }
     }
 }

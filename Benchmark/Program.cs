@@ -1,29 +1,28 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Benchmark.Models;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities;
-using Benchmark.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Benchmark
 {
-    class Program
+    internal class Program
     {
+        private static readonly int totalIterations = 10000;
+        private static readonly int parallelTasks = 32;
 
-        static int totalIterations = 10000;
-        static int parallelTasks = 32;
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Start().Wait();
             Console.WriteLine("Press any key to exit...");
             Console.Read();
         }
 
-        async static Task Start()
+        private static async Task Start()
         {
             new DB("mongodb-entities-benchmark");
             Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
@@ -54,7 +53,7 @@ namespace Benchmark
             Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
         }
 
-        async static Task DoWork(int iteration)
+        private static async Task DoWork(int iteration)
         {
             var post = new BlogPost
             {
