@@ -449,9 +449,33 @@ namespace MongoDB.Entities
         /// Exposes the mongodb Filter Definition Builder for a given type.
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static FilterDefinitionBuilder<T> Filter<T>() where T: Entity
+        public static FilterDefinitionBuilder<T> Filter<T>() where T : Entity
         {
             return Builders<T>.Filter;
+        }
+
+        //todo: xml doc + wiki + tests
+        public static void Migrate()
+        {
+            var types = Assembly.GetCallingAssembly()
+                                .GetTypes()
+                                .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
+
+            if (!types.Any()) return;
+
+            var migrations = new SortedDictionary<int, IMigration>();
+
+            foreach (var t in types)
+            {
+                int.TryParse(t.Name.Split("_")[1], out int migNum);
+                if (migNum > 0) migrations.Add(migNum, (IMigration)Activator.CreateInstance(t));
+            }
+
+            foreach (var migration in migrations)
+            {
+                
+            }
+
         }
 
         /// <summary>
