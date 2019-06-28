@@ -7,9 +7,10 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ### Advantages:
 - Never have to deal with `ObjectIds` or `BsonDocuments`. 
 - Everything is type safe. No magic strings needed.
-- Built-in automatic support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
-- Data can be queried using either LINQ, lambda expressions, filters and fluent aggregations.
+- Built-in support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
+- Query data using LINQ, lambda expressions, filters and fluent aggregations.
 - Sorting, paging and projecting is made convenient.
+- Simple data migration framework similar to EntityFramework.
 - Programatically define indexes.
 - Full text search with text indexes.
 - Multi-document transaction support.
