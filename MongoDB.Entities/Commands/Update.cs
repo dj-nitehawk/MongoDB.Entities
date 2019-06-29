@@ -62,6 +62,25 @@ namespace MongoDB.Entities
             return this;
         }
 
+        //todo: modify by supplying pipeline update definition
+        //pending ticket: https://jira.mongodb.org/browse/DRIVERS-626
+        //public Update<T> Modify(PipelineUpdateDefinition<T> pipelineUpdateDefinition)
+        //{
+        //    //"{ $set: { FullName: { $concat: ['$Name', '$Surname'] } } }"
+        //    defs.Add(pipelineUpdateDefinition);
+        //    return this;
+        //}
+
+        ///// <summary>
+        ///// Specify an update definition to modify the Entities (use multiple times if needed)
+        ///// </summary>
+        ///// <param name="updateDefinition">An update definition</param>
+        //public Update<T> Modify(UpdateDefinition<T> updateDefinition)
+        //{
+        //    defs.Add(updateDefinition);
+        //    return this;
+        //}
+
         /// <summary>
         /// Specify an option for this update command (use multiple times if needed)
         /// <para>TIP: Setting options is not required</para>
