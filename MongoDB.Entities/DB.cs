@@ -115,6 +115,13 @@ namespace MongoDB.Entities
                    : Collection<T>().UpdateManyAsync(session, filter, definition, options));
         }
 
+        internal static async Task BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null)
+        {
+            await (session == null
+                   ? Collection<T>().BulkWriteAsync(models)
+                   : Collection<T>().BulkWriteAsync(session, models));
+        }
+
         internal static async Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null)
         {
             return await (session == null
@@ -382,7 +389,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Represents a batch update command
+        /// Represents an update command
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>

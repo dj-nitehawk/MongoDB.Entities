@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MongoDB.Entities.Tests
@@ -9,7 +10,7 @@ namespace MongoDB.Entities.Tests
     public class Updating
     {
         [TestMethod]
-        public void batch_updating_modifies_correct_documents()
+        public void updating_modifies_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
             var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
@@ -28,7 +29,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void batch_update_by_def_builder_mods_correct_docs()
+        public void update_by_def_builder_mods_correct_docs()
         {
             var guid = Guid.NewGuid().ToString();
             var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
@@ -68,6 +69,36 @@ namespace MongoDB.Entities.Tests
             var res = DB.Find<Book>().One(book.ID);
 
             Assert.AreEqual(22.22, res.Review.Rating);
+        }
+
+        [TestMethod]
+        public void bulk_update_modifies_correct_documents()
+        {
+            var title = "bumcd " + Guid.NewGuid().ToString();
+            var books = new Collection<Book>();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                books.Add(new Book { Title = title, SellingPrice = i });
+            }
+            books.Save();
+
+            var bulk = DB.Update<Book>();
+
+            foreach (var book in books)
+            {
+                bulk.Match(b => b.ID == book.ID)
+                    .Modify(b => b.SellingPrice, 100)
+                    .AddToQueue();
+            }
+
+            bulk.Execute();
+
+            var res = DB.Find<Book>()
+                        .Many(b => b.Title == title);
+
+            Assert.AreEqual(5, res.Count());
+            Assert.AreEqual(5, res.Where(b => b.SellingPrice == 100).Count());
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
-        private readonly Collection<WriteModel<T>> models = new Collection<WriteModel<T>>();
+        private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
 
         internal Update(IClientSessionHandle session = null) => this.session = session;
 
@@ -93,22 +93,19 @@ namespace MongoDB.Entities
             return this;
         }
 
-        ////todo: unit test + docs
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //public Update<T> AddToQueue()
-        //{
-        //    if (filter == null) throw new ArgumentException("Please use Match() method first!");
-        //    if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-        //    Modify(b => b.CurrentDate(x => x.ModifiedOn));
-        //    models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)));
-        //    filter = Builders<T>.Filter.Empty;
-        //    defs.Clear();
-        //    return this;
-        //}
+        /// <summary>
+        /// Queue up an update command for bulk execution later.
+        /// </summary>
+        public Update<T> AddToQueue()
+        {
+            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+            Modify(b => b.CurrentDate(x => x.ModifiedOn));
+            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)));
+            filter = Builders<T>.Filter.Empty;
+            defs.Clear();
+            return this;
+        }
 
         /// <summary>
         /// Run the update command in MongoDB.
@@ -124,10 +121,18 @@ namespace MongoDB.Entities
         public async Task ExecuteAsync()
 
         {
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            Modify(b => b.CurrentDate(x => x.ModifiedOn));
-            await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
+            if (models.Count > 0)
+            {
+                await DB.BulkUpdateAsync(models, session);
+                models.Clear();
+            }
+            else
+            {
+                if (filter == null) throw new ArgumentException("Please use Match() method first!");
+                if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+                Modify(b => b.CurrentDate(x => x.ModifiedOn));
+                await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
+            }            
         }
     }
 }

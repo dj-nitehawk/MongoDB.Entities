@@ -14,6 +14,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Programatically define indexes.
 - Full text search with text indexes.
 - Multi-document transaction support.
+- Easy bulk operations.
 - Start a GeoNear aggregation pipeline.
 - Use `decimal` type properties without attributes.
 - Supports both `ASP.Net Core` and `.Net Core` applications.
@@ -80,7 +81,7 @@ the easy to use API is described in the [wiki pages](https://github.com/dj-niteh
 ## Code Examples
 .net core console project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 
-e2e/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
+integration/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
 
 asp.net core web-api project: [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
 
