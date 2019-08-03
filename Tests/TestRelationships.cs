@@ -191,7 +191,7 @@ namespace MongoDB.Entities.Tests
                      .ToArray();
 
             Assert.AreEqual(2, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Last().Name);
+            Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
         }
 
         [TestMethod]

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a batch update command
+    /// Represents an update command
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
@@ -17,6 +17,7 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
+        private readonly Collection<WriteModel<T>> models = new Collection<WriteModel<T>>();
 
         internal Update(IClientSessionHandle session = null) => this.session = session;
 
@@ -92,8 +93,25 @@ namespace MongoDB.Entities
             return this;
         }
 
+        ////todo: unit test + docs
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //public Update<T> AddToQueue()
+        //{
+        //    if (filter == null) throw new ArgumentException("Please use Match() method first!");
+        //    if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+        //    Modify(b => b.CurrentDate(x => x.ModifiedOn));
+        //    models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)));
+        //    filter = Builders<T>.Filter.Empty;
+        //    defs.Clear();
+        //    return this;
+        //}
+
         /// <summary>
-        /// Run the batch update command in MongoDB.
+        /// Run the update command in MongoDB.
         /// </summary>
         public void Execute()
         {
@@ -101,13 +119,13 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Run the batch update command in MongoDB.
+        /// Run the update command in MongoDB.
         /// </summary>
         public async Task ExecuteAsync()
 
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use Set() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             Modify(b => b.CurrentDate(x => x.ModifiedOn));
             await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
         }
