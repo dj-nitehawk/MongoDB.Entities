@@ -14,6 +14,6 @@ namespace MongoDB.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
 
-        public DateTime ModifiedOn { get; internal set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }
