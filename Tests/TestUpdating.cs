@@ -100,5 +100,19 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(5, res.Count());
             Assert.AreEqual(5, res.Where(b => b.SellingPrice == 100).Count());
         }
+
+        [TestMethod]
+        public void update_with_aggregation_pipeline_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var author = new Author { Name = "uwapw", Surname = guid };
+            author.Save();
+
+            DB.Update<Author>()
+              .Match(a => a.ID == author.ID)
+              .WithPipelineStage("{ $set: { FullName: { $concat: ['$Name','-','$Surname'] } } }")
+              .ExecutePipeline();
+        }
     }
 }

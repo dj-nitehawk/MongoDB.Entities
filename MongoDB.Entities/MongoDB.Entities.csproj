@@ -13,7 +13,10 @@
     <FileVersion>7.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- support for mongodb server v4.2
-- support for wildcard indexes</PackageReleaseNotes>
+- support for wildcard indexes
+- update with aggregation pipeline stages
+- update wth an update definition
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

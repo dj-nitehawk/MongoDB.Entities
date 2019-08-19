@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace MongoDB.Entities
     public class Update<T> where T : Entity
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
+        private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
@@ -63,24 +65,26 @@ namespace MongoDB.Entities
             return this;
         }
 
-        //todo: modify by supplying pipeline update definition
-        //pending ticket: https://jira.mongodb.org/browse/DRIVERS-626
-        //public Update<T> Modify(PipelineUpdateDefinition<T> pipelineUpdateDefinition)
-        //{
-        //    //"{ $set: { FullName: { $concat: ['$Name', '$Surname'] } } }"
-        //    defs.Add(pipelineUpdateDefinition);
-        //    return this;
-        //}
+        /// <summary>
+        /// Specify an update pipeline stage to modify the Entities (use multiple times if needed)
+        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+        /// </summary>
+        /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
+        public Update<T> WithPipelineStage(string stage)
+        {
+            stages.Add(stage);
+            return this;
+        }
 
-        ///// <summary>
-        ///// Specify an update definition to modify the Entities (use multiple times if needed)
-        ///// </summary>
-        ///// <param name="updateDefinition">An update definition</param>
-        //public Update<T> Modify(UpdateDefinition<T> updateDefinition)
-        //{
-        //    defs.Add(updateDefinition);
-        //    return this;
-        //}
+        /// <summary>
+        /// Specify an update definition to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="updateDefinition">An update definition (can be a json string)</param>
+        public Update<T> Modify(UpdateDefinition<T> updateDefinition)
+        {
+            defs.Add(updateDefinition);
+            return this;
+        }
 
         /// <summary>
         /// Specify an option for this update command (use multiple times if needed)
@@ -119,7 +123,6 @@ namespace MongoDB.Entities
         /// Run the update command in MongoDB.
         /// </summary>
         public async Task ExecuteAsync()
-
         {
             if (models.Count > 0)
             {
@@ -132,7 +135,27 @@ namespace MongoDB.Entities
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
                 await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
-            }            
+            }
+        }
+
+        /// <summary>
+        /// Run the update command with pipeline stages
+        /// </summary>
+        public void ExecutePipeline()
+        {
+            ExecutePipelineAsync().GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Run the update command with pipeline stages
+        /// </summary>
+        public async Task ExecutePipelineAsync()
+        {
+            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+
+            WithPipelineStage($"{{ $set: {{ '{nameof(Entity.ModifiedOn)}': new Date() }} }}");
+            await DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session);
         }
     }
 }
