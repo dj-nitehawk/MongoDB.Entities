@@ -69,6 +69,10 @@ namespace MongoDB.Entities
                         keyDefs.Add(Builders<T>.IndexKeys.Text(key.PropertyName));
                         isTextIndex = true;
                         break;
+                    case KeyType.Wildcard:
+                        keyDefs.Add(Builders<T>.IndexKeys.Wildcard(key.PropertyName));
+                        keyType = "(Wld)";
+                        break;
                 }
                 propNames.Add(key.PropertyName + keyType);
             }
@@ -151,6 +155,7 @@ namespace MongoDB.Entities
         Geo2DSphere,
         GeoHaystack,
         Hashed,
-        Text
+        Text,
+        Wildcard
     }
 }
