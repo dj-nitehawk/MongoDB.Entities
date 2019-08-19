@@ -111,8 +111,11 @@ namespace MongoDB.Entities.Tests
 
             DB.Update<Author>()
               .Match(a => a.ID == author.ID)
-              .WithPipelineStage("{ $set: { FullName: { $concat: ['$Name','-','$Surname'] } } }")
+              .WithPipelineStage($"{{ $set: {{ {nameof(author.FullName)}: {{ $concat: ['${nameof(author.Name)}','-','${nameof(author.Surname)}'] }} }} }}")
               .ExecutePipeline();
+
+            var fullname = DB.Find<Author>().One(author.ID).FullName;
+            Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
         }
     }
 }
