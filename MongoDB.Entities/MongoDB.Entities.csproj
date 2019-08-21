@@ -23,6 +23,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/dj-nitehawk/MongoDB.Entities/master/icon.png</PackageIconUrl>
     <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities entity-framework nosql orm linq netcore repository aspnetcore netcore2 database persistance dal dao repo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
