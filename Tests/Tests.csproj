@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -8,6 +8,8 @@
     <AssemblyName>MongoDB.Entities.Tests</AssemblyName>
 
     <RootNamespace>MongoDB.Entities.Tests</RootNamespace>
+
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
