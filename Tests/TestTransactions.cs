@@ -142,7 +142,7 @@ namespace MongoDB.Entities.Tests
 
             using (var TN = new Transaction())
             {
-                TN.Save(entities.ToArray());
+                TN.Save(entities);
                 TN.Commit();
             }
 
@@ -153,7 +153,7 @@ namespace MongoDB.Entities.Tests
             {
                 ent.Title = "updated " + guid;
             }
-            res.ToArray().Save();
+            res.Save();
 
             res = DB.Find<Book>().Many(b => b.Title.Contains(guid));
             Assert.AreEqual(3, res.Count());
