@@ -24,7 +24,7 @@ namespace MongoDB.Entities.Tests
                 new Place { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
                 new Place { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
             })
-            .Save();
+            .ToArray().Save();
 
             var qry = DB.GeoNear<Place>(
                          NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
@@ -56,7 +56,7 @@ namespace MongoDB.Entities.Tests
                 new Place { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
                 new Place { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
                 })
-                .Save();
+                .ToArray().Save();
 
                 var qry = TN.GeoNear<Place>(
                              NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower

@@ -81,7 +81,7 @@ namespace MongoDB.Entities.Tests
             {
                 books.Add(new Book { Title = title, SellingPrice = i });
             }
-            books.Save();
+            books.ToArray().Save();
 
             var bulk = DB.Update<Book>();
 
