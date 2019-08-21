@@ -1,4 +1,6 @@
-[![nuget](https://buildstats.info/nuget/MongoDB.Entities)](https://www.nuget.org/packages/MongoDB.Entities)
+[![nuget](https://buildstats.info/nuget/MongoDB.Entities)](https://www.nuget.org/packages/MongoDB.Entities) [![Build status](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_apis/build/status/MongoDB%20Entities%20Nuget%20Release)](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_build/latest?definitionId=1)
+
+
 # MongoDB.Entities
 This library simplifies access to mongodb by abstracting away the C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
 
