@@ -25,6 +25,38 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void one_to_one_to_entity_with_lambda_projection()
+        {
+            var book = new Book { Title = "book" };
+            var author = new Author { Name = "ototoewlp" };
+            author.Save();
+            book.MainAuthor = author.ToReference();
+            book.Save();
+            var res = book.Queryable()
+                          .Where(b => b.ID == book.ID)
+                          .Single()
+                          .MainAuthor.ToEntity(a => new Author { Name = a.Name });
+            Assert.AreEqual(author.Name, res.Name);
+            Assert.AreEqual(null, res.ID);
+        }
+
+        [TestMethod]
+        public void one_to_one_to_entity_with_mongo_projection()
+        {
+            var book = new Book { Title = "book" };
+            var author = new Author { Name = "ototoewmp" };
+            author.Save();
+            book.MainAuthor = author.ToReference();
+            book.Save();
+            var res = book.Queryable()
+                          .Where(b => b.ID == book.ID)
+                          .Single()
+                          .MainAuthor.ToEntity(p => p.Include(a => a.Name).Exclude(a => a.ID));
+            Assert.AreEqual(author.Name, res.Name);
+            Assert.AreEqual(null, res.ID);
+        }
+
+        [TestMethod]
         public void adding_one2many_references_returns_correct_entities_queryable()
         {
             var author = new Author { Name = "author" };

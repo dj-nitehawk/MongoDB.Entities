@@ -2,6 +2,9 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -43,7 +46,61 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public async Task<T> ToEntityAsync(IClientSessionHandle session = null)
         {
-            return await (new Find<T>(session)).OneAsync(ID);            
+            return await (new Find<T>(session)).OneAsync(ID);
+        }
+
+        /// <summary>
+        /// Fetches the actual entity this reference represents from the database with a projection.
+        /// </summary>
+        /// <param name="projection">x => new Test { PropName = x.Prop }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns>The actual projected entity</returns>
+        public T ToEntity(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
+        {
+            return ToEntityAsync(projection, session).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Fetches the actual entity this reference represents from the database with a projection.
+        /// </summary>
+        /// <param name="projection">x => new Test { PropName = x.Prop }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns>A Task containing the actual projected entity</returns>
+        public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
+        {
+            return (await
+                        (new Find<T>(session))
+                                .Match(ID)
+                                .Project(projection)
+                                .ExecuteAsync()
+                                ).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Fetches the actual entity this reference represents from the database with a projection.
+        /// </summary>
+        /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns>The actual projected entity</returns>
+        public T ToEntity(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
+        {
+            return ToEntityAsync(projection, session).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Fetches the actual entity this reference represents from the database with a projection.
+        /// </summary>
+        /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <returns>A Task containing the actual projected entity</returns>
+        public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
+        {
+            return (await
+                        (new Find<T>(session))
+                                .Match(ID)
+                                .Project(projection)
+                                .ExecuteAsync()
+                                ).FirstOrDefault();
         }
     }
 }
