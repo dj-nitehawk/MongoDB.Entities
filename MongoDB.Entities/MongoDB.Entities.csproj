@@ -13,7 +13,9 @@
     <FileVersion>7.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- add session/transaction support for .ToEntity() of one-to-one relationships
-- add projection support for .ToEntity() of one-to-one relationships</PackageReleaseNotes>
+- add projection support for .ToEntity() of one-to-one relationships
+- new tests
+- dependancies updated to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
