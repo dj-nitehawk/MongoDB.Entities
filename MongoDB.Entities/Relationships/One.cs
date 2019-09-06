@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System.Threading.Tasks;
 
@@ -31,18 +32,18 @@ namespace MongoDB.Entities
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
         /// <returns>The actual entity</returns>
-        public T ToEntity()
+        public T ToEntity(IClientSessionHandle session = null)
         {
-            return ToEntityAsync().GetAwaiter().GetResult();
+            return ToEntityAsync(session).GetAwaiter().GetResult();
         }
 
         /// <summary>
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
         /// <returns>A Task containing the actual entity</returns>
-        public async Task<T> ToEntityAsync()
+        public async Task<T> ToEntityAsync(IClientSessionHandle session = null)
         {
-            return await DB.Queryable<T>().SingleOrDefaultAsync(e => e.ID.Equals(ID));
+            return await (new Find<T>(session)).OneAsync(ID);            
         }
     }
 }
