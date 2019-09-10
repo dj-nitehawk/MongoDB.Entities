@@ -20,7 +20,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Update with aggregation pipeline stages.
 - Start a GeoNear aggregation pipeline.
 - Use `decimal` type properties without attributes.
-- Supports both `ASP.Net Core` and `.Net Core` applications.
+- Supported project types: .Net Standard 2 | .Net Core | ASP.Net Core
 
 
 

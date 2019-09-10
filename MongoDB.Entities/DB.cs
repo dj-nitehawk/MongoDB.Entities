@@ -487,7 +487,7 @@ namespace MongoDB.Entities
 
             foreach (var t in types)
             {
-                var success = int.TryParse(t.Name.Split("_")[1], out int migNum);
+                var success = int.TryParse(t.Name.Split('_')[1], out int migNum);
 
                 if (!success)
                     throw new InvalidOperationException("Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");

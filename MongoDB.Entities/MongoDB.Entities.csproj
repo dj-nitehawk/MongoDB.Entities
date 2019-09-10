@@ -1,26 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>MongoDB.Entities</RootNamespace>
     <AssemblyName>MongoDB.Entities</AssemblyName>
     <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>7.3</Version>
-    <AssemblyVersion>7.3.0.0</AssemblyVersion>
-    <FileVersion>7.3.0.0</FileVersion>
+    <Version>7.4</Version>
+    <AssemblyVersion>7.4.0.0</AssemblyVersion>
+    <FileVersion>7.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- add session/transaction support for .ToEntity() of one-to-one relationships
-- add projection support for .ToEntity() of one-to-one relationships
-- new tests
-- dependancies updated to latest</PackageReleaseNotes>
+    <PackageReleaseNotes>- change framework to .Net Standard 2
+- remove dependancy on .NETCoreApp 2.2</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/dj-nitehawk/MongoDB.Entities/master/icon.png</PackageIconUrl>
-    <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities entity-framework nosql orm linq netcore repository aspnetcore netcore2 database persistance dal dao repo</PackageTags>
+    <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities entity-framework nosql orm linq netcore repository aspnetcore netcore2 dotnetstandard database persistance dal dao repo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
@@ -31,7 +29,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
   </ItemGroup>
 
