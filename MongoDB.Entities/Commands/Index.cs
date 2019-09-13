@@ -15,6 +15,12 @@ namespace MongoDB.Entities
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
         private readonly CreateIndexOptions options = new CreateIndexOptions { Background = true };
+        private readonly string db = null;
+
+        public Index(string db = null)
+        {
+            this.db = db;
+        }
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.

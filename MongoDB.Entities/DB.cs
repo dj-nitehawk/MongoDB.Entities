@@ -17,7 +17,8 @@ namespace MongoDB.Entities
 {
     public class DB
     {
-        private protected static IMongoDatabase db = null;
+        private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private string instanceDb = null;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -41,19 +42,21 @@ namespace MongoDB.Entities
             Initialize(settings, database);
         }
 
-        private void Initialize(MongoClientSettings settings, string database)
+        private void Initialize(MongoClientSettings settings, string db)
         {
-            if (db != null) throw new InvalidOperationException("Database connection is already initialized!");
-            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException("Database", "Database name cannot be empty!");
+            if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("Database", "Database name cannot be empty!");
+            if (dbs[db] != null) throw new InvalidOperationException("Database connection is already initialized!");
 
             try
             {
-                db = new MongoClient(settings).GetDatabase(database);
-                db.ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
+                dbs[db] = new MongoClient(settings).GetDatabase(db);
+                dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
+                this.instanceDb = db;
             }
             catch (Exception)
             {
-                db = null;
+                dbs[db] = null;
+                this.instanceDb = null;
                 throw;
             }
 
@@ -71,6 +74,27 @@ namespace MongoDB.Entities
                 type => true);
         }
 
+        private static IMongoDatabase GetDB(string database)
+        {
+            IMongoDatabase db = null;
+
+            if (dbs.Count > 0)
+            {
+                if (string.IsNullOrEmpty(database))
+                {
+                    db = dbs.First().Value;
+                }
+                else
+                {
+                    dbs.TryGetValue(database, out db);
+                }
+            }
+
+            if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
+
+            return db;
+        }
+
         internal static string GetCollectionName<T>()
         {
             string collection = typeof(T).Name;
@@ -86,47 +110,45 @@ namespace MongoDB.Entities
             return collection;
         }
 
-        internal static IMongoCollection<JoinRecord> GetRefCollection(string name)
+        internal static IMongoCollection<JoinRecord> GetRefCollection(string name, string db = null)
         {
-            CheckIfInitialized();
-            return db.GetCollection<JoinRecord>(name);
+            return GetDB(db).GetCollection<JoinRecord>(name);
         }
 
-        internal static IMongoClient GetClient()
+        internal static IMongoClient GetClient(string db = null)
         {
-            CheckIfInitialized();
-            return db.Client;
+            return GetDB(db).Client;
         }
 
-        internal static async Task CreateIndexAsync<T>(CreateIndexModel<T> model)
+        internal static async Task CreateIndexAsync<T>(CreateIndexModel<T> model, string db = null)
         {
-            await Collection<T>().Indexes.CreateOneAsync(model);
+            await Collection<T>(db).Indexes.CreateOneAsync(model);
         }
 
-        internal static async Task DropIndexAsync<T>(string name)
+        internal static async Task DropIndexAsync<T>(string name, string db = null)
         {
-            await Collection<T>().Indexes.DropOneAsync(name);
+            await Collection<T>(db).Indexes.DropOneAsync(name);
         }
 
-        internal static async Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null)
+        internal static async Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, string db = null)
         {
             await (session == null
-                   ? Collection<T>().UpdateManyAsync(filter, definition, options)
-                   : Collection<T>().UpdateManyAsync(session, filter, definition, options));
+                   ? Collection<T>(db).UpdateManyAsync(filter, definition, options)
+                   : Collection<T>(db).UpdateManyAsync(session, filter, definition, options));
         }
 
-        internal static async Task BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null)
+        internal static async Task BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, string db = null)
         {
             await (session == null
-                   ? Collection<T>().BulkWriteAsync(models)
-                   : Collection<T>().BulkWriteAsync(session, models));
+                   ? Collection<T>(db).BulkWriteAsync(models)
+                   : Collection<T>(db).BulkWriteAsync(session, models));
         }
 
-        internal static async Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null)
+        internal static async Task<List<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, string db = null)
         {
             return await (session == null
-                ? (await Collection<T>().FindAsync(filter, options)).ToListAsync()
-                : (await Collection<T>().FindAsync(session, filter, options)).ToListAsync());
+                ? (await Collection<T>(db).FindAsync(filter, options)).ToListAsync()
+                : (await Collection<T>(db).FindAsync(session, filter, options)).ToListAsync());
         }
 
         /// <summary>
@@ -134,17 +156,32 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoCollection<T> Collection<T>()
+        public static IMongoCollection<T> Collection<T>(string db = null)
         {
-            CheckIfInitialized();
-            return db.GetCollection<T>(GetCollectionName<T>());
+             return GetDB(db).GetCollection<T>(GetCollectionName<T>());
+        }
+
+        /// <summary>
+        /// Gets the IMongoCollection for a given Entity type.
+        /// <para>TIP: Try never to use this unless really neccessary.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public IMongoCollection<T> Collection<T>()
+        {
+            return Collection<T>(instanceDb);
         }
 
         /// <summary>
         /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Collection<T>().AsQueryable(options);
+        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, string db = null) => Collection<T>(db).AsQueryable(options);
+
+        /// <summary>
+        /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Queryable<T>(options, instanceDb);
 
         /// <summary>
         /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
@@ -153,22 +190,23 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <returns></returns>
-        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
         {
             return session == null
-                   ? Collection<T>().Aggregate(options)
-                   : Collection<T>().Aggregate(session, options);
+                   ? Collection<T>(db).Aggregate(options)
+                   : Collection<T>(db).Aggregate(session, options);
         }
 
         /// <summary>
-        /// Persists an entity to MongoDB
+        /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="entity">The instance to persist</param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        /// <returns></returns>
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
         {
-            SaveAsync<T>(entity, session).GetAwaiter().GetResult();
+            return Fluent<T>(options, session, instanceDb);
         }
 
         /// <summary>
@@ -177,25 +215,47 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        public static void Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : Entity
+        {
+            SaveAsync(entity, session, db).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Persists an entity to MongoDB
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entity">The instance to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Save<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        {
+            SaveAsync(entity, session, instanceDb).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Persists an entity to MongoDB
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entity">The instance to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static async Task SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : Entity
         {
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
             await (session == null
-                   ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true })
-                   : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true }));
+                   ? Collection<T>(db).ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true })
+                   : Collection<T>(db).ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new UpdateOptions() { IsUpsert = true }));
         }
 
         /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// Persists an entity to MongoDB
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        /// <param name="entities">The entities to persist</param>
+        /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        public async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
         {
-            SaveAsync<T>(entities, session).GetAwaiter().GetResult();
+            await SaveAsync(entity, session, instanceDb);
         }
 
         /// <summary>
@@ -204,7 +264,29 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : Entity
+        {
+            SaveAsync(entities, session, db).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        {
+            SaveAsync(entities, session, instanceDb).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static async Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : Entity
         {
             var models = new Collection<WriteModel<T>>();
             foreach (var ent in entities)
@@ -220,30 +302,28 @@ namespace MongoDB.Entities
             }
 
             await (session == null
-                   ? Collection<T>().BulkWriteAsync(models)
-                   : Collection<T>().BulkWriteAsync(session, models));
+                   ? Collection<T>(db).BulkWriteAsync(models)
+                   : Collection<T>(db).BulkWriteAsync(session, models));
         }
 
-        private static async Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        private static async Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            CheckIfInitialized();
-            var joinCollections = (await db.ListCollectionNames().ToListAsync())
-                                    .Where(c =>
-                                           c.Contains("~") &&
-                                           c.Contains(GetCollectionName<T>()));
-
+            var joinCollections = (await GetDB(db).ListCollectionNames().ToListAsync())
+                                                  .Where(c =>
+                                                         c.Contains("~") &&
+                                                         c.Contains(GetCollectionName<T>()));
             var tasks = new HashSet<Task>();
 
             foreach (var cName in joinCollections)
             {
                 tasks.Add(session == null
-                          ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                          : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
+                          ? GetDB(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                          : GetDB(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
             }
 
             tasks.Add(session == null
-                       ? Collection<T>().DeleteOneAsync(x => IDs.Contains(x.ID))
-                       : Collection<T>().DeleteOneAsync(session, x => IDs.Contains(x.ID)));
+                       ? Collection<T>(db).DeleteOneAsync(x => IDs.Contains(x.ID))
+                       : Collection<T>(db).DeleteOneAsync(session, x => IDs.Contains(x.ID)));
 
             await Task.WhenAll(tasks);
         }
@@ -255,9 +335,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        public static void Delete<T>(string ID, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            DeleteAsync<T>(ID, session).GetAwaiter().GetResult();
+            DeleteAsync<T>(ID, session, db).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -267,9 +347,33 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascading<T>(new[] { ID }, session);
+            DeleteAsync<T>(ID, session, instanceDb).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="ID">The Id of the entity to delete</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null, string db = null) where T : Entity
+        {
+            await DeleteCascading<T>(new[] { ID }, session, db);
+        }
+
+        /// <summary>
+        /// Deletes a single entity from MongoDB.
+        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="ID">The Id of the entity to delete</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        {
+            await DeleteCascading<T>(new[] { ID }, session, instanceDb);
         }
 
         /// <summary>
@@ -280,9 +384,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            DeleteAsync(expression, session).GetAwaiter().GetResult();
+            DeleteAsync(expression, session, db).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -293,14 +397,40 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
         {
-            var IDs = await Queryable<T>()
+            DeleteAsync(expression, session, instanceDb).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="expression">A lambda expression for matching entities to delete.</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public static async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : Entity
+        {
+            var IDs = await Queryable<T>(db: db)
                               .Where(expression)
                               .Select(e => e.ID)
                               .ToListAsync();
 
-            await DeleteCascading<T>(IDs, session);
+            await DeleteCascading<T>(IDs, session, db);
+        }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="expression">A lambda expression for matching entities to delete.</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        {
+            await DeleteAsync(expression, session, instanceDb);
         }
 
         /// <summary>
@@ -311,9 +441,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            DeleteAsync<T>(IDs, session).GetAwaiter().GetResult();
+            DeleteAsync<T>(IDs, session, db).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -324,10 +454,38 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascading<T>(IDs, session);
+            DeleteAsync<T>(IDs, session, instanceDb).GetAwaiter().GetResult();
         }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
+        {
+            await DeleteCascading<T>(IDs, session, db);
+        }
+
+        /// <summary>
+        /// Deletes matching entities from MongoDB
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        public async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        {
+            await DeleteCascading<T>(IDs, session, instanceDb);
+        }
+
+        //todo here
 
         /// <summary>
         /// Represents an index for a given Entity
@@ -523,10 +681,6 @@ namespace MongoDB.Entities
             return new T();
         }
 
-        private static void CheckIfInitialized()
-        {
-            if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
-        }
     }
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
