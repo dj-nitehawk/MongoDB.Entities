@@ -17,8 +17,12 @@ namespace MongoDB.Entities
 {
     public class DB
     {
+        /// <summary>
+        /// Gets the database name of this instance
+        /// </summary>
+        public string Name { get; private set; } = null;
+
         private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
-        private string instanceDb = null;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -51,12 +55,12 @@ namespace MongoDB.Entities
             {
                 dbs.Add(db, new MongoClient(settings).GetDatabase(db));
                 dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
-                instanceDb = db;
+                Name = db;
             }
             catch (Exception)
             {
                 dbs.Remove(db);
-                instanceDb = null;
+                Name = null;
                 throw;
             }
 
@@ -168,7 +172,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public IMongoCollection<T> Collection<T>()
         {
-            return Collection<T>(instanceDb);
+            return Collection<T>(Name);
         }
 
         /// <summary>
@@ -181,7 +185,7 @@ namespace MongoDB.Entities
         /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Queryable<T>(options, instanceDb);
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Queryable<T>(options, Name);
 
         /// <summary>
         /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
@@ -206,7 +210,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
         {
-            return Fluent<T>(options, session, instanceDb);
+            return Fluent<T>(options, session, Name);
         }
 
         /// <summary>
@@ -228,7 +232,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Save<T>(T entity, IClientSessionHandle session = null) where T : Entity
         {
-            SaveAsync(entity, session, instanceDb).GetAwaiter().GetResult();
+            SaveAsync(entity, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -255,7 +259,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
         {
-            await SaveAsync(entity, session, instanceDb);
+            await SaveAsync(entity, session, Name);
         }
 
         /// <summary>
@@ -277,7 +281,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
         {
-            SaveAsync(entities, session, instanceDb).GetAwaiter().GetResult();
+            SaveAsync(entities, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -349,7 +353,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
-            DeleteAsync<T>(ID, session, instanceDb).GetAwaiter().GetResult();
+            DeleteAsync<T>(ID, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -373,7 +377,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascadingAsync<T>(new[] { ID }, session, instanceDb);
+            await DeleteCascadingAsync<T>(new[] { ID }, session, Name);
         }
 
         /// <summary>
@@ -399,7 +403,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
         {
-            DeleteAsync(expression, session, instanceDb).GetAwaiter().GetResult();
+            DeleteAsync(expression, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -430,7 +434,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteAsync(expression, session, instanceDb);
+            await DeleteAsync(expression, session, Name);
         }
 
         /// <summary>
@@ -456,7 +460,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
-            DeleteAsync<T>(IDs, session, instanceDb).GetAwaiter().GetResult();
+            DeleteAsync<T>(IDs, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -482,7 +486,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascadingAsync<T>(IDs, session, instanceDb);
+            await DeleteCascadingAsync<T>(IDs, session, Name);
         }
 
         /// <summary>
@@ -502,7 +506,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public Index<T> Index<T>() where T : Entity
         {
-            return new Index<T>(instanceDb);
+            return new Index<T>(Name);
         }
 
         /// <summary>
@@ -532,7 +536,7 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
-            return SearchTextAsync(searchTerm, caseSensitive, options, session, instanceDb).GetAwaiter().GetResult();
+            return SearchTextAsync(searchTerm, caseSensitive, options, session, Name).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -565,7 +569,7 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
-            return await SearchTextAsync(searchTerm, caseSensitive, options, session, instanceDb);
+            return await SearchTextAsync(searchTerm, caseSensitive, options, session, Name);
         }
 
         /// <summary>
@@ -594,7 +598,7 @@ namespace MongoDB.Entities
         /// <param name = "session" >An optional session if using within a transaction</param>
         public IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null, IClientSessionHandle session = null)
         {
-            return SearchTextFluent<T>(searchTerm, caseSensitive, options, session, instanceDb);
+            return SearchTextFluent<T>(searchTerm, caseSensitive, options, session, Name);
         }
 
         /// <summary>
@@ -614,7 +618,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         public Update<T> Update<T>() where T : Entity
         {
-            return new Update<T>(db: instanceDb);
+            return new Update<T>(db: Name);
         }
 
         /// <summary>
@@ -634,7 +638,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         public Find<T> Find<T>() where T : Entity
         {
-            return new Find<T>(db: instanceDb);
+            return new Find<T>(db: Name);
         }
 
         /// <summary>
@@ -658,7 +662,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public Find<T, TProjection> Find<T, TProjection>() where T : Entity
         {
-            return new Find<T, TProjection>(db: instanceDb);
+            return new Find<T, TProjection>(db: Name);
         }
 
         /// <summary>
@@ -724,7 +728,7 @@ namespace MongoDB.Entities
                 includeLocs = IncludeLocations.FullPath(),
                 key = IndexKey,
             })
-            .ToFluent(options, session, instanceDb);
+            .ToFluent(options, session, Name);
         }
 
         /// <summary>
@@ -794,7 +798,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void Migrate()
         {
-            Migrate(instanceDb);
+            Migrate(Name);
         }
 
         /// <summary>
