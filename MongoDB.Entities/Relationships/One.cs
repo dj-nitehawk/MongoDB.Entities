@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -21,6 +22,15 @@ namespace MongoDB.Entities
         /// </summary>
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
+
+        public One()
+        {
+            var attribute = typeof(T).GetTypeInfo().GetCustomAttribute<DatabaseAttribute>();
+            if (attribute != null)
+            {
+                db = attribute.Name;
+            }
+        }
 
         /// <summary>
         /// Initializes a reference to an entity in MongoDB. 

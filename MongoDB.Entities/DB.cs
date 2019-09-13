@@ -23,6 +23,7 @@ namespace MongoDB.Entities
         public string Name { get; private set; } = null;
 
         private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static bool setupDone = false;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -49,7 +50,7 @@ namespace MongoDB.Entities
         private void Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
-            if (dbs.ContainsKey(db)) throw new InvalidOperationException("Database connection is already initialized!");
+            if (dbs.ContainsKey(db)) throw new InvalidOperationException($"Connection already initialized for [{db}]");
 
             try
             {
@@ -64,18 +65,23 @@ namespace MongoDB.Entities
                 throw;
             }
 
-            BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
-            BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
+            if (!setupDone)
+            {
+                BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
+                BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
-            ConventionRegistry.Register(
-                "IgnoreExtraElements",
-                new ConventionPack { new IgnoreExtraElementsConvention(true) },
-                type => true);
+                ConventionRegistry.Register(
+                    "IgnoreExtraElements",
+                    new ConventionPack { new IgnoreExtraElementsConvention(true) },
+                    type => true);
 
-            ConventionRegistry.Register(
-                "IgnoreManyProperties",
-                new ConventionPack { new IgnoreManyPropertiesConvention() },
-                type => true);
+                ConventionRegistry.Register(
+                    "IgnoreManyProperties",
+                    new ConventionPack { new IgnoreManyPropertiesConvention() },
+                    type => true);
+
+                setupDone = true;
+            }
         }
 
         private static IMongoDatabase GetDB(string database)

@@ -306,7 +306,7 @@ namespace MongoDB.Entities
             this.parent = parent;
             db = parent.Database();
             inverse = false;
-            JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]",db);
+            JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]", db);
             SetupIndexes(JoinCollection);
         }
 
@@ -323,11 +323,11 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]",db);
+                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]", db);
             }
             else
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]",db);
+                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]", db);
             }
 
             SetupIndexes(JoinCollection);
