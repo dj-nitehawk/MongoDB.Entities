@@ -12,7 +12,7 @@ namespace MongoDB.Entities.Tests
 
         static MultiDb()
         {
-            db = new DB("mongodb-entitites-test-multi");
+            db = new DB("mongodb-entities-test-multi");
         }
 
         [TestMethod]
