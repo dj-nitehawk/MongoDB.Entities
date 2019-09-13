@@ -217,7 +217,7 @@ namespace MongoDB.Entities
         public async Task<List<TProjection>> ExecuteAsync()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
-            return await DB.FindAsync(filter, options, session,db);
+            return await DB.FindAsync(filter, options, session, db);
         }
 
     }

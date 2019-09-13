@@ -16,14 +16,17 @@ namespace MongoDB.Entities
     {
         public IClientSessionHandle Session { get; }
         private readonly IMongoClient client;
+        private string db = null;
 
         /// <summary>
         /// Instantiates and begins a transaction.
         /// </summary>
+        /// <param name="database">The name of the database to use for this transaction</param>
         /// <param name="options">Client session options for this transaction</param>
-        public Transaction(ClientSessionOptions options = null)
+        public Transaction(string database = null, ClientSessionOptions options = null)
         {
-            client = DB.GetClient();
+            db = database;
+            client = DB.GetClient(db);
             Session = client.StartSession(options);
             Session.StartTransaction();
         }
@@ -50,22 +53,22 @@ namespace MongoDB.Entities
 
         public Update<T> Update<T>() where T : Entity
         {
-            return new Update<T>(Session);
+            return new Update<T>(Session, db);
         }
 
         public Find<T> Find<T>() where T : Entity
         {
-            return new Find<T>(Session);
+            return new Find<T>(Session, db);
         }
 
         public Find<T, TProjection> Find<T, TProjection>() where T : Entity
         {
-            return new Find<T, TProjection>(Session);
+            return new Find<T, TProjection>(Session, db);
         }
 
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
         {
-            return DB.Fluent<T>(options, Session);
+            return DB.Fluent<T>(options, Session, db);
         }
 
         public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : Entity
@@ -83,27 +86,27 @@ namespace MongoDB.Entities
                 includeLocs = IncludeLocations.FullPath(),
                 key = IndexKey,
             })
-            .ToFluent(options, Session);
+            .ToFluent(options, Session, db);
         }
 
         public void Save<T>(T entity) where T : Entity
         {
-            SaveAsync<T>(entity).GetAwaiter().GetResult();
+            SaveAsync(entity).GetAwaiter().GetResult();
         }
 
         public async Task SaveAsync<T>(T entity) where T : Entity
         {
-            await DB.SaveAsync<T>(entity, Session);
+            await DB.SaveAsync(entity, Session, db);
         }
 
         public void Save<T>(IEnumerable<T> entities) where T : Entity
         {
-            SaveAsync<T>(entities).GetAwaiter().GetResult();
+            SaveAsync(entities).GetAwaiter().GetResult();
         }
 
         public async Task SaveAsync<T>(IEnumerable<T> entities) where T : Entity
         {
-            await DB.SaveAsync<T>(entities, Session);
+            await DB.SaveAsync<T>(entities, Session, db);
         }
 
         public void Delete<T>(string ID) where T : Entity
@@ -113,17 +116,17 @@ namespace MongoDB.Entities
 
         public async Task DeleteAsync<T>(string ID) where T : Entity
         {
-            await DB.DeleteAsync<T>(ID, Session);
+            await DB.DeleteAsync<T>(ID, Session, db);
         }
 
         public void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            DeleteAsync<T>(expression).GetAwaiter().GetResult();
+            DeleteAsync(expression).GetAwaiter().GetResult();
         }
 
         public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
         {
-            await DB.DeleteAsync<T>(expression, Session);
+            await DB.DeleteAsync(expression, Session, db);
         }
 
         public void Delete<T>(IEnumerable<string> IDs) where T : Entity
@@ -133,22 +136,22 @@ namespace MongoDB.Entities
 
         public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : Entity
         {
-            await DB.DeleteAsync<T>(IDs, Session);
+            await DB.DeleteAsync<T>(IDs, Session, db);
         }
 
         public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
         {
-            return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
+            return SearchTextAsync(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
         }
 
         public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
         {
-            return await DB.SearchTextAsync<T>(searchTerm, caseSensitive, options, Session);
+            return await DB.SearchTextAsync(searchTerm, caseSensitive, options, Session, db);
         }
 
         public IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null)
         {
-            return DB.SearchTextFluent<T>(searchTerm, caseSensitive, options, Session);
+            return DB.SearchTextFluent<T>(searchTerm, caseSensitive, options, Session, db);
         }
 
         /// <summary>
