@@ -30,6 +30,23 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
+        /// <summary>
+        /// Returns the name of the database this entity is attached to
+        /// </summary>
+        public static string Database(this Entity entity)
+        {
+            var attribute = entity.GetType().GetCustomAttribute<DatabaseAttribute>();
+            if (attribute != null)
+            {
+                return attribute.Name;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the full dotted path of a property for the given expression
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;

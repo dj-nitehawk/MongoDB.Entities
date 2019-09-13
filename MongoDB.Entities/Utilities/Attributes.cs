@@ -36,4 +36,20 @@ namespace MongoDB.Entities
             Name = name;
         }
     }
+
+    /// <summary>
+    /// Use this attribute to specify the database to store this Entity in.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
+    public class DatabaseAttribute : Attribute
+    {
+        public string Name { get; }
+
+        /// <param name="name">The name you want to use for the collection</param>
+        public DatabaseAttribute(string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            Name = name;
+        }
+    }
 }
