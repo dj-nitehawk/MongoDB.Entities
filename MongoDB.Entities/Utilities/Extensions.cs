@@ -91,9 +91,9 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T Entity) where T : Entity
+        public static IMongoCollection<T> Collection<T>(this T entity) where T : Entity
         {
-            return DB.Collection<T>();
+            return DB.Collection<T>(entity.Database());
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : Entity
         {
-            return DB.Queryable<T>(options);
+            return DB.Queryable<T>(options, entity.Database());
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : Entity
         {
-            return DB.Fluent<T>(options, session);
+            return DB.Fluent<T>(options, session, entity.Database());
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Save<T>(this T entity) where T : Entity
         {
-            SaveAsync<T>(entity).GetAwaiter().GetResult();
+            SaveAsync(entity).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static async Task SaveAsync<T>(this T entity) where T : Entity
         {
-            await DB.SaveAsync(entity);
+            await DB.SaveAsync(entity: entity, db: entity.Database());
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static async Task SaveAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
-            await DB.SaveAsync(entities);
+            await DB.SaveAsync(entities: entities, db: entities.First().Database());
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static async Task DeleteAsync<T>(this T entity) where T : Entity
         {
-            await DB.DeleteAsync<T>(entity.ID);
+            await DB.DeleteAsync<T>(ID: entity.ID, db: entity.Database());
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static async Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
         {
-            await DB.DeleteAsync<T>(entities.Select(e => e.ID));
+            await DB.DeleteAsync<T>(IDs: entities.Select(e => e.ID), db: entities.First().Database());
         }
 
         /// <summary>
@@ -301,6 +301,5 @@ namespace MongoDB.Entities
 
             property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
         }
-
     }
 }
