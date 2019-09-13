@@ -9,6 +9,7 @@ namespace MongoDB.Entities
     {
         /// <summary>
         /// This property is auto managed. Don't ever change this manually.
+        /// <para>TIP: If you want to store this entity in a particular database, use the [DatabaseAttribute]</para>
         /// </summary>
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
