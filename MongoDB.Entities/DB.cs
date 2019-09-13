@@ -94,7 +94,7 @@ namespace MongoDB.Entities
                 }
             }
 
-            if (db == null) throw new InvalidOperationException("Database connection is not initialized!");
+            if (db == null) throw new InvalidOperationException($"Database connection is not initialized for [{database}]");
 
             return db;
         }
