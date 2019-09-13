@@ -25,7 +25,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 
 
 ## Documentation
-the easy to use API is described in the [wiki pages](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/1.-Getting-Started).
+the easy to use API is described in the [wiki pages](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/01.-Getting-Started).
 
 
 
