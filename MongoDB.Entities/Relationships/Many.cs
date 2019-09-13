@@ -304,6 +304,7 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string property) where TParent : Entity
         {
             this.parent = parent;
+            db = parent.Database();
             inverse = false;
             JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]",db);
             SetupIndexes(JoinCollection);
@@ -317,6 +318,7 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : Entity
         {
             this.parent = parent;
+            db = parent.Database();
             inverse = isInverse;
 
             if (inverse)

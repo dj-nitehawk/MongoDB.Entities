@@ -31,7 +31,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Returns the name of the database this entity is attached to
+        /// Gets the name of the database this entity is attached to. Returns null if not attached.
         /// </summary>
         public static string Database(this Entity entity)
         {

@@ -14,6 +14,8 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any type that inherits from Entity</typeparam>
     public class One<T> where T : Entity
     {
+        private string db = null;
+
         /// <summary>
         /// The Id of the entity referenced by this instance.
         /// </summary>
@@ -28,6 +30,7 @@ namespace MongoDB.Entities
         {
             entity.ThrowIfUnsaved();
             ID = entity.ID;
+            db = entity.Database();
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public async Task<T> ToEntityAsync(IClientSessionHandle session = null)
         {
-            return await (new Find<T>(session)).OneAsync(ID);
+            return await (new Find<T>(session, db)).OneAsync(ID);
         }
 
         /// <summary>
@@ -68,7 +71,7 @@ namespace MongoDB.Entities
         public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
         {
             return (await
-                        (new Find<T>(session))
+                        (new Find<T>(session, db))
                                 .Match(ID)
                                 .Project(projection)
                                 .ExecuteAsync()
@@ -95,7 +98,7 @@ namespace MongoDB.Entities
         public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
         {
             return (await
-                        (new Find<T>(session))
+                        (new Find<T>(session, db))
                                 .Match(ID)
                                 .Project(projection)
                                 .ExecuteAsync()
