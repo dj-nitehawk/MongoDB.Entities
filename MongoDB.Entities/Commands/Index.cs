@@ -100,14 +100,14 @@ namespace MongoDB.Entities
                                 options);
             try
             {
-                await DB.CreateIndexAsync<T>(model);
+                await DB.CreateIndexAsync(model, db);
             }
             catch (MongoCommandException x)
             {
                 if (x.Code == 85 || x.Code == 86)
                 {
-                    await DB.DropIndexAsync<T>(options.Name);
-                    await DB.CreateIndexAsync<T>(model);
+                    await DB.DropIndexAsync<T>(options.Name, db);
+                    await DB.CreateIndexAsync(model, db);
                 }
                 else
                 {

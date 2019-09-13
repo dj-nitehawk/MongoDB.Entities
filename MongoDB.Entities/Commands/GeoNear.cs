@@ -53,13 +53,13 @@ namespace MongoDB.Entities
         [BsonIgnoreIfNull] public int? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
 
-        public IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
+        public IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
         {
             var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
             return session == null
-                    ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
-                    : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
+                    ? DB.Collection<T>(db).Aggregate(options).AppendStage<T>(stage)
+                    : DB.Collection<T>(db).Aggregate(session, options).AppendStage<T>(stage);
         }
     }
 }

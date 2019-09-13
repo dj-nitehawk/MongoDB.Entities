@@ -20,8 +20,13 @@ namespace MongoDB.Entities
         private readonly UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
+        private string db = null;
 
-        internal Update(IClientSessionHandle session = null) => this.session = session;
+        internal Update(IClientSessionHandle session = null, string db = null)
+        {
+            this.session = session;
+            this.db = db;
+        }
 
         /// <summary>
         /// Specify the Entity matching criteria with a lambda expression
@@ -126,7 +131,7 @@ namespace MongoDB.Entities
         {
             if (models.Count > 0)
             {
-                await DB.BulkUpdateAsync(models, session);
+                await DB.BulkUpdateAsync(models, session, db);
                 models.Clear();
             }
             else
@@ -134,7 +139,7 @@ namespace MongoDB.Entities
                 if (filter == null) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
-                await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session);
+                await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
             }
         }
 
@@ -155,7 +160,7 @@ namespace MongoDB.Entities
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(Entity.ModifiedOn)}': new Date() }} }}");
-            await DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session);
+            await DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
         }
     }
 }

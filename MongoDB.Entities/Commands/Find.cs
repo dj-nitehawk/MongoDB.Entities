@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that inherits from Entity</typeparam>
     public class Find<T> : Find<T, T> where T : Entity
     {
-        internal Find(IClientSessionHandle session = null) : base(session) { }
+        internal Find(IClientSessionHandle session = null, string db = null) : base(session, db) { }
     }
 
     /// <summary>
@@ -30,8 +30,13 @@ namespace MongoDB.Entities
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session = null;
+        private string db = null;
 
-        internal Find(IClientSessionHandle session = null) => this.session = session;
+        internal Find(IClientSessionHandle session = null, string db = null)
+        {
+            this.session = session;
+            this.db = db;
+        }
 
         /// <summary>
         /// Find a single Entity by ID
@@ -212,7 +217,7 @@ namespace MongoDB.Entities
         public async Task<List<TProjection>> ExecuteAsync()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
-            return await DB.FindAsync(filter, options, session);
+            return await DB.FindAsync(filter, options, session,db);
         }
 
     }

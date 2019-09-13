@@ -44,19 +44,19 @@ namespace MongoDB.Entities
 
         private void Initialize(MongoClientSettings settings, string db)
         {
-            if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("Database", "Database name cannot be empty!");
-            if (dbs[db] != null) throw new InvalidOperationException("Database connection is already initialized!");
+            if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
+            if (dbs.ContainsKey(db)) throw new InvalidOperationException("Database connection is already initialized!");
 
             try
             {
-                dbs[db] = new MongoClient(settings).GetDatabase(db);
+                dbs.Add(db, new MongoClient(settings).GetDatabase(db));
                 dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
-                this.instanceDb = db;
+                instanceDb = db;
             }
             catch (Exception)
             {
-                dbs[db] = null;
-                this.instanceDb = null;
+                dbs.Remove(db);
+                instanceDb = null;
                 throw;
             }
 
@@ -158,7 +158,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IMongoCollection<T> Collection<T>(string db = null)
         {
-             return GetDB(db).GetCollection<T>(GetCollectionName<T>());
+            return GetDB(db).GetCollection<T>(GetCollectionName<T>());
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace MongoDB.Entities
                    : Collection<T>(db).BulkWriteAsync(session, models));
         }
 
-        private static async Task DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
+        private static async Task DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
         {
             var joinCollections = (await GetDB(db).ListCollectionNames().ToListAsync())
                                                   .Where(c =>
@@ -361,7 +361,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            await DeleteCascading<T>(new[] { ID }, session, db);
+            await DeleteCascadingAsync<T>(new[] { ID }, session, db);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascading<T>(new[] { ID }, session, instanceDb);
+            await DeleteCascadingAsync<T>(new[] { ID }, session, instanceDb);
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace MongoDB.Entities
                               .Select(e => e.ID)
                               .ToListAsync();
 
-            await DeleteCascading<T>(IDs, session, db);
+            await DeleteCascadingAsync<T>(IDs, session, db);
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
         {
-            await DeleteCascading<T>(IDs, session, db);
+            await DeleteCascadingAsync<T>(IDs, session, db);
         }
 
         /// <summary>
@@ -482,19 +482,27 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
         {
-            await DeleteCascading<T>(IDs, session, instanceDb);
+            await DeleteCascadingAsync<T>(IDs, session, instanceDb);
         }
-
-        //todo here
 
         /// <summary>
         /// Represents an index for a given Entity
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static Index<T> Index<T>() where T : Entity
+        public static Index<T> Index<T>(string db = null) where T : Entity
         {
-            return new Index<T>();
+            return new Index<T>(db);
+        }
+
+        /// <summary>
+        /// Represents an index for a given Entity
+        /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        public Index<T> Index<T>() where T : Entity
+        {
+            return new Index<T>(instanceDb);
         }
 
         /// <summary>
@@ -507,9 +515,24 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
         {
-            return SearchTextAsync<T>(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
+            return SearchTextAsync(searchTerm, caseSensitive, options, session, db).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        {
+            return SearchTextAsync(searchTerm, caseSensitive, options, session, instanceDb).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -522,12 +545,27 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return await (session == null
-                          ? (await Collection<T>().FindAsync(filter, options)).ToListAsync()
-                          : (await Collection<T>().FindAsync(session, filter, options)).ToListAsync());
+                          ? (await Collection<T>(db).FindAsync(filter, options)).ToListAsync()
+                          : (await Collection<T>(db).FindAsync(session, filter, options)).ToListAsync());
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        {
+            return await SearchTextAsync(searchTerm, caseSensitive, options, session, instanceDb);
         }
 
         /// <summary>
@@ -538,12 +576,25 @@ namespace MongoDB.Entities
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null, IClientSessionHandle session = null)
+        public static IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return session == null
-                   ? Collection<T>().Aggregate(options).Match(filter)
-                   : Collection<T>().Aggregate(session, options).Match(filter);
+                   ? Collection<T>(db).Aggregate(options).Match(filter)
+                   : Collection<T>(db).Aggregate(session, options).Match(filter);
+        }
+
+        /// <summary>
+        /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
+        public IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null, IClientSessionHandle session = null)
+        {
+            return SearchTextFluent<T>(searchTerm, caseSensitive, options, session, instanceDb);
         }
 
         /// <summary>
@@ -551,9 +602,19 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static Update<T> Update<T>() where T : Entity
+        public static Update<T> Update<T>(string db = null) where T : Entity
         {
-            return new Update<T>();
+            return new Update<T>(db: db);
+        }
+
+        /// <summary>
+        /// Represents an update command
+        /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        public Update<T> Update<T>() where T : Entity
+        {
+            return new Update<T>(db: instanceDb);
         }
 
         /// <summary>
@@ -561,9 +622,19 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static Find<T> Find<T>() where T : Entity
+        public static Find<T> Find<T>(string db = null) where T : Entity
         {
-            return new Find<T>();
+            return new Find<T>(db: db);
+        }
+
+        /// <summary>
+        /// Represents a MongoDB Find command
+        /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        public Find<T> Find<T>() where T : Entity
+        {
+            return new Find<T>(db: instanceDb);
         }
 
         /// <summary>
@@ -573,9 +644,21 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
         /// <returns></returns>
-        public static Find<T, TProjection> Find<T, TProjection>() where T : Entity
+        public static Find<T, TProjection> Find<T, TProjection>(string db = null) where T : Entity
         {
-            return new Find<T, TProjection>();
+            return new Find<T, TProjection>(db: db);
+        }
+
+        /// <summary>
+        /// Represents a MongoDB Find command
+        /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
+        /// <returns></returns>
+        public Find<T, TProjection> Find<T, TProjection>() where T : Entity
+        {
+            return new Find<T, TProjection>(db: instanceDb);
         }
 
         /// <summary>
@@ -593,7 +676,7 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : Entity
+        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : Entity
         {
             return (new GeoNear<T>
             {
@@ -608,7 +691,40 @@ namespace MongoDB.Entities
                 includeLocs = IncludeLocations.FullPath(),
                 key = IndexKey,
             })
-            .ToFluent(options, session);
+            .ToFluent(options, session, db);
+        }
+
+        /// <summary>
+        /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
+        /// </summary>
+        /// <param name="NearCoordinates">The coordinates from which to find documents from</param>
+        /// <param name="DistanceField">x => x.Distance</param>
+        /// <param name="Spherical">Calculate distances using spherical geometry or not</param>
+        /// <param name="MaxDistance">The maximum distance from the center point that the documents can be</param>
+        /// <param name="MinDistance">The minimum distance from the center point that the documents can be</param>
+        /// <param name="Limit">The maximum number of documents to return</param>
+        /// <param name="Query">Limits the results to the documents that match the query</param>
+        /// <param name="DistanceMultiplier">The factor to multiply all distances returned by the query</param>
+        /// <param name="IncludeLocations">Specify the output field to store the point used to calculate the distance</param>
+        /// <param name="IndexKey"></param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : Entity
+        {
+            return (new GeoNear<T>
+            {
+                near = NearCoordinates,
+                distanceField = DistanceField.FullPath(),
+                spherical = Spherical,
+                maxDistance = MaxDistance,
+                minDistance = MinDistance,
+                query = Query,
+                distanceMultiplier = DistanceMultiplier,
+                limit = Limit,
+                includeLocs = IncludeLocations.FullPath(),
+                key = IndexKey,
+            })
+            .ToFluent(options, session, instanceDb);
         }
 
         /// <summary>
@@ -624,7 +740,7 @@ namespace MongoDB.Entities
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
         /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
-        public static void Migrate()
+        public static void Migrate(string db = null)
         {
             var types = Assembly.GetCallingAssembly()
                                 .GetTypes()
@@ -660,15 +776,25 @@ namespace MongoDB.Entities
             {
                 sw.Start();
                 migration.Value.Upgrade();
-                (new Migration
+                var mig = new Migration
                 {
                     Number = migration.Key,
                     Name = migration.Value.GetType().Name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
-                }).Save();
+                };
+                Save(entity: mig, db: db);
                 sw.Stop();
                 sw.Reset();
             }
+        }
+
+        /// <summary>
+        /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
+        /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
+        /// </summary>
+        public void Migrate()
+        {
+            Migrate(instanceDb);
         }
 
         /// <summary>
@@ -680,7 +806,6 @@ namespace MongoDB.Entities
         {
             return new T();
         }
-
     }
 
     internal class IgnoreManyPropertiesConvention : ConventionBase, IMemberMapConvention
