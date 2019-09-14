@@ -59,6 +59,17 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(res.BookCover.ToEntity().ID, cover.ID);
         }
+
+        [TestMethod]
+        public void get_instance_by_db_name()
+        {
+            new DB("test1");
+            new DB("test2");
+
+            var res = DB.GetInstance("test2");
+
+            Assert.AreEqual("test2",res.DbName);
+        }
     }
 
 }

@@ -23,7 +23,8 @@ namespace MongoDB.Entities
         public string DbName { get; private set; } = null;
 
         private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
-        private static bool setupDone = false;
+        private static Dictionary<string, DB> instances = new Dictionary<string, DB>();
+        private static bool isSetupDone = false;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -55,17 +56,19 @@ namespace MongoDB.Entities
             try
             {
                 dbs.Add(db, new MongoClient(settings).GetDatabase(db));
+                instances.Add(db, this);
                 dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
                 DbName = db;
             }
             catch (Exception)
             {
                 dbs.Remove(db);
+                instances.Remove(db);
                 DbName = null;
                 throw;
             }
 
-            if (!setupDone)
+            if (!isSetupDone)
             {
                 BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                 BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
@@ -80,7 +83,7 @@ namespace MongoDB.Entities
                     new ConventionPack { new IgnoreManyPropertiesConvention() },
                     type => true);
 
-                setupDone = true;
+                isSetupDone = true;
             }
         }
 
@@ -159,6 +162,17 @@ namespace MongoDB.Entities
             return await (session == null
                 ? (await Collection<T>(db).FindAsync(filter, options)).ToListAsync()
                 : (await Collection<T>(db).FindAsync(session, filter, options)).ToListAsync());
+        }
+
+        /// <summary>
+        /// Returns the DB instance for a given database name.
+        /// </summary>
+        /// <param name="database"></param>
+        public static DB GetInstance(string database)
+        {
+            if (instances.ContainsKey(database)) return instances[database];
+
+            throw new InvalidOperationException($"An instance has not been initialized yet for [{database}]");
         }
 
         /// <summary>
@@ -750,7 +764,7 @@ namespace MongoDB.Entities
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
         /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
-        public static void Migrate(string db = null)
+        public static void Migrate()
         {
             var types = Assembly.GetCallingAssembly()
                                 .GetTypes()
@@ -792,19 +806,10 @@ namespace MongoDB.Entities
                     Name = migration.Value.GetType().Name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
                 };
-                Save(entity: mig, db: db);
+                Save(mig);
                 sw.Stop();
                 sw.Reset();
             }
-        }
-
-        /// <summary>
-        /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
-        /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
-        /// </summary>
-        public void Migrate()
-        {
-            Migrate(DbName);
         }
 
         /// <summary>
