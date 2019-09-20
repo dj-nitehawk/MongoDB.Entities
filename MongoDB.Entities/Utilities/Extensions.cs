@@ -124,18 +124,18 @@ namespace MongoDB.Entities
         {
             PipelineStageDefinition<T, T> groupStage = @"
                                                         {
-                                                            '$group': {
-                                                                '_id': '$_id',
-                                                                'doc': {
-                                                                    '$first': '$$ROOT'
+                                                            $group: {
+                                                                _id: '$_id',
+                                                                doc: {
+                                                                    $first: '$$ROOT'
                                                                 }
                                                             }
                                                         }";
 
             PipelineStageDefinition<T, T> rootStage = @"
                                                         {
-                                                            '$replaceRoot': {
-                                                                'newRoot': '$doc'
+                                                            $replaceRoot: {
+                                                                newRoot: '$doc'
                                                             }
                                                         }";
 
@@ -151,6 +151,20 @@ namespace MongoDB.Entities
         public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter) where T : Entity
         {
             return aggregate.Match(filter(Builders<T>.Filter));
+        }
+
+        /// <summary>
+        /// Appends a match stage to the pipeline with an aggregation expression (i.e. $expr)
+        /// </summary>
+        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
+        /// <returns></returns>
+        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, string expression) where T : Entity
+        {
+            PipelineStageDefinition<T, T> stage = "{$match:{$expr:" + expression + "}}";
+
+            return aggregate.AppendStage(stage);
         }
 
         /// <summary>

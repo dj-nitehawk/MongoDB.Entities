@@ -12,7 +12,8 @@
     <AssemblyVersion>8.1.1.0</AssemblyVersion>
     <FileVersion>8.1.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- minor code improvements</PackageReleaseNotes>
+    <PackageReleaseNotes>- support $expr queries with DB.Fluent&lt;T&gt;().Match()
+- minor code improvements</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
