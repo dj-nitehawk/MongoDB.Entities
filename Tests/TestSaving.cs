@@ -210,6 +210,20 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_with_aggregation_expression_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author = new Author { Name = "a", Age = 10, Age2 = 11, Surname = guid }; author.Save();
+
+            var res = DB.Fluent<Author>()
+                        .Match(a => a.Surname == guid)
+                        .MatchExpression("{$gt:['$Age2','$Age']}")
+                        .Single();
+
+            Assert.AreEqual(res.Surname, guid);
+        }
+
+        [TestMethod]
         public void decimal_properties_work_correctly()
         {
             var guid = Guid.NewGuid().ToString();

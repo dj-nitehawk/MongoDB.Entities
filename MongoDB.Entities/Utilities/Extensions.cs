@@ -160,7 +160,7 @@ namespace MongoDB.Entities
         /// <param name="aggregate"></param>
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
         /// <returns></returns>
-        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, string expression) where T : Entity
+        public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression) where T : Entity
         {
             PipelineStageDefinition<T, T> stage = "{$match:{$expr:" + expression + "}}";
 
