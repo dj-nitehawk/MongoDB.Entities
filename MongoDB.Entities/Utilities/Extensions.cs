@@ -122,16 +122,22 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : Entity
         {
-            PipelineStageDefinition<T, T> groupStage =
-                new BsonDocument(
-                "$group", new BsonDocument()
-                          .Add("_id", "$_id")
-                          .Add("doc", new BsonDocument()
-                                      .Add("$first", "$$ROOT")));
+            PipelineStageDefinition<T, T> groupStage = @"
+                                                        {
+                                                            '$group': {
+                                                                '_id': '$_id',
+                                                                'doc': {
+                                                                    '$first': '$$ROOT'
+                                                                }
+                                                            }
+                                                        }";
 
-            PipelineStageDefinition<T, T> rootStage =
-                new BsonDocument("$replaceRoot", new BsonDocument()
-                                                 .Add("newRoot", "$doc"));
+            PipelineStageDefinition<T, T> rootStage = @"
+                                                        {
+                                                            '$replaceRoot': {
+                                                                'newRoot': '$doc'
+                                                            }
+                                                        }";
 
             return aggregate.AppendStage(groupStage).AppendStage(rootStage);
         }
