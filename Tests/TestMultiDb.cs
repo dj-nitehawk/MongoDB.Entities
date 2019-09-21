@@ -68,7 +68,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.GetInstance("test2");
 
-            Assert.AreEqual("test2",res.DbName);
+            Assert.AreEqual("test2", res.DbName);
         }
     }
 

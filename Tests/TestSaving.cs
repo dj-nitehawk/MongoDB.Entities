@@ -215,6 +215,20 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid().ToString();
             var author = new Author { Name = "a", Age = 10, Age2 = 11, Surname = guid }; author.Save();
 
+            var res = DB.Find<Author>()
+                        .MatchExpression("{$and:[{$gt:['$Age2','$Age']},{$eq:['$Surname','" + guid + "']}]}")
+                        .Execute()
+                        .Single();
+
+            Assert.AreEqual(res.Surname, guid);
+        }
+
+        [TestMethod]
+        public void find_fluent_with_aggregation_expression_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author = new Author { Name = "a", Age = 10, Age2 = 11, Surname = guid }; author.Save();
+
             var res = DB.Fluent<Author>()
                         .Match(a => a.Surname == guid)
                         .MatchExpression("{$gt:['$Age2','$Age']}")

@@ -131,6 +131,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the matching criteria with an aggregation expression (i.e. $expr)
+        /// </summary>
+        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
+        public Find<T, TProjection> MatchExpression(string expression)
+        {
+            this.filter = "{$expr:" + expression + "}";
+            return this;
+        }
+
+        /// <summary>
         /// Specify which property and order to use for sorting (use multiple times if needed)
         /// </summary>
         /// <param name="propertyToSortBy">x => x.Prop</param>
