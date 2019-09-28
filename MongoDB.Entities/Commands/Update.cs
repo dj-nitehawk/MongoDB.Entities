@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly UpdateOptions options = new UpdateOptions();
+        private UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
         private string db = null;
@@ -110,9 +110,10 @@ namespace MongoDB.Entities
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             Modify(b => b.CurrentDate(x => x.ModifiedOn));
-            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)));
+            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)) { ArrayFilters = options.ArrayFilters });
             filter = Builders<T>.Filter.Empty;
             defs.Clear();
+            options = new UpdateOptions();
             return this;
         }
 

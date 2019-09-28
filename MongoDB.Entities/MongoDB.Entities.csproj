@@ -8,13 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.2.1</Version>
-    <AssemblyVersion>8.2.1.0</AssemblyVersion>
-    <FileVersion>8.2.1.0</FileVersion>
+    <Version>8.3</Version>
+    <AssemblyVersion>8.3.0.0</AssemblyVersion>
+    <FileVersion>8.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- project upgraded to .net core 3.0
-- azure pipelines upgraded to .net core 3.0
-- minimum target framework kept back at .net standard 2.0</PackageReleaseNotes>
+    <PackageReleaseNotes>- arrayFilter support for bulk updates</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
