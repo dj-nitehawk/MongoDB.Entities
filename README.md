@@ -20,7 +20,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Update with aggregation pipeline stages.
 - Start a GeoNear aggregation pipeline.
 - Multiple database support.
-- Project types supported: .Net Standard 2 | .Net Core | ASP.Net Core
+- Project types supported: .Net Standard 2.0 (.Net Core 2.0 or higher & .Net Framework 4.6.1 or higher)
 
 
 
