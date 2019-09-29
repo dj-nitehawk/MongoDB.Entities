@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
@@ -82,12 +83,26 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify an update definition to modify the Entities (use multiple times if needed)
+        /// Specify an array filter to target nested entities for updates with the .Modify() method (use multiple times if needed).
         /// </summary>
-        /// <param name="updateDefinition">An update definition (can be a json string)</param>
-        public Update<T> Modify(UpdateDefinition<T> updateDefinition)
+        /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
+        /// <returns></returns>
+        public Update<T> WithArrayFilter(string filter)
         {
-            defs.Add(updateDefinition);
+            ArrayFilterDefinition<T> def = filter;
+            var arrFilters = options.ArrayFilters == null ? new List<ArrayFilterDefinition>() : options.ArrayFilters.ToList();
+            arrFilters.Add(def);
+            options.ArrayFilters = arrFilters;
+            return this;
+        }
+
+        /// <summary>
+        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+        public Update<T> Modify(string update)
+        {
+            defs.Add(update);
             return this;
         }
 

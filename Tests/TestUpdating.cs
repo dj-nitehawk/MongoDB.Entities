@@ -117,5 +117,51 @@ namespace MongoDB.Entities.Tests
             var fullname = DB.Find<Author>().One(author.ID).FullName;
             Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
         }
+
+        [TestMethod]
+        public void update_with_array_filters_work()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var book = new Book
+            {
+                Title = "uwafw " + guid,
+                OtherAuthors = new[]
+                {
+                    new Author{
+                        Name ="name",
+                        Age = 123
+                    },
+                    new Author{
+                        Name ="name",
+                        Age = 123
+                    },
+                    new Author{
+                        Name ="name",
+                        Age = 100
+                    },
+                }
+            };
+            book.Save();
+
+            DB.Update<Book>()
+
+              .Match(b => b.ID == book.ID)
+
+              .WithArrayFilter("{'x.Age':{$gte:120}}")
+              .Modify("{$set:{'OtherAuthors.$[x].Age':321}}")
+
+              .WithArrayFilter("{'y.Name':'name'}")
+              .Modify("{$set:{'OtherAuthors.$[y].Name':'updated'}}")
+
+              .Execute();
+
+            var res = DB.Queryable<Book>()
+                        .Where(b => b.ID == book.ID)
+                        .SelectMany(b => b.OtherAuthors)
+                        .ToList();
+
+            Assert.AreEqual(2, res.Count(a => a.Age == 321));
+            Assert.AreEqual(3, res.Count(a => a.Name == "updated"));
+        }
     }
 }
