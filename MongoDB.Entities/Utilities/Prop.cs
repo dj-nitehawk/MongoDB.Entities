@@ -21,7 +21,7 @@ namespace MongoDB.Entities
             return returnVal;
         }
 
-        //MoreReviews[0].Rating > MoreReviews.Rating
+        //Authors[0].Name > Authors.Name
         public static string Dotted<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -34,7 +34,8 @@ namespace MongoDB.Entities
                        .Replace("[0]", "");
         }
 
-        //MoreReviews[0].Rating > MoreReviews.$[a].Rating
+        //Authors[0].Name > Authors.$[a].Name
+        //Authors[1].Name > Authors.$[b].Name
         public static string PosFiltered<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -49,7 +50,7 @@ namespace MongoDB.Entities
             return Regex.Replace(path, @"(?<=\[).+?(?=\])", m => ToLowerLetter(int.Parse(m.Value)));
         }
 
-        //MoreReviews[0].Rating > MoreReviews.$[].Rating
+        //Authors[0].Name > Authors.$[].Name
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -62,8 +63,8 @@ namespace MongoDB.Entities
                        .Replace("get_Item(0)", "$[]");
         }
 
-        //MoreReviews[0].Rating > MoreReviews.$.Rating
-        public static string Pos<T>(Expression<Func<T, object>> expression)
+        //Authors[0].Name > Authors.$.Name
+        public static string PosFirst<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
             var name = expression.Parameters[0].Name;
@@ -75,13 +76,14 @@ namespace MongoDB.Entities
                        .Replace("[0]", ".$");
         }
 
-        // b => b.Tags > Tags
+        // book => book.Tags > Tags
         public static string Elements<T>(Expression<Func<T, object>> expression)
         {
             return Dotted(expression);
         }
 
-        // 0 | r => r.Rating > a.Rating
+        // 0 | book => book.Rating > a.Rating
+        // 1 | book => book.Rating > b.Rating
         public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
             return $"{ToLowerLetter(index)}.{Dotted(expression)}";

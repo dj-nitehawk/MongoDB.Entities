@@ -42,10 +42,10 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void prop_pos()
         {
-            var res1 = Prop.Pos<Book>(b => b.ReviewArray[0].Rating);
+            var res1 = Prop.PosFirst<Book>(b => b.ReviewArray[0].Rating);
             Assert.AreEqual("ReviewArray.$.Rating", res1);
 
-            var res2 = Prop.Pos<Book>(b => b.ReviewList[0].Rating);
+            var res2 = Prop.PosFirst<Book>(b => b.ReviewList[0].Rating);
             Assert.AreEqual("ReviewList.$.Rating", res2);
         }
 
