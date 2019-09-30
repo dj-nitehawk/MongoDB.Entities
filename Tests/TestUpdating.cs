@@ -143,10 +143,10 @@ namespace MongoDB.Entities.Tests
             };
             book.Save();
 
-            var filt1 = Prop.Entities<Author>(0, a => a.Age);
+            var filt1 = Prop.Elements<Author>(0, a => a.Age);
             var prop1 = Prop.PosFiltered<Book>(b => b.OtherAuthors[0].Age);
 
-            var filt2 = Prop.Entities<Author>(1, a => a.Name);
+            var filt2 = Prop.Elements<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);
 
             DB.Update<Book>()

@@ -82,7 +82,7 @@ namespace MongoDB.Entities
         }
 
         // 0 | r => r.Rating > a.Rating
-        public static string Entities<T>(int index, Expression<Func<T, object>> expression)
+        public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
             return $"{ToLowerLetter(index)}.{Dotted(expression)}";
         }

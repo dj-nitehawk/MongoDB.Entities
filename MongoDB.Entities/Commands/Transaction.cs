@@ -159,7 +159,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void Dispose()
         {
-            Session.Dispose();            
+            Session.Dispose();
         }
     }
 }
