@@ -259,20 +259,20 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void path_dotted()
         {
-            Expression<Func<Book, object>> exp = x => x.MoreReviews[0].Rating;
+            Expression<Func<Book, object>> exp = x => x.ReviewArray[0].Rating;
             var res = exp.FullPath();
-            Assert.AreEqual("MoreReviews.Rating", res);
+            Assert.AreEqual("ReviewArray.Rating", res);
 
-            Expression<Func<Book, object>> exp1 = x => x.MoreReviews[0].Books[0].MoreReviews[0].Books[0].ModifiedOn;
+            Expression<Func<Book, object>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
             var res1 = exp1.FullPath();
-            Assert.AreEqual("MoreReviews.Books.MoreReviews.Books.ModifiedOn", res1);
+            Assert.AreEqual("ReviewArray.Books.ReviewArray.Books.ModifiedOn", res1);
         }
 
         [TestMethod]
         public void path_pos_filtered()
         {
-            var res1 = Prop.PosFiltered<Book>(b => b.MoreReviews[0].Books[1].MainAuthor.ID);
-            Assert.AreEqual("MoreReviews.$[a].Books.$[b].MainAuthor.ID", res1);
+            var res1 = Prop.PosFiltered<Book>(b => b.ReviewArray[0].Books[1].MainAuthor.ID);
+            Assert.AreEqual("ReviewArray.$[a].Books.$[b].MainAuthor.ID", res1);
 
             var res2 = Prop.PosFiltered<Book>(b => b.ReviewList[0].Rating);
             Assert.AreEqual("ReviewList.$[a].Rating", res2);
@@ -281,8 +281,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void path_pos_all()
         {
-            var res1 = Prop.PosAll<Book>(b => b.MoreReviews[0].Rating);
-            Assert.AreEqual("MoreReviews.$[].Rating", res1);
+            var res1 = Prop.PosAll<Book>(b => b.ReviewArray[0].Rating);
+            Assert.AreEqual("ReviewArray.$[].Rating", res1);
 
             var res2 = Prop.PosAll<Book>(b => b.ReviewList[0].Rating);
             Assert.AreEqual("ReviewList.$[].Rating", res2);
@@ -291,8 +291,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void path_pos()
         {
-            var res1 = Prop.Pos<Book>(b => b.MoreReviews[0].Rating);
-            Assert.AreEqual("MoreReviews.$.Rating", res1);
+            var res1 = Prop.Pos<Book>(b => b.ReviewArray[0].Rating);
+            Assert.AreEqual("ReviewArray.$.Rating", res1);
 
             var res2 = Prop.Pos<Book>(b => b.ReviewList[0].Rating);
             Assert.AreEqual("ReviewList.$.Rating", res2);

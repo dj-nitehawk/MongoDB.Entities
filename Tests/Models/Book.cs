@@ -10,7 +10,7 @@ namespace MongoDB.Entities.Tests
         public Author RelatedAuthor { get; set; }
         public Author[] OtherAuthors { get; set; }
         public Review Review { get; set; }
-        public Review[] MoreReviews { get; set; }
+        public Review[] ReviewArray { get; set; }
         public List<Review> ReviewList { get; set; }
         public One<Author> MainAuthor { get; set; }
         public Many<Author> GoodAuthors { get; set; }
