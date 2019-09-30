@@ -143,17 +143,20 @@ namespace MongoDB.Entities.Tests
             };
             book.Save();
 
+            var filt1 = Prop.Entities<Author>(0, a => a.Age);
             var prop1 = Prop.PosFiltered<Book>(b => b.OtherAuthors[0].Age);
+
+            var filt2 = Prop.Entities<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);
 
             DB.Update<Book>()
 
               .Match(b => b.ID == book.ID)
 
-              .WithArrayFilter("{'a.Age':{$gte:120}}")
+              .WithArrayFilter("{'" + filt1 + "':{$gte:120}}")
               .Modify("{$set:{'" + prop1 + "':321}}")
 
-              .WithArrayFilter("{'b.Name':'name'}")
+              .WithArrayFilter("{'" + filt2 + "':'name'}")
               .Modify("{$set:{'" + prop2 + "':'updated'}}")
 
               .Execute();

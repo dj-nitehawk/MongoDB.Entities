@@ -45,7 +45,7 @@ namespace MongoDB.Entities
                        .Replace(", Object)", "")
                        .Replace("[", ".$[")
                        .Replace("get_Item(", "$[").Replace(")", "]");
-           
+
             return Regex.Replace(path, @"(?<=\[).+?(?=\])", m => ToLowerLetter(int.Parse(m.Value)));
         }
 
@@ -73,6 +73,18 @@ namespace MongoDB.Entities
                        .Replace(", Object)", "")
                        .Replace("get_Item(0)", "$")
                        .Replace("[0]", ".$");
+        }
+
+        // b => b.Tags > Tags
+        public static string Elements<T>(Expression<Func<T, object>> expression)
+        {
+            return Dotted(expression);
+        }
+
+        // 0 | r => r.Rating > a.Rating
+        public static string Entities<T>(int index, Expression<Func<T, object>> expression)
+        {
+            return $"{ToLowerLetter(index)}.{Dotted(expression)}";
         }
     }
 }

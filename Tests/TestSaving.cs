@@ -257,7 +257,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void path_dotted()
+        public void prop_dotted()
         {
             Expression<Func<Book, object>> exp = x => x.ReviewArray[0].Rating;
             var res = exp.FullPath();
@@ -269,7 +269,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void path_pos_filtered()
+        public void prop_pos_filtered()
         {
             var res1 = Prop.PosFiltered<Book>(b => b.ReviewArray[0].Books[1].MainAuthor.ID);
             Assert.AreEqual("ReviewArray.$[a].Books.$[b].MainAuthor.ID", res1);
@@ -279,7 +279,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void path_pos_all()
+        public void prop_pos_all()
         {
             var res1 = Prop.PosAll<Book>(b => b.ReviewArray[0].Rating);
             Assert.AreEqual("ReviewArray.$[].Rating", res1);
@@ -289,13 +289,25 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void path_pos()
+        public void prop_pos()
         {
             var res1 = Prop.Pos<Book>(b => b.ReviewArray[0].Rating);
             Assert.AreEqual("ReviewArray.$.Rating", res1);
 
             var res2 = Prop.Pos<Book>(b => b.ReviewList[0].Rating);
             Assert.AreEqual("ReviewList.$.Rating", res2);
+        }
+
+        [TestMethod]
+        public void prop_elements()
+        {
+            //todo: Prop.Elements()
+        }
+
+        [TestMethod]
+        public void prop_entities()
+        {
+            //todo: Prop.Entities()
         }
     }
 }
