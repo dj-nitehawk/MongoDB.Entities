@@ -1,11 +1,26 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities
 {
     //todo: xml docs
     public static class Prop
     {
+        private static string ToLowerLetter(long number)
+        {
+            string returnVal = null;
+            char c = 'a';
+            while (number >= 0)
+            {
+                returnVal = (char)(c + number % 26) + returnVal;
+                number /= 26;
+                number--;
+            }
+
+            return returnVal;
+        }
+
         //MoreReviews[0].Rating > MoreReviews.Rating
         public static string Dotted<T>(Expression<Func<T, object>> expression)
         {
@@ -19,17 +34,19 @@ namespace MongoDB.Entities
                        .Replace("[0]", "");
         }
 
-        //MoreReviews[1].Rating > MoreReviews.$[1].Rating
+        //MoreReviews[0].Rating > MoreReviews.$[a].Rating
         public static string PosFiltered<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
             var name = expression.Parameters[0].Name;
-            return expression.ToString()
+            var path = expression.ToString()
                        .Replace($"{name} => {name}.", "")
                        .Replace($"{name} => Convert({name}.", "")
                        .Replace(", Object)", "")
                        .Replace("[", ".$[")
                        .Replace("get_Item(", "$[").Replace(")", "]");
+           
+            return Regex.Replace(path, @"(?<=\[).+?(?=\])", m => ToLowerLetter(int.Parse(m.Value)));
         }
 
         //MoreReviews[0].Rating > MoreReviews.$[].Rating

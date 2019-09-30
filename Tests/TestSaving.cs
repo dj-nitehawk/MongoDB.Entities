@@ -271,11 +271,11 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void path_pos_filtered()
         {
-            var res1 = Prop.PosFiltered<Book>(b => b.MoreReviews[1].Rating);
-            Assert.AreEqual("MoreReviews.$[1].Rating", res1);
+            var res1 = Prop.PosFiltered<Book>(b => b.MoreReviews[0].Books[1].MainAuthor.ID);
+            Assert.AreEqual("MoreReviews.$[a].Books.$[b].MainAuthor.ID", res1);
 
-            var res2 = Prop.PosFiltered<Book>(b => b.ReviewList[1].Rating);
-            Assert.AreEqual("ReviewList.$[1].Rating", res2);
+            var res2 = Prop.PosFiltered<Book>(b => b.ReviewList[0].Rating);
+            Assert.AreEqual("ReviewList.$[a].Rating", res2);
         }
 
         [TestMethod]
