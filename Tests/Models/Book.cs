@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace MongoDB.Entities.Tests
 {
     public class Book : Entity
@@ -9,6 +11,7 @@ namespace MongoDB.Entities.Tests
         public Author[] OtherAuthors { get; set; }
         public Review Review { get; set; }
         public Review[] MoreReviews { get; set; }
+        public List<Review> ReviewList { get; set; }
         public One<Author> MainAuthor { get; set; }
         public Many<Author> GoodAuthors { get; set; }
         public Many<Author> BadAuthors { get; set; }

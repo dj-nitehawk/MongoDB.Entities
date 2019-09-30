@@ -49,14 +49,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that inherits from Entity</typeparam>
         public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
-            if (expression == null) return null;
-            var name = expression.Parameters[0].Name;
-            return expression.ToString()
-                       .Replace($"{name} => {name}.", "")
-                       .Replace($"{name} => Convert({name}.", "")
-                       .Replace(", Object)", "")
-                       .Replace("get_Item(-1).", "")
-                       .Replace("[-1]", "");
+            return Prop.Dotted(expression);
         }
 
         /// <summary>

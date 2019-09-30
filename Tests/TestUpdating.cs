@@ -142,7 +142,7 @@ namespace MongoDB.Entities.Tests
                 }
             };
             book.Save();
-
+            
             DB.Update<Book>()
 
               .Match(b => b.ID == book.ID)
