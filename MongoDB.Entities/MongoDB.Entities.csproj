@@ -8,12 +8,16 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.3.1</Version>
-    <AssemblyVersion>8.3.1.0</AssemblyVersion>
-    <FileVersion>8.3.1.0</FileVersion>
+    <Version>8.4</Version>
+    <AssemblyVersion>8.4.0.0</AssemblyVersion>
+    <FileVersion>8.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- better array filter support
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- added methods to generate property paths from lambda expressions (in Prop static class)
+- support for generating $ operator syntax from lambdas
+- support for generating $[identifier] syntax from lambdas
+- support for generating $[] syntax from lambdas
+- support for generating x.Property syntax for arrayFilters from lambdas
+- new + improved tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

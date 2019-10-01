@@ -4,7 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities
 {
-    //todo: xml docs
+    /// <summary>
+    /// This class provides methods to generate property path strings from lambda expression. 
+    /// </summary>
     public static class Prop
     {
         private static string ToLowerLetter(long number)
@@ -21,7 +23,12 @@ namespace MongoDB.Entities
             return returnVal;
         }
 
-        //Authors[0].Name > Authors.Name
+        /// <summary>
+        /// Returns the full dotted path for a given expression.
+        /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
+        /// <para>TIP: Only valid index position is [0]</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string Dotted<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -34,8 +41,14 @@ namespace MongoDB.Entities
                        .Replace("[0]", "");
         }
 
-        //Authors[0].Name > Authors.$[a].Name
-        //Authors[1].Name > Authors.$[b].Name
+        /// <summary>
+        /// Returns a path with filtered positional identifiers $[x] for a given expression.
+        /// <para>EX: Authors[0].Name > Authors.$[a].Name</para>
+        /// <para>EX: Authors[1].Age > Authors.$[b].Age</para>
+        /// <para>EX: Authors[2].Books[3].Title > Authors.$[c].Books.$[d].Title</para>
+        /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosFiltered<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -50,7 +63,13 @@ namespace MongoDB.Entities
             return Regex.Replace(path, @"(?<=\[).+?(?=\])", m => ToLowerLetter(int.Parse(m.Value)));
         }
 
-        //Authors[0].Name > Authors.$[].Name
+        /// <summary>
+        /// Returns a path with the all positional operator $[] for a given expression.
+        /// <para>EX: Authors[0].Name > Authors.$[].Name</para>
+        /// <para>TIP: Only valid index position is [0]</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeList[0].SomeProp</param>
+        /// <returns></returns>
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -63,7 +82,12 @@ namespace MongoDB.Entities
                        .Replace("get_Item(0)", "$[]");
         }
 
-        //Authors[0].Name > Authors.$.Name
+        /// <summary>
+        /// Returns a path with the first positional operator $ for a given expression.
+        /// <para>EX: Authors[0].Name > Authors.$.Name</para>
+        /// <para>TIP: Only valid index position is [0]</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosFirst<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -76,14 +100,24 @@ namespace MongoDB.Entities
                        .Replace("[0]", ".$");
         }
 
-        // book => book.Tags > Tags
+        /// <summary>
+        /// Returns a path without any filtered positional identifier prepended to it.
+        /// <para>EX: bk => bk.Tags > Tags</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(Expression<Func<T, object>> expression)
         {
             return Dotted(expression);
         }
 
-        // 0 | book => book.Rating > a.Rating
-        // 1 | book => book.Rating > b.Rating
+        /// <summary>
+        /// Returns a path with the filtered positional identifier prepended to the property path.
+        /// <para>EX: 0, bk => bk.Rating > a.Rating</para>
+        /// <para>EX: 1, bk => bk.Rating > b.Rating</para>
+        /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
+        /// </summary>
+        /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
+        /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
             return $"{ToLowerLetter(index)}.{Dotted(expression)}";
