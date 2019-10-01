@@ -1,4 +1,5 @@
-[![nuget](https://buildstats.info/nuget/MongoDB.Entities)](https://www.nuget.org/packages/MongoDB.Entities) [![Build status](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_apis/build/status/MongoDB%20Entities%20Nuget%20Release)](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_build/latest?definitionId=1)
+[![nuget](https://img.shields.io/nuget/v/MongoDB.Entities?label=version&logo=NuGet&style=flat-square)](https://www.nuget.org/packages/MongoDB.Entities) [![nuget](https://img.shields.io/nuget/dt/MongoDB.Entities?color=blue&label=downloads&logo=NuGet&style=flat-square)](https://www.nuget.org/packages/MongoDB.Entities) [![tests](https://img.shields.io/azure-devops/tests/RyanGunner/MongoDB%20Entities/1?color=blue&label=tests&logo=Azure%20DevOps&style=flat-square)](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_build/latest?definitionId=1)
+
 
 
 # MongoDB.Entities
