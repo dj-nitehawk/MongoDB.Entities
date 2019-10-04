@@ -240,8 +240,8 @@ namespace MongoDB.Entities.Tests
         public void decimal_properties_work_correctly()
         {
             var guid = Guid.NewGuid().ToString();
-            var book1 = new Book { Title = guid, SellingPrice = 100.123m }; book1.Save();
-            var book2 = new Book { Title = guid, SellingPrice = 100.123m }; book2.Save();
+            var book1 = new Book { Title = guid, Price = 100.123m }; book1.Save();
+            var book2 = new Book { Title = guid, Price = 100.123m }; book2.Save();
 
             var res = DB.Queryable<Book>()
                         .Where(b => b.Title == guid)
@@ -249,10 +249,10 @@ namespace MongoDB.Entities.Tests
                         .Select(g => new
                         {
                             Title = g.Key,
-                            Sum = g.Sum(b => b.SellingPrice)
+                            Sum = g.Sum(b => b.Price)
                         }).Single();
 
-            Assert.AreEqual(book1.SellingPrice + book2.SellingPrice, res.Sum);
+            Assert.AreEqual(book1.Price + book2.Price, res.Sum);
         }
     }
 }

@@ -8,11 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.4.1</Version>
-    <AssemblyVersion>8.4.1.0</AssemblyVersion>
-    <FileVersion>8.4.1.0</FileVersion>
+    <Version>8.4.2</Version>
+    <AssemblyVersion>8.4.2.0</AssemblyVersion>
+    <FileVersion>8.4.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- mongodb driver updated to v2.9.2</PackageReleaseNotes>
+    <PackageReleaseNotes>- improve tests for Prop.Dotted()</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

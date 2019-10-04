@@ -79,7 +79,7 @@ namespace MongoDB.Entities.Tests
 
             for (int i = 1; i <= 5; i++)
             {
-                books.Add(new Book { Title = title, SellingPrice = i });
+                books.Add(new Book { Title = title, Price = i });
             }
             books.Save();
 
@@ -88,7 +88,7 @@ namespace MongoDB.Entities.Tests
             foreach (var book in books)
             {
                 bulk.Match(b => b.ID == book.ID)
-                    .Modify(b => b.SellingPrice, 100)
+                    .Modify(b => b.Price, 100)
                     .AddToQueue();
             }
 
@@ -98,7 +98,7 @@ namespace MongoDB.Entities.Tests
                         .Many(b => b.Title == title);
 
             Assert.AreEqual(5, res.Count());
-            Assert.AreEqual(5, res.Where(b => b.SellingPrice == 100).Count());
+            Assert.AreEqual(5, res.Where(b => b.Price == 100).Count());
         }
 
         [TestMethod]

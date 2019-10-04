@@ -17,6 +17,26 @@ namespace MongoDB.Entities.Tests
             Expression<Func<Book, object>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
             var res1 = exp1.FullPath();
             Assert.AreEqual("ReviewArray.Books.ReviewArray.Books.ModifiedOn", res1);
+
+            Expression<Func<Book, object>> exp2 = x => x.ReviewArray[0].Books[0].Price;
+            var res2 = exp2.FullPath();
+            Assert.AreEqual("ReviewArray.Books.Price", res2);
+
+            Expression<Func<Book, object>> exp3 = x => x.ReviewArray[0].Books[0].PriceInt;
+            var res3 = exp3.FullPath();
+            Assert.AreEqual("ReviewArray.Books.PriceInt", res3);
+
+            Expression<Func<Book, object>> exp4 = x => x.ReviewArray[0].Books[0].PriceLong;
+            var res4 = exp4.FullPath();
+            Assert.AreEqual("ReviewArray.Books.PriceLong", res4);
+
+            Expression<Func<Book, object>> exp5 = x => x.ReviewArray[0].Books[0].PriceDbl;
+            var res5 = exp5.FullPath();
+            Assert.AreEqual("ReviewArray.Books.PriceDbl", res5);
+
+            Expression<Func<Book, object>> exp6 = x => x.ReviewArray[0].Books[0].PriceFloat;
+            var res6 = exp6.FullPath();
+            Assert.AreEqual("ReviewArray.Books.PriceFloat", res6);
         }
 
         [TestMethod]
