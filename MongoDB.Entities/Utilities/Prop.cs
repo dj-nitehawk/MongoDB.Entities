@@ -9,7 +9,7 @@ namespace MongoDB.Entities
     /// </summary>
     public static class Prop
     {
-        private static string ToLowerLetter(long number)
+        private static string GetLowerLetter(long number)
         {
             string returnVal = null;
             char c = 'a';
@@ -25,17 +25,23 @@ namespace MongoDB.Entities
 
         private static string GetPath<T>(Expression<Func<T, object>> expression)
         {
-            return Regex.Match(
-                            expression.ToString(), 
-                            @"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+")
-                        .Value
-                        .Substring(1);
+            //One.Two[1].Three.get_Item(2).Four
+            var path = Regex.Match(
+                                expression.ToString(),
+                                @"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+")
+                            .Value
+                            .Substring(1);
+
+            //One.Two[1].Three[2].Four
+            return Regex.Replace(
+                            path,
+                            @".get_Item\((\d+)\)",
+                            m => "[" + m.Groups[1].Value + "]");
         }
 
         /// <summary>
         /// Returns the full dotted path for a given expression.
         /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
-        /// <para>TIP: Only valid index position is [0]</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string Dotted<T>(Expression<Func<T, object>> expression)
@@ -43,8 +49,8 @@ namespace MongoDB.Entities
             if (expression == null) return null;
 
             return Regex.Replace(
-                            GetPath(expression), 
-                            @"(?:\[\d+\])|(?:\.get_Item\(\d+\))", 
+                            GetPath(expression),
+                            @"\[\d+\]",
                             "");
         }
 
@@ -59,52 +65,42 @@ namespace MongoDB.Entities
         public static string PosFiltered<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-            var name = expression.Parameters[0].Name;
-            var path = expression.ToString()
-                       .Replace($"{name} => {name}.", "")
-                       .Replace($"{name} => Convert({name}.", "")
-                       .Replace(", Object)", "")
-                       .Replace("[", ".$[")
-                       .Replace("get_Item(", "$[").Replace(")", "]");
 
-            return Regex.Replace(path, @"(?<=\[).+?(?=\])", m => ToLowerLetter(int.Parse(m.Value)));
+            return Regex.Replace(
+                            GetPath(expression),
+                            @"\[(\d+)\]",
+                            m => ".$[" + GetLowerLetter(int.Parse(m.Groups[1].Value)) + "]");
         }
 
         /// <summary>
         /// Returns a path with the all positional operator $[] for a given expression.
         /// <para>EX: Authors[0].Name > Authors.$[].Name</para>
-        /// <para>TIP: Only valid index position is [0]</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         /// <returns></returns>
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-            var name = expression.Parameters[0].Name;
-            return expression.ToString()
-                       .Replace($"{name} => {name}.", "")
-                       .Replace($"{name} => Convert({name}.", "")
-                       .Replace(", Object)", "")
-                       .Replace("[0]", ".$[]")
-                       .Replace("get_Item(0)", "$[]");
+
+            return Regex.Replace(
+                            GetPath(expression),
+                            @"\[\d+\]",
+                            ".$[]");
         }
 
         /// <summary>
         /// Returns a path with the first positional operator $ for a given expression.
         /// <para>EX: Authors[0].Name > Authors.$.Name</para>
-        /// <para>TIP: Only valid index position is [0]</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosFirst<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-            var name = expression.Parameters[0].Name;
-            return expression.ToString()
-                       .Replace($"{name} => {name}.", "")
-                       .Replace($"{name} => Convert({name}.", "")
-                       .Replace(", Object)", "")
-                       .Replace("get_Item(0)", "$")
-                       .Replace("[0]", ".$");
+
+            return Regex.Replace(
+                            GetPath(expression),
+                            @"\[\d+\]",
+                            ".$");
         }
 
         /// <summary>
@@ -127,7 +123,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
-            return $"{ToLowerLetter(index)}.{Dotted(expression)}";
+            return $"{GetLowerLetter(index)}.{Dotted(expression)}";
         }
     }
 }

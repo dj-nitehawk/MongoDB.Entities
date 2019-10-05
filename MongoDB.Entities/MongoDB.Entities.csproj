@@ -12,7 +12,9 @@
     <AssemblyVersion>8.4.2.0</AssemblyVersion>
     <FileVersion>8.4.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- improve tests for Prop.Dotted()</PackageReleaseNotes>
+    <PackageReleaseNotes>- improved Prop class to handle edge cases
+- improved tests
+- minor code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

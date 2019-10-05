@@ -10,9 +10,9 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void prop_dotted()
         {
-            Expression<Func<Book, object>> exp = x => x.ReviewArray[0].Rating;
+            Expression<Func<Book, object>> exp = x => x.ReviewList[0].Rating;
             var res = exp.FullPath();
-            Assert.AreEqual("ReviewArray.Rating", res);
+            Assert.AreEqual("ReviewList.Rating", res);
 
             Expression<Func<Book, object>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
             var res1 = exp1.FullPath();
