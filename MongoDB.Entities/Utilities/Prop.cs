@@ -23,6 +23,15 @@ namespace MongoDB.Entities
             return returnVal;
         }
 
+        private static string GetPath<T>(Expression<Func<T, object>> expression)
+        {
+            return Regex.Match(
+                            expression.ToString(), 
+                            @"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+")
+                        .Value
+                        .Substring(1);
+        }
+
         /// <summary>
         /// Returns the full dotted path for a given expression.
         /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
@@ -32,13 +41,11 @@ namespace MongoDB.Entities
         public static string Dotted<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-            var name = expression.Parameters[0].Name;
-            return expression.ToString()
-                       .Replace($"{name} => {name}.", "")
-                       .Replace($"{name} => Convert({name}.", "")
-                       .Replace(", Object)", "")
-                       .Replace("get_Item(0).", "")
-                       .Replace("[0]", "");
+
+            return Regex.Replace(
+                            GetPath(expression), 
+                            @"(?:\[\d+\])|(?:\.get_Item\(\d+\))", 
+                            "");
         }
 
         /// <summary>
