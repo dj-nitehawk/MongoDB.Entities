@@ -85,9 +85,9 @@ the easy to use API is described in the [wiki pages](https://github.com/dj-niteh
 ## Code Examples
 .net core console project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 
-integration/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
+asp.net core web-api project: [click here](https://github.com/dj-nitehawk/MongoWebApiStarter)
 
-asp.net core web-api project: [click here](https://github.com/dj-nitehawk/KiwilinkCRM/tree/master/Kiwilink-API)
+integration/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
 
 solutions to stackoverflow questions: [click here](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
 
