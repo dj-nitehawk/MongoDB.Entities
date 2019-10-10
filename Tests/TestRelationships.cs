@@ -25,6 +25,21 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void setting_one_to_one_reference_with_implicit_operator_returns_correct_entity()
+        {
+            var book = new Book { Title = "book" };
+            var author = new Author { Name = "sotorrce" };
+            author.Save();
+            book.MainAuthor = author.ID;
+            book.Save();
+            var res = book.Queryable()
+                          .Where(b => b.ID == book.ID)
+                          .Single()
+                          .MainAuthor.ToEntity();
+            Assert.AreEqual(author.Name, res.Name);
+        }
+
+        [TestMethod]
         public void one_to_one_to_entity_with_lambda_projection()
         {
             var book = new Book { Title = "book" };
