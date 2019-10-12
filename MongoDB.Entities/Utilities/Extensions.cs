@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace MongoDB.Entities
             return BsonSerializer.Deserialize<Holder<T>>(holder.ToBson()).Data;
         }
 
-        internal static void ThrowIfUnsaved(this Entity entity)
+        internal static void ThrowIfUnsaved(this IEntity entity)
         {
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
@@ -33,7 +34,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns null if not attached.
         /// </summary>
-        public static string Database(this Entity entity)
+        public static string Database(this IEntity entity)
         {
             var attribute = entity.GetType().GetCustomAttribute<DatabaseAttribute>();
             if (attribute != null)
@@ -46,7 +47,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the full dotted path of a property for the given expression
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
             return Prop.Dotted(expression);
@@ -80,11 +81,11 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the IMongoCollection for a given Entity type.
+        /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T entity) where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static IMongoCollection<T> Collection<T>(this T entity) where T : IEntity
         {
             return DB.Collection<T>(entity.Database());
         }
@@ -92,7 +93,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : Entity
+        public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : IEntity
         {
             return DB.Queryable<T>(options, entity.Database());
         }
@@ -104,7 +105,7 @@ namespace MongoDB.Entities
         /// <param name="entity"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : Entity
+        public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, session, entity.Database());
         }
@@ -112,8 +113,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Adds a distinct aggregation stage to a fluent pipeline. 
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : IEntity
         {
             PipelineStageDefinition<T, T> groupStage = @"
                                                         {
@@ -138,10 +139,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Appends a match stage to the pipeline with a filter expression
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="aggregate"></param>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter) where T : Entity
+        public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter) where T : IEntity
         {
             return aggregate.Match(filter(Builders<T>.Filter));
         }
@@ -149,11 +150,11 @@ namespace MongoDB.Entities
         /// <summary>
         /// Appends a match stage to the pipeline with an aggregation expression (i.e. $expr)
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="aggregate"></param>
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
         /// <returns></returns>
-        public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression) where T : Entity
+        public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression) where T : IEntity
         {
             PipelineStageDefinition<T, T> stage = "{$match:{$expr:" + expression + "}}";
 
@@ -163,15 +164,15 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static One<T> ToReference<T>(this T entity) where T : Entity
+        public static One<T> ToReference<T>(this T entity) where T : IEntity
         {
             return new One<T>(entity);
         }
 
         /// <summary>
-        /// Creates an unlinked duplicate of the original Entity ready for embedding with a blank ID.
+        /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
         /// </summary>
-        public static T ToDocument<T>(this T entity) where T : Entity
+        public static T ToDocument<T>(this T entity) where T : IEntity
         {
             var res = entity.Duplicate();
             res.ID = ObjectId.Empty.ToString();
@@ -181,7 +182,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
         /// </summary>
-        public static T[] ToDocuments<T>(this T[] entities) where T : Entity
+        public static T[] ToDocuments<T>(this T[] entities) where T : IEntity
         {
             var res = entities.Duplicate();
             foreach (var e in res)
@@ -194,7 +195,7 @@ namespace MongoDB.Entities
         /// <summary>
         ///Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
         /// </summary>
-        public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : Entity
+        public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
         {
             var res = entities.Duplicate();
             foreach (var e in res)
@@ -205,37 +206,37 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
+        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static void Save<T>(this T entity) where T : Entity
+        public static void Save<T>(this T entity) where T : IEntity
         {
             SaveAsync(entity).GetAwaiter().GetResult();
         }
 
         /// <summary>
-        /// Replaces an Entity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
+        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static async Task SaveAsync<T>(this T entity) where T : Entity
+        public static async Task SaveAsync<T>(this T entity) where T : IEntity
         {
             await DB.SaveAsync(entity: entity, db: entity.Database());
         }
 
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
-        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static void Save<T>(this IEnumerable<T> entities) where T : Entity
+        public static void Save<T>(this IEnumerable<T> entities) where T : IEntity
         {
             SaveAsync(entities).GetAwaiter().GetResult();
         }
 
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
-        /// <para>WARNING: The shape of the Entity in the database is always owerwritten with the current shape of the Entity. So be mindful of data loss due to schema changes.</para>
+        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static async Task SaveAsync<T>(this IEnumerable<T> entities) where T : Entity
+        public static async Task SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
             await DB.SaveAsync(entities: entities, db: entities.First().Database());
         }
@@ -244,7 +245,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static void Delete<T>(this T entity) where T : Entity
+        public static void Delete<T>(this T entity) where T : IEntity
         {
             DeleteAsync(entity).GetAwaiter().GetResult();
         }
@@ -253,7 +254,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static async Task DeleteAsync<T>(this T entity) where T : Entity
+        public static async Task DeleteAsync<T>(this T entity) where T : IEntity
         {
             await DB.DeleteAsync<T>(ID: entity.ID, db: entity.Database());
         }
@@ -262,7 +263,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static void DeleteAll<T>(this IEnumerable<T> entities) where T : Entity
+        public static void DeleteAll<T>(this IEnumerable<T> entities) where T : IEntity
         {
             DeleteAllAsync(entities).GetAwaiter().GetResult();
         }
@@ -271,7 +272,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static async Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : Entity
+        public static async Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
             await DB.DeleteAsync<T>(IDs: entities.Select(e => e.ID), db: entities.First().Database());
         }
@@ -281,7 +282,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() => PropertyName</param>
-        public static void InitOneToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : Entity
+        public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
@@ -294,7 +295,7 @@ namespace MongoDB.Entities
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() = > PropertyName</param>
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
-        public static void InitManyToMany<TChild>(this Entity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : Entity
+        public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;

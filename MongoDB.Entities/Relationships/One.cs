@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Entities.Common;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a one-to-one relationship with an Entity.
+    /// Represents a one-to-one relationship with an IEntity.
     /// </summary>
-    /// <typeparam name="T">Any type that inherits from Entity</typeparam>
-    public class One<T> where T : Entity
+    /// <typeparam name="T">Any type that implements IEntity</typeparam>
+    public class One<T> where T : IEntity
     {
         private string db = null;
 

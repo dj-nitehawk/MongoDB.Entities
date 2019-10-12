@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -176,41 +177,41 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the IMongoCollection for a given Entity type.
+        /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>(string db = null)
         {
             return GetDB(db).GetCollection<T>(GetCollectionName<T>());
         }
 
         /// <summary>
-        /// Gets the IMongoCollection for a given Entity type.
+        /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public IMongoCollection<T> Collection<T>()
         {
             return Collection<T>(DbName);
         }
 
         /// <summary>
-        /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
+        /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, string db = null) => Collection<T>(db).AsQueryable(options);
 
         /// <summary>
-        /// Exposes the MongoDB collection for the given Entity as an IQueryable in order to facilitate LINQ queries.
+        /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) => Queryable<T>(options, DbName);
 
         /// <summary>
-        /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
+        /// Exposes the MongoDB collection for the given IEntity as an IAggregateFluent in order to facilitate Fluent queries.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <returns></returns>
@@ -222,9 +223,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Exposes the MongoDB collection for the given Entity as an IAggregateFluent in order to facilitate Fluent queries.
+        /// Exposes the MongoDB collection for the given IEntity as an IAggregateFluent in order to facilitate Fluent queries.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <returns></returns>
@@ -236,10 +237,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static void Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             SaveAsync(entity, session, db).GetAwaiter().GetResult();
         }
@@ -247,10 +248,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Save<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        public void Save<T>(T entity, IClientSessionHandle session = null) where T : IEntity
         {
             SaveAsync(entity, session, DbName).GetAwaiter().GetResult();
         }
@@ -258,10 +259,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static async Task SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
@@ -274,10 +275,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : Entity
+        public async Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : IEntity
         {
             await SaveAsync(entity, session, DbName);
         }
@@ -285,10 +286,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists multiple entities to MongoDB in a single bulk operation
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             SaveAsync(entities, session, db).GetAwaiter().GetResult();
         }
@@ -296,10 +297,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists multiple entities to MongoDB in a single bulk operation
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : Entity
+        public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
             SaveAsync(entities, session, DbName).GetAwaiter().GetResult();
         }
@@ -307,10 +308,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Persists multiple entities to MongoDB in a single bulk operation
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static async Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             var models = new Collection<WriteModel<T>>();
             foreach (var ent in entities)
@@ -330,7 +331,7 @@ namespace MongoDB.Entities
                    : Collection<T>(db).BulkWriteAsync(session, models));
         }
 
-        private static async Task DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
+        private static async Task DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             var joinCollections = (await GetDB(db).ListCollectionNames().ToListAsync())
                                                   .Where(c =>
@@ -356,10 +357,10 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(string ID, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static void Delete<T>(string ID, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             DeleteAsync<T>(ID, session, db).GetAwaiter().GetResult();
         }
@@ -368,10 +369,10 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public void Delete<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(string ID, IClientSessionHandle session = null) where T : IEntity
         {
             DeleteAsync<T>(ID, session, DbName).GetAwaiter().GetResult();
         }
@@ -380,10 +381,10 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             await DeleteCascadingAsync<T>(new[] { ID }, session, db);
         }
@@ -392,10 +393,10 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : Entity
+        public async Task DeleteAsync<T>(string ID, IClientSessionHandle session = null) where T : IEntity
         {
             await DeleteCascadingAsync<T>(new[] { ID }, session, DbName);
         }
@@ -405,10 +406,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             DeleteAsync(expression, session, db).GetAwaiter().GetResult();
         }
@@ -418,10 +419,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
             DeleteAsync(expression, session, DbName).GetAwaiter().GetResult();
         }
@@ -431,10 +432,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             var IDs = await Queryable<T>(db: db)
                               .Where(expression)
@@ -449,10 +450,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : Entity
+        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
             await DeleteAsync(expression, session, DbName);
         }
@@ -462,10 +463,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             DeleteAsync<T>(IDs, session, db).GetAwaiter().GetResult();
         }
@@ -475,10 +476,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        public void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
             DeleteAsync<T>(IDs, session, DbName).GetAwaiter().GetResult();
         }
@@ -488,10 +489,10 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             await DeleteCascadingAsync<T>(IDs, session, db);
         }
@@ -501,30 +502,30 @@ namespace MongoDB.Entities
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : Entity
+        public async Task DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
             await DeleteCascadingAsync<T>(IDs, session, DbName);
         }
 
         /// <summary>
-        /// Represents an index for a given Entity
+        /// Represents an index for a given IEntity
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public static Index<T> Index<T>(string db = null) where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static Index<T> Index<T>(string db = null) where T : IEntity
         {
             return new Index<T>(db);
         }
 
         /// <summary>
-        /// Represents an index for a given Entity
+        /// Represents an index for a given IEntity
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-        public Index<T> Index<T>() where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public Index<T> Index<T>() where T : IEntity
         {
             return new Index<T>(DbName);
         }
@@ -533,7 +534,7 @@ namespace MongoDB.Entities
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -548,7 +549,7 @@ namespace MongoDB.Entities
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -563,7 +564,7 @@ namespace MongoDB.Entities
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -581,7 +582,7 @@ namespace MongoDB.Entities
         /// Search the text index of a collection for Entities matching the search term.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -595,7 +596,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -611,7 +612,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
@@ -625,8 +626,8 @@ namespace MongoDB.Entities
         /// Represents an update command
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static Update<T> Update<T>(string db = null) where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static Update<T> Update<T>(string db = null) where T : IEntity
         {
             return new Update<T>(db: db);
         }
@@ -635,8 +636,8 @@ namespace MongoDB.Entities
         /// Represents an update command
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public Update<T> Update<T>() where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public Update<T> Update<T>() where T : IEntity
         {
             return new Update<T>(db: DbName);
         }
@@ -645,8 +646,8 @@ namespace MongoDB.Entities
         /// Represents a MongoDB Find command
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static Find<T> Find<T>(string db = null) where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static Find<T> Find<T>(string db = null) where T : IEntity
         {
             return new Find<T>(db: db);
         }
@@ -655,8 +656,8 @@ namespace MongoDB.Entities
         /// Represents a MongoDB Find command
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public Find<T> Find<T>() where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public Find<T> Find<T>() where T : IEntity
         {
             return new Find<T>(db: DbName);
         }
@@ -665,10 +666,10 @@ namespace MongoDB.Entities
         /// Represents a MongoDB Find command
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
         /// <returns></returns>
-        public static Find<T, TProjection> Find<T, TProjection>(string db = null) where T : Entity
+        public static Find<T, TProjection> Find<T, TProjection>(string db = null) where T : IEntity
         {
             return new Find<T, TProjection>(db: db);
         }
@@ -677,10 +678,10 @@ namespace MongoDB.Entities
         /// Represents a MongoDB Find command
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
         /// <returns></returns>
-        public Find<T, TProjection> Find<T, TProjection>() where T : Entity
+        public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
         {
             return new Find<T, TProjection>(db: DbName);
         }
@@ -700,7 +701,7 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : Entity
+        public static IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             return (new GeoNear<T>
             {
@@ -733,7 +734,7 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : Entity
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             return (new GeoNear<T>
             {
@@ -754,8 +755,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Exposes the mongodb Filter Definition Builder for a given type.
         /// </summary>
-        /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-        public static FilterDefinitionBuilder<T> Filter<T>() where T : Entity
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
         {
             return Builders<T>.Filter;
         }
@@ -813,11 +814,11 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Returns a new instance of the supplied Entity type
+        /// Returns a new instance of the supplied IEntity type
         /// </summary>
-        /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <returns></returns>
-        public static T Entity<T>() where T : Entity, new()
+        public static T Entity<T>() where T : IEntity, new()
         {
             return new T();
         }

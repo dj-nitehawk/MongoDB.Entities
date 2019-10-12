@@ -1,4 +1,6 @@
-﻿namespace MongoDB.Entities.Tests
+﻿using MongoDB.Entities.Common;
+
+namespace MongoDB.Entities.Tests
 {
     public class Genre : Entity
     {

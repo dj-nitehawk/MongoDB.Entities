@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -10,8 +11,8 @@ namespace MongoDB.Entities
     /// Represents an index creation command
     /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
     /// </summary>
-    /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-    public class Index<T> where T : Entity
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    public class Index<T> where T : IEntity
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
         private readonly CreateIndexOptions options = new CreateIndexOptions { Background = true };
@@ -141,7 +142,7 @@ namespace MongoDB.Entities
         }
     }
 
-    internal class Key<T> where T : Entity
+    internal class Key<T> where T : IEntity
     {
         internal string PropertyName { get; set; }
         internal KeyType Type { get; set; }

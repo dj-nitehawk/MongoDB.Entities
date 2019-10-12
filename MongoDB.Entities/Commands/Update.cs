@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,8 +13,8 @@ namespace MongoDB.Entities
     /// Represents an update command
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
-    /// <typeparam name="T">Any class that inhertis from Entity</typeparam>
-    public class Update<T> where T : Entity
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    public class Update<T> where T : IEntity
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
@@ -30,7 +31,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a lambda expression
+        /// Specify the IEntity matching criteria with a lambda expression
         /// </summary>
         /// <param name="expression">A lambda expression to select the Entities to update</param>
         public Update<T> Match(Expression<Func<T, bool>> expression)
@@ -39,7 +40,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a filter expression
+        /// Specify the IEntity matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
@@ -175,7 +176,7 @@ namespace MongoDB.Entities
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
 
-            WithPipelineStage($"{{ $set: {{ '{nameof(Entity.ModifiedOn)}': new Date() }} }}");
+            WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
             await DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
         }
     }

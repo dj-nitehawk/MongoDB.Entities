@@ -22,7 +22,7 @@ namespace MongoDB.Entities
     public class InverseSideAttribute : Attribute { }
 
     /// <summary>
-    /// Use this attribute to specify a custom MongoDB collection name for an Entity.
+    /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class NameAttribute : Attribute
@@ -38,7 +38,7 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
-    /// Use this attribute to specify the database to store this Entity in.
+    /// Use this attribute to specify the database to store this IEntity in.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class DatabaseAttribute : Attribute

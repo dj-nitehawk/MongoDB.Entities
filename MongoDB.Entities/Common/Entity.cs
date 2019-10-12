@@ -2,10 +2,10 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace MongoDB.Entities
+namespace MongoDB.Entities.Common
 {
     [BsonIgnoreExtraElements]
-    public abstract class Entity
+    public abstract class Entity : IEntity
     {
         /// <summary>
         /// This property is auto managed. Don't ever change this manually.

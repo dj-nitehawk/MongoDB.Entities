@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,12 @@ namespace MongoDB.Entities
     /// <code>this.InitOneToMany(() => Property)</code>
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
-    /// <typeparam name="TChild">Type of the child Entity.</typeparam>
-    public class Many<TChild> : ManyBase where TChild : Entity
+    /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
+    public class Many<TChild> : ManyBase where TChild : IEntity
     {
         private string db = null;
         private bool inverse = false;
-        private Entity parent = null;
+        private IEntity parent = null;
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -55,10 +56,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IQueryable of parents matching a single child ID for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">A child ID</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, AggregateOptions options = null) where TParent : Entity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, AggregateOptions options = null) where TParent : IEntity
         {
             return ParentsQueryable<TParent>(new[] { childID }, options);
         }
@@ -66,10 +67,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IQueryable of parents matching multiple child IDs for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childIDs">An IEnumerable of child IDs</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, AggregateOptions options = null) where TParent : Entity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, AggregateOptions options = null) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -100,10 +101,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IQueryable of parents matching a supplied IQueryable of children for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="children">An IQueryable of children</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, AggregateOptions options = null) where TParent : Entity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, AggregateOptions options = null) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -142,9 +143,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IAggregateFluent of parents matching a supplied IAggregateFluent of children for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="children">An IAggregateFluent of children</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children) where TParent : Entity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -187,10 +188,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">An child ID</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : Entity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : IEntity
         {
             return ParentsFluent<TParent>(new[] { childID }, session);
         }
@@ -198,11 +199,11 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
         /// </summary>
-        /// <typeparam name="TParent">The type of the parent Entity</typeparam>
+        /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childIDs">An IEnumerable of child IDs</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : Entity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -301,7 +302,7 @@ namespace MongoDB.Entities
             Init((dynamic)parent, property);
         }
 
-        private void Init<TParent>(TParent parent, string property) where TParent : Entity
+        private void Init<TParent>(TParent parent, string property) where TParent : IEntity
         {
             this.parent = parent;
             db = parent.Database();
@@ -315,7 +316,7 @@ namespace MongoDB.Entities
             Init((dynamic)parent, propertyParent, propertyChild, isInverse);
         }
 
-        private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : Entity
+        private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : IEntity
         {
             this.parent = parent;
             db = parent.Database();
@@ -367,7 +368,7 @@ namespace MongoDB.Entities
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="child">The child Entity to add.</param>
+        /// <param name="child">The child IEntity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(TChild child, IClientSessionHandle session = null)
         {
@@ -378,7 +379,7 @@ namespace MongoDB.Entities
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="child">The child Entity to add.</param>
+        /// <param name="child">The child IEntity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public async Task AddAsync(TChild child, IClientSessionHandle session = null)
         {
@@ -428,7 +429,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Removes a child reference.
         /// </summary>
-        /// <param name="child">The child Entity to remove the reference of.</param>
+        /// <param name="child">The child IEntity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(TChild child, IClientSessionHandle session = null)
         {
@@ -438,7 +439,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Removes a child reference.
         /// </summary>
-        /// <param name="child">The child Entity to remove the reference of.</param>
+        /// <param name="child">The child IEntity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public async Task RemoveAsync(TChild child, IClientSessionHandle session = null)
         {

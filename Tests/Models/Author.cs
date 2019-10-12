@@ -1,4 +1,6 @@
-﻿namespace MongoDB.Entities.Tests
+﻿using MongoDB.Entities.Common;
+
+namespace MongoDB.Entities.Tests
 {
     [Name("Writer")]
     public class Author : Entity

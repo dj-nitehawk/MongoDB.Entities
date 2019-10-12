@@ -1,4 +1,5 @@
 ﻿
+using MongoDB.Entities.Common;
 using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests

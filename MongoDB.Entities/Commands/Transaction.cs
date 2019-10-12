@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -51,17 +52,17 @@ namespace MongoDB.Entities
         /// </summary>
         public async void AbortAsync() => await Session.AbortTransactionAsync();
 
-        public Update<T> Update<T>() where T : Entity
+        public Update<T> Update<T>() where T : IEntity
         {
             return new Update<T>(Session, db);
         }
 
-        public Find<T> Find<T>() where T : Entity
+        public Find<T> Find<T>() where T : IEntity
         {
             return new Find<T>(Session, db);
         }
 
-        public Find<T, TProjection> Find<T, TProjection>() where T : Entity
+        public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
         {
             return new Find<T, TProjection>(Session, db);
         }
@@ -71,7 +72,7 @@ namespace MongoDB.Entities
             return DB.Fluent<T>(options, Session, db);
         }
 
-        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : Entity
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
         {
             return (new GeoNear<T>
             {
@@ -89,52 +90,52 @@ namespace MongoDB.Entities
             .ToFluent(options, Session, db);
         }
 
-        public void Save<T>(T entity) where T : Entity
+        public void Save<T>(T entity) where T : IEntity
         {
             SaveAsync(entity).GetAwaiter().GetResult();
         }
 
-        public async Task SaveAsync<T>(T entity) where T : Entity
+        public async Task SaveAsync<T>(T entity) where T : IEntity
         {
             await DB.SaveAsync(entity, Session, db);
         }
 
-        public void Save<T>(IEnumerable<T> entities) where T : Entity
+        public void Save<T>(IEnumerable<T> entities) where T : IEntity
         {
             SaveAsync(entities).GetAwaiter().GetResult();
         }
 
-        public async Task SaveAsync<T>(IEnumerable<T> entities) where T : Entity
+        public async Task SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
         {
             await DB.SaveAsync<T>(entities, Session, db);
         }
 
-        public void Delete<T>(string ID) where T : Entity
+        public void Delete<T>(string ID) where T : IEntity
         {
             DeleteAsync<T>(ID).GetAwaiter().GetResult();
         }
 
-        public async Task DeleteAsync<T>(string ID) where T : Entity
+        public async Task DeleteAsync<T>(string ID) where T : IEntity
         {
             await DB.DeleteAsync<T>(ID, Session, db);
         }
 
-        public void Delete<T>(Expression<Func<T, bool>> expression) where T : Entity
+        public void Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
             DeleteAsync(expression).GetAwaiter().GetResult();
         }
 
-        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : Entity
+        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
             await DB.DeleteAsync(expression, Session, db);
         }
 
-        public void Delete<T>(IEnumerable<string> IDs) where T : Entity
+        public void Delete<T>(IEnumerable<string> IDs) where T : IEntity
         {
             DeleteAsync<T>(IDs).GetAwaiter().GetResult();
         }
 
-        public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : Entity
+        public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
         {
             await DB.DeleteAsync<T>(IDs, Session, db);
         }

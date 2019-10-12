@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
+using MongoDB.Entities.Common;
 
 namespace MongoDB.Entities
 {
@@ -40,7 +41,7 @@ namespace MongoDB.Entities
         }
     }
 
-    public class GeoNear<T> where T : Entity
+    public class GeoNear<T> where T : IEntity
     {
         public Coordinates2D near { get; set; }
         public string distanceField { get; set; }

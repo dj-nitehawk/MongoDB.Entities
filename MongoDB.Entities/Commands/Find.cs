@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Entities.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,8 +13,8 @@ namespace MongoDB.Entities
     /// Represents a MongoDB Find command
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// </summary>
-    /// <typeparam name="T">Any class that inherits from Entity</typeparam>
-    public class Find<T> : Find<T, T> where T : Entity
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    public class Find<T> : Find<T, T> where T : IEntity
     {
         internal Find(IClientSessionHandle session = null, string db = null) : base(session, db) { }
     }
@@ -22,9 +23,9 @@ namespace MongoDB.Entities
     /// Represents a MongoDB Find command
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// </summary>
-    /// <typeparam name="T">Any class that inherits from Entity</typeparam>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
-    public class Find<T, TProjection> where T : Entity
+    public class Find<T, TProjection> where T : IEntity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
@@ -39,9 +40,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find a single Entity by ID
+        /// Find a single IEntity by ID
         /// </summary>
-        /// <param name="ID">The unique ID of an Entity</param>
+        /// <param name="ID">The unique ID of an IEntity</param>
         /// <returns>A single entity or null if not found</returns>
         public TProjection One(string ID)
         {
@@ -50,9 +51,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find a single Entity by ID
+        /// Find a single IEntity by ID
         /// </summary>
-        /// <param name="ID">The unique ID of an Entity</param>
+        /// <param name="ID">The unique ID of an IEntity</param>
         /// <returns>A single entity or null if not found</returns>
         public async Task<TProjection> OneAsync(string ID)
         {
@@ -103,9 +104,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify an Entity ID as the matching criteria
+        /// Specify an IEntity ID as the matching criteria
         /// </summary>
-        /// <param name="ID">A unique Entity ID</param>
+        /// <param name="ID">A unique IEntity ID</param>
         public Find<T, TProjection> Match(string ID)
         {
             return Match(f => f.Eq(t => t.ID, ID));
