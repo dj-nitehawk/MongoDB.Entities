@@ -8,12 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.5</Version>
-    <AssemblyVersion>8.5.0.0</AssemblyVersion>
-    <FileVersion>8.5.0.0</FileVersion>
+    <Version>8.6</Version>
+    <AssemblyVersion>8.6.0.0</AssemblyVersion>
+    <FileVersion>8.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- implicit operator for one-to-one relationships
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- BREAKING: the Entity base class was moved to 'MongoDB.Entities.Common' namespace
+- the Entity base class now implements IEntity to support decoupling of layers by consumers
+- other misc. changes
+- updated tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
