@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 
-namespace MongoDB.Entities.Common
+namespace MongoDB.Entities.Core
 {
     [BsonIgnoreExtraElements]
     public abstract class Entity : IEntity

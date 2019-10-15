@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MongoDB.Entities.Common
+namespace MongoDB.Entities.Core
 {
     public interface IEntity
     {

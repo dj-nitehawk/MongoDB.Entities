@@ -1,5 +1,5 @@
 ﻿using MongoDB.Entities;
-using MongoDB.Entities.Common;
+using MongoDB.Entities.Core;
 
 namespace Benchmark.Models
 {
