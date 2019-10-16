@@ -347,8 +347,8 @@ namespace MongoDB.Entities
             }
 
             tasks.Add(session == null
-                       ? Collection<T>(db).DeleteOneAsync(x => IDs.Contains(x.ID))
-                       : Collection<T>(db).DeleteOneAsync(session, x => IDs.Contains(x.ID)));
+                       ? Collection<T>(db).DeleteManyAsync(x => IDs.Contains(x.ID))
+                       : Collection<T>(db).DeleteManyAsync(session, x => IDs.Contains(x.ID)));
 
             await Task.WhenAll(tasks);
         }

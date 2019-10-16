@@ -75,5 +75,19 @@ namespace MongoDB.Entities.Tests
             author.Delete();
             Assert.AreEqual(null, book.MainAuthor.ToEntity());
         }
+
+        [TestMethod]
+        public void delete_by_expression_deletes_all_matches()
+        {
+            var author1 = new Author { Name = "xxx" }; author1.Save();
+            var author2 = new Author { Name = "xxx" }; author2.Save();
+
+            DB.Delete<Author>(x => x.Name == "xxx");
+
+            var count = DB.Queryable<Author>()
+                          .Count(a => a.Name == "xxx");
+
+            Assert.AreEqual(0, count);
+        }
     }
 }
