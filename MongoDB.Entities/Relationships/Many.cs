@@ -23,7 +23,7 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public class Many<TChild> : ManyBase where TChild : IEntity
+    public class Many<TChild> : ManyBase where TChild : IEntity, new()
     {
         private string db = null;
         private bool inverse = false;
@@ -390,9 +390,10 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                join = await JoinQueryable().SingleOrDefaultAsync(r =>
-                                                                   r.ChildID.Equals(parent.ID) &&
-                                                                   r.ParentID.Equals(child.ID));
+                join = await JoinQueryable()
+                                .SingleOrDefaultAsync(r =>
+                                    r.ChildID.Equals(parent.ID) &&
+                                    r.ParentID.Equals(child.ID));
                 if (join == null)
                 {
                     join = new JoinRecord()
@@ -406,9 +407,10 @@ namespace MongoDB.Entities
             }
             else
             {
-                join = await JoinQueryable().SingleOrDefaultAsync(r =>
-                                                                   r.ParentID.Equals(parent.ID) &&
-                                                                   r.ChildID.Equals(child.ID));
+                join = await JoinQueryable()
+                                .SingleOrDefaultAsync(r =>
+                                    r.ParentID.Equals(parent.ID) &&
+                                    r.ChildID.Equals(child.ID));
                 if (join == null)
                 {
                     join = new JoinRecord()
@@ -456,6 +458,52 @@ namespace MongoDB.Entities
                        : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
 
             }
+        }
+
+        /// <summary>
+        /// Overloaded operator for adding a child entity
+        /// </summary>
+        /// <param name="many">The left side of the + operand</param>
+        /// <param name="child">The right side of the + operand</param>
+        public static Many<TChild> operator +(Many<TChild> many, TChild child)
+        {
+            many.Add(child);
+            return many;
+        }
+
+        /// <summary>
+        /// Overloaded operator for adding a child entity by specifying only the childID
+        /// </summary>
+        /// <param name="many">The left side of the + operand</param>
+        /// <param name="childID">The right side of the + operand</param>
+        public static Many<TChild> operator +(Many<TChild> many, string childID)
+        {
+            many.Add(new TChild { ID = childID });
+            return many;
+        }
+
+        /// <summary>
+        /// Overloaded operator for removing a child entity
+        /// </summary>
+        /// <param name="many">The left side of the - operand</param>
+        /// <param name="child">The right side of the - operand</param>
+        /// <returns></returns>
+        public static Many<TChild> operator -(Many<TChild> many, TChild child)
+        {
+            many.Remove(child);
+            return many;
+        }
+
+        /// <summary>
+        /// Overloaded operator for removing a child entity by specifying only the childID
+        /// </summary>
+        /// <param name="many">The left side of the - operand</param>
+        /// <param name="childID">The right side of the - operand</param>
+        /// <returns></returns>
+        public static Many<TChild> operator -(Many<TChild> many, string childID)
+        {
+            many.Remove(new TChild { ID = childID });
+            return many;
         }
 
         /// <summary>

@@ -8,12 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.8</Version>
-    <AssemblyVersion>8.8.0.0</AssemblyVersion>
-    <FileVersion>8.8.0.0</FileVersion>
+    <Version>8.9</Version>
+    <AssemblyVersion>8.9.0.0</AssemblyVersion>
+    <FileVersion>8.9.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- bugfix: delete by expression only deletes first entity matched
-- new test</PackageReleaseNotes>
+    <PackageReleaseNotes>- new operator overload (+=) for Many&lt;T&gt; to add children
+- new operator overload (-=) for Many&lt;T&gt; to remove children
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -288,5 +288,47 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book.Title, books.Single().Title);
 
         }
+
+        [TestMethod]
+        public void overload_operator_for_adding_children_to_many_relationships()
+        {
+            var author = new Author { Name = "author" }; author.Save();
+
+            var b1 = new Book { Title = "book1" }; b1.Save();
+            var b2 = new Book { Title = "book2" }; b2.Save();
+
+            author.Books += b1;
+            author.Books += b2.ID;
+
+            var books = author.Books
+                              .ChildrenQueryable()
+                              .OrderBy(b => b.Title)
+                              .ToList();
+
+            Assert.AreEqual(2, books.Count());
+            Assert.IsTrue(books[0].Title == "book1");
+            Assert.IsTrue(books[1].Title == "book2");
+        }
+
+        [TestMethod]
+        public void overload_operator_for_removing_children_from_many_relationships()
+        {
+            var author = new Author { Name = "author" }; author.Save();
+
+            var b1 = new Book { Title = "book1" }; b1.Save();
+            var b2 = new Book { Title = "book2" }; b2.Save();
+
+            author.Books += b1;
+            author.Books += b2.ID;
+
+            author.Books -= b1;
+            author.Books -= b2.ID;
+
+            var count = author.Books
+                              .ChildrenQueryable()
+                              .Count();
+
+            Assert.AreEqual(0, count);
+        }
     }
 }
