@@ -234,8 +234,31 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Get the number of children for a relationship
+        /// </summary>
+        /// <param name="options">An optional AggregateOptions object</param>
+        public int ChildrenCount(AggregateOptions options = null)
+        {
+            parent.ThrowIfUnsaved();
+
+            if (inverse)
+            {
+                return JoinQueryable(options)
+                       .Where(j => j.ChildID == parent.ID)
+                       .Count();
+            }
+            else
+            {
+                return JoinQueryable(options)
+                       .Where(j => j.ParentID == parent.ID)
+                       .Count();
+            }
+        }
+
+        /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
+        /// <param name="options">An optional AggregateOptions object</param>
         public IMongoQueryable<TChild> ChildrenQueryable(AggregateOptions options = null)
         {
             parent.ThrowIfUnsaved();

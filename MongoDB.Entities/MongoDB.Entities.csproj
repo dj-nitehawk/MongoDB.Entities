@@ -8,12 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.9</Version>
-    <AssemblyVersion>8.9.0.0</AssemblyVersion>
-    <FileVersion>8.9.0.0</FileVersion>
+    <Version>8.10</Version>
+    <AssemblyVersion>8.10.0.0</AssemblyVersion>
+    <FileVersion>8.10.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- new operator overload (+=) for Many&lt;T&gt; to add children
-- new operator overload (-=) for Many&lt;T&gt; to remove children
+    <PackageReleaseNotes>- new shortcut method Many&lt;T&gt;.ChildrenCount()
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
