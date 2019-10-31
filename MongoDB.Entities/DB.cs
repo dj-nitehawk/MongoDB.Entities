@@ -168,7 +168,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the DB instance for a given database name.
         /// </summary>
-        /// <param name="database"></param>
+        /// <param name="database">The database name to retrieve the DB instance for</param>
+        /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
         public static DB GetInstance(string database)
         {
             if (instances.ContainsKey(database)) return instances[database];

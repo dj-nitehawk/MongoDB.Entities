@@ -70,6 +70,15 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual("test2", res.DbName);
         }
+
+        [TestMethod]
+        public void uninitialized_get_instance_throws()
+        {
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                DB.GetInstance("some-database");
+            });
+        }
     }
 
 }
