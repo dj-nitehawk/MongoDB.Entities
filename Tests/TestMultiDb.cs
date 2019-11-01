@@ -79,6 +79,17 @@ namespace MongoDB.Entities.Tests
                 DB.GetInstance("some-database");
             });
         }
+
+        [TestMethod]
+        public void multiple_initializations_should_not_throw()
+        {
+            new DB("multi-init");
+            new DB("multi-init");
+
+            var instance = DB.GetInstance("multi-init");
+
+            Assert.AreEqual("multi-init", instance.DbName);
+        }
     }
 
 }

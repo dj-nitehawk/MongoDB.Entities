@@ -12,7 +12,8 @@
     <AssemblyVersion>8.11.0.0</AssemblyVersion>
     <FileVersion>8.11.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- xml doc updated for DB.GetInstance()
+    <PackageReleaseNotes>- better support for azure functions
+- xml doc updated for DB.GetInstance()
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

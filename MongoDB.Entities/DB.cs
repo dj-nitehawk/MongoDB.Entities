@@ -52,7 +52,8 @@ namespace MongoDB.Entities
         private void Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
-            if (dbs.ContainsKey(db)) throw new InvalidOperationException($"Connection already initialized for [{db}]");
+
+            if (dbs.ContainsKey(db)) return;
 
             try
             {
