@@ -52,6 +52,8 @@ namespace MongoDB.Entities
         private void Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
+            
+            DbName = db;
 
             if (dbs.ContainsKey(db)) return;
 
@@ -60,7 +62,6 @@ namespace MongoDB.Entities
                 dbs.Add(db, new MongoClient(settings).GetDatabase(db));
                 instances.Add(db, this);
                 dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
-                DbName = db;
             }
             catch (Exception)
             {

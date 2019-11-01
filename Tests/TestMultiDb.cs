@@ -85,10 +85,12 @@ namespace MongoDB.Entities.Tests
         {
             new DB("multi-init");
             new DB("multi-init");
-
+            
+            var db = new DB("multi-init");
             var instance = DB.GetInstance("multi-init");
 
             Assert.AreEqual("multi-init", instance.DbName);
+            Assert.AreEqual("multi-init", db.DbName);
         }
     }
 
