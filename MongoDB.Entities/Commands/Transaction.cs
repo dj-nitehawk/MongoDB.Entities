@@ -40,7 +40,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Commits a tranaction to MongoDB
         /// </summary>
-        public async void CommitAsync() => await Session.CommitTransactionAsync();
+        public async Task CommitAsync() => await Session.CommitTransactionAsync();
 
         /// <summary>
         /// Aborts and rolls back a tranaction
@@ -50,7 +50,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Aborts and rolls back a tranaction
         /// </summary>
-        public async void AbortAsync() => await Session.AbortTransactionAsync();
+        public async Task AbortAsync() => await Session.AbortTransactionAsync();
 
         public Update<T> Update<T>() where T : IEntity
         {
@@ -155,12 +155,28 @@ namespace MongoDB.Entities
             return DB.SearchTextFluent<T>(searchTerm, caseSensitive, options, Session, db);
         }
 
-        /// <summary>
-        /// Ends the transaction and disposes the session.
-        /// </summary>
+        #region IDisposable Support
+
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Session.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
         public void Dispose()
         {
-            Session.Dispose();
+            Dispose(true);
         }
+
+        #endregion        
     }
 }

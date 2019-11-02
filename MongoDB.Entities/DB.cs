@@ -52,7 +52,7 @@ namespace MongoDB.Entities
         private void Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
-            
+
             DbName = db;
 
             if (dbs.ContainsKey(db)) return;

@@ -282,7 +282,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() => PropertyName</param>
-        public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity,new()
+        public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity, new()
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
