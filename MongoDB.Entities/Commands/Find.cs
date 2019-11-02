@@ -31,7 +31,7 @@ namespace MongoDB.Entities
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session = null;
-        private string db = null;
+        private readonly string db = null;
 
         internal Find(IClientSessionHandle session = null, string db = null)
         {
@@ -137,7 +137,7 @@ namespace MongoDB.Entities
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
         public Find<T, TProjection> MatchExpression(string expression)
         {
-            this.filter = "{$expr:" + expression + "}";
+            filter = "{$expr:" + expression + "}";
             return this;
         }
 

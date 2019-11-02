@@ -22,7 +22,7 @@ namespace MongoDB.Entities
         private UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session = null;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
-        private string db = null;
+        private readonly string db = null;
 
         internal Update(IClientSessionHandle session = null, string db = null)
         {

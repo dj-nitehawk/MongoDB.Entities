@@ -8,7 +8,7 @@ namespace MongoDB.Entities.Tests
     [TestClass]
     public class MultiDb
     {
-        private static DB db = null;
+        private static readonly DB db = null;
 
         static MultiDb()
         {

@@ -17,7 +17,7 @@ namespace MongoDB.Entities
     {
         public IClientSessionHandle Session { get; }
         private readonly IMongoClient client;
-        private string db = null;
+        private readonly string db = null;
 
         /// <summary>
         /// Instantiates and begins a transaction.

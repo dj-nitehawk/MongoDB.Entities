@@ -16,7 +16,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any type that implements IEntity</typeparam>
     public class One<T> where T : IEntity
     {
-        private string db = null;
+        private readonly string db = null;
 
         /// <summary>
         /// The Id of the entity referenced by this instance.

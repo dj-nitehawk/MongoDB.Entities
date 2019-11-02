@@ -23,8 +23,8 @@ namespace MongoDB.Entities
         /// </summary>
         public string DbName { get; private set; } = null;
 
-        private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
-        private static Dictionary<string, DB> instances = new Dictionary<string, DB>();
+        private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
         private static bool isSetupDone = false;
 
         /// <summary>
