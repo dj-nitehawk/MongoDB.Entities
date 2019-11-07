@@ -409,8 +409,6 @@ namespace MongoDB.Entities
             AddAsync(child, session).GetAwaiter().GetResult();
         }
 
-        //todo: write tests for new methods
-
         /// <summary>
         /// Adds a new child reference by ID.
         /// </summary>

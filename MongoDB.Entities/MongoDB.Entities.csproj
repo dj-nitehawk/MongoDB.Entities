@@ -15,7 +15,8 @@
     <PackageReleaseNotes>- add &amp; remove children of Many&lt;T&gt; with only the ID
 - optimize Many&lt;T&gt;.Add() method
 - optimize Many&lt;T&gt;Count() method
-- new Many&lt;T&gt;.CountAsync() method</PackageReleaseNotes>
+- new Many&lt;T&gt;.CountAsync() method
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
