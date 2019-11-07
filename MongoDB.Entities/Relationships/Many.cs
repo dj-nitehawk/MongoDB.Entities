@@ -402,6 +402,17 @@ namespace MongoDB.Entities
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
+        /// <param name="childID">The ID of the child entity to add.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Add(string childID, IClientSessionHandle session = null)
+        {
+            AddAsync(new TChild { ID = childID }, session).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Adds a new child reference.
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
         /// <param name="child">The child IEntity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public async Task AddAsync(TChild child, IClientSessionHandle session = null)
@@ -459,6 +470,16 @@ namespace MongoDB.Entities
         public void Remove(TChild child, IClientSessionHandle session = null)
         {
             RemoveAsync(child, session).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Removes a child reference.
+        /// </summary>
+        /// <param name="childID">The ID of the child entity to remove the reference of.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Remove(string childID, IClientSessionHandle session = null)
+        {
+            RemoveAsync(new TChild { ID = childID }, session).GetAwaiter().GetResult();
         }
 
         /// <summary>
