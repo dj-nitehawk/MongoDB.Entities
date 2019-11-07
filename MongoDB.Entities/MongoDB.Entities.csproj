@@ -8,15 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.11.2</Version>
-    <AssemblyVersion>8.11.2.0</AssemblyVersion>
-    <FileVersion>8.11.2.0</FileVersion>
+    <Version>8.12</Version>
+    <AssemblyVersion>8.12.0.0</AssemblyVersion>
+    <FileVersion>8.12.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- better support for azure functions
-- xml doc updated for DB.GetInstance()
-- transaction commit async now returns task instead of void
-- code cleanup
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- add &amp; remove children of Many&lt;T&gt; with only the ID
+-</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

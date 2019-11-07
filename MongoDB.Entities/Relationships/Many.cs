@@ -398,9 +398,10 @@ namespace MongoDB.Entities
             AddAsync(child, session).GetAwaiter().GetResult();
         }
 
+        //todo: write tests for new methods
+
         /// <summary>
-        /// Adds a new child reference.
-        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// Adds a new child reference by ID.
         /// </summary>
         /// <param name="childID">The ID of the child entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
@@ -424,10 +425,10 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                join = await JoinQueryable()
-                                .SingleOrDefaultAsync(r =>
-                                    r.ChildID.Equals(parent.ID) &&
-                                    r.ParentID.Equals(child.ID));
+                join = await (session == null ?
+                              JoinCollection.Find(r => r.ChildID == parent.ID && r.ParentID == child.ID).SingleOrDefaultAsync() :
+                              JoinCollection.Find(session, r => r.ChildID == parent.ID && r.ParentID == child.ID).SingleOrDefaultAsync());
+
                 if (join == null)
                 {
                     join = new JoinRecord()
@@ -438,13 +439,17 @@ namespace MongoDB.Entities
                         ChildID = parent.ID,
                     };
                 }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                join = await JoinQueryable()
-                                .SingleOrDefaultAsync(r =>
-                                    r.ParentID.Equals(parent.ID) &&
-                                    r.ChildID.Equals(child.ID));
+                join = await (session == null ?
+                              JoinCollection.Find(r => r.ParentID == parent.ID && r.ChildID == child.ID).SingleOrDefaultAsync() :
+                              JoinCollection.Find(session, r => r.ParentID == parent.ID && r.ChildID == child.ID).SingleOrDefaultAsync());
+
                 if (join == null)
                 {
                     join = new JoinRecord()
@@ -455,11 +460,15 @@ namespace MongoDB.Entities
                         ChildID = child.ID,
                     };
                 }
+                else
+                {
+                    return;
+                }
             }
 
             await (session == null
-                   ? JoinCollection.ReplaceOneAsync(x => x.ID.Equals(join.ID), join, new UpdateOptions() { IsUpsert = true })
-                   : JoinCollection.ReplaceOneAsync(session, x => x.ID.Equals(join.ID), join, new UpdateOptions() { IsUpsert = true }));
+                   ? JoinCollection.InsertOneAsync(join)
+                   : JoinCollection.InsertOneAsync(session, join));
         }
 
         /// <summary>
@@ -473,7 +482,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Removes a child reference.
+        /// Removes a child reference by ID.
         /// </summary>
         /// <param name="childID">The ID of the child entity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
