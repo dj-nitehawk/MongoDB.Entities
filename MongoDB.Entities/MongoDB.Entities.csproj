@@ -13,7 +13,9 @@
     <FileVersion>8.12.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- add &amp; remove children of Many&lt;T&gt; with only the ID
--</PackageReleaseNotes>
+- optimize Many&lt;T&gt;.Add() method
+- optimize Many&lt;T&gt;Count() method
+- new Many&lt;T&gt;.CountAsync() method</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

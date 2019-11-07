@@ -236,22 +236,33 @@ namespace MongoDB.Entities
         /// <summary>
         /// Get the number of children for a relationship
         /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public int ChildrenCount(AggregateOptions options = null)
+        public long ChildrenCount(IClientSessionHandle session = null, CountOptions options = null)
+        {
+            return ChildrenCountAsync(session, options).GetAwaiter().GetResult();
+        }
+
+        /// <summary>
+        /// Get the number of children for a relationship
+        /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="options">An optional AggregateOptions object</param>
+        public async Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null)
         {
             parent.ThrowIfUnsaved();
 
             if (inverse)
             {
-                return JoinQueryable(options)
-                       .Where(j => j.ChildID == parent.ID)
-                       .Count();
+                return await (session == null ?
+                              JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options) :
+                              JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options));
             }
             else
             {
-                return JoinQueryable(options)
-                       .Where(j => j.ParentID == parent.ID)
-                       .Count();
+                return await (session == null ?
+                              JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options) :
+                              JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options));
             }
         }
 
