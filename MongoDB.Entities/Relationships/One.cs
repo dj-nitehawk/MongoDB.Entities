@@ -59,7 +59,7 @@ namespace MongoDB.Entities
         /// <returns>The actual entity</returns>
         public T ToEntity(IClientSessionHandle session = null)
         {
-            return ToEntityAsync(session).GetAwaiter().GetResult();
+            return Run.Sync(() => ToEntityAsync(session));
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
         {
-            return ToEntityAsync(projection, session).GetAwaiter().GetResult();
+            return Run.Sync(() => ToEntityAsync(projection, session));
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
         {
-            return ToEntityAsync(projection, session).GetAwaiter().GetResult();
+            return Run.Sync(() => ToEntityAsync(projection, session));
         }
 
         /// <summary>

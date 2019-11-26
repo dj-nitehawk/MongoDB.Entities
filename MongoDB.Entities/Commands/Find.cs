@@ -46,8 +46,7 @@ namespace MongoDB.Entities
         /// <returns>A single entity or null if not found</returns>
         public TProjection One(string ID)
         {
-            return OneAsync(ID).GetAwaiter().GetResult();
-
+            return Run.Sync(() => OneAsync(ID));
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace MongoDB.Entities
         /// <returns>A list of Entities</returns>
         public List<TProjection> Many(Expression<Func<T, bool>> expression)
         {
-            return ManyAsync(expression).GetAwaiter().GetResult();
+            return Run.Sync(() => ManyAsync(expression));
         }
 
         /// <summary>
@@ -89,7 +88,7 @@ namespace MongoDB.Entities
         /// <returns>A list of Entities</returns>
         public List<TProjection> Many(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            return ManyAsync(filter).GetAwaiter().GetResult();
+            return Run.Sync(() => ManyAsync(filter));
         }
 
         /// <summary>
@@ -218,7 +217,7 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public List<TProjection> Execute()
         {
-            return ExecuteAsync().GetAwaiter().GetResult();
+            return Run.Sync(() => ExecuteAsync());
         }
 
         /// <summary>

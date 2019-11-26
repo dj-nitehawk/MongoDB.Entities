@@ -211,7 +211,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Save<T>(this T entity) where T : IEntity
         {
-            SaveAsync(entity).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entity));
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Save<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            SaveAsync(entities).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entities));
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Delete<T>(this T entity) where T : IEntity
         {
-            DeleteAsync(entity).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync(entity));
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static void DeleteAll<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            DeleteAllAsync(entities).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAllAsync(entities));
         }
 
         /// <summary>

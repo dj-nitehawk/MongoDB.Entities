@@ -92,7 +92,7 @@ namespace MongoDB.Entities
 
         public void Save<T>(T entity) where T : IEntity
         {
-            SaveAsync(entity).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entity));
         }
 
         public async Task SaveAsync<T>(T entity) where T : IEntity
@@ -102,17 +102,17 @@ namespace MongoDB.Entities
 
         public void Save<T>(IEnumerable<T> entities) where T : IEntity
         {
-            SaveAsync(entities).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entities));
         }
 
         public async Task SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
         {
-            await DB.SaveAsync<T>(entities, Session, db);
+            await DB.SaveAsync(entities, Session, db);
         }
 
         public void Delete<T>(string ID) where T : IEntity
         {
-            DeleteAsync<T>(ID).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(ID));
         }
 
         public async Task DeleteAsync<T>(string ID) where T : IEntity
@@ -122,7 +122,7 @@ namespace MongoDB.Entities
 
         public void Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
-            DeleteAsync(expression).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync(expression));
         }
 
         public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
@@ -132,7 +132,7 @@ namespace MongoDB.Entities
 
         public void Delete<T>(IEnumerable<string> IDs) where T : IEntity
         {
-            DeleteAsync<T>(IDs).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(IDs));
         }
 
         public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
@@ -142,7 +142,7 @@ namespace MongoDB.Entities
 
         public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
         {
-            return SearchTextAsync(searchTerm, caseSensitive, options).GetAwaiter().GetResult();
+            return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options));
         }
 
         public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)

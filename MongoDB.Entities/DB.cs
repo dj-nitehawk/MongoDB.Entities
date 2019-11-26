@@ -245,7 +245,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static void Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            SaveAsync(entity, session, db).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entity, session, db));
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Save<T>(T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            SaveAsync(entity, session, DbName).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entity, session, DbName));
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            SaveAsync(entities, session, db).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entities, session, db));
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            SaveAsync(entities, session, DbName).GetAwaiter().GetResult();
+            Run.Sync(() => SaveAsync(entities, session, DbName));
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static void Delete<T>(string ID, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            DeleteAsync<T>(ID, session, db).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(ID, session, db));
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(string ID, IClientSessionHandle session = null) where T : IEntity
         {
-            DeleteAsync<T>(ID, session, DbName).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(ID, session, DbName));
         }
 
         /// <summary>
@@ -414,7 +414,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            DeleteAsync(expression, session, db).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync(expression, session, db));
         }
 
         /// <summary>
@@ -427,7 +427,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
-            DeleteAsync(expression, session, DbName).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync(expression, session, DbName));
         }
 
         /// <summary>
@@ -471,7 +471,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            DeleteAsync<T>(IDs, session, db).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(IDs, session, db));
         }
 
         /// <summary>
@@ -484,7 +484,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public void Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
-            DeleteAsync<T>(IDs, session, DbName).GetAwaiter().GetResult();
+            Run.Sync(() => DeleteAsync<T>(IDs, session, DbName));
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
         {
-            return SearchTextAsync(searchTerm, caseSensitive, options, session, db).GetAwaiter().GetResult();
+            return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options, session, db));
         }
 
         /// <summary>
@@ -560,7 +560,7 @@ namespace MongoDB.Entities
         /// <returns>A List of Entities of given type</returns>
         public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
         {
-            return SearchTextAsync(searchTerm, caseSensitive, options, session, DbName).GetAwaiter().GetResult();
+            return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options, session, DbName));
         }
 
         /// <summary>

@@ -240,7 +240,7 @@ namespace MongoDB.Entities
         /// <param name="options">An optional AggregateOptions object</param>
         public long ChildrenCount(IClientSessionHandle session = null, CountOptions options = null)
         {
-            return ChildrenCountAsync(session, options).GetAwaiter().GetResult();
+            return Run.Sync(() => ChildrenCountAsync(session, options));
         }
 
         /// <summary>
@@ -406,7 +406,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(TChild child, IClientSessionHandle session = null)
         {
-            AddAsync(child, session).GetAwaiter().GetResult();
+            Run.Sync(() => AddAsync(child, session));
         }
 
         /// <summary>
@@ -416,7 +416,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(string childID, IClientSessionHandle session = null)
         {
-            AddAsync(new TChild { ID = childID }, session).GetAwaiter().GetResult();
+            Run.Sync(() => AddAsync(new TChild { ID = childID }, session));
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(TChild child, IClientSessionHandle session = null)
         {
-            RemoveAsync(child, session).GetAwaiter().GetResult();
+            Run.Sync(() => RemoveAsync(child, session));
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(string childID, IClientSessionHandle session = null)
         {
-            RemoveAsync(new TChild { ID = childID }, session).GetAwaiter().GetResult();
+            Run.Sync(() => RemoveAsync(new TChild { ID = childID }, session));
         }
 
         /// <summary>

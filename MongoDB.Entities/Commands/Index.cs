@@ -28,7 +28,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void Create()
         {
-            CreateAsync().GetAwaiter().GetResult();
+            Run.Sync(() => CreateAsync());
         }
 
         /// <summary>
