@@ -8,11 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.13</Version>
-    <AssemblyVersion>8.13.0.0</AssemblyVersion>
-    <FileVersion>8.13.0.0</FileVersion>
+    <Version>8.13.1</Version>
+    <AssemblyVersion>8.13.1.0</AssemblyVersion>
+    <FileVersion>8.13.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- fix deadlocking issue on classic .net framework
+    <PackageReleaseNotes>- upgrade project to .net core sdk 3.1
 - upgrade dependancies to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
@@ -29,8 +29,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.3" />
     <PackageReference Include="MongoDB.Entities.Core" Version="1.0.0" />
   </ItemGroup>
