@@ -13,7 +13,8 @@
     <FileVersion>8.14.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- upgraded mongodb driver to v2.10
-- upgraded mongodb core to latest</PackageReleaseNotes>
+- upgraded mongodb core to latest
+- minor code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
