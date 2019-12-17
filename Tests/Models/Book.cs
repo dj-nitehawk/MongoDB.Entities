@@ -6,6 +6,7 @@ namespace MongoDB.Entities.Tests
 {
     public class Book : Entity
     {
+        public Date PublishedOn { get; set; }
         public string Title { get; set; }
         public decimal Price { get; set; }
         public int PriceInt { get; set; }

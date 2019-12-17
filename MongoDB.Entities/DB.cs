@@ -73,6 +73,7 @@ namespace MongoDB.Entities
 
             if (!isSetupDone)
             {
+                BsonSerializer.RegisterSerializer(new DateSerializer());
                 BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
                 BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
