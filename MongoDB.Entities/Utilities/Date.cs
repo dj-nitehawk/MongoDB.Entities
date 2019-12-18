@@ -8,7 +8,9 @@ namespace MongoDB.Entities
 {
     internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
     {
-        private static readonly BsonDocumentSerializer serializer = new BsonDocumentSerializer();
+        private static readonly BsonDocumentSerializer docSerializer = new BsonDocumentSerializer();
+        private static readonly Int64Serializer longSerializer = new Int64Serializer();
+        private static readonly DateTimeSerializer dtSerializer = new DateTimeSerializer();
 
         public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, Date date)
         {
@@ -16,7 +18,7 @@ namespace MongoDB.Entities
             {
                 context.Writer.WriteStartDocument();
                 context.Writer.WriteNull("DateTime");
-                context.Writer.WriteInt64("Ticks",0);
+                context.Writer.WriteInt64("Ticks", 0);
                 context.Writer.WriteEndDocument();
                 return;
             }
@@ -30,15 +32,12 @@ namespace MongoDB.Entities
 
         public override Date Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
         {
-            var ticks = serializer.Deserialize(context, args)
-                                  .GetValue("Ticks").AsInt64;
-
-            if (ticks == 0) return null;
-
-            return new Date()
-            {
-                DateTime = new DateTime(ticks, DateTimeKind.Utc)
-            };
+            var ticks = docSerializer.Deserialize(context, args)
+                                     .GetValue("Ticks").AsInt64;
+            return
+                (ticks == 0) ?
+                null :
+                new Date() { DateTime = new DateTime(ticks, DateTimeKind.Utc) };
         }
 
         public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
@@ -46,10 +45,10 @@ namespace MongoDB.Entities
             switch (memberName)
             {
                 case "Ticks":
-                    serializationInfo = new BsonSerializationInfo("Ticks", new Int64Serializer(), typeof(long));
+                    serializationInfo = new BsonSerializationInfo("Ticks", longSerializer, typeof(long));
                     return true;
                 case "DateTime":
-                    serializationInfo = new BsonSerializationInfo("DateTime", new DateTimeSerializer(), typeof(DateTime));
+                    serializationInfo = new BsonSerializationInfo("DateTime", dtSerializer, typeof(DateTime));
                     return true;
                 default:
                     serializationInfo = null;
@@ -75,15 +74,15 @@ namespace MongoDB.Entities
             set { date = value; ticks = value.Ticks; }
         }
 
-        public static implicit operator Date(DateTime dt)
+        public static implicit operator Date(DateTime datetime)
         {
-            return new Date { DateTime = dt };
+            return new Date { DateTime = datetime };
         }
 
-        public static implicit operator DateTime(Date dt)
+        public static implicit operator DateTime(Date date)
         {
-            if (dt == null) throw new NullReferenceException("The [Date] instance is Null!");
-            return new DateTime(dt.Ticks);
+            if (date == null) throw new NullReferenceException("The [Date] instance is Null!");
+            return new DateTime(date.Ticks);
         }
     }
 }
