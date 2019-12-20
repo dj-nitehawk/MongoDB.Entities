@@ -28,6 +28,25 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void full_text_search_with_wilcard_text_index_works()
+        {
+            DB.Index<Author>()
+              .Option(o => o.Background = false)
+              .Key(a => a, KeyType.Text)
+              .Create();
+
+            var author1 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
+            author1.Save();
+
+            var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
+            author2.Save();
+
+            var res = DB.SearchText<Author>(author1.Surname);
+
+            Assert.AreEqual(author1.Surname, res.First().Surname);
+        }
+
+        [TestMethod]
         public void creating_compound_index_works()
         {
             DB.Index<Book>()

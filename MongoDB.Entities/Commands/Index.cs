@@ -138,7 +138,6 @@ namespace MongoDB.Entities
         {
             Keys.Add(new Key<T>(propertyToIndex, type));
             return this;
-
         }
     }
 
@@ -149,7 +148,11 @@ namespace MongoDB.Entities
 
         internal Key(Expression<Func<T, object>> prop, KeyType type)
         {
-            PropertyName = prop.FullPath();
+            PropertyName = 
+                prop.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text ? 
+                "$**" : 
+                prop.FullPath();
+
             Type = type;
         }
     }
