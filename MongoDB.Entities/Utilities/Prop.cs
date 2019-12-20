@@ -25,6 +25,9 @@ namespace MongoDB.Entities
 
         private static string GetPath<T>(Expression<Func<T, object>> expression)
         {
+            if (expression.Body.NodeType == ExpressionType.Parameter)
+                throw new ArgumentException("Cannot generate property path from lambda parameter!");
+
             //One.Two[1].Three.get_Item(2).Four
             var path = Regex.Match(
                                 expression.ToString(),
