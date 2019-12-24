@@ -8,12 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.16</Version>
-    <AssemblyVersion>8.16.0.0</AssemblyVersion>
-    <FileVersion>8.16.0.0</FileVersion>
+    <Version>8.16.1</Version>
+    <AssemblyVersion>8.16.1.0</AssemblyVersion>
+    <FileVersion>8.16.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- wildcard text index support
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- fix support for asp.net core 2.1</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
@@ -30,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
     <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
     <PackageReference Include="MongoDB.Entities.Core" Version="1.2.0" />
   </ItemGroup>
