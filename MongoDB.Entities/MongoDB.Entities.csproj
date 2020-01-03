@@ -8,11 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.16.1</Version>
-    <AssemblyVersion>8.16.1.0</AssemblyVersion>
-    <FileVersion>8.16.1.0</FileVersion>
+    <Version>8.17</Version>
+    <AssemblyVersion>8.17.0.0</AssemblyVersion>
+    <FileVersion>8.17.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- fix support for asp.net core 2.1</PackageReleaseNotes>
+    <PackageReleaseNotes>- new implicit operator for One&lt;T&gt;
+- new tests
+- minor code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -54,6 +54,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Operator for returning a new One&lt;T&gt; object from an entity
+        /// </summary>
+        /// <param name="entity">The entity to make a reference to</param>
+        public static implicit operator One<T>(T entity)
+        {
+            return new One<T>(entity);
+        }
+
+        /// <summary>
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
         /// <returns>The actual entity</returns>

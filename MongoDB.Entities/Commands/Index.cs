@@ -148,9 +148,9 @@ namespace MongoDB.Entities
 
         internal Key(Expression<Func<T, object>> prop, KeyType type)
         {
-            PropertyName = 
-                prop.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text ? 
-                "$**" : 
+            PropertyName =
+                prop.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text ?
+                "$**" :
                 prop.FullPath();
 
             Type = type;
