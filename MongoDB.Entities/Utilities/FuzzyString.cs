@@ -1,6 +1,6 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Bson.IO;
 using System;
 
 namespace MongoDB.Entities
@@ -12,14 +12,24 @@ namespace MongoDB.Entities
 
         public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, FuzzyString fString)
         {
-            if (fString.Value.Length > 250) throw new NotSupportedException("FuzzyString can only hold a maximum of 250 characters!");
+            if (fString == null)
+            {
+                context.Writer.WriteStartDocument();
+                context.Writer.WriteString("Value", string.Empty);
+                context.Writer.WriteString("Hash", string.Empty);
+                context.Writer.WriteEndDocument();
+            }
+            else
+            {
+                if (fString.Value.Length > 250) throw new NotSupportedException("FuzzyString can only hold a maximum of 250 characters!");
 
-            context.Writer.WriteStartDocument();
-            context.Writer.WriteString("Value", fString.Value);
-            context.Writer.WriteString("Hash",
-                string.Join(" ",
-                    DoubleMetaphone.GetKeys(fString.Value)));
-            context.Writer.WriteEndDocument();
+                context.Writer.WriteStartDocument();
+                context.Writer.WriteString("Value", fString.Value);
+                context.Writer.WriteString("Hash",
+                    string.Join(" ",
+                        DoubleMetaphone.GetKeys(fString.Value)));
+                context.Writer.WriteEndDocument();
+            }
         }
 
         public override FuzzyString Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
@@ -37,7 +47,7 @@ namespace MongoDB.Entities
             {
                 case "Value":
                     serializationInfo = new BsonSerializationInfo("Value", strSerializer, typeof(string));
-                    return true;                
+                    return true;
                 default:
                     serializationInfo = null;
                     return false;

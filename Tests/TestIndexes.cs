@@ -47,6 +47,28 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void fuzzy_text_search_with_text_index_works()
+        {
+            DB.Index<Book>()
+              .Option(o => o.Background = false)
+              .Key(b => b.Review.Alias, KeyType.Text)
+              .Key(b => b.Title, KeyType.Text)
+              .Create();
+
+            var a1 = new Book { Title = "One", Review = new Review { Alias = "Katherine Zeta Jones" } };
+            var a2 = new Book { Title = "Two", Review = new Review { Alias = "Katheryne Zeta Jones" } };
+            var a3 = new Book { Title = "Three", Review = new Review { Alias = "Katheryne Jones Abigale" } };
+            var a4 = new Book { Title = "Four", Review = new Review { Alias = "Katheryne Jones Abigale" } };
+            var a5 = new Book { Title = "Five", Review = new Review { Alias = "Katya Bykova Jones" } };
+
+            DB.Save(new[] { a1, a2, a3, a4, a5 });
+
+            //todo: search here and assert
+
+            DB.Delete<Book>(new[] { a1.ID, a2.ID, a3.ID, a4.ID, a5.ID });
+        }
+
+        [TestMethod]
         public void creating_compound_index_works()
         {
             DB.Index<Book>()

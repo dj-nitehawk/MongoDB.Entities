@@ -7,6 +7,7 @@ namespace MongoDB.Entities.Tests
         public int Stars { get; set; }
         public string Reviewer { get; set; }
         public double Rating { get; set; }
+        public FuzzyString Alias { get; set; }
         public Collection<Book> Books { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -146,14 +147,32 @@ namespace MongoDB.Entities
         internal string PropertyName { get; set; }
         internal KeyType Type { get; set; }
 
-        internal Key(Expression<Func<T, object>> prop, KeyType type)
+        internal Key(Expression<Func<T, object>> expression, KeyType type)
         {
-            PropertyName =
-                prop.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text ?
-                "$**" :
-                prop.FullPath();
-
             Type = type;
+
+            if (expression.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text)
+            {
+                PropertyName = "$**";
+                return;
+            }
+
+            if (expression.Body.NodeType == ExpressionType.MemberAccess && type == KeyType.Text)
+            {
+                var propType = ((expression.Body as MemberExpression).Member as PropertyInfo).PropertyType;
+
+                if (propType == typeof(FuzzyString))
+                {
+                    PropertyName = expression.FullPath() + ".Hash";
+                }
+                else
+                {
+                    PropertyName = expression.FullPath();
+                }
+                return;
+            }
+
+            PropertyName = expression.FullPath();
         }
     }
 
