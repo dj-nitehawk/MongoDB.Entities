@@ -8,6 +8,7 @@ namespace MongoDB.Entities.Tests
         public string Name { get; set; }
         public string Surname { get; set; }
         public string FullName { get; set; }
+        public FuzzyString Nickname { get; set; }
         public int Age { get; set; }
         public int Age2 { get; set; }
         public One<Book> BestSeller { get; set; }
