@@ -12,12 +12,13 @@ namespace MongoDB.Entities
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <typeparam name="TProjection">The type to project to</typeparam>
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
+        public static List<TProjection> SearchText<T,TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null, IClientSessionHandle session = null, string db = null)
         {
             return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options, session, db));
         }
@@ -32,7 +33,23 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
+        {
+            return Run.Sync(() => SearchTextAsync<T,T>(searchTerm, caseSensitive, options, session, db));
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <typeparam name="TProjection">The type to project to</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public List<TProjection> SearchText<T,TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null, IClientSessionHandle session = null)
         {
             return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options, session, DbName));
         }
@@ -45,9 +62,25 @@ namespace MongoDB.Entities
         /// <param name="searchTerm">The text to search the index for</param>
         /// <param name="caseSensitive">Set true to do a case sensitive search</param>
         /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        {
+            return Run.Sync(() => SearchTextAsync<T,T>(searchTerm, caseSensitive, options, session, DbName));
+        }
+               
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <typeparam name="TProjection">The type to project to</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public static async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
+        public static async Task<List<TProjection>> SearchTextAsync<T, TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null, IClientSessionHandle session = null, string db = null)
         {
             var filter = Builders<T>.Filter.Text(searchTerm, new TextSearchOptions { CaseSensitive = caseSensitive });
             return await (session == null
@@ -65,11 +98,42 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <returns>A List of Entities of given type</returns>
-        public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        public static async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null, string db = null)
+        {
+            return await SearchTextAsync<T, T>(searchTerm, caseSensitive, options, session, db);
+        }
+
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <typeparam name="TProjection">The type to project to</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public async Task<List<TProjection>> SearchTextAsync<T,TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null, IClientSessionHandle session = null)
         {
             return await SearchTextAsync(searchTerm, caseSensitive, options, session, DbName);
         }
 
+        /// <summary>
+        /// Search the text index of a collection for Entities matching the search term.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="searchTerm">The text to search the index for</param>
+        /// <param name="caseSensitive">Set true to do a case sensitive search</param>
+        /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
+        /// <returns>A List of Entities of given type</returns>
+        public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null, IClientSessionHandle session = null)
+        {
+            return await SearchTextAsync<T,T>(searchTerm, caseSensitive, options, session, DbName);
+        }
+               
         /// <summary>
         /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.
         /// </summary>
