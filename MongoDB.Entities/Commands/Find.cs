@@ -170,6 +170,8 @@ namespace MongoDB.Entities
             return this;
         }
 
+        //todo: test coverage
+
         //todo: metatextscore sort
 
         /// <summary>

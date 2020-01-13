@@ -1,6 +1,9 @@
-﻿namespace MongoDB.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MongoDB.Entities
 {
-    //source: https://github.com/DanHarltey/Fastenshtein/blob/master/src/Fastenshtein/Levenshtein.cs [Aug 26, 2018]
     internal class Levenshtein
     {
         private readonly string storedValue;
@@ -8,12 +11,14 @@
 
         public Levenshtein(string value)
         {
-            storedValue = value;
+            storedValue = value.ToLower();
             costs = new int[storedValue.Length];
         }
 
         public int DistanceFrom(string value)
         {
+            value = value.ToLower();
+
             if (costs.Length == 0)
             {
                 return value.Length;

@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities
 {
-    //source: https://github.com/eldersantos/phonix/blob/master/Phonix/DoubleMetaphone.cs [Dec 29, 2014]
     internal static class DoubleMetaphone
     {
         private static readonly string[] GN_KN_PN_WR_PS = new[] { "GN", "KN", "PN", "WR", "PS" };

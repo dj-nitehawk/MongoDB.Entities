@@ -278,6 +278,27 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Sort a list of objects by relevance to a given string using Levenshtein Distance
+        /// </summary>
+        /// <typeparam name="T">Any object type</typeparam>
+        /// <param name="objects">The list of objects to sort</param>
+        /// <param name="searchTerm">The term to measure relevance to</param>
+        /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched agains the value of this property]</param>
+        /// <returns></returns>
+        public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy)
+        {
+            var lev = new Levenshtein(searchTerm);
+
+            return objects.Select(o => new
+            {
+                score = lev.DistanceFrom(propertyToSortBy(o)),
+                obj = o
+            })
+            .OrderBy(x => x.score)
+            .Select(x => x.obj);
+        }
+
+        /// <summary>
         /// Initializes supplied property with a new One-To-Many relationship.
         /// </summary>
         /// <param name="parent"></param>
