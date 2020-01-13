@@ -23,8 +23,12 @@ namespace MongoDB.Entities.Tests
             author2.Save();
 
             var res = DB.SearchText<Author>(author1.Surname);
-
             Assert.AreEqual(author1.Surname, res.First().Surname);
+
+            var res2 = DB.Find<Author>()
+                         .Match(Search.Full, author1.Surname)
+                         .Execute();
+            Assert.AreEqual(author1.Surname, res2.First().Surname);
         }
 
         [TestMethod]
@@ -55,17 +59,22 @@ namespace MongoDB.Entities.Tests
               .Key(b => b.Title, KeyType.Text)
               .Create();
 
-            var a1 = new Book { Title = "One", Review = new Review { Alias = "Katherine Zeta Jones" } };
-            var a2 = new Book { Title = "Two", Review = new Review { Alias = "Katheryne Zeta Jones" } };
-            var a3 = new Book { Title = "Three", Review = new Review { Alias = "Katheryne Jones Abigale" } };
-            var a4 = new Book { Title = "Four", Review = new Review { Alias = "Katheryne Jones Abigale" } };
-            var a5 = new Book { Title = "Five", Review = new Review { Alias = "Katya Bykova Jones" } };
+            var b1 = new Book { Title = "One", Review = new Review { Alias = "Katherine Zeta Jones" } };
+            var b2 = new Book { Title = "Two", Review = new Review { Alias = "Katheryne Zeta Jones" } };
+            var b3 = new Book { Title = "Three", Review = new Review { Alias = "Katheryne Jones Abigale" } };
+            var b4 = new Book { Title = "Four", Review = new Review { Alias = "Katheryne Jones Abigale" } };
+            var b5 = new Book { Title = "Five", Review = new Review { Alias = "Katya Bykova Jhohanes" } };
 
-            DB.Save(new[] { a1, a2, a3, a4, a5 });
+            DB.Save(new[] { b1, b2, b3, b4, b5 });
 
-            //todo: search here and assert
+            var res = DB.Find<Book>()
+                        .Match(Search.Fuzzy, "catherine jones")
+                        .Execute();
 
-            DB.Delete<Book>(new[] { a1.ID, a2.ID, a3.ID, a4.ID, a5.ID });
+            DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID });
+
+            Assert.AreEqual(4, res.Count());
+            Assert.IsFalse(res.Select(b=>b.ID).Contains(b5.ID));            
         }
 
         [TestMethod]

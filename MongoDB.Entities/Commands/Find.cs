@@ -131,6 +131,35 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify a seach term to find results from the text index for a paricular collection.
+        /// </summary>
+        /// <param name="searchType">The type of text matching to do</param>
+        /// <param name="searchTerm">The search term</param>
+        /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
+        /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
+        /// <param name="language">The language for the search (optional)</param>
+        public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+        {
+            if (searchType == Search.Fuzzy)
+            {
+                searchTerm = string.Join(" ", DoubleMetaphone.GetKeys(searchTerm));
+                caseSensitive = false;
+                diacriticSensitive = false;
+                language = null;
+            }
+
+            return Match(f =>
+                         f.Text(
+                             searchTerm,
+                             new TextSearchOptions
+                             {
+                                 CaseSensitive = caseSensitive,
+                                 DiacriticSensitive = diacriticSensitive,
+                                 Language = language
+                             }));
+        }
+
+        /// <summary>
         /// Specify the matching criteria with an aggregation expression (i.e. $expr)
         /// </summary>
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
@@ -139,6 +168,8 @@ namespace MongoDB.Entities
             filter = "{$expr:" + expression + "}";
             return this;
         }
+
+        //todo: metatextscore sort
 
         /// <summary>
         /// Specify which property and order to use for sorting (use multiple times if needed)
@@ -236,5 +267,11 @@ namespace MongoDB.Entities
     {
         Ascending,
         Descending
+    }
+
+    public enum Search
+    {
+        Fuzzy,
+        Full
     }
 }

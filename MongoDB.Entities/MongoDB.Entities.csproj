@@ -15,7 +15,8 @@
     <PackageReleaseNotes>- fuzzy text search based on double metaphone
 - projection support for SearchText()
 - refactor DB class in to seperate partial classes
-</PackageReleaseNotes>
+- new tests
+- misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
