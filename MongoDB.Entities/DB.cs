@@ -177,6 +177,24 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Exposes the mongodb Sort Definition Builder for a given type.
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static SortDefinitionBuilder<T> Sort<T>() where T : IEntity
+        {
+            return Builders<T>.Sort;
+        }
+
+        /// <summary>
+        /// Exposes the mongodb Projection Definition Builder for a given type.
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
+        {
+            return Builders<T>.Projection;
+        }
+
+        /// <summary>
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
         /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
