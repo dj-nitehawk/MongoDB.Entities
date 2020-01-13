@@ -55,6 +55,10 @@ namespace MongoDB.Entities
         }
     }
 
+    /// <summary>
+    /// Use this type to store strings if you need fuzzy text searching with MongoDB
+    /// <para>WARNING: Only strings of up to 250 characters is allowed</para>
+    /// </summary>
     public class FuzzyString
     {
         public string Value { get; set; }
