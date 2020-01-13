@@ -8,15 +8,17 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>8.18</Version>
-    <AssemblyVersion>8.18.0.0</AssemblyVersion>
-    <FileVersion>8.18.0.0</FileVersion>
+    <Version>10.0.0</Version>
+    <AssemblyVersion>10.0.0.0</AssemblyVersion>
+    <FileVersion>10.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- fuzzy text search based on double metaphone
-- projection support for SearchText()
-- refactor DB class in to seperate partial classes
-- new tests
-- misc. code changes</PackageReleaseNotes>
+    <PackageReleaseNotes>- breaking: remove DB.SearchText* methods in favor of new text search api
+- new: fuzzy text search based on double metaphone
+- new: utility method to sort results by Levenshtein Distance score
+- new: projection support for SearchText()
+- new: tests
+- change: refactor DB class in to seperate partial classes
+- misc: code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

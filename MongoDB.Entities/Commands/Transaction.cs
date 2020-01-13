@@ -140,29 +140,9 @@ namespace MongoDB.Entities
             await DB.DeleteAsync<T>(IDs, Session, db);
         }
 
-        public List<TProjection> SearchText<T,TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null)
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
         {
-            return Run.Sync(() => SearchTextAsync(searchTerm, caseSensitive, options));
-        }
-
-        public List<T> SearchText<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
-        {
-            return Run.Sync(() => SearchTextAsync<T,T>(searchTerm, caseSensitive, options));
-        }
-
-        public async Task<List<TProjection>> SearchTextAsync<T,TProjection>(string searchTerm, bool caseSensitive = false, FindOptions<T, TProjection> options = null)
-        {
-            return await DB.SearchTextAsync(searchTerm, caseSensitive, options, Session, db);
-        }
-
-        public async Task<List<T>> SearchTextAsync<T>(string searchTerm, bool caseSensitive = false, FindOptions<T, T> options = null)
-        {
-            return await SearchTextAsync<T, T>(searchTerm, caseSensitive, options);
-        }
-
-        public IAggregateFluent<T> SearchTextFluent<T>(string searchTerm, bool caseSensitive = false, AggregateOptions options = null)
-        {
-            return DB.SearchTextFluent<T>(searchTerm, caseSensitive, options, Session, db);
+            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session, db);
         }
 
         #region IDisposable Support

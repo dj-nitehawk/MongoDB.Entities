@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using System;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
             author2.Save();
 
-            var res = DB.SearchText<Author>(author1.Surname);
+            var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
             Assert.AreEqual(author1.Surname, res.First().Surname);
 
             var res2 = DB.Find<Author>()
@@ -45,7 +46,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
             author2.Save();
 
-            var res = DB.SearchText<Author>(author1.Surname);
+            var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList(); ;
 
             Assert.AreEqual(author1.Surname, res.First().Surname);
         }
@@ -74,7 +75,7 @@ namespace MongoDB.Entities.Tests
             DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID });
 
             Assert.AreEqual(4, res.Count());
-            Assert.IsFalse(res.Select(b=>b.ID).Contains(b5.ID));            
+            Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
         }
 
         [TestMethod]

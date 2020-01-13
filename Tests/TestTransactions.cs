@@ -121,10 +121,10 @@ namespace MongoDB.Entities.Tests
 
             using (var TN = new Transaction())
             {
-                var tres = TN.SearchText<Author>(author1.Surname);
+                var tres = TN.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList(); ;
                 Assert.AreEqual(author1.Surname, tres.First().Surname);
 
-                var tflu = TN.SearchTextFluent<Author>(author2.Surname).SortByDescending(x => x.ModifiedOn);
+                var tflu = TN.FluentTextSearch<Author>(Search.Full, author2.Surname).SortByDescending(x => x.ModifiedOn).ToList(); ;
                 Assert.AreEqual(author2.Surname, tflu.First().Surname);
             }
         }

@@ -15,7 +15,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Sorting, paging and projecting is made convenient.
 - Simple data migration framework similar to EntityFramework.
 - Programatically define indexes.
-- Full text search with text indexes.
+- Full text search (including fuzzy matching) with text indexes.
 - Multi-document transaction support.
 - Easy bulk operations.
 - Update with aggregation pipeline stages & array filters.
