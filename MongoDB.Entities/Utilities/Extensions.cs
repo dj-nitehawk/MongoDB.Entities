@@ -283,7 +283,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any object type</typeparam>
         /// <param name="objects">The list of objects to sort</param>
         /// <param name="searchTerm">The term to measure relevance to</param>
-        /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched agains the value of this property]</param>
+        /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched against the value of this property]</param>
         /// <returns></returns>
         public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy)
         {

@@ -65,14 +65,15 @@ namespace MongoDB.Entities.Tests
             var b3 = new Book { Title = "Three", Review = new Review { Alias = "Katheryne Jones Abigale" } };
             var b4 = new Book { Title = "Four", Review = new Review { Alias = "Katheryne Jones Abigale" } };
             var b5 = new Book { Title = "Five", Review = new Review { Alias = "Katya Bykova Jhohanes" } };
+            var b6 = new Book { Title = "Five", Review = new Review { Alias = " " } };
 
-            DB.Save(new[] { b1, b2, b3, b4, b5 });
+            DB.Save(new[] { b1, b2, b3, b4, b5, b6 });
 
             var res = DB.Find<Book>()
                         .Match(Search.Fuzzy, "catherine jones")
                         .Execute();
 
-            DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID });
+            DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
             Assert.AreEqual(4, res.Count());
             Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));

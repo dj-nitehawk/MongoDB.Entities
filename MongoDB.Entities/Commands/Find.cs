@@ -131,7 +131,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify a seach term to find results from the text index for a paricular collection.
+        /// Specify a seach term to find results from the text index of this paricular collection.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
         /// <param name="searchType">The type of text matching to do</param>
@@ -149,15 +149,15 @@ namespace MongoDB.Entities
                 language = null;
             }
 
-            return Match(f =>
-                         f.Text(
-                             searchTerm,
-                             new TextSearchOptions
-                             {
-                                 CaseSensitive = caseSensitive,
-                                 DiacriticSensitive = diacriticSensitive,
-                                 Language = language
-                             }));
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
         }
 
         /// <summary>

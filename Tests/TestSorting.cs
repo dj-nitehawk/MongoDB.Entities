@@ -6,7 +6,7 @@ using System.Linq;
 namespace MongoDB.Entities.Tests
 {
     [TestClass]
-    public class Sort
+    public class Sorting
     {
         [TestMethod]
         public void sorting_lists_by_levenshtein_distance_works()
@@ -21,6 +21,7 @@ namespace MongoDB.Entities.Tests
 
             var res = books.SortByRelevance("One TWO Three", b => b.Review.Alias);
 
+            Assert.AreEqual(5, res.Count());
             Assert.AreEqual("Five", res.First().Title);
             Assert.AreEqual("One", res.Last().Title);
         }
