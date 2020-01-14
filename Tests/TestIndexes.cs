@@ -80,6 +80,72 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void sort_by_meta_text_score_dont_retun_the_score()
+        {
+            DB.Index<Genre>()
+              .Key(g => g.Name, KeyType.Text)
+              .Option(o => o.Background = false)
+              .Create();
+
+            var guid = new Guid();
+
+            var list = new[] {
+                new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},
+                new Genre{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+                new Genre{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+                new Genre{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+                new Genre{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            };
+
+            list.Save();
+
+            var res = DB.Find<Genre>()
+                        .Match(Search.Full, "one eight nine")
+                        .SortByTextScore()
+                        .Execute();
+
+            list.DeleteAll();
+
+            Assert.AreEqual(4, res.Count());
+            Assert.AreEqual(1, res.First().Position);
+            Assert.AreEqual(4, res.Last().Position);
+        }
+
+        [TestMethod]
+        public void sort_by_meta_text_score_retun_the_score()
+        {
+            DB.Index<Genre>()
+              .Key(g => g.Name, KeyType.Text)
+              .Option(o => o.Background = false)
+              .Create();
+
+            var guid = new Guid();
+
+            var list = new[] {
+                new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},
+                new Genre{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+                new Genre{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+                new Genre{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+                new Genre{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            };
+
+            list.Save();
+
+            var res = DB.Find<Genre>()
+                        .Match(Search.Full, "one eight nine")
+                        .SortByTextScore(g => g.SortScore)
+                        .Sort(g => g.Position, Order.Ascending)
+                        .Execute();
+
+            list.DeleteAll();
+
+            Assert.AreEqual(4, res.Count());
+            Assert.AreEqual(1, res.First().Position);
+            Assert.AreEqual(4, res.Last().Position);
+            Assert.IsTrue(res.First().SortScore > 0);
+        }
+
+        [TestMethod]
         public void creating_compound_index_works()
         {
             DB.Index<Book>()

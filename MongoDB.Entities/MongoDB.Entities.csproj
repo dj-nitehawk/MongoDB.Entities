@@ -12,13 +12,13 @@
     <AssemblyVersion>10.0.0.0</AssemblyVersion>
     <FileVersion>10.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>**major version with breaking changes**
-- breaking: removed DB.SearchText* methods in favor of new text search api
+    <PackageReleaseNotes>- breaking: removed DB.SearchText* methods in favor of new text search api
 - new: fuzzy text search based on double metaphone algorythm
 - new: utility method to sort lists by relevance using levenshtein distance
 - new: DB.FluentTextSearch() for starting aggregation pipeline with $text stage
+- new: DB.Find().SortByTextScore() for sorting by MetaTextScore values
 - new: tests
-- change: refactor DB class in to seperate partial classes
+- improvement: refactor DB class in to seperate partial classes
 - misc: code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

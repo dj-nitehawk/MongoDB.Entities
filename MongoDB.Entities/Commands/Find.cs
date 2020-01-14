@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
 
 namespace MongoDB.Entities
 {
@@ -170,10 +172,6 @@ namespace MongoDB.Entities
             return this;
         }
 
-        //todo: test coverage
-
-        //todo: metatextscore sort
-
         /// <summary>
         /// Specify which property and order to use for sorting (use multiple times if needed)
         /// </summary>
@@ -184,13 +182,57 @@ namespace MongoDB.Entities
             switch (sortOrder)
             {
                 case Order.Ascending:
-                    sorts.Add(Builders<T>.Sort.Ascending(propertyToSortBy));
+                    Sort(s => s.Ascending(propertyToSortBy));
                     break;
+
                 case Order.Descending:
-                    sorts.Add(Builders<T>.Sort.Descending(propertyToSortBy));
+                    Sort(s => s.Descending(propertyToSortBy));
                     break;
             }
 
+            return this;
+        }
+
+        /// <summary>
+        /// Sort the results of a full-text search by the MetaTextScore without getting back the score
+        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.</para>
+        /// </summary>
+        public Find<T, TProjection> SortByTextScore()
+        {
+            SortByTextScore(null);
+            return this;
+        }
+
+        /// <summary>
+        /// Sort the results of a full-text search by the MetaTextScore and get back the score as well
+        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.</para>
+        /// </summary>
+        /// <param name="scoreProperty">x => x.TextScoreProp</param>
+        /// <returns></returns>
+        public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
+        {
+            if (scoreProperty == null)
+            {
+                Project(p => p.MetaTextScore("_Text_Match_Score_"));
+                Sort(s => s.MetaTextScore("_Text_Match_Score_"));
+            }
+            else
+            {
+                Project(p => p.MetaTextScore(Prop.Dotted(scoreProperty)));
+                Sort(s => s.MetaTextScore(Prop.Dotted(scoreProperty)));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Specify how to sort using a sort expression
+        /// </summary>
+        /// <param name="sortFunction">s => s.Ascending("Prop1").MetaTextScore("Prop2")</param>
+        /// <returns></returns>
+        public Find<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
+        {
+            sorts.Add(sortFunction(Builders<T>.Sort));
             return this;
         }
 
@@ -220,14 +262,14 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new Test { PropName = x.Prop }</param>
         public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
-            options.Projection = Builders<T>.Projection.Expression(expression);
+            Project(p => p.Expression(expression));
             return this;
         }
 
         /// <summary>
         /// Specify how to project the results using a projection expression
         /// </summary>
-        /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+        /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
         /// <returns></returns>
         public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
         {
@@ -263,7 +305,6 @@ namespace MongoDB.Entities
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return await DB.FindAsync(filter, options, session, db);
         }
-
     }
 
     public enum Order
