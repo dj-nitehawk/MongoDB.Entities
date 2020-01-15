@@ -26,7 +26,7 @@ namespace MongoDB.Entities.Tests
             })
             .Save();
 
-            var qry = DB.GeoNear<Place>(
+            var qry = DB.FluentGeoNear<Place>(
                          NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
                          DistanceField: x => x.DistanceKM,
                          MaxDistance: 20000);

@@ -54,7 +54,7 @@ namespace MongoDB.Entities
         [BsonIgnoreIfNull] public int? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
 
-        public IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
+        internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
         {
             var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
