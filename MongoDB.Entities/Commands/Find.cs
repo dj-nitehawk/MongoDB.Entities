@@ -12,8 +12,9 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a MongoDB Find command
+    /// Represents a MongoDB Find command for materializing results directly.
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
+    /// <para>Note: For building queries, use the DB.Fluent* interfaces</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Find<T> : Find<T, T> where T : IEntity
@@ -160,6 +161,21 @@ namespace MongoDB.Entities
                         DiacriticSensitive = diacriticSensitive,
                         Language = language
                     }));
+        }
+
+        /// <summary>
+        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude) 
+        /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
+        /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
+        /// </summary>
+        /// <param name="coordinatesProperty">The property where 2DCoordinates are stored</param>
+        /// <param name="nearCoordinates">The search point</param>
+        /// <param name="maxDistance">Maximum distance in meters from the search point</param>
+        /// <param name="minDistance">Minimum distance in meters from the search point</param>
+        public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+        {
+            Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance));
+            return this;
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace MongoDB.Entities
     /// <summary>
     /// Represents a GeoJsonPoint of GeoJson2DGeographicCoordinates
     /// </summary>
-    public class Coordinates2D
+    public class Coordinates2D : GeoJsonPoint<GeoJson2DGeographicCoordinates>
     {
         public string type { get; set; }
         public double[] coordinates { get; set; }
@@ -17,8 +17,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Instantiate a new Coordinates2D instance with the supplied longtitude and latitude
         /// </summary>
-        public Coordinates2D(double longitude, double latitude)
-        {
+        public Coordinates2D(double longitude, double latitude): base(GeoJson.Geographic(longitude, latitude))
+        {   
             type = "Point";
             coordinates = new[] { longitude, latitude };
         }
@@ -47,11 +47,11 @@ namespace MongoDB.Entities
         public string distanceField { get; set; }
         public bool spherical { get; set; }
         [BsonIgnoreIfNull] public int? limit { get; set; }
-        [BsonIgnoreIfNull] public int? maxDistance { get; set; }
+        [BsonIgnoreIfNull] public double? maxDistance { get; set; }
         [BsonIgnoreIfNull] public BsonDocument query { get; set; }
-        [BsonIgnoreIfNull] public int? distanceMultiplier { get; set; }
+        [BsonIgnoreIfNull] public double? distanceMultiplier { get; set; }
         [BsonIgnoreIfNull] public string includeLocs { get; set; }
-        [BsonIgnoreIfNull] public int? minDistance { get; set; }
+        [BsonIgnoreIfNull] public double? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
 
         internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
