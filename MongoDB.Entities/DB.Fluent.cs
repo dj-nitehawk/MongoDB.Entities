@@ -11,7 +11,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        /// <returns></returns>
         public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
         {
             return session == null
@@ -46,7 +45,7 @@ namespace MongoDB.Entities
         {
             if (searchType == Search.Fuzzy)
             {
-                searchTerm = string.Join(" ", DoubleMetaphone.GetKeys(searchTerm));
+                searchTerm = searchTerm.ToDoubleMetaphoneHash();
                 caseSensitive = false;
                 diacriticSensitive = false;
                 language = null;

@@ -299,6 +299,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Converts a search term to Double Metaphone hash code suitable for fuzzy text searching.
+        /// </summary>
+        /// <param name="term">A single or multiple word search term</param>
+        public static string ToDoubleMetaphoneHash(this string term)
+        {
+            return string.Join(" ", DoubleMetaphone.GetKeys(term));
+        }
+
+        /// <summary>
         /// Initializes supplied property with a new One-To-Many relationship.
         /// </summary>
         /// <param name="parent"></param>

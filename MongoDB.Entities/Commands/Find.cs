@@ -146,7 +146,7 @@ namespace MongoDB.Entities
         {
             if (searchType == Search.Fuzzy)
             {
-                searchTerm = string.Join(" ", DoubleMetaphone.GetKeys(searchTerm));
+                searchTerm = searchTerm.ToDoubleMetaphoneHash();
                 caseSensitive = false;
                 diacriticSensitive = false;
                 language = null;
@@ -210,8 +210,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Sort the results of a full-text search by the MetaTextScore without getting back the score
-        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.</para>
+        /// Sort the results of a text search by the MetaTextScore and get back the score as well
+        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.
+        /// If you want to do custom projections, you will have to project &amp; sort manually instead of using this shortcut method.
+        /// </para>
         /// </summary>
         public Find<T, TProjection> SortByTextScore()
         {
@@ -220,8 +222,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Sort the results of a full-text search by the MetaTextScore and get back the score as well
-        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.</para>
+        /// Sort the results of a text search by the MetaTextScore and get back the score as well
+        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.
+        /// If you want to do custom projections, you will have to project &amp; sort manually instead of using this shortcut method.
+        /// </para>
         /// </summary>
         /// <param name="scoreProperty">x => x.TextScoreProp</param>
         /// <returns></returns>
