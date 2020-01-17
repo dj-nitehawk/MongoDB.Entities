@@ -1,4 +1,6 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
@@ -7,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-
 
 namespace MongoDB.Entities
 {
@@ -210,10 +211,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Sort the results of a text search by the MetaTextScore and get back the score as well
-        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.
-        /// If you want to do custom projections, you will have to project &amp; sort manually instead of using this shortcut method.
-        /// </para>
+        /// Sort the results of a text search by the MetaTextScore and get back the score as well   
+        /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
         /// </summary>
         public Find<T, TProjection> SortByTextScore()
         {
@@ -223,22 +222,19 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Sort the results of a text search by the MetaTextScore and get back the score as well
-        /// <para>WARNING: The use of .Project() with this method is not supported. Those projections will be ignored.
-        /// If you want to do custom projections, you will have to project &amp; sort manually instead of using this shortcut method.
-        /// </para>
+        /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
         /// </summary>
         /// <param name="scoreProperty">x => x.TextScoreProp</param>
-        /// <returns></returns>
         public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
         {
             if (scoreProperty == null)
             {
-                Project(p => p.MetaTextScore("_Text_Match_Score_"));
+                AddTxtScoreToProjection("_Text_Match_Score_");
                 Sort(s => s.MetaTextScore("_Text_Match_Score_"));
             }
             else
             {
-                Project(p => p.MetaTextScore(Prop.Dotted(scoreProperty)));
+                AddTxtScoreToProjection(Prop.Dotted(scoreProperty));
                 Sort(s => s.MetaTextScore(Prop.Dotted(scoreProperty)));
             }
 
@@ -324,6 +320,16 @@ namespace MongoDB.Entities
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return await DB.FindAsync(filter, options, session, db);
+        }
+
+        private void AddTxtScoreToProjection(string propName)
+        {
+            if (options.Projection == null)
+                options.Projection = "{}";
+
+            options.Projection = options.Projection
+                                        .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+                                        .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
         }
     }
 

@@ -25,7 +25,7 @@ namespace MongoDB.Entities
 
                 context.Writer.WriteStartDocument();
                 context.Writer.WriteString("Value", fString.Value);
-                context.Writer.WriteString("Hash",fString.Value.ToDoubleMetaphoneHash());
+                context.Writer.WriteString("Hash", fString.Value.ToDoubleMetaphoneHash());
                 context.Writer.WriteEndDocument();
             }
         }

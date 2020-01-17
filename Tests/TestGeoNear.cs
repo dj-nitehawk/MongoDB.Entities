@@ -27,7 +27,7 @@ namespace MongoDB.Entities.Tests
             .Save();
 
             var res = DB.Find<Place>()
-                        .Match(p => p.Location, new Coordinates2D(48.857908, 2.295243),20000) //20km from eiffel tower
+                        .Match(p => p.Location, new Coordinates2D(48.857908, 2.295243), 20000) //20km from eiffel tower
                         .Sort(p => p.ModifiedOn, Order.Descending)
                         .Limit(20)
                         .Execute()

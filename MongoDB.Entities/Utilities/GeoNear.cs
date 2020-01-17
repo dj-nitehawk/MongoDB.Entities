@@ -17,8 +17,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Instantiate a new Coordinates2D instance with the supplied longtitude and latitude
         /// </summary>
-        public Coordinates2D(double longitude, double latitude): base(GeoJson.Geographic(longitude, latitude))
-        {   
+        public Coordinates2D(double longitude, double latitude) : base(GeoJson.Geographic(longitude, latitude))
+        {
             type = "Point";
             coordinates = new[] { longitude, latitude };
         }
