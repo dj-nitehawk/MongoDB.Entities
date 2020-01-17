@@ -13,7 +13,9 @@
     <FileVersion>10.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- support for sorting by meta text match score when doing projections with DB.Find()
-- optimize fuzzy text search</PackageReleaseNotes>
+- optimize fuzzy text search
+- xml document updates
+- minor code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
