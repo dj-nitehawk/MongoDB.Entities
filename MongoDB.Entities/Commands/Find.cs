@@ -175,8 +175,7 @@ namespace MongoDB.Entities
         /// <param name="minDistance">Minimum distance in meters from the search point</param>
         public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
         {
-            Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance));
-            return this;
+            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance)); ;
         }
 
         /// <summary>
@@ -199,15 +198,14 @@ namespace MongoDB.Entities
             switch (sortOrder)
             {
                 case Order.Ascending:
-                    Sort(s => s.Ascending(propertyToSortBy));
-                    break;
+                    return Sort(s => s.Ascending(propertyToSortBy));
 
                 case Order.Descending:
-                    Sort(s => s.Descending(propertyToSortBy));
-                    break;
-            }
+                    return Sort(s => s.Descending(propertyToSortBy));
 
-            return this;
+                default:
+                    return this;
+            }
         }
 
         /// <summary>
@@ -216,8 +214,7 @@ namespace MongoDB.Entities
         /// </summary>
         public Find<T, TProjection> SortByTextScore()
         {
-            SortByTextScore(null);
-            return this;
+            return SortByTextScore(null);
         }
 
         /// <summary>
@@ -227,18 +224,16 @@ namespace MongoDB.Entities
         /// <param name="scoreProperty">x => x.TextScoreProp</param>
         public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
         {
-            if (scoreProperty == null)
+            switch (scoreProperty)
             {
-                AddTxtScoreToProjection("_Text_Match_Score_");
-                Sort(s => s.MetaTextScore("_Text_Match_Score_"));
-            }
-            else
-            {
-                AddTxtScoreToProjection(Prop.Dotted(scoreProperty));
-                Sort(s => s.MetaTextScore(Prop.Dotted(scoreProperty)));
-            }
+                case null:
+                    AddTxtScoreToProjection("_Text_Match_Score_");
+                    return Sort(s => s.MetaTextScore("_Text_Match_Score_"));
 
-            return this;
+                default:
+                    AddTxtScoreToProjection(Prop.Dotted(scoreProperty));
+                    return Sort(s => s.MetaTextScore(Prop.Dotted(scoreProperty)));
+            }
         }
 
         /// <summary>
@@ -278,8 +273,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new Test { PropName = x.Prop }</param>
         public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
-            Project(p => p.Expression(expression));
-            return this;
+            return Project(p => p.Expression(expression));
         }
 
         /// <summary>
@@ -324,12 +318,12 @@ namespace MongoDB.Entities
 
         private void AddTxtScoreToProjection(string propName)
         {
-            if (options.Projection == null)
-                options.Projection = "{}";
+            if (options.Projection == null) options.Projection = "{}";
 
-            options.Projection = options.Projection
-                                        .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
-                                        .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
+            options.Projection = 
+                options.Projection
+                .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+                .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
         }
     }
 

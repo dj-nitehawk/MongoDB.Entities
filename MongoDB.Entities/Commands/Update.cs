@@ -73,6 +73,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+        public Update<T> Modify(string update)
+        {
+            defs.Add(update);
+            return this;
+        }
+
+        /// <summary>
         /// Specify an update pipeline stage to modify the Entities (use multiple times if needed)
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
@@ -96,17 +106,7 @@ namespace MongoDB.Entities
             options.ArrayFilters = arrFilters;
             return this;
         }
-
-        /// <summary>
-        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
-        public Update<T> Modify(string update)
-        {
-            defs.Add(update);
-            return this;
-        }
-
+               
         /// <summary>
         /// Specify an option for this update command (use multiple times if needed)
         /// <para>TIP: Setting options is not required</para>
