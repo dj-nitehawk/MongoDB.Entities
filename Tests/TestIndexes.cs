@@ -71,6 +71,10 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Book>()
                         .Match(Search.Fuzzy, "catherine jones")
+                        .Project(b=> new Book { ID = b.ID, Title = b.Title })
+                        .SortByTextScore()
+                        .Skip(0)
+                        .Limit(6)
                         .Execute();
 
             DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
@@ -87,7 +91,7 @@ namespace MongoDB.Entities.Tests
               .Option(o => o.Background = false)
               .Create();
 
-            var guid = new Guid();
+            var guid = Guid.NewGuid();
 
             var list = new[] {
                 new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},
@@ -101,6 +105,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Genre>()
                         .Match(Search.Full, "one eight nine")
+                        .Project(p => new Genre { Name = p.Name, Position = p.Position })                        
                         .SortByTextScore()
                         .Execute();
 
@@ -119,7 +124,7 @@ namespace MongoDB.Entities.Tests
               .Option(o => o.Background = false)
               .Create();
 
-            var guid = new Guid();
+            var guid = Guid.NewGuid();
 
             var list = new[] {
                 new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},

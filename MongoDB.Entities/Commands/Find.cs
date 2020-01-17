@@ -211,7 +211,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Sort the results of a text search by the MetaTextScore and get back the score as well   
+        /// Sort the results of a text search by the MetaTextScore
         /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
         /// </summary>
         public Find<T, TProjection> SortByTextScore()
