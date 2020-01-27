@@ -248,19 +248,19 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public async Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null)
+        public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null)
         {
             parent.ThrowIfUnsaved();
 
             if (inverse)
             {
-                return await (session == null ?
+                return (session == null ?
                               JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options) :
                               JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options));
             }
             else
             {
-                return await (session == null ?
+                return (session == null ?
                               JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options) :
                               JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options));
             }

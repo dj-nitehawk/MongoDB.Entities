@@ -8,11 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>10.2.1</Version>
-    <AssemblyVersion>10.2.1.0</AssemblyVersion>
-    <FileVersion>10.2.1.0</FileVersion>
+    <Version>10.2.2</Version>
+    <AssemblyVersion>10.2.2.0</AssemblyVersion>
+    <FileVersion>10.2.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- optimize DB.Find() internals</PackageReleaseNotes>
+    <PackageReleaseNotes>- async optimizations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

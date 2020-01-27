@@ -75,9 +75,9 @@ namespace MongoDB.Entities
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
         /// <returns>A Task containing the actual entity</returns>
-        public async Task<T> ToEntityAsync(IClientSessionHandle session = null)
+        public Task<T> ToEntityAsync(IClientSessionHandle session = null)
         {
-            return await (new Find<T>(session, db)).OneAsync(ID);
+            return (new Find<T>(session, db)).OneAsync(ID);
         }
 
         /// <summary>
