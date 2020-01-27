@@ -13,7 +13,8 @@
     <FileVersion>10.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- optimize DB.Find() internals
-- misc. async optimizations</PackageReleaseNotes>
+- misc. async optimizations
+- update mongo driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
@@ -31,7 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
-    <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.1" />
     <PackageReference Include="MongoDB.Entities.Core" Version="1.2.0" />
   </ItemGroup>
 
