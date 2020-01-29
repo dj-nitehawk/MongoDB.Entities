@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Utilities
 {
-
     //todo: delete chunks when entity gets deleted
 
     public abstract class FileEntity : Entity
@@ -96,9 +95,9 @@ namespace MongoDB.Entities.Utilities
                             .Set(e => e.ChunkCount, ChunkCount)
                             .Set(e => e.UploadSuccessful, UploadSuccessful);
 
-            _ = await (session == null ?
-                    coll.UpdateOneAsync(filter, update) :
-                    coll.UpdateOneAsync(session, filter, update));
+            await (session == null ?
+                coll.UpdateOneAsync(filter, update) :
+                coll.UpdateOneAsync(session, filter, update));
         }
     }
 
