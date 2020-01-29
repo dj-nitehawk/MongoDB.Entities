@@ -82,7 +82,7 @@ namespace MongoDB.Entities
                            DB.Collection<TParent>(db),
                            j => j.ChildID,
                            p => p.ID,
-                           (j, p) => p)
+                           (_, p) => p)
                        .Distinct();
             }
             else
@@ -93,7 +93,7 @@ namespace MongoDB.Entities
                            DB.Collection<TParent>(db),
                            j => j.ParentID,
                            p => p.ID,
-                           (j, p) => p)
+                           (_, p) => p)
                        .Distinct();
             }
         }
@@ -115,12 +115,12 @@ namespace MongoDB.Entities
                              JoinQueryable(options),
                              c => c.ID,
                              j => j.ParentID,
-                             (c, j) => j)
+                             (_, j) => j)
                         .Join(
                            DB.Collection<TParent>(db),
                            j => j.ChildID,
                            p => p.ID,
-                           (j, p) => p)
+                           (_, p) => p)
                         .Distinct();
             }
             else
@@ -130,12 +130,12 @@ namespace MongoDB.Entities
                             JoinQueryable(options),
                             c => c.ID,
                             j => j.ChildID,
-                            (c, j) => j)
+                            (_, j) => j)
                        .Join(
                             DB.Collection<TParent>(db),
                             j => j.ParentID,
                             p => p.ID,
-                            (j, p) => p)
+                            (_, p) => p)
                        .Distinct();
             }
         }
@@ -282,7 +282,7 @@ namespace MongoDB.Entities
                            DB.Collection<TChild>(db),
                            j => j.ParentID,
                            c => c.ID,
-                           (j, c) => c);
+                           (_, c) => c);
             }
             else
             {
@@ -292,7 +292,7 @@ namespace MongoDB.Entities
                            DB.Collection<TChild>(db),
                            j => j.ChildID,
                            c => c.ID,
-                           (j, c) => c);
+                           (_, c) => c);
             }
         }
 

@@ -22,4 +22,10 @@
     <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Models\test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

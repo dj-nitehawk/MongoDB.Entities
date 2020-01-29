@@ -109,7 +109,7 @@ namespace MongoDB.Entities
 
             return db;
         }
-
+ 
         internal static string GetCollectionName<T>()
         {
             string collection = typeof(T).Name;
@@ -138,10 +138,17 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the DB instance for a given database name.
         /// </summary>
-        /// <param name="database">The database name to retrieve the DB instance for</param>
+        /// <param name="database">The database name to retrieve the DB instance for. Setting null will retrieve the default instance</param>
         /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
         public static DB GetInstance(string database)
         {
+            if (database == null)
+            {
+                if (instances.Count > 0)
+                    return instances.ElementAt(0).Value;
+                throw new InvalidOperationException("No instances have been initialized yet!");
+            }
+
             if (instances.ContainsKey(database)) return instances[database];
 
             throw new InvalidOperationException($"An instance has not been initialized yet for [{database}]");
