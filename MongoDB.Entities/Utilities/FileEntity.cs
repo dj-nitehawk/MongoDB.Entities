@@ -3,7 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,23 +20,32 @@ namespace MongoDB.Entities.Utilities
         public int ChunkCount { get; set; }
         public bool UploadSuccessful { get; set; }
 
-        public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
+        public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = default, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 1024) throw new ArgumentException("Please specify a chunk size from 128KB to 1024KB");
 
             var db = DB.GetInstance(this.Database());
-            var buffer = new byte[chunkSizeKB * 1024];
-            var bytesRead = 0;
-            var chunkDoc = new FileChunk();
+            var chunkSize = chunkSizeKB * 1024;
+            var buffer = new byte[chunkSize];
+            var readCount = 0;
+            var doc = new FileChunk { FileID = ID };
             try
             {
-                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
                 {
-                    cancellation?.Token.ThrowIfCancellationRequested();
-
-                    await db.SaveAsync(new FileChunk { FileID = this.ID, Data = buffer }, session);
-                    FileSize += bytesRead;
+                    if (readCount < chunkSize)
+                    {
+                        doc.Data = new byte[readCount];
+                        Array.Copy(buffer, 0, doc.Data, 0, readCount);
+                    }
+                    else
+                    {
+                        doc.Data = buffer;
+                    }
+                    doc.ID = null;
+                    await db.SaveAsync(doc, session);
+                    FileSize += readCount;
                     ChunkCount++;
                 }
                 UploadSuccessful = true;

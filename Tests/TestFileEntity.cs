@@ -22,8 +22,8 @@ namespace MongoDB.Entities.Tests
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
             await img.SaveAsync();
 
-            await img.UploadDataAsync(File.Open("Models/test.png", FileMode.Open));
-
+            using var stream = File.Open("Models/test.png", FileMode.Open);
+            await img.UploadDataAsync(stream, 1024);
 
         }
     }
