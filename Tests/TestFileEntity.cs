@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Tests.Models;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
