@@ -11,10 +11,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("MongoDB.Entities.Tests")]
-namespace MongoDB.Entities.Utilities
+namespace MongoDB.Entities
 {
-    //todo: delete chunks when entity gets deleted
-
     /// <summary>
     /// Inherit this base class in order to create your own File Entities
     /// </summary>
@@ -24,6 +22,7 @@ namespace MongoDB.Entities.Utilities
         public int ChunkCount { get; set; }
         public bool UploadSuccessful { get; set; }
 
+        private string dbName = null, collName = null;
         private DB db;
         private FileChunk doc;
         private int chunkSize, readCount;
@@ -31,25 +30,86 @@ namespace MongoDB.Entities.Utilities
         private List<byte> currentChunk;
         private IClientSessionHandle session;
 
+        private void Init()
+        {
+            db = DB.GetInstance(this.Database());
+
+            var type = GetType();
+            collName = type.Name;
+
+            var nameAttribs = (NameAttribute[])type.GetCustomAttributes(typeof(NameAttribute), false);
+            if (nameAttribs.Length > 0)
+            {
+                collName = nameAttribs[0].Name;
+            }
+
+            var dbAttribs = (DatabaseAttribute[])type.GetCustomAttributes(typeof(DatabaseAttribute), false);
+            if (dbAttribs.Length > 0)
+            {
+                dbName = dbAttribs[0].Name;
+            }
+        }
+
+        public async Task DownloadDataAsync(Stream stream, int batchSize, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
+        {
+            this.ThrowIfUnsaved();
+            if (!UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
+            if (!stream.CanWrite) throw new NotSupportedException("The supplied stream is not writable!");
+
+            Init();
+            cancellation = cancellation ?? new CancellationTokenSource(30 * 1000);
+
+            var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, ID);
+            var options = new FindOptions<FileChunk, byte[]>
+            {
+                BatchSize = batchSize,
+                Projection = Builders<FileChunk>.Projection.Expression(c => c.Data)
+            };
+
+            try
+            {
+                var findTask = session == null ?
+                                db.Collection<FileChunk>().FindAsync(filter, options, cancellation.Token) :
+                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancellation.Token);
+
+                using (var cursor = await findTask)
+                {
+                    while (await cursor.MoveNextAsync(cancellation.Token))
+                    {
+                        foreach (var chunk in cursor.Current)
+                        {
+                            await stream.WriteAsync(chunk, 0, chunk.Length, cancellation.Token);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                stream.Close();
+            }
+        }
+
         /// <summary>
         /// Upload binary data for this file entity into mongodb in chunks from a given stream.
         /// <para>TIP: Make sure to save the entity before calling this method.</para>
         /// </summary>
         /// <param name="stream">The input stream to read the data from</param>
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
-        /// <param name="cancellation">A cancellation token source. You can create one with new CancellationTokenSource(Timeout)</param>
+        /// <param name="cancellation">A cancellation token source. You can create one with new CancellationTokenSource(TimeoutSeconds)</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        /// <returns></returns>
         public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
-
-            db = DB.GetInstance(this.Database());
+            Init();
             CleanUp();
 
             this.session = session;
-            cancellation = cancellation ?? new CancellationTokenSource(30 * 1000);            
+            cancellation = cancellation ?? new CancellationTokenSource(30 * 1000);
             doc = new FileChunk { FileID = ID };
             chunkSize = chunkSizeKB * 1024;
             buffer = new byte[64 * 1024]; // 64kb buffer
@@ -114,23 +174,6 @@ namespace MongoDB.Entities.Utilities
 
         private async Task UpdateMetaData()
         {
-            string dbName = null, collName = null;
-
-            var type = GetType();
-            collName = type.Name;
-
-            var nameAttribs = (NameAttribute[])type.GetCustomAttributes(typeof(NameAttribute), false);
-            if (nameAttribs.Length > 0)
-            {
-                collName = nameAttribs[0].Name;
-            }
-
-            var dbAttribs = (DatabaseAttribute[])type.GetCustomAttributes(typeof(DatabaseAttribute), false);
-            if (dbAttribs.Length > 0)
-            {
-                dbName = dbAttribs[0].Name;
-            }
-
             _ = DB.Index<FileChunk>(dbName)
                   .Key(c => c.FileID, KeyType.Ascending)
                   .CreateAsync();

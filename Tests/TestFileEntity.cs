@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Tests.Models;
-using MongoDB.Entities.Utilities;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
