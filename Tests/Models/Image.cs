@@ -1,6 +1,4 @@
-﻿using MongoDB.Entities.Utilities;
-
-namespace MongoDB.Entities.Tests.Models
+﻿namespace MongoDB.Entities.Tests.Models
 {
     [Database("mongodb-entities-test-multi")]
     [Name("Pictures")]

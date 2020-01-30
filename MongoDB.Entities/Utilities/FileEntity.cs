@@ -50,7 +50,7 @@ namespace MongoDB.Entities
             }
         }
 
-        public async Task DownloadDataAsync(Stream stream, int batchSize, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
+        public async Task DownloadDataAsync(Stream stream, int batchSize = 1, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (!UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
@@ -87,10 +87,6 @@ namespace MongoDB.Entities
             {
                 throw;
             }
-            finally
-            {
-                stream.Close();
-            }
         }
 
         /// <summary>
@@ -105,6 +101,7 @@ namespace MongoDB.Entities
         {
             this.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
+            if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
             Init();
             CleanUp();
 
@@ -121,8 +118,16 @@ namespace MongoDB.Entities
                 {
                     await FlushToDB();
                 }
-                await FlushToDB(isLastChunk: true);
-                UploadSuccessful = true;
+
+                if (FileSize > 0)
+                {
+                    await FlushToDB(isLastChunk: true);
+                    UploadSuccessful = true;
+                }
+                else
+                {
+                    throw new InvalidOperationException("The supplied stream had no data to read (probably closed)");
+                }
             }
             catch (Exception)
             {
@@ -131,7 +136,6 @@ namespace MongoDB.Entities
             }
             finally
             {
-                stream.Close();
                 await UpdateMetaData();
                 doc = null;
                 buffer = null;

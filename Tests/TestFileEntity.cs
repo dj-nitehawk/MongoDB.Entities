@@ -2,8 +2,10 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Tests.Models;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
@@ -21,7 +23,7 @@ namespace MongoDB.Entities.Tests
 
             //using var stream = await new HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
 
-            using var stream = File.Open("Models/test.png", FileMode.Open);
+            using var stream = File.Open("Models/test.jpg", FileMode.Open);
             await img.UploadDataAsync(stream);
 
             var count = db.Queryable<FileChunk>()
@@ -39,11 +41,11 @@ namespace MongoDB.Entities.Tests
 
             var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
             await img.SaveAsync();
-            
-            using var stream = File.Open("Models/test.png", FileMode.Open);
+
+            using var stream = File.Open("Models/test.jpg", FileMode.Open);
             await img.UploadDataAsync(stream);
 
-            var countBefore = 
+            var countBefore =
                 db.Queryable<FileChunk>()
                   .Where(c => c.FileID == img.ID)
                   .Count();
@@ -58,6 +60,33 @@ namespace MongoDB.Entities.Tests
                   .Count();
 
             Assert.AreEqual(0, countAfter);
+        }
+
+        [TestMethod]
+        public async Task downloading_file_chunks_works()
+        {
+            new DB("mongodb-entities-test-multi");
+
+            var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
+            await img.SaveAsync();
+
+            using (var inStream = File.OpenRead("Models/test.jpg"))
+            {
+                await img.UploadDataAsync(inStream);
+            }
+
+            using (var outStream = File.OpenWrite("Models/result.jpg"))
+            {
+                await img.DownloadDataAsync(outStream);
+            }
+
+            using (var md5 = MD5.Create())
+            {
+                var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
+                var newHash = md5.ComputeHash(File.OpenRead("Models/result.jpg"));
+
+                Assert.IsTrue(oldHash.SequenceEqual(newHash));
+            }            
         }
     }
 }
