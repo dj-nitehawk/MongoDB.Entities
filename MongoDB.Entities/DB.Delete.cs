@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
+using MongoDB.Entities.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,13 @@ namespace MongoDB.Entities
             tasks.Add(session == null
                        ? Collection<T>(db).DeleteManyAsync(x => IDs.Contains(x.ID))
                        : Collection<T>(db).DeleteManyAsync(session, x => IDs.Contains(x.ID)));
+
+            if (typeof(T).BaseType == typeof(FileEntity))
+            {
+                tasks.Add(session == null
+                    ? Collection<FileChunk>(db).DeleteManyAsync(x => IDs.Contains(x.FileID))
+                    : Collection<FileChunk>(db).DeleteManyAsync(session, x => IDs.Contains(x.FileID)));
+            }
 
             await Task.WhenAll(tasks);
         }

@@ -32,5 +32,33 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2318430, img.FileSize);
             Assert.AreEqual(img.ChunkCount, count);
         }
+
+        [TestMethod]
+        public async Task deleting_entity_deletes_all_chunks()
+        {
+            var db = new DB("mongodb-entities-test-multi");
+
+            var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
+            await img.SaveAsync();
+            
+            using var stream = File.Open("Models/test.png", FileMode.Open);
+            await img.UploadDataAsync(stream);
+
+            var countBefore = 
+                db.Queryable<FileChunk>()
+                  .Where(c => c.FileID == img.ID)
+                  .Count();
+
+            Assert.AreEqual(img.ChunkCount, countBefore);
+
+            img.Delete();
+
+            var countAfter =
+                db.Queryable<FileChunk>()
+                  .Where(c => c.FileID == img.ID)
+                  .Count();
+
+            Assert.AreEqual(0, countAfter);
+        }
     }
 }
