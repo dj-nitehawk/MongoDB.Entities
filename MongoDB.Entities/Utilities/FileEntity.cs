@@ -19,34 +19,33 @@ namespace MongoDB.Entities.Utilities
         public int ChunkCount { get; set; }
         public bool UploadSuccessful { get; set; }
 
+        private DB db;
+        private FileChunk doc;
+        private int chunkSize, readCount;
+        private byte[] buffer;
+        private CancellationToken cancellation;
+        private IClientSessionHandle session;
+
         public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = default, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 1024) throw new ArgumentException("Please specify a chunk size from 128KB to 1024KB");
 
-            var db = DB.GetInstance(this.Database());
-            var chunkSize = chunkSizeKB * 1024;
-            var buffer = new byte[chunkSize];
-            var readCount = 0;
-            var doc = new FileChunk { FileID = ID };
+            this.cancellation = cancellation;
+            this.session = session;
+            db = DB.GetInstance(this.Database());
+            doc = new FileChunk { FileID = ID };
+            chunkSize = chunkSizeKB * 1024;
+            buffer = new byte[4096]; // 4kb buffer
+            readCount = 0;
+
             try
             {
                 while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
                 {
-                    if (readCount < chunkSize)
-                    {
-                        doc.Data = new byte[readCount];
-                        Array.Copy(buffer, 0, doc.Data, 0, readCount);
-                    }
-                    else
-                    {
-                        doc.Data = buffer;
-                    }
-                    doc.ID = null;
-                    await db.SaveAsync(doc, session);
-                    FileSize += readCount;
-                    ChunkCount++;
+                    await FlushToDB();
                 }
+                await FlushToDB(isLastChunk: true);
                 UploadSuccessful = true;
             }
             catch (Exception)
@@ -60,11 +59,36 @@ namespace MongoDB.Entities.Utilities
             finally
             {
                 stream.Close();
-                await UpdateMetaData(session);
+                await UpdateMetaData();
+                doc = null;
+                buffer = null;
             }
         }
 
-        private async Task UpdateMetaData(IClientSessionHandle session = null)
+        private async Task FlushToDB(bool isLastChunk = false)
+        {
+            if (doc.Data == null)
+                doc.Data = new List<byte>(chunkSize);
+
+            if (!isLastChunk)
+            {
+                doc.Data.AddRange(
+                    readCount == buffer.Length ?
+                    buffer :
+                    new ArraySegment<byte>(buffer, 0, readCount).ToArray());
+            }
+
+            if (doc.Data.Count >= chunkSize || isLastChunk)
+            {
+                doc.ID = null;
+                await db.SaveAsync(doc, session);
+                ChunkCount++;
+                FileSize += doc.Data.Count;
+                doc.Data = null;
+            }
+        }
+
+        private async Task UpdateMetaData()
         {
             string dbName = null, collName = null;
 
@@ -107,6 +131,6 @@ namespace MongoDB.Entities.Utilities
         [BsonRepresentation(BsonType.ObjectId)]
         public string FileID { get; set; }
 
-        public byte[] Data { get; set; }
+        public List<byte> Data { get; set; }// = new List<byte>();
     }
 }

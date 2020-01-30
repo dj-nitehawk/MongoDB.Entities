@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
@@ -21,8 +23,9 @@ namespace MongoDB.Entities.Tests
 
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
             await img.SaveAsync();
-
-            using var stream = File.Open("Models/test.png", FileMode.Open);
+            
+            using var stream = await new HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
+            //using var stream = File.Open("Models/test.png", FileMode.Open);
             await img.UploadDataAsync(stream, 1024);
 
         }
