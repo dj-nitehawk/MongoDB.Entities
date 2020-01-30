@@ -84,26 +84,19 @@ namespace MongoDB.Entities
                 Projection = Builders<FileChunk>.Projection.Expression(c => c.Data)
             };
 
-            try
-            {
-                var findTask = session == null ?
+            var findTask = session == null ?
                                 db.Collection<FileChunk>().FindAsync(filter, options, cancelToken) :
                                 db.Collection<FileChunk>().FindAsync(session, filter, options, cancelToken);
 
-                using (var cursor = await findTask)
+            using (var cursor = await findTask)
+            {
+                while (await cursor.MoveNextAsync(cancelToken))
                 {
-                    while (await cursor.MoveNextAsync(cancelToken))
+                    foreach (var chunk in cursor.Current)
                     {
-                        foreach (var chunk in cursor.Current)
-                        {
-                            await stream.WriteAsync(chunk, 0, chunk.Length, cancelToken);
-                        }
+                        await stream.WriteAsync(chunk, 0, chunk.Length, cancelToken);
                     }
                 }
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
