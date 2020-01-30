@@ -71,7 +71,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Book>()
                         .Match(Search.Fuzzy, "catherine jones")
-                        .Project(b=> new Book { ID = b.ID, Title = b.Title })
+                        .Project(b => new Book { ID = b.ID, Title = b.Title })
                         .SortByTextScore()
                         .Skip(0)
                         .Limit(6)
@@ -105,7 +105,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Genre>()
                         .Match(Search.Full, "one eight nine")
-                        .Project(p => new Genre { Name = p.Name, Position = p.Position })                        
+                        .Project(p => new Genre { Name = p.Name, Position = p.Position })
                         .SortByTextScore()
                         .Execute();
 

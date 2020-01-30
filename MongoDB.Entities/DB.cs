@@ -109,7 +109,7 @@ namespace MongoDB.Entities
 
             return db;
         }
- 
+
         internal static string GetCollectionName<T>()
         {
             string collection = typeof(T).Name;

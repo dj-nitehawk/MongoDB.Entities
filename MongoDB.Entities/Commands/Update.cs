@@ -106,7 +106,7 @@ namespace MongoDB.Entities
             options.ArrayFilters = arrFilters;
             return this;
         }
-               
+
         /// <summary>
         /// Specify an option for this update command (use multiple times if needed)
         /// <para>TIP: Setting options is not required</para>
