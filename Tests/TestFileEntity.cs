@@ -23,14 +23,14 @@ namespace MongoDB.Entities.Tests
 
             //using var stream = await new HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
 
-            using var stream = File.Open("Models/test.jpg", FileMode.Open);
+            using var stream = File.OpenRead("Models/test.jpg");
             await img.UploadDataAsync(stream);
 
             var count = db.Queryable<FileChunk>()
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
-            Assert.AreEqual(2318430, img.FileSize);
+            Assert.AreEqual(2047524, img.FileSize);
             Assert.AreEqual(img.ChunkCount, count);
         }
 
@@ -77,7 +77,7 @@ namespace MongoDB.Entities.Tests
 
             using (var outStream = File.OpenWrite("Models/result.jpg"))
             {
-                await img.DownloadDataAsync(outStream);
+                await img.DownloadDataAsync(outStream,3);
             }
 
             using (var md5 = MD5.Create())
@@ -86,7 +86,7 @@ namespace MongoDB.Entities.Tests
                 var newHash = md5.ComputeHash(File.OpenRead("Models/result.jpg"));
 
                 Assert.IsTrue(oldHash.SequenceEqual(newHash));
-            }            
+            }
         }
     }
 }

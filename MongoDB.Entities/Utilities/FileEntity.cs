@@ -50,14 +50,32 @@ namespace MongoDB.Entities
             }
         }
 
-        public async Task DownloadDataAsync(Stream stream, int batchSize = 1, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
+        /// <summary>
+        /// Download binary data for this file entity from mongodb in chunks into a given stream with a timeout period.
+        /// </summary>
+        /// <param name="stream">The output stream to write the data</param>
+        /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
+        /// <param name="batchSize"></param>
+        /// <param name="session"></param>
+        public Task DownloadDataAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle session = null)
+        {
+            return DownloadDataAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
+        }
+
+        /// <summary>
+        /// Download binary data for this file entity from mongodb in chunks into a given stream.
+        /// </summary>
+        /// <param name="stream">The output stream to write the data</param>
+        /// <param name="batchSize">The number of chunks you want returned at once</param>
+        /// <param name="cancelToken">An optional cancellation token.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public async Task DownloadDataAsync(Stream stream, int batchSize = 1, CancellationToken cancelToken = default, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (!UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
             if (!stream.CanWrite) throw new NotSupportedException("The supplied stream is not writable!");
 
             Init();
-            cancellation = cancellation ?? new CancellationTokenSource(30 * 1000);
 
             var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, ID);
             var options = new FindOptions<FileChunk, byte[]>
@@ -69,16 +87,16 @@ namespace MongoDB.Entities
             try
             {
                 var findTask = session == null ?
-                                db.Collection<FileChunk>().FindAsync(filter, options, cancellation.Token) :
-                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancellation.Token);
+                                db.Collection<FileChunk>().FindAsync(filter, options, cancelToken) :
+                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancelToken);
 
                 using (var cursor = await findTask)
                 {
-                    while (await cursor.MoveNextAsync(cancellation.Token))
+                    while (await cursor.MoveNextAsync(cancelToken))
                     {
                         foreach (var chunk in cursor.Current)
                         {
-                            await stream.WriteAsync(chunk, 0, chunk.Length, cancellation.Token);
+                            await stream.WriteAsync(chunk, 0, chunk.Length, cancelToken);
                         }
                     }
                 }
@@ -90,14 +108,26 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Upload binary data for this file entity into mongodb in chunks from a given stream with a timeout period.
+        /// </summary>
+        /// <param name="stream">The input stream to read the data from</param>
+        /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
+        /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public Task UploadDataAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle session = null)
+        {
+            return UploadDataAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
+        }
+
+        /// <summary>
         /// Upload binary data for this file entity into mongodb in chunks from a given stream.
         /// <para>TIP: Make sure to save the entity before calling this method.</para>
         /// </summary>
         /// <param name="stream">The input stream to read the data from</param>
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
-        /// <param name="cancellation">A cancellation token source. You can create one with new CancellationTokenSource(TimeoutSeconds)</param>
+        /// <param name="cancelToken">An optional cancellation token.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationTokenSource cancellation = null, IClientSessionHandle session = null)
+        public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancelToken = default, IClientSessionHandle session = null)
         {
             this.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
@@ -106,7 +136,6 @@ namespace MongoDB.Entities
             CleanUp();
 
             this.session = session;
-            cancellation = cancellation ?? new CancellationTokenSource(30 * 1000);
             doc = new FileChunk { FileID = ID };
             chunkSize = chunkSizeKB * 1024;
             buffer = new byte[64 * 1024]; // 64kb buffer
@@ -114,7 +143,7 @@ namespace MongoDB.Entities
 
             try
             {
-                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation.Token)) > 0)
+                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancelToken)) > 0)
                 {
                     await FlushToDB();
                 }
