@@ -57,7 +57,7 @@ namespace MongoDB.Entities
         /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
         /// <param name="batchSize"></param>
         /// <param name="session"></param>
-        public Task DownloadDataAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle session = null)
+        public Task DownloadDataWithTimeoutAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle session = null)
         {
             return DownloadDataAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
         }
@@ -114,7 +114,7 @@ namespace MongoDB.Entities
         /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task UploadDataAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle session = null)
+        public Task UploadDataWithTimeoutAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle session = null)
         {
             return UploadDataAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
         }

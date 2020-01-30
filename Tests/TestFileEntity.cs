@@ -21,7 +21,8 @@ namespace MongoDB.Entities.Tests
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
             await img.SaveAsync();
 
-            //using var stream = await new HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
+            //using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
+            //await img.UploadDataWithTimeoutAsync(stream, 7, 4096);
 
             using var stream = File.OpenRead("Models/test.jpg");
             await img.UploadDataAsync(stream);
@@ -77,7 +78,7 @@ namespace MongoDB.Entities.Tests
 
             using (var outStream = File.OpenWrite("Models/result.jpg"))
             {
-                await img.DownloadDataAsync(outStream,3);
+                await img.DownloadDataAsync(outStream, 3);
             }
 
             using (var md5 = MD5.Create())
