@@ -18,9 +18,12 @@ namespace MongoDB.Entities
     /// </summary>
     public abstract class FileEntity : Entity
     {
-        public double FileSize { get; set; }
-        public int ChunkCount { get; set; }
-        public bool UploadSuccessful { get; set; }
+        [BsonElement]
+        public double FileSize { get; private set; }
+        [BsonElement]
+        public int ChunkCount { get; private set; }
+        [BsonElement]
+        public bool UploadSuccessful { get; private set; }
 
         private string dbName = null, collName = null;
         private DB db;
