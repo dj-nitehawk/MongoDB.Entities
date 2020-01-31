@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -19,26 +18,55 @@ namespace MongoDB.Entities
     /// </summary>
     public abstract class FileEntity : Entity
     {
-        [BsonElement]
-        public double FileSize { get; private set; }
-        [BsonElement]
-        public int ChunkCount { get; private set; }
-        [BsonElement]
-        public bool UploadSuccessful { get; private set; }
+        private readonly DataStreamer streamer;
 
-        private string dbName = null, collName = null;
-        private DB db;
+        /// <summary>
+        /// The total amount of data in bytes that has been uploaded so far
+        /// </summary>
+        [BsonElement]
+        public double FileSize { get; internal set; }
+
+        /// <summary>
+        /// The number of chunks that have been created so far
+        /// </summary>
+        [BsonElement]
+        public int ChunkCount { get; internal set; }
+
+        /// <summary>
+        /// Returns true only when all the chunks have been stored successfully in mongodb
+        /// </summary>
+        [BsonElement]
+        public bool UploadSuccessful { get; internal set; }
+
+        /// <summary>
+        /// Access the DataStreamer class for uploading and downloading data
+        /// </summary>
+        public DataStreamer Data
+        {
+            get
+            {
+                return streamer ?? new DataStreamer(this);
+            }
+        }
+    }
+
+    public class DataStreamer
+    {
+        private readonly FileEntity parent;
+        private readonly string dbName, collName;
+        private readonly DB db;
         private FileChunk doc;
         private int chunkSize, readCount;
         private byte[] buffer;
         private List<byte> currentChunk;
         private IClientSessionHandle session;
 
-        private void Init()
+        public DataStreamer(FileEntity parent)
         {
-            db = DB.GetInstance(this.Database());
+            this.parent = parent;
+            db = DB.GetInstance(parent.Database());
 
-            var type = GetType();
+            var type = parent.GetType();
             collName = type.Name;
 
             var nameAttribs = (NameAttribute[])type.GetCustomAttributes(typeof(NameAttribute), false);
@@ -61,9 +89,9 @@ namespace MongoDB.Entities
         /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
         /// <param name="batchSize"></param>
         /// <param name="session"></param>
-        public Task DownloadDataWithTimeoutAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle session = null)
+        public Task DownloadWithTimeoutAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle session = null)
         {
-            return DownloadDataAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
+            return DownloadAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
         }
 
         /// <summary>
@@ -73,15 +101,13 @@ namespace MongoDB.Entities
         /// <param name="batchSize">The number of chunks you want returned at once</param>
         /// <param name="cancelToken">An optional cancellation token.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task DownloadDataAsync(Stream stream, int batchSize = 1, CancellationToken cancelToken = default, IClientSessionHandle session = null)
+        public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancelToken = default, IClientSessionHandle session = null)
         {
-            this.ThrowIfUnsaved();
-            if (!UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
+            parent.ThrowIfUnsaved();
+            if (!parent.UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
             if (!stream.CanWrite) throw new NotSupportedException("The supplied stream is not writable!");
 
-            Init();
-
-            var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, ID);
+            var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, parent.ID);
             var options = new FindOptions<FileChunk, byte[]>
             {
                 BatchSize = batchSize,
@@ -112,9 +138,9 @@ namespace MongoDB.Entities
         /// <param name="timeOutSeconds">The maximum number of seconds allowed for the operation to complete</param>
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task UploadDataWithTimeoutAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle session = null)
+        public Task UploadWithTimeoutAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle session = null)
         {
-            return UploadDataAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
+            return UploadAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
         }
 
         /// <summary>
@@ -125,18 +151,17 @@ namespace MongoDB.Entities
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
         /// <param name="cancelToken">An optional cancellation token.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task UploadDataAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancelToken = default, IClientSessionHandle session = null)
+        public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancelToken = default, IClientSessionHandle session = null)
         {
-            this.ThrowIfUnsaved();
+            parent.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
             if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
-            Init();
             CleanUp();
 
             this.session = session;
-            doc = new FileChunk { FileID = ID };
+            doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
-            buffer = new byte[64 * 1024]; // 64kb buffer
+            buffer = new byte[64 * 1024]; // read the stream 64kb at a time 
             readCount = 0;
 
             try
@@ -146,10 +171,10 @@ namespace MongoDB.Entities
                     await FlushToDB();
                 }
 
-                if (FileSize > 0)
+                if (parent.FileSize > 0)
                 {
                     await FlushToDB(isLastChunk: true);
-                    UploadSuccessful = true;
+                    parent.UploadSuccessful = true;
                 }
                 else
                 {
@@ -172,10 +197,10 @@ namespace MongoDB.Entities
 
         private void CleanUp()
         {
-            _ = db.DeleteAsync<FileChunk>(c => c.FileID == ID);
-            FileSize = 0;
-            ChunkCount = 0;
-            UploadSuccessful = false;
+            _ = db.DeleteAsync<FileChunk>(c => c.FileID == parent.ID);
+            parent.FileSize = 0;
+            parent.ChunkCount = 0;
+            parent.UploadSuccessful = false;
         }
 
         private async Task FlushToDB(bool isLastChunk = false)
@@ -196,8 +221,8 @@ namespace MongoDB.Entities
                 doc.ID = null;
                 doc.Data = currentChunk.ToArray();
                 await db.SaveAsync(doc, session);
-                ChunkCount++;
-                FileSize += currentChunk.Count;
+                parent.ChunkCount++;
+                parent.FileSize += currentChunk.Count;
                 doc.Data = null;
                 currentChunk = null;
             }
@@ -211,11 +236,11 @@ namespace MongoDB.Entities
 
             var coll = DB.Collection<FileEntity>(dbName).Database.GetCollection<FileEntity>(collName);
 
-            var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, ID);
+            var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
-                            .Set(e => e.FileSize, FileSize)
-                            .Set(e => e.ChunkCount, ChunkCount)
-                            .Set(e => e.UploadSuccessful, UploadSuccessful);
+                            .Set(e => e.FileSize, parent.FileSize)
+                            .Set(e => e.ChunkCount, parent.ChunkCount)
+                            .Set(e => e.UploadSuccessful, parent.UploadSuccessful);
 
             await (session == null ?
                 coll.UpdateOneAsync(filter, update) :

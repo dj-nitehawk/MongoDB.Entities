@@ -24,7 +24,7 @@ namespace MongoDB.Entities.Tests
             //await img.UploadDataWithTimeoutAsync(stream, 7, 4096);
 
             using var stream = File.OpenRead("Models/test.jpg");
-            await img.UploadDataAsync(stream);
+            await img.Data.UploadAsync(stream);
 
             var count = db.Queryable<FileChunk>()
                           .Where(c => c.FileID == img.ID)
@@ -43,7 +43,7 @@ namespace MongoDB.Entities.Tests
             await img.SaveAsync();
 
             using var stream = File.Open("Models/test.jpg", FileMode.Open);
-            await img.UploadDataAsync(stream);
+            await img.Data.UploadAsync(stream);
 
             var countBefore =
                 db.Queryable<FileChunk>()
@@ -72,12 +72,12 @@ namespace MongoDB.Entities.Tests
 
             using (var inStream = File.OpenRead("Models/test.jpg"))
             {
-                await img.UploadDataAsync(inStream);
+                await img.Data.UploadAsync(inStream);
             }
 
             using (var outStream = File.OpenWrite("Models/result.jpg"))
             {
-                await img.DownloadDataAsync(outStream, 3);
+                await img.Data.DownloadAsync(outStream, 3);
             }
 
             using (var md5 = MD5.Create())
