@@ -310,11 +310,22 @@ namespace MongoDB.Entities
         /// Run the Find command in MongoDB server and get the results
         /// </summary>
         /// <returns>A list of entities</returns>
-        public Task<List<TProjection>> ExecuteAsync()
+        public async Task<List<TProjection>> ExecuteAsync()
+        {
+            return await (await ExecuteCursor()).ToListAsync();
+        }
+
+        /// <summary>
+        /// Run the Find command in MongoDB server and get a cursor intead of materialized results
+        /// </summary>
+        public Task<IAsyncCursor<TProjection>> ExecuteCursor()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return DB.FindAsync(filter, options, session, db);
         }
+
+        //todo: docs for execute cursor
+        //todo: docs for file upload/download
 
         private void AddTxtScoreToProjection(string propName)
         {
