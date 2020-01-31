@@ -12,10 +12,9 @@
     <AssemblyVersion>11.0.0.0</AssemblyVersion>
     <FileVersion>11.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- new gridFS alternative for storing files
-- ability to upload/stream files to mongodb in chunks
-- ability to download/stream files from mongodb in chunks
-- ability to get a cursor for DB.Find() result with .ExecuteCursor()
+    <PackageReleaseNotes>- stream files to and from mongodb in chunks (GridFS alternative)
+- get a cursor for DB.Find() result with .ExecuteCursor()
+- get collection name for a particular entity instance
 - find async optimizations
 - new tests
 - misc. code changes</PackageReleaseNotes>

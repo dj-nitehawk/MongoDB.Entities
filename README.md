@@ -26,8 +26,10 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 
 
 ## Documentation
-the easy to use API is described in the [wiki pages](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/01.-Getting-Started).
-
+- [API Reference](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/01.-Getting-Started)
+- [Getting Started Tutorial](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
+- [Fuzzy Text Search Tutorial](https://dev.to/djnitehawk/mongodb-fuzzy-text-search-with-c-the-easy-way-3l8j)
+- [GeoSpatial Search Tutorial](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd)
 
 
 ## Code Sample
@@ -83,13 +85,10 @@ the easy to use API is described in the [wiki pages](https://github.com/dj-niteh
 
 
 ## Code Examples
-.net core console project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
-
-asp.net core web-api project: [click here](https://github.com/dj-nitehawk/MongoWebApiStarter)
-
-integration/unit test project: [click here](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
-
-solutions to stackoverflow questions: [click here](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
+- [.net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
+- [asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
+- [integration/unit test project](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
+- [solutions to stackoverflow questions](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
 
 
 
