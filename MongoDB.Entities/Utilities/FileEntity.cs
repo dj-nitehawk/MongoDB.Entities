@@ -59,7 +59,7 @@ namespace MongoDB.Entities
         private FileChunk doc;
         private int chunkSize, readCount;
         private byte[] buffer;
-        private List<byte> currentChunk;
+        private List<byte> dataChunk;
         private IClientSessionHandle session;
 
         public DataStreamer(FileEntity parent)
@@ -156,6 +156,7 @@ namespace MongoDB.Entities
             this.session = session;
             doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
+            dataChunk = new List<byte>(chunkSize);
             buffer = new byte[64 * 1024]; // 64kb read buffer
             readCount = 0;
 
@@ -186,7 +187,7 @@ namespace MongoDB.Entities
                 await UpdateMetaData();
                 doc = null;
                 buffer = null;
-                currentChunk = null;
+                dataChunk = null;
             }
         }
 
@@ -200,26 +201,24 @@ namespace MongoDB.Entities
 
         private async Task FlushToDB(bool isLastChunk = false)
         {
-            if (currentChunk == null)
-                currentChunk = new List<byte>(chunkSize);
-
             if (!isLastChunk)
             {
-                currentChunk.AddRange(
+                dataChunk.AddRange(
                     readCount == buffer.Length ?
                     buffer :
                     new ArraySegment<byte>(buffer, 0, readCount).ToArray());
+
+                parent.FileSize += readCount;
             }
 
-            if (currentChunk.Count >= chunkSize || isLastChunk)
+            if (dataChunk.Count >= chunkSize || isLastChunk)
             {
                 doc.ID = null;
-                doc.Data = currentChunk.ToArray();
+                doc.Data = dataChunk.ToArray();
                 await db.SaveAsync(doc, session);
                 parent.ChunkCount++;
-                parent.FileSize += currentChunk.Count;
                 doc.Data = null;
-                currentChunk = null;
+                dataChunk.Clear();
             }
         }
 

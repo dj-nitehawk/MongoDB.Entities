@@ -20,8 +20,10 @@ namespace MongoDB.Entities.Tests
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
             await img.SaveAsync();
 
-            //using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
-            //await img.UploadDataWithTimeoutAsync(stream, 7, 4096);
+            //https://placekitten.com/g/4000/4000
+            //https://djnitehawk.com/test/test.bmp
+            //using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://placekitten.com/g/4000/4000");
+            //await img.Data.UploadWithTimeoutAsync(stream, 10, 4096);
 
             using var stream = File.OpenRead("Models/test.jpg");
             await img.Data.UploadAsync(stream);
@@ -30,6 +32,7 @@ namespace MongoDB.Entities.Tests
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
+            //Assert.AreEqual(613650, img.FileSize);
             Assert.AreEqual(2047524, img.FileSize);
             Assert.AreEqual(img.ChunkCount, count);
         }
