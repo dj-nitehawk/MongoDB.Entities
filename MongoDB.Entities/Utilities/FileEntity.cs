@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,7 @@ namespace MongoDB.Entities
             var options = new FindOptions<FileChunk, byte[]>
             {
                 BatchSize = batchSize,
+                Sort = Builders<FileChunk>.Sort.Ascending(c => c.ID),
                 Projection = Builders<FileChunk>.Projection.Expression(c => c.Data)
             };
 
@@ -221,7 +223,7 @@ namespace MongoDB.Entities
         }
     }
 
-    [Name("_FILE_CHUNKS_")]
+    [Name("[BINARY_CHUNKS]")]
     internal class FileChunk : IEntity
     {
         [BsonId]
