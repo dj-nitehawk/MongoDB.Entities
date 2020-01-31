@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the name of the database this entity is attached to. Returns null if not attached.
+        /// Gets the name of the database this entity is attached to. Returns name of default database if not attached.
         /// </summary>
         public static string Database(this IEntity entity)
         {
@@ -41,7 +41,7 @@ namespace MongoDB.Entities
             {
                 return attribute.Name;
             }
-            return null;
+            return DB.GetInstance(null).DbName;
         }
 
         /// <summary>
@@ -88,6 +88,20 @@ namespace MongoDB.Entities
         public static IMongoCollection<T> Collection<T>(this T entity) where T : IEntity
         {
             return DB.Collection<T>(entity.Database());
+        }
+
+        /// <summary>
+        /// Gets the collection name for this entity
+        /// </summary>
+        public static string CollectionName(this IEntity entity)
+        {
+            var type = entity.GetType();
+            var attribute = type.GetCustomAttribute<NameAttribute>();
+            if (attribute != null)
+            {
+                return attribute.Name;
+            }
+            return type.Name;
         }
 
         /// <summary>

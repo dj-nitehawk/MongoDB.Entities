@@ -52,8 +52,9 @@ namespace MongoDB.Entities
 
     public class DataStreamer
     {
+        private static readonly HashSet<string> indexedDBs = new HashSet<string>();
+
         private readonly FileEntity parent;
-        private readonly string dbName, collName;
         private readonly DB db;
         private FileChunk doc;
         private int chunkSize, readCount;
@@ -64,21 +65,15 @@ namespace MongoDB.Entities
         public DataStreamer(FileEntity parent)
         {
             this.parent = parent;
-            db = DB.GetInstance(parent.Database());
+            var dbName = parent.Database();
+            db = DB.GetInstance(dbName);
 
-            var type = parent.GetType();
-            collName = type.Name;
-
-            var nameAttribs = (NameAttribute[])type.GetCustomAttributes(typeof(NameAttribute), false);
-            if (nameAttribs.Length > 0)
+            if (!indexedDBs.Contains(dbName))
             {
-                collName = nameAttribs[0].Name;
-            }
-
-            var dbAttribs = (DatabaseAttribute[])type.GetCustomAttributes(typeof(DatabaseAttribute), false);
-            if (dbAttribs.Length > 0)
-            {
-                dbName = dbAttribs[0].Name;
+                indexedDBs.Add(dbName);
+                _ = db.Index<FileChunk>()
+                      .Key(c => c.FileID, KeyType.Ascending)
+                      .CreateAsync();
             }
         }
 
@@ -161,7 +156,7 @@ namespace MongoDB.Entities
             this.session = session;
             doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
-            buffer = new byte[64 * 1024]; // read the stream 64kb at a time 
+            buffer = new byte[64 * 1024]; // 64kb read buffer
             readCount = 0;
 
             try
@@ -230,11 +225,7 @@ namespace MongoDB.Entities
 
         private async Task UpdateMetaData()
         {
-            _ = DB.Index<FileChunk>(dbName)
-                  .Key(c => c.FileID, KeyType.Ascending)
-                  .CreateAsync();
-
-            var coll = DB.Collection<FileEntity>(dbName).Database.GetCollection<FileEntity>(collName);
+            var coll = db.Collection<FileEntity>().Database.GetCollection<FileEntity>(parent.CollectionName());
 
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
