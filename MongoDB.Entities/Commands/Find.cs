@@ -324,9 +324,6 @@ namespace MongoDB.Entities
             return DB.FindAsync(filter, options, session, db);
         }
 
-        //todo: docs for execute cursor
-        //todo: docs for file upload/download
-
         private void AddTxtScoreToProjection(string propName)
         {
             if (options.Projection == null) options.Projection = "{}";
