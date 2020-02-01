@@ -40,6 +40,25 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task file_smaller_than_chunk_size()
+        {
+            var db = new DB("mongodb-entities-test-multi");
+
+            var img = new Image { Height = 100, Width = 100, Name = "Test-small.Png" };
+            await img.SaveAsync();
+
+            using var stream = File.OpenRead("Models/test.jpg");
+            await img.Data.UploadAsync(stream, 4096);
+
+            var count = db.Queryable<FileChunk>()
+                          .Where(c => c.FileID == img.ID)
+                          .Count();
+
+            Assert.AreEqual(2047524, img.FileSize);
+            Assert.AreEqual(img.ChunkCount, count);
+        }
+
+        [TestMethod]
         public async Task deleting_entity_deletes_all_chunks()
         {
             var db = new DB("mongodb-entities-test-multi");
@@ -95,18 +114,19 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public Task no_chunks_throws_error_if_tried_to_download()
+        public Task trying_to_download_when_no_chunks_present()
         {
             new DB("mongodb-entities-test-multi");
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                using (var stream = File.OpenWrite("test.file"))
+            Assert.ThrowsException<InvalidOperationException>(
+                () =>
                 {
-                    DB.File<Image>(ObjectId.GenerateNewId().ToString())
-                            .DownloadAsync(stream).GetAwaiter().GetResult();
-                }
-            });
+                    using (var stream = File.OpenWrite("test.file"))
+                    {
+                        DB.File<Image>(ObjectId.GenerateNewId().ToString())
+                                .DownloadAsync(stream).GetAwaiter().GetResult();
+                    }
+                });
 
             return Task.CompletedTask;
         }
