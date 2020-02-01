@@ -114,6 +114,33 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task downloading_file_chunks_directly()
+        {
+            new DB("mongodb-entities-test-multi");
+
+            var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
+            await img.SaveAsync();
+
+            using (var inStream = File.OpenRead("Models/test.jpg"))
+            {
+                await img.Data.UploadAsync(inStream);
+            }
+
+            using (var outStream = File.OpenWrite("Models/result-direct.jpg"))
+            {
+                await DB.File<Image>(img.ID).DownloadAsync(outStream);
+            }
+
+            using (var md5 = MD5.Create())
+            {
+                var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
+                var newHash = md5.ComputeHash(File.OpenRead("Models/result-direct.jpg"));
+
+                Assert.IsTrue(oldHash.SequenceEqual(newHash));
+            }
+        }
+
+        [TestMethod]
         public Task trying_to_download_when_no_chunks_present()
         {
             new DB("mongodb-entities-test-multi");
