@@ -8,16 +8,15 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>11.1.1</Version>
-    <AssemblyVersion>11.1.1.0</AssemblyVersion>
-    <FileVersion>11.1.1.0</FileVersion>
+    <Version>11.2</Version>
+    <AssemblyVersion>11.2.0.0</AssemblyVersion>
+    <FileVersion>11.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- stream files to and from mongodb in chunks (GridFS alternative)
-- get a cursor for DB.Find() result with .ExecuteCursor()
-- get collection name for a particular entity instance
-- find async optimizations
+    <PackageReleaseNotes>- DB.File() method for getting file data directly
+- minor code changes
 - new tests
-- misc. code changes</PackageReleaseNotes>
+- xml documentation updates
+</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

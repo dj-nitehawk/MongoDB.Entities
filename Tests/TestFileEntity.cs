@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Tests.Models;
+using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -90,6 +92,23 @@ namespace MongoDB.Entities.Tests
 
                 Assert.IsTrue(oldHash.SequenceEqual(newHash));
             }
+        }
+
+        [TestMethod]
+        public Task no_chunks_throws_error_if_tried_to_download()
+        {
+            new DB("mongodb-entities-test-multi");
+
+            Assert.ThrowsException<InvalidOperationException>(() =>
+            {
+                using (var stream = File.OpenWrite("test.file"))
+                {
+                    DB.File<Image>(ObjectId.GenerateNewId().ToString())
+                            .DownloadAsync(stream).GetAwaiter().GetResult();
+                }
+            });
+
+            return Task.CompletedTask;
         }
     }
 }

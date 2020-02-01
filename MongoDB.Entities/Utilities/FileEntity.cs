@@ -116,13 +116,18 @@ namespace MongoDB.Entities
 
             using (var cursor = await findTask)
             {
+                var hasChunks = false;
+
                 while (await cursor.MoveNextAsync(cancelToken))
                 {
                     foreach (var chunk in cursor.Current)
                     {
                         await stream.WriteAsync(chunk, 0, chunk.Length, cancelToken);
+                        hasChunks = true;
                     }
                 }
+
+                if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
             }
         }
 
