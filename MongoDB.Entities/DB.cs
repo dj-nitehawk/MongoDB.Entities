@@ -207,9 +207,25 @@ namespace MongoDB.Entities
         /// </summary>
         public static void Migrate()
         {
-            var types = Assembly.GetCallingAssembly()
-                                .GetTypes()
-                                .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
+            var excludes = new[]
+            {
+                "Microsoft.",
+                "System.",
+                "MongoDB.",
+                "testhost.",
+                "netstandard",
+                "Newtonsoft.",
+                "mscorlib",
+                "NuGet."
+            };
+
+            var types = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(a =>
+                      (a.IsDynamic != true && !excludes.Any(n => a.FullName.StartsWith(n))) ||
+                      (a.FullName.StartsWith("MongoDB.Entities.Tests")))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
 
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
