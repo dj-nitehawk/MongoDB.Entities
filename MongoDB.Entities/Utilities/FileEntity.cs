@@ -167,6 +167,8 @@ namespace MongoDB.Entities
 
             try
             {
+                if (stream.Position > 0 && stream.CanSeek) stream.Position = 0;
+
                 while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancelToken)) > 0)
                 {
                     await FlushToDB();
