@@ -505,19 +505,19 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child IEntity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task RemoveAsync(TChild child, IClientSessionHandle session = null)
+        public Task RemoveAsync(TChild child, IClientSessionHandle session = null)
         {
             if (inverse)
             {
-                await (session == null
+                return session == null
                        ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID)));
+                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID));
             }
             else
             {
-                await (session == null
+                return session == null
                        ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID)));
+                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID));
 
             }
         }

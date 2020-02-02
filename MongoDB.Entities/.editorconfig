@@ -1,0 +1,15 @@
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+root = true
+
+# CS files
+[*.cs]
+dotnet_diagnostic.RCS1090.severity = none
+dotnet_diagnostic.CS1573.severity = none
+
+# All files
+[*]
+indent_style = space
+
+# Xml files
+[*.xml]
+indent_size = 2

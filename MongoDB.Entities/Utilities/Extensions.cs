@@ -232,9 +232,9 @@ namespace MongoDB.Entities
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static async Task SaveAsync<T>(this T entity) where T : IEntity
+        public static Task SaveAsync<T>(this T entity) where T : IEntity
         {
-            await DB.SaveAsync(entity: entity, db: entity.Database());
+            return DB.SaveAsync(entity: entity, db: entity.Database());
         }
 
         /// <summary>
@@ -250,9 +250,9 @@ namespace MongoDB.Entities
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static async Task SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
+        public static Task SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            await DB.SaveAsync(entities: entities, db: entities.First().Database());
+            return DB.SaveAsync(entities: entities, db: entities.First().Database());
         }
 
         /// <summary>
@@ -268,9 +268,9 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static async Task DeleteAsync<T>(this T entity) where T : IEntity
+        public static Task DeleteAsync<T>(this T entity) where T : IEntity
         {
-            await DB.DeleteAsync<T>(ID: entity.ID, db: entity.Database());
+            return DB.DeleteAsync<T>(ID: entity.ID, db: entity.Database());
         }
 
         /// <summary>
@@ -286,9 +286,9 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static async Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
+        public static Task DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            await DB.DeleteAsync<T>(IDs: entities.Select(e => e.ID), db: entities.First().Database());
+            return DB.DeleteAsync<T>(IDs: entities.Select(e => e.ID), db: entities.First().Database());
         }
 
         /// <summary>

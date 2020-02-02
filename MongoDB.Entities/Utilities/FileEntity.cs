@@ -229,7 +229,7 @@ namespace MongoDB.Entities
             }
         }
 
-        private async Task UpdateMetaData()
+        private Task UpdateMetaData()
         {
             var coll = db.Collection<FileEntity>().Database.GetCollection<FileEntity>(parent.CollectionName());
 
@@ -239,9 +239,9 @@ namespace MongoDB.Entities
                             .Set(e => e.ChunkCount, parent.ChunkCount)
                             .Set(e => e.UploadSuccessful, parent.UploadSuccessful);
 
-            await (session == null ?
-                coll.UpdateOneAsync(filter, update) :
-                coll.UpdateOneAsync(session, filter, update));
+            return session == null
+                   ? coll.UpdateOneAsync(filter, update)
+                   : coll.UpdateOneAsync(session, filter, update);
         }
     }
 

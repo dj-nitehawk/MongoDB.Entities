@@ -171,13 +171,13 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the update command with pipeline stages
         /// </summary>
-        public async Task ExecutePipelineAsync()
+        public Task ExecutePipelineAsync()
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
-            await DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
+            return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
         }
     }
 }

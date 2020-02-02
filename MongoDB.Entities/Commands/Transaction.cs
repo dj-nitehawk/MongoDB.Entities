@@ -40,7 +40,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Commits a tranaction to MongoDB
         /// </summary>
-        public async Task CommitAsync() => await Session.CommitTransactionAsync();
+        public Task CommitAsync() => Session.CommitTransactionAsync();
 
         /// <summary>
         /// Aborts and rolls back a tranaction
@@ -50,7 +50,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Aborts and rolls back a tranaction
         /// </summary>
-        public async Task AbortAsync() => await Session.AbortTransactionAsync();
+        public Task AbortAsync() => Session.AbortTransactionAsync();
 
         public Update<T> Update<T>() where T : IEntity
         {
@@ -82,9 +82,9 @@ namespace MongoDB.Entities
             Run.Sync(() => SaveAsync(entity));
         }
 
-        public async Task SaveAsync<T>(T entity) where T : IEntity
+        public Task SaveAsync<T>(T entity) where T : IEntity
         {
-            await DB.SaveAsync(entity, Session, db);
+            return DB.SaveAsync(entity, Session, db);
         }
 
         public void Save<T>(IEnumerable<T> entities) where T : IEntity
@@ -92,9 +92,9 @@ namespace MongoDB.Entities
             Run.Sync(() => SaveAsync(entities));
         }
 
-        public async Task SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
+        public Task SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
         {
-            await DB.SaveAsync(entities, Session, db);
+            return DB.SaveAsync(entities, Session, db);
         }
 
         public void Delete<T>(string ID) where T : IEntity
@@ -102,9 +102,9 @@ namespace MongoDB.Entities
             Run.Sync(() => DeleteAsync<T>(ID));
         }
 
-        public async Task DeleteAsync<T>(string ID) where T : IEntity
+        public Task DeleteAsync<T>(string ID) where T : IEntity
         {
-            await DB.DeleteAsync<T>(ID, Session, db);
+            return DB.DeleteAsync<T>(ID, Session, db);
         }
 
         public void Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
@@ -112,9 +112,9 @@ namespace MongoDB.Entities
             Run.Sync(() => DeleteAsync(expression));
         }
 
-        public async Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
+        public Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
-            await DB.DeleteAsync(expression, Session, db);
+            return DB.DeleteAsync(expression, Session, db);
         }
 
         public void Delete<T>(IEnumerable<string> IDs) where T : IEntity
@@ -122,9 +122,9 @@ namespace MongoDB.Entities
             Run.Sync(() => DeleteAsync<T>(IDs));
         }
 
-        public async Task DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
+        public Task DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
         {
-            await DB.DeleteAsync<T>(IDs, Session, db);
+            return DB.DeleteAsync<T>(IDs, Session, db);
         }
 
         public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)

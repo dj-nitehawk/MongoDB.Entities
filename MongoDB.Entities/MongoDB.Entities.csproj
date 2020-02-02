@@ -8,13 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>11.3.1</Version>
-    <AssemblyVersion>11.3.1.0</AssemblyVersion>
-    <FileVersion>11.3.1.0</FileVersion>
+    <Version>11.3.2</Version>
+    <AssemblyVersion>11.3.2.0</AssemblyVersion>
+    <FileVersion>11.3.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- ability to discover migrations from all assemblies of the app domain
 - ability to specify a type to discover migrations from the same assembly
 - improve reading dirty streams
+- reduce number of async state machines produced by compiler
 - new tests
 - misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>

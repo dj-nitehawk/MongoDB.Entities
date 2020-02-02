@@ -6,9 +6,9 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static async Task CreateIndexAsync<T>(CreateIndexModel<T> model, string db = null)
+        internal static Task CreateIndexAsync<T>(CreateIndexModel<T> model, string db = null)
         {
-            await Collection<T>(db).Indexes.CreateOneAsync(model);
+            return Collection<T>(db).Indexes.CreateOneAsync(model);
         }
 
         internal static async Task DropIndexAsync<T>(string name, string db = null)

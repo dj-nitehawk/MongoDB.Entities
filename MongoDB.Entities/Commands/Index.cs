@@ -113,7 +113,7 @@ namespace MongoDB.Entities
                 }
                 else
                 {
-                    throw x;
+                    throw;
                 }
             }
         }

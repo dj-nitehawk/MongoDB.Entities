@@ -99,12 +99,11 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
         {
-            return (await
-                        (new Find<T>(session, db))
-                                .Match(ID)
-                                .Project(projection)
-                                .ExecuteAsync()
-                                ).FirstOrDefault();
+            return (await new Find<T>(session, db)
+                        .Match(ID)
+                        .Project(projection)
+                        .ExecuteAsync())
+                   .FirstOrDefault();
         }
 
         /// <summary>
@@ -126,12 +125,11 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
         {
-            return (await
-                        (new Find<T>(session, db))
-                                .Match(ID)
-                                .Project(projection)
-                                .ExecuteAsync()
-                                ).FirstOrDefault();
+            return (await new Find<T>(session, db)
+                        .Match(ID)
+                        .Project(projection)
+                        .ExecuteAsync())
+                   .FirstOrDefault();
         }
     }
 }

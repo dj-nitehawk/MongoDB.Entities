@@ -3,11 +3,9 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -199,7 +197,7 @@ namespace MongoDB.Entities
         public static ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
         {
             return Builders<T>.Projection;
-        }       
+        }
 
         /// <summary>
         /// Returns a new instance of the supplied IEntity type
