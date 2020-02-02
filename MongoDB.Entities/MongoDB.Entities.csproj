@@ -12,7 +12,9 @@
     <AssemblyVersion>11.3.0.0</AssemblyVersion>
     <FileVersion>11.3.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- ability to discover migrations from all assemblies
+    <PackageReleaseNotes>- ability to discover migrations from all assemblies of the app domain
+- ability to specify a type to discover migrations from the same assembly
+- new tests
 - misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
