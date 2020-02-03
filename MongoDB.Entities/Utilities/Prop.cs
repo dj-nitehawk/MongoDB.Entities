@@ -80,7 +80,6 @@ namespace MongoDB.Entities
         /// <para>EX: Authors[0].Name > Authors.$[].Name</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        /// <returns></returns>
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
@@ -108,7 +107,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Returns a path without any filtered positional identifier prepended to it.
-        /// <para>EX: bk => bk.Tags > Tags</para>
+        /// <para>EX: b => b.Tags > Tags</para>
         /// </summary>
         /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(Expression<Func<T, object>> expression)
@@ -118,9 +117,9 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Returns a path with the filtered positional identifier prepended to the property path.
-        /// <para>EX: 0, bk => bk.Rating > a.Rating</para>
-        /// <para>EX: 1, bk => bk.Rating > b.Rating</para>
-        /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
+        /// <para>EX: 0, x => x.Rating > a.Rating</para>
+        /// <para>EX: 1, x => x.Rating > b.Rating</para>
+        /// <para>TIP: Index positions start from '0' which is converted to 'a' and so on.</para>
         /// </summary>
         /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
         /// <param name="expression">x => x.SomeProp</param>
