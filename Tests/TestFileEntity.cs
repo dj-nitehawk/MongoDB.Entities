@@ -14,8 +14,8 @@ namespace MongoDB.Entities.Tests
     [TestClass]
     public class FileEntities
     {
-        [TestMethod]
-        public async Task uploading_data_works()
+        [TestCategory("SkipWhenLiveUnitTesting")]
+        public async Task uploading_data_from_http_stream()
         {
             var db = new DB("mongodb-entities-test-multi");
 
@@ -24,8 +24,24 @@ namespace MongoDB.Entities.Tests
 
             //https://placekitten.com/g/4000/4000 - 1097221
             //https://djnitehawk.com/test/test.bmp - 69455612
-            //using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
-            //await img.Data.UploadWithTimeoutAsync(stream, 1000, 4096);
+            using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
+            await img.Data.UploadWithTimeoutAsync(stream, 30, 128);
+
+            var count = db.Queryable<FileChunk>()
+                          .Where(c => c.FileID == img.ID)
+                          .Count();
+
+            Assert.AreEqual(1097221, img.FileSize);
+            Assert.AreEqual(img.ChunkCount, count);
+        }
+
+        [TestMethod]
+        public async Task uploading_data_from_file_stream()
+        {
+            var db = new DB("mongodb-entities-test-multi");
+
+            var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
+            await img.SaveAsync();
 
             using var stream = File.OpenRead("Models/test.jpg");
             await img.Data.UploadAsync(stream);
@@ -34,7 +50,6 @@ namespace MongoDB.Entities.Tests
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
-            //Assert.AreEqual(69455612, img.FileSize);
             Assert.AreEqual(2047524, img.FileSize);
             Assert.AreEqual(img.ChunkCount, count);
         }
