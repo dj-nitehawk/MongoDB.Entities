@@ -13,7 +13,9 @@
     <FileVersion>11.3.4.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- 
-- improve tests for http file streams</PackageReleaseNotes>
+- improve tests for http file streams
+- xml docs updated
+- misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

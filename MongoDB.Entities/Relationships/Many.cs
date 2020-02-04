@@ -254,15 +254,15 @@ namespace MongoDB.Entities
 
             if (inverse)
             {
-                return (session == null ?
-                              JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options) :
-                              JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options));
+                return session == null
+                       ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options);
             }
             else
             {
-                return (session == null ?
-                              JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options) :
-                              JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options));
+                return session == null
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options);
             }
         }
 
