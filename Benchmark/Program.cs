@@ -1,81 +1,183 @@
-﻿using Benchmark.Models;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using MongoDB.Entities;
+﻿using MongoDB.Entities;
+using MongoDB.Entities.Core;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Benchmark
 {
-    internal class Program
+    public class Author : Entity
     {
-        private static readonly int totalIterations = 10000;
-        private static readonly int parallelTasks = 32;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Date Birthday { get; set; }
+        public Many<Book> Books { get; set; }
 
-        private static void Main(string[] args)
+        public Author() => this.InitOneToMany(() => Books);
+    }
+
+    public class Book : Entity
+    {
+        public string Title { get; set; }
+        public One<Author> Author { get; set; }
+        public Date PublishedOn { get; set; }
+    }
+
+    public static class Program
+    {
+        private static readonly ConcurrentBag<byte> booksCreated = new ConcurrentBag<byte>();
+        private static readonly ConcurrentBag<byte> authorsCreated = new ConcurrentBag<byte>();
+        private const int authorCount = 1000;
+        private const int booksPerAuthor = 1000;
+        private const int concurrentTasks = 32;
+
+        private static void Main()
         {
-            Start().Wait();
-            Console.WriteLine("Press any key to exit...");
-            Console.Read();
-        }
+            new DB("benchmark-mongodb-entities");
 
-        private static async Task Start()
-        {
-            new DB("mongodb-entities-benchmark");
-            Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
+            Console.WriteLine("creating 1 million books and 1000 authors...");
+            Console.WriteLine();
 
-            var mainWatch = new Stopwatch();
-            var batchWatch = new Stopwatch();
+            var sw = new Stopwatch();
+            sw.Start();
 
-            mainWatch.Start();
-            batchWatch.Start();
+            var range = Enumerable.Range(1, authorCount);
 
-            for (int i = 0; i < totalIterations; i += parallelTasks)
+            Parallel.ForEach(range, new ParallelOptions { MaxDegreeOfParallelism = concurrentTasks }, number =>
             {
-                var tasks = new List<Task>();
-                batchWatch.Restart();
-
-                for (int x = 1; x <= parallelTasks; x++)
+                var author = new Author
                 {
-                    var postNum = i + x;
-                    tasks.Add(Task.Run(() => DoWork(postNum)));
-                    if (postNum == totalIterations) break;
+                    FirstName = "first name " + number.ToString(),
+                    LastName = "last name " + number.ToString(),
+                    Birthday = DateTime.UtcNow
+                };
+                author.Save();
+                authorsCreated.Add(0);
+
+                var book = new Book();
+
+                for (int i = 1; i <= booksPerAuthor; i++)
+                {
+                    book.ID = null;
+                    book.Title = $"author {number} - book {i}";
+                    book.PublishedOn = DateTime.UtcNow;
+                    book.Author = author.ID;
+                    book.Save();
+                    author.Books.Add(book);
+                    booksCreated.Add(0);
+
+                    Console.Write($"\rauthors: {authorsCreated.Count} | books: {booksCreated.Count}                    ");
+
                 }
+            });
 
-                await Task.WhenAll(tasks);
-                Console.WriteLine("Batch completed in: " + batchWatch.Elapsed.TotalSeconds.ToString() + " seconds");
-            }
+            Console.WriteLine();
+            Console.WriteLine($"done in {sw.Elapsed.ToString("hh':'mm':'ss")}");
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
 
-            Console.WriteLine("ALL COMPLETED IN: " + mainWatch.Elapsed.TotalSeconds.ToString() + " seconds");
-            Console.WriteLine("Total posts in collection: " + (await DB.Queryable<BlogPost>().CountAsync()).ToString());
-        }
+            sw.Restart();
+            var author = DB.Find<Author>()
+                           .Match(a => a.FirstName == "first name 666" && a.LastName == "last name 666")
+                           .Execute()
+                           .FirstOrDefault();
 
-        private static async Task DoWork(int iteration)
-        {
-            var post = new BlogPost
+            Console.WriteLine();
+            Console.WriteLine($"found author 666 by name in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] with an un-indexed query - his id: {author.ID}");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
+
+            sw.Restart();
+            author = DB.Find<Author>()
+                       .One(author.ID);
+
+            Console.WriteLine();
+            Console.WriteLine($"looking up author 666 by ID took [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms]");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
+
+            sw.Restart();
+            var book555 = author.Books
+                            .ChildrenQueryable()
+                            .Where(b => b.Title == "author 666 - book 555")
+                            .ToList()
+                            .FirstOrDefault();
+
+            Console.WriteLine();
+            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is not indexed");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine("creating index for book title...");
+            sw.Restart();
+            var indexTask = DB.Index<Book>()
+                              .Key(b => b.Title, KeyType.Ascending)
+                              .Option(o => o.Background = false)
+                              .CreateAsync();
+
+            while (!indexTask.IsCompleted)
             {
-                Title = $"blog post number: {iteration} [thread: {Thread.CurrentThread.ManagedThreadId}]",
-                Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            };
-            await post.SaveAsync();
+                Console.Write($"\rindexing time: {sw.Elapsed.TotalSeconds.ToString("0")} seconds");
+                Task.Delay(1000).Wait();
+            }
+            Console.WriteLine();
+            Console.WriteLine("indexing done!");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
 
-            var cat1 = new Category { Name = $"cat one for iteration {iteration}" };
-            await cat1.SaveAsync();
+            sw.Restart();
+            book555 = author.Books
+                            .ChildrenQueryable()
+                            .Where(b => b.Title == "author 666 - book 555")
+                            .ToList()
+                            .FirstOrDefault();
 
-            var cat2 = new Category { Name = $"cat two for iteration {iteration}" };
-            await cat2.SaveAsync();
+            Console.WriteLine();
+            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is indexed");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
 
-            await post.Categories.AddAsync(cat1);
-            await cat2.Posts.AddAsync(post);
+            sw.Restart();
+            var bookIDs = DB.Find<Book, string>()
+                            .Match(b => b.Title == "author 999 - book 999" ||
+                                        b.Title == "author 333 - book 333")
+                            .Project(b => b.ID)
+                            .Execute()
+                            .ToArray();
 
-            var resCat = await cat2.Queryable().Where(c => c.ID == cat2.ID).SingleAsync();
-            if (resCat.Name != cat2.Name) throw new Exception("this is the wrong category");
+            Console.WriteLine();
+            Console.WriteLine($"fetched 2 book IDs by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is indexed");
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
 
-            var resPost = await resCat.Posts.ChildrenQueryable().SingleAsync();
-            if (resPost.Title != post.Title) throw new Exception("this is the wrong post");
+            sw.Restart();
+            var parents = DB.Entity<Author>().Books
+                            .ParentsQueryable<Author>(bookIDs)
+                            .ToArray();
+
+            Console.WriteLine();
+            Console.WriteLine($"reverse relationship access finished in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms]");
+            Console.WriteLine();
+            Console.WriteLine("the following authors were returned:");
+            Console.WriteLine();
+            foreach (var a in parents)
+            {
+                Console.WriteLine($"name: {a.FirstName} {a.LastName}");
+            }
+            Console.WriteLine();
+            Console.WriteLine("press a key to continnue...");
+            Console.ReadLine();
+
+            _ = DB.Collection<Book>().Indexes.DropAllAsync();
         }
     }
 }

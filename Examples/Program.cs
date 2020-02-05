@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Examples
 {
-    internal class Program
+    public static class Program
     {
         private static void Main(string[] args)
         {
@@ -46,7 +46,7 @@ namespace Examples
             var genre1 = new Genre { Name = "Self Help" }; genre1.Save();
 
             //EMBEDDING DOCUMENTS
-            book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from IEntity.
+            book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
             book1.RelatedAuthor = author2.ToDocument();
             book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
             book1.Save();
