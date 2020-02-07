@@ -138,7 +138,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void Execute()
         {
-            Run.Sync(() => ExecuteAsync());
+            Run.Sync(ExecuteAsync);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void ExecutePipeline()
         {
-            Run.Sync(() => ExecutePipelineAsync());
+            Run.Sync(ExecutePipelineAsync);
         }
 
         /// <summary>

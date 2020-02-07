@@ -303,7 +303,7 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public List<TProjection> Execute()
         {
-            return Run.Sync(() => ExecuteAsync());
+            return Run.Sync(ExecuteAsync);
         }
 
         /// <summary>
@@ -312,13 +312,21 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync()
         {
-            return await (await ExecuteCursor()).ToListAsync();
+            return await (await ExecuteCursorAsync()).ToListAsync();
         }
 
         /// <summary>
         /// Run the Find command in MongoDB server and get a cursor intead of materialized results
         /// </summary>
-        public Task<IAsyncCursor<TProjection>> ExecuteCursor()
+        public IAsyncCursor<TProjection> ExecuteCursor()
+        {
+            return Run.Sync(ExecuteCursorAsync);
+        }
+
+        /// <summary>
+        /// Run the Find command in MongoDB server and get a cursor intead of materialized results
+        /// </summary>
+        public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync()
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
             return DB.FindAsync(filter, options, session, db);

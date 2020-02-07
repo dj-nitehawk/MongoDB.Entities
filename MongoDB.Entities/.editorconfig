@@ -5,6 +5,7 @@ root = true
 [*.cs]
 dotnet_diagnostic.RCS1090.severity = none
 dotnet_diagnostic.CS1573.severity = none
+dotnet_diagnostic.IDE1006.severity = none
 
 # All files
 [*]

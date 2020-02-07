@@ -29,7 +29,7 @@ namespace MongoDB.Entities
         /// </summary>
         public void Create()
         {
-            Run.Sync(() => CreateAsync());
+            Run.Sync(CreateAsync);
         }
 
         /// <summary>
