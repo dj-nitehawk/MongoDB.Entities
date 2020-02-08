@@ -374,9 +374,7 @@ namespace MongoDB.Entities
             if (!indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
             {
                 indexedCollections.Add(collection.CollectionNamespace.CollectionName);
-                Task.Run(() =>
-                {
-                    collection.Indexes.CreateMany(
+                collection.Indexes.CreateManyAsync(
                     new[] {
                         new CreateIndexModel<JoinRecord>(
                             Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
@@ -394,7 +392,6 @@ namespace MongoDB.Entities
                                 Name = "[ChildID]"
                             })
                     });
-                });
             }
         }
 
