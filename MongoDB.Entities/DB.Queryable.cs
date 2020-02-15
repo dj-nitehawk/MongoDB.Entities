@@ -6,6 +6,8 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        //todo: add transaction support for Queryable<T> when driver supports it.
+
         /// <summary>
         /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
