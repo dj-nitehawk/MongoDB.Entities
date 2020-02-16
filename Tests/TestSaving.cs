@@ -30,6 +30,17 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void save_preserving()
+        {
+            var book = new Book { Title = "Test Preserving", Price = 123.45m };
+            book.Save();
+
+            book.Title = "updated title";
+
+            DB.SavePreservingAsync(book, b => new { b.Title, b.GoodAuthors });
+        }
+
+        [TestMethod]
         public void embedding_non_entity_returns_correct_document()
         {
             var book = new Book { Title = "Test" };

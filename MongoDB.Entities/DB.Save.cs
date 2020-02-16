@@ -4,6 +4,8 @@ using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -105,6 +107,17 @@ namespace MongoDB.Entities
             return session == null
                    ? Collection<T>(db).BulkWriteAsync(models)
                    : Collection<T>(db).BulkWriteAsync(session, models);
+        }
+
+        public static Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        {
+            entity.ThrowIfUnsaved();
+
+            //var props = (preservation.Body as NewExpression)?.Members;
+
+            // return null;
+
+
         }
     }
 }
