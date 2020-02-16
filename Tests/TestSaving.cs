@@ -5,6 +5,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -32,12 +33,18 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void save_preserving()
         {
-            var book = new Book { Title = "Test Preserving", Price = 123.45m };
+            var book = new Book { Title = "Title is preserved", Price = 123.45m };
             book.Save();
 
             book.Title = "updated title";
+            book.Price = 543.21m;
 
-            DB.SavePreservingAsync(book, b => new { b.Title, b.GoodAuthors });
+            book.SavePreserving(b => new { b.Title, b.PublishedOn });
+
+            book = DB.Find<Book>().One(book.ID);
+
+            Assert.AreEqual("Title is preserved", book.Title);
+            Assert.AreEqual(543.21m, book.Price);
         }
 
         [TestMethod]

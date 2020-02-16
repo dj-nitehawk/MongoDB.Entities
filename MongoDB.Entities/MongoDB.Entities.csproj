@@ -8,13 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>11.3.6</Version>
-    <AssemblyVersion>11.3.6.0</AssemblyVersion>
-    <FileVersion>11.3.6.0</FileVersion>
+    <Version>11.4.0</Version>
+    <AssemblyVersion>11.4.0.0</AssemblyVersion>
+    <FileVersion>11.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- mongodb driver updated to latest
-- optimize index creation for Many&lt;T&gt; join collections</PackageReleaseNotes>
+    <PackageReleaseNotes>- new: save an entity while preserving a subset of the property values in the db
+- optimized: index creation for Many&lt;T&gt; join collections
+- updated: to latest mongodb driver
+- added: new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

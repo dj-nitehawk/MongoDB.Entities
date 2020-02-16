@@ -256,6 +256,32 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Save this entity while preserving some property values in the database.
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        public static void SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        {
+            Run.Sync(() => SavePreservingAsync(entity, preservation));
+        }
+
+        /// <summary>
+        /// Save this entity while preserving some property values in the database.
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        public static Task SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        {
+            return DB.SavePreservingAsync(entity, preservation, null, entity.Database());
+        }
+
+        /// <summary>
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>

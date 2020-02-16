@@ -109,15 +109,105 @@ namespace MongoDB.Entities
                    : Collection<T>(db).BulkWriteAsync(session, models);
         }
 
-        public static Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        /// <summary>
+        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
+        {
+            return SaveAsync(entities, session, DbName);
+        }
+
+        /// <summary>
+        /// Saves an entity while preserving some property values in the database. 
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        {
+            Run.Sync(() => SavePreservingAsync(entity, preservation, session, db));
+        }
+
+        /// <summary>
+        /// Saves an entity while preserving some property values in the database. 
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static async Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
-            //var props = (preservation.Body as NewExpression)?.Members;
+            var props = (preservation.Body as NewExpression)?.Members.Select(m => m.Name);
 
-            // return null;
+            if (!props.Any())
+                throw new ArgumentException("Unable to get any properties from the preservation expression!");
 
+            var filter = Builders<T>.Filter.Eq(e => e.ID, entity.ID);
+            var options = new FindOptions<T, object> { Projection = Builders<T>.Projection.Expression(preservation) };
+            var result = (await (
+                    session == null
+                    ? Collection<T>(db).FindAsync(filter, options)
+                    : Collection<T>(db).FindAsync(session, filter, options)
+                    ))
+                    .ToList()
+                    .SingleOrDefault();
 
+            if (result != null)
+            {
+                var fromType = result.GetType();
+                var toType = entity.GetType();
+
+                foreach (var prop in props)
+                {
+                    toType.GetProperty(prop)?.SetValue(
+                        entity,
+                        fromType.GetProperty(prop)?.GetValue(result));
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Unable to locate entity in database for preservation purposes!");
+            }
+
+            await SaveAsync(entity, session, db);
+        }
+
+        /// <summary>
+        /// Saves an entity while preserving some property values in the database. 
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        {
+            Run.Sync(() => SavePreservingAsync(entity, preservation, session, DbName));
+        }
+
+        /// <summary>
+        /// Saves an entity while preserving some property values in the database. 
+        /// The properties to be preserved can be specified with a 'New' expression.
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        {
+            return SavePreservingAsync(entity, preservation, session, DbName);
         }
     }
 }

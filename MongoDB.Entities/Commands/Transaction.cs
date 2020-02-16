@@ -97,6 +97,16 @@ namespace MongoDB.Entities
             return DB.SaveAsync(entities, Session, db);
         }
 
+        public void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        {
+            Run.Sync(() => SavePreservingAsync(entity, preservation));
+        }
+
+        public Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        {
+            return DB.SavePreservingAsync(entity, preservation, Session, db);
+        }
+
         public void Delete<T>(string ID) where T : IEntity
         {
             Run.Sync(() => DeleteAsync<T>(ID));
