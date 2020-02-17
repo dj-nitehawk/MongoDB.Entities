@@ -147,9 +147,13 @@ namespace MongoDB.Entities
         {
             entity.ThrowIfUnsaved();
 
-            var props = (preservation.Body as NewExpression)?.Members.Select(m => m.Name);
+            var props = (preservation.Body as NewExpression)?.Arguments
+                .Select(a => a.ToString()
+                              .Split('.')
+                              [1])
+                .ToArray();
 
-            if (!props.Any())
+            if (props.Length == 0)
                 throw new ArgumentException("Unable to get any properties from the preservation expression!");
 
             var filter = Builders<T>.Filter.Eq(e => e.ID, entity.ID);

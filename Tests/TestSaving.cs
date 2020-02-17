@@ -5,7 +5,6 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -39,7 +38,13 @@ namespace MongoDB.Entities.Tests
             book.Title = "updated title";
             book.Price = 543.21m;
 
-            book.SavePreserving(b => new { b.Title, b.PublishedOn });
+            book.SavePreserving(b => new
+            {
+                b.Title,
+                b.PublishedOn,
+                b.Review.Stars,
+                Something = b.ReviewArray
+            });
 
             book = DB.Find<Book>().One(book.ID);
 
