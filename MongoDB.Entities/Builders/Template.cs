@@ -1,12 +1,12 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Linq;
-using MongoDB.Driver;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson;
 
 namespace MongoDB.Entities
 {
@@ -116,7 +116,7 @@ namespace MongoDB.Entities
         {
             var tag = $"<{tagName}>";
 
-            if(!tags.Contains(tag))
+            if (!tags.Contains(tag))
                 missingTags.Add(tag);
 
             builder.Replace(tag, replacementValue);

@@ -79,6 +79,5 @@ namespace MongoDB.Entities
         {
             return FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session, DbName);
         }
-
     }
 }
