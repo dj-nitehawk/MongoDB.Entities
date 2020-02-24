@@ -97,8 +97,8 @@ namespace MongoDB.Entities.Tests
             var res = DB.Find<Book>()
                         .Many(b => b.Title == title);
 
-            Assert.AreEqual(5, res.Count());
-            Assert.AreEqual(5, res.Where(b => b.Price == 100).Count());
+            Assert.AreEqual(5, res.Count);
+            Assert.AreEqual(5, res.Count(b => b.Price == 100));
         }
 
         [TestMethod]
@@ -109,9 +109,15 @@ namespace MongoDB.Entities.Tests
             var author = new Author { Name = "uwapw", Surname = guid };
             author.Save();
 
+            var stage = new Template<Author>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
+                .Dotted(a => a.FullName)
+                .Dotted(a => a.Name)
+                .Dotted(a => a.Surname)
+                .ToString();
+
             DB.Update<Author>()
               .Match(a => a.ID == author.ID)
-              .WithPipelineStage($"{{ $set: {{ {nameof(author.FullName)}: {{ $concat: ['${nameof(author.Name)}','-','${nameof(author.Surname)}'] }} }} }}")
+              .WithPipelineStage(stage)
               .ExecutePipeline();
 
             var fullname = DB.Find<Author>().One(author.ID).FullName;
@@ -143,8 +149,15 @@ namespace MongoDB.Entities.Tests
             };
             book.Save();
 
-            var filt1 = Prop.Elements<Author>(0, a => a.Age);
-            var prop1 = Prop.PosFiltered<Book>(b => b.OtherAuthors[0].Age);
+            var arrFil = new Template<Author>("{ '<a.Age>': { $gte: <age> } }")
+                                .Elements(0, author => author.Age)
+                                .Tag("age", "120")
+                                .ToString();
+
+            var prop1 = new Template<Book>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
+                                .PosFiltered(b => b.OtherAuthors[0].Age)
+                                .Tag("age", "321")
+                                .ToString();
 
             var filt2 = Prop.Elements<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);
@@ -153,8 +166,8 @@ namespace MongoDB.Entities.Tests
 
               .Match(b => b.ID == book.ID)
 
-              .WithArrayFilter("{'" + filt1 + "':{$gte:120}}")
-              .Modify("{$set:{'" + prop1 + "':321}}")
+              .WithArrayFilter(arrFil)
+              .Modify(prop1)
 
               .WithArrayFilter("{'" + filt2 + "':'name'}")
               .Modify("{$set:{'" + prop2 + "':'updated'}}")

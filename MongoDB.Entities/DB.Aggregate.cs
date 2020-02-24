@@ -6,8 +6,6 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        //todo: refactor existing magic string tests
-
         /// <summary>
         /// Executes an aggregation framework pipeline by supplying a 'Template' object
         /// </summary>

@@ -12,8 +12,7 @@
     <AssemblyVersion>11.5.0.0</AssemblyVersion>
     <FileVersion>11.5.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- ability to build text/json/templates with tag replacement
+    <PackageReleaseNotes>- ability to build text/json/templates with the Template class using tag replacement
 - abilty to run an aggregate commands with templates using DB.Aggregate()
 - transaction support for templates with TN.Aggregate()
 - improve internals of .SavePreserving()
