@@ -94,7 +94,6 @@ namespace MongoDB.Entities
         public PipelineDefinition<T, TResult> ToPipeline() => ToPipeline<T, TResult>();
     }
 
-
     /// <summary>
     /// A helper class to build a JSON command from a string with tag replacement
     /// </summary>

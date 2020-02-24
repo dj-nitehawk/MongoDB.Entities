@@ -15,6 +15,7 @@
     <PackageReleaseNotes>- 
 - ability to build text/json/templates with tag replacement
 - abilty to run an aggregate commands with templates using DB.Aggregate()
+- transaction support for templates with TN.Aggregate()
 - improve internals of .SavePreserving()
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
