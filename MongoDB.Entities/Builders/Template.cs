@@ -13,17 +13,17 @@ namespace MongoDB.Entities
     /// <summary>
     /// A helper class to build a JSON command from a string with tag replacement
     /// </summary>
-    public class Command
+    public class Template
     {
-        private static readonly Regex regex = new Regex("<(.*)>", RegexOptions.Compiled);
+        private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
         private readonly StringBuilder builder;
         private readonly HashSet<string> tags, missingTags, unReplacedTags;
 
         /// <summary>
-        /// Initialize a command builder with the supplied template stirng.
+        /// Initialize a command builder with the supplied template string.
         /// </summary>
         /// <param name="template">The template string with tags for targetting replacements such as "&lt;Author.Name&gt;"</param>
-        public Command(string template)
+        public Template(string template)
         {
             builder = new StringBuilder(template, template.Length);
             tags = new HashSet<string>();
@@ -32,14 +32,14 @@ namespace MongoDB.Entities
 
             foreach (Match match in regex.Matches(template))
             {
-                tags.Add(match.Groups[0].Value);
+                tags.Add(match.Value);
             }
 
             if (tags.Count == 0)
                 throw new ArgumentException("No replacement tags marked with <tagname> were found in the supplied template string");
         }
 
-        private Command Replace(string path)
+        private Template Replace(string path)
         {
             var tag = $"<{path}>";
 
@@ -55,7 +55,7 @@ namespace MongoDB.Entities
         /// Turns the given expression into a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Command Dotted<T>(Expression<Func<T, object>> expression)
+        public Template Dotted<T>(Expression<Func<T, object>> expression)
         {
             return Replace(Prop.Dotted(expression));
         }
@@ -65,7 +65,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Command PosFiltered<T>(Expression<Func<T, object>> expression)
+        public Template PosFiltered<T>(Expression<Func<T, object>> expression)
         {
             return Replace(Prop.PosFiltered(expression));
         }
@@ -74,7 +74,7 @@ namespace MongoDB.Entities
         /// Turns the given expression into a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Command PosAll<T>(Expression<Func<T, object>> expression)
+        public Template PosAll<T>(Expression<Func<T, object>> expression)
         {
             return Replace(Prop.PosAll(expression));
         }
@@ -83,7 +83,7 @@ namespace MongoDB.Entities
         /// Turns the given expression into a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Command PosFirst<T>(Expression<Func<T, object>> expression)
+        public Template PosFirst<T>(Expression<Func<T, object>> expression)
         {
             return Replace(Prop.PosFirst(expression));
         }
@@ -92,7 +92,7 @@ namespace MongoDB.Entities
         /// Turns the given expression into a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeProp</param>
-        public Command Elements<T>(Expression<Func<T, object>> expression)
+        public Template Elements<T>(Expression<Func<T, object>> expression)
         {
             return Replace(Prop.Elements(expression));
         }
@@ -102,7 +102,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
         /// <param name="expression">x => x.SomeProp</param>
-        public Command Elements<T>(int index, Expression<Func<T, object>> expression)
+        public Template Elements<T>(int index, Expression<Func<T, object>> expression)
         {
             return Replace(Prop.Elements(index, expression));
         }
@@ -112,7 +112,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="tagName">The tag name without the surrounding &lt; and &gt;</param>
         /// <param name="replacementValue">The value to replace with</param>
-        public Command Tag(string tagName, string replacementValue)
+        public Template Tag(string tagName, string replacementValue)
         {
             var tag = $"<{tagName}>";
 
@@ -137,7 +137,7 @@ namespace MongoDB.Entities
 
             foreach (Match match in regex.Matches(output))
             {
-                unReplacedTags.Add(match.Groups[0].Value);
+                unReplacedTags.Add(match.Value);
             }
 
             if (unReplacedTags.Count > 0)

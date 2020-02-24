@@ -14,7 +14,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void missing_tags_throws()
         {
-            var command = @"
+            var template = new Template(@"[
             {
               $lookup: {
                 from: 'users',
@@ -31,21 +31,20 @@ namespace MongoDB.Entities.Tests
               $match: {
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
-            }";
+            }]").Tag("size", "$size")
+                .Tag("user", "$user")
+                .Tag("missing", "blah");
 
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                _ = command.Replace(
-                    ("user", "$user"),
-                    ("count", "$sum"),
-                    ("max.distance", "max.distance.value"));
+                template.ToString();
             });
         }
 
         [TestMethod]
         public void extra_tags_throws()
         {
-            var command = @"
+            var template = new Template(@"[
             {
               $lookup: {
                 from: 'users',
@@ -62,38 +61,32 @@ namespace MongoDB.Entities.Tests
               $match: {
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
-            }";
+            }]").Tag("size", "$size")
+                .Tag("user", "$user");
 
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                _ = command.Replace(
-                    ("user", "$user"),
-                    ("size", "$size"));
+                template.ToString();
             });
         }
 
         [TestMethod]
         public void tag_replacement_works()
         {
-            const string template = @"
+            var template = new Template(@"
             {
-                $match: {
-                    '<OtherAuthors.Name>': /<search_term>/is
-                }
-            }";
+               $match: { '<OtherAuthors.Name>': /<search_term>/is }
+            }")
 
-            var result = template.Replace(
-                         ("OtherAuthors.Name", Prop.Dotted<Book>(b => b.OtherAuthors[0].Name)),
-                         ("search_term", "Eckhart Tolle"));
+            .Dotted<Book>(b => b.OtherAuthors[0].Name)
+            .Tag("search_term", "Eckhart Tolle");
 
             const string expectation = @"
             {
-                $match: {
-                    'OtherAuthors.Name': /Eckhart Tolle/is
-                }
+               $match: { 'OtherAuthors.Name': /Eckhart Tolle/is }
             }";
 
-            Assert.AreEqual(expectation, result);
+            Assert.AreEqual(expectation, template.ToString());
         }
     }
 }
