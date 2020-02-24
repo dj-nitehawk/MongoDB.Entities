@@ -1,10 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using System;
+using System.Linq;
 
 namespace MongoDB.Entities.Tests
 {
     [TestClass]
-    public class TagReplacement
+    public class Templates
     {
         [TestMethod]
         public void missing_tags_throws()
@@ -82,6 +84,34 @@ namespace MongoDB.Entities.Tests
             }";
 
             Assert.AreEqual(expectation, template.ToString());
+        }
+
+        [TestMethod]
+        public void tag_replacement_with_db_aggregate()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid, Age = 54 };
+            var author2 = new Author { Name = guid, Age = 53 };
+            DB.Save(new[] { author1, author2 });
+
+            var pipeline = new Template<Author>(@"
+            [
+                {
+                  $match: { <Name>: '<author_name>' }
+                },
+                {
+                  $sort: { <Age>: 1 }
+                }
+            ]")
+                .Dotted(a => a.Name)
+                .Tag("author_name", guid)
+                .Dotted(a => a.Age);
+
+            var results = DB.Aggregate(pipeline).ToList();
+
+            Assert.AreEqual(2, results.Count);
+            Assert.IsTrue(results.First().Name == guid);
+            Assert.IsTrue(results.Last().Age == 54);
         }
     }
 }
