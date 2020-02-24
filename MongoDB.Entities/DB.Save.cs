@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -146,6 +147,8 @@ namespace MongoDB.Entities
         public static async Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             entity.ThrowIfUnsaved();
+
+            var args = (preservation.Body as NewExpression)?.Members.Select(m => m as PropertyInfo);
 
             var props = (preservation.Body as NewExpression)?.Arguments
                 .Select(a => a.ToString()

@@ -97,7 +97,6 @@ namespace MongoDB.Entities
         /// Specify an array filter to target nested entities for updates with the .Modify() method (use multiple times if needed).
         /// </summary>
         /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
-        /// <returns></returns>
         public Update<T> WithArrayFilter(string filter)
         {
             ArrayFilterDefinition<T> def = filter;
