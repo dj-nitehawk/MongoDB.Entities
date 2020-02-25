@@ -9,10 +9,10 @@ namespace MongoDB.Entities
     /// </summary>
     public static class Prop
     {
-        private readonly static Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);
-        private readonly static Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);
-        private readonly static Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
-        private readonly static Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
+        private static readonly Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);
+        private static readonly Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);
+        private static readonly Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
+        private static readonly Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
 
         private static string GetLowerLetter(long number)
         {

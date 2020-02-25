@@ -229,7 +229,7 @@ namespace MongoDB.Entities
                 if (filter == null) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                
+
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
                 await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
             }
