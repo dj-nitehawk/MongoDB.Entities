@@ -135,6 +135,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the matching criteria with a template
+        /// </summary>
+        /// <param name="template">A Template with a find query</param>
+        public Find<T, TProjection> Match(Template template)
+        {
+            filter = template.ToString();
+            return this;
+        }
+
+        /// <summary>
         /// Specify a seach term to find results from the text index of this paricular collection.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
