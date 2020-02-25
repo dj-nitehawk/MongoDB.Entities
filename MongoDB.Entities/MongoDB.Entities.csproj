@@ -12,7 +12,7 @@
     <AssemblyVersion>11.5.1.0</AssemblyVersion>
     <FileVersion>11.5.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
+    <PackageReleaseNotes>- optimize internals of 'Prop' class
 - optimize internals of 'Template' class</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

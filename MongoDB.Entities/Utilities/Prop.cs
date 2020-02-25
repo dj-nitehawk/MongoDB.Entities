@@ -9,10 +9,15 @@ namespace MongoDB.Entities
     /// </summary>
     public static class Prop
     {
+        private readonly static Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);
+        private readonly static Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);
+        private readonly static Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
+        private readonly static Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
+
         private static string GetLowerLetter(long number)
         {
             string returnVal = null;
-            char c = 'a';
+            const char c = 'a';
             while (number >= 0)
             {
                 returnVal = (char)(c + number % 26) + returnVal;
@@ -29,17 +34,10 @@ namespace MongoDB.Entities
                 throw new ArgumentException("Cannot generate property path from lambda parameter!");
 
             //One.Two[1].Three.get_Item(2).Four
-            var path = Regex.Match(
-                                expression.ToString(),
-                                @"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+")
-                            .Value
-                            .Substring(1);
+            var path = rxOne.Match(expression.ToString()).Value.Substring(1);
 
             //One.Two[1].Three[2].Four
-            return Regex.Replace(
-                            path,
-                            @".get_Item\((\d+)\)",
-                            m => "[" + m.Groups[1].Value + "]");
+            return rxTwo.Replace(path, m => "[" + m.Groups[1].Value + "]");
         }
 
         /// <summary>
@@ -50,11 +48,7 @@ namespace MongoDB.Entities
         public static string Dotted<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-
-            return Regex.Replace(
-                            GetPath(expression),
-                            @"\[\d+\]",
-                            "");
+            return rxThree.Replace(GetPath(expression), "");
         }
 
         /// <summary>
@@ -69,9 +63,8 @@ namespace MongoDB.Entities
         {
             if (expression == null) return null;
 
-            return Regex.Replace(
+            return rxFour.Replace(
                             GetPath(expression),
-                            @"\[(\d+)\]",
                             m => ".$[" + GetLowerLetter(int.Parse(m.Groups[1].Value)) + "]");
         }
 
@@ -83,11 +76,7 @@ namespace MongoDB.Entities
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-
-            return Regex.Replace(
-                            GetPath(expression),
-                            @"\[\d+\]",
-                            ".$[]");
+            return rxThree.Replace(GetPath(expression), ".$[]");
         }
 
         /// <summary>
@@ -98,11 +87,7 @@ namespace MongoDB.Entities
         public static string PosFirst<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
-
-            return Regex.Replace(
-                            GetPath(expression),
-                            @"\[\d+\]",
-                            ".$");
+            return rxThree.Replace(GetPath(expression), ".$");
         }
 
         /// <summary>
