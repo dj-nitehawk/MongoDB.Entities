@@ -101,7 +101,7 @@ namespace MongoDB.Entities
     {
         private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
         private readonly StringBuilder builder;
-        private readonly HashSet<string> tags, missingTags, unReplacedTags;
+        private readonly HashSet<string> tags, missingTags, replacedTags;
 
         /// <summary>
         /// Initialize a command builder with the supplied template string.
@@ -112,7 +112,7 @@ namespace MongoDB.Entities
             builder = new StringBuilder(template, template.Length);
             tags = new HashSet<string>();
             missingTags = new HashSet<string>();
-            unReplacedTags = new HashSet<string>();
+            replacedTags = new HashSet<string>();
 
             foreach (Match match in regex.Matches(template))
             {
@@ -123,14 +123,19 @@ namespace MongoDB.Entities
                 throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
         }
 
-        private Template Replace(string path)
+        private Template Path(string path)
         {
             var tag = $"<{path}>";
 
             if (!tags.Contains(tag))
+            {
                 missingTags.Add(tag);
-
-            builder.Replace(tag, path);
+            }
+            else
+            {
+                builder.Replace(tag, path);
+                replacedTags.Add(tag);
+            }
 
             return this;
         }
@@ -141,7 +146,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template Dotted<T>(Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.Dotted(expression));
+            return Path(Prop.Dotted(expression));
         }
 
         /// <summary>
@@ -151,7 +156,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFiltered<T>(Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.PosFiltered(expression));
+            return Path(Prop.PosFiltered(expression));
         }
 
         /// <summary>
@@ -160,7 +165,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosAll<T>(Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.PosAll(expression));
+            return Path(Prop.PosAll(expression));
         }
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFirst<T>(Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.PosFirst(expression));
+            return Path(Prop.PosFirst(expression));
         }
 
         /// <summary>
@@ -178,7 +183,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.Elements(expression));
+            return Path(Prop.Elements(expression));
         }
 
         /// <summary>
@@ -188,7 +193,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(int index, Expression<Func<T, object>> expression)
         {
-            return Replace(Prop.Elements(index, expression));
+            return Path(Prop.Elements(index, expression));
         }
 
         /// <summary>
@@ -201,9 +206,14 @@ namespace MongoDB.Entities
             var tag = $"<{tagName}>";
 
             if (!tags.Contains(tag))
+            {
                 missingTags.Add(tag);
-
-            builder.Replace(tag, replacementValue);
+            }
+            else
+            {
+                builder.Replace(tag, replacementValue);
+                replacedTags.Add(tag);
+            }
 
             return this;
         }
@@ -217,17 +227,12 @@ namespace MongoDB.Entities
             if (missingTags.Count > 0)
                 throw new InvalidOperationException($"The following tags were missing from the template: [{string.Join(",", missingTags)}]");
 
-            var output = builder.ToString();
+            var unReplacedTags = tags.Except(replacedTags);
 
-            foreach (Match match in regex.Matches(output))
-            {
-                unReplacedTags.Add(match.Value);
-            }
-
-            if (unReplacedTags.Count > 0)
+            if (unReplacedTags.Any())
                 throw new InvalidOperationException($"Replacements for the following tags are required: [{string.Join(",", unReplacedTags)}]");
 
-            return output;
+            return builder.ToString();
         }
 
         /// <summary>
