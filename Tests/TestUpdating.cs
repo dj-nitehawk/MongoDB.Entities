@@ -154,6 +154,100 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void update_with_template_match()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var author = new Author { Name = "uwtm", Surname = guid };
+            author.Save();
+
+            var filter = new Template(@"
+            { 
+                _id: ObjectId('<ID>') 
+            }")
+                .Tag("ID", author.ID);
+
+            var stage = new Template<Author>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
+                .Dotted(a => a.FullName)
+                .Dotted(a => a.Name)
+                .Dotted(a => a.Surname);
+
+            DB.Update<Author>()
+              .Match(filter)
+              .WithPipeline(stage)
+              .ExecutePipeline();
+
+            var fullname = DB.Find<Author>()
+                             .One(author.ID)
+                             .FullName;
+
+            Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
+        }
+
+        [TestMethod]
+        public void update_with_array_filters_using_templates_work()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var book = new Book
+            {
+                Title = "uwafw " + guid,
+                OtherAuthors = new[]
+                {
+                    new Author{
+                        Name ="name",
+                        Age = 123
+                    },
+                    new Author{
+                        Name ="name",
+                        Age = 123
+                    },
+                    new Author{
+                        Name ="name",
+                        Age = 100
+                    },
+                }
+            };
+            book.Save();
+
+            var filters = new Template<Author>(@"
+            [
+                { '<a.Age>': { $gte: <age> } },
+                { '<b.Name>': 'name' }
+            ]")
+                .Elements(0, author => author.Age)
+                .Tag("age", "120")
+                .Elements(1, author => author.Name);
+
+            var update = new Template<Book>(@"
+            { $set: { 
+                '<OtherAuthors.$[a].Age>': <age>,
+                '<OtherAuthors.$[b].Name>': '<value>'
+              } 
+            }")
+                .PosFiltered(b => b.OtherAuthors[0].Age)
+                .PosFiltered(b => b.OtherAuthors[1].Name)
+                .Tag("age", "321")
+                .Tag("value", "updated");
+
+            DB.Update<Book>()
+
+              .Match(b => b.ID == book.ID)
+
+              .WithArrayFilters(filters)
+              .Modify(update)
+
+              .Execute();
+
+            var res = DB.Queryable<Book>()
+                        .Where(b => b.ID == book.ID)
+                        .SelectMany(b => b.OtherAuthors)
+                        .ToList();
+
+            Assert.AreEqual(2, res.Count(a => a.Age == 321));
+            Assert.AreEqual(3, res.Count(a => a.Name == "updated"));
+        }
+
+        [TestMethod]
         public void update_with_array_filters_work()
         {
             var guid = Guid.NewGuid().ToString();
@@ -180,8 +274,7 @@ namespace MongoDB.Entities.Tests
 
             var arrFil = new Template<Author>("{ '<a.Age>': { $gte: <age> } }")
                                 .Elements(0, author => author.Age)
-                                .Tag("age", "120")
-                                .ToString();
+                                .Tag("age", "120");
 
             var prop1 = new Template<Book>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
                                 .PosFiltered(b => b.OtherAuthors[0].Age)
