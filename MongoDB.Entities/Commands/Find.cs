@@ -189,6 +189,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the matching criteria with a Template
+        /// </summary>
+        /// <param name="template">A Template object</param>
+        public Find<T, TProjection> MatchExpression(Template template)
+        {
+            filter = "{$expr:" + template.ToString() + "}";
+            return this;
+        }
+
+        /// <summary>
         /// Specify which property and order to use for sorting (use multiple times if needed)
         /// </summary>
         /// <param name="propertyToSortBy">x => x.Prop</param>

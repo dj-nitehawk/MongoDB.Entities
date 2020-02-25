@@ -102,6 +102,35 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void update_with_pipeline_using_template()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var author = new Author { Name = "uwput", Surname = guid, Age = 666 };
+            author.Save();
+
+            var pipeline = new Template<Author>(@"
+            [
+              { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
+              { $unset: '<Age>'}
+            ]")
+                .Dotted(a => a.FullName)
+                .Dotted(a => a.Name)
+                .Dotted(a => a.Surname)
+                .Dotted(a => a.Age);
+
+            DB.Update<Author>()
+              .Match(a => a.ID == author.ID)
+              .WithPipeline(pipeline)
+              .ExecutePipeline();
+
+            var res = DB.Find<Author>().One(author.ID);
+
+            Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
+            Assert.AreEqual(0, res.Age);
+        }
+
+        [TestMethod]
         public void update_with_aggregation_pipeline_works()
         {
             var guid = Guid.NewGuid().ToString();

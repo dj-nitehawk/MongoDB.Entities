@@ -83,6 +83,21 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
+        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+        /// </summary>
+        /// <param name="template">A Template object containing multiple pipeline stages</param>
+        public Update<T> WithPipeline(Template template)
+        {
+            foreach (var stage in template.ToStages<T,T>())
+            {
+                stages.Add(stage);
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Specify an update pipeline stage to modify the Entities (use multiple times if needed)
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
@@ -91,6 +106,16 @@ namespace MongoDB.Entities
         {
             stages.Add(stage);
             return this;
+        }
+
+        /// <summary>
+        /// Specify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)
+        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+        /// </summary>
+        /// <param name="template">A Template object containing a pipeline stage</param>
+        public Update<T> WithPipelineStage(Template template)
+        {
+            return WithPipelineStage(template.ToString());
         }
 
         /// <summary>

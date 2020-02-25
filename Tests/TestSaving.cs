@@ -246,6 +246,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_with_aggregation_expression_using_template_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author = new Author { Name = "a", Age = 10, Age2 = 11, Surname = guid }; author.Save();
+
+            var template = new Template<Author>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<guid>']}]}")
+                    .Dotted(a => a.Age2)
+                    .Dotted(a => a.Age)
+                    .Dotted(a => a.Surname)
+                    .Tag("guid", guid);
+
+            var res = DB.Find<Author>()
+                        .MatchExpression(template)
+                        .Execute()
+                        .Single();
+
+            Assert.AreEqual(res.Surname, guid);
+        }
+
+        [TestMethod]
         public void find_fluent_with_aggregation_expression_works()
         {
             var guid = Guid.NewGuid().ToString();
