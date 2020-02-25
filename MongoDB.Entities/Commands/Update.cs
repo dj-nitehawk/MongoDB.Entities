@@ -40,12 +40,22 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the IEntity matching criteria with a filter expression
+        /// Specify the Entity matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             this.filter = filter(Builders<T>.Filter);
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the Entity matching criteria with a Template
+        /// </summary>
+        /// <param name="template">The filter Template</param>
+        public Update<T> Match(Template template)
+        {
+            filter = template.ToString();
             return this;
         }
 
@@ -83,13 +93,23 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="template">A Template with a single update</param>
+        public Update<T> Modify(Template template)
+        {
+            Modify(template.ToString());
+            return this;
+        }
+
+        /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="template">A Template object containing multiple pipeline stages</param>
         public Update<T> WithPipeline(Template template)
         {
-            foreach (var stage in template.ToStages<T,T>())
+            foreach (var stage in template.ToStages<T, T>())
             {
                 stages.Add(stage);
             }
@@ -119,15 +139,44 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify an array filter to target nested entities for updates with the .Modify() method (use multiple times if needed).
+        /// Specify an array filter to target nested entities for updates (use multiple times if needed).
         /// </summary>
         /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
         public Update<T> WithArrayFilter(string filter)
         {
             ArrayFilterDefinition<T> def = filter;
-            var arrFilters = options.ArrayFilters == null ? new List<ArrayFilterDefinition>() : options.ArrayFilters.ToList();
-            arrFilters.Add(def);
-            options.ArrayFilters = arrFilters;
+
+            options.ArrayFilters =
+                options.ArrayFilters == null
+                ? new List<ArrayFilterDefinition>() { def }
+                : options.ArrayFilters.Concat(new List<ArrayFilterDefinition> { def });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Specify a single array filter using a Template to target nested entities for updates
+        /// </summary>
+        /// <param name="template"></param>
+        public Update<T> WithArrayFilter(Template template)
+        {
+            WithArrayFilter(template.ToString());
+            return this;
+        }
+
+        /// <summary>
+        /// Specify multiple array filters with a Template to target nested entities for updates.
+        /// </summary>
+        /// <param name="template">The template with an array [...] of filters</param>
+        public Update<T> WithArrayFilters(Template template)
+        {
+            var defs = template.ToArrayFilters<T>();
+
+            options.ArrayFilters =
+                options.ArrayFilters == null
+                ? defs
+                : options.ArrayFilters.Concat(defs);
+
             return this;
         }
 
@@ -179,6 +228,8 @@ namespace MongoDB.Entities
             {
                 if (filter == null) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+                
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
                 await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
             }
@@ -199,6 +250,7 @@ namespace MongoDB.Entities
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+            if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
             return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);

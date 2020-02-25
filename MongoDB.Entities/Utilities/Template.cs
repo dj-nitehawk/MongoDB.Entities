@@ -89,9 +89,13 @@ namespace MongoDB.Entities
         /// Executes the tag replacement and returns a pipeline definition.
         /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
         /// </summary>
-        /// <typeparam name="TInput">The input type</typeparam>
-        /// <typeparam name="TOutput">The output type</typeparam>
         public PipelineDefinition<T, TResult> ToPipeline() => ToPipeline<T, TResult>();
+
+        /// <summary>
+        /// Executes the tag replacement and returns array filter definitions.
+        /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
+        /// </summary>
+        public IEnumerable<ArrayFilterDefinition> ToArrayFilters() => ToArrayFilters<T>();
     }
 
     /// <summary>
@@ -258,6 +262,17 @@ namespace MongoDB.Entities
         public PipelineDefinition<TInput, TOutput> ToPipeline<TInput, TOutput>()
         {
             return ToStages<TInput, TOutput>();
+        }
+
+        /// <summary>
+        /// Executes the tag replacement and returns array filter definitions.
+        /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
+        /// </summary>
+        public IEnumerable<ArrayFilterDefinition> ToArrayFilters<T>()
+        {
+            return BsonSerializer
+                .Deserialize<BsonArray>(ToString())
+                .Select(v => (ArrayFilterDefinition<T>)v.AsBsonDocument);
         }
     }
 }

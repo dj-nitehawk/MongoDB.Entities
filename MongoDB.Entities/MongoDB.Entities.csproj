@@ -13,8 +13,7 @@
     <FileVersion>11.5.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- 
-- add support for templates in Update.WithPipeline()
-- add support for templates in Update.WithPipelineStage()
+- add support for templates in DB.Update()
 - add support for templates in Find.WithExpression()
 - optimize internals of 'Prop' class
 - optimize internals of 'Template' class</PackageReleaseNotes>
