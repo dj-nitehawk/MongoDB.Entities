@@ -252,9 +252,9 @@ namespace MongoDB.Entities.Tests
             var author = new Author { Name = "a", Age = 10, Age2 = 11, Surname = guid }; author.Save();
 
             var template = new Template<Author>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<guid>']}]}")
-                    .Dotted(a => a.Age2)
-                    .Dotted(a => a.Age)
-                    .Dotted(a => a.Surname)
+                    .Path(a => a.Age2)
+                    .Path(a => a.Age)
+                    .Path(a => a.Surname)
                     .Tag("guid", guid);
 
             var res = DB.Find<Author>()

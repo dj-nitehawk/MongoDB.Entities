@@ -50,7 +50,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
-            return Prop.Dotted(expression);
+            return Prop.Path(expression);
         }
 
         /// <summary>

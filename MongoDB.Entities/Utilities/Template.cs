@@ -38,7 +38,7 @@ namespace MongoDB.Entities
         /// Turns the given expression into a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template<T, TResult> Dotted(Expression<Func<T, object>> expression) => base.Dotted(expression) as Template<T, TResult>;
+        public Template<T, TResult> Path(Expression<Func<T, object>> expression) => base.Path(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given expression into a positional filtered path like "Authors.$[a].Name" and replaces matching tags in the template such as "&lt;Authors.$[a].Name&gt;"
@@ -127,7 +127,7 @@ namespace MongoDB.Entities
                 throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
         }
 
-        private Template Path(string path)
+        private Template ReplacePath(string path)
         {
             var tag = $"<{path}>";
 
@@ -148,9 +148,9 @@ namespace MongoDB.Entities
         /// Turns the given expression into a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template Dotted<T>(Expression<Func<T, object>> expression)
+        public Template Path<T>(Expression<Func<T, object>> expression)
         {
-            return Path(Prop.Dotted(expression));
+            return ReplacePath(Prop.Path(expression));
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFiltered<T>(Expression<Func<T, object>> expression)
         {
-            return Path(Prop.PosFiltered(expression));
+            return ReplacePath(Prop.PosFiltered(expression));
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosAll<T>(Expression<Func<T, object>> expression)
         {
-            return Path(Prop.PosAll(expression));
+            return ReplacePath(Prop.PosAll(expression));
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFirst<T>(Expression<Func<T, object>> expression)
         {
-            return Path(Prop.PosFirst(expression));
+            return ReplacePath(Prop.PosFirst(expression));
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(Expression<Func<T, object>> expression)
         {
-            return Path(Prop.Elements(expression));
+            return ReplacePath(Prop.Elements(expression));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(int index, Expression<Func<T, object>> expression)
         {
-            return Path(Prop.Elements(index, expression));
+            return ReplacePath(Prop.Elements(index, expression));
         }
 
         /// <summary>

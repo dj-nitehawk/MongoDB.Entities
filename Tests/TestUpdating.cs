@@ -114,10 +114,10 @@ namespace MongoDB.Entities.Tests
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-                .Dotted(a => a.FullName)
-                .Dotted(a => a.Name)
-                .Dotted(a => a.Surname)
-                .Dotted(a => a.Age);
+                .Path(a => a.FullName)
+                .Path(a => a.Name)
+                .Path(a => a.Surname)
+                .Path(a => a.Age);
 
             DB.Update<Author>()
               .Match(a => a.ID == author.ID)
@@ -139,9 +139,9 @@ namespace MongoDB.Entities.Tests
             author.Save();
 
             var stage = new Template<Author>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-                .Dotted(a => a.FullName)
-                .Dotted(a => a.Name)
-                .Dotted(a => a.Surname)
+                .Path(a => a.FullName)
+                .Path(a => a.Name)
+                .Path(a => a.Surname)
                 .ToString();
 
             DB.Update<Author>()
@@ -168,9 +168,9 @@ namespace MongoDB.Entities.Tests
                 .Tag("ID", author.ID);
 
             var stage = new Template<Author>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
-                .Dotted(a => a.FullName)
-                .Dotted(a => a.Name)
-                .Dotted(a => a.Surname);
+                .Path(a => a.FullName)
+                .Path(a => a.Name)
+                .Path(a => a.Surname);
 
             DB.Update<Author>()
               .Match(filter)

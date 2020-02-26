@@ -75,7 +75,7 @@ namespace MongoDB.Entities.Tests
                $match: { '<OtherAuthors.Name>': /<search_term>/is }
             }")
 
-            .Dotted<Book>(b => b.OtherAuthors[0].Name)
+            .Path<Book>(b => b.OtherAuthors[0].Name)
             .Tag("search_term", "Eckhart Tolle");
 
             const string expectation = @"
@@ -103,9 +103,9 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Dotted(a => a.Name)
+                .Path(a => a.Name)
                 .Tag("author_name", guid)
-                .Dotted(a => a.Age);
+                .Path(a => a.Age);
 
             var results = DB.Aggregate(pipeline).ToList();
 

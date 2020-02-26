@@ -45,7 +45,7 @@ namespace MongoDB.Entities
         /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public static string Dotted<T>(Expression<Func<T, object>> expression)
+        public static string Path<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null) return null;
             return rxThree.Replace(GetPath(expression), "");
@@ -97,7 +97,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(Expression<Func<T, object>> expression)
         {
-            return Dotted(expression);
+            return Path(expression);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
-            return $"{GetLowerLetter(index)}.{Dotted(expression)}";
+            return $"{GetLowerLetter(index)}.{Path(expression)}";
         }
     }
 }

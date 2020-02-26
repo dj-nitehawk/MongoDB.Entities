@@ -251,8 +251,8 @@ namespace MongoDB.Entities
                     return Sort(s => s.MetaTextScore("_Text_Match_Score_"));
 
                 default:
-                    AddTxtScoreToProjection(Prop.Dotted(scoreProperty));
-                    return Sort(s => s.MetaTextScore(Prop.Dotted(scoreProperty)));
+                    AddTxtScoreToProjection(Prop.Path(scoreProperty));
+                    return Sort(s => s.MetaTextScore(Prop.Path(scoreProperty)));
             }
         }
 
