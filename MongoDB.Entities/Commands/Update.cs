@@ -109,7 +109,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object containing multiple pipeline stages</param>
         public Update<T> WithPipeline(Template template)
         {
-            foreach (var stage in template.ToStages<T, T>())
+            foreach (var stage in template.ToStages())
             {
                 stages.Add(stage);
             }
