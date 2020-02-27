@@ -113,5 +113,51 @@ namespace MongoDB.Entities.Tests
             Assert.IsTrue(results.First().Name == guid);
             Assert.IsTrue(results.Last().Age == 54);
         }
+
+        [TestMethod]
+        public void aggregation_pipeline_with_differnt_input_and_output_types()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var author = new Author { Name = guid };
+            author.Save();
+
+            var book = new Book { Title = guid, MainAuthor = author };
+            book.Save();
+
+            var pipeline = new Template<Book, Author>(@"
+                [
+                    {
+                        $match: { _id: <book_id> }
+                    },
+                    {
+                        $lookup: 
+                        {
+                            from: '<author_collection>',
+                            localField: '<MainAuthor.ID>',
+                            foreignField: '_id',
+                            as: 'authors'
+                        }
+                    },
+                    {
+                        $replaceWith: { $arrayElemAt: ['$authors', 0] }
+                    },
+                    {
+                        $set: { <Surname> : '$<Name>' }
+                    }
+                ]"
+            ).Tag("book_id", $"ObjectId('{book.ID}')")
+             .Tag("author_collection", DB.Entity<Author>().CollectionName())
+             .Path(b => b.MainAuthor.ID)
+             .PathOfResult(a => a.Surname)
+             .PathOfResult(a=> a.Name);
+
+            var result = DB.Aggregate(pipeline)
+                           .ToList()
+                           .Single();
+
+            Assert.AreEqual(guid, result.Surname);
+            Assert.AreEqual(guid, result.Name);
+        }
     }
 }

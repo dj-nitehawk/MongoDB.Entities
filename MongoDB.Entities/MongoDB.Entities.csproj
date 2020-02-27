@@ -12,8 +12,8 @@
     <AssemblyVersion>11.6.2.0</AssemblyVersion>
     <FileVersion>11.6.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- handling of different input/output types for Template Prop methods</PackageReleaseNotes>
+    <PackageReleaseNotes>- handling of different input/output types for Template Prop methods
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
