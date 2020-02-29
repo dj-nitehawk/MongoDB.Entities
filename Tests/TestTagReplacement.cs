@@ -150,7 +150,7 @@ namespace MongoDB.Entities.Tests
              .Tag("author_collection", DB.Entity<Author>().CollectionName())
              .Path(b => b.MainAuthor.ID)
              .PathOfResult(a => a.Surname)
-             .PathOfResult(a=> a.Name);
+             .PathOfResult(a => a.Name);
 
             var result = DB.Aggregate(pipeline)
                            .ToList()

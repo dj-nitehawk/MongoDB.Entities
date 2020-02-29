@@ -28,14 +28,14 @@ namespace MongoDB.Entities
             return (new GeoNear<T>
             {
                 near = NearCoordinates,
-                distanceField = DistanceField.FullPath(),
+                distanceField = DistanceField?.FullPath(),
                 spherical = Spherical,
                 maxDistance = MaxDistance,
                 minDistance = MinDistance,
                 query = Query,
                 distanceMultiplier = DistanceMultiplier,
                 limit = Limit,
-                includeLocs = IncludeLocations.FullPath(),
+                includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey,
             })
             .ToFluent(options, session, db);

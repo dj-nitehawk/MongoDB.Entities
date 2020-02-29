@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         private static readonly Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
         private static readonly Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
 
-        private static string GetLowerLetter(long number)
+        private static string ToLowerCaseLetter(long number)
         {
             string returnVal = null;
             const char c = 'a';
@@ -30,6 +30,9 @@ namespace MongoDB.Entities
 
         private static string GetPath<T>(Expression<Func<T, object>> expression)
         {
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression), "The supplied expression is null!");
+
             if (expression.Body.NodeType == ExpressionType.Parameter)
                 throw new ArgumentException("Cannot generate property path from lambda parameter!");
 
@@ -47,7 +50,6 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string Path<T>(Expression<Func<T, object>> expression)
         {
-            if (expression == null) return null;
             return rxThree.Replace(GetPath(expression), "");
         }
 
@@ -61,11 +63,9 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosFiltered<T>(Expression<Func<T, object>> expression)
         {
-            if (expression == null) return null;
-
             return rxFour.Replace(
                             GetPath(expression),
-                            m => ".$[" + GetLowerLetter(int.Parse(m.Groups[1].Value)) + "]");
+                            m => ".$[" + ToLowerCaseLetter(int.Parse(m.Groups[1].Value)) + "]");
         }
 
         /// <summary>
@@ -75,7 +75,6 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosAll<T>(Expression<Func<T, object>> expression)
         {
-            if (expression == null) return null;
             return rxThree.Replace(GetPath(expression), ".$[]");
         }
 
@@ -86,7 +85,6 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public static string PosFirst<T>(Expression<Func<T, object>> expression)
         {
-            if (expression == null) return null;
             return rxThree.Replace(GetPath(expression), ".$");
         }
 
@@ -110,7 +108,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public static string Elements<T>(int index, Expression<Func<T, object>> expression)
         {
-            return $"{GetLowerLetter(index)}.{Path(expression)}";
+            return $"{ToLowerCaseLetter(index)}.{Path(expression)}";
         }
     }
 }
