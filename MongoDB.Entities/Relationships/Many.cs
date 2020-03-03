@@ -23,7 +23,7 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public class Many<TChild> : ManyBase where TChild : IEntity, new()
+    public class Many<TChild> : ManyBase where TChild : IEntity
     {
         private string db = null;
         private bool inverse = false;
@@ -406,15 +406,6 @@ namespace MongoDB.Entities
             Run.Sync(() => AddAsync(child, session));
         }
 
-        /// <summary>
-        /// Adds a new child reference by ID.
-        /// </summary>
-        /// <param name="childID">The ID of the child entity to add.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Add(string childID, IClientSessionHandle session = null)
-        {
-            Run.Sync(() => AddAsync(new TChild { ID = childID }, session));
-        }
 
         /// <summary>
         /// Adds a new child reference.
@@ -487,15 +478,6 @@ namespace MongoDB.Entities
             Run.Sync(() => RemoveAsync(child, session));
         }
 
-        /// <summary>
-        /// Removes a child reference by ID.
-        /// </summary>
-        /// <param name="childID">The ID of the child entity to remove the reference of.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Remove(string childID, IClientSessionHandle session = null)
-        {
-            Run.Sync(() => RemoveAsync(new TChild { ID = childID }, session));
-        }
 
         /// <summary>
         /// Removes a child reference.
@@ -530,16 +512,6 @@ namespace MongoDB.Entities
             return many;
         }
 
-        /// <summary>
-        /// Overloaded operator for adding a child entity by specifying only the childID
-        /// </summary>
-        /// <param name="many">The left side of the + operand</param>
-        /// <param name="childID">The right side of the + operand</param>
-        public static Many<TChild> operator +(Many<TChild> many, string childID)
-        {
-            many.Add(new TChild { ID = childID });
-            return many;
-        }
 
         /// <summary>
         /// Overloaded operator for removing a child entity
@@ -553,17 +525,6 @@ namespace MongoDB.Entities
             return many;
         }
 
-        /// <summary>
-        /// Overloaded operator for removing a child entity by specifying only the childID
-        /// </summary>
-        /// <param name="many">The left side of the - operand</param>
-        /// <param name="childID">The right side of the - operand</param>
-        /// <returns></returns>
-        public static Many<TChild> operator -(Many<TChild> many, string childID)
-        {
-            many.Remove(new TChild { ID = childID });
-            return many;
-        }
 
         /// <summary>
         /// A class used to hold join results when joining relationships
