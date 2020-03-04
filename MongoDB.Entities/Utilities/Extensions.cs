@@ -26,6 +26,11 @@ namespace MongoDB.Entities
             return BsonSerializer.Deserialize<Holder<T>>(holder.ToBson()).Data;
         }
 
+        internal static void ThrowIfInvalid(this string value)
+        {
+            if (!ObjectId.TryParse(value, out _)) throw new InvalidOperationException("Please save the entity before performing this operation!");
+        }
+
         internal static void ThrowIfUnsaved(this IEntity entity)
         {
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");

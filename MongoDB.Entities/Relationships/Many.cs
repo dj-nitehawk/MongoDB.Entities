@@ -13,11 +13,6 @@ namespace MongoDB.Entities
     {
         //shared state for all Many<T> instances
         internal static HashSet<string> indexedCollections = new HashSet<string>();
-
-        internal static object CreateChild(Type type)
-        {
-            return Activator.CreateInstance(type);
-        }
     }
 
     /// <summary>
@@ -405,7 +400,7 @@ namespace MongoDB.Entities
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="child">The child IEntity to add.</param>
+        /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(TChild child, IClientSessionHandle session = null)
         {
@@ -419,29 +414,38 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(string childID, IClientSessionHandle session = null)
         {
-            var child = (TChild)CreateChild(typeof(TChild));
-            child.ID = childID;
-            Run.Sync(() => AddAsync(child, session));
+            Run.Sync(() => AddAsync(childID, session));
         }
 
         /// <summary>
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="child">The child IEntity to add.</param>
+        /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task AddAsync(TChild child, IClientSessionHandle session = null)
+        public Task AddAsync(TChild child, IClientSessionHandle session = null)
+        {
+            return AddAsync(child.ID, session);
+        }
+
+        /// <summary>
+        /// Adds a new child reference.
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
+        /// <param name="childID">The ID of the child Entity to add.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public async Task AddAsync(string childID, IClientSessionHandle session = null)
         {
             parent.ThrowIfUnsaved();
-            child.ThrowIfUnsaved();
+            childID.ThrowIfInvalid();
 
             JoinRecord join = null;
 
             if (inverse)
             {
                 join = await (session == null ?
-                              JoinCollection.Find(r => r.ChildID == parent.ID && r.ParentID == child.ID).SingleOrDefaultAsync() :
-                              JoinCollection.Find(session, r => r.ChildID == parent.ID && r.ParentID == child.ID).SingleOrDefaultAsync());
+                              JoinCollection.Find(r => r.ChildID == parent.ID && r.ParentID == childID).SingleOrDefaultAsync() :
+                              JoinCollection.Find(session, r => r.ChildID == parent.ID && r.ParentID == childID).SingleOrDefaultAsync());
 
                 if (join == null)
                 {
@@ -449,7 +453,7 @@ namespace MongoDB.Entities
                     {
                         ID = ObjectId.GenerateNewId().ToString(),
                         ModifiedOn = DateTime.UtcNow,
-                        ParentID = child.ID,
+                        ParentID = childID,
                         ChildID = parent.ID,
                     };
                 }
@@ -461,8 +465,8 @@ namespace MongoDB.Entities
             else
             {
                 join = await (session == null ?
-                              JoinCollection.Find(r => r.ParentID == parent.ID && r.ChildID == child.ID).SingleOrDefaultAsync() :
-                              JoinCollection.Find(session, r => r.ParentID == parent.ID && r.ChildID == child.ID).SingleOrDefaultAsync());
+                              JoinCollection.Find(r => r.ParentID == parent.ID && r.ChildID == childID).SingleOrDefaultAsync() :
+                              JoinCollection.Find(session, r => r.ParentID == parent.ID && r.ChildID == childID).SingleOrDefaultAsync());
 
                 if (join == null)
                 {
@@ -471,7 +475,7 @@ namespace MongoDB.Entities
                         ID = ObjectId.GenerateNewId().ToString(),
                         ModifiedOn = DateTime.UtcNow,
                         ParentID = parent.ID,
-                        ChildID = child.ID,
+                        ChildID = childID,
                     };
                 }
                 else
@@ -502,9 +506,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(string childID, IClientSessionHandle session = null)
         {
-            var child = (TChild)CreateChild(typeof(TChild));
-            child.ID = childID;
-            Run.Sync(() => RemoveAsync(child, session));
+            Run.Sync(() => RemoveAsync(childID, session));
         }
 
         /// <summary>
@@ -514,17 +516,27 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public Task RemoveAsync(TChild child, IClientSessionHandle session = null)
         {
+            return RemoveAsync(child.ID, session);
+        }
+
+        /// <summary>
+        /// Removes a child reference.
+        /// </summary>
+        /// <param name="childID">The ID of the child Entity to remove the reference of.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public Task RemoveAsync(string childID, IClientSessionHandle session = null)
+        {
             if (inverse)
             {
                 return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(child.ID));
+                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(childID))
+                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(childID));
             }
             else
             {
                 return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(child.ID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(child.ID));
+                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(childID))
+                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(childID));
 
             }
         }
@@ -547,9 +559,7 @@ namespace MongoDB.Entities
         /// <param name="childID">The right side of the + operand</param>
         public static Many<TChild> operator +(Many<TChild> many, string childID)
         {
-            var child = (TChild)CreateChild(typeof(TChild));
-            child.ID = childID;
-            many.Add(child);
+            many.Add(childID);
             return many;
         }
 
@@ -573,9 +583,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public static Many<TChild> operator -(Many<TChild> many, string childID)
         {
-            var child = (TChild)CreateChild(typeof(TChild));
-            child.ID = childID;
-            many.Remove(child);
+            many.Remove(childID);
             return many;
         }
 
