@@ -13,6 +13,11 @@ namespace MongoDB.Entities
     {
         //shared state for all Many<T> instances
         internal static HashSet<string> indexedCollections = new HashSet<string>();
+
+        internal static object CreateChild(Type type)
+        {
+            return Activator.CreateInstance(type);
+        }
     }
 
     /// <summary>
@@ -23,11 +28,12 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public class Many<TChild> : ManyBase where TChild : IEntity, new()
+    public class Many<TChild> : ManyBase where TChild : IEntity
     {
         private string db = null;
         private bool inverse = false;
         private IEntity parent = null;
+
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -413,7 +419,9 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(string childID, IClientSessionHandle session = null)
         {
-            Run.Sync(() => AddAsync(new TChild { ID = childID }, session));
+            var child = (TChild)CreateChild(typeof(TChild));
+            child.ID = childID;
+            Run.Sync(() => AddAsync(child, session));
         }
 
         /// <summary>
@@ -494,7 +502,9 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(string childID, IClientSessionHandle session = null)
         {
-            Run.Sync(() => RemoveAsync(new TChild { ID = childID }, session));
+            var child = (TChild)CreateChild(typeof(TChild));
+            child.ID = childID;
+            Run.Sync(() => RemoveAsync(child, session));
         }
 
         /// <summary>
@@ -537,7 +547,9 @@ namespace MongoDB.Entities
         /// <param name="childID">The right side of the + operand</param>
         public static Many<TChild> operator +(Many<TChild> many, string childID)
         {
-            many.Add(new TChild { ID = childID });
+            var child = (TChild)CreateChild(typeof(TChild));
+            child.ID = childID;
+            many.Add(child);
             return many;
         }
 
@@ -561,7 +573,9 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public static Many<TChild> operator -(Many<TChild> many, string childID)
         {
-            many.Remove(new TChild { ID = childID });
+            var child = (TChild)CreateChild(typeof(TChild));
+            child.ID = childID;
+            many.Remove(child);
             return many;
         }
 
