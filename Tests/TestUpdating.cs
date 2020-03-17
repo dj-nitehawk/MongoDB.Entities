@@ -29,6 +29,25 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void updating_returns_correct_result()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
+            var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
+            var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
+
+            var res = DB.Update<Author>()
+              .Match(a => a.Surname == guid)
+              .Modify(a => a.Name, guid)
+              .Modify(a => a.Surname, author1.Name)
+              .Option(o => o.BypassDocumentValidation = true)
+              .Execute();
+
+            Assert.AreEqual(2, res.MatchedCount);
+            Assert.AreEqual(2, res.ModifiedCount);
+        }
+
+        [TestMethod]
         public void update_by_def_builder_mods_correct_docs()
         {
             var guid = Guid.NewGuid().ToString();

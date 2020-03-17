@@ -7,14 +7,14 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, string db = null)
+        internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, string db = null)
         {
             return session == null
                    ? Collection<T>(db).UpdateManyAsync(filter, definition, options)
                    : Collection<T>(db).UpdateManyAsync(session, filter, definition, options);
         }
 
-        internal static Task BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, string db = null)
+        internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, string db = null)
         {
             return session == null
                    ? Collection<T>(db).BulkWriteAsync(models)

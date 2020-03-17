@@ -209,20 +209,21 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the update command in MongoDB.
         /// </summary>
-        public void Execute()
+        public UpdateResult Execute()
         {
-            Run.Sync(ExecuteAsync);
+            return Run.Sync(ExecuteAsync);
         }
 
         /// <summary>
         /// Run the update command in MongoDB.
         /// </summary>
-        public async Task ExecuteAsync()
+        public async Task<UpdateResult> ExecuteAsync()
         {
             if (models.Count > 0)
             {
-                await DB.BulkUpdateAsync(models, session, db);
+                var res = await DB.BulkUpdateAsync(models, session, db);
                 models.Clear();
+                return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
             }
             else
             {
@@ -231,22 +232,22 @@ namespace MongoDB.Entities
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
-                await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
+                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
             }
         }
 
         /// <summary>
         /// Run the update command with pipeline stages
         /// </summary>
-        public void ExecutePipeline()
+        public UpdateResult ExecutePipeline()
         {
-            Run.Sync(ExecutePipelineAsync);
+            return Run.Sync(ExecutePipelineAsync);
         }
 
         /// <summary>
         /// Run the update command with pipeline stages
         /// </summary>
-        public Task ExecutePipelineAsync()
+        public Task<UpdateResult> ExecutePipelineAsync()
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
