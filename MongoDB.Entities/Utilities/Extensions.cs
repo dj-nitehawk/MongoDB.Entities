@@ -246,16 +246,16 @@ namespace MongoDB.Entities
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static void Save<T>(this IEnumerable<T> entities) where T : IEntity
+        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entities));
+            return Run.Sync(() => SaveAsync(entities));
         }
 
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static Task SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
             return DB.SaveAsync(entities: entities, db: entities.First().Database());
         }
@@ -268,9 +268,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static void SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public static ReplaceOneResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
-            Run.Sync(() => SavePreservingAsync(entity, preservation));
+           return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static Task SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public static Task<ReplaceOneResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, preservation, null, entity.Database());
         }

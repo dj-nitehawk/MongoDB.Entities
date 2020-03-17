@@ -87,32 +87,32 @@ namespace MongoDB.Entities
             return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, db);
         }
 
-        public void Save<T>(T entity) where T : IEntity
+        public ReplaceOneResult Save<T>(T entity) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entity));
+            return Run.Sync(() => SaveAsync(entity));
         }
 
-        public Task SaveAsync<T>(T entity) where T : IEntity
+        public Task<ReplaceOneResult> SaveAsync<T>(T entity) where T : IEntity
         {
             return DB.SaveAsync(entity, Session, db);
         }
 
-        public void Save<T>(IEnumerable<T> entities) where T : IEntity
+        public BulkWriteResult<T> Save<T>(IEnumerable<T> entities) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entities));
+            return Run.Sync(() => SaveAsync(entities));
         }
 
-        public Task SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
         {
             return DB.SaveAsync(entities, Session, db);
         }
 
-        public void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
-            Run.Sync(() => SavePreservingAsync(entity, preservation));
+            return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
-        public Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, preservation, Session, db);
         }

@@ -19,9 +19,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entity, session, db));
+            return Run.Sync(() => SaveAsync(entity, session, db));
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Save<T>(T entity, IClientSessionHandle session = null) where T : IEntity
+        public ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entity, session, DbName));
+            return Run.Sync(() => SaveAsync(entity, session, DbName));
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
@@ -57,7 +57,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : IEntity
+        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : IEntity
         {
             return SaveAsync(entity, session, DbName);
         }
@@ -68,9 +68,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entities, session, db));
+            return Run.Sync(() => SaveAsync(entities, session, db));
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
+        public BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            Run.Sync(() => SaveAsync(entities, session, DbName));
+            return Run.Sync(() => SaveAsync(entities, session, DbName));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             var models = new Collection<WriteModel<T>>();
             foreach (var ent in entities)
@@ -116,7 +116,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
             return SaveAsync(entities, session, DbName);
         }
@@ -130,9 +130,9 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            Run.Sync(() => SavePreservingAsync(entity, preservation, session, db));
+            return Run.Sync(() => SavePreservingAsync(entity, preservation, session, db));
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static async Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
@@ -186,7 +186,7 @@ namespace MongoDB.Entities
                 throw new ArgumentException("Unable to locate entity in database for preservation purposes!");
             }
 
-            await SaveAsync(entity, session, db);
+            return await SaveAsync(entity, session, db);
         }
 
         /// <summary>
@@ -198,9 +198,9 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        public ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
         {
-            Run.Sync(() => SavePreservingAsync(entity, preservation, session, DbName));
+            return Run.Sync(() => SavePreservingAsync(entity, preservation, session, DbName));
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
         {
             return SavePreservingAsync(entity, preservation, session, DbName);
         }
