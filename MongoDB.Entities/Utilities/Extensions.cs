@@ -270,7 +270,7 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         public static ReplaceOneResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
-           return Run.Sync(() => SavePreservingAsync(entity, preservation));
+            return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
         /// <summary>
