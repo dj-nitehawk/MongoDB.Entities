@@ -117,32 +117,32 @@ namespace MongoDB.Entities
             return DB.SavePreservingAsync(entity, preservation, Session, db);
         }
 
-        public void Delete<T>(string ID) where T : IEntity
+        public DeleteResult Delete<T>(string ID) where T : IEntity
         {
-            Run.Sync(() => DeleteAsync<T>(ID));
+            return Run.Sync(() => DeleteAsync<T>(ID));
         }
 
-        public Task DeleteAsync<T>(string ID) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(string ID) where T : IEntity
         {
             return DB.DeleteAsync<T>(ID, Session, db);
         }
 
-        public void Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
+        public DeleteResult Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
-            Run.Sync(() => DeleteAsync(expression));
+            return Run.Sync(() => DeleteAsync(expression));
         }
 
-        public Task DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
             return DB.DeleteAsync(expression, Session, db);
         }
 
-        public void Delete<T>(IEnumerable<string> IDs) where T : IEntity
+        public DeleteResult Delete<T>(IEnumerable<string> IDs) where T : IEntity
         {
-            Run.Sync(() => DeleteAsync<T>(IDs));
+            return Run.Sync(() => DeleteAsync<T>(IDs));
         }
 
-        public Task DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
         {
             return DB.DeleteAsync<T>(IDs, Session, db);
         }
