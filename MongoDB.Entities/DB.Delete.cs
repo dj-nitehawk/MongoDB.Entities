@@ -13,7 +13,7 @@ namespace MongoDB.Entities
     {
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            var joinCollections = (await GetDB(db).ListCollectionNames().ToListAsync())
+            var joinCollections = (await GetDatabase(db).ListCollectionNames().ToListAsync())
                                                   .Where(c =>
                                                          c.Contains("~") &&
                                                          c.Contains(GetCollectionName<T>()));
@@ -22,8 +22,8 @@ namespace MongoDB.Entities
             foreach (var cName in joinCollections)
             {
                 tasks.Add(session == null
-                          ? GetDB(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                          : GetDB(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
+                          ? GetDatabase(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                          : GetDatabase(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
             }
 
             var delRes =

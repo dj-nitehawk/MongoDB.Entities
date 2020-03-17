@@ -87,27 +87,6 @@ namespace MongoDB.Entities
             }
         }
 
-        private static IMongoDatabase GetDB(string database)
-        {
-            IMongoDatabase db = null;
-
-            if (dbs.Count > 0)
-            {
-                if (string.IsNullOrEmpty(database))
-                {
-                    db = dbs.First().Value;
-                }
-                else
-                {
-                    dbs.TryGetValue(database, out db);
-                }
-            }
-
-            if (db == null) throw new InvalidOperationException($"Database connection is not initialized for [{database}]");
-
-            return db;
-        }
-
         internal static string GetCollectionName<T>()
         {
             string collection = typeof(T).Name;
@@ -125,16 +104,16 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<JoinRecord> GetRefCollection(string name, string db = null)
         {
-            return GetDB(db).GetCollection<JoinRecord>(name);
+            return GetDatabase(db).GetCollection<JoinRecord>(name);
         }
 
         internal static IMongoClient GetClient(string db = null)
         {
-            return GetDB(db).Client;
+            return GetDatabase(db).Client;
         }
 
         /// <summary>
-        /// Returns the DB instance for a given database name.
+        /// Gets the DB instance for a given database name.
         /// </summary>
         /// <param name="database">The database name to retrieve the DB instance for. Setting null will retrieve the default instance</param>
         /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
@@ -153,13 +132,46 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets the IMongoDatabase for a given database name.
+        /// </summary>
+        /// <param name="name">The name of the database to retrieve</param>
+        public static IMongoDatabase GetDatabase(string name)
+        {
+            IMongoDatabase db = null;
+
+            if (dbs.Count > 0)
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    db = dbs.First().Value;
+                }
+                else
+                {
+                    dbs.TryGetValue(name, out db);
+                }
+            }
+
+            if (db == null) throw new InvalidOperationException($"Database connection is not initialized for [{name}]");
+
+            return db;
+        }
+
+        /// <summary>
+        /// Gets the IMongoDatabase of this instance
+        /// </summary>
+        public IMongoDatabase GetDatabase()
+        {
+            return GetDatabase(DbName);
+        }
+
+        /// <summary>
         /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>(string db = null)
         {
-            return GetDB(db).GetCollection<T>(GetCollectionName<T>());
+            return GetDatabase(db).GetCollection<T>(GetCollectionName<T>());
         }
 
         /// <summary>

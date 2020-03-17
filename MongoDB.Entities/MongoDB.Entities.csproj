@@ -12,9 +12,10 @@
     <AssemblyVersion>11.8.0.0</AssemblyVersion>
     <FileVersion>11.8.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- all Save() endpoints now return either BulkWriteResult or ReplaceOneResult
-- all Delete() endpoints now return DeleteResult
-- all Update() endpoints now return UpdateResult
+    <PackageReleaseNotes>- all Save endpoints now return either ReplaceOneResult or BulkWriteResult
+- all Delete endpoints now return DeleteResult
+- all Update endpoints now return UpdateResult
+- expose IMongoDatabase via DB.GetDatabase()
 - new test</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
