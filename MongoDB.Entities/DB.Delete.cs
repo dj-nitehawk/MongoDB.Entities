@@ -13,10 +13,12 @@ namespace MongoDB.Entities
     {
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            var joinCollections = (await GetDatabase(db).ListCollectionNames().ToListAsync())
-                                                  .Where(c =>
-                                                         c.Contains("~") &&
-                                                         c.Contains(GetCollectionName<T>()));
+            var joinCollections = (await GetDatabase(db)
+                                         .ListCollectionNames()
+                                         .ToListAsync())
+                                         .Where(c =>
+                                                c.Contains("~") &&
+                                                c.Contains(GetCollectionName<T>()));
             var tasks = new HashSet<Task>();
 
             foreach (var cName in joinCollections)
