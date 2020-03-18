@@ -10,7 +10,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ### Advantages:
 - Never have to deal with `ObjectIds`, `BsonDocuments` & magic strings. 
 - Built-in support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
-- Query data using LINQ, lambda expressions, filters and fluent aggregations.
+- Query data using LINQ, lambda expressions, filters and aggregation pipelines.
 - Sorting, paging and projecting is made convenient.
 - Simple data migration framework similar to EntityFramework.
 - Programatically define indexes.
@@ -21,7 +21,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Easy GeoSpatial search. 
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Multiple database support.
-- Project types supported: .Net Standard 2.0 (.Net Core 2.0 or higher & .Net Framework 4.6.1 or higher)
+- Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
 
 
 
@@ -35,7 +35,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ## Code Sample
 ```csharp
     //Initialize database connection
-        new DB("bookshop");
+        new DB("bookshop","localhost");
 
     //Create and persist an entity
         var book = new Book { Title = "The Power Of Now" };
@@ -43,13 +43,14 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
  
     //Embed as document
         var dickens = new Author { Name = "Charles Dickens" };
-        book.RelatedAuthor = dickens.ToDocument();
-        dickens.Save();
+        book.Author = dickens.ToDocument();
+        book.Save();
     
     //One-To-One relationship
         var hemmingway = new Author { Name = "Ernest Hemmingway" };
         hemmingway.Save();
-        book.MainAuthor = hemmingway.ToReference();
+        book.MainAuthor = hemmingway;
+        book.Save();
 
     //One-To-Many relationship
         var tolle = new Author { Name = "Eckhart Tolle" };
@@ -59,6 +60,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
     //Many-To-Many relationship
         var genre = new Genre { Name = "Self Help" };
         genre.Save();
+        book.AllGenres.Add(genre);
         genre.AllBooks.Add(book);
 
     //Queries
@@ -74,11 +76,12 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
                                        .Where(b => b.Title.Contains("Power"))
                                        .SingleOrDefault();
 
-        var genre = book.AllGenres.ChildrenQueryable().First();
+        var selfhelp = book.AllGenres.ChildrenQueryable().First();
 
     //Delete
+        book.MainAuthor.Delete();
+        book.AllAuthors.DeleteAll();
         book.Delete();
-        book.Authors.DeleteAll();
         DB.Delete<Genre>(genre.ID);
 ```
 
@@ -87,6 +90,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ## Code Examples
 - [.net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 - [asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
+- [a collection of gists](https://gist.github.com/dj-nitehawk)
 - [integration/unit test project](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
 - [solutions to stackoverflow questions](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
 
