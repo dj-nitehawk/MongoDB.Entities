@@ -98,7 +98,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -111,7 +111,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -124,7 +124,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -142,7 +142,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
@@ -155,7 +155,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -168,7 +168,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -181,7 +181,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
@@ -194,7 +194,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Deletes matching entities from MongoDB
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a batch</para>
+        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
