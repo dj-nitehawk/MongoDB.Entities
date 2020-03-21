@@ -60,7 +60,6 @@ namespace MongoDB.Entities
         private int chunkSize, readCount;
         private byte[] buffer;
         private List<byte> dataChunk;
-        private IClientSessionHandle session;
 
         public DataStreamer(FileEntity parent)
         {
@@ -94,9 +93,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="stream">The output stream to write the data</param>
         /// <param name="batchSize">The number of chunks you want returned at once</param>
-        /// <param name="cancelToken">An optional cancellation token.</param>
+        /// <param name="cancellation">An optional cancellation token.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancelToken = default, IClientSessionHandle session = null)
+        public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancellation = default, IClientSessionHandle session = null)
         {
             parent.ThrowIfUnsaved();
             if (!parent.UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
@@ -111,18 +110,18 @@ namespace MongoDB.Entities
             };
 
             var findTask = session == null ?
-                                db.Collection<FileChunk>().FindAsync(filter, options, cancelToken) :
-                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancelToken);
+                                db.Collection<FileChunk>().FindAsync(filter, options, cancellation) :
+                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancellation);
 
             using (var cursor = await findTask)
             {
                 var hasChunks = false;
 
-                while (await cursor.MoveNextAsync(cancelToken))
+                while (await cursor.MoveNextAsync(cancellation))
                 {
                     foreach (var chunk in cursor.Current)
                     {
-                        await stream.WriteAsync(chunk, 0, chunk.Length, cancelToken);
+                        await stream.WriteAsync(chunk, 0, chunk.Length, cancellation);
                         hasChunks = true;
                     }
                 }
@@ -149,16 +148,15 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="stream">The input stream to read the data from</param>
         /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
-        /// <param name="cancelToken">An optional cancellation token.</param>
+        /// <param name="cancellation">An optional cancellation token.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancelToken = default, IClientSessionHandle session = null)
+        public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = default, IClientSessionHandle session = null)
         {
             parent.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
             if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
-            CleanUp();
+            CleanUp(session);
 
-            this.session = session;
             doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
             dataChunk = new List<byte>(chunkSize);
@@ -169,14 +167,14 @@ namespace MongoDB.Entities
             {
                 if (stream.CanSeek && stream.Position > 0) stream.Position = 0;
 
-                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancelToken)) > 0)
+                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
                 {
-                    await FlushToDB();
+                    await FlushToDB(session, isLastChunk: false);
                 }
 
                 if (parent.FileSize > 0)
                 {
-                    await FlushToDB(isLastChunk: true);
+                    await FlushToDB(session, isLastChunk: true);
                     parent.UploadSuccessful = true;
                 }
                 else
@@ -186,27 +184,27 @@ namespace MongoDB.Entities
             }
             catch (Exception)
             {
-                CleanUp();
+                CleanUp(session);
                 throw;
             }
             finally
             {
-                await UpdateMetaData();
+                await UpdateMetaData(session);
                 doc = null;
                 buffer = null;
                 dataChunk = null;
             }
         }
 
-        private void CleanUp()
+        private void CleanUp(IClientSessionHandle session)
         {
-            _ = db.DeleteAsync<FileChunk>(c => c.FileID == parent.ID);
+            _ = db.DeleteAsync<FileChunk>(c => c.FileID == parent.ID, session);
             parent.FileSize = 0;
             parent.ChunkCount = 0;
             parent.UploadSuccessful = false;
         }
 
-        private async Task FlushToDB(bool isLastChunk = false)
+        private async Task FlushToDB(IClientSessionHandle session, bool isLastChunk = false)
         {
             if (!isLastChunk)
             {
@@ -222,14 +220,14 @@ namespace MongoDB.Entities
             {
                 doc.ID = null;
                 doc.Data = dataChunk.ToArray();
-                await db.SaveAsync(doc, session);
+                await db.SaveAsync(doc, session); //todo: enable cancellation
                 parent.ChunkCount++;
                 doc.Data = null;
                 dataChunk.Clear();
             }
         }
 
-        private Task UpdateMetaData()
+        private Task UpdateMetaData(IClientSessionHandle session)
         {
             var coll = db.Collection<FileEntity>().Database.GetCollection<FileEntity>(parent.CollectionName());
 

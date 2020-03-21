@@ -256,5 +256,7 @@ namespace MongoDB.Entities
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
             return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
         }
+
+        //todo: ExecuteAndGet()
     }
 }

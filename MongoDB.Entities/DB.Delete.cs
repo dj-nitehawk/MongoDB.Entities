@@ -5,33 +5,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
     public partial class DB
-    {
+    {        
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            var joinCollections = (await GetDatabase(db)
-                                         .ListCollectionNames()
-                                         .ToListAsync())
-                                         .Where(c =>
-                                                c.Contains("~") &&
-                                                c.Contains(GetCollectionName<T>()));
+            // note: cancellation should not be enabled because multiple collections are involved 
+            //       and premature cancellation could cause data inconsistencies.
+
+            var options = new ListCollectionNamesOptions
+            {
+                Filter = "{$and:[{name:/~/},{name:/" + GetCollectionName<T>() + "/}]}"
+            };
+
+            var joinCollections = await GetDatabase(db).ListCollectionNames(options).ToListAsync();
+
             var tasks = new HashSet<Task>();
 
             foreach (var cName in joinCollections)
             {
                 tasks.Add(session == null
                           ? GetDatabase(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                          : GetDatabase(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID)));
+                          : GetDatabase(db).GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null));
             }
 
             var delRes =
                     session == null
                     ? Collection<T>(db).DeleteManyAsync(x => IDs.Contains(x.ID))
-                    : Collection<T>(db).DeleteManyAsync(session, x => IDs.Contains(x.ID));
+                    : Collection<T>(db).DeleteManyAsync(session, x => IDs.Contains(x.ID), null);
 
             tasks.Add(delRes);
 
@@ -39,7 +44,7 @@ namespace MongoDB.Entities
             {
                 tasks.Add(session == null
                     ? Collection<FileChunk>(db).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                    : Collection<FileChunk>(db).DeleteManyAsync(session, x => IDs.Contains(x.FileID)));
+                    : Collection<FileChunk>(db).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
             }
 
             await Task.WhenAll(tasks);
@@ -135,6 +140,7 @@ namespace MongoDB.Entities
                               .Where(expression)
                               .Select(e => e.ID)
                               .ToListAsync();
+            //todo: convert this to find query
 
             return await DeleteCascadingAsync<T>(IDs, session, db);
         }

@@ -1,16 +1,17 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, string db = null)
+        internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default)
         {
             return session == null ?
-                        Collection<T>(db).FindAsync(filter, options) :
-                        Collection<T>(db).FindAsync(session, filter, options);
+                        Collection<T>(db).FindAsync(filter, options, cancellation) :
+                        Collection<T>(db).FindAsync(session, filter, options, cancellation);
         }
 
         /// <summary>
