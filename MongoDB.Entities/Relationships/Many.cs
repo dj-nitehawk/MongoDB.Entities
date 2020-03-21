@@ -424,9 +424,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task AddAsync(TChild child, IClientSessionHandle session = null)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return AddAsync(child.ID, session);
+            return AddAsync(child.ID, session, cancellation);
         }
 
         /// <summary>
@@ -435,7 +436,8 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="childID">The ID of the child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public async Task AddAsync(string childID, IClientSessionHandle session = null)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             parent.ThrowIfUnsaved();
             childID.ThrowIfInvalid();
@@ -449,8 +451,8 @@ namespace MongoDB.Entities
                 joinDoesntExist =
                     0 == await (
                             session == null
-                            ? JoinCollection.CountDocumentsAsync(r => r.ChildID == parent.ID && r.ParentID == childID, countOptions)
-                            : JoinCollection.CountDocumentsAsync(session, r => r.ChildID == parent.ID && r.ParentID == childID, countOptions));
+                            ? JoinCollection.CountDocumentsAsync(r => r.ChildID == parent.ID && r.ParentID == childID, countOptions, cancellation)
+                            : JoinCollection.CountDocumentsAsync(session, r => r.ChildID == parent.ID && r.ParentID == childID, countOptions, cancellation));
 
                 if (joinDoesntExist)
                 {
@@ -472,8 +474,8 @@ namespace MongoDB.Entities
                 joinDoesntExist =
                     0 == await (
                             session == null
-                            ? JoinCollection.CountDocumentsAsync(r => r.ParentID == parent.ID && r.ChildID == childID, countOptions)
-                            : JoinCollection.CountDocumentsAsync(session, r => r.ParentID == parent.ID && r.ChildID == childID, countOptions));
+                            ? JoinCollection.CountDocumentsAsync(r => r.ParentID == parent.ID && r.ChildID == childID, countOptions, cancellation)
+                            : JoinCollection.CountDocumentsAsync(session, r => r.ParentID == parent.ID && r.ChildID == childID, countOptions, cancellation));
 
                 if (joinDoesntExist)
                 {
@@ -492,8 +494,8 @@ namespace MongoDB.Entities
             }
 
             await (session == null
-                   ? JoinCollection.InsertOneAsync(join)
-                   : JoinCollection.InsertOneAsync(session, join));
+                   ? JoinCollection.InsertOneAsync(join, null, cancellation)
+                   : JoinCollection.InsertOneAsync(session, join, null, cancellation));
         }
 
         /// <summary>
@@ -521,9 +523,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child IEntity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task RemoveAsync(TChild child, IClientSessionHandle session = null)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task RemoveAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return RemoveAsync(child.ID, session);
+            return RemoveAsync(child.ID, session, cancellation);
         }
 
         /// <summary>
@@ -531,19 +534,20 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="childID">The ID of the child Entity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task RemoveAsync(string childID, IClientSessionHandle session = null)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task RemoveAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             if (inverse)
             {
                 return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(childID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(childID));
+                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(childID), cancellation)
+                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(childID), null, cancellation);
             }
             else
             {
                 return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(childID))
-                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(childID));
+                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(childID), cancellation)
+                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(childID), null, cancellation);
 
             }
         }
