@@ -29,6 +29,9 @@ namespace MongoDB.Entities
     {
         public string Name { get; }
 
+        /// <summary>
+        /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
+        /// </summary>
         /// <param name="name">The name you want to use for the collection</param>
         public NameAttribute(string name)
         {
@@ -45,10 +48,13 @@ namespace MongoDB.Entities
     {
         public string Name { get; }
 
-        /// <param name="name">The name you want to use for the collection</param>
+        /// <summary>
+        /// Use this attribute to specify the database to store this IEntity in.
+        /// </summary>
+        /// <param name = "name" > The name you want to use for the collection</param>
         public DatabaseAttribute(string name)
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             Name = name;
         }
     }

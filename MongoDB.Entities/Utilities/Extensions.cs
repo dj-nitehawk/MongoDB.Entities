@@ -239,7 +239,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<ReplaceOneResult> SaveAsync<T>(this T entity) where T : IEntity
         {
-            return DB.SaveAsync(entity: entity, db: entity.Database());
+            return DB.SaveAsync(entity: entity, db: entity.Database()); //todo: add cancellation support
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -41,14 +42,15 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
+        /// <param name="cancellation">And optional cancellation token</param>
+        public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
             entity.ModifiedOn = DateTime.UtcNow;
 
             return session == null
-                   ? Collection<T>(db).ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true })
-                   : Collection<T>(db).ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true });
+                   ? Collection<T>(db).ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+                   : Collection<T>(db).ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
@@ -57,9 +59,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="cancellation">And optional cancellation token</param>
+        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return SaveAsync(entity, session, DbName);
+            return SaveAsync(entity, session, DbName, cancellation);
         }
 
         /// <summary>
@@ -90,7 +93,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
+        /// <param name="cancellation">And optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             var models = new Collection<WriteModel<T>>();
             foreach (var ent in entities)
@@ -106,8 +110,8 @@ namespace MongoDB.Entities
             }
 
             return session == null
-                   ? Collection<T>(db).BulkWriteAsync(models)
-                   : Collection<T>(db).BulkWriteAsync(session, models);
+                   ? Collection<T>(db).BulkWriteAsync(models, null, cancellation)
+                   : Collection<T>(db).BulkWriteAsync(session, models, null, cancellation);
         }
 
         /// <summary>
@@ -116,9 +120,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="cancellation">And optional cancellation token</param>
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return SaveAsync(entities, session, DbName);
+            return SaveAsync(entities, session, DbName, cancellation);
         }
 
         /// <summary>
@@ -144,7 +149,8 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static async Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
@@ -163,8 +169,8 @@ namespace MongoDB.Entities
             var options = new FindOptions<T, object> { Projection = Builders<T>.Projection.Expression(preservation) };
             var result = (await (
                     session == null
-                    ? Collection<T>(db).FindAsync(filter, options)
-                    : Collection<T>(db).FindAsync(session, filter, options)
+                    ? Collection<T>(db).FindAsync(filter, options, cancellation)
+                    : Collection<T>(db).FindAsync(session, filter, options, cancellation)
                     ))
                     .ToList()
                     .SingleOrDefault();
@@ -186,7 +192,7 @@ namespace MongoDB.Entities
                 throw new ArgumentException("Unable to locate entity in database for preservation purposes!");
             }
 
-            return await SaveAsync(entity, session, db);
+            return await SaveAsync(entity, session, db, cancellation);
         }
 
         /// <summary>
@@ -212,9 +218,10 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return SavePreservingAsync(entity, preservation, session, DbName);
+            return SavePreservingAsync(entity, preservation, session, DbName, cancellation);
         }
     }
 }
