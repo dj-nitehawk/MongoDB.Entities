@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -237,9 +238,10 @@ namespace MongoDB.Entities
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity: entity, db: entity.Database()); //todo: add cancellation support
+            return DB.SaveAsync(entity: entity, db: entity.Database(), cancellation: cancellation);
         }
 
         /// <summary>
@@ -255,9 +257,10 @@ namespace MongoDB.Entities
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities: entities, db: entities.First().Database());
+            return DB.SaveAsync(entities: entities, db: entities.First().Database(), cancellation: cancellation);
         }
 
         /// <summary>
@@ -281,9 +284,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static Task<ReplaceOneResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<ReplaceOneResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, null, entity.Database());
+            return DB.SavePreservingAsync(entity, preservation, null, entity.Database(), cancellation);
         }
 
         /// <summary>
@@ -329,7 +333,6 @@ namespace MongoDB.Entities
         /// <param name="objects">The list of objects to sort</param>
         /// <param name="searchTerm">The term to measure relevance to</param>
         /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched against the value of this property]</param>
-        /// <returns></returns>
         public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy)
         {
             var lev = new Levenshtein(searchTerm);

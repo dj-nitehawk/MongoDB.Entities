@@ -8,11 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>11.9</Version>
-    <AssemblyVersion>11.8.1.0</AssemblyVersion>
-    <FileVersion>11.8.1.0</FileVersion>
+    <Version>12</Version>
+    <AssemblyVersion>12.0.0.0</AssemblyVersion>
+    <FileVersion>12.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- task cancellation support (excludes deletions)
+    <PackageReleaseNotes>- 
+- task cancellation support (excludes deletions)
 - improved internals of entity deletion
 - improved internals of file storage
 - improved internals of relationships

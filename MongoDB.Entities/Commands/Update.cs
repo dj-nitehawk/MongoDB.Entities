@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -211,17 +212,18 @@ namespace MongoDB.Entities
         /// </summary>
         public UpdateResult Execute()
         {
-            return Run.Sync(ExecuteAsync);
+            return Run.Sync(() => ExecuteAsync());
         }
 
         /// <summary>
         /// Run the update command in MongoDB.
         /// </summary>
-        public async Task<UpdateResult> ExecuteAsync()
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
         {
             if (models.Count > 0)
             {
-                var res = await DB.BulkUpdateAsync(models, session, db);
+                var res = await DB.BulkUpdateAsync(models, session, db, cancellation);
                 models.Clear();
                 return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
             }
@@ -232,29 +234,30 @@ namespace MongoDB.Entities
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
-                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
+                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db, cancellation);
             }
-        } //todo: cancellation support
+        }
 
         /// <summary>
         /// Run the update command with pipeline stages
         /// </summary>
         public UpdateResult ExecutePipeline()
         {
-            return Run.Sync(ExecutePipelineAsync);
+            return Run.Sync(() => ExecutePipelineAsync());
         }
 
         /// <summary>
         /// Run the update command with pipeline stages
         /// </summary>
-        public Task<UpdateResult> ExecutePipelineAsync()
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
-            return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db);
+            return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db, cancellation);
         }
 
         //todo: ExecuteAndGet()

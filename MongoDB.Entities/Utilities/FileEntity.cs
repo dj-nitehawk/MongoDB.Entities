@@ -169,12 +169,12 @@ namespace MongoDB.Entities
 
                 while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
                 {
-                    await FlushToDB(session, isLastChunk: false);
+                    await FlushToDB(session, isLastChunk: false, cancellation);
                 }
 
                 if (parent.FileSize > 0)
                 {
-                    await FlushToDB(session, isLastChunk: true);
+                    await FlushToDB(session, isLastChunk: true, cancellation);
                     parent.UploadSuccessful = true;
                 }
                 else
@@ -204,7 +204,7 @@ namespace MongoDB.Entities
             parent.UploadSuccessful = false;
         }
 
-        private async Task FlushToDB(IClientSessionHandle session, bool isLastChunk = false)
+        private async Task FlushToDB(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
         {
             if (!isLastChunk)
             {
@@ -220,7 +220,7 @@ namespace MongoDB.Entities
             {
                 doc.ID = null;
                 doc.Data = dataChunk.ToArray();
-                await db.SaveAsync(doc, session); //todo: enable cancellation
+                await db.SaveAsync(doc, session, cancellation);
                 parent.ChunkCount++;
                 doc.Data = null;
                 dataChunk.Clear();
