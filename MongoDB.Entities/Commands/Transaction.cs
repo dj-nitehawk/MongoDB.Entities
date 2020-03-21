@@ -37,6 +37,8 @@ namespace MongoDB.Entities
         /// </summary>
         public void Commit() => Session.CommitTransaction();
 
+        //todo: cancellation support
+
         /// <summary>
         /// Commits a tranaction to MongoDB
         /// </summary>

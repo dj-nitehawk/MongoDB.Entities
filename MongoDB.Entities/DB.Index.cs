@@ -1,19 +1,20 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task CreateIndexAsync<T>(CreateIndexModel<T> model, string db = null)
+        internal static Task CreateIndexAsync<T>(CreateIndexModel<T> model, string db = null, CancellationToken cancellation = default)
         {
-            return Collection<T>(db).Indexes.CreateOneAsync(model);
+            return Collection<T>(db).Indexes.CreateOneAsync(model, cancellationToken: cancellation);
         }
 
-        internal static async Task DropIndexAsync<T>(string name, string db = null)
+        internal static async Task DropIndexAsync<T>(string name, string db = null, CancellationToken cancellation = default)
         {
-            await Collection<T>(db).Indexes.DropOneAsync(name);
+            await Collection<T>(db).Indexes.DropOneAsync(name, cancellation);
         }
 
         /// <summary>

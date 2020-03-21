@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -29,13 +30,14 @@ namespace MongoDB.Entities
         /// </summary>
         public void Create()
         {
-            Run.Sync(CreateAsync);
+            Run.Sync(() => CreateAsync());
         }
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
         /// </summary>
-        public async Task CreateAsync()
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task CreateAsync(CancellationToken cancellation = default)
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 
@@ -102,14 +104,14 @@ namespace MongoDB.Entities
                                 options);
             try
             {
-                await DB.CreateIndexAsync(model, db);
+                await DB.CreateIndexAsync(model, db, cancellation);
             }
             catch (MongoCommandException x)
             {
                 if (x.Code == 85 || x.Code == 86)
                 {
-                    await DB.DropIndexAsync<T>(options.Name, db);
-                    await DB.CreateIndexAsync(model, db);
+                    await DB.DropIndexAsync<T>(options.Name, db, cancellation);
+                    await DB.CreateIndexAsync(model, db, cancellation);
                 }
                 else
                 {

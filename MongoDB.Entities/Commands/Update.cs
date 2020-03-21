@@ -234,7 +234,7 @@ namespace MongoDB.Entities
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
                 return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db);
             }
-        }
+        } //todo: cancellation support
 
         /// <summary>
         /// Run the update command with pipeline stages

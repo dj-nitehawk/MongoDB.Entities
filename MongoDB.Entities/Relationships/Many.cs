@@ -5,6 +5,7 @@ using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -28,7 +29,6 @@ namespace MongoDB.Entities
         private string db = null;
         private bool inverse = false;
         private IEntity parent = null;
-
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -249,21 +249,22 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default)
         {
             parent.ThrowIfUnsaved();
 
             if (inverse)
             {
                 return session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options, cancellation);
             }
             else
             {
                 return session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options, cancellation);
             }
         }
 
