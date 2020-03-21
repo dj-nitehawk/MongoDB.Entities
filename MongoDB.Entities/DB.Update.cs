@@ -1,24 +1,25 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, string db = null)
+        internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default)
         {
             return session == null
-                   ? Collection<T>(db).UpdateManyAsync(filter, definition, options)
-                   : Collection<T>(db).UpdateManyAsync(session, filter, definition, options);
+                   ? Collection<T>(db).UpdateManyAsync(filter, definition, options, cancellation)
+                   : Collection<T>(db).UpdateManyAsync(session, filter, definition, options, cancellation);
         }
 
-        internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, string db = null)
+        internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default)
         {
             return session == null
-                   ? Collection<T>(db).BulkWriteAsync(models)
-                   : Collection<T>(db).BulkWriteAsync(session, models);
+                   ? Collection<T>(db).BulkWriteAsync(models, null, cancellation)
+                   : Collection<T>(db).BulkWriteAsync(session, models, null, cancellation);
         }
 
         /// <summary>
