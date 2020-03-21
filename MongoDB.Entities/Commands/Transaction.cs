@@ -4,6 +4,7 @@ using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -42,7 +43,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Commits a tranaction to MongoDB
         /// </summary>
-        public Task CommitAsync() => Session.CommitTransactionAsync();
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task CommitAsync(CancellationToken cancellation = default) => Session.CommitTransactionAsync(cancellation);
 
         /// <summary>
         /// Aborts and rolls back a tranaction
@@ -52,7 +54,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Aborts and rolls back a tranaction
         /// </summary>
-        public Task AbortAsync() => Session.AbortTransactionAsync();
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
 
         public Update<T> Update<T>() where T : IEntity
         {
@@ -94,9 +97,9 @@ namespace MongoDB.Entities
             return Run.Sync(() => SaveAsync(entity));
         }
 
-        public Task<ReplaceOneResult> SaveAsync<T>(T entity) where T : IEntity
+        public Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity, Session, db);
+            return DB.SaveAsync(entity, Session, db, cancellation);
         }
 
         public BulkWriteResult<T> Save<T>(IEnumerable<T> entities) where T : IEntity
@@ -104,9 +107,9 @@ namespace MongoDB.Entities
             return Run.Sync(() => SaveAsync(entities));
         }
 
-        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities, Session, db);
+            return DB.SaveAsync(entities, Session, db, cancellation);
         }
 
         public ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
@@ -114,9 +117,9 @@ namespace MongoDB.Entities
             return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
-        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, Session, db);
+            return DB.SavePreservingAsync(entity, preservation, Session, db, cancellation);
         }
 
         public DeleteResult Delete<T>(string ID) where T : IEntity
@@ -124,7 +127,7 @@ namespace MongoDB.Entities
             return Run.Sync(() => DeleteAsync<T>(ID));
         }
 
-        public Task<DeleteResult> DeleteAsync<T>(string ID) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync<T>(ID, Session, db);
         }
