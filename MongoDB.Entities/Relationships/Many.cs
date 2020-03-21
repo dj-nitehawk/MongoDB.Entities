@@ -440,15 +440,19 @@ namespace MongoDB.Entities
             parent.ThrowIfUnsaved();
             childID.ThrowIfInvalid();
 
+            var countOptions = new CountOptions { Limit = 1 };
+            var joinDoesntExist = false;
             JoinRecord join = null;
 
             if (inverse)
             {
-                join = await (session == null ?
-                              JoinCollection.Find(r => r.ChildID == parent.ID && r.ParentID == childID).SingleOrDefaultAsync() :
-                              JoinCollection.Find(session, r => r.ChildID == parent.ID && r.ParentID == childID).SingleOrDefaultAsync());
+                joinDoesntExist =
+                    0 == await (
+                            session == null
+                            ? JoinCollection.CountDocumentsAsync(r => r.ChildID == parent.ID && r.ParentID == childID, countOptions)
+                            : JoinCollection.CountDocumentsAsync(session, r => r.ChildID == parent.ID && r.ParentID == childID, countOptions));
 
-                if (join == null)
+                if (joinDoesntExist)
                 {
                     join = new JoinRecord()
                     {
@@ -465,11 +469,13 @@ namespace MongoDB.Entities
             }
             else
             {
-                join = await (session == null ?
-                              JoinCollection.Find(r => r.ParentID == parent.ID && r.ChildID == childID).SingleOrDefaultAsync() :
-                              JoinCollection.Find(session, r => r.ParentID == parent.ID && r.ChildID == childID).SingleOrDefaultAsync());
+                joinDoesntExist =
+                    0 == await (
+                            session == null
+                            ? JoinCollection.CountDocumentsAsync(r => r.ParentID == parent.ID && r.ChildID == childID, countOptions)
+                            : JoinCollection.CountDocumentsAsync(session, r => r.ParentID == parent.ID && r.ChildID == childID, countOptions));
 
-                if (join == null)
+                if (joinDoesntExist)
                 {
                     join = new JoinRecord()
                     {

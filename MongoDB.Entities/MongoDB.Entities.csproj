@@ -15,6 +15,7 @@
     <PackageReleaseNotes>- task cancellation support (excludes deletions)
 - improved internals of entity deletion
 - improved internals of file storage
+- improved internals of relationships
 - misc. refactorings</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
