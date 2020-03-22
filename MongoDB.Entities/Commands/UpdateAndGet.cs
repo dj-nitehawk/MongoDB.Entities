@@ -11,52 +11,43 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents an update command
+    /// Update and retrieve the first document that was updated.
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Update<T> where T : IEntity
+    public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
+    {
+        internal UpdateAndGet(IClientSessionHandle session = null, string db = null) : base(session, db) { }
+    }
+
+    /// <summary>
+    /// Update and retrieve the first document that was updated.
+    /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <typeparam name="TProjection">The type to project to</typeparam>
+    public class UpdateAndGet<T, TProjection> where T : IEntity
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
-        private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
-        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private UpdateOptions options = new UpdateOptions();
+        private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
+        private Expression<Func<T, bool>> filter = null;
+        private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session = null;
-        private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
         private readonly string db = null;
 
-        internal Update(IClientSessionHandle session = null, string db = null)
+        internal UpdateAndGet(IClientSessionHandle session = null, string db = null)
         {
             this.session = session;
             this.db = db;
         }
 
         /// <summary>
-        /// Specify the IEntity matching criteria with a lambda expression
+        /// Specify the Entity matching criteria with a lambda expression
         /// </summary>
         /// <param name="expression">A lambda expression to select the Entities to update</param>
-        public Update<T> Match(Expression<Func<T, bool>> expression)
+        public UpdateAndGet<T, TProjection> Match(Expression<Func<T, bool>> expression)
         {
-            return Match(f => f.Where(expression));
-        }
-
-        /// <summary>
-        /// Specify the Entity matching criteria with a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            this.filter = filter(Builders<T>.Filter);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the Entity matching criteria with a Template
-        /// </summary>
-        /// <param name="template">The filter Template</param>
-        public Update<T> Match(Template template)
-        {
-            filter = template.ToString();
+            filter = expression;
             return this;
         }
 
@@ -65,8 +56,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="property">x => x.Property</param>
         /// <param name="value">The value to set on the property</param>
-        /// <returns></returns>
-        public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
+        public UpdateAndGet<T, TProjection> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
         {
             defs.Add(Builders<T>.Update.Set(property, value));
             return this;
@@ -76,8 +66,7 @@ namespace MongoDB.Entities
         /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
         /// </summary>
         /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
-        /// <returns></returns>
-        public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+        public UpdateAndGet<T, TProjection> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
         {
             defs.Add(operation(Builders<T>.Update));
             return this;
@@ -87,7 +76,7 @@ namespace MongoDB.Entities
         /// Specify an update (json string) to modify the Entities (use multiple times if needed)
         /// </summary>
         /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
-        public Update<T> Modify(string update)
+        public UpdateAndGet<T, TProjection> Modify(string update)
         {
             defs.Add(update);
             return this;
@@ -97,7 +86,7 @@ namespace MongoDB.Entities
         /// Specify an update with a Template to modify the Entities (use multiple times if needed)
         /// </summary>
         /// <param name="template">A Template with a single update</param>
-        public Update<T> Modify(Template template)
+        public UpdateAndGet<T, TProjection> Modify(Template template)
         {
             Modify(template.ToString());
             return this;
@@ -108,7 +97,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="template">A Template object containing multiple pipeline stages</param>
-        public Update<T> WithPipeline(Template template)
+        public UpdateAndGet<T, TProjection> WithPipeline(Template template)
         {
             foreach (var stage in template.ToStages())
             {
@@ -123,7 +112,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
-        public Update<T> WithPipelineStage(string stage)
+        public UpdateAndGet<T, TProjection> WithPipelineStage(string stage)
         {
             stages.Add(stage);
             return this;
@@ -134,7 +123,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="template">A Template object containing a pipeline stage</param>
-        public Update<T> WithPipelineStage(Template template)
+        public UpdateAndGet<T, TProjection> WithPipelineStage(Template template)
         {
             return WithPipelineStage(template.ToString());
         }
@@ -143,7 +132,7 @@ namespace MongoDB.Entities
         /// Specify an array filter to target nested entities for updates (use multiple times if needed).
         /// </summary>
         /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
-        public Update<T> WithArrayFilter(string filter)
+        public UpdateAndGet<T, TProjection> WithArrayFilter(string filter)
         {
             ArrayFilterDefinition<T> def = filter;
 
@@ -159,7 +148,7 @@ namespace MongoDB.Entities
         /// Specify a single array filter using a Template to target nested entities for updates
         /// </summary>
         /// <param name="template"></param>
-        public Update<T> WithArrayFilter(Template template)
+        public UpdateAndGet<T, TProjection> WithArrayFilter(Template template)
         {
             WithArrayFilter(template.ToString());
             return this;
@@ -169,7 +158,7 @@ namespace MongoDB.Entities
         /// Specify multiple array filters with a Template to target nested entities for updates.
         /// </summary>
         /// <param name="template">The template with an array [...] of filters</param>
-        public Update<T> WithArrayFilters(Template template)
+        public UpdateAndGet<T, TProjection> WithArrayFilters(Template template)
         {
             var defs = template.ToArrayFilters<T>();
 
@@ -186,78 +175,73 @@ namespace MongoDB.Entities
         /// <para>TIP: Setting options is not required</para>
         /// </summary>
         /// <param name="option">x => x.OptionName = OptionValue</param>
-        public Update<T> Option(Action<UpdateOptions> option)
+        public UpdateAndGet<T, TProjection> Option(Action<FindOneAndUpdateOptions<T, TProjection>> option)
         {
             option(options);
             return this;
         }
 
         /// <summary>
-        /// Queue up an update command for bulk execution later.
+        /// Specify how to project the results using a lambda expression
         /// </summary>
-        public Update<T> AddToQueue()
+        /// <param name="expression">x => new Test { PropName = x.Prop }</param>
+        public UpdateAndGet<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            Modify(b => b.CurrentDate(x => x.ModifiedOn));
-            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)) { ArrayFilters = options.ArrayFilters });
-            filter = Builders<T>.Filter.Empty;
-            defs.Clear();
-            options = new UpdateOptions();
+            return Project(p => p.Expression(expression));
+        }
+
+        /// <summary>
+        /// Specify how to project the results using a projection expression
+        /// </summary>
+        /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
+        public UpdateAndGet<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
+        {
+            options.Projection = projection(Builders<T>.Projection);
             return this;
         }
 
         /// <summary>
-        /// Run the update command in MongoDB.
+        /// Run the update command in MongoDB and retrieve the first document modified
         /// </summary>
-        public UpdateResult Execute()
+        public TProjection Execute()
         {
             return Run.Sync(() => ExecuteAsync());
         }
 
         /// <summary>
-        /// Run the update command in MongoDB.
+        /// Run the update command in MongoDB and retrieve the first document modified
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
+        public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
         {
-            if (models.Count > 0)
-            {
-                var res = await DB.BulkUpdateAsync(models, session, db, cancellation);
-                models.Clear();
-                return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
-            }
-            else
-            {
-                if (filter == null) throw new ArgumentException("Please use Match() method first!");
-                if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+            if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
-                Modify(b => b.CurrentDate(x => x.ModifiedOn));
-                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, db, cancellation);
-            }
+            Modify(b => b.CurrentDate(x => x.ModifiedOn));
+            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, db, cancellation);
         }
 
         /// <summary>
-        /// Run the update command with pipeline stages
+        /// Run the update command with pipeline stages and retrieve the first document modified
         /// </summary>
-        public UpdateResult ExecutePipeline()
+        public TProjection ExecutePipeline()
         {
             return Run.Sync(() => ExecutePipelineAsync());
         }
 
         /// <summary>
-        /// Run the update command with pipeline stages
+        /// Run the update command with pipeline stages and retrieve the first document modified
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
+        public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
-            return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db, cancellation);
+            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db, cancellation);
         }
     }
 }

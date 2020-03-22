@@ -7,7 +7,7 @@ using System.Linq;
 namespace MongoDB.Entities.Tests
 {
     [TestClass]
-    public class Update
+    public class UpdateAndGet
     {
         [TestMethod]
         public void updating_modifies_correct_documents()
@@ -17,34 +17,15 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
             var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
 
-            DB.Update<Author>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .Option(o => o.BypassDocumentValidation = true)
-              .Execute();
+            var res = DB.UpdateAndGet<Author>()
+                        .Match(a => a.Surname == guid)
+                        .Modify(a => a.Name, guid)
+                        .Modify(a => a.Surname, author1.Name)
+                        .Option(o => o.)
+                        .Execute();
 
-            var count = author1.Queryable().Where(a => a.Name == guid && a.Surname == author1.Name).Count();
-            Assert.AreEqual(2, count);
-        }
-
-        [TestMethod]
-        public void updating_returns_correct_result()
-        {
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
-            var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
-            var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
-
-            var res = DB.Update<Author>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .Option(o => o.BypassDocumentValidation = true)
-              .Execute();
-
-            Assert.AreEqual(2, res.MatchedCount);
-            Assert.AreEqual(2, res.ModifiedCount);
+            Assert.AreEqual(guid, res.Name);
+            Assert.AreEqual(author1.ID, res.ID);
         }
 
         [TestMethod]

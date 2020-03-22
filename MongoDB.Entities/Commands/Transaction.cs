@@ -60,6 +60,16 @@ namespace MongoDB.Entities
             return new Update<T>(Session, db);
         }
 
+        public UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
+        {
+            return new UpdateAndGet<T>(Session, db);
+        }
+
+        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
+        {
+            return new UpdateAndGet<T, TProjection>(Session, db);
+        }
+
         public Find<T> Find<T>() where T : IEntity
         {
             return new Find<T>(Session, db);

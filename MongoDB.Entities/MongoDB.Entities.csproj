@@ -13,11 +13,13 @@
     <FileVersion>12.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- 
-- task cancellation support (excludes deletions)
+- new DB.UpdateAndGet() method for updating and retrieving an Entity
+- task cancellation support (except for deletions)
 - improved internals of entity deletion
 - improved internals of file storage
 - improved internals of relationships
-- misc. refactorings</PackageReleaseNotes>
+- misc. refactorings
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

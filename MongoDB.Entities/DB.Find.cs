@@ -40,7 +40,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
-        /// <returns></returns>
         public static Find<T, TProjection> Find<T, TProjection>(string db = null) where T : IEntity
         {
             return new Find<T, TProjection>(db: db);
@@ -52,7 +51,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
-        /// <returns></returns>
         public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
         {
             return new Find<T, TProjection>(db: DbName);
