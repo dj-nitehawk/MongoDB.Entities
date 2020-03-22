@@ -135,11 +135,10 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            var IDs = await Queryable<T>(db: db)
-                              .Where(expression)
-                              .Select(e => e.ID)
-                              .ToListAsync();
-            //todo: convert this to find query
+            var IDs = await Find<T, string>(db)
+                            .Match(expression)
+                            .Project(e => e.ID)
+                            .ExecuteAsync();
 
             return await DeleteCascadingAsync<T>(IDs, session, db);
         }
