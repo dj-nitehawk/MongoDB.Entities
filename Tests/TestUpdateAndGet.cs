@@ -17,88 +17,34 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
             var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
 
-            var res = DB.UpdateAndGet<Author>()
+            var res = DB.UpdateAndGet<Author, string>()
                         .Match(a => a.Surname == guid)
                         .Modify(a => a.Name, guid)
                         .Modify(a => a.Surname, author1.Name)
-                        .Option(o => o.)
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
+                        .Project(a => a.Name)
                         .Execute();
 
-            Assert.AreEqual(guid, res.Name);
-            Assert.AreEqual(author1.ID, res.ID);
+            Assert.AreEqual(guid, res);
+
         }
 
         [TestMethod]
         public void update_by_def_builder_mods_correct_docs()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
-            var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
-            var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1", Age = 1 }; author1.Save();
+            var author2 = new Author { Name = "bumcda2", Surname = guid, Age = 1 }; author2.Save();
+            var author3 = new Author { Name = "bumcda3", Surname = guid, Age = 1 }; author3.Save();
 
-            DB.Update<Author>()
-              .Match(a => a.Surname == guid)
-              .Modify(b => b.Inc(a => a.Age, 10))
-              .Modify(b => b.Set(a => a.Name, guid))
-              .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-              .Execute();
+            var res = DB.UpdateAndGet<Author>()
+                          .Match(a => a.Surname == guid)
+                          .Modify(b => b.Inc(a => a.Age, 1))
+                          .Modify(b => b.Set(a => a.Name, guid))
+                          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                          .Execute();
 
-            var res = DB.Find<Author>().Many(a => a.Surname == guid && a.Age == 10);
-
-            Assert.AreEqual(2, res.Count());
-            Assert.AreEqual(guid, res.First().Name);
-        }
-
-        [TestMethod]
-        public void nested_properties_update_correctly()
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            var book = new Book
-            {
-                Title = "mnpuc title " + guid,
-                Review = new Review { Rating = 10.10 }
-            };
-            book.Save();
-
-            DB.Update<Book>()
-                .Match(b => b.Review.Rating == 10.10)
-                .Modify(b => b.Review.Rating, 22.22)
-                .Execute();
-
-            var res = DB.Find<Book>().One(book.ID);
-
-            Assert.AreEqual(22.22, res.Review.Rating);
-        }
-
-        [TestMethod]
-        public void bulk_update_modifies_correct_documents()
-        {
-            var title = "bumcd " + Guid.NewGuid().ToString();
-            var books = new Collection<Book>();
-
-            for (int i = 1; i <= 5; i++)
-            {
-                books.Add(new Book { Title = title, Price = i });
-            }
-            books.Save();
-
-            var bulk = DB.Update<Book>();
-
-            foreach (var book in books)
-            {
-                bulk.Match(b => b.ID == book.ID)
-                    .Modify(b => b.Price, 100)
-                    .AddToQueue();
-            }
-
-            bulk.Execute();
-
-            var res = DB.Find<Book>()
-                        .Many(b => b.Title == title);
-
-            Assert.AreEqual(5, res.Count);
-            Assert.AreEqual(5, res.Count(b => b.Price == 100));
+            Assert.AreEqual(2, res.Age);
         }
 
         [TestMethod]
@@ -119,15 +65,12 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Surname)
                 .Path(a => a.Age);
 
-            DB.Update<Author>()
-              .Match(a => a.ID == author.ID)
-              .WithPipeline(pipeline)
-              .ExecutePipeline();
-
-            var res = DB.Find<Author>().One(author.ID);
+            var res = DB.UpdateAndGet<Author>()
+                          .Match(a => a.ID == author.ID)
+                          .WithPipeline(pipeline)
+                          .ExecutePipeline();
 
             Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
-            Assert.AreEqual(0, res.Age);
         }
 
         [TestMethod]
@@ -144,44 +87,12 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Surname)
                 .ToString();
 
-            DB.Update<Author>()
-              .Match(a => a.ID == author.ID)
-              .WithPipelineStage(stage)
-              .ExecutePipeline();
+            var res = DB.UpdateAndGet<Author>()
+                          .Match(a => a.ID == author.ID)
+                          .WithPipelineStage(stage)
+                          .ExecutePipeline();
 
-            var fullname = DB.Find<Author>().One(author.ID).FullName;
-            Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
-        }
-
-        [TestMethod]
-        public void update_with_template_match()
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            var author = new Author { Name = "uwtm", Surname = guid };
-            author.Save();
-
-            var filter = new Template(@"
-            { 
-                _id: ObjectId('<ID>') 
-            }")
-                .Tag("ID", author.ID);
-
-            var stage = new Template<Author>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
-                .Path(a => a.FullName)
-                .Path(a => a.Name)
-                .Path(a => a.Surname);
-
-            DB.Update<Author>()
-              .Match(filter)
-              .WithPipeline(stage)
-              .ExecutePipeline();
-
-            var fullname = DB.Find<Author>()
-                             .One(author.ID)
-                             .FullName;
-
-            Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
+            Assert.AreEqual(author.Name + "-" + author.Surname, res.FullName);
         }
 
         [TestMethod]
@@ -229,7 +140,7 @@ namespace MongoDB.Entities.Tests
                 .Tag("age", "321")
                 .Tag("value", "updated");
 
-            DB.Update<Book>()
+            var res = DB.UpdateAndGet<Book>()
 
               .Match(b => b.ID == book.ID)
 
@@ -238,13 +149,7 @@ namespace MongoDB.Entities.Tests
 
               .Execute();
 
-            var res = DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID)
-                        .SelectMany(b => b.OtherAuthors)
-                        .ToList();
-
-            Assert.AreEqual(2, res.Count(a => a.Age == 321));
-            Assert.AreEqual(3, res.Count(a => a.Name == "updated"));
+            Assert.AreEqual(321, res.OtherAuthors[0].Age);
         }
 
         [TestMethod]
@@ -284,7 +189,7 @@ namespace MongoDB.Entities.Tests
             var filt2 = Prop.Elements<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);
 
-            DB.Update<Book>()
+            var res = DB.UpdateAndGet<Book>()
 
               .Match(b => b.ID == book.ID)
 
@@ -296,13 +201,7 @@ namespace MongoDB.Entities.Tests
 
               .Execute();
 
-            var res = DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID)
-                        .SelectMany(b => b.OtherAuthors)
-                        .ToList();
-
-            Assert.AreEqual(2, res.Count(a => a.Age == 321));
-            Assert.AreEqual(3, res.Count(a => a.Name == "updated"));
+            Assert.AreEqual(321, res.OtherAuthors[0].Age);
         }
     }
 }

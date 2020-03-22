@@ -93,7 +93,5 @@ namespace MongoDB.Entities
         {
             return new UpdateAndGet<T>(db: DbName);
         }
-
-        //todo: write tests
     }
 }

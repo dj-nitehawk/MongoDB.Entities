@@ -12,8 +12,7 @@
     <AssemblyVersion>12.0.0.0</AssemblyVersion>
     <FileVersion>12.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- new DB.UpdateAndGet() method for updating and retrieving an Entity
+    <PackageReleaseNotes>- new DB.UpdateAndGet() method for updating and retrieving an Entity
 - task cancellation support (except for deletions)
 - improved internals of entity deletion
 - improved internals of file storage
