@@ -409,6 +409,17 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Adds multiple child references in a single bulk operation.
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
+        /// <param name="children">The child Entities to add.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Add(IEnumerable<TChild> children, IClientSessionHandle session = null)
+        {
+            Run.Sync(() => AddAsync(children, session));
+        }
+
+        /// <summary>
         /// Adds a new child reference by ID.
         /// </summary>
         /// <param name="childID">The ID of the child entity to add.</param>
@@ -416,6 +427,17 @@ namespace MongoDB.Entities
         public void Add(string childID, IClientSessionHandle session = null)
         {
             Run.Sync(() => AddAsync(childID, session));
+        }
+
+        /// <summary>
+        /// Adds multiple child references in a single bulk operation.
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
+        /// <param name="childIDs">The IDs of the child Entities to add.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Add(IEnumerable<string> childIDs, IClientSessionHandle session = null)
+        {
+            Run.Sync(() => AddAsync(childIDs, session));
         }
 
         /// <summary>
@@ -431,71 +453,68 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Adds multiple child references in a single bulk operation
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
+        /// <param name="children">The child Entities to add</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            return AddAsync(children.Select(c => c.ID), session, cancellation);
+        }
+
+        /// <summary>
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
         /// <param name="childID">The ID of the child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public async Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            return AddAsync(new[] { childID }, session, cancellation);
+        }
+
+        /// <summary>
+        /// Adds multiple child references in a single bulk operation
+        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
+        /// </summary>
+        /// <param name="childIDs">The IDs of the child Entities to add.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             parent.ThrowIfUnsaved();
-            childID.ThrowIfInvalid();
 
-            var countOptions = new CountOptions { Limit = 1 };
-            var joinDoesntExist = false;
-            JoinRecord join = null;
+            var models = new HashSet<WriteModel<BsonDocument>>();
 
-            if (inverse)
+            foreach (var cid in childIDs)
             {
-                joinDoesntExist =
-                    0 == await (
-                            session == null
-                            ? JoinCollection.CountDocumentsAsync(r => r.ChildID == parent.ID && r.ParentID == childID, countOptions, cancellation)
-                            : JoinCollection.CountDocumentsAsync(session, r => r.ChildID == parent.ID && r.ParentID == childID, countOptions, cancellation));
+                cid.ThrowIfInvalid();
 
-                if (joinDoesntExist)
-                {
-                    join = new JoinRecord()
-                    {
-                        ID = ObjectId.GenerateNewId().ToString(),
-                        ModifiedOn = DateTime.UtcNow,
-                        ParentID = childID,
-                        ChildID = parent.ID,
-                    };
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                joinDoesntExist =
-                    0 == await (
-                            session == null
-                            ? JoinCollection.CountDocumentsAsync(r => r.ParentID == parent.ID && r.ChildID == childID, countOptions, cancellation)
-                            : JoinCollection.CountDocumentsAsync(session, r => r.ParentID == parent.ID && r.ChildID == childID, countOptions, cancellation));
+                var parentID = new ObjectId(parent.ID);
+                var childID = new ObjectId(cid);
 
-                if (joinDoesntExist)
-                {
-                    join = new JoinRecord()
-                    {
-                        ID = ObjectId.GenerateNewId().ToString(),
-                        ModifiedOn = DateTime.UtcNow,
-                        ParentID = parent.ID,
-                        ChildID = childID,
-                    };
-                }
-                else
-                {
-                    return;
-                }
+                var filter = Builders<BsonDocument>.Filter.Where(d => d["ParentID"] == parentID && d["ChildID"] == childID);
+                var inverseFilter = Builders<BsonDocument>.Filter.Where(d => d["ParentID"] == childID && d["ChildID"] == parentID);
+
+                var join = new BsonDocument { { "ParentID", parentID }, { "ChildID", childID }, { "ModifiedOn", DateTime.UtcNow } };
+                var inverseJoin = new BsonDocument { { "ParentID", childID }, { "ChildID", parentID }, { "ModifiedOn", DateTime.UtcNow } };
+
+                models.Add(
+                    new ReplaceOneModel<BsonDocument>(
+                        filter: inverse ? inverseFilter : filter,
+                        replacement: inverse ? inverseJoin : join)
+                    { IsUpsert = true });
             }
 
-            await (session == null
-                   ? JoinCollection.InsertOneAsync(join, null, cancellation)
-                   : JoinCollection.InsertOneAsync(session, join, null, cancellation));
+            var collection = JoinCollection.Database
+                             .GetCollection<BsonDocument>(JoinCollection.CollectionNamespace.CollectionName);
+
+            return session == null
+                   ? collection.BulkWriteAsync(models, null, cancellation)
+                   : collection.BulkWriteAsync(session, models, null, cancellation);
         }
 
         /// <summary>
@@ -552,6 +571,8 @@ namespace MongoDB.Entities
             }
         }
 
+        //todo: remove multiple at once.
+
         /// <summary>
         /// Overloaded operator for adding a child entity
         /// </summary>
@@ -560,6 +581,17 @@ namespace MongoDB.Entities
         public static Many<TChild> operator +(Many<TChild> many, TChild child)
         {
             many.Add(child);
+            return many;
+        }
+
+        /// <summary>
+        /// Overloaded operator for adding child entities
+        /// </summary>
+        /// <param name="many">The left side of the + operand</param>
+        /// <param name="children">The right side of the + operand</param>
+        public static Many<TChild> operator +(Many<TChild> many, IEnumerable<TChild> children)
+        {
+            many.Add(children);
             return many;
         }
 
@@ -573,6 +605,19 @@ namespace MongoDB.Entities
             many.Add(childID);
             return many;
         }
+
+        /// <summary>
+        /// Overloaded operator for adding entities by specifying only the childIDs
+        /// </summary>
+        /// <param name="many">The left side of the + operand</param>
+        /// <param name="childIDs">The right side of the + operand</param>
+        public static Many<TChild> operator +(Many<TChild> many, IEnumerable<string> childIDs)
+        {
+            many.Add(childIDs);
+            return many;
+        }
+
+        //todo: remove by multiples
 
         /// <summary>
         /// Overloaded operator for removing a child entity
