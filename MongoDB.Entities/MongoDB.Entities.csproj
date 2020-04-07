@@ -12,9 +12,9 @@
     <AssemblyVersion>12.1.0.0</AssemblyVersion>
     <FileVersion>12.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>-
+    <PackageReleaseNotes>- support for adding/removing relationships with multiple entities/IDs
 - optimize relationship creation and removal
-- support for creating and removing relationships with multiple entities or IDs</PackageReleaseNotes>
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

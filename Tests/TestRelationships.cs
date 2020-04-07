@@ -407,5 +407,29 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(0, count);
         }
+
+        [TestMethod]
+        public void many_to_many_remove_multiple()
+        {
+            var a1 = new Author { Name = "author one" };
+            var a2 = new Author { Name = "author two" };
+
+            var b1 = new Book { Title = "book one" };
+            var b2 = new Book { Title = "book two" };
+
+            new[] { a1, a2 }.Save();
+            new[] { b1, b2 }.Save();
+
+            a1.Books.Add(new[] { b1, b2 });
+            a2.Books.Add(new[] { b1, b2 });
+
+            a1.Books.Remove(new[] { b1, b2 });
+
+            var a2books = a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToArray();
+
+            Assert.AreEqual(2, a2books.Length);
+            Assert.AreEqual(b1.Title, a2books.First().Title);
+            Assert.AreEqual(b2.Title, a2books.Last().Title);
+        }
     }
 }
