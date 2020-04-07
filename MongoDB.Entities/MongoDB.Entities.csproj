@@ -13,7 +13,7 @@
     <FileVersion>12.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>-
-- optimize relationship creation and removals
+- optimize relationship creation and removal
 - support for creating and removing relationships with multiple entities or IDs</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

@@ -26,6 +26,11 @@ namespace MongoDB.Entities
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
     public class Many<TChild> : ManyBase where TChild : IEntity
     {
+        private static string parentProp = nameof(JoinRecord.ParentID);
+        private static string childProp = nameof(JoinRecord.ChildID);
+        private static string modDateProp = nameof(JoinRecord.ModifiedOn);
+        private static BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+
         private string db = null;
         private bool inverse = false;
         private IEntity parent = null;
@@ -487,34 +492,35 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            var models = new HashSet<WriteModel<BsonDocument>>();
+            var models = new List<WriteModel<BsonDocument>>();
 
             foreach (var cid in childIDs)
             {
                 cid.ThrowIfInvalid();
 
-                var parentID = new ObjectId(parent.ID);
-                var childID = new ObjectId(cid);
+                var parentID = inverse ? new ObjectId(cid) : new ObjectId(parent.ID);
+                var childID = inverse ? new ObjectId(parent.ID) : new ObjectId(cid);
 
-                var filter = Builders<BsonDocument>.Filter.Where(d => d["ParentID"] == parentID && d["ChildID"] == childID);
-                var inverseFilter = Builders<BsonDocument>.Filter.Where(d => d["ParentID"] == childID && d["ChildID"] == parentID);
+                var def = Builders<BsonDocument>.Filter.Where(d =>
+                            d[parentProp] == parentID &&
+                            d[childProp] == childID);
 
-                var join = new BsonDocument { { "ParentID", parentID }, { "ChildID", childID }, { "ModifiedOn", DateTime.UtcNow } };
-                var inverseJoin = new BsonDocument { { "ParentID", childID }, { "ChildID", parentID }, { "ModifiedOn", DateTime.UtcNow } };
+                var doc = new BsonDocument
+                {
+                    { parentProp, parentID },
+                    { childProp, childID },
+                    { modDateProp, DateTime.UtcNow }
+                };
 
-                models.Add(
-                    new ReplaceOneModel<BsonDocument>(
-                        filter: inverse ? inverseFilter : filter,
-                        replacement: inverse ? inverseJoin : join)
-                    { IsUpsert = true });
+                models.Add(new ReplaceOneModel<BsonDocument>(def, doc) { IsUpsert = true });
             }
 
             var collection = JoinCollection.Database
                              .GetCollection<BsonDocument>(JoinCollection.CollectionNamespace.CollectionName);
 
             return session == null
-                   ? collection.BulkWriteAsync(models, null, cancellation)
-                   : collection.BulkWriteAsync(session, models, null, cancellation);
+                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>

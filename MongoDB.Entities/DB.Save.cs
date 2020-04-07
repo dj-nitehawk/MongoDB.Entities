@@ -3,7 +3,6 @@ using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -14,6 +13,8 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        private static BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+
         /// <summary>
         /// Persists an entity to MongoDB
         /// </summary>
@@ -96,7 +97,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
-            var models = new Collection<WriteModel<T>>();
+            var models = new List<WriteModel<T>>();
             foreach (var ent in entities)
             {
                 if (string.IsNullOrEmpty(ent.ID)) ent.ID = ObjectId.GenerateNewId().ToString();
@@ -110,8 +111,8 @@ namespace MongoDB.Entities
             }
 
             return session == null
-                   ? Collection<T>(db).BulkWriteAsync(models, null, cancellation)
-                   : Collection<T>(db).BulkWriteAsync(session, models, null, cancellation);
+                   ? Collection<T>(db).BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : Collection<T>(db).BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>
