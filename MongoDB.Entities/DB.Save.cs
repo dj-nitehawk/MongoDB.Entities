@@ -13,7 +13,7 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        private static BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+        private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
 
         /// <summary>
         /// Persists an entity to MongoDB

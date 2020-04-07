@@ -26,13 +26,13 @@ namespace MongoDB.Entities
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
     public class Many<TChild> : ManyBase where TChild : IEntity
     {
-        private static string parentProp = nameof(JoinRecord.ParentID);
-        private static string childProp = nameof(JoinRecord.ChildID);
-        private static string modDateProp = nameof(JoinRecord.ModifiedOn);
-        private static BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+        private const string parentProp = nameof(JoinRecord.ParentID);
+        private const string childProp = nameof(JoinRecord.ChildID);
+        private const string modDateProp = nameof(JoinRecord.ModifiedOn);
+        private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
 
         private string db = null;
-        private bool inverse = false;
+        private bool isInverse = false;
         private IEntity parent = null;
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace MongoDB.Entities
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
-            if (inverse)
+            if (isInverse)
             {
                 return JoinQueryable(options)
                        .Where(j => childIDs.Contains(j.ParentID))
@@ -114,7 +114,7 @@ namespace MongoDB.Entities
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
-            if (inverse)
+            if (isInverse)
             {
                 return children
                         .Join(
@@ -155,7 +155,7 @@ namespace MongoDB.Entities
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
-            if (inverse)
+            if (isInverse)
             {
                 return children
                        .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
@@ -213,7 +213,7 @@ namespace MongoDB.Entities
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
-            if (inverse)
+            if (isInverse)
             {
                 return JoinFluent(session, options)
                        .Match(f => f.In(j => j.ParentID, childIDs))
@@ -259,7 +259,7 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            if (inverse)
+            if (isInverse)
             {
                 return session == null
                        ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options, cancellation)
@@ -281,7 +281,7 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            if (inverse)
+            if (isInverse)
             {
                 return JoinQueryable(options)
                        .Where(j => j.ChildID == parent.ID)
@@ -312,7 +312,7 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            if (inverse)
+            if (isInverse)
             {
                 return JoinFluent(session, options)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
@@ -347,7 +347,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             db = parent.Database();
-            inverse = false;
+            isInverse = false;
             JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]", db);
             SetupIndexes(JoinCollection);
         }
@@ -361,9 +361,9 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             db = parent.Database();
-            inverse = isInverse;
+            this.isInverse = isInverse;
 
-            if (inverse)
+            if (this.isInverse)
             {
                 JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]", db);
             }
@@ -498,8 +498,8 @@ namespace MongoDB.Entities
             {
                 cid.ThrowIfInvalid();
 
-                var parentID = inverse ? new ObjectId(cid) : new ObjectId(parent.ID);
-                var childID = inverse ? new ObjectId(parent.ID) : new ObjectId(cid);
+                var parentID = isInverse ? new ObjectId(cid) : new ObjectId(parent.ID);
+                var childID = isInverse ? new ObjectId(parent.ID) : new ObjectId(cid);
 
                 var def = Builders<BsonDocument>.Filter.Where(d =>
                             d[parentProp] == parentID &&
@@ -544,6 +544,26 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Removes child references.
+        /// </summary>
+        /// <param name="children">The child Entities to remove the references of.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Remove(IEnumerable<TChild> children, IClientSessionHandle session = null)
+        {
+            Run.Sync(() => RemoveAsync(children, session));
+        }
+
+        /// <summary>
+        /// Removes child references.
+        /// </summary>
+        /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void Remove(IEnumerable<string> childIDs, IClientSessionHandle session = null)
+        {
+            Run.Sync(() => RemoveAsync(childIDs, session));
+        }
+
+        /// <summary>
         /// Removes a child reference.
         /// </summary>
         /// <param name="child">The child IEntity to remove the reference of.</param>
@@ -562,22 +582,42 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            if (inverse)
-            {
-                return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ParentID.Equals(childID), cancellation)
-                       : JoinCollection.DeleteOneAsync(session, r => r.ParentID.Equals(childID), null, cancellation);
-            }
-            else
-            {
-                return session == null
-                       ? JoinCollection.DeleteOneAsync(r => r.ChildID.Equals(childID), cancellation)
-                       : JoinCollection.DeleteOneAsync(session, r => r.ChildID.Equals(childID), null, cancellation);
-
-            }
+            return RemoveAsync(new[] { childID }, session, cancellation);
         }
 
-        //todo: remove multiple at once.
+        /// <summary>
+        /// Removes child references.
+        /// </summary>
+        /// <param name="children">The child Entities to remove the references of.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task RemoveAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            return RemoveAsync(children.Select(c => c.ID), session, cancellation);
+        }
+
+        /// <summary>
+        /// Removes child references.
+        /// </summary>
+        /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            var filter = isInverse
+
+                         ? Builders<JoinRecord>.Filter.And(
+                             Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
+                             Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
+
+                         : Builders<JoinRecord>.Filter.And(
+                             Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
+                             Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
+
+            return session == null
+                   ? JoinCollection.DeleteOneAsync(filter, null, cancellation)
+                   : JoinCollection.DeleteOneAsync(session, filter, null, cancellation);
+        }
 
         /// <summary>
         /// Overloaded operator for adding a child entity
@@ -623,8 +663,6 @@ namespace MongoDB.Entities
             return many;
         }
 
-        //todo: remove by multiples
-
         /// <summary>
         /// Overloaded operator for removing a child entity
         /// </summary>
@@ -638,6 +676,17 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Overloaded operator for removing a child entities
+        /// </summary>
+        /// <param name="many">The left side of the - operand</param>
+        /// <param name="children">The right side of the - operand</param>
+        public static Many<TChild> operator -(Many<TChild> many, IEnumerable<TChild> children)
+        {
+            many.Remove(children);
+            return many;
+        }
+
+        /// <summary>
         /// Overloaded operator for removing a child entity by specifying only the childID
         /// </summary>
         /// <param name="many">The left side of the - operand</param>
@@ -646,6 +695,17 @@ namespace MongoDB.Entities
         public static Many<TChild> operator -(Many<TChild> many, string childID)
         {
             many.Remove(childID);
+            return many;
+        }
+
+        /// <summary>
+        /// Overloaded operator for removing a child entity by specifying only the childID
+        /// </summary>
+        /// <param name="many">The left side of the - operand</param>
+        /// <param name="childIDs">The right side of the - operand</param>
+        public static Many<TChild> operator -(Many<TChild> many, IEnumerable<string> childIDs)
+        {
+            many.Remove(childIDs);
             return many;
         }
 
