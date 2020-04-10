@@ -65,8 +65,7 @@ namespace Examples
             book2.Save();
 
             ////One-To-Many (Referenced)
-            book2.Authors.Add(author2); //References are automatically saved. No need to save the entity.      
-            book2.Authors.Add(author1);
+            book2.Authors.Add(new[] { author1, author2 }); //References are automatically saved. No need to save the entity.      
 
             ////Many-To-Many (Referenced)
             genre1.AllBooks.Add(book1);
@@ -94,14 +93,6 @@ namespace Examples
             var result = from a in author.Queryable()
                          select a;
 
-            var book = (from a in DB.Queryable<Book>()
-                        where a.Title.Contains("I Am")
-                        select a).FirstOrDefault();
-            foreach (var currentAuthor in book.Authors)
-            {
-                Console.WriteLine($"One of the author, linked to the book \"{book.Title}\" have Id=\"{currentAuthor.ID}\" and Name=\"{currentAuthor.Name}\".");
-            }
-
             //DELETE
             //
             ////Delete single entity
@@ -119,7 +110,7 @@ namespace Examples
             DB.Delete<Book>(b => b.ID == book2.ID);
 
             //THE END
-            Console.WriteLine($"All operations completed in {stopWatch.Elapsed.TotalSeconds.ToString("0.00")} seconds.");
+            Console.WriteLine($"All operations completed in {stopWatch.Elapsed.TotalSeconds:0.00} seconds.");
             Console.ReadLine();
         }
     }

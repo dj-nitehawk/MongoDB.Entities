@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MongoDB.Entities.Tests
@@ -102,6 +103,31 @@ namespace MongoDB.Entities.Tests
                               .Books
                               .ChildrenQueryable().ToArray();
             Assert.AreEqual(book2.Title, books[1].Title);
+        }
+
+        [TestMethod]
+        public void ienumerable_for_many()
+        {
+            var author = new Author { Name = "author" };
+            var book1 = new Book { Title = "aotmrrceb1" };
+            var book2 = new Book { Title = "aotmrrceb2" };
+            book1.Save(); book2.Save();
+            author.Save();
+            author.Books.Add(book1);
+            author.Books.Add(book2);
+            var books = author.Queryable()
+                              .Where(a => a.ID == author.ID)
+                              .Single()
+                              .Books;
+
+            List<Book> booklist = new List<Book>();
+
+            foreach (var book in books)
+            {
+                booklist.Add(book);
+            }
+
+            Assert.AreEqual(2, booklist.Count);
         }
 
         [TestMethod]
