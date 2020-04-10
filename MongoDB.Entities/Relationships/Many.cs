@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -24,7 +25,7 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public class Many<TChild> : ManyBase where TChild : IEntity
+    public class Many<TChild> : ManyBase, IEnumerable<TChild> where TChild : IEntity
     {
         private const string parentProp = nameof(JoinRecord.ParentID);
         private const string childProp = nameof(JoinRecord.ChildID);
@@ -34,6 +35,20 @@ namespace MongoDB.Entities
         private string db = null;
         private bool isInverse = false;
         private IEntity parent = null;
+
+        #region IEnumerable.
+        /// <inheritdoc/>
+        public IEnumerator<TChild> GetEnumerator()
+        {
+            return ChildrenQueryable().GetEnumerator();
+        }
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ChildrenQueryable().GetEnumerator();
+        }
+        #endregion
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
