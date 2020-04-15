@@ -155,7 +155,7 @@ namespace MongoDB.Entities
             parent.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
             if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
-            CleanUp(session);
+            await CleanUpAsync(session);
 
             doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
@@ -169,12 +169,12 @@ namespace MongoDB.Entities
 
                 while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
                 {
-                    await FlushToDB(session, isLastChunk: false, cancellation);
+                    await FlushToDBAsync(session, isLastChunk: false, cancellation);
                 }
 
                 if (parent.FileSize > 0)
                 {
-                    await FlushToDB(session, isLastChunk: true, cancellation);
+                    await FlushToDBAsync(session, isLastChunk: true, cancellation);
                     parent.UploadSuccessful = true;
                 }
                 else
@@ -184,27 +184,30 @@ namespace MongoDB.Entities
             }
             catch (Exception)
             {
-                CleanUp(session);
+                await CleanUpAsync(session);
                 throw;
             }
             finally
             {
-                await UpdateMetaData(session);
+                await UpdateMetaDataAsync(session);
                 doc = null;
                 buffer = null;
                 dataChunk = null;
             }
         }
 
-        private void CleanUp(IClientSessionHandle session)
+        private async Task CleanUpAsync(IClientSessionHandle session)
         {
-            _ = db.DeleteAsync<FileChunk>(c => c.FileID == parent.ID, session);
+            await (session == null
+                    ? db.Collection<FileChunk>().DeleteManyAsync(c => c.FileID == parent.ID)
+                    : db.Collection<FileChunk>().DeleteManyAsync(session, c => c.FileID == parent.ID));
+
             parent.FileSize = 0;
             parent.ChunkCount = 0;
             parent.UploadSuccessful = false;
         }
 
-        private async Task FlushToDB(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
+        private async Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
         {
             if (!isLastChunk)
             {
@@ -227,7 +230,7 @@ namespace MongoDB.Entities
             }
         }
 
-        private Task UpdateMetaData(IClientSessionHandle session)
+        private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
             var coll = db.Collection<FileEntity>().Database.GetCollection<FileEntity>(parent.CollectionName());
 

@@ -8,11 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>12.1.1</Version>
-    <AssemblyVersion>12.1.1.0</AssemblyVersion>
-    <FileVersion>12.1.1.0</FileVersion>
+    <Version>12.1.2</Version>
+    <AssemblyVersion>12.1.2.0</AssemblyVersion>
+    <FileVersion>12.1.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- IEnumerable support for Many relationships</PackageReleaseNotes>
+    <PackageReleaseNotes>- fix task scheduling issue with chunk deletion
+- mongodb driver updated to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
@@ -30,7 +31,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
-    <PackageReference Include="MongoDB.Driver" Version="2.10.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.10.3" />
     <PackageReference Include="MongoDB.Entities.Core" Version="1.3.0" />
   </ItemGroup>
 
