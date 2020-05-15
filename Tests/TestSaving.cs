@@ -90,7 +90,7 @@ namespace MongoDB.Entities.Tests
                           .Where(b => b.ID == book.ID)
                           .Select(b => b.RelatedAuthor.ID)
                           .SingleOrDefault();
-            Assert.AreEqual("000000000000000000000000", res);
+            Assert.AreEqual(book.RelatedAuthor.ID, res);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace MongoDB.Entities.Tests
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Count(), 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
-            Assert.AreEqual("000000000000000000000000", authors[0].ID);
+            Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace MongoDB.Entities.Tests
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Count(), 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
-            Assert.AreEqual("000000000000000000000000", authors[0].ID);
+            Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
         }
 
         [TestMethod]
