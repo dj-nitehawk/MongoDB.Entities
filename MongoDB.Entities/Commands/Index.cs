@@ -17,7 +17,7 @@ namespace MongoDB.Entities
     public class Index<T> where T : IEntity
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
-        private readonly CreateIndexOptions options = new CreateIndexOptions { Background = true };
+        private readonly CreateIndexOptions<T> options = new CreateIndexOptions<T> { Background = true };
         private readonly string db = null;
 
         public Index(string db = null)
@@ -125,7 +125,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Setting options is not required.</para>
         /// </summary>
         /// <param name="option">x => x.OptionName = OptionValue</param>
-        public Index<T> Option(Action<CreateIndexOptions> option)
+        public Index<T> Option(Action<CreateIndexOptions<T>> option)
         {
             option(options);
             return this;
