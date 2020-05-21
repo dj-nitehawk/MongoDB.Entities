@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
+using MongoDB.Entities.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -218,7 +219,9 @@ namespace MongoDB.Entities
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
-            Modify(b => b.CurrentDate(x => x.ModifiedOn));
+            if (typeof(T) != typeof(SequenceCounter))
+                Modify(b => b.CurrentDate(x => x.ModifiedOn));
+
             return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, db, cancellation);
         }
 

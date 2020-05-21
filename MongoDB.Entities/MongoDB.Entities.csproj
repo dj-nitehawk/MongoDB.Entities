@@ -8,12 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>12.1.3</Version>
-    <AssemblyVersion>12.1.3.0</AssemblyVersion>
-    <FileVersion>12.1.3.0</FileVersion>
+    <Version>12.2</Version>
+    <AssemblyVersion>12.2.0.0</AssemblyVersion>
+    <FileVersion>12.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- Entity.ToDocument() now sets a new ID on the copy
-- mongodb driver updated to latest</PackageReleaseNotes>
+    <PackageReleaseNotes>- Entity.NextSequentialNumber() method for generating incremental numbers using mongodb
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

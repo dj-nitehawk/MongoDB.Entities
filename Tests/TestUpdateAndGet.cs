@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -199,6 +200,22 @@ namespace MongoDB.Entities.Tests
               .Execute();
 
             Assert.AreEqual(321, res.OtherAuthors[0].Age);
+        }
+
+        [TestMethod]
+        public void next_sequential_number_for_entities()
+        {
+            var book = new Book { };
+
+            var lastNum = book.NextSequentialNumber();
+
+            var bookNum = 0ul;
+            Parallel.For(1, 11, _ =>
+            {
+                bookNum = book.NextSequentialNumber();
+            });
+
+            Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
         }
     }
 }
