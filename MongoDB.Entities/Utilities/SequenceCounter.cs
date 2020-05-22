@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Entities.Core;
 using System;
 
-namespace MongoDB.Entities.Utilities
+namespace MongoDB.Entities
 {
     [Name("[SEQUENCE_COUNTERS]")]
     internal class SequenceCounter : IEntity

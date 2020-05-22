@@ -4,7 +4,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
-using MongoDB.Entities.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -362,7 +361,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         public static ulong NextSequentialNumber<T>(this T entity) where T : IEntity
         {
-            return Run.Sync(() => NextSequentialNumberAsync(entity));
+            return Run.Sync(() => DB.NextSequentialNumberAsync<T>(entity.Database()));
         }
 
         /// <summary>
@@ -371,13 +370,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         public static Task<ulong> NextSequentialNumberAsync<T>(this T entity) where T : IEntity
         {
-            return
-                DB.UpdateAndGet<SequenceCounter, ulong>()
-                  .Match(s => s.ID == entity.CollectionName())
-                  .Modify(b => b.Inc(s => s.Count, 1ul))
-                  .Option(o => o.IsUpsert = true)
-                  .Project(s => s.Count)
-                  .ExecuteAsync();
+            return DB.NextSequentialNumberAsync<T>(entity.Database());
 
         }
 

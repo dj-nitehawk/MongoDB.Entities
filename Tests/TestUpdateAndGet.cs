@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Entities.Tests.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -216,6 +217,24 @@ namespace MongoDB.Entities.Tests
             });
 
             Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
+        }
+
+        [TestMethod]
+        public void next_sequential_number_for_entities_multidb()
+        {
+            var db = new DB("mongodb-entities-test-multi");
+
+            var img = new Image { };
+
+            var lastNum = img.NextSequentialNumber();
+
+            var imgNum = 0ul;
+            Parallel.For(1, 11, _ =>
+            {
+                imgNum = img.NextSequentialNumber();
+            });
+
+            Assert.AreEqual(lastNum + 10, img.NextSequentialNumber() - 1);
         }
     }
 }
