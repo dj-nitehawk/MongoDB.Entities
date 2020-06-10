@@ -76,7 +76,6 @@ namespace MongoDB.Entities
                     "DefaultConvetions",
                     new ConventionPack
                     {
-                        new IgnoreIfDefaultConvention(true),
                         new IgnoreExtraElementsConvention(true),
                         new IgnoreManyPropertiesConvention()
                     },

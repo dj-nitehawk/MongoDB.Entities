@@ -22,6 +22,7 @@ namespace MongoDB.Entities.Core
         /// This is an optional property. Use it if you want to store the ID of the user who created this entity. 
         /// </summary>
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfDefault]
         public string OwnerID { get; set; }
 
         /// <summary>
