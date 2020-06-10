@@ -12,9 +12,10 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageReleaseNotes>upgraded dependencies</PackageReleaseNotes>
+    <PackageReleaseNotes>- add optional property OwnerID to Entity base class
+- upgraded dependencies</PackageReleaseNotes>
     <LangVersion>7.3</LangVersion>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.10.2" />
+    <PackageReference Include="MongoDB.Bson" Version="2.10.4" />
   </ItemGroup>
 
 </Project>

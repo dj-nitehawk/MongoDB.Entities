@@ -297,5 +297,19 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(book1.Price + book2.Price, res.Sum);
         }
+
+        [TestMethod]
+        public void ignore_if_defaults_convention_works()
+        {
+            var author = new Author {
+                Name = "test"
+            };
+            author.Save();
+
+            var res = DB.Find<Author>().One(author.ID);
+
+            Assert.IsTrue(res.Age == 0);
+            Assert.IsTrue(res.Birthday == null);
+        }
     }
 }

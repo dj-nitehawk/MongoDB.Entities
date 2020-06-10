@@ -73,13 +73,13 @@ namespace MongoDB.Entities
                 BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
                 ConventionRegistry.Register(
-                    "IgnoreExtraElements",
-                    new ConventionPack { new IgnoreExtraElementsConvention(true) },
-                    type => true);
-
-                ConventionRegistry.Register(
-                    "IgnoreManyProperties",
-                    new ConventionPack { new IgnoreManyPropertiesConvention() },
+                    "DefaultConvetions",
+                    new ConventionPack
+                    {
+                        new IgnoreIfDefaultConvention(true),
+                        new IgnoreExtraElementsConvention(true),
+                        new IgnoreManyPropertiesConvention()
+                    },
                     type => true);
 
                 isSetupDone = true;
