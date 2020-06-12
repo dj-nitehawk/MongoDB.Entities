@@ -301,7 +301,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void ignore_if_defaults_convention_works()
         {
-            var author = new Author {
+            var author = new Author
+            {
                 Name = "test"
             };
             author.Save();

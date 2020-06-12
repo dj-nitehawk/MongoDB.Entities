@@ -4,6 +4,7 @@ using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,7 +15,7 @@ namespace MongoDB.Entities
     public abstract class ManyBase
     {
         //shared state for all Many<T> instances
-        internal static HashSet<string> indexedCollections = new HashSet<string>();
+        internal static ConcurrentBag<string> indexedCollections = new ConcurrentBag<string>();
     }
 
     /// <summary>
@@ -36,7 +37,6 @@ namespace MongoDB.Entities
         private bool isInverse = false;
         private IEntity parent = null;
 
-        #region IEnumerable.
         /// <inheritdoc/>
         public IEnumerator<TChild> GetEnumerator()
         {
@@ -48,7 +48,6 @@ namespace MongoDB.Entities
         {
             return ChildrenQueryable().GetEnumerator();
         }
-        #endregion
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -364,7 +363,7 @@ namespace MongoDB.Entities
             db = parent.Database();
             isInverse = false;
             JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]", db);
-            SetupIndexes(JoinCollection);
+            CreateIndexesAsync(JoinCollection);
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -387,12 +386,12 @@ namespace MongoDB.Entities
                 JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]", db);
             }
 
-            SetupIndexes(JoinCollection);
+            CreateIndexesAsync(JoinCollection);
         }
 
-        private static void SetupIndexes(IMongoCollection<JoinRecord> collection)
+        private static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
         {
-            //only create indexes once per unique ref collection
+            //only create indexes once (best effort) per unique ref collection
             if (!indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
             {
                 indexedCollections.Add(collection.CollectionNamespace.CollectionName);
@@ -415,6 +414,7 @@ namespace MongoDB.Entities
                             })
                     });
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
