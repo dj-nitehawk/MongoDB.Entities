@@ -120,12 +120,12 @@ namespace MongoDB.Entities
             return DB.SaveAsync(entities, Session, db, cancellation);
         }
 
-        public ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
-        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, preservation, Session, db, cancellation);
         }

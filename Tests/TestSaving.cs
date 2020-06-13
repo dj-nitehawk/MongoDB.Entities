@@ -32,7 +32,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void save_preserving()
         {
-            var book = new Book { Title = "Title is preserved", Price = 123.45m };
+            var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };
             book.Save();
 
             book.Title = "updated title";
@@ -50,6 +50,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual("Title is preserved", book.Title);
             Assert.AreEqual(543.21m, book.Price);
+            Assert.AreEqual(default, book.DontSaveThis);
         }
 
         [TestMethod]

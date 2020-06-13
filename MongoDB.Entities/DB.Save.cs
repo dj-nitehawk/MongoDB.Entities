@@ -1,8 +1,11 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -136,7 +139,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation, session, db));
         }
@@ -151,49 +154,40 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
-            var args = (preservation.Body as NewExpression)?.Members.Select(m => m as PropertyInfo);
-
-            var props = (preservation.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString()
-                              .Split('.')
-                              [1])
+            var excludes = (preservation.Body as NewExpression)?.Arguments
+                .Select(a => a.ToString().Split('.')[1])
                 .ToArray();
 
-            if (props.Length == 0)
+            if (excludes.Length == 0)
                 throw new ArgumentException("Unable to get any properties from the preservation expression!");
 
-            var filter = Builders<T>.Filter.Eq(e => e.ID, entity.ID);
-            var options = new FindOptions<T, object> { Projection = Builders<T>.Projection.Expression(preservation) };
-            var result = (await (
-                    session == null
-                    ? Collection<T>(db).FindAsync(filter, options, cancellation)
-                    : Collection<T>(db).FindAsync(session, filter, options, cancellation)
-                    ))
-                    .ToList()
-                    .SingleOrDefault();
+            var props = entity.GetType().GetProperties().ToList()
+                .Where(p =>
+                    p.PropertyType.Name != "Many`1" &&
+                    !excludes.Contains(p.Name) &&
+                    !p.GetCustomAttributes<BsonIdAttribute>().Any() &&
+                    !p.GetCustomAttributes<BsonIgnoreAttribute>().Any() &&
+                    p.Name != nameof(entity.ModifiedOn));
 
-            if (result != null)
+            if (!props.Any())
+                throw new ArgumentException("At least one property must be not preserved!");
+
+            var defs = new Collection<UpdateDefinition<T>>();
+
+            foreach (var p in props)
             {
-                var fromType = result.GetType();
-                var toType = entity.GetType();
-
-                foreach (var prop in props)
-                {
-                    toType.GetProperty(prop)?.SetValue(
-                        entity,
-                        fromType.GetProperty(prop)?.GetValue(result));
-                }
+                defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
             }
-            else
-            {
-                throw new ArgumentException("Unable to locate entity in database for preservation purposes!");
-            }
+            defs.Add(Builders<T>.Update.CurrentDate(nameof(entity.ModifiedOn)));
 
-            return await SaveAsync(entity, session, db, cancellation);
+            return
+                session == null
+                ? Collection<T>(db).UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation)
+                : Collection<T>(db).UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation);
         }
 
         /// <summary>
@@ -205,7 +199,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public ReplaceOneResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation, session, DbName));
         }
@@ -220,7 +214,7 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ReplaceOneResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return SavePreservingAsync(entity, preservation, session, DbName, cancellation);
         }
