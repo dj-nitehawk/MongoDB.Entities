@@ -265,27 +265,27 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Save this entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation) where T : IEntity
+        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
 
         /// <summary>
         /// Save this entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation, CancellationToken cancellation = default) where T : IEntity
+        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, preservation, null, entity.Database(), cancellation);
         }

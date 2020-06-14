@@ -54,6 +54,35 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void save_preserving_attribute()
+        {
+            var author = new Author { 
+                Age = 123, 
+                Name = "initial name", 
+                FullName = "initial fullname", 
+                Birthday = DateTime.UtcNow };
+            author.Save();
+
+            author.Name = "updated author name";
+            author.Age = 666; //preserve
+            author.Age2 = 400; //preserve
+            author.Birthday = DateTime.MinValue; //preserve
+            author.FullName = null;
+            author.BestSeller = ObjectId.GenerateNewId().ToString();
+
+            author.SavePreserving();
+
+            var res = DB.Find<Author>().One(author.ID);
+
+            Assert.AreEqual("updated author name", res.Name);
+            Assert.AreEqual(123,res.Age);
+            Assert.AreEqual(default, res.Age2);
+            Assert.AreNotEqual(DateTime.MinValue, res.Birthday);
+            Assert.AreEqual("initial fullname", res.FullName);
+            Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
+        }
+
+        [TestMethod]
         public void embedding_non_entity_returns_correct_document()
         {
             var book = new Book { Title = "Test" };

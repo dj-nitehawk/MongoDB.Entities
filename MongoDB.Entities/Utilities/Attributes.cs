@@ -12,13 +12,13 @@ namespace MongoDB.Entities
     /// <summary>
     /// Indicates that this property is the owner side of a many-to-many relationship
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class OwnerSideAttribute : Attribute { }
 
     /// <summary>
     /// Indicates that this property is the inverse side of a many-to-many relationship
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class InverseSideAttribute : Attribute { }
 
     /// <summary>
@@ -58,4 +58,11 @@ namespace MongoDB.Entities
             Name = name;
         }
     }
+
+    /// <summary>
+    /// Use this attribute on properties that you want to omit when using SavePreserving() instead of supplying an expression. 
+    /// TIP: These attribute decorations only effective if you do not specify a preservation expression when calling SavePreserving(). 
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class PreserveAttribute : Attribute { }
 }

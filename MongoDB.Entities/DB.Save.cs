@@ -132,21 +132,21 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation, session, db));
         }
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -154,24 +154,40 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
-            var excludes = (preservation.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString().Split('.')[1])
-                .ToArray();
-
-            if (excludes.Length == 0)
-                throw new ArgumentException("Unable to get any properties from the preservation expression!");
-
-            var props = entity.GetType().GetProperties().ToList()
+            var props = entity.GetType().GetProperties()
                 .Where(p =>
-                    p.PropertyType.Name != "Many`1" &&
-                    !excludes.Contains(p.Name) &&
-                    !p.GetCustomAttributes<BsonIdAttribute>().Any() &&
-                    !p.GetCustomAttributes<BsonIgnoreAttribute>().Any() &&
-                    p.Name != nameof(entity.ModifiedOn));
+                       p.PropertyType.Name != ManyBase.PropType &&
+                       p.GetCustomAttribute<BsonIdAttribute>() == null &&
+                       p.GetCustomAttribute<BsonIgnoreAttribute>() == null &&
+                       !(p.GetCustomAttribute<BsonIgnoreIfDefaultAttribute>() != null && p.GetValue(entity) == default) &&
+                       !(p.GetCustomAttribute<BsonIgnoreIfNullAttribute>() != null && p.GetValue(entity) == null));
+
+            string[] excludes;
+
+            if (preservation == null)
+            {
+                excludes = props.Where(p => p.GetCustomAttribute<PreserveAttribute>() != null)
+                                .Select(p => p.Name)
+                                .ToArray();
+
+                if (excludes.Length == 0)
+                    throw new ArgumentException("There were no properties decorated with the [Preserve] attribute!");
+            }
+            else
+            {
+                excludes = (preservation.Body as NewExpression)?.Arguments
+                    .Select(a => a.ToString().Split('.')[1])
+                    .ToArray();
+
+                if (excludes.Length == 0)
+                    throw new ArgumentException("Unable to get any properties from the preservation expression!");
+            }
+
+            props = props.Where(p => !excludes.Contains(p.Name));
 
             if (!props.Any())
                 throw new ArgumentException("At least one property must be not preserved!");
@@ -180,9 +196,15 @@ namespace MongoDB.Entities
 
             foreach (var p in props)
             {
-                defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+                if (p.Name == nameof(entity.ModifiedOn))
+                {
+                    defs.Add(Builders<T>.Update.CurrentDate(nameof(entity.ModifiedOn)));
+                }
+                else
+                {
+                    defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+                }
             }
-            defs.Add(Builders<T>.Update.CurrentDate(nameof(entity.ModifiedOn)));
 
             return
                 session == null
@@ -192,21 +214,21 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null) where T : IEntity
+        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation, session, DbName));
         }
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -214,7 +236,7 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return SavePreservingAsync(entity, preservation, session, DbName, cancellation);
         }

@@ -184,7 +184,7 @@ namespace MongoDB.Entities
     {
         public void Apply(BsonMemberMap mMap)
         {
-            if (mMap.MemberType.Name == "Many`1")
+            if (mMap.MemberType.Name == ManyBase.PropType)
             {
                 _ = mMap.SetShouldSerializeMethod(_ => false);
             }
