@@ -12,6 +12,23 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        static DB()
+        {
+            BsonSerializer.RegisterSerializer(new DateSerializer());
+            BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
+            BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
+            BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
+
+            ConventionRegistry.Register(
+                "DefaultConvetions",
+                new ConventionPack
+                {
+                        new IgnoreExtraElementsConvention(true),
+                        new IgnoreManyPropertiesConvention()
+                },
+                type => true);
+        }
+
         /// <summary>
         /// Gets the database name of this instance
         /// </summary>
@@ -19,7 +36,6 @@ namespace MongoDB.Entities
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
-        private static bool isSetupDone = false;
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -63,25 +79,6 @@ namespace MongoDB.Entities
                 instances.Remove(db);
                 DbName = null;
                 throw;
-            }
-
-            if (!isSetupDone)
-            {
-                BsonSerializer.RegisterSerializer(new DateSerializer());
-                BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
-                BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
-                BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
-
-                ConventionRegistry.Register(
-                    "DefaultConvetions",
-                    new ConventionPack
-                    {
-                        new IgnoreExtraElementsConvention(true),
-                        new IgnoreManyPropertiesConvention()
-                    },
-                    type => true);
-
-                isSetupDone = true;
             }
         }
 
