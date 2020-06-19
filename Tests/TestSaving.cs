@@ -56,11 +56,13 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void save_preserving_attribute()
         {
-            var author = new Author { 
-                Age = 123, 
-                Name = "initial name", 
-                FullName = "initial fullname", 
-                Birthday = DateTime.UtcNow };
+            var author = new Author
+            {
+                Age = 123,
+                Name = "initial name",
+                FullName = "initial fullname",
+                Birthday = DateTime.UtcNow
+            };
             author.Save();
 
             author.Name = "updated author name";
@@ -75,7 +77,7 @@ namespace MongoDB.Entities.Tests
             var res = DB.Find<Author>().One(author.ID);
 
             Assert.AreEqual("updated author name", res.Name);
-            Assert.AreEqual(123,res.Age);
+            Assert.AreEqual(123, res.Age);
             Assert.AreEqual(default, res.Age2);
             Assert.AreNotEqual(DateTime.MinValue, res.Birthday);
             Assert.AreEqual("initial fullname", res.FullName);
