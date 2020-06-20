@@ -243,6 +243,29 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_with_exclusion_projection_works()
+        {
+            var author = new Author {
+                Name = "name",
+                Surname = "sername",
+                Age = 22,
+                FullName = "fullname"
+            };
+            author.Save();
+
+            var res = DB.Find<Author>()
+                        .Match(a => a.ID == author.ID)
+                        .ProjectExcluding(a => new { a.Age, a.Name })
+                        .Execute()
+                        .Single(); ;
+
+            Assert.AreEqual(author.FullName, res.FullName);
+            Assert.AreEqual(author.Surname, res.Surname);
+            Assert.IsTrue(res.Age == default);
+            Assert.IsTrue(res.Name == default);
+        }
+
+        [TestMethod]
         public void find_with_aggregation_pipeline_returns_correct_docs()
         {
             var guid = Guid.NewGuid().ToString();

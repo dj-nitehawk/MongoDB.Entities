@@ -304,10 +304,34 @@ namespace MongoDB.Entities
         /// Specify how to project the results using a projection expression
         /// </summary>
         /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
-        /// <returns></returns>
         public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
         {
             options.Projection = projection(Builders<T>.Projection);
+            return this;
+        }
+
+        /// <summary>
+        /// Specify how to project the results using an exclusion projection expression.
+        /// </summary>
+        /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
+        public Find<T,TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
+        {
+            var props = (exclusion.Body as NewExpression)?.Arguments
+                .Select(a => a.ToString().Split('.')[1])
+                .ToArray();
+
+            if (props.Length == 0)
+                throw new ArgumentException("Unable to get any properties from the exclusion expression!");
+
+            var defs = new List<ProjectionDefinition<T>>();
+
+            foreach (var prop in props)
+            {
+                defs.Add(Builders<T>.Projection.Exclude(prop));
+            }
+
+            options.Projection = Builders<T>.Projection.Combine(defs);
+
             return this;
         }
 
