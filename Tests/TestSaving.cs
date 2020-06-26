@@ -245,7 +245,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void find_with_exclusion_projection_works()
         {
-            var author = new Author {
+            var author = new Author
+            {
                 Name = "name",
                 Surname = "sername",
                 Age = 22,

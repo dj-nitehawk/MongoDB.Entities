@@ -314,7 +314,7 @@ namespace MongoDB.Entities
         /// Specify how to project the results using an exclusion projection expression.
         /// </summary>
         /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
-        public Find<T,TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
+        public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
         {
             var props = (exclusion.Body as NewExpression)?.Arguments
                 .Select(a => a.ToString().Split('.')[1])
