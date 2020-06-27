@@ -18,13 +18,13 @@ namespace MongoDB.Entities
     /// </summary>
     public abstract class FileEntity : Entity
     {
-        private readonly DataStreamer streamer;
+        private DataStreamer streamer;
 
         /// <summary>
         /// The total amount of data in bytes that has been uploaded so far
         /// </summary>
         [BsonElement]
-        public double FileSize { get; internal set; }
+        public long FileSize { get; internal set; }
 
         /// <summary>
         /// The number of chunks that have been created so far
@@ -45,7 +45,11 @@ namespace MongoDB.Entities
         {
             get
             {
-                return streamer ?? new DataStreamer(this);
+                if (streamer == null)
+                {
+                    streamer = new DataStreamer(this);
+                }
+                return streamer;
             }
         }
     }
