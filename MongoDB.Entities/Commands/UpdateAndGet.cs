@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
+    public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity, new()
     {
         internal UpdateAndGet(IClientSessionHandle session = null) : base(session) { }
     }
@@ -26,7 +26,7 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type to project to</typeparam>
-    public class UpdateAndGet<T, TProjection> where T : IEntity
+    public class UpdateAndGet<T, TProjection> where T : IEntity, new()
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();

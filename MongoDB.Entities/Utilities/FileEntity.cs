@@ -60,6 +60,7 @@ namespace MongoDB.Entities
 
         private readonly FileEntity parent;
         private readonly DB db;
+        private readonly IMongoCollection<FileChunk> chunkCollection;
         private FileChunk doc;
         private int chunkSize, readCount;
         private byte[] buffer;
@@ -70,7 +71,7 @@ namespace MongoDB.Entities
             this.parent = parent;
             var dbName = parent.Database();
             db = DB.GetInstance(dbName);
-
+            chunkCollection = db.GetDatabase().GetCollection<FileChunk>(nameof(FileChunk));
             if (!indexedDBs.Contains(dbName))
             {
                 indexedDBs.Add(dbName);
@@ -225,9 +226,11 @@ namespace MongoDB.Entities
 
             if (dataChunk.Count >= chunkSize || isLastChunk)
             {
-                doc.ID = null;
+                doc.ID = ObjectId.GenerateNewId().ToString();
                 doc.Data = dataChunk.ToArray();
-                await db.SaveAsync(doc, session, cancellation);
+                await (session == null
+                        ? chunkCollection.InsertOneAsync(doc, null, cancellation)
+                        : chunkCollection.InsertOneAsync(session, doc, null, cancellation));
                 parent.ChunkCount++;
                 doc.Data = null;
                 dataChunk.Clear();
@@ -236,7 +239,7 @@ namespace MongoDB.Entities
 
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
-            var coll = db.Collection<FileEntity>().Database.GetCollection<FileEntity>(parent.CollectionName());
+            var coll = db.GetDatabase().GetCollection<FileEntity>(parent.CollectionName());
 
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update

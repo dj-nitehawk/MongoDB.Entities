@@ -33,9 +33,9 @@ namespace MongoDB.Entities
             return coll;
         }
 
-        internal static IMongoCollection<JoinRecord> GetRefCollection(string name, string db = null)
+        internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T:IEntity
         {
-            return GetDatabase(db).GetCollection<JoinRecord>(name);
+            return GetDatabase<T>().GetCollection<JoinRecord>(name);
         }
 
         /// <summary>
@@ -43,8 +43,10 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>() where T : IEntity
+        public static IMongoCollection<T> Collection<T>() where T : IEntity,new()
         {
+            //if (typeof(T).IsAbstract) throw new ArgumentException("Unable to get the collection from an abstract type!!!");
+            
             return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
         }
 
@@ -53,7 +55,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public IMongoCollection<T> Collection<T>(string db = null) where T : IEntity
+        public IMongoCollection<T> Collection<T>(string db = null) where T : IEntity,new()
         {
             return Collection<T>();
         }

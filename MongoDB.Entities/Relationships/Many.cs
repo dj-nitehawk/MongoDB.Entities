@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         //shared state for all Many<T> instances
         internal static ConcurrentBag<string> indexedCollections = new ConcurrentBag<string>();
 
-        internal static string PropType = typeof(Many<Entity>).Name;
+        internal static string PropType = "Many`1";
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ namespace MongoDB.Entities
     /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public class Many<TChild> : ManyBase, IEnumerable<TChild> where TChild : IEntity
+    public class Many<TChild> : ManyBase, IEnumerable<TChild> where TChild : IEntity, new()
     {
         private const string parentProp = nameof(JoinRecord.ParentID);
         private const string childProp = nameof(JoinRecord.ChildID);
@@ -80,7 +80,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">A child ID</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, AggregateOptions options = null) where TParent : IEntity, new()
         {
             return ParentsQueryable<TParent>(new[] { childID }, options);
         }
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childIDs">An IEnumerable of child IDs</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, AggregateOptions options = null) where TParent : IEntity, new()
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -125,7 +125,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="children">An IQueryable of children</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, AggregateOptions options = null) where TParent : IEntity, new()
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -166,7 +166,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="children">An IAggregateFluent of children</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children) where TParent : IEntity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children) where TParent : IEntity, new()
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -212,7 +212,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">An child ID</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : IEntity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : IEntity, new()
         {
             return ParentsFluent<TParent>(new[] { childID }, session);
         }
@@ -224,7 +224,7 @@ namespace MongoDB.Entities
         /// <param name="childIDs">An IEnumerable of child IDs</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity, new()
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -362,7 +362,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             isInverse = false;
-            JoinCollection = DB.GetRefCollection($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
+            JoinCollection = DB.GetRefCollection<TParent>($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
             CreateIndexesAsync(JoinCollection);
         }
 
@@ -378,11 +378,11 @@ namespace MongoDB.Entities
 
             if (this.isInverse)
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]");
+                JoinCollection = DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]");
             }
             else
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
+                JoinCollection = DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
             }
 
             CreateIndexesAsync(JoinCollection);
