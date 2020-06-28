@@ -173,7 +173,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static One<T> ToReference<T>(this T entity) where T : IEntity
+        public static One<T> ToReference<T>(this T entity) where T : IEntity, new()
         {
             return new One<T>(entity);
         }
