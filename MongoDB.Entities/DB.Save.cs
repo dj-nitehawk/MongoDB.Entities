@@ -161,16 +161,16 @@ namespace MongoDB.Entities
             var props = entity.GetType().GetProperties()
                 .Where(p =>
                        p.PropertyType.Name != ManyBase.PropType &&
-                       p.GetCustomAttribute<BsonIdAttribute>() == null &&
-                       p.GetCustomAttribute<BsonIgnoreAttribute>() == null &&
-                       !(p.GetCustomAttribute<BsonIgnoreIfDefaultAttribute>() != null && p.GetValue(entity) == default) &&
-                       !(p.GetCustomAttribute<BsonIgnoreIfNullAttribute>() != null && p.GetValue(entity) == null));
+                       !p.IsDefined(typeof(BsonIdAttribute),false) &&
+                       !p.IsDefined(typeof(BsonIgnoreAttribute),false) &&
+                       !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute),false) && p.GetValue(entity) == default) &&
+                       !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute),false) && p.GetValue(entity) == null));
 
             string[] excludes;
 
             if (preservation == null)
             {
-                excludes = props.Where(p => p.GetCustomAttribute<PreserveAttribute>() != null)
+                excludes = props.Where(p => p.GetCustomAttribute<PreserveAttribute>(false) != null)
                                 .Select(p => p.Name)
                                 .ToArray();
 
