@@ -23,7 +23,8 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The file entity type</typeparam>
         /// <param name="ID">The ID of the file entity</param>
-        public DataStreamer File<T>(string ID, string db = null) where T : FileEntity
+        /// <param name="_">This is a dummy parameter, please ignore.</param>
+        public DataStreamer File<T>(string ID, bool _ = default) where T : FileEntity, new()
         {
             return File<T>(ID);
         }
