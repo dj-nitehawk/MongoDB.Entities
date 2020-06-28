@@ -80,7 +80,7 @@ namespace MongoDB.Entities
             return new Find<T, TProjection>(Session, db);
         }
 
-        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, Session, db);
         }
@@ -160,7 +160,7 @@ namespace MongoDB.Entities
             return DB.DeleteAsync<T>(IDs, Session, db);
         }
 
-        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
         {
             return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session, db);
         }

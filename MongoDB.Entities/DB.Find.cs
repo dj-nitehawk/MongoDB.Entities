@@ -7,7 +7,7 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default)
+        internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null ?
                         Collection<T>(db).FindAsync(filter, options, cancellation) :

@@ -17,7 +17,7 @@ namespace MongoDB.Entities
 
             var options = new ListCollectionNamesOptions
             {
-                Filter = "{$and:[{name:/~/},{name:/" + GetCollectionName<T>() + "/}]}"
+                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
             };
 
             var joinCollections = await GetDatabase(db).ListCollectionNames(options).ToListAsync();

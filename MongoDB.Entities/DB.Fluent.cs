@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Entities.Core;
 using System.Linq;
 
 namespace MongoDB.Entities
@@ -11,7 +12,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
+        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             return session == null
                    ? Collection<T>(db).Aggregate(options)
@@ -24,7 +25,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             return Fluent<T>(options, session, DbName);
         }
@@ -40,7 +41,7 @@ namespace MongoDB.Entities
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null)
+        public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
             if (searchType == Search.Fuzzy)
             {
@@ -75,7 +76,7 @@ namespace MongoDB.Entities
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null)
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             return FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session, DbName);
         }

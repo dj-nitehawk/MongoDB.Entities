@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<ulong> NextSequentialNumberAsync<T>(string db = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return NextSequentialNumberAsync(GetCollectionName<T>(), db, cancellation);
+            return NextSequentialNumberAsync(CollectionName<T>(), db, cancellation);
         }
 
         /// <summary>

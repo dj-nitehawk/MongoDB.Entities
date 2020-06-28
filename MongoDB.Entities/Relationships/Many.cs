@@ -364,7 +364,7 @@ namespace MongoDB.Entities
             this.parent = parent;
             db = parent.Database();
             isInverse = false;
-            JoinCollection = DB.GetRefCollection($"[{DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({property})]", db);
+            JoinCollection = DB.GetRefCollection($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]", db);
             CreateIndexesAsync(JoinCollection);
         }
 
@@ -381,11 +381,11 @@ namespace MongoDB.Entities
 
             if (this.isInverse)
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.GetCollectionName<TChild>()}~{DB.GetCollectionName<TParent>()}({propertyChild})]", db);
+                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]", db);
             }
             else
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.GetCollectionName<TParent>()}~{DB.GetCollectionName<TChild>()}({propertyParent})]", db);
+                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]", db);
             }
 
             CreateIndexesAsync(JoinCollection);

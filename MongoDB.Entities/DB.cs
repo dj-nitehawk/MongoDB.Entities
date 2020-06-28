@@ -84,11 +84,6 @@ namespace MongoDB.Entities
             }
         }
 
-        internal static IMongoClient GetClient(string db = null)
-        {
-            return GetDatabase(db).Client;
-        }
-
         internal static string GetDBName(Type type)
         {
             if (!entityDBs.TryGetValue(type, out string db))
@@ -101,11 +96,16 @@ namespace MongoDB.Entities
                 }
                 else
                 {
-                    db = DB.GetInstance(null).DbName;
+                    db = GetInstance(null).DbName;
                     entityDBs[type] = db;
                 }
             }
             return db;
+        }
+
+        internal static IMongoClient GetClient(string db = null)
+        {
+            return GetDatabase(db).Client;
         }
 
         /// <summary>

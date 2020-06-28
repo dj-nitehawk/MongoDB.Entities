@@ -37,8 +37,6 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
-        private static readonly Dictionary<Type, string> entityColls = new Dictionary<Type, string>();
-
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
@@ -98,23 +96,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static string CollectionName(this IEntity entity)
         {
-            var type = entity.GetType();
-
-            if (!entityColls.TryGetValue(type, out string coll))
-            {
-                var attribute = type.GetCustomAttribute<NameAttribute>(false);
-                if (attribute != null)
-                {
-                    coll = attribute.Name;
-                    entityColls[type] = coll;
-                }
-                else
-                {
-                    coll = DB.GetInstance(null).DbName;
-                    entityColls[type] = coll;
-                }
-            }
-            return coll;
+            return DB.GetCollectionName(entity.GetType());
         }
 
         /// <summary>
@@ -404,14 +386,14 @@ namespace MongoDB.Entities
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
             var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
-            var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute),false);
+            var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute), false);
             if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
             var osBody = (MemberExpression)propertyOtherSide.Body;
             var osProperty = (PropertyInfo)osBody.Member;
-            var osHasOwnerAttrib = osProperty.IsDefined(typeof(OwnerSideAttribute),false);
-            var osHasInverseAttrib = osProperty.IsDefined(typeof(InverseSideAttribute),false);
+            var osHasOwnerAttrib = osProperty.IsDefined(typeof(OwnerSideAttribute), false);
+            var osHasInverseAttrib = osProperty.IsDefined(typeof(InverseSideAttribute), false);
             if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
