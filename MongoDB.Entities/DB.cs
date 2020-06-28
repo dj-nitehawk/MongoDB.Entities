@@ -7,6 +7,7 @@ using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -36,6 +37,7 @@ namespace MongoDB.Entities
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
+        private static readonly Dictionary<Type, string> entityDBs = new Dictionary<Type, string>();
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -85,6 +87,25 @@ namespace MongoDB.Entities
         internal static IMongoClient GetClient(string db = null)
         {
             return GetDatabase(db).Client;
+        }
+
+        internal static string GetDBName(Type type)
+        {
+            if (!entityDBs.TryGetValue(type, out string db))
+            {
+                var attribute = type.GetCustomAttribute<DatabaseAttribute>(false);
+                if (attribute != null)
+                {
+                    db = attribute.Name;
+                    entityDBs[type] = db;
+                }
+                else
+                {
+                    db = DB.GetInstance(null).DbName;
+                    entityDBs[type] = db;
+                }
+            }
+            return db;
         }
 
         /// <summary>
@@ -137,6 +158,15 @@ namespace MongoDB.Entities
         public IMongoDatabase GetDatabase()
         {
             return GetDatabase(DbName);
+        }
+
+        /// <summary>
+        /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static string Database<T>() where T : IEntity
+        {
+            return GetDBName(typeof(T));
         }
 
         /// <summary>

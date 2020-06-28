@@ -27,11 +27,7 @@ namespace MongoDB.Entities
 
         public One()
         {
-            var attribute = typeof(T).GetTypeInfo().GetCustomAttribute<DatabaseAttribute>();
-            if (attribute != null)
-            {
-                db = attribute.Name;
-            }
+            db = DB.Database<T>();
         }
 
         /// <summary>
