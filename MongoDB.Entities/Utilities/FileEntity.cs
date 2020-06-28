@@ -54,6 +54,22 @@ namespace MongoDB.Entities
         }
     }
 
+    [Name("[BINARY_CHUNKS]")]
+    internal class FileChunk : IEntity
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string ID { get; set; }
+
+        [Ignore]
+        public DateTime ModifiedOn { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string FileID { get; set; }
+
+        public byte[] Data { get; set; }
+    }
+
     public class DataStreamer
     {
         private static readonly HashSet<string> indexedDBs = new HashSet<string>();
@@ -71,7 +87,7 @@ namespace MongoDB.Entities
             this.parent = parent;
             var dbName = parent.Database();
             db = DB.GetInstance(dbName);
-            chunkCollection = db.GetDatabase().GetCollection<FileChunk>(nameof(FileChunk));
+            chunkCollection = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
             if (!indexedDBs.Contains(dbName))
             {
                 indexedDBs.Add(dbName);
@@ -256,19 +272,5 @@ namespace MongoDB.Entities
         }
     }
 
-    [Name("[BINARY_CHUNKS]")]
-    internal class FileChunk : IEntity
-    {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
 
-        [Ignore]
-        public DateTime ModifiedOn { get; set; }
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string FileID { get; set; }
-
-        public byte[] Data { get; set; }
-    }
 }

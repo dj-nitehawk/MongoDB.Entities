@@ -27,7 +27,7 @@ namespace MongoDB.Entities.Tests
             using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
             await img.Data.UploadWithTimeoutAsync(stream, 30, 128);
 
-            var count = db.Queryable<FileChunk>()
+            var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
@@ -46,7 +46,7 @@ namespace MongoDB.Entities.Tests
             using var stream = File.OpenRead("Models/test.jpg");
             await img.Data.UploadAsync(stream);
 
-            var count = db.Queryable<FileChunk>()
+            var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
@@ -65,7 +65,7 @@ namespace MongoDB.Entities.Tests
             using var stream = File.OpenRead("Models/test.jpg");
             await img.Data.UploadAsync(stream, 4096);
 
-            var count = db.Queryable<FileChunk>()
+            var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
                           .Count();
 
@@ -85,7 +85,7 @@ namespace MongoDB.Entities.Tests
             await img.Data.UploadAsync(stream);
 
             var countBefore =
-                db.Queryable<FileChunk>()
+                db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                   .Where(c => c.FileID == img.ID)
                   .Count();
 
@@ -94,7 +94,7 @@ namespace MongoDB.Entities.Tests
             img.Delete();
 
             var countAfter =
-                db.Queryable<FileChunk>()
+                db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                   .Where(c => c.FileID == img.ID)
                   .Count();
 

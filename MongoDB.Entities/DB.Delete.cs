@@ -41,8 +41,8 @@ namespace MongoDB.Entities
             if (typeof(T).BaseType == typeof(FileEntity))
             {
                 tasks.Add(session == null
-                    ? GetDatabase<T>().GetCollection<FileChunk>(nameof(FileChunk)).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                    : GetDatabase<T>().GetCollection<FileChunk>(nameof(FileChunk)).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
+                    ? GetDatabase<T>().GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
+                    : GetDatabase<T>().GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
             }
 
             await Task.WhenAll(tasks);
