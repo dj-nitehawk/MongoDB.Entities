@@ -7,27 +7,10 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        //private static readonly ConcurrentDictionary<Type, string> entityColls = new ConcurrentDictionary<Type, string>();
-
         internal static string GetCollectionName(Type type)
         {
             var attribute = type.GetCustomAttribute<NameAttribute>(false);
             var coll = attribute != null ? attribute.Name : type.Name;
-
-            //if (!entityColls.TryGetValue(type, out string coll))
-            //{
-            //    var attribute = type.GetCustomAttribute<NameAttribute>(false);
-            //    if (attribute != null)
-            //    {
-            //        coll = attribute.Name;
-            //        entityColls[type] = coll;
-            //    }
-            //    else
-            //    {
-            //        coll = type.Name;
-            //        entityColls[type] = coll;
-            //    }
-            //}
 
             if (string.IsNullOrWhiteSpace(coll) || coll.Contains("~"))
                 throw new ArgumentException("This is an illegal name for a collection!");

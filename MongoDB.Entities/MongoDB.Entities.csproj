@@ -8,17 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>12.9.0</Version>
-    <AssemblyVersion>12.9.0.0</AssemblyVersion>
-    <FileVersion>12.9.0.0</FileVersion>
+    <Version>13.0.0</Version>
+    <AssemblyVersion>13.0.0.0</AssemblyVersion>
+    <FileVersion>13.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- fix cyclical reference bug in FileEntity.DataStreamer
-- optimize Entity.Database() extension method with a cache
-- optimize Entity.CollectionName() with a cache
-- optimize One&lt;T&gt; class attribute lookup using cache
-- optimize Many&lt;T&gt; attribut lookup using cache
-- optimize collection name retrieval from entity types
-- optimize SavePreserving() attribute lookup</PackageReleaseNotes>
+    <PackageReleaseNotes>- automatic multi db support (no need for DB instances anymore)
+- fix cyclical method reference bug in FileEntity.DataStreamer
+- optimizations for custom attribute lookups
+- misc. changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
