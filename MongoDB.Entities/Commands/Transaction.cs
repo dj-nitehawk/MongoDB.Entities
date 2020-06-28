@@ -133,7 +133,7 @@ namespace MongoDB.Entities
             return Run.Sync(() => DeleteAsync<T>(ID));
         }
 
-        public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity, new()
+        public Task<DeleteResult> DeleteAsync<T>(string ID) where T : IEntity, new()
         {
             return DB.DeleteAsync<T>(ID, Session);
         }
