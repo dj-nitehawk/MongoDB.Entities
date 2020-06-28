@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -161,16 +160,16 @@ namespace MongoDB.Entities
             var props = entity.GetType().GetProperties()
                 .Where(p =>
                        p.PropertyType.Name != ManyBase.PropType &&
-                       !p.IsDefined(typeof(BsonIdAttribute),false) &&
-                       !p.IsDefined(typeof(BsonIgnoreAttribute),false) &&
-                       !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute),false) && p.GetValue(entity) == default) &&
-                       !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute),false) && p.GetValue(entity) == null));
+                       !p.IsDefined(typeof(BsonIdAttribute), false) &&
+                       !p.IsDefined(typeof(BsonIgnoreAttribute), false) &&
+                       !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
+                       !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
 
             string[] excludes;
 
             if (preservation == null)
             {
-                excludes = props.Where(p => p.GetCustomAttribute<PreserveAttribute>(false) != null)
+                excludes = props.Where(p => p.IsDefined(typeof(PreserveAttribute), false))
                                 .Select(p => p.Name)
                                 .ToArray();
 

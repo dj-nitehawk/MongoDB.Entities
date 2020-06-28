@@ -27,9 +27,9 @@ namespace MongoDB.Entities
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(coll) || coll.Contains("~")) 
+            if (string.IsNullOrWhiteSpace(coll) || coll.Contains("~"))
                 throw new ArgumentException("This is an illegal name for a collection!");
-            
+
             return coll;
         }
 
@@ -43,7 +43,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(string db = null)where T:IEntity
+        public static IMongoCollection<T> Collection<T>(string db = null) where T : IEntity
         {
             return GetDatabase(db).GetCollection<T>(CollectionName<T>());
         }
