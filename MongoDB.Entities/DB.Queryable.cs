@@ -13,12 +13,12 @@ namespace MongoDB.Entities
         /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, string db = null) where T : IEntity => Collection<T>(db).AsQueryable(options);
+        public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity => Collection<T>().AsQueryable(options);
 
         /// <summary>
         /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity => Queryable<T>(options, DbName);
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, string db = null) where T : IEntity => Queryable<T>(options);
     }
 }

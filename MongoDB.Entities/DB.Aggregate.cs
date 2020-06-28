@@ -16,11 +16,11 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
+        public static IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
-                   ? Collection<T>(db).Aggregate(template.ToPipeline(), options, cancellation)
-                   : Collection<T>(db).Aggregate(session, template.ToPipeline(), options, cancellation);
+                   ? Collection<T>().Aggregate(template.ToPipeline(), options, cancellation)
+                   : Collection<T>().Aggregate(session, template.ToPipeline(), options, cancellation);
         }
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default, string db = null) where T : IEntity
         {
-            return Aggregate(template, options, session, DbName, cancellation);
+            return Aggregate(template, options, session, cancellation);
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, string db = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
-                   ? Collection<T>(db).AggregateAsync(template.ToPipeline(), options, cancellation)
-                   : Collection<T>(db).AggregateAsync(session, template.ToPipeline(), options, cancellation);
+                   ? Collection<T>().AggregateAsync(template.ToPipeline(), options, cancellation)
+                   : Collection<T>().AggregateAsync(session, template.ToPipeline(), options, cancellation);
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default, string db = null) where T : IEntity
         {
-            return AggregateAsync(template, options, session, DbName, cancellation);
+            return AggregateAsync(template, options, session, cancellation);
         }
     }
 }

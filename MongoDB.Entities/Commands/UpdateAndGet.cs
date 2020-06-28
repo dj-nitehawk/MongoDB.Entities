@@ -17,7 +17,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
     {
-        internal UpdateAndGet(IClientSessionHandle session = null, string db = null) : base(session, db) { }
+        internal UpdateAndGet(IClientSessionHandle session = null) : base(session) { }
     }
 
     /// <summary>
@@ -33,12 +33,10 @@ namespace MongoDB.Entities
         private Expression<Func<T, bool>> filter = null;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session = null;
-        private readonly string db = null;
 
-        internal UpdateAndGet(IClientSessionHandle session = null, string db = null)
+        internal UpdateAndGet(IClientSessionHandle session = null)
         {
             this.session = session;
-            this.db = db;
         }
 
         /// <summary>
@@ -221,7 +219,7 @@ namespace MongoDB.Entities
             if (typeof(T) != typeof(SequenceCounter))
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
 
-            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, db, cancellation);
+            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation);
         }
 
         /// <summary>
@@ -243,7 +241,7 @@ namespace MongoDB.Entities
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
-            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, db, cancellation);
+            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
     }
 }

@@ -230,7 +230,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity: entity, db: entity.Database(), cancellation: cancellation);
+            return DB.SaveAsync(entity: entity, cancellation: cancellation);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, null, entity.Database(), cancellation);
+            return DB.SavePreservingAsync(entity, preservation, null, cancellation);
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         public static ulong NextSequentialNumber<T>(this T entity) where T : IEntity
         {
-            return Run.Sync(() => DB.NextSequentialNumberAsync<T>(entity.Database()));
+            return Run.Sync(() => DB.NextSequentialNumberAsync<T>());
         }
 
         /// <summary>
@@ -359,7 +359,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         public static Task<ulong> NextSequentialNumberAsync<T>(this T entity) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(entity.Database());
+            return DB.NextSequentialNumberAsync<T>();
 
         }
 

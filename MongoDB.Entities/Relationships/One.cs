@@ -16,8 +16,6 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any type that implements IEntity</typeparam>
     public class One<T> where T : IEntity
     {
-        private readonly string db = null;
-
         /// <summary>
         /// The Id of the entity referenced by this instance.
         /// </summary>
@@ -25,9 +23,7 @@ namespace MongoDB.Entities
         public string ID { get; set; }
 
         public One()
-        {
-            db = DB.Database<T>();
-        }
+        { }
 
         /// <summary>
         /// Initializes a reference to an entity in MongoDB. 
@@ -37,7 +33,6 @@ namespace MongoDB.Entities
         {
             entity.ThrowIfUnsaved();
             ID = entity.ID;
-            db = entity.Database();
         }
 
         /// <summary>
@@ -75,7 +70,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (new Find<T>(session, db)).OneAsync(ID, cancellation);
+            return (new Find<T>(session)).OneAsync(ID, cancellation);
         }
 
         /// <summary>
@@ -98,7 +93,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session, db)
+            return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation))
@@ -125,7 +120,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session, db)
+            return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation))

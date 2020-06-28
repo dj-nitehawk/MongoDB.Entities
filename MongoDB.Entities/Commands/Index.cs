@@ -18,12 +18,6 @@ namespace MongoDB.Entities
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
         private readonly CreateIndexOptions<T> options = new CreateIndexOptions<T> { Background = true };
-        private readonly string db = null;
-
-        public Index(string db = null)
-        {
-            this.db = db;
-        }
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
@@ -104,14 +98,14 @@ namespace MongoDB.Entities
                                 options);
             try
             {
-                await DB.CreateIndexAsync(model, db, cancellation);
+                await DB.CreateIndexAsync(model, cancellation);
             }
             catch (MongoCommandException x)
             {
                 if (x.Code == 85 || x.Code == 86)
                 {
-                    await DB.DropIndexAsync<T>(options.Name, db, cancellation);
-                    await DB.CreateIndexAsync(model, db, cancellation);
+                    await DB.DropIndexAsync<T>(options.Name, cancellation);
+                    await DB.CreateIndexAsync(model, cancellation);
                 }
                 else
                 {

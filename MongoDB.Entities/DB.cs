@@ -128,6 +128,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets the IMongoDatabase for the given entity type
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <returns></returns>
+        public static IMongoDatabase GetDatabase<T>()where T : IEntity
+        {
+            return GetDatabase(Database<T>());
+        }
+
+        /// <summary>
         /// Gets the IMongoDatabase for a given database name.
         /// </summary>
         /// <param name="name">The name of the database to retrieve</param>
@@ -200,7 +210,6 @@ namespace MongoDB.Entities
         /// Returns a new instance of the supplied IEntity type
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <returns></returns>
         public static T Entity<T>() where T : IEntity, new()
         {
             return new T();

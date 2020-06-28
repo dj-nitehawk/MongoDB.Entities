@@ -21,7 +21,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Find<T> : Find<T, T> where T : IEntity
     {
-        internal Find(IClientSessionHandle session = null, string db = null) : base(session, db) { }
+        internal Find(IClientSessionHandle session = null) : base(session) { }
     }
 
     /// <summary>
@@ -36,12 +36,10 @@ namespace MongoDB.Entities
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session = null;
-        private readonly string db = null;
 
-        internal Find(IClientSessionHandle session = null, string db = null)
+        internal Find(IClientSessionHandle session = null)
         {
             this.session = session;
-            this.db = db;
         }
 
         /// <summary>
@@ -379,7 +377,7 @@ namespace MongoDB.Entities
         public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
         {
             if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
-            return DB.FindAsync(filter, options, session, db, cancellation);
+            return DB.FindAsync(filter, options, session, cancellation);
         }
 
         private void AddTxtScoreToProjection(string propName)

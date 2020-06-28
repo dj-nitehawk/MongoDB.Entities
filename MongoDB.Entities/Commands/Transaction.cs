@@ -18,7 +18,6 @@ namespace MongoDB.Entities
     {
         public IClientSessionHandle Session { get; }
         private readonly IMongoClient client;
-        private readonly string db = null;
 
         /// <summary>
         /// Instantiates and begins a transaction.
@@ -27,8 +26,7 @@ namespace MongoDB.Entities
         /// <param name="options">Client session options for this transaction</param>
         public Transaction(string database = null, ClientSessionOptions options = null)
         {
-            db = database;
-            client = DB.GetClient(db);
+            client = DB.GetClient(database);
             Session = client.StartSession(options);
             Session.StartTransaction();
         }
@@ -57,47 +55,47 @@ namespace MongoDB.Entities
 
         public Update<T> Update<T>() where T : IEntity
         {
-            return new Update<T>(Session, db);
+            return new Update<T>(Session);
         }
 
         public UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
         {
-            return new UpdateAndGet<T>(Session, db);
+            return new UpdateAndGet<T>(Session);
         }
 
         public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
-            return new UpdateAndGet<T, TProjection>(Session, db);
+            return new UpdateAndGet<T, TProjection>(Session);
         }
 
         public Find<T> Find<T>() where T : IEntity
         {
-            return new Find<T>(Session, db);
+            return new Find<T>(Session);
         }
 
         public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
         {
-            return new Find<T, TProjection>(Session, db);
+            return new Find<T, TProjection>(Session);
         }
 
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
-            return DB.Fluent<T>(options, Session, db);
+            return DB.Fluent<T>(options, Session);
         }
 
         public IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Aggregate(template, options, Session, db);
+            return DB.Aggregate(template, options, Session);
         }
 
         public Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null) where T : IEntity
         {
-            return DB.AggregateAsync(template, options, Session, db);
+            return DB.AggregateAsync(template, options, Session);
         }
 
         public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
         {
-            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, db);
+            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session);
         }
 
         public ReplaceOneResult Save<T>(T entity) where T : IEntity
@@ -107,7 +105,7 @@ namespace MongoDB.Entities
 
         public Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity, Session, db, cancellation);
+            return DB.SaveAsync(entity, Session, cancellation);
         }
 
         public BulkWriteResult<T> Save<T>(IEnumerable<T> entities) where T : IEntity
@@ -117,7 +115,7 @@ namespace MongoDB.Entities
 
         public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities, Session, db, cancellation);
+            return DB.SaveAsync(entities, Session, cancellation);
         }
 
         public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null) where T : IEntity
@@ -127,7 +125,7 @@ namespace MongoDB.Entities
 
         public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, Session, db, cancellation);
+            return DB.SavePreservingAsync(entity, preservation, Session, cancellation);
         }
 
         public DeleteResult Delete<T>(string ID) where T : IEntity
@@ -137,7 +135,7 @@ namespace MongoDB.Entities
 
         public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(ID, Session, db);
+            return DB.DeleteAsync<T>(ID, Session);
         }
 
         public DeleteResult Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
@@ -147,7 +145,7 @@ namespace MongoDB.Entities
 
         public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
-            return DB.DeleteAsync(expression, Session, db);
+            return DB.DeleteAsync(expression, Session);
         }
 
         public DeleteResult Delete<T>(IEnumerable<string> IDs) where T : IEntity
@@ -157,12 +155,12 @@ namespace MongoDB.Entities
 
         public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
         {
-            return DB.DeleteAsync<T>(IDs, Session, db);
+            return DB.DeleteAsync<T>(IDs, Session);
         }
 
         public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
         {
-            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session, db);
+            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session);
         }
 
         #region IDisposable Support

@@ -23,7 +23,7 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             return (new GeoNear<T>
             {
@@ -38,7 +38,7 @@ namespace MongoDB.Entities
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey,
             })
-            .ToFluent(options, session, db);
+            .ToFluent(options, session);
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
+        public IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string db = null) where T : IEntity
         {
-            return FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, session, DbName);
+            return FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, session);
         }
     }
 }

@@ -43,9 +43,9 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(string db = null) where T : IEntity
+        public static IMongoCollection<T> Collection<T>() where T : IEntity
         {
-            return GetDatabase(db).GetCollection<T>(CollectionName<T>());
+            return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public IMongoCollection<T> Collection<T>() where T : IEntity
+        public IMongoCollection<T> Collection<T>(string db = null) where T : IEntity
         {
-            return Collection<T>(DbName);
+            return Collection<T>();
         }
 
         /// <summary>

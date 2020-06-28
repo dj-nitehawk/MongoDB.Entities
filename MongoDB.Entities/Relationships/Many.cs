@@ -34,8 +34,7 @@ namespace MongoDB.Entities
         private const string childProp = nameof(JoinRecord.ChildID);
         private const string modDateProp = nameof(JoinRecord.ModifiedOn);
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
-
-        private string db = null;
+                
         private bool isInverse = false;
         private IEntity parent = null;
 
@@ -101,7 +100,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(options)
                        .Where(j => childIDs.Contains(j.ParentID))
                        .Join(
-                           DB.Collection<TParent>(db),
+                           DB.Collection<TParent>(),
                            j => j.ChildID,
                            p => p.ID,
                            (_, p) => p)
@@ -112,7 +111,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(options)
                        .Where(j => childIDs.Contains(j.ChildID))
                        .Join(
-                           DB.Collection<TParent>(db),
+                           DB.Collection<TParent>(),
                            j => j.ParentID,
                            p => p.ID,
                            (_, p) => p)
@@ -139,7 +138,7 @@ namespace MongoDB.Entities
                              j => j.ParentID,
                              (_, j) => j)
                         .Join(
-                           DB.Collection<TParent>(db),
+                           DB.Collection<TParent>(),
                            j => j.ChildID,
                            p => p.ID,
                            (_, p) => p)
@@ -154,7 +153,7 @@ namespace MongoDB.Entities
                             j => j.ChildID,
                             (_, j) => j)
                        .Join(
-                            DB.Collection<TParent>(db),
+                            DB.Collection<TParent>(),
                             j => j.ParentID,
                             p => p.ID,
                             (_, p) => p)
@@ -181,7 +180,7 @@ namespace MongoDB.Entities
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(db),
+                            DB.Collection<TParent>(),
                             r => r.ChildID,
                             p => p.ID,
                             j => j.Results)
@@ -198,7 +197,7 @@ namespace MongoDB.Entities
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(db),
+                            DB.Collection<TParent>(),
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
@@ -234,7 +233,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                        .Match(f => f.In(j => j.ParentID, childIDs))
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(db),
+                            DB.Collection<TParent>(),
                             j => j.ChildID,
                             p => p.ID,
                             j => j.Results)
@@ -246,7 +245,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                        .Match(f => f.In(j => j.ChildID, childIDs))
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(db),
+                            DB.Collection<TParent>(),
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
@@ -302,7 +301,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(options)
                        .Where(j => j.ChildID == parent.ID)
                        .Join(
-                           DB.Collection<TChild>(db),
+                           DB.Collection<TChild>(),
                            j => j.ParentID,
                            c => c.ID,
                            (_, c) => c);
@@ -312,7 +311,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(options)
                        .Where(j => j.ParentID == parent.ID)
                        .Join(
-                           DB.Collection<TChild>(db),
+                           DB.Collection<TChild>(),
                            j => j.ChildID,
                            c => c.ID,
                            (_, c) => c);
@@ -333,7 +332,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                            DB.Collection<TChild>(db),
+                            DB.Collection<TChild>(),
                             r => r.ParentID,
                             c => c.ID,
                             j => j.Results)
@@ -344,7 +343,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                            DB.Collection<TChild>(db),
+                            DB.Collection<TChild>(),
                             r => r.ChildID,
                             c => c.ID,
                             j => j.Results)
@@ -362,9 +361,8 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string property) where TParent : IEntity
         {
             this.parent = parent;
-            db = parent.Database();
             isInverse = false;
-            JoinCollection = DB.GetRefCollection($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]", db);
+            JoinCollection = DB.GetRefCollection($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
             CreateIndexesAsync(JoinCollection);
         }
 
@@ -376,16 +374,15 @@ namespace MongoDB.Entities
         private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : IEntity
         {
             this.parent = parent;
-            db = parent.Database();
             this.isInverse = isInverse;
 
             if (this.isInverse)
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]", db);
+                JoinCollection = DB.GetRefCollection($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]");
             }
             else
             {
-                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]", db);
+                JoinCollection = DB.GetRefCollection($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
             }
 
             CreateIndexesAsync(JoinCollection);
