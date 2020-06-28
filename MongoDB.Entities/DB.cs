@@ -37,7 +37,8 @@ namespace MongoDB.Entities
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
-        private static readonly Dictionary<Type, string> entityDBs = new Dictionary<Type, string>();
+        
+        //private static readonly Dictionary<Type, string> entityDBs = new Dictionary<Type, string>();
 
         /// <summary>
         /// Initializes the MongoDB connection with the given connection parameters.
@@ -86,21 +87,24 @@ namespace MongoDB.Entities
 
         internal static string GetDBName(Type type)
         {
-            if (!entityDBs.TryGetValue(type, out string db))
-            {
-                var attribute = type.GetCustomAttribute<DatabaseAttribute>(false);
-                if (attribute != null)
-                {
-                    db = attribute.Name;
-                    entityDBs[type] = db;
-                }
-                else
-                {
-                    db = GetInstance(default).DbName;
-                    entityDBs[type] = db;
-                }
-            }
-            return db;
+            var attribute = type.GetCustomAttribute<DatabaseAttribute>(false);
+            return attribute != null ? attribute.Name : GetInstance(default).DbName;
+
+            //if (!entityDBs.TryGetValue(type, out string db))
+            //{
+            //    var attribute = type.GetCustomAttribute<DatabaseAttribute>(false);
+            //    if (attribute != null)
+            //    {
+            //        db = attribute.Name;
+            //        entityDBs[type] = db;
+            //    }
+            //    else
+            //    {
+            //        db = GetInstance(default).DbName;
+            //        entityDBs[type] = db;
+            //    }
+            //}
+            //return db;
         }
 
         internal static IMongoClient GetClient(string db = null)
