@@ -96,7 +96,7 @@ namespace MongoDB.Entities
                 }
                 else
                 {
-                    db = GetInstance(null).DbName;
+                    db = GetInstance(default).DbName;
                     entityDBs[type] = db;
                 }
             }
@@ -111,11 +111,11 @@ namespace MongoDB.Entities
         /// <summary>
         /// Gets the DB instance for a given database name.
         /// </summary>
-        /// <param name="database">The database name to retrieve the DB instance for. Setting null will retrieve the default instance</param>
+        /// <param name="database">The database name to retrieve the DB instance for. Pass 'default' to retrieve the default instance</param>
         /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
         public static DB GetInstance(string database)
         {
-            if (database == null)
+            if (database ==  default || database == null)
             {
                 if (instances.Count > 0)
                     return instances.ElementAt(0).Value;
