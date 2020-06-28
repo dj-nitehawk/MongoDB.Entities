@@ -88,7 +88,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>(this T entity) where T : IEntity
         {
-            return DB.Collection<T>(entity.Database());
+            return DB.Collection<T>();
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Queryable<T>(options, entity.Database());
+            return DB.Queryable<T>(options);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Fluent<T>(options, session, entity.Database());
+            return DB.Fluent<T>(options, session);
         }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities: entities, db: entities.First().Database(), cancellation: cancellation);
+            return DB.SaveAsync(entities: entities, cancellation: cancellation);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<DeleteResult> DeleteAsync<T>(this T entity) where T : IEntity
         {
-            return DB.DeleteAsync<T>(ID: entity.ID, db: entity.Database());
+            return DB.DeleteAsync<T>(entity.ID);
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
-            return DB.DeleteAsync<T>(IDs: entities.Select(e => e.ID), db: entities.First().Database());
+            return DB.DeleteAsync<T>(entities.Select(e => e.ID));
         }
 
         /// <summary>
