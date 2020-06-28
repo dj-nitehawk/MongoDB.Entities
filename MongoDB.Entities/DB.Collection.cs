@@ -45,8 +45,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>() where T : IEntity,new()
         {
-            //if (typeof(T).IsAbstract) throw new ArgumentException("Unable to get the collection from an abstract type!!!");
-            
             return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
         }
 

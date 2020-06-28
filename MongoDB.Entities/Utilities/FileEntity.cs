@@ -75,9 +75,11 @@ namespace MongoDB.Entities
             if (!indexedDBs.Contains(dbName))
             {
                 indexedDBs.Add(dbName);
-                _ = db.Index<FileChunk>()
-                      .Key(c => c.FileID, KeyType.Ascending)
-                      .CreateAsync();
+
+                _ = chunkCollection.Indexes.CreateOneAsync(
+                    new CreateIndexModel<FileChunk>(
+                        Builders<FileChunk>.IndexKeys.Ascending(c => c.FileID),
+                        new CreateIndexOptions { Background = true, Name = $"{nameof(FileChunk.FileID)}(Asc)" }));
             }
         }
 
@@ -114,9 +116,10 @@ namespace MongoDB.Entities
                 Projection = Builders<FileChunk>.Projection.Expression(c => c.Data)
             };
 
-            var findTask = session == null ?
-                                db.Collection<FileChunk>().FindAsync(filter, options, cancellation) :
-                                db.Collection<FileChunk>().FindAsync(session, filter, options, cancellation);
+            var findTask =
+                session == null
+                ? chunkCollection.FindAsync(filter, options, cancellation)
+                : chunkCollection.FindAsync(session, filter, options, cancellation);
 
             using (var cursor = await findTask)
             {
@@ -204,8 +207,8 @@ namespace MongoDB.Entities
         private async Task CleanUpAsync(IClientSessionHandle session)
         {
             await (session == null
-                    ? db.Collection<FileChunk>().DeleteManyAsync(c => c.FileID == parent.ID)
-                    : db.Collection<FileChunk>().DeleteManyAsync(session, c => c.FileID == parent.ID));
+                    ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
+                    : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID));
 
             parent.FileSize = 0;
             parent.ChunkCount = 0;
