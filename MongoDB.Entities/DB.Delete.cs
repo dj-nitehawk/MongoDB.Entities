@@ -69,9 +69,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public DeleteResult Delete<T>(string ID, IClientSessionHandle session = null, string db = null) where T : IEntity, new()
+        public DeleteResult Delete<T>(string ID, IClientSessionHandle session = null, bool _ = false) where T : IEntity, new()
         {
-            return Run.Sync(() => DeleteAsync<T>(ID, session, DbName));
+            return Run.Sync(() => DeleteAsync<T>(ID, session));
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, string db = null) where T : IEntity, new()
+        public Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, bool _ = false) where T : IEntity, new()
         {
             return DeleteCascadingAsync<T>(new[] { ID }, session);
         }
@@ -119,7 +119,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public DeleteResult Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public DeleteResult Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return Run.Sync(() => DeleteAsync(expression, session));
         }
@@ -150,7 +150,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return DeleteAsync(expression, session);
         }
@@ -176,7 +176,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public DeleteResult Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity, new()
+        public DeleteResult Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, bool _ = false) where T : IEntity, new()
         {
             return Run.Sync(() => DeleteAsync<T>(IDs, session));
         }
@@ -202,7 +202,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, string db = null) where T : IEntity, new()
+        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, bool _ = false) where T : IEntity, new()
         {
             return DeleteCascadingAsync<T>(IDs, session);
         }

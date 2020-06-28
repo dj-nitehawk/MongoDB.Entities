@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Index<T> Index<T>(string db = null) where T : IEntity, new()
+        public Index<T> Index<T>(bool _ = false) where T : IEntity, new()
         {
             return new Index<T>();
         }

@@ -13,7 +13,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default,string db = null) where T : IEntity
+        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, string db = null) where T : IEntity
         {
             return DB.NextSequentialNumberAsync<T>(cancellation);
         }

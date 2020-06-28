@@ -33,7 +33,7 @@ namespace MongoDB.Entities
             return coll;
         }
 
-        internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T:IEntity
+        internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
             return GetDatabase<T>().GetCollection<JoinRecord>(name);
         }
@@ -43,7 +43,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>() where T : IEntity,new()
+        public static IMongoCollection<T> Collection<T>() where T : IEntity, new()
         {
             return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
         }
@@ -53,7 +53,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public IMongoCollection<T> Collection<T>(string db = null) where T : IEntity,new()
+        public IMongoCollection<T> Collection<T>(bool _ = false) where T : IEntity, new()
         {
             return Collection<T>();
         }

@@ -34,7 +34,7 @@ namespace MongoDB.Entities
         private const string childProp = nameof(JoinRecord.ChildID);
         private const string modDateProp = nameof(JoinRecord.ModifiedOn);
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
-                
+
         private bool isInverse = false;
         private IEntity parent = null;
 

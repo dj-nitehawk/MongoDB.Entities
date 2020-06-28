@@ -115,7 +115,7 @@ namespace MongoDB.Entities
         /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
         public static DB GetInstance(string database)
         {
-            if (database ==  default || database == null)
+            if (database == default || database == null)
             {
                 if (instances.Count > 0)
                     return instances.ElementAt(0).Value;
@@ -132,7 +132,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <returns></returns>
-        public static IMongoDatabase GetDatabase<T>()where T : IEntity
+        public static IMongoDatabase GetDatabase<T>() where T : IEntity
         {
             return GetDatabase(Database<T>());
         }

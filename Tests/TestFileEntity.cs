@@ -119,13 +119,11 @@ namespace MongoDB.Entities.Tests
                 await img.Data.DownloadAsync(outStream, 3);
             }
 
-            using (var md5 = MD5.Create())
-            {
-                var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
-                var newHash = md5.ComputeHash(File.OpenRead("Models/result.jpg"));
+            using var md5 = MD5.Create();
+            var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
+            var newHash = md5.ComputeHash(File.OpenRead("Models/result.jpg"));
 
-                Assert.IsTrue(oldHash.SequenceEqual(newHash));
-            }
+            Assert.IsTrue(oldHash.SequenceEqual(newHash));
         }
 
         [TestMethod]
@@ -146,13 +144,11 @@ namespace MongoDB.Entities.Tests
                 await DB.File<Image>(img.ID).DownloadAsync(outStream);
             }
 
-            using (var md5 = MD5.Create())
-            {
-                var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
-                var newHash = md5.ComputeHash(File.OpenRead("Models/result-direct.jpg"));
+            using var md5 = MD5.Create();
+            var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
+            var newHash = md5.ComputeHash(File.OpenRead("Models/result-direct.jpg"));
 
-                Assert.IsTrue(oldHash.SequenceEqual(newHash));
-            }
+            Assert.IsTrue(oldHash.SequenceEqual(newHash));
         }
 
         [TestMethod]
@@ -163,11 +159,9 @@ namespace MongoDB.Entities.Tests
             Assert.ThrowsException<InvalidOperationException>(
                 () =>
                 {
-                    using (var stream = File.OpenWrite("test.file"))
-                    {
-                        DB.File<Image>(ObjectId.GenerateNewId().ToString())
-                                .DownloadAsync(stream).GetAwaiter().GetResult();
-                    }
+                    using var stream = File.OpenWrite("test.file");
+                    DB.File<Image>(ObjectId.GenerateNewId().ToString())
+                      .DownloadAsync(stream).GetAwaiter().GetResult();
                 });
 
             return Task.CompletedTask;

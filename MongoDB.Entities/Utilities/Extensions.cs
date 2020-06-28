@@ -86,7 +86,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T entity) where T : IEntity, new()
+        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity, new()
         {
             return DB.Collection<T>();
         }
@@ -102,7 +102,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T entity, AggregateOptions options = null) where T : IEntity, new()
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity, new()
         {
             return DB.Queryable<T>(options);
         }
@@ -111,10 +111,9 @@ namespace MongoDB.Entities
         /// An IAggregateFluent collection of sibling Entities.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> Fluent<T>(this T entity, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity, new()
+        public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity, new()
         {
             return DB.Fluent<T>(options, session);
         }
@@ -348,7 +347,7 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public static ulong NextSequentialNumber<T>(this T entity) where T : IEntity
+        public static ulong NextSequentialNumber<T>(this T _) where T : IEntity
         {
             return Run.Sync(() => DB.NextSequentialNumberAsync<T>());
         }
@@ -357,10 +356,9 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public static Task<ulong> NextSequentialNumberAsync<T>(this T entity) where T : IEntity
+        public static Task<ulong> NextSequentialNumberAsync<T>(this T _) where T : IEntity
         {
             return DB.NextSequentialNumberAsync<T>();
-
         }
 
         /// <summary>
