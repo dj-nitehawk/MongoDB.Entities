@@ -37,7 +37,8 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
-        private static Dictionary<Type, string> entityDBs = new Dictionary<Type, string>();
+        private static readonly Dictionary<Type, string> entityDBs = new Dictionary<Type, string>();
+        private static readonly Dictionary<Type, string> entityColls = new Dictionary<Type, string>();
 
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not attached.
@@ -115,12 +116,22 @@ namespace MongoDB.Entities
         public static string CollectionName(this IEntity entity)
         {
             var type = entity.GetType();
-            var attribute = type.GetCustomAttribute<NameAttribute>();
-            if (attribute != null)
+
+            if (!entityColls.TryGetValue(type, out string coll))
             {
-                return attribute.Name;
+                var attribute = type.GetCustomAttribute<NameAttribute>(false);
+                if (attribute != null)
+                {
+                    coll = attribute.Name;
+                    entityColls[type] = coll;
+                }
+                else
+                {
+                    coll = DB.GetInstance(null).DbName;
+                    entityColls[type] = coll;
+                }
             }
-            return type.Name;
+            return coll;
         }
 
         /// <summary>
