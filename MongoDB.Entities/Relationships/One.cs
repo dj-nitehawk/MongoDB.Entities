@@ -14,7 +14,7 @@ namespace MongoDB.Entities
     /// Represents a one-to-one relationship with an IEntity.
     /// </summary>
     /// <typeparam name="T">Any type that implements IEntity</typeparam>
-    public class One<T> where T : IEntity, new()
+    public class One<T> where T : IEntity
     {
         /// <summary>
         /// The Id of the entity referenced by this instance.

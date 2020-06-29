@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Update<T> where T : IEntity, new()
+    public class Update<T> where T : IEntity
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();

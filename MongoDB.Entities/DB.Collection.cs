@@ -28,7 +28,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>() where T : IEntity, new()
+        public static IMongoCollection<T> Collection<T>() where T : IEntity
         {
             return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
         }
@@ -38,7 +38,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public IMongoCollection<T> Collection<T>(bool _ = false) where T : IEntity, new()
+        public IMongoCollection<T> Collection<T>(bool _ = false) where T : IEntity
         {
             return Collection<T>();
         }

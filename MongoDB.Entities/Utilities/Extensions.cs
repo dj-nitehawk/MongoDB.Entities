@@ -86,7 +86,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity, new()
+        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
         {
             return DB.Collection<T>();
         }
@@ -102,7 +102,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity, new()
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity
         {
             return DB.Queryable<T>(options);
         }
@@ -113,7 +113,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T"></typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity, new()
+        public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, session);
         }
@@ -172,7 +172,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns a reference to this entity.
         /// </summary>
-        public static One<T> ToReference<T>(this T entity) where T : IEntity, new()
+        public static One<T> ToReference<T>(this T entity) where T : IEntity
         {
             return new One<T>(entity);
         }
@@ -217,7 +217,7 @@ namespace MongoDB.Entities
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static ReplaceOneResult Save<T>(this T entity) where T : IEntity, new()
+        public static ReplaceOneResult Save<T>(this T entity) where T : IEntity
         {
             return Run.Sync(() => SaveAsync(entity));
         }
@@ -227,7 +227,7 @@ namespace MongoDB.Entities
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, CancellationToken cancellation = default) where T : IEntity, new()
+        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entity: entity, cancellation: cancellation);
         }
@@ -236,7 +236,7 @@ namespace MongoDB.Entities
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities) where T : IEntity, new()
+        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities) where T : IEntity
         {
             return Run.Sync(() => SaveAsync(entities));
         }
@@ -246,7 +246,7 @@ namespace MongoDB.Entities
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity, new()
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entities: entities, cancellation: cancellation);
         }
@@ -259,7 +259,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null) where T : IEntity, new()
+        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null) where T : IEntity
         {
             return Run.Sync(() => SavePreservingAsync(entity, preservation));
         }
@@ -273,7 +273,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity, new()
+        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, preservation, null, cancellation);
         }
@@ -282,7 +282,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static DeleteResult Delete<T>(this T entity) where T : IEntity, new()
+        public static DeleteResult Delete<T>(this T entity) where T : IEntity
         {
             return Run.Sync(() => DeleteAsync(entity));
         }
@@ -291,7 +291,7 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAsync<T>(this T entity) where T : IEntity, new()
+        public static Task<DeleteResult> DeleteAsync<T>(this T entity) where T : IEntity
         {
             return DB.DeleteAsync<T>(entity.ID);
         }
@@ -300,7 +300,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static DeleteResult DeleteAll<T>(this IEnumerable<T> entities) where T : IEntity, new()
+        public static DeleteResult DeleteAll<T>(this IEnumerable<T> entities) where T : IEntity
         {
             return Run.Sync(() => DeleteAllAsync(entities));
         }
@@ -309,7 +309,7 @@ namespace MongoDB.Entities
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity, new()
+        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
         {
             return DB.DeleteAsync<T>(entities.Select(e => e.ID));
         }
@@ -366,7 +366,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() => PropertyName</param>
-        public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity, new()
+        public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;
@@ -379,7 +379,7 @@ namespace MongoDB.Entities
         /// <param name="parent"></param>
         /// <param name="propertyToInit">() = > PropertyName</param>
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
-        public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity, new()
+        public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
         {
             var body = (MemberExpression)propertyToInit.Body;
             var property = (PropertyInfo)body.Member;

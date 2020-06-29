@@ -10,7 +10,7 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity, new()
+        internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
                    ? Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
@@ -18,14 +18,14 @@ namespace MongoDB.Entities
         }
 
         //note: only filter by lambda expression is available due to projection cannot be achieved with filterdefinition using official driver
-        internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(Expression<Func<T, bool>> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity, new()
+        internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(Expression<Func<T, bool>> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
                 ? Collection<T>().FindOneAndUpdateAsync<T, TProjection>(filter, definition, options, cancellation)
                 : Collection<T>().FindOneAndUpdateAsync<T, TProjection>(session, filter, definition, options, cancellation);
         }
 
-        internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity, new()
+        internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
                    ? Collection<T>().BulkWriteAsync(models, null, cancellation)
@@ -37,7 +37,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static Update<T> Update<T>() where T : IEntity, new()
+        public static Update<T> Update<T>() where T : IEntity
         {
             return new Update<T>();
         }
@@ -47,7 +47,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Update<T> Update<T>(string db = null) where T : IEntity, new()
+        public Update<T> Update<T>(string db = null) where T : IEntity
         {
             return new Update<T>();
         }
@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type to project to</typeparam>
-        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity, new()
+        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
             return new UpdateAndGet<T, TProjection>();
         }
@@ -69,7 +69,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type to project to</typeparam>
-        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(string db = null) where T : IEntity, new()
+        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(string db = null) where T : IEntity
         {
             return new UpdateAndGet<T, TProjection>();
         }
@@ -79,7 +79,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity, new()
+        public static UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
         {
             return new UpdateAndGet<T>();
         }
@@ -89,7 +89,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public UpdateAndGet<T> UpdateAndGet<T>(string db = null) where T : IEntity, new()
+        public UpdateAndGet<T> UpdateAndGet<T>(string db = null) where T : IEntity
         {
             return new UpdateAndGet<T>();
         }

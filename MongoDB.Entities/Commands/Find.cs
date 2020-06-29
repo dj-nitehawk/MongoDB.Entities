@@ -19,7 +19,7 @@ namespace MongoDB.Entities
     /// <para>Note: For building queries, use the DB.Fluent* interfaces</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Find<T> : Find<T, T> where T : IEntity, new()
+    public class Find<T> : Find<T, T> where T : IEntity
     {
         internal Find(IClientSessionHandle session = null) : base(session) { }
     }
@@ -30,7 +30,7 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
-    public class Find<T, TProjection> where T : IEntity, new()
+    public class Find<T, TProjection> where T : IEntity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();

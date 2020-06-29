@@ -41,7 +41,7 @@ namespace MongoDB.Entities
         }
     }
 
-    public class GeoNear<T> where T : IEntity, new()
+    public class GeoNear<T> where T : IEntity
     {
         public Coordinates2D near { get; set; }
         public string distanceField { get; set; }

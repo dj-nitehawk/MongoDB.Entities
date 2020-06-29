@@ -14,7 +14,7 @@ namespace MongoDB.Entities
     /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Index<T> where T : IEntity, new()
+    public class Index<T> where T : IEntity
     {
         internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
         private readonly CreateIndexOptions<T> options = new CreateIndexOptions<T> { Background = true };
