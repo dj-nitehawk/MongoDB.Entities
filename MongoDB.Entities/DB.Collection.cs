@@ -2,6 +2,8 @@
 using MongoDB.Entities.Core;
 using System;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -53,5 +55,19 @@ namespace MongoDB.Entities
         }
 
         //todo: drop collection methods
+
+        public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
+        {
+            var db = GetDatabase<T>();
+
+            var options = new ListCollectionNamesOptions
+            {
+                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
+            };
+
+            var joinCollections = await db.ListCollectionNames(options).ToListAsync();
+
+
+        }
     }
 }
