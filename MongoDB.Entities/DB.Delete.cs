@@ -14,19 +14,15 @@ namespace MongoDB.Entities
         {
             // note: cancellation should not be enabled because multiple collections are involved 
             //       and premature cancellation could cause data inconsistencies.
-
+            
+            var tasks = new HashSet<Task>();
             var db = GetDatabase<T>();
-
             var options = new ListCollectionNamesOptions
             {
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
-            };
+            };            
 
-            var joinCollections = await db.ListCollectionNames(options).ToListAsync();
-
-            var tasks = new HashSet<Task>();
-
-            foreach (var cName in joinCollections)
+            foreach (var cName in await db.ListCollectionNames(options).ToListAsync())
             {
                 tasks.Add(
                     session == null

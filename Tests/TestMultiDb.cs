@@ -92,6 +92,39 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual("multi-init", instance.DbName);
             Assert.AreEqual("multi-init", db.DbName);
         }
+
+        [TestMethod]
+        public void dropping_collections()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var marks = new[] {
+                new BookMark{ BookName = guid},
+                new BookMark{ BookName = guid},
+                new BookMark{ BookName = guid},
+            };
+            marks.Save();
+
+            var covers = new[] {
+                new BookCover{  BookID = guid },
+                new BookCover{  BookID = guid },
+                new BookCover{  BookID = guid }
+            };
+
+            covers.Save();
+
+            foreach (var cover in covers)
+            {
+                cover.BookMarks += marks;
+            }
+
+            Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
+
+            db.DropCollection<BookMark>();
+
+            Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
+
+            Assert.AreEqual(3, db.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+        }
     }
 
 }

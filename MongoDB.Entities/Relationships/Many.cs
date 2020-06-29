@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         //shared state for all Many<T> instances
         internal static ConcurrentBag<string> indexedCollections = new ConcurrentBag<string>();
 
-        internal static string PropType = "Many`1";
+        internal static string PropType = typeof(Many<Entity>).Name;
     }
 
     /// <summary>

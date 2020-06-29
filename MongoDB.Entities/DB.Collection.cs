@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,20 +55,69 @@ namespace MongoDB.Entities
             return GetCollectionName(typeof(T));
         }
 
-        //todo: drop collection methods
+        /// <summary>
+        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to drop the collection of</typeparam>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static void DropCollection<T>(IClientSessionHandle session = null) where T : IEntity
+        {
+            Run.Sync(() => DropCollectionAsync<T>(session));
+        }
 
+        /// <summary>
+        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to drop the collection of</typeparam>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public void DropCollection<T>(IClientSessionHandle session = null, bool _ = false) where T : IEntity
+        {
+            Run.Sync(() => DropCollectionAsync<T>(session));
+        }
+
+        /// <summary>
+        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to drop the collection of</typeparam>
+        /// <param name="session">An optional session if using within a transaction</param>
         public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
         {
+            var tasks = new HashSet<Task>();
             var db = GetDatabase<T>();
-
+            var collName = CollectionName<T>();
             var options = new ListCollectionNamesOptions
             {
-                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
+                Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
             };
 
-            var joinCollections = await db.ListCollectionNames(options).ToListAsync();
+            foreach (var cName in await db.ListCollectionNames(options).ToListAsync())
+            {
+                tasks.Add(
+                    session == null
+                    ? db.DropCollectionAsync(cName)
+                    : db.DropCollectionAsync(session, cName));
+            }
 
+            tasks.Add(
+                session == null
+                ? db.DropCollectionAsync(collName)
+                : db.DropCollectionAsync(session, collName));
 
+            await Task.WhenAll(tasks);
+        }
+
+        /// <summary>
+        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to drop the collection of</typeparam>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public Task DropCollectionAsync<T>(IClientSessionHandle session = null, bool _ = false) where T : IEntity
+        {
+            return DropCollectionAsync<T>(session);
         }
     }
 }
