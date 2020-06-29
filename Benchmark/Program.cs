@@ -74,7 +74,7 @@ namespace Benchmark
             });
 
             Console.WriteLine();
-            Console.WriteLine($"done in {sw.Elapsed.ToString("hh':'mm':'ss")}");
+            Console.WriteLine($"done in {sw.Elapsed:hh':'mm':'ss}");
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
 
@@ -85,7 +85,7 @@ namespace Benchmark
                            .FirstOrDefault();
 
             Console.WriteLine();
-            Console.WriteLine($"found author 666 by name in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] with an un-indexed query - his id: {author.ID}");
+            Console.WriteLine($"found author 666 by name in [{sw.Elapsed.TotalMilliseconds:0}ms] with an un-indexed query - his id: {author.ID}");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -95,7 +95,7 @@ namespace Benchmark
                        .One(author.ID);
 
             Console.WriteLine();
-            Console.WriteLine($"looking up author 666 by ID took [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms]");
+            Console.WriteLine($"looking up author 666 by ID took [{sw.Elapsed.TotalMilliseconds:0}ms]");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -108,7 +108,7 @@ namespace Benchmark
                             .FirstOrDefault();
 
             Console.WriteLine();
-            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is not indexed");
+            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is not indexed");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -123,7 +123,7 @@ namespace Benchmark
 
             while (!indexTask.IsCompleted)
             {
-                Console.Write($"\rindexing time: {sw.Elapsed.TotalSeconds.ToString("0")} seconds");
+                Console.Write($"\rindexing time: {sw.Elapsed.TotalSeconds:0} seconds");
                 Task.Delay(1000).Wait();
             }
             Console.WriteLine();
@@ -140,7 +140,7 @@ namespace Benchmark
                             .FirstOrDefault();
 
             Console.WriteLine();
-            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is indexed");
+            Console.WriteLine($"found book 555 of author 666 by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is indexed");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -154,7 +154,7 @@ namespace Benchmark
                             .ToArray();
 
             Console.WriteLine();
-            Console.WriteLine($"fetched 2 book IDs by title in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms] - title field is indexed");
+            Console.WriteLine($"fetched 2 book IDs by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is indexed");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -165,7 +165,7 @@ namespace Benchmark
                             .ToArray();
 
             Console.WriteLine();
-            Console.WriteLine($"reverse relationship access finished in [{sw.Elapsed.TotalMilliseconds.ToString("0")}ms]");
+            Console.WriteLine($"reverse relationship access finished in [{sw.Elapsed.TotalMilliseconds:0}ms]");
             Console.WriteLine();
             Console.WriteLine("the following authors were returned:");
             Console.WriteLine();
