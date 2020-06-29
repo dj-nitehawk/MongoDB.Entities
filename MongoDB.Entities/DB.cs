@@ -83,17 +83,6 @@ namespace MongoDB.Entities
             }
         }
 
-        internal static string GetDBName(Type type)
-        {
-            var attribute = type.GetCustomAttribute<DatabaseAttribute>(false);
-            return attribute != null ? attribute.Name : GetInstance(default).DbName;
-        }
-
-        internal static IMongoClient GetClient(string db = null)
-        {
-            return GetDatabase(db).Client;
-        }
-
         /// <summary>
         /// Gets the DB instance for a given database name.
         /// </summary>
@@ -120,7 +109,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public static IMongoDatabase GetDatabase<T>() where T : IEntity
         {
-            return GetDatabase(Database<T>());
+            return Cache<T>.Database;
         }
 
         /// <summary>
@@ -162,7 +151,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T"></typeparam>
         public static string Database<T>() where T : IEntity
         {
-            return GetDBName(typeof(T));
+            return Cache<T>.DBName;
         }
 
         /// <summary>
@@ -199,6 +188,32 @@ namespace MongoDB.Entities
         public static T Entity<T>() where T : IEntity, new()
         {
             return new T();
+        }
+    }
+
+    internal static class Cache<T> where T : IEntity
+    {
+        public static IMongoDatabase Database { get; private set; }
+        public static IMongoCollection<T> Collection { get; private set; }
+        public static string DBName { get; private set; }
+        public static string CollectionName { get; private set; }
+
+        static Cache()
+        {
+            var type = typeof(T);
+
+            var dbAttrb = type.GetCustomAttribute<DatabaseAttribute>(false);
+            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).DbName;
+
+            Database = DB.GetDatabase(DBName);
+
+            var collAttrb = type.GetCustomAttribute<NameAttribute>(false);
+            CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
+
+            if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
+                throw new ArgumentException("This is an illegal name for a collection!");
+
+            Collection = Database.GetCollection<T>(CollectionName, new MongoCollectionSettings());
         }
     }
 

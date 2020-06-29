@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -85,7 +86,8 @@ namespace MongoDB.Entities
         public DataStreamer(FileEntity parent)
         {
             this.parent = parent;
-            var dbName = parent.Database();
+            var attribute = parent.GetType().GetCustomAttribute<DatabaseAttribute>(false);
+            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).DbName;
             db = DB.GetInstance(dbName);
             chunkCollection = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
             if (!indexedDBs.Contains(dbName))
@@ -258,7 +260,11 @@ namespace MongoDB.Entities
 
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
-            var coll = db.GetDatabase().GetCollection<FileEntity>(parent.CollectionName());
+            var type = parent.GetType();
+            var attribute = type.GetCustomAttribute<NameAttribute>(false);
+            var collName = attribute != null ? attribute.Name : type.Name;
+
+            var coll = db.GetDatabase().GetCollection<FileEntity>(collName);
 
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update

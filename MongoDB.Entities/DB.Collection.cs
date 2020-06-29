@@ -10,17 +10,6 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
-        internal static string GetCollectionName(Type type)
-        {
-            var attribute = type.GetCustomAttribute<NameAttribute>(false);
-            var coll = attribute != null ? attribute.Name : type.Name;
-
-            if (string.IsNullOrWhiteSpace(coll) || coll.Contains("~"))
-                throw new ArgumentException("This is an illegal name for a collection!");
-
-            return coll;
-        }
-
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
             return GetDatabase<T>().GetCollection<JoinRecord>(name);
@@ -33,7 +22,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>() where T : IEntity
         {
-            return GetDatabase<T>().GetCollection<T>(CollectionName<T>());
+            return Cache<T>.Collection;
         }
 
         /// <summary>
@@ -52,7 +41,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
         public static string CollectionName<T>() where T : IEntity
         {
-            return GetCollectionName(typeof(T));
+            return Cache<T>.CollectionName;
         }
 
         /// <summary>

@@ -36,13 +36,31 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
-
+       
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
-        public static string Database(this IEntity entity)
+        public static string Database<T>(this T _) where T : IEntity
         {
-            return DB.GetDBName(entity.GetType());
+            return DB.Database<T>();
+        }
+
+        /// <summary>
+        /// Gets the IMongoCollection for a given IEntity type.
+        /// <para>TIP: Try never to use this unless really neccessary.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
+        {
+            return DB.Collection<T>();
+        }
+
+        /// <summary>
+        /// Gets the collection name for this entity
+        /// </summary>
+        public static string CollectionName<T>(this T _) where T : IEntity
+        {
+            return DB.CollectionName<T>();
         }
 
         /// <summary>
@@ -79,24 +97,6 @@ namespace MongoDB.Entities
         {
             services.AddSingleton(new DB(Settings, Database));
             return services;
-        }
-
-        /// <summary>
-        /// Gets the IMongoCollection for a given IEntity type.
-        /// <para>TIP: Try never to use this unless really neccessary.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
-        {
-            return DB.Collection<T>();
-        }
-
-        /// <summary>
-        /// Gets the collection name for this entity
-        /// </summary>
-        public static string CollectionName(this IEntity entity)
-        {
-            return DB.GetCollectionName(entity.GetType());
         }
 
         /// <summary>
