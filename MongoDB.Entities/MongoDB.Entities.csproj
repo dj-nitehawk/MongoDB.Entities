@@ -12,13 +12,7 @@
     <AssemblyVersion>13.1.0.0</AssemblyVersion>
     <FileVersion>13.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- automatic multi db support (no need for DB instances anymore)
-- ability to drop collections including relationships for a given entity type
-- caching layer for collection/db lookups
-- fix cyclical method reference bug in FileEntity.DataStreamer
-- optimizations for custom attribute lookups
-- various other optimizations
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- optimize collection/db lookup using a lock-free cache</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

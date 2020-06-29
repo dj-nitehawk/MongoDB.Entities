@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
-       
+
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
