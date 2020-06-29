@@ -15,6 +15,7 @@
     <PackageReleaseNotes>- automatic multi db support (no need for DB instances anymore)
 - fix cyclical method reference bug in FileEntity.DataStreamer
 - optimizations for custom attribute lookups
+- various other optimizations
 - misc. changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

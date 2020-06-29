@@ -35,7 +35,7 @@ namespace MongoDB.Entities
         /// <param name="name">The name you want to use for the collection</param>
         public NameAttribute(string name)
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             Name = name;
         }
     }

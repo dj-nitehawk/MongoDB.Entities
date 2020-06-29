@@ -15,20 +15,23 @@ namespace MongoDB.Entities
             // note: cancellation should not be enabled because multiple collections are involved 
             //       and premature cancellation could cause data inconsistencies.
 
+            var db = GetDatabase<T>();
+
             var options = new ListCollectionNamesOptions
             {
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
             };
 
-            var joinCollections = await GetDatabase<T>().ListCollectionNames(options).ToListAsync();
+            var joinCollections = await db.ListCollectionNames(options).ToListAsync();
 
-            var tasks = new HashSet<Task>();
+            var tasks = new HashSet<Task>();            
 
             foreach (var cName in joinCollections)
             {
-                tasks.Add(session == null
-                          ? GetDatabase<T>().GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                          : GetDatabase<T>().GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null));
+                tasks.Add(
+                    session == null
+                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null));
             }
 
             var delRes =
@@ -40,9 +43,10 @@ namespace MongoDB.Entities
 
             if (typeof(T).BaseType == typeof(FileEntity))
             {
-                tasks.Add(session == null
-                    ? GetDatabase<T>().GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                    : GetDatabase<T>().GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
+                tasks.Add(
+                    session == null
+                    ? db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
+                    : db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
             }
 
             await Task.WhenAll(tasks);
