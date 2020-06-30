@@ -196,6 +196,24 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void find_by_multiple_match_methods()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = DB.Find<Author>()
+                        .Match(a => a.Age > 10)
+                        .Match(a => a.Surname == guid)
+                        .Execute();
+
+            Assert.AreEqual(3, res.Count);
+            Assert.IsFalse(res.Any(a => a.Age == 10));
+        }
+
+        [TestMethod]
         public void find_by_filter_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
