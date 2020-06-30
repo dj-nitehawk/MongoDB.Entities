@@ -70,10 +70,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify the Entity matching criteria with a JSON string
         /// </summary>
-        /// <param name="matchJson">The filter JSON string</param>
-        public Update<T> Match(string matchJson)
+        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
+        public Update<T> Match(string jsonString)
         {
-            filter &= matchJson;
+            filter &= jsonString;
             return this;
         }
 
