@@ -33,7 +33,7 @@ namespace MongoDB.Entities
         /// Specify an IEntity ID as the matching criteria
         /// </summary>
         /// <param name="ID">A unique IEntity ID</param>
-        public Update<T> Match(string ID)
+        public Update<T> MatchID(string ID)
         {
             return Match(f => f.Eq(t => t.ID, ID));
         }
@@ -64,6 +64,16 @@ namespace MongoDB.Entities
         public Update<T> Match(Template template)
         {
             filter &= template.ToString();
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the Entity matching criteria with a JSON string
+        /// </summary>
+        /// <param name="matchJson">The filter JSON string</param>
+        public Update<T> Match(string matchJson)
+        {
+            filter &= matchJson;
             return this;
         }
 
