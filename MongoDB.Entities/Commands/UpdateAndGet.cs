@@ -30,7 +30,7 @@ namespace MongoDB.Entities
     {
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
-        private Expression<Func<T, bool>> filter = null;
+        private Expression<Func<T, bool>> filterExp = null;
         private FilterDefinition<T> filterDef = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session = null;
@@ -53,13 +53,12 @@ namespace MongoDB.Entities
             }
             else
             {
-                if (filter != null)
+                if (filterExp != null)
                 {
                     throw new NotSupportedException("Calling .Match() multiple times is not supported when projecting to a different type!");
                 }
-                filter = expression;
-            }            
-
+                filterExp = expression;
+            }
             return this;
         }
 
@@ -225,15 +224,19 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
-        {//todo: from here
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+        {
+            ThrowIfFilterNotSet();
+
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
             if (typeof(T) != typeof(SequenceCounter))
                 Modify(b => b.CurrentDate(x => x.ModifiedOn));
 
-            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation);
+            if (!sameType)
+                return await DB.UpdateAndGetAsync(filterExp, Builders<T>.Update.Combine(defs), options, session, cancellation);
+
+            return await DB.UpdateAndGetAsync(filterDef, Builders<T>.Update.Combine(defs), options, session, cancellation);
         }
 
         /// <summary>
@@ -250,12 +253,31 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            ThrowIfFilterNotSet();
+
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 
             WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
-            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+
+            if (!sameType)
+                return DB.UpdateAndGetAsync(filterExp, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+
+            return DB.UpdateAndGetAsync(filterDef, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+        }
+
+        private void ThrowIfFilterNotSet()
+        {
+            var error = "Please use Match() method first!";
+
+            if (!sameType)
+            {
+                if (filterExp == null) throw new ArgumentException(error);
+            }
+            else
+            {
+                if (filterDef == Builders<T>.Filter.Empty) throw new ArgumentException(error);
+            }
         }
     }
 }

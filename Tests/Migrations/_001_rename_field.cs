@@ -5,6 +5,7 @@
         public void Upgrade()
         {
             DB.Update<Book>()
+              .Match(_=>true)
               .Modify(b => b.Rename("SellingPrice", "Price"))
               .Execute();
         }

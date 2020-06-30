@@ -227,7 +227,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                if (filter == null) throw new ArgumentException("Please use Match() method first!");
+                if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
@@ -250,7 +250,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
 

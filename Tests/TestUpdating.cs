@@ -29,6 +29,12 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void update_without_filter_throws()
+        {       
+            Assert.ThrowsException<ArgumentException>(()=> DB.Update<Author>().Modify(a => a.Age2, 22).Execute());
+        }
+
+        [TestMethod]
         public void updating_returns_correct_result()
         {
             var guid = Guid.NewGuid().ToString();

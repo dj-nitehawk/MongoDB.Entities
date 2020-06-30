@@ -17,12 +17,18 @@ namespace MongoDB.Entities
                    : Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
         }
 
-        //note: only filter by lambda expression is available due to projection cannot be achieved with filterdefinition using official driver
-        internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(Expression<Func<T, bool>> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(Expression<Func<T, bool>> expression, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
-                ? Collection<T>().FindOneAndUpdateAsync<T, TProjection>(filter, definition, options, cancellation)
-                : Collection<T>().FindOneAndUpdateAsync<T, TProjection>(session, filter, definition, options, cancellation);
+                ? Collection<T>().FindOneAndUpdateAsync(expression, definition, options, cancellation)
+                : Collection<T>().FindOneAndUpdateAsync(session, expression, definition, options, cancellation);
+        }
+
+        internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(FilterDefinition<T> filterDefinition, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return session == null
+                ? Collection<T>().FindOneAndUpdateAsync(filterDefinition, definition, options, cancellation)
+                : Collection<T>().FindOneAndUpdateAsync(session, filterDefinition, definition, options, cancellation);
         }
 
         internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
