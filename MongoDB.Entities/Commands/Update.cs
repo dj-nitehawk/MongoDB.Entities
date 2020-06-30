@@ -44,7 +44,7 @@ namespace MongoDB.Entities
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            this.filter = filter(Builders<T>.Filter);
+            this.filter &= filter(Builders<T>.Filter);
             return this;
         }
 
@@ -54,7 +54,7 @@ namespace MongoDB.Entities
         /// <param name="template">The filter Template</param>
         public Update<T> Match(Template template)
         {
-            filter = template.ToString();
+            filter &= template.ToString();
             return this;
         }
 
