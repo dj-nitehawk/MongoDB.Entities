@@ -43,7 +43,7 @@ namespace MongoDB.Entities
         /// Specify an IEntity ID as the matching criteria
         /// </summary>
         /// <param name="ID">A unique IEntity ID</param>
-        public UpdateAndGet<T, TProjection> Match(string ID)
+        public UpdateAndGet<T, TProjection> MatchID(string ID)
         {
             return Match(f => f.Eq(t => t.ID, ID));
         }
@@ -81,7 +81,7 @@ namespace MongoDB.Entities
         /// Specify the Entity matching criteria with a JSON string
         /// </summary>
         /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
-        public UpdateAndGet<T, TProjection> MatchString(string jsonString)
+        public UpdateAndGet<T, TProjection> Match(string jsonString)
         {
             filter &= jsonString;
             return this;
