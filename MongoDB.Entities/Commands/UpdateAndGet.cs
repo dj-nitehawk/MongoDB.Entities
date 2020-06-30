@@ -31,8 +31,10 @@ namespace MongoDB.Entities
         private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
         private Expression<Func<T, bool>> filter = null;
+        private FilterDefinition<T> filterDef = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session = null;
+        private readonly bool sameType = typeof(T) == typeof(TProjection);
 
         internal UpdateAndGet(IClientSessionHandle session = null)
         {
@@ -45,7 +47,19 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression to select the Entities to update</param>
         public UpdateAndGet<T, TProjection> Match(Expression<Func<T, bool>> expression)
         {
-            filter = expression;
+            if (sameType)
+            {
+                filterDef &= Builders<T>.Filter.Where(expression);
+            }
+            else
+            {
+                if (filter != null)
+                {
+                    throw new NotSupportedException("Calling .Match() multiple times is not supported when projecting to a different type!");
+                }
+                filter = expression;
+            }            
+
             return this;
         }
 
@@ -211,7 +225,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
-        {
+        {//todo: from here
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");

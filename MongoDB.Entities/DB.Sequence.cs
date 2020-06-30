@@ -13,9 +13,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, string db = null) where T : IEntity
+        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, bool _ = false) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(cancellation);
+            return NextSequentialNumberAsync<T>(cancellation);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public ulong NextSequentialNumber<T>(string db = null) where T : IEntity
+        public ulong NextSequentialNumber<T>(bool _ = false) where T : IEntity
         {
             return Run.Sync(() => DB.NextSequentialNumberAsync<T>());
         }
@@ -51,7 +51,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, string db = null)
+        public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, bool _ = false)
         {
             return DB.NextSequentialNumberAsync(sequenceName, cancellation);
         }
@@ -76,7 +76,7 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-        public ulong NextSequentialNumber(string sequenceName, string db = null)
+        public ulong NextSequentialNumber(string sequenceName, bool _ = false)
         {
             return Run.Sync(() => DB.NextSequentialNumberAsync(sequenceName));
         }

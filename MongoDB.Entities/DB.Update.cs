@@ -47,7 +47,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Update<T> Update<T>(string db = null) where T : IEntity
+        public Update<T> Update<T>(bool _ = false) where T : IEntity
         {
             return new Update<T>();
         }
@@ -69,7 +69,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type to project to</typeparam>
-        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(string db = null) where T : IEntity
+        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(bool _ = false) where T : IEntity
         {
             return new UpdateAndGet<T, TProjection>();
         }
@@ -89,7 +89,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public UpdateAndGet<T> UpdateAndGet<T>(string db = null) where T : IEntity
+        public UpdateAndGet<T> UpdateAndGet<T>(bool _ = false) where T : IEntity
         {
             return new UpdateAndGet<T>();
         }

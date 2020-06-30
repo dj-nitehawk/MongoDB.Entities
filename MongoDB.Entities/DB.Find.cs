@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static Find<T> Find<T>(string db = null) where T : IEntity
+        public static Find<T> Find<T>() where T : IEntity
         {
             return new Find<T>();
         }
@@ -29,7 +29,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Find<T> Find<T>() where T : IEntity
+        public Find<T> Find<T>(bool _ = false) where T : IEntity
         {
             return new Find<T>();
         }
@@ -51,7 +51,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
-        public Find<T, TProjection> Find<T, TProjection>(string db = null) where T : IEntity
+        public Find<T, TProjection> Find<T, TProjection>(bool _ = false) where T : IEntity
         {
             return new Find<T, TProjection>();
         }

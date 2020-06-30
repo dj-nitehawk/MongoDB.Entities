@@ -34,7 +34,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return Run.Sync(() => DB.SaveAsync(entity, session));
         }
@@ -63,7 +63,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, string db = null) where T : IEntity
+        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
         {
             return SaveAsync(entity, session, cancellation);
         }
@@ -85,7 +85,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return Run.Sync(() => DB.SaveAsync(entities, session));
         }
@@ -124,7 +124,7 @@ namespace MongoDB.Entities
         /// <param name="entities">The entities to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, string db = null) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
         {
             return SaveAsync(entities, session, cancellation);
         }
@@ -152,7 +152,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, string db = null) where T : IEntity
+        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return Run.Sync(() => DB.SavePreservingAsync(entity, preservation, session));
         }
@@ -235,7 +235,7 @@ namespace MongoDB.Entities
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default, string db = null) where T : IEntity
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
         {
             return SavePreservingAsync(entity, preservation, session, cancellation);
         }
