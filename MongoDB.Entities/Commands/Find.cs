@@ -191,6 +191,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the matching criteria with a JSON string
+        /// </summary>
+        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
+        public Find<T, TProjection> MatchString(string jsonString)
+        {
+            filter &= jsonString;
+            return this;
+        }
+
+        /// <summary>
         /// Specify the matching criteria with an aggregation expression (i.e. $expr)
         /// </summary>
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>

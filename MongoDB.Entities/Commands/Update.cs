@@ -68,6 +68,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the Entity matching criteria with a JSON string
+        /// </summary>
+        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
+        public Update<T> MatchString(string jsonString)
+        {
+            filter &= jsonString;
+            return this;
+        }
+
+        /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)
         /// </summary>
         /// <param name="property">x => x.Property</param>
