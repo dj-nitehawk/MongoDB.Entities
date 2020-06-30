@@ -30,6 +30,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify an IEntity ID as the matching criteria
+        /// </summary>
+        /// <param name="ID">A unique IEntity ID</param>
+        public Update<T> Match(string ID)
+        {
+            return Match(f => f.Eq(t => t.ID, ID));
+        }
+
+        /// <summary>
         /// Specify the IEntity matching criteria with a lambda expression
         /// </summary>
         /// <param name="expression">A lambda expression to select the Entities to update</param>

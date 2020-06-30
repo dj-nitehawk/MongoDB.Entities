@@ -40,13 +40,40 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a lambda expression
+        /// Specify an IEntity ID as the matching criteria
+        /// </summary>
+        /// <param name="ID">A unique IEntity ID</param>
+        public UpdateAndGet<T,TProjection> Match(string ID)
+        {
+            return Match(f => f.Eq(t => t.ID, ID));
+        }
+
+        /// <summary>
+        /// Specify the IEntity matching criteria with a lambda expression
         /// </summary>
         /// <param name="expression">A lambda expression to select the Entities to update</param>
         public UpdateAndGet<T, TProjection> Match(Expression<Func<T, bool>> expression)
         {
-            filter &= Builders<T>.Filter.Where(expression);
+            return Match(f => f.Where(expression));
+        }
 
+        /// <summary>
+        /// Specify the Entity matching criteria with a filter expression
+        /// </summary>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        public UpdateAndGet<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        {
+            this.filter &= filter(Builders<T>.Filter);
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the Entity matching criteria with a Template
+        /// </summary>
+        /// <param name="template">The filter Template</param>
+        public UpdateAndGet<T, TProjection> Match(Template template)
+        {
+            filter &= template.ToString();
             return this;
         }
 
