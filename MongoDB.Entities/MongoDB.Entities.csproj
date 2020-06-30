@@ -13,7 +13,9 @@
     <FileVersion>13.2.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- [possibly breaking]: calling .Match() multiple times will combine filters instead of using last one
-- [possibly breaking]: DB.Update() / DB.UpdateAndGet() now requires at least one .Match() call</PackageReleaseNotes>
+- [possibly breaking]: DB.Update() / DB.UpdateAndGet() now requires at least one .Match() call
+- added more .Match methods to DB.Update() and DB.UpdateAndGet()
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -43,7 +43,7 @@ namespace MongoDB.Entities
         /// Specify an IEntity ID as the matching criteria
         /// </summary>
         /// <param name="ID">A unique IEntity ID</param>
-        public UpdateAndGet<T,TProjection> Match(string ID)
+        public UpdateAndGet<T, TProjection> Match(string ID)
         {
             return Match(f => f.Eq(t => t.ID, ID));
         }

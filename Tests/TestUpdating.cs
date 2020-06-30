@@ -30,8 +30,8 @@ namespace MongoDB.Entities.Tests
 
         [TestMethod]
         public void update_without_filter_throws()
-        {       
-            Assert.ThrowsException<ArgumentException>(()=> DB.Update<Author>().Modify(a => a.Age2, 22).Execute());
+        {
+            Assert.ThrowsException<ArgumentException>(() => DB.Update<Author>().Modify(a => a.Age2, 22).Execute());
         }
 
         [TestMethod]
