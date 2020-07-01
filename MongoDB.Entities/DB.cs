@@ -30,9 +30,7 @@ namespace MongoDB.Entities
                 type => true);
         }
 
-        /// <summary>
-        /// Gets the database name of this instance
-        /// </summary>
+        [Obsolete("Please use the .Database() method...")]
         public string DbName { get; private set; } = null;
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
@@ -152,6 +150,14 @@ namespace MongoDB.Entities
         public static string Database<T>() where T : IEntity
         {
             return Cache<T>.DBName;
+        }
+
+        /// <summary>
+        /// Returns the name of the database this instance was created with
+        /// </summary>
+        public string Database()
+        {
+            return DbName;
         }
 
         /// <summary>
