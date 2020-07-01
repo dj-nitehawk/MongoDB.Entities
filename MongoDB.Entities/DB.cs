@@ -211,7 +211,7 @@ namespace MongoDB.Entities
             CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
-                throw new ArgumentException("This is an illegal name for a collection!");
+                throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
             Collection = Database.GetCollection<T>(CollectionName, new MongoCollectionSettings());
         }
