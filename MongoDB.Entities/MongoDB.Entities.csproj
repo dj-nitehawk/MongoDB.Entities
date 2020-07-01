@@ -12,9 +12,9 @@
     <AssemblyVersion>13.2.2.0</AssemblyVersion>
     <FileVersion>13.2.2.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- deprecate .DbName property on DB instances
+    <PackageReleaseNotes>- added optional parameter 'maxDistance' to .SortByRelevance() method
 - added .Database() method for getting db name from a DB instance
+- deprecate .DbName property on DB instances
 - illegal collection name exception now shows the name of the collection</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

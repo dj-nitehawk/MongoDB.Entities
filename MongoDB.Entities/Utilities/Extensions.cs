@@ -321,17 +321,22 @@ namespace MongoDB.Entities
         /// <param name="objects">The list of objects to sort</param>
         /// <param name="searchTerm">The term to measure relevance to</param>
         /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched against the value of this property]</param>
-        public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy)
+        /// <param name="maxDistance">The maximum levenstein distance to qualify an item for inclusion in the returned list</param>
+        public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy, int? maxDistance = null)
         {
             var lev = new Levenshtein(searchTerm);
 
-            return objects.Select(o => new
+            var res = objects.Select(o => new
             {
                 score = lev.DistanceFrom(propertyToSortBy(o)),
                 obj = o
-            })
-            .OrderBy(x => x.score)
-            .Select(x => x.obj);
+            });
+
+            if (maxDistance.HasValue)
+                res = res.Where(x => x.score <= maxDistance.Value);
+
+            return res.OrderBy(x => x.score)
+                      .Select(x => x.obj);
         }
 
         /// <summary>
