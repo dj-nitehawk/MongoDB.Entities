@@ -13,7 +13,8 @@
     <FileVersion>13.4.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added DB.Transaction() convenience methods for starting transactions
--</PackageReleaseNotes>
+- new [DontPreserve] attribute for updating only propeties decorated with it when .SavePreserving()
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

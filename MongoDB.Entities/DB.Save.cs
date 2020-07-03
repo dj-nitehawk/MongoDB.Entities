@@ -131,7 +131,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -145,7 +145,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -159,7 +159,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -171,7 +171,7 @@ namespace MongoDB.Entities
         {
             entity.ThrowIfUnsaved();
 
-            var props = entity.GetType().GetProperties()
+            var propsToUpdate = entity.GetType().GetProperties()
                 .Where(p =>
                        p.PropertyType.Name != ManyBase.PropType &&
                        !p.IsDefined(typeof(BsonIdAttribute), false) &&
@@ -179,35 +179,47 @@ namespace MongoDB.Entities
                        !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
                        !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
 
-            string[] excludes;
+            string[] propsToPreserve = new string[0];
 
             if (preservation == null)
             {
-                excludes = props.Where(p => p.IsDefined(typeof(PreserveAttribute), false))
-                                .Select(p => p.Name)
-                                .ToArray();
+                var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
+                var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
 
-                if (excludes.Length == 0)
-                    throw new ArgumentException("There were no properties decorated with the [Preserve] attribute!");
+                if (dontProps.Any() && presProps.Any())
+                    throw new NotSupportedException("[Preseve] and [DontPreserve] attributes cannot be used together on the same entity!");
+
+                if (dontProps.Any())
+                {
+                    propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name).ToArray();
+                }
+
+                if (presProps.Any())
+                {
+                    propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name).ToArray();
+                }
+
+                if (propsToPreserve.Length == 0)
+                    throw new ArgumentException("No properties are being preserved. Please use .Save() method instead!");
             }
             else
             {
-                excludes = (preservation.Body as NewExpression)?.Arguments
+                propsToPreserve = (preservation.Body as NewExpression)?.Arguments
                     .Select(a => a.ToString().Split('.')[1])
                     .ToArray();
 
-                if (excludes.Length == 0)
+                if (propsToPreserve.Length == 0)
                     throw new ArgumentException("Unable to get any properties from the preservation expression!");
             }
 
-            props = props.Where(p => !excludes.Contains(p.Name));
+            propsToUpdate = propsToUpdate.Where(p => !propsToPreserve.Contains(p.Name));
 
-            if (!props.Any())
+            if (!propsToUpdate.Any())
                 throw new ArgumentException("At least one property must be not preserved!");
 
             var defs = new Collection<UpdateDefinition<T>>();
 
-            foreach (var p in props)
+            foreach (var p in propsToUpdate)
             {
                 if (p.Name == nameof(entity.ModifiedOn))
                 {
@@ -227,7 +239,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database. 
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
+        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
