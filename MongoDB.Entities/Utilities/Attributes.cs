@@ -41,6 +41,16 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
+    /// Use this attribute to mark a property in order to save it in MongoDB server as ObjectId
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    public class ObjectIdAttribute : BsonRepresentationAttribute
+    {
+        public ObjectIdAttribute() : base(Bson.BsonType.ObjectId)
+        { }
+    }
+
+    /// <summary>
     /// Use this attribute to specify the database to store this IEntity in.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
