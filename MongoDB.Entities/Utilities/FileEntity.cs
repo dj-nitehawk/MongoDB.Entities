@@ -87,7 +87,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             var attribute = parent.GetType().GetCustomAttribute<DatabaseAttribute>(false);
-            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).DbName;
+            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).DatabaseName;
             db = DB.GetInstance(dbName);
             chunkCollection = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
             if (!indexedDBs.Contains(dbName))

@@ -31,7 +31,9 @@ namespace MongoDB.Entities
         }
 
         [Obsolete("Please use the .Database() method...")]
-        public string DbName { get; private set; } = null;
+        public string DbName { get => DatabaseName; }
+
+        internal string DatabaseName = null;
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
@@ -62,7 +64,7 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
 
-            DbName = db;
+            DatabaseName = db;
 
             if (dbs.ContainsKey(db)) return;
 
@@ -76,7 +78,7 @@ namespace MongoDB.Entities
             {
                 dbs.Remove(db);
                 instances.Remove(db);
-                DbName = null;
+                DatabaseName = null;
                 throw;
             }
         }
@@ -140,7 +142,7 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoDatabase GetDatabase()
         {
-            return GetDatabase(DbName);
+            return GetDatabase(DatabaseName);
         }
 
         /// <summary>
@@ -157,7 +159,7 @@ namespace MongoDB.Entities
         /// </summary>
         public string Database()
         {
-            return DbName;
+            return DatabaseName;
         }
 
         /// <summary>
@@ -209,7 +211,7 @@ namespace MongoDB.Entities
             var type = typeof(T);
 
             var dbAttrb = type.GetCustomAttribute<DatabaseAttribute>(false);
-            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).DbName;
+            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).DatabaseName;
 
             Database = DB.GetDatabase(DBName);
 
