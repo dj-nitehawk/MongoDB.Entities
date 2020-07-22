@@ -221,7 +221,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
-            Collection = Database.GetCollection<T>(CollectionName, new MongoCollectionSettings());
+            Collection = Database.GetCollection<T>(CollectionName);
         }
     }
 
