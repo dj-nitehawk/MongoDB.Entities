@@ -24,7 +24,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
-        /// <param name="cancellation">An optional cancellation token</param>
         public Transaction(string database = default, ClientSessionOptions options = null)
         {
             client = DB.GetDatabase(database).Client;

@@ -8,11 +8,16 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>13.4.1</Version>
-    <AssemblyVersion>13.4.1.0</AssemblyVersion>
-    <FileVersion>13.4.1.0</FileVersion>
+    <Version>13.5</Version>
+    <AssemblyVersion>13.5.0.0</AssemblyVersion>
+    <FileVersion>13.5.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- new attribute [ObjectId] as an alias to [BsonRepresentation(BsonType.ObjectId)]</PackageReleaseNotes>
+    <PackageReleaseNotes>- new event based change-stream support
+- improve internal type cache
+- refactor some method names
+- merged MongoDB.Entities.Core into main project
+- misc. internal code changes
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

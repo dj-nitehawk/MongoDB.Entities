@@ -37,12 +37,15 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
+        [Obsolete("Please use .DatabaseName<T>() method...")]
+        public static string Database<T>(this T _) where T : IEntity => DB.DatabaseName<T>();
+
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
-        public static string Database<T>(this T _) where T : IEntity
+        public static string DatabaseName<T>(this T _) where T : IEntity
         {
-            return DB.Database<T>();
+            return DB.DatabaseName<T>();
         }
 
         /// <summary>

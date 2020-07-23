@@ -30,10 +30,17 @@ namespace MongoDB.Entities
                 type => true);
         }
 
+        //todo: remove obsoletes at version 15
         [Obsolete("Please use the .Database() method...")]
-        public string DbName { get => DatabaseName; }
+        public string DbName { get => dbName; }
 
-        internal string DatabaseName = null;
+        [Obsolete("Please use .DatabaseName<T>() method...")]
+        public static string Database<T>() where T : IEntity => DatabaseName<T>();
+
+        [Obsolete("Please use .DatabaseName() method...")]
+        public string Database() => DatabaseName();
+
+        internal string dbName = null;
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
@@ -64,7 +71,7 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
 
-            DatabaseName = db;
+            dbName = db;
 
             if (dbs.ContainsKey(db)) return;
 
@@ -78,7 +85,7 @@ namespace MongoDB.Entities
             {
                 dbs.Remove(db);
                 instances.Remove(db);
-                DatabaseName = null;
+                dbName = null;
                 throw;
             }
         }
@@ -101,6 +108,8 @@ namespace MongoDB.Entities
 
             throw new InvalidOperationException($"An instance has not been initialized yet for [{database}]");
         }
+
+        //todo: move GetDatabase<T>() to Database() after obsoletes are gone at v15
 
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
@@ -142,14 +151,14 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoDatabase GetDatabase()
         {
-            return GetDatabase(DatabaseName);
+            return GetDatabase(dbName);
         }
 
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static string Database<T>() where T : IEntity
+        public static string DatabaseName<T>() where T : IEntity
         {
             return Cache<T>.DBName;
         }
@@ -157,9 +166,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the name of the database this instance was created with
         /// </summary>
-        public string Database()
+        public string DatabaseName()
         {
-            return DatabaseName;
+            return dbName;
         }
 
         /// <summary>
@@ -211,7 +220,7 @@ namespace MongoDB.Entities
             var type = typeof(T);
 
             var dbAttrb = type.GetCustomAttribute<DatabaseAttribute>(false);
-            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).DatabaseName;
+            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).dbName;
 
             Database = DB.GetDatabase(DBName);
 

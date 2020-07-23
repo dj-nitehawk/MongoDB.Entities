@@ -13,7 +13,7 @@ namespace MongoDB.Entities.Tests
         public void watching_works()
         {
             var cancellation = new CancellationTokenSource();
-            var  watcher = DB.Watch<Flower>(EventType.Created | EventType.Deleted, 5, 1, cancellation.Token); 
+            var watcher = DB.Watch<Flower>(EventType.Created | EventType.Deleted, 5, 1, cancellation.Token);
             var allFlowers = new List<Flower>();
             var aborted = false;
 

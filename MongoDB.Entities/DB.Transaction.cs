@@ -21,7 +21,7 @@ namespace MongoDB.Entities
         /// <param name="options">Client session options (not required)</param>
         public Transaction Transaction(ClientSessionOptions options = null)
         {
-            return new Transaction(Database(), options);
+            return new Transaction(DatabaseName(), options);
         }
 
         /// <summary>
@@ -31,8 +31,7 @@ namespace MongoDB.Entities
         /// <param name="options">Client session options (not required)</param>
         public static Transaction Transaction<T>(ClientSessionOptions options = null) where T : IEntity
         {
-            return new Transaction(Database<T>(), options);
+            return new Transaction(DatabaseName<T>(), options);
         }
-
     }
 }
