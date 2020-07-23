@@ -31,7 +31,7 @@ namespace MongoDB.Entities
 
         public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
 
-        internal Watcher(EventType eventTypes, int batchSize, int batchDelay, CancellationToken cancellation)
+        internal Watcher(EventType eventTypes, int batchSize, CancellationToken cancellation)
         {
             var ops = new HashSet<ChangeStreamOperationType>();
 
@@ -57,16 +57,16 @@ namespace MongoDB.Entities
             {
                 BatchSize = batchSize,
                 FullDocument = ChangeStreamFullDocumentOption.UpdateLookup,
-                MaxAwaitTime = TimeSpan.FromSeconds(batchDelay)
+                MaxAwaitTime = TimeSpan.FromSeconds(10)
             };
 
-            Task.Factory.StartNew(() =>
+            Task.Factory.StartNew(async () =>
             {
                 try
                 {
                     using (var cursor = DB.Collection<T>().Watch(pipeline, options))
                     {
-                        while (cursor.MoveNext() && !cancellation.IsCancellationRequested)
+                        while (!cancellation.IsCancellationRequested && await cursor.MoveNextAsync(cancellation))
                         {
                             if (cursor.Current.Any())
                                 OnEvents?.Invoke(cursor.Current.Select(x => x.FullDocument));

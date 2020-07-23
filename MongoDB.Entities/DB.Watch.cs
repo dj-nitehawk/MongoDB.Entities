@@ -11,15 +11,13 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The entity type</typeparam>
         /// <param name="eventTypes">Type of event to watch for. Multiple can be specified as: EventType.Created | EventType.Updated | EventType.Deleted</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
-        /// <param name="batchDelay">The delay in seconds to wait between each batch</param>
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
         public static Watcher<T> Watch<T>(
             EventType eventTypes,
             int batchSize = 25,
-            int batchDelay = 5,
             CancellationToken cancellation = default
             ) where T : IEntity
 
-            => new Watcher<T>(eventTypes, batchSize, batchDelay, cancellation);
+            => new Watcher<T>(eventTypes, batchSize, cancellation);
     }
 }
