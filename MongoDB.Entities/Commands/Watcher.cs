@@ -66,7 +66,7 @@ namespace MongoDB.Entities
                 {
                     using (var cursor = DB.Collection<T>().Watch(pipeline, options))
                     {
-                        while (!cancellation.IsCancellationRequested && await cursor.MoveNextAsync(cancellation))
+                        while (!cancellation.IsCancellationRequested && await cursor.MoveNextAsync())
                         {
                             if (cursor.Current.Any())
                                 OnEvents?.Invoke(cursor.Current.Select(x => x.FullDocument));
