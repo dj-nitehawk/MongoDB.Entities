@@ -2,14 +2,27 @@
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Watcher for subscribing to mongodb change streams
+    /// Watcher for subscribing to mongodb change streams without projecting to a different type.
+    /// </summary>
+    /// <typeparam name="T">The type of entity</typeparam>
+    public class Watcher<T> : Watcher<T, T> where T : IEntity
+    {
+        internal Watcher(
+            EventType eventTypes,
+            Expression<Func<T, bool>> filter,
+            int batchSize,
+            CancellationToken cancellation)
+            : base(eventTypes, null, filter, batchSize, cancellation) { }
+    }
+
+    /// <summary>
+    /// Watcher for subscribing to mongodb change streams with the ability to project to a different type.
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
     /// <typeparam name="TResult">The projected type of the end result</typeparam>
@@ -32,9 +45,9 @@ namespace MongoDB.Entities
 
         public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
 
-        internal Watcher(EventType eventTypes, Expression<Func<T, bool>> filter = null, Expression<Func<T, TResult>> projection = null, int batchSize = 100, CancellationToken cancellation = default)
+        internal Watcher(EventType eventTypes, Expression<Func<T, TResult>> projection, Expression<Func<T, bool>> filter, int batchSize, CancellationToken cancellation)
         {
-            var ops = new List<ChangeStreamOperationType>();
+            var ops = new HashSet<ChangeStreamOperationType>();
 
             if (eventTypes.HasFlag(EventType.Created))
                 ops.Add(ChangeStreamOperationType.Insert);
@@ -52,11 +65,14 @@ namespace MongoDB.Entities
             var matchStage = PipelineStageDefinitionBuilder.Match(
                 Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType)));
 
-            var replaceWithStage = PipelineStageDefinitionBuilder.ReplaceWith<ChangeStreamDocument<T>, T>(x => x.FullDocument);
+            var replaceWithStage =
+                PipelineStageDefinitionBuilder.ReplaceWith<ChangeStreamDocument<T>, T>(x => x.FullDocument);
 
-            var matchStage2 = PipelineStageDefinitionBuilder.Match(Builders<T>.Filter.Where(filter));
+            var matchStage2 =
+                PipelineStageDefinitionBuilder.Match(Builders<T>.Filter.Where(filter));
 
-            var projectStage = PipelineStageDefinitionBuilder.Project(projection);
+            var projectStage =
+                PipelineStageDefinitionBuilder.Project(projection);
 
             PipelineDefinition<ChangeStreamDocument<T>, TResult> pipeline =
                 new IPipelineStageDefinition[] { matchStage, replaceWithStage, matchStage2, projectStage };
@@ -69,17 +85,10 @@ namespace MongoDB.Entities
 
             using (var cursor = DB.Collection<T>().Watch(pipeline, options))
             {
-                IEnumerable<TResult> docs;
-
                 try
                 {
                     while (cursor.MoveNext(cancellation))
-                    {
-                        docs = cursor.Current;
-
-                        if (docs.Any())
-                            ChangesReceived?.Invoke(docs);
-                    }
+                        ChangesReceived?.Invoke(cursor.Current);
                 }
                 catch (Exception x)
                 {
@@ -90,7 +99,6 @@ namespace MongoDB.Entities
                     ChangeStreamEnded?.Invoke();
                 }
             }
-
         }
     }
 

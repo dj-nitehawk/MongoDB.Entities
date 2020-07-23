@@ -9,21 +9,20 @@ namespace MongoDB.Entities
     {
         /// <summary>
         /// Instantiates a watcher thread that will open up a mongodb change stream. 
-        /// You can project the result to a different form with this method.
         /// </summary>
         /// <typeparam name="T">The entity type</typeparam>
-        /// <param name="eventTypes">Specify which type of event to watch for. You can specify more than one type like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify more than one like: EventType.Created | EventType.Updated | EventType.Deleted</param>
         /// <param name="filter">x => x.Status == "completed"</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
-        public static Watcher<T, T> Watch<T>(
+        public static Watcher<T> Watch<T>(
             EventType eventTypes,
             Expression<Func<T, bool>> filter = null,
             int batchSize = 100,
             CancellationToken cancellation = default
             ) where T : IEntity
 
-            => new Watcher<T, T>(eventTypes, filter, null, batchSize, cancellation);
+            => new Watcher<T>(eventTypes, filter, batchSize, cancellation);
 
         /// <summary>
         /// Instantiates a watcher thread that will open up a mongodb change stream. 
@@ -31,19 +30,19 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type</typeparam>
         /// <typeparam name="TResult">The projected type of the result</typeparam>
-        /// <param name="eventTypes">Specify which type of event to watch for. You can specify more than one type like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify more than one like: EventType.Created | EventType.Updated | EventType.Deleted</param>
         /// <param name="filter">x => x.Status == "completed"</param>
         /// <param name="projection">x => new { x.ID, x.SomeProp }</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
         public static Watcher<T, TResult> Watch<T, TResult>(
             EventType eventTypes,
+            Expression<Func<T, TResult>> projection,
             Expression<Func<T, bool>> filter = null,
-            Expression<Func<T, TResult>> projection = null,
             int batchSize = 100,
             CancellationToken cancellation = default
             ) where T : IEntity
 
-            => new Watcher<T, TResult>(eventTypes, filter, projection, batchSize, cancellation);
+            => new Watcher<T, TResult>(eventTypes, projection, filter, batchSize, cancellation);
     }
 }
