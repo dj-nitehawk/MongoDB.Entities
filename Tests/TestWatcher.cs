@@ -1,35 +1,30 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Entities.Tests.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
-    //[TestClass]
+    [TestClass]
     public class Watcher
     {
-        private static CancellationTokenSource cancellation = new CancellationTokenSource();
-        private static Watcher<Flower> watcher;
-        private static readonly List<Flower> allFlowers = new List<Flower>();
-        private static bool aborted = false;
-
-        [ClassInitialize]
-        public static void init(TestContext _)
+        [TestMethod]
+        public void watching_works()
         {
-            watcher = DB.Watch<Flower>(EventType.Created | EventType.Deleted, 5, 1, cancellation.Token);
+            var cancellation = new CancellationTokenSource();
+            var  watcher = DB.Watch<Flower>(EventType.Created | EventType.Deleted, 5, 1, cancellation.Token); 
+            var allFlowers = new List<Flower>();
+            var aborted = false;
+
+            Task.Delay(1000).Wait();
 
             watcher.OnEvents +=
                 flowers => allFlowers.AddRange(flowers);
 
             watcher.OnAbort +=
                 () => aborted = true;
-        }
 
-        [TestMethod]
-        public void watching_works()
-        {
             new[] {
                 new Flower { Name = "test" },
                 new Flower { Name = "test" },
