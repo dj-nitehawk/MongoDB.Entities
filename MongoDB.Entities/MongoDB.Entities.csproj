@@ -31,7 +31,6 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
     <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
-    <PackageReference Include="MongoDB.Entities.Core" Version="1.4.1" />
   </ItemGroup>
 
   <ItemGroup>

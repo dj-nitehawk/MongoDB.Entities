@@ -19,13 +19,6 @@ namespace MongoDB.Entities.Core
         public string ID { get; set; }
 
         /// <summary>
-        /// This is an optional property. Use it if you want to store the ID of the user who created this entity. 
-        /// </summary>
-        [BsonRepresentation(BsonType.ObjectId)]
-        [BsonIgnoreIfDefault]
-        public string OwnerID { get; set; }
-
-        /// <summary>
         /// This property will be automatically set when an entity is updated.
         /// <para>TIP: This property is useful when sorting by update date.</para>
         /// </summary>
