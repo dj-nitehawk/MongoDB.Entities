@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -30,25 +31,20 @@ namespace MongoDB.Entities
         public event Action OnStop;
 
         /// <summary>
-        /// Will be true when the change-stream is active and receiving changes.
-        /// </summary>
-        public bool IsActive { get; private set; }
-
-        /// <summary>
         /// Returns true if watching can be restarted if it's stopped due to an error or invalidate event. 
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
-        public bool CanRestart { get => !token.IsCancellationRequested; }
+        public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
 
         private readonly PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
         private readonly ChangeStreamOptions options;
-        private CancellationToken token;
+        private CancellationToken cancelToken;
 
         public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
 
         internal Watcher(EventType eventTypes, int batchSize, CancellationToken cancellation)
         {
-            token = cancellation;
+            cancelToken = cancellation;
 
             var ops = new HashSet<ChangeStreamOperationType>();
 
@@ -81,10 +77,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// If the watcher is not active (due to an error or invalidate event), you can try to restart the watching again with this method.
+        /// If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.
         /// </summary>
-        /// <param name="dontResume">Set this to true if you don't want to resume the change-stream and start processing new changes only</param>
-        public void ReStart(bool dontResume = false)
+        public void ReStart()
         {
             if (!CanRestart)
                 throw new InvalidOperationException(
@@ -92,13 +87,7 @@ namespace MongoDB.Entities
                     "The subscribers have already been purged. " +
                     "Please instantiate a new watcher and subscribe to the events again.");
 
-            if (!IsActive)
-            {
-                if (dontResume)
-                    options.StartAfter = default;
-
-                StartWatching();
-            }
+            StartWatching();
         }
 
         private void StartWatching()
@@ -109,20 +98,16 @@ namespace MongoDB.Entities
                 {
                     using (var cursor = DB.Collection<T>().Watch(pipeline, options))
                     {
-                        IsActive = true;
-
-                        while (!token.IsCancellationRequested && await cursor.MoveNextAsync())
+                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync())
                         {
                             if (cursor.Current.Any())
-                            {
-                                options.StartAfter = cursor.Current.Last().ResumeToken;
                                 OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
-                            }
+
                         }
 
                         OnStop?.Invoke();
 
-                        if (token.IsCancellationRequested)
+                        if (cancelToken.IsCancellationRequested)
                         {
                             if (OnChanges != null)
                                 foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
@@ -141,10 +126,6 @@ namespace MongoDB.Entities
                 catch (Exception x)
                 {
                     OnError?.Invoke(x);
-                }
-                finally
-                {
-                    IsActive = false;
                 }
             }, TaskCreationOptions.LongRunning);
         }
