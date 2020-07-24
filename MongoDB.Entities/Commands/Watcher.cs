@@ -20,22 +20,28 @@ namespace MongoDB.Entities
         public event Action<IEnumerable<T>> OnChanges;
 
         /// <summary>
-        /// This event is fired when an exception is thrown in the change stream
+        /// This event is fired when an exception is thrown in the change-stream.
         /// </summary>
         public event Action<Exception> OnError;
 
         /// <summary>
-        /// This event is fired when the watching is aborted via the cancellation token
+        /// This event is fired when the internal cursor get closed due to an 'invalidate' event or cancellation is requested via the cancellation token.
         /// </summary>
-        public event Action OnAbort;
+        public event Action OnStop;
 
         /// <summary>
-        /// Will be true when the change-stream is active and receiving changes
+        /// Will be true when the change-stream is active and receiving changes.
         /// </summary>
         public bool IsActive { get; private set; }
 
-        private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
-        private ChangeStreamOptions options;
+        /// <summary>
+        /// Returns true if watching can be restarted if it's stopped due to an error or invalidate event. 
+        /// Will always return false after cancellation is requested via the cancellation token.
+        /// </summary>
+        public bool CanRestart { get => !token.IsCancellationRequested; }
+
+        private readonly PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
+        private readonly ChangeStreamOptions options;
         private CancellationToken token;
 
         public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
@@ -58,10 +64,11 @@ namespace MongoDB.Entities
             if (eventTypes.HasFlag(EventType.Deleted))
                 ops.Add(ChangeStreamOperationType.Delete);
 
-            var matchStage = PipelineStageDefinitionBuilder.Match(
-                Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType)));
-
-            pipeline = new IPipelineStageDefinition[] { matchStage };
+            pipeline = new IPipelineStageDefinition[] {
+                PipelineStageDefinitionBuilder.Match(
+                    Builders<ChangeStreamDocument<T>>.Filter.Where(
+                        x => ops.Contains(x.OperationType)))
+            };
 
             options = new ChangeStreamOptions
             {
@@ -74,18 +81,24 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// If the watcher is not active (due to error), you can try to restart the watching again with this method.
+        /// If the watcher is not active (due to an error or invalidate event), you can try to restart the watching again with this method.
         /// </summary>
-        public void ReStart()
+        /// <param name="dontResume">Set this to true if you don't want to resume the change-stream and start processing new changes only</param>
+        public void ReStart(bool dontResume = false)
         {
-            if (token.IsCancellationRequested)
+            if (!CanRestart)
                 throw new InvalidOperationException(
-                    "This watcher has already been aborted/cancelled. " +
-                    "The subscribers have been purged. " +
-                    "Please instantiate a new watcher and subscribe to the events again!");
+                    "This watcher has been aborted/cancelled. " +
+                    "The subscribers have already been purged. " +
+                    "Please instantiate a new watcher and subscribe to the events again.");
 
             if (!IsActive)
+            {
+                if (dontResume)
+                    options.StartAfter = default;
+
                 StartWatching();
+            }
         }
 
         private void StartWatching()
@@ -101,37 +114,39 @@ namespace MongoDB.Entities
                         while (!token.IsCancellationRequested && await cursor.MoveNextAsync())
                         {
                             if (cursor.Current.Any())
+                            {
+                                options.StartAfter = cursor.Current.Last().ResumeToken;
                                 OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
+                            }
                         }
 
-                        StopWatching();
+                        OnStop?.Invoke();
+
+                        if (token.IsCancellationRequested)
+                        {
+                            if (OnChanges != null)
+                                foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
+                                    OnChanges -= a;
+
+                            if (OnError != null)
+                                foreach (Action<Exception> a in OnError.GetInvocationList())
+                                    OnError -= a;
+
+                            if (OnStop != null)
+                                foreach (Action a in OnStop.GetInvocationList())
+                                    OnStop -= a;
+                        }
                     }
                 }
                 catch (Exception x)
                 {
-                    IsActive = false;
                     OnError?.Invoke(x);
                 }
-            });
-        }
-
-        private void StopWatching()
-        {
-            IsActive = false;
-
-            OnAbort?.Invoke();
-
-            if (OnChanges != null)
-                foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
-                    OnChanges -= a;
-
-            if (OnError != null)
-                foreach (Action<Exception> a in OnError.GetInvocationList())
-                    OnError -= a;
-
-            if (OnAbort != null)
-                foreach (Action a in OnAbort.GetInvocationList())
-                    OnAbort -= a;
+                finally
+                {
+                    IsActive = false;
+                }
+            }, TaskCreationOptions.LongRunning);
         }
     }
 
