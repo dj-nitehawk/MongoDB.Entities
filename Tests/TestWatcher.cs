@@ -16,7 +16,7 @@ namespace MongoDB.Entities.Tests
 
             Task.Delay(1000).Wait();
 
-            watcher.OnEvents +=
+            watcher.OnChanges +=
                 flowers => allFlowers.AddRange(flowers);
 
             new[] {

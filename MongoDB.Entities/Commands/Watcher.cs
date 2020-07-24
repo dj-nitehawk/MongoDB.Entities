@@ -15,9 +15,9 @@ namespace MongoDB.Entities
     public class Watcher<T> where T : IEntity
     {
         /// <summary>
-        /// This event is fired when the desired types of events has occured. Will have a list of entities that was received as input.
+        /// This event is fired when the desired types of events have occured. Will have a list of entities that was received as input.
         /// </summary>
-        public event Action<IEnumerable<T>> OnEvents;
+        public event Action<IEnumerable<T>> OnChanges;
 
         /// <summary>
         /// This event is fired when an exception is thrown in the change stream
@@ -29,10 +29,21 @@ namespace MongoDB.Entities
         /// </summary>
         public event Action OnAbort;
 
+        /// <summary>
+        /// Will be true when the change-stream is active and receiving changes
+        /// </summary>
+        public bool IsActive { get; private set; }
+
+        private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
+        private ChangeStreamOptions options;
+        private CancellationToken token;
+
         public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
 
         internal Watcher(EventType eventTypes, int batchSize, CancellationToken cancellation)
         {
+            token = cancellation;
+
             var ops = new HashSet<ChangeStreamOperationType>();
 
             if (eventTypes.HasFlag(EventType.Created))
@@ -50,37 +61,77 @@ namespace MongoDB.Entities
             var matchStage = PipelineStageDefinitionBuilder.Match(
                 Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType)));
 
-            PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline =
-                new IPipelineStageDefinition[] { matchStage };
+            pipeline = new IPipelineStageDefinition[] { matchStage };
 
-            var options = new ChangeStreamOptions
+            options = new ChangeStreamOptions
             {
                 BatchSize = batchSize,
                 FullDocument = ChangeStreamFullDocumentOption.UpdateLookup,
                 MaxAwaitTime = TimeSpan.FromSeconds(10)
             };
 
+            StartWatching();
+        }
+
+        /// <summary>
+        /// If the watcher is not active (due to error), you can try to restart the watching again with this method.
+        /// </summary>
+        public void ReStart()
+        {
+            if (token.IsCancellationRequested)
+                throw new InvalidOperationException(
+                    "This watcher has already been aborted/cancelled. " +
+                    "The subscribers have been purged. " +
+                    "Please instantiate a new watcher and subscribe to the events again!");
+
+            if (!IsActive)
+                StartWatching();
+        }
+
+        private void StartWatching()
+        {
             Task.Factory.StartNew(async () =>
             {
                 try
                 {
                     using (var cursor = DB.Collection<T>().Watch(pipeline, options))
                     {
-                        while (!cancellation.IsCancellationRequested && await cursor.MoveNextAsync())
+                        IsActive = true;
+
+                        while (!token.IsCancellationRequested && await cursor.MoveNextAsync())
                         {
                             if (cursor.Current.Any())
-                                OnEvents?.Invoke(cursor.Current.Select(x => x.FullDocument));
+                                OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
                         }
 
-                        OnAbort?.Invoke();
+                        StopWatching();
                     }
                 }
                 catch (Exception x)
                 {
+                    IsActive = false;
                     OnError?.Invoke(x);
                 }
+            });
+        }
 
-            }, TaskCreationOptions.LongRunning);
+        private void StopWatching()
+        {
+            IsActive = false;
+
+            OnAbort?.Invoke();
+
+            if (OnChanges != null)
+                foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
+                    OnChanges -= a;
+
+            if (OnError != null)
+                foreach (Action<Exception> a in OnError.GetInvocationList())
+                    OnError -= a;
+
+            if (OnAbort != null)
+                foreach (Action a in OnAbort.GetInvocationList())
+                    OnAbort -= a;
         }
     }
 
