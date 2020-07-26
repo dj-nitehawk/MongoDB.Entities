@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -40,6 +38,7 @@ namespace MongoDB.Entities
         private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
         private ChangeStreamOptions options;
         private CancellationToken cancelToken;
+        private bool started;
 
         internal Watcher() { }
 
@@ -52,6 +51,9 @@ namespace MongoDB.Entities
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
         internal void Start(EventType eventTypes, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
         {
+            if (started)
+                throw new InvalidOperationException("This watcher has already been initialized!");
+
             cancelToken = cancellation;
 
             var ops = new HashSet<ChangeStreamOperationType>();
@@ -68,17 +70,14 @@ namespace MongoDB.Entities
             if ((eventTypes & EventType.Deleted) != 0)
                 ops.Add(ChangeStreamOperationType.Delete);
 
-            //var tmp = Builders<T>.Projection.Expression(e => e.ID);
-            //var res = tmp.Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry);
-
             pipeline = new IPipelineStageDefinition[] {
 
                 PipelineStageDefinitionBuilder.Match(
                     Builders<ChangeStreamDocument<T>>.Filter.Where(
                         x => ops.Contains(x.OperationType))),
 
-                PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>>(
-                    $"{{ _id: 1, fullDocument: {(onlyGetIDs ? "{ '$documentKey' }" : "1")} }}")
+                PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(
+                    $"{{ _id: 1, fullDocument: {(onlyGetIDs ? "'$documentKey'" : "1")} }}")
             };
 
             options = new ChangeStreamOptions
@@ -89,6 +88,8 @@ namespace MongoDB.Entities
             };
 
             StartWatching();
+
+            started = true;
         }
 
         /// <summary>
