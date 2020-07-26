@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Entities.Core;
 using System;
@@ -36,34 +37,48 @@ namespace MongoDB.Entities
         /// </summary>
         public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
 
-        private readonly PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
-        private readonly ChangeStreamOptions options;
+        private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
+        private ChangeStreamOptions options;
         private CancellationToken cancelToken;
 
-        public Watcher() => throw new NotSupportedException("Please use DB.Watch<T>() to instantiate this class!");
+        internal Watcher() { }
 
-        internal Watcher(EventType eventTypes, int batchSize, CancellationToken cancellation)
+        /// <summary>
+        /// Starts the watcher instance with the supplied configuration
+        /// </summary>
+        /// <param name="eventTypes">Type of event to watch for. Multiple can be specified as: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
+        /// <param name="onlyGetIDs">Set this to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
+        /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
+        internal void Start(EventType eventTypes, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
         {
             cancelToken = cancellation;
 
             var ops = new HashSet<ChangeStreamOperationType>();
 
-            if (eventTypes.HasFlag(EventType.Created))
+            if ((eventTypes & EventType.Created) != 0)
                 ops.Add(ChangeStreamOperationType.Insert);
 
-            if (eventTypes.HasFlag(EventType.Updated))
+            if ((eventTypes & EventType.Updated) != 0)
             {
                 ops.Add(ChangeStreamOperationType.Update);
                 ops.Add(ChangeStreamOperationType.Replace);
             }
 
-            if (eventTypes.HasFlag(EventType.Deleted))
+            if ((eventTypes & EventType.Deleted) != 0)
                 ops.Add(ChangeStreamOperationType.Delete);
 
+            //var tmp = Builders<T>.Projection.Expression(e => e.ID);
+            //var res = tmp.Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry);
+
             pipeline = new IPipelineStageDefinition[] {
+
                 PipelineStageDefinitionBuilder.Match(
                     Builders<ChangeStreamDocument<T>>.Filter.Where(
-                        x => ops.Contains(x.OperationType)))
+                        x => ops.Contains(x.OperationType))),
+
+                PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>>(
+                    $"{{ _id: 1, fullDocument: {(onlyGetIDs ? "{ '$documentKey' }" : "1")} }}")
             };
 
             options = new ChangeStreamOptions
@@ -82,10 +97,12 @@ namespace MongoDB.Entities
         public void ReStart()
         {
             if (!CanRestart)
+            {
                 throw new InvalidOperationException(
                     "This watcher has been aborted/cancelled. " +
                     "The subscribers have already been purged. " +
                     "Please instantiate a new watcher and subscribe to the events again.");
+            }
 
             StartWatching();
         }
@@ -102,7 +119,6 @@ namespace MongoDB.Entities
                         {
                             if (cursor.Current.Any())
                                 OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
-
                         }
 
                         OnStop?.Invoke();
@@ -110,16 +126,22 @@ namespace MongoDB.Entities
                         if (cancelToken.IsCancellationRequested)
                         {
                             if (OnChanges != null)
+                            {
                                 foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
                                     OnChanges -= a;
+                            }
 
                             if (OnError != null)
+                            {
                                 foreach (Action<Exception> a in OnError.GetInvocationList())
                                     OnError -= a;
+                            }
 
                             if (OnStop != null)
+                            {
                                 foreach (Action a in OnStop.GetInvocationList())
                                     OnStop -= a;
+                            }
                         }
                     }
                 }

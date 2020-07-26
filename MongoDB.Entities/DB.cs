@@ -210,10 +210,11 @@ namespace MongoDB.Entities
 
     internal static class Cache<T> where T : IEntity
     {
-        public static IMongoDatabase Database { get; private set; }
-        public static IMongoCollection<T> Collection { get; private set; }
-        public static string DBName { get; private set; }
-        public static string CollectionName { get; private set; }
+        public static IMongoDatabase Database { get; }
+        public static IMongoCollection<T> Collection { get; }
+        public static string DBName { get; }
+        public static string CollectionName { get; }
+        public static Dictionary<string, Watcher<T>> Watchers { get; set; }
 
         static Cache()
         {
@@ -231,6 +232,8 @@ namespace MongoDB.Entities
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
             Collection = Database.GetCollection<T>(CollectionName);
+
+            Watchers = new Dictionary<string, Watcher<T>>();
         }
     }
 
