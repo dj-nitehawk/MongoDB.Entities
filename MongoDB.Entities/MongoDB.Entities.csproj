@@ -13,6 +13,7 @@
     <FileVersion>13.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- simplified change-stream watcher api
+- ability to filter change events with an expression
 - misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

@@ -1,8 +1,10 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -51,10 +53,11 @@ namespace MongoDB.Entities
         /// Starts the watcher instance with the supplied configuration
         /// </summary>
         /// <param name="eventTypes">Type of event to watch for. Multiple can be specified as: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set this to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
-        public void Start(EventType eventTypes, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
+        public void Start(EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
         {
             if (started)
                 throw new InvalidOperationException("This watcher has already been initialized!");
@@ -75,11 +78,14 @@ namespace MongoDB.Entities
             if ((eventTypes & EventType.Deleted) != 0)
                 ops.Add(ChangeStreamOperationType.Delete);
 
+            var filters = Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType));
+
+            if (filter != null)
+                filters &= Builders<ChangeStreamDocument<T>>.Filter.Where(filter);
+
             pipeline = new IPipelineStageDefinition[] {
 
-                PipelineStageDefinitionBuilder.Match(
-                    Builders<ChangeStreamDocument<T>>.Filter.Where(
-                        x => ops.Contains(x.OperationType))),
+                PipelineStageDefinitionBuilder.Match(filters),
 
                 PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(
                     $"{{ _id: 1, fullDocument: {(onlyGetIDs ? "'$documentKey'" : "1")} }}")
