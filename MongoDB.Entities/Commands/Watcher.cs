@@ -88,7 +88,7 @@ namespace MongoDB.Entities
             options = new ChangeStreamOptions
             {
                 BatchSize = batchSize,
-                FullDocument = ChangeStreamFullDocumentOption.UpdateLookup,
+                FullDocument = onlyGetIDs ? ChangeStreamFullDocumentOption.Default : ChangeStreamFullDocumentOption.UpdateLookup,
                 MaxAwaitTime = TimeSpan.FromSeconds(10)
             };
 
