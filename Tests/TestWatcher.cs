@@ -11,8 +11,10 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void watching_works()
         {
-            var watcher = DB.Watch<Flower>(EventType.Created | EventType.Deleted, 5);
+            var watcher = DB.Watcher<Flower>("test");
             var allFlowers = new List<Flower>();
+
+            watcher.Start(EventType.Created | EventType.Deleted, 5);
 
             Task.Delay(1000).Wait();
 

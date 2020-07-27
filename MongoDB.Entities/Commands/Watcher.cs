@@ -30,6 +30,11 @@ namespace MongoDB.Entities
         public event Action OnStop;
 
         /// <summary>
+        /// The name of this watcher instance
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
         /// Returns true if watching can be restarted if it's stopped due to an error or invalidate event. 
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
@@ -40,7 +45,7 @@ namespace MongoDB.Entities
         private CancellationToken cancelToken;
         private bool started;
 
-        internal Watcher() { }
+        internal Watcher(string name) => Name = name;
 
         /// <summary>
         /// Starts the watcher instance with the supplied configuration
@@ -49,7 +54,7 @@ namespace MongoDB.Entities
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set this to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
         /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
-        internal void Start(EventType eventTypes, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
+        public void Start(EventType eventTypes, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default)
         {
             if (started)
                 throw new InvalidOperationException("This watcher has already been initialized!");
