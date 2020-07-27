@@ -14,7 +14,9 @@ namespace MongoDB.Entities.Tests
             var watcher = DB.Watcher<Flower>("test");
             var allFlowers = new List<Flower>();
 
-            watcher.Start(EventType.Created | EventType.Deleted, 5);
+            watcher.Start(
+                EventType.Created | EventType.Updated,
+                f => f.FullDocument.Name == "test");
 
             Task.Delay(1000).Wait();
 
@@ -29,11 +31,12 @@ namespace MongoDB.Entities.Tests
 
             var flower = new Flower { Name = "test" };
             flower.Save();
+
             flower.Delete();
 
             Task.Delay(1000).Wait();
 
-            Assert.AreEqual(5, allFlowers.Count);
+            Assert.AreEqual(4, allFlowers.Count);
         }
     }
 }

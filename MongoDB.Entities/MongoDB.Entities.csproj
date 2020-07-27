@@ -12,9 +12,9 @@
     <AssemblyVersion>13.6.0.0</AssemblyVersion>
     <FileVersion>13.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- simplified change-stream watcher api
-- ability to resume change streams with tokens
-- ability to filter change events with an expression
+    <PackageReleaseNotes>- simplified change-stream api
+- ability to resume change-streams with tokens
+- ability to filter insert &amp; update events with an expression
 - misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

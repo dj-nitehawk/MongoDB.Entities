@@ -38,13 +38,13 @@ namespace MongoDB.Entities
         public string Name { get; }
 
         /// <summary>
-        /// Returns true if watching can be restarted if it's stopped due to an error or invalidate event. 
+        /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event. 
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
         public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
 
         /// <summary>
-        /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method
+        /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
         /// </summary>
         public BsonDocument ResumeToken => options?.ResumeAfter;
 
@@ -57,14 +57,14 @@ namespace MongoDB.Entities
         internal Watcher(string name) => Name = name;
 
         /// <summary>
-        /// Starts the watcher instance with the supplied configuration
+        /// Starts the watcher instance with the supplied parameters
         /// </summary>
-        /// <param name="eventTypes">Type of event to watch for. Multiple can be specified as: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
         /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
         /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped</param>
-        /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void Start(
             EventType eventTypes,
             Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
@@ -78,11 +78,11 @@ namespace MongoDB.Entities
         /// Starts the watcher instance with the supplied configuration
         /// </summary>
         /// <param name="resumeToken">A resume token to start receiving changes after some point back in time</param>
-        /// <param name="eventTypes">Type of event to watch for. Multiple can be specified as: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
         /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
-        /// <param name="cancellation">A cancellation token for ending the watch/ change stream</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void StartWithToken(
             BsonDocument resumeToken,
             EventType eventTypes,
@@ -95,11 +95,11 @@ namespace MongoDB.Entities
         private void Init(
             BsonDocument resumeToken,
             EventType eventTypes,
-            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
-            int batchSize = 25,
-            bool onlyGetIDs = false,
-            bool autoResume = true,
-            CancellationToken cancellation = default)
+            Expression<Func<ChangeStreamDocument<T>, bool>> filter,
+            int batchSize,
+            bool onlyGetIDs,
+            bool autoResume,
+            CancellationToken cancellation)
         {
             if (initialized)
                 throw new InvalidOperationException("This watcher has already been initialized!");
@@ -120,6 +120,14 @@ namespace MongoDB.Entities
 
             if ((eventTypes & EventType.Deleted) != 0)
                 ops.Add(ChangeStreamOperationType.Delete);
+
+            if (ops.Contains(ChangeStreamOperationType.Delete) && filter != null)
+            {
+                throw new ArgumentException(
+                    "Filtering is not supported when watching for deletions " +
+                    "as the entity data no longer exists in the db " +
+                    "at the time of receiving the event.");
+            }
 
             var filters = Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType));
 
@@ -183,9 +191,9 @@ namespace MongoDB.Entities
                                     if (resume) options.StartAfter = cursor.Current.Last().ResumeToken;
                                     OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
                                 }
-                                else
+                                else if (resume)
                                 {
-                                    if (resume) options.StartAfter = cursor.Current.First().ResumeToken;
+                                    options.StartAfter = cursor.Current.First().ResumeToken;
                                 }
                             }
                         }
