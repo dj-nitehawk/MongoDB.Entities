@@ -12,7 +12,7 @@
     <AssemblyVersion>13.6.0.0</AssemblyVersion>
     <FileVersion>13.6.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- simplified change-stream watcher interface
+    <PackageReleaseNotes>- simplified change-stream watcher api
 - misc. code changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

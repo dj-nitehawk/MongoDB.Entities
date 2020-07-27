@@ -46,11 +46,7 @@ namespace MongoDB.Entities
         {
             get
             {
-                if (streamer == null)
-                {
-                    streamer = new DataStreamer(this);
-                }
-                return streamer;
+                return streamer ?? (streamer = new DataStreamer(this));
             }
         }
     }
