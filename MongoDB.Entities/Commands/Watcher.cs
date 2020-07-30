@@ -46,7 +46,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
         /// </summary>
-        public BsonDocument ResumeToken => options?.ResumeAfter;
+        public BsonDocument ResumeToken => options?.StartAfter;
 
         private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
         private ChangeStreamOptions options;
@@ -63,7 +63,7 @@ namespace MongoDB.Entities
         /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
-        /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped</param>
+        /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
         /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void Start(
             EventType eventTypes,
@@ -138,8 +138,12 @@ namespace MongoDB.Entities
 
                 PipelineStageDefinitionBuilder.Match(filters),
 
-                PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(
-                    $"{{ _id: 1, operationType: 1 , fullDocument: {(onlyGetIDs ? "'$documentKey'" : "1")} }}")
+                PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(@"
+                {
+                    _id: 1,
+                    operationType: 1,
+                    fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] }
+                }")
             };
 
             options = new ChangeStreamOptions

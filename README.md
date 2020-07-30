@@ -16,11 +16,11 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Programatically define indexes.
 - Full text search (including fuzzy matching) with text indexes.
 - Multi-document transaction support.
-- Easy bulk operations.
-- Update with aggregation pipeline stages & array filters.
-- Easy GeoSpatial search. 
-- Stream files in chunks to and from mongodb (GridFS alternative).
 - Multiple database support.
+- Easy bulk operations.
+- Change-stream support.
+- GeoSpatial search.
+- Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
 
 
