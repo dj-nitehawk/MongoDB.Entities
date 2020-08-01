@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,11 @@ namespace MongoDB.Entities
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, Session);
+        }
+
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity
+        {
+            return DB.Queryable<T>(options, Session);
         }
 
         public IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null) where T : IEntity

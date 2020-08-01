@@ -13,7 +13,8 @@
     <FileVersion>13.7.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- mongodb driver updated to v2.11
--</PackageReleaseNotes>
+- transaction support for Queryable interface
+- misc. changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
