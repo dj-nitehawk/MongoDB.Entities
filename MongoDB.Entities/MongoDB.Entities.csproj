@@ -8,14 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>13.3.0</Version>
-    <AssemblyVersion>13.3.0.0</AssemblyVersion>
-    <FileVersion>13.3.0.0</FileVersion>
+    <Version>13.7</Version>
+    <AssemblyVersion>13.7.0.0</AssemblyVersion>
+    <FileVersion>13.7.1.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added optional parameter 'maxDistance' to .SortByRelevance() method
-- added .Database() method for getting db name from a DB instance
-- deprecate .DbName property on DB instances
-- illegal collection name exception now shows the name of the collection</PackageReleaseNotes>
+    <PackageReleaseNotes>- mongodb driver updated to v2.11
+- transaction support for Queryable interface
+- misc. changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
@@ -33,8 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
-    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
-    <PackageReference Include="MongoDB.Entities.Core" Version="1.4.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
   </ItemGroup>
 
   <ItemGroup>

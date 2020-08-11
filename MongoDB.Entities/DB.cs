@@ -30,8 +30,17 @@ namespace MongoDB.Entities
                 type => true);
         }
 
+        //todo: remove obsoletes at version 15
         [Obsolete("Please use the .Database() method...")]
-        public string DbName { get; private set; } = null;
+        public string DbName { get => dbName; }
+
+        [Obsolete("Please use .DatabaseName<T>() method...")]
+        public static string Database<T>() where T : IEntity => DatabaseName<T>();
+
+        [Obsolete("Please use .DatabaseName() method...")]
+        public string Database() => DatabaseName();
+
+        internal string dbName = null;
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
@@ -62,7 +71,7 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
 
-            DbName = db;
+            dbName = db;
 
             if (dbs.ContainsKey(db)) return;
 
@@ -76,7 +85,7 @@ namespace MongoDB.Entities
             {
                 dbs.Remove(db);
                 instances.Remove(db);
-                DbName = null;
+                dbName = null;
                 throw;
             }
         }
@@ -99,6 +108,8 @@ namespace MongoDB.Entities
 
             throw new InvalidOperationException($"An instance has not been initialized yet for [{database}]");
         }
+
+        //todo: move GetDatabase<T>() to Database() after obsoletes are gone at v15
 
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
@@ -140,14 +151,14 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoDatabase GetDatabase()
         {
-            return GetDatabase(DbName);
+            return GetDatabase(dbName);
         }
 
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static string Database<T>() where T : IEntity
+        public static string DatabaseName<T>() where T : IEntity
         {
             return Cache<T>.DBName;
         }
@@ -155,9 +166,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the name of the database this instance was created with
         /// </summary>
-        public string Database()
+        public string DatabaseName()
         {
-            return DbName;
+            return dbName;
         }
 
         /// <summary>
@@ -199,17 +210,18 @@ namespace MongoDB.Entities
 
     internal static class Cache<T> where T : IEntity
     {
-        public static IMongoDatabase Database { get; private set; }
-        public static IMongoCollection<T> Collection { get; private set; }
-        public static string DBName { get; private set; }
-        public static string CollectionName { get; private set; }
+        public static IMongoDatabase Database { get; }
+        public static IMongoCollection<T> Collection { get; }
+        public static string DBName { get; }
+        public static string CollectionName { get; }
+        public static Dictionary<string, Watcher<T>> Watchers { get; set; }
 
         static Cache()
         {
             var type = typeof(T);
 
             var dbAttrb = type.GetCustomAttribute<DatabaseAttribute>(false);
-            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).DbName;
+            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).dbName;
 
             Database = DB.GetDatabase(DBName);
 
@@ -219,7 +231,9 @@ namespace MongoDB.Entities
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
-            Collection = Database.GetCollection<T>(CollectionName, new MongoCollectionSettings());
+            Collection = Database.GetCollection<T>(CollectionName);
+
+            Watchers = new Dictionary<string, Watcher<T>>();
         }
     }
 

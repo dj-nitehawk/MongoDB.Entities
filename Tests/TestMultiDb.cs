@@ -68,7 +68,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.GetInstance("test2");
 
-            Assert.AreEqual("test2", res.DbName);
+            Assert.AreEqual("test2", res.Database());
         }
 
         [TestMethod]
@@ -89,8 +89,8 @@ namespace MongoDB.Entities.Tests
             var db = new DB("multi-init");
             var instance = DB.GetInstance("multi-init");
 
-            Assert.AreEqual("multi-init", instance.DbName);
-            Assert.AreEqual("multi-init", db.DbName);
+            Assert.AreEqual("multi-init", instance.Database());
+            Assert.AreEqual("multi-init", db.Database());
         }
 
         [TestMethod]

@@ -360,7 +360,7 @@ namespace MongoDB.Entities
 
         private void Init<TParent>(TParent parent, string property) where TParent : IEntity
         {
-            if (DB.Database<TParent>() != DB.Database<TChild>())
+            if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
                 throw new NotSupportedException("Cross database relationships are not supported!");
 
             this.parent = parent;

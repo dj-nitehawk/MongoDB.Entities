@@ -41,6 +41,16 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
+    /// Use this attribute to mark a property in order to save it in MongoDB server as ObjectId
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    public class ObjectIdAttribute : BsonRepresentationAttribute
+    {
+        public ObjectIdAttribute() : base(Bson.BsonType.ObjectId)
+        { }
+    }
+
+    /// <summary>
     /// Use this attribute to specify the database to store this IEntity in.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
@@ -61,8 +71,15 @@ namespace MongoDB.Entities
 
     /// <summary>
     /// Use this attribute on properties that you want to omit when using SavePreserving() instead of supplying an expression. 
-    /// TIP: These attribute decorations only effective if you do not specify a preservation expression when calling SavePreserving(). 
+    /// TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving() 
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class PreserveAttribute : Attribute { }
+
+    /// <summary>
+    /// Properties that don't have this attribute will be omitted when using SavePreserving()
+    /// TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class DontPreserveAttribute : Attribute { }
 }

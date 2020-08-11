@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a MongoDB Find command for materializing results directly.
+    /// Represents a MongoDB Find command.
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// <para>Note: For building queries, use the DB.Fluent* interfaces</para>
     /// </summary>
@@ -25,7 +25,7 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
-    /// Represents a MongoDB Find command
+    /// Represents a MongoDB Find command with the ability to project to a different result type.
     /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>

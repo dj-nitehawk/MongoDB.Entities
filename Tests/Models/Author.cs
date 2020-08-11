@@ -26,6 +26,9 @@ namespace MongoDB.Entities.Tests
 
         public Many<Book> Books { get; set; }
 
+        [ObjectId]
+        public string BookIDs { get; set; }
+
         public Author() => this.InitOneToMany(() => Books);
     }
 }

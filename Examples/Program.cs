@@ -47,8 +47,8 @@ namespace Examples
 
             //EMBEDDING DOCUMENTS
             book1.Review = new Review { Stars = 5, Reviewer = "New York Times" }; //Review does not inherit from Entity.
-            book1.RelatedAuthor = author2.ToDocument();
-            book1.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
+            book1.RelatedAuthor = author2; //alt: author2.ToDocument();
+            book1.OtherAuthors = new[] { author1, author2 }; //alt: new[] { author1, author2 }.ToDocuments();
             book1.Save();
 
             //RELATIONSHIPS
@@ -57,7 +57,7 @@ namespace Examples
             book1.RelatedAuthor = author2;
 
             ////One-To-One (Referenced)
-            book1.MainAuthor = author1.ToReference();
+            book1.MainAuthor = author1; //alt: author1.ToReference();
             book1.Save();
 
             ////One-To-Many (Embedded)
@@ -68,8 +68,7 @@ namespace Examples
             book2.Authors.Add(new[] { author1, author2 }); //References are automatically saved. No need to save the entity.      
 
             ////Many-To-Many (Referenced)
-            genre1.AllBooks.Add(book1);
-            genre1.AllBooks.Add(book2);
+            genre1.AllBooks.Add(new[] { book1, book2 });
 
             //QUERIES
             //

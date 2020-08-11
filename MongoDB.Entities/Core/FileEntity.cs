@@ -46,11 +46,7 @@ namespace MongoDB.Entities
         {
             get
             {
-                if (streamer == null)
-                {
-                    streamer = new DataStreamer(this);
-                }
-                return streamer;
+                return streamer ?? (streamer = new DataStreamer(this));
             }
         }
     }
@@ -87,7 +83,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             var attribute = parent.GetType().GetCustomAttribute<DatabaseAttribute>(false);
-            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).DbName;
+            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).dbName;
             db = DB.GetInstance(dbName);
             chunkCollection = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
             if (!indexedDBs.Contains(dbName))

@@ -54,6 +54,33 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void save_preserving_inverse_attribute()
+        {
+            var book = new Book
+            {
+                Title = "original", //dontpreserve
+                Price = 100, //dontpreserve
+                PriceDbl = 666,
+                MainAuthor = ObjectId.GenerateNewId().ToString()
+            };
+            book.Save();
+
+            book.Title = "updated";
+            book.Price = 111;
+            book.PriceDbl = 999;
+            book.MainAuthor = null;
+
+            book.SavePreserving();
+
+            var res = DB.Find<Book>().One(book.ID);
+
+            Assert.AreEqual(res.Title, book.Title);
+            Assert.AreEqual(res.Price, book.Price);
+            Assert.AreEqual(res.PriceDbl, 666);
+            Assert.IsFalse(res.MainAuthor.ID == null);
+        }
+
+        [TestMethod]
         public void save_preserving_attribute()
         {
             var author = new Author

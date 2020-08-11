@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Instantiates and begins a transaction.
         /// </summary>
-        /// <param name="database">The name of the database to use for this transaction</param>
+        /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
-        public Transaction(string database = null, ClientSessionOptions options = null)
+        public Transaction(string database = default, ClientSessionOptions options = null)
         {
             client = DB.GetDatabase(database).Client;
             Session = client.StartSession(options);
@@ -81,6 +82,11 @@ namespace MongoDB.Entities
         public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, Session);
+        }
+
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity
+        {
+            return DB.Queryable<T>(options, Session);
         }
 
         public IAsyncCursor<TResult> Aggregate<T, TResult>(Template<T, TResult> template, AggregateOptions options = null) where T : IEntity
