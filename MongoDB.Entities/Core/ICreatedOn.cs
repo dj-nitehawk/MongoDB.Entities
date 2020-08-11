@@ -8,7 +8,7 @@ namespace MongoDB.Entities
     public interface ICreatedOn
     {
         /// <summary>
-        /// This property will be automatically set when an entity is created.
+        /// This property will be automatically set by the library when an entity is created.
         /// <para>TIP: This property is useful when sorting by creation date.</para>
         /// </summary>
         DateTime CreatedOn { get; set; }
