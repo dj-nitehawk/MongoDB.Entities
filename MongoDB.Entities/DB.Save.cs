@@ -48,8 +48,9 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            if (string.IsNullOrEmpty(entity.ID)) entity.ID = ObjectId.GenerateNewId().ToString();
-            entity.ModifiedOn = DateTime.UtcNow;
+            if (string.IsNullOrEmpty(entity.ID))
+                entity.ID = ObjectId.GenerateNewId().ToString();
+            
 
             return session == null
                    ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
@@ -102,9 +103,10 @@ namespace MongoDB.Entities
             var models = new List<WriteModel<T>>();
             foreach (var ent in entities)
             {
-                if (string.IsNullOrEmpty(ent.ID)) ent.ID = ObjectId.GenerateNewId().ToString();
-                ent.ModifiedOn = DateTime.UtcNow;
-
+                if (string.IsNullOrEmpty(ent.ID))
+                    ent.ID = ObjectId.GenerateNewId().ToString();
+                
+                
                 var upsert = new ReplaceOneModel<T>(
                         filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
                         replacement: ent)
