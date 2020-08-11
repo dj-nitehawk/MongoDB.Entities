@@ -30,6 +30,22 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void created_on_property_works()
+        {
+            var author = new Author { Name = "test" };
+            author.Save();
+
+            var res = DB.Find<Author, DateTime>()
+                        .Match(a => a.ID == author.ID)
+                        .Project(a => a.CreatedOn)
+                        .Execute()
+                        .Single();
+
+            Assert.AreEqual(res.ToLongTimeString(), author.CreatedOn.ToLongTimeString());
+            Assert.IsTrue(DateTime.UtcNow.Subtract(res).TotalSeconds <= 5);
+        }
+
+        [TestMethod]
         public void save_preserving()
         {
             var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };
