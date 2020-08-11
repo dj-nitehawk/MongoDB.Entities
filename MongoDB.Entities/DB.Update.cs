@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Entities.Core;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;

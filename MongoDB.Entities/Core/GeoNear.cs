@@ -2,7 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
-using MongoDB.Entities.Core;
 
 namespace MongoDB.Entities
 {

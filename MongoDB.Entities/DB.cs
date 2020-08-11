@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

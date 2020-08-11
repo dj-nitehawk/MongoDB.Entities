@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MongoDB.Entities.Core
+namespace MongoDB.Entities
 {
     /// <summary>
     /// Implement this interface on entities you want the library to automatically store the creation date with

@@ -1,6 +1,5 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDB.Entities.Core;
 using System.Linq;
 
 namespace MongoDB.Entities

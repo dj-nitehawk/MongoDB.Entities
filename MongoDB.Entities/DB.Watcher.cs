@@ -1,5 +1,4 @@
-﻿using MongoDB.Entities.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MongoDB.Entities
 {

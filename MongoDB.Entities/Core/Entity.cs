@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MongoDB.Entities.Core
+namespace MongoDB.Entities
 {
     /// <summary>
     /// Inherit this class for all entities you want to store in their own collection.

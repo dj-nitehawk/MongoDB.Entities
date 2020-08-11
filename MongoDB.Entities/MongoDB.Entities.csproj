@@ -12,9 +12,10 @@
     <AssemblyVersion>14.0.0.0</AssemblyVersion>
     <FileVersion>14.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- [breaking] make ModifiedOn property opt-in using IModifiedOn interface
-- new interface ICreatedOn for optionally adding created date to entities
-- remove support for geo haystack indexes as deprecated in official driver
+    <PackageReleaseNotes>- [breaking] remove MongoDB.Entities.Core namespace
+- [breaking] make ModifiedOn property opt-in using IModifiedOn interface
+- [breaking] remove support for geo haystack indexes as deprecated in official driver
+- new interface ICreatedOn for optionally adding creation date to entities
 - misc. changes</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

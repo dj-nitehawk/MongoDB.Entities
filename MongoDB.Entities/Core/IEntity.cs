@@ -1,4 +1,4 @@
-﻿namespace MongoDB.Entities.Core
+﻿namespace MongoDB.Entities
 {
     public interface IEntity
     {
