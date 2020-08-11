@@ -15,14 +15,14 @@ namespace MongoDB.Entities
         public ulong Count { get; set; }
 
         [Ignore]
-        public DateTime ModifiedOn
+        public DateTime? ModifiedOn
         {
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
 
         [Ignore]
-        public DateTime CreatedOn
+        public DateTime? CreatedOn
         {
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
