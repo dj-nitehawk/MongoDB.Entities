@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Entities.Core;
-using System;
 
 namespace MongoDB.Entities
 {
@@ -13,12 +12,5 @@ namespace MongoDB.Entities
 
         [BsonRepresentation(BsonType.Int64)]
         public ulong Count { get; set; }
-
-        [Ignore]
-        public DateTime ModifiedOn
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
     }
 }

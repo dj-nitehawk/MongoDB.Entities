@@ -61,10 +61,6 @@ namespace MongoDB.Entities
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.PropertyName));
                         keyType = "(Gsp)";
                         break;
-                    case KeyType.GeoHaystack:
-                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.PropertyName));
-                        keyType = "(Ghs)";
-                        break;
                     case KeyType.Hashed:
                         keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.PropertyName));
                         keyType = "(Hsh)";
@@ -178,7 +174,6 @@ namespace MongoDB.Entities
         Descending,
         Geo2D,
         Geo2DSphere,
-        GeoHaystack,
         Hashed,
         Text,
         Wildcard
