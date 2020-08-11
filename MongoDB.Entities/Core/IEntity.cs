@@ -6,5 +6,6 @@ namespace MongoDB.Entities.Core
     {
         string ID { get; set; }
         DateTime ModifiedOn { get; set; }
+        DateTime CreatedOn { get; set; }
     }
 }

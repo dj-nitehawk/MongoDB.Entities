@@ -20,5 +20,12 @@ namespace MongoDB.Entities
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
+
+        [Ignore]
+        public DateTime CreatedOn
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
     }
 }

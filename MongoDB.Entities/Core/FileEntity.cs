@@ -61,6 +61,9 @@ namespace MongoDB.Entities
         [Ignore]
         public DateTime ModifiedOn { get; set; }
 
+        [Ignore]
+        public DateTime CreatedOn { get; set; }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string FileID { get; set; }
 

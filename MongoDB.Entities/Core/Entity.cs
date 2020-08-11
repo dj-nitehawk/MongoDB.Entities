@@ -24,5 +24,11 @@ namespace MongoDB.Entities.Core
         /// </summary>
         public DateTime ModifiedOn { get; set; }
 
+        /// <summary>
+        /// This property will be automatically set when an entity is created.
+        /// <para>TIP: This property is useful when sorting by create date.</para>
+        /// </summary>
+        public DateTime CreatedOn { get; set; }
+
     }
 }
