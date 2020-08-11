@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,12 +56,6 @@ namespace MongoDB.Entities
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
-
-        [Ignore]
-        public DateTime? ModifiedOn { get; set; }
-
-        [Ignore]
-        public DateTime? CreatedOn { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string FileID { get; set; }

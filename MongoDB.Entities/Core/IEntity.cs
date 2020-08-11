@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace MongoDB.Entities.Core
+﻿namespace MongoDB.Entities
 {
     public interface IEntity
     {
         string ID { get; set; }
-        DateTime? ModifiedOn { get; set; }
-        DateTime? CreatedOn { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDB.Entities.Core;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -32,11 +31,10 @@ namespace MongoDB.Entities
     {
         private const string parentProp = nameof(JoinRecord.ParentID);
         private const string childProp = nameof(JoinRecord.ChildID);
-        private const string modDateProp = nameof(JoinRecord.ModifiedOn);
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
 
-        private bool isInverse = false;
-        private IEntity parent = null;
+        private bool isInverse;
+        private IEntity parent;
 
         /// <inheritdoc/>
         public IEnumerator<TChild> GetEnumerator()
@@ -525,8 +523,7 @@ namespace MongoDB.Entities
                 var doc = new BsonDocument
                 {
                     { parentProp, parentID },
-                    { childProp, childID },
-                    { modDateProp, DateTime.UtcNow }
+                    { childProp, childID }
                 };
 
                 models.Add(new ReplaceOneModel<BsonDocument>(def, doc) { IsUpsert = true });

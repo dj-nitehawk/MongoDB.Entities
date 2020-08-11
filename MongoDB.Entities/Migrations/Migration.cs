@@ -1,6 +1,4 @@
-﻿using MongoDB.Entities.Core;
-
-namespace MongoDB.Entities
+﻿namespace MongoDB.Entities
 {
     [Name("_migration_history_")]
     public class Migration : Entity

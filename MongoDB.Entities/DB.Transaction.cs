@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Entities.Core;
 
 namespace MongoDB.Entities
 {

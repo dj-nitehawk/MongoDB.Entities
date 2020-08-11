@@ -2,7 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,8 +48,14 @@ namespace MongoDB.Entities
         public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             if (string.IsNullOrEmpty(entity.ID))
+            {
                 entity.ID = ObjectId.GenerateNewId().ToString();
-            
+                if (Cache<T>.HasCreatedOn)
+                    ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
+            }
+
+            if (Cache<T>.HasModifiedOn)
+                ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
 
             return session == null
                    ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
@@ -104,9 +109,15 @@ namespace MongoDB.Entities
             foreach (var ent in entities)
             {
                 if (string.IsNullOrEmpty(ent.ID))
+                {
                     ent.ID = ObjectId.GenerateNewId().ToString();
-                
-                
+                    if (Cache<T>.HasCreatedOn)
+                        ((ICreatedOn)ent).CreatedOn = DateTime.UtcNow;
+                }
+
+                if (Cache<T>.HasModifiedOn)
+                    ((IModifiedOn)ent).ModifiedOn = DateTime.UtcNow;
+
                 var upsert = new ReplaceOneModel<T>(
                         filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
                         replacement: ent)
@@ -223,9 +234,9 @@ namespace MongoDB.Entities
 
             foreach (var p in propsToUpdate)
             {
-                if (p.Name == nameof(entity.ModifiedOn))
+                if (p.Name == Cache<T>.ModifiedOnPropName)
                 {
-                    defs.Add(Builders<T>.Update.CurrentDate(nameof(entity.ModifiedOn)));
+                    defs.Add(Builders<T>.Update.CurrentDate(Cache<T>.ModifiedOnPropName));
                 }
                 else
                 {

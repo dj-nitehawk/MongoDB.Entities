@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Entities.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -60,10 +59,6 @@ namespace MongoDB.Entities
                     case KeyType.Geo2DSphere:
                         keyDefs.Add(Builders<T>.IndexKeys.Geo2DSphere(key.PropertyName));
                         keyType = "(Gsp)";
-                        break;
-                    case KeyType.GeoHaystack:
-                        keyDefs.Add(Builders<T>.IndexKeys.GeoHaystack(key.PropertyName));
-                        keyType = "(Ghs)";
                         break;
                     case KeyType.Hashed:
                         keyDefs.Add(Builders<T>.IndexKeys.Hashed(key.PropertyName));
@@ -178,7 +173,6 @@ namespace MongoDB.Entities
         Descending,
         Geo2D,
         Geo2DSphere,
-        GeoHaystack,
         Hashed,
         Text,
         Wildcard

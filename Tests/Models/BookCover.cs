@@ -1,6 +1,4 @@
-﻿using MongoDB.Entities.Core;
-
-namespace MongoDB.Entities.Tests.Models
+﻿namespace MongoDB.Entities.Tests.Models
 {
     [Database("mongodb-entities-test-multi")]
     public class BookCover : Entity

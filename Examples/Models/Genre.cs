@@ -1,5 +1,4 @@
 ﻿using MongoDB.Entities;
-using MongoDB.Entities.Core;
 
 namespace Examples.Models
 {
