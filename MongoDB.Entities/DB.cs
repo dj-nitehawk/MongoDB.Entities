@@ -215,6 +215,9 @@ namespace MongoDB.Entities
         public static string DBName { get; }
         public static string CollectionName { get; }
         public static Dictionary<string, Watcher<T>> Watchers { get; set; }
+        public static bool HasCreatedOn { get; set; }
+        public static bool HasModifiedOn { get; set; }
+        public static string ModifiedOnPropName { get; set; }
 
         static Cache()
         {
@@ -234,6 +237,11 @@ namespace MongoDB.Entities
             Collection = Database.GetCollection<T>(CollectionName);
 
             Watchers = new Dictionary<string, Watcher<T>>();
+
+            var interfaces = type.GetInterfaces();
+            HasCreatedOn = interfaces.Any(it => it == typeof(ICreatedOn));
+            HasModifiedOn = interfaces.Any(it => it == typeof(IModifiedOn));
+            ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
         }
     }
 

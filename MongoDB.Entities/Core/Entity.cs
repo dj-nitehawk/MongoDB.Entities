@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
 
 namespace MongoDB.Entities.Core
 {
@@ -17,12 +16,6 @@ namespace MongoDB.Entities.Core
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
-
-        /// <summary>
-        /// This property will be automatically set when an entity is updated.
-        /// <para>TIP: This property is useful when sorting by update date.</para>
-        /// </summary>
-        public DateTime ModifiedOn { get; set; }
 
     }
 }

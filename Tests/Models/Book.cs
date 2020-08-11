@@ -1,9 +1,10 @@
 ﻿using MongoDB.Entities.Core;
+using System;
 using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests
 {
-    public class Book : Entity
+    public class Book : Entity, IModifiedOn
     {
         public Date PublishedOn { get; set; }
 
@@ -29,6 +30,8 @@ namespace MongoDB.Entities.Tests
 
         [Ignore]
         public int DontSaveThis { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
 
         public Book()
         {

@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
-        private readonly IClientSessionHandle session = null;
+        private readonly IClientSessionHandle session;
 
         internal UpdateAndGet(IClientSessionHandle session = null)
         {
@@ -253,9 +253,7 @@ namespace MongoDB.Entities
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-
-            if (typeof(T) != typeof(SequenceCounter))
-                Modify(b => b.CurrentDate(x => x.ModifiedOn));
+            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
             return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation);
         }
@@ -277,8 +275,7 @@ namespace MongoDB.Entities
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-
-            WithPipelineStage($"{{ $set: {{ '{nameof(IEntity.ModifiedOn)}': new Date() }} }}");
+            if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
             return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
