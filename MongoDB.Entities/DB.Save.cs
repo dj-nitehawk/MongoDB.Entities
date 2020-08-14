@@ -192,7 +192,7 @@ namespace MongoDB.Entities
                        !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
                        !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
 
-            string[] propsToPreserve = new string[0];
+            IEnumerable<string> propsToPreserve = default;
 
             if (preservation == null)
             {
@@ -204,24 +204,23 @@ namespace MongoDB.Entities
 
                 if (dontProps.Any())
                 {
-                    propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name).ToArray();
+                    propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name);
                 }
 
                 if (presProps.Any())
                 {
-                    propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name).ToArray();
+                    propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name);
                 }
 
-                if (propsToPreserve.Length == 0)
+                if (!propsToPreserve.Any())
                     throw new ArgumentException("No properties are being preserved. Please use .Save() method instead!");
             }
             else
             {
                 propsToPreserve = (preservation.Body as NewExpression)?.Arguments
-                    .Select(a => a.ToString().Split('.')[1])
-                    .ToArray();
+                    .Select(a => a.ToString().Split('.')[1]);
 
-                if (propsToPreserve.Length == 0)
+                if (!propsToPreserve.Any())
                     throw new ArgumentException("Unable to get any properties from the preservation expression!");
             }
 

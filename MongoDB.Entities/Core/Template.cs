@@ -123,13 +123,13 @@ namespace MongoDB.Entities
         /// Executes the tag replacement and returns a pipeline definition.
         /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
         /// </summary>
-        public PipelineDefinition<T, TResult> ToPipeline() => base.ToPipeline<T, TResult>();
+        public PipelineDefinition<T, TResult> ToPipeline() => ToPipeline<T, TResult>();
 
         /// <summary>
         /// Executes the tag replacement and returns array filter definitions.
         /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
         /// </summary>
-        public IEnumerable<ArrayFilterDefinition> ToArrayFilters() => base.ToArrayFilters<T>();
+        public IEnumerable<ArrayFilterDefinition> ToArrayFilters() => ToArrayFilters<T>();
     }
 
     /// <summary>
@@ -277,12 +277,11 @@ namespace MongoDB.Entities
         /// Executes the tag replacement and returns the pipeline stages as an array of BsonDocuments.
         /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
         /// </summary>
-        public BsonDocument[] ToStages()
+        public IEnumerable<BsonDocument> ToStages()
         {
             return BsonSerializer
                 .Deserialize<BsonArray>(ToString())
-                .Select(v => v.AsBsonDocument)
-                .ToArray();
+                .Select(v => v.AsBsonDocument);
         }
 
         /// <summary>
@@ -293,7 +292,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TOutput">The output type</typeparam>
         public PipelineDefinition<TInput, TOutput> ToPipeline<TInput, TOutput>()
         {
-            return ToStages();
+            return ToStages().ToArray();
         }
 
         /// <summary>

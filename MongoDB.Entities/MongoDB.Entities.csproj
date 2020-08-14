@@ -13,7 +13,8 @@
     <FileVersion>14.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- 
-- file chunk streamer optimizations</PackageReleaseNotes>
+- file chunk streamer optimizations
+- misc. performance optimizations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
