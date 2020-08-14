@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -214,26 +213,22 @@ namespace MongoDB.Entities
             }
         }
 
-        private async Task CleanUpAsync(IClientSessionHandle session)
+        private Task CleanUpAsync(IClientSessionHandle session)
         {
-            await (session == null
-                    ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
-                    : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID));
-
             parent.FileSize = 0;
             parent.ChunkCount = 0;
             parent.UploadSuccessful = false;
+            return session == null
+                   ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
+                   : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID);
+
         }
 
         private async Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
         {
             if (!isLastChunk)
             {
-                dataChunk.AddRange(
-                    readCount == buffer.Length ?
-                    buffer :
-                    new ArraySegment<byte>(buffer, 0, readCount).ToArray());
-
+                dataChunk.AddRange(new ArraySegment<byte>(buffer, 0, readCount));
                 parent.FileSize += readCount;
             }
 
@@ -241,12 +236,11 @@ namespace MongoDB.Entities
             {
                 doc.ID = ObjectId.GenerateNewId().ToString();
                 doc.Data = dataChunk.ToArray();
-                await (session == null
-                        ? chunkCollection.InsertOneAsync(doc, null, cancellation)
-                        : chunkCollection.InsertOneAsync(session, doc, null, cancellation));
-                parent.ChunkCount++;
-                doc.Data = null;
                 dataChunk.Clear();
+                parent.ChunkCount++;
+                await (session == null
+                       ? chunkCollection.InsertOneAsync(doc, null, cancellation)
+                       : chunkCollection.InsertOneAsync(session, doc, null, cancellation));
             }
         }
 
@@ -254,10 +248,7 @@ namespace MongoDB.Entities
         {
             var type = parent.GetType();
             var attribute = type.GetCustomAttribute<NameAttribute>(false);
-            var collName = attribute != null ? attribute.Name : type.Name;
-
-            var coll = db.GetDatabase().GetCollection<FileEntity>(collName);
-
+            var coll = db.GetDatabase().GetCollection<FileEntity>(attribute != null ? attribute.Name : type.Name);
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
                             .Set(e => e.FileSize, parent.FileSize)

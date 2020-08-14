@@ -8,15 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>14</Version>
-    <AssemblyVersion>14.0.0.0</AssemblyVersion>
-    <FileVersion>14.0.0.0</FileVersion>
+    <Version>14.1</Version>
+    <AssemblyVersion>14.1.0.0</AssemblyVersion>
+    <FileVersion>14.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- [breaking] remove MongoDB.Entities.Core namespace
-- [breaking] make ModifiedOn property opt-in using IModifiedOn interface
-- [breaking] remove support for geo haystack indexes as deprecated in official driver
-- new interface ICreatedOn for optionally adding auto-managed creation date to entities
-- misc. changes</PackageReleaseNotes>
+    <PackageReleaseNotes>- 
+- file chunk streamer optimizations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
