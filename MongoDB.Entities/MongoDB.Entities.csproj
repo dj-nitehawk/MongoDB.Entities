@@ -14,7 +14,8 @@
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- 
 - file chunk streamer optimizations
-- misc. performance optimizations</PackageReleaseNotes>
+- misc. performance optimizations
+- transaction support for all Many&lt;T&gt; methods</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>
