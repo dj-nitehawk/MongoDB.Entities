@@ -26,14 +26,8 @@ namespace MongoDB.Entities
 
         public static void Sync(Func<Task> func)
         {
-            if (isDotNetFx)
-            {
-                factory.StartNew(func).Unwrap().GetAwaiter().GetResult();
-            }
-            else
-            {
-                func().GetAwaiter().GetResult();
-            }
+            if (isDotNetFx) factory.StartNew(func).Unwrap().GetAwaiter().GetResult();
+            else func().GetAwaiter().GetResult();
         }
     }
 }
