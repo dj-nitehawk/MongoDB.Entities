@@ -19,14 +19,9 @@ namespace MongoDB.Entities
 
         public static TResult Sync<TResult>(Func<Task<TResult>> func)
         {
-            if (isDotNetFx)
-            {
-                return factory.StartNew(func).Unwrap().GetAwaiter().GetResult();
-            }
-            else
-            {
-                return func().GetAwaiter().GetResult();
-            }
+            return isDotNetFx
+                   ? factory.StartNew(func).Unwrap().GetAwaiter().GetResult()
+                   : func().GetAwaiter().GetResult();
         }
 
         public static void Sync(Func<Task> func)
