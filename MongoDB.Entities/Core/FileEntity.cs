@@ -221,7 +221,6 @@ namespace MongoDB.Entities
             return session == null
                    ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
                    : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID);
-
         }
 
         private async Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
@@ -260,6 +259,4 @@ namespace MongoDB.Entities
                    : coll.UpdateOneAsync(session, filter, update);
         }
     }
-
-
 }

@@ -26,7 +26,7 @@ namespace MongoDB.Entities
                         new IgnoreExtraElementsConvention(true),
                         new IgnoreManyPropertiesConvention()
                 },
-                type => true);
+                _ => true);
         }
 
         //todo: remove obsoletes at version 15
@@ -39,7 +39,7 @@ namespace MongoDB.Entities
         [Obsolete("Please use .DatabaseName() method...")]
         public string Database() => DatabaseName();
 
-        internal string dbName = null;
+        internal string dbName;
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
