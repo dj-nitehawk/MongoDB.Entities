@@ -8,7 +8,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 
 
 ### Advantages:
-- Never have to deal with `ObjectIds`, `BsonDocuments` & magic strings. 
+- Don't have to deal with `ObjectIds`, `BsonDocuments` & magic strings unless you want to.
 - Built-in support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
 - Query data using LINQ, lambda expressions, filters and aggregation pipelines.
 - Sorting, paging and projecting is made convenient.
@@ -18,7 +18,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Multi-document transaction support.
 - Multiple database support.
 - Easy bulk operations.
-- Change-stream support.
+- Easy Change-stream support.
 - GeoSpatial search.
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
