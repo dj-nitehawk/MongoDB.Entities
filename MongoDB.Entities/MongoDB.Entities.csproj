@@ -12,8 +12,7 @@
     <AssemblyVersion>14.1.0.0</AssemblyVersion>
     <FileVersion>14.1.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- 
-- file chunk streamer optimizations
+    <PackageReleaseNotes>- file data streamer optimizations
 - transaction support for all Many&lt;T&gt; methods
 - misc. performance optimizations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
