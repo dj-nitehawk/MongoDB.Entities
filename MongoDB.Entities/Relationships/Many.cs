@@ -15,7 +15,6 @@ namespace MongoDB.Entities
     {
         //shared state for all Many<T> instances
         internal static ConcurrentBag<string> indexedCollections = new ConcurrentBag<string>();
-
         internal static string PropType = typeof(Many<Entity>).Name;
     }
 
@@ -37,28 +36,28 @@ namespace MongoDB.Entities
         private IEntity parent;
 
         /// <inheritdoc/>
-        public IEnumerator<TChild> GetEnumerator()
-        {
-            return ChildrenQueryable().GetEnumerator();
-        }
+        public IEnumerator<TChild> GetEnumerator() => ChildrenQueryable().GetEnumerator();
 
         /// <inheritdoc/>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ChildrenQueryable().GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => ChildrenQueryable().GetEnumerator();
 
         /// <summary>
         /// Gets the IMongoCollection of JoinRecords for this relationship.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null;
+        public IMongoCollection<JoinRecord> JoinCollection { get; private set; }
 
         /// <summary>
         /// An IQueryable of JoinRecords for this relationship
         /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<JoinRecord> JoinQueryable(AggregateOptions options = null) => JoinCollection.AsQueryable(options);
+        public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
+        {
+            return session == null
+                   ? JoinCollection.AsQueryable(options)
+                   : JoinCollection.AsQueryable(session, options);
+        }
 
         /// <summary>
         /// An IAggregateFluent of JoinRecords for this relationship
@@ -77,10 +76,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">A child ID</param>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
         {
-            return ParentsQueryable<TParent>(new[] { childID }, options);
+            return ParentsQueryable<TParent>(new[] { childID }, session, options);
         }
 
         /// <summary>
@@ -88,14 +88,15 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childIDs">An IEnumerable of child IDs</param>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
             if (isInverse)
             {
-                return JoinQueryable(options)
+                return JoinQueryable(session, options)
                        .Where(j => childIDs.Contains(j.ParentID))
                        .Join(
                            DB.Collection<TParent>(),
@@ -106,7 +107,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                return JoinQueryable(options)
+                return JoinQueryable(session, options)
                        .Where(j => childIDs.Contains(j.ChildID))
                        .Join(
                            DB.Collection<TParent>(),
@@ -122,8 +123,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="children">An IQueryable of children</param>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, AggregateOptions options = null) where TParent : IEntity
+        public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
         {
             if (typeof(TParent) == typeof(TChild)) throw new InvalidOperationException("Both parent and child types cannot be the same");
 
@@ -131,7 +133,7 @@ namespace MongoDB.Entities
             {
                 return children
                         .Join(
-                             JoinQueryable(options),
+                             JoinQueryable(session, options),
                              c => c.ID,
                              j => j.ParentID,
                              (_, j) => j)
@@ -146,7 +148,7 @@ namespace MongoDB.Entities
             {
                 return children
                        .Join(
-                            JoinQueryable(options),
+                            JoinQueryable(session, options),
                             c => c.ID,
                             j => j.ChildID,
                             (_, j) => j)
@@ -210,9 +212,10 @@ namespace MongoDB.Entities
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
         /// <param name="childID">An child ID</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null) where TParent : IEntity
+        /// <param name="options">An optional AggregateOptions object</param>
+        public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
         {
-            return ParentsFluent<TParent>(new[] { childID }, session);
+            return ParentsFluent<TParent>(new[] { childID }, session, options);
         }
 
         /// <summary>
@@ -289,14 +292,15 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable of child Entities for the parent.
         /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public IMongoQueryable<TChild> ChildrenQueryable(AggregateOptions options = null)
+        public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
         {
             parent.ThrowIfUnsaved();
 
             if (isInverse)
             {
-                return JoinQueryable(options)
+                return JoinQueryable(session, options)
                        .Where(j => j.ChildID == parent.ID)
                        .Join(
                            DB.Collection<TChild>(),
@@ -306,7 +310,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                return JoinQueryable(options)
+                return JoinQueryable(session, options)
                        .Where(j => j.ParentID == parent.ID)
                        .Join(
                            DB.Collection<TChild>(),
@@ -319,7 +323,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IAggregateFluent of child Entities for the parent.
         /// </summary>
-        /// <param name="session"></param>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
         public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle session = null, AggregateOptions options = null)
         {

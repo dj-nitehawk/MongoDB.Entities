@@ -324,10 +324,9 @@ namespace MongoDB.Entities
         public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
         {
             var props = (exclusion.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString().Split('.')[1])
-                .ToArray();
+                .Select(a => a.ToString().Split('.')[1]);
 
-            if (props.Length == 0)
+            if (!props.Any())
                 throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
             var defs = new List<ProjectionDefinition<T>>();

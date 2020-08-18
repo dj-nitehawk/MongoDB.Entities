@@ -30,7 +30,7 @@ namespace MongoDB.Entities.Tests
         public string BookIDs { get; set; }
 
         public DateTime ModifiedOn { get; set; }
-        
+
         public DateTime CreatedOn { get; set; }
 
         public Author() => this.InitOneToMany(() => Books);
