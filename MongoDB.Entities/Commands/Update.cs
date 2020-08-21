@@ -228,7 +228,15 @@ namespace MongoDB.Entities
         /// </summary>
         public UpdateResult Execute()
         {
-            return Run.Sync(() => ExecuteAsync());
+            if (models.Count > 0)
+            {
+                return MakeAcknowledgedUpdateResult(DB.BulkUpdate(models, session));
+            }
+            else
+            {
+                ExecutePrep();
+                return DB.Update(filter, Builders<T>.Update.Combine(defs), options, session);
+            }
         }
 
         /// <summary>
@@ -239,18 +247,28 @@ namespace MongoDB.Entities
         {
             if (models.Count > 0)
             {
-                var res = await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false);
-                models.Clear();
-                return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
+                return MakeAcknowledgedUpdateResult(
+                    await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false));
             }
             else
             {
-                if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+                ExecutePrep();
                 return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
+        }
+
+        private void ExecutePrep()
+        {
+            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+            if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+        }
+
+        private UpdateResult MakeAcknowledgedUpdateResult(BulkWriteResult<T> res)
+        {
+            models.Clear();
+            return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
         }
 
         /// <summary>
@@ -258,7 +276,12 @@ namespace MongoDB.Entities
         /// </summary>
         public UpdateResult ExecutePipeline()
         {
-            return Run.Sync(() => ExecutePipelineAsync());
+            ExecutePipelinePrep();
+            return DB.Update(
+                filter,
+                Builders<T>.Update.Pipeline(stages.ToArray()),
+                options,
+                session);
         }
 
         /// <summary>
@@ -267,12 +290,21 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
+            ExecutePipelinePrep();
+            return DB.UpdateAsync(
+                filter,
+                Builders<T>.Update.Pipeline(stages.ToArray()),
+                options,
+                session,
+                cancellation);
+        }
+
+        private void ExecutePipelinePrep()
+        {
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
-            return DB.UpdateAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
-
     }
 }

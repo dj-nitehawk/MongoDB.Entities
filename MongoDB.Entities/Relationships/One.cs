@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         /// <returns>The actual entity</returns>
         public T ToEntity(IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(session));
+            return new Find<T>(session).One(ID);
         }
 
         /// <summary>
@@ -80,7 +80,11 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(projection, session));
+            return new Find<T>(session)
+                        .Match(ID)
+                        .Project(projection)
+                        .Execute()
+                        .SingleOrDefault();
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace MongoDB.Entities
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
-                   .FirstOrDefault();
+                   .SingleOrDefault();
         }
 
         /// <summary>
@@ -107,7 +111,11 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(projection, session));
+            return new Find<T>(session)
+                        .Match(ID)
+                        .Project(projection)
+                        .Execute()
+                        .SingleOrDefault();
         }
 
         /// <summary>
@@ -123,7 +131,7 @@ namespace MongoDB.Entities
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
-                   .FirstOrDefault();
+                   .SingleOrDefault();
         }
     }
 }

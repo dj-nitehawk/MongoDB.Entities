@@ -219,38 +219,40 @@ namespace MongoDB.Entities
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static ReplaceOneResult Save<T>(this T entity) where T : IEntity
+        public static ReplaceOneResult Save<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => SaveAsync(entity));
+            return DB.Save(entity, session);
         }
 
         /// <summary>
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, CancellationToken cancellation = default) where T : IEntity
+        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity: entity, cancellation: cancellation);
+            return DB.SaveAsync(entity, session, cancellation);
         }
 
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities) where T : IEntity
+        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => SaveAsync(entities));
+            return DB.Save(entities, session);
         }
 
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities: entities, cancellation: cancellation);
+            return DB.SaveAsync(entities, session, cancellation);
         }
 
         /// <summary>
@@ -261,9 +263,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null) where T : IEntity
+        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => SavePreservingAsync(entity, preservation));
+            return DB.SavePreserving(entity, preservation, session);
         }
 
         /// <summary>
@@ -275,45 +277,45 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, null, cancellation);
+            return DB.SavePreservingAsync(entity, preservation, session, cancellation);
         }
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static DeleteResult Delete<T>(this T entity) where T : IEntity
+        public static DeleteResult Delete<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync(entity));
+            return DB.Delete<T>(entity.ID, session);
         }
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAsync<T>(this T entity) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entity.ID);
+            return DB.DeleteAsync<T>(entity.ID, session);
         }
 
         /// <summary>
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static DeleteResult DeleteAll<T>(this IEnumerable<T> entities) where T : IEntity
+        public static DeleteResult DeleteAll<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => DeleteAllAsync(entities));
+            return DB.Delete<T>(entities.Select(e => e.ID), session);
         }
 
         /// <summary>
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities) where T : IEntity
+        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entities.Select(e => e.ID));
+            return DB.DeleteAsync<T>(entities.Select(e => e.ID),session);
         }
 
         /// <summary>
@@ -356,7 +358,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         public static ulong NextSequentialNumber<T>(this T _) where T : IEntity
         {
-            return Run.Sync(() => DB.NextSequentialNumberAsync<T>());
+            return DB.NextSequentialNumber<T>();
         }
 
         /// <summary>

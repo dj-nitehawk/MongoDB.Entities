@@ -23,7 +23,17 @@ namespace MongoDB.Entities
         /// </summary>
         public void Create()
         {
-            Run.Sync(() => CreateAsync());
+            var model = BuildIndexCreationModel();
+
+            try
+            {
+                DB.CreateIndex(model);
+            }
+            catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
+            {
+                DB.DropIndex<T>(options.Name);
+                DB.CreateIndex(model);
+            }
         }
 
         /// <summary>
@@ -31,6 +41,21 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task CreateAsync(CancellationToken cancellation = default)
+        {
+            var model = BuildIndexCreationModel();
+
+            try
+            {
+                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+            }
+            catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
+            {
+                await DB.DropIndexAsync<T>(options.Name, cancellation).ConfigureAwait(false);
+                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+            }
+        }
+
+        private CreateIndexModel<T> BuildIndexCreationModel()
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 
@@ -88,25 +113,9 @@ namespace MongoDB.Entities
                 }
             }
 
-            var model = new CreateIndexModel<T>(
-                                Builders<T>.IndexKeys.Combine(keyDefs),
-                                options);
-            try
-            {
-                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
-            }
-            catch (MongoCommandException x)
-            {
-                if (x.Code == 85 || x.Code == 86)
-                {
-                    await DB.DropIndexAsync<T>(options.Name, cancellation).ConfigureAwait(false);
-                    await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return new CreateIndexModel<T>(
+                Builders<T>.IndexKeys.Combine(keyDefs),
+                options);
         }
 
         /// <summary>

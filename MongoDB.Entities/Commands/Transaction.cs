@@ -105,7 +105,7 @@ namespace MongoDB.Entities
 
         public ReplaceOneResult Save<T>(T entity) where T : IEntity
         {
-            return Run.Sync(() => SaveAsync(entity));
+            return DB.Save(entity, Session);
         }
 
         public Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
@@ -115,7 +115,7 @@ namespace MongoDB.Entities
 
         public BulkWriteResult<T> Save<T>(IEnumerable<T> entities) where T : IEntity
         {
-            return Run.Sync(() => SaveAsync(entities));
+            return DB.Save(entities, Session);
         }
 
         public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
@@ -125,7 +125,7 @@ namespace MongoDB.Entities
 
         public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null) where T : IEntity
         {
-            return Run.Sync(() => SavePreservingAsync(entity, preservation));
+            return DB.SavePreserving(entity, preservation, Session);
         }
 
         public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
@@ -135,7 +135,7 @@ namespace MongoDB.Entities
 
         public DeleteResult Delete<T>(string ID) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(ID));
+            return DB.Delete<T>(ID, Session);
         }
 
         public Task<DeleteResult> DeleteAsync<T>(string ID) where T : IEntity
@@ -145,7 +145,7 @@ namespace MongoDB.Entities
 
         public DeleteResult Delete<T>(Expression<Func<T, bool>> expression) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync(expression));
+            return DB.Delete(expression, Session);
         }
 
         public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
@@ -155,7 +155,7 @@ namespace MongoDB.Entities
 
         public DeleteResult Delete<T>(IEnumerable<string> IDs) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(IDs));
+            return DB.Delete<T>(IDs, Session);
         }
 
         public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity

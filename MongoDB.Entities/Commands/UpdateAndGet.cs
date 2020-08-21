@@ -240,7 +240,8 @@ namespace MongoDB.Entities
         /// </summary>
         public TProjection Execute()
         {
-            return Run.Sync(() => ExecuteAsync());
+            ExecutePrep();
+            return DB.UpdateAndGet(filter, Builders<T>.Update.Combine(defs), options, session);
         }
 
         /// <summary>
@@ -249,12 +250,16 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
         {
+            ExecutePrep();
+            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
+        }
+
+        private void ExecutePrep()
+        {
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-
-            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -262,7 +267,8 @@ namespace MongoDB.Entities
         /// </summary>
         public TProjection ExecutePipeline()
         {
-            return Run.Sync(() => ExecutePipelineAsync());
+            ExecutePipelinePrep();
+            return DB.UpdateAndGet(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session);
         }
 
         /// <summary>
@@ -271,12 +277,16 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
+            ExecutePipelinePrep();
+            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+        }
+
+        private void ExecutePipelinePrep()
+        {
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
-
-            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
     }
 }

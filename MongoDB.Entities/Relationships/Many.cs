@@ -262,7 +262,20 @@ namespace MongoDB.Entities
         /// <param name="options">An optional AggregateOptions object</param>
         public long ChildrenCount(IClientSessionHandle session = null, CountOptions options = null)
         {
-            return Run.Sync(() => ChildrenCountAsync(session, options));
+            parent.ThrowIfUnsaved();
+
+            if (isInverse)
+            {
+                return session == null
+                       ? JoinCollection.CountDocuments(j => j.ChildID == parent.ID, options)
+                       : JoinCollection.CountDocuments(session, j => j.ChildID == parent.ID, options);
+            }
+            else
+            {
+                return session == null
+                       ? JoinCollection.CountDocuments(j => j.ParentID == parent.ID, options)
+                       : JoinCollection.CountDocuments(session, j => j.ParentID == parent.ID, options);
+            }
         }
 
         /// <summary>
@@ -429,7 +442,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(TChild child, IClientSessionHandle session = null)
         {
-            Run.Sync(() => AddAsync(child, session));
+            Add(child.ID, session);
         }
 
         /// <summary>
@@ -440,7 +453,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(IEnumerable<TChild> children, IClientSessionHandle session = null)
         {
-            Run.Sync(() => AddAsync(children, session));
+            Add(children.Select(c => c.ID), session);
         }
 
         /// <summary>
@@ -450,7 +463,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(string childID, IClientSessionHandle session = null)
         {
-            Run.Sync(() => AddAsync(childID, session));
+            Add(new[] { childID }, session);
         }
 
         /// <summary>
@@ -461,7 +474,13 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Add(IEnumerable<string> childIDs, IClientSessionHandle session = null)
         {
-            Run.Sync(() => AddAsync(childIDs, session));
+            AddPrep(
+                childIDs,
+                out List<WriteModel<BsonDocument>> models,
+                out IMongoCollection<BsonDocument> collection);
+
+            if (session == null) collection.BulkWrite(models, unOrdBlkOpts);
+            else collection.BulkWrite(session, models, unOrdBlkOpts);
         }
 
         /// <summary>
@@ -509,10 +528,21 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
+            AddPrep(
+                childIDs,
+                out List<WriteModel<BsonDocument>> models,
+                out IMongoCollection<BsonDocument> collection);
+
+            return session == null
+                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+        }
+
+        private void AddPrep(IEnumerable<string> childIDs, out List<WriteModel<BsonDocument>> models, out IMongoCollection<BsonDocument> collection)
+        {
             parent.ThrowIfUnsaved();
 
-            var models = new List<WriteModel<BsonDocument>>();
-
+            models = new List<WriteModel<BsonDocument>>();
             foreach (var cid in childIDs)
             {
                 cid.ThrowIfInvalid();
@@ -533,12 +563,8 @@ namespace MongoDB.Entities
                 models.Add(new ReplaceOneModel<BsonDocument>(def, doc) { IsUpsert = true });
             }
 
-            var collection = JoinCollection.Database
+            collection = JoinCollection.Database
                              .GetCollection<BsonDocument>(JoinCollection.CollectionNamespace.CollectionName);
-
-            return session == null
-                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>
@@ -548,7 +574,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(TChild child, IClientSessionHandle session = null)
         {
-            Run.Sync(() => RemoveAsync(child, session));
+            Remove(child.ID, session);
         }
 
         /// <summary>
@@ -558,7 +584,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(string childID, IClientSessionHandle session = null)
         {
-            Run.Sync(() => RemoveAsync(childID, session));
+            Remove(new[] { childID }, session);
         }
 
         /// <summary>
@@ -568,7 +594,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(IEnumerable<TChild> children, IClientSessionHandle session = null)
         {
-            Run.Sync(() => RemoveAsync(children, session));
+            Remove(children.Select(c => c.ID), session);
         }
 
         /// <summary>
@@ -578,7 +604,10 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void Remove(IEnumerable<string> childIDs, IClientSessionHandle session = null)
         {
-            Run.Sync(() => RemoveAsync(childIDs, session));
+            var filter = BuildRemoveFilter(childIDs);
+
+            if (session == null) JoinCollection.DeleteOne(filter);
+            else  JoinCollection.DeleteOne(session, filter);
         }
 
         /// <summary>
@@ -622,19 +651,24 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            var filter = isInverse
-
-                         ? Builders<JoinRecord>.Filter.And(
-                             Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
-                             Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
-
-                         : Builders<JoinRecord>.Filter.And(
-                             Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
-                             Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
+            var filter = BuildRemoveFilter(childIDs);
 
             return session == null
                    ? JoinCollection.DeleteOneAsync(filter, null, cancellation)
                    : JoinCollection.DeleteOneAsync(session, filter, null, cancellation);
+        }
+
+        private FilterDefinition<JoinRecord> BuildRemoveFilter(IEnumerable<string> childIDs)
+        {
+            return isInverse
+                   
+                   ? Builders<JoinRecord>.Filter.And(
+                       Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
+                       Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
+                   
+                   : Builders<JoinRecord>.Filter.And(
+                       Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
+                       Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
         }
 
         /// <summary>
