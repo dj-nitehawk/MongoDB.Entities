@@ -20,12 +20,12 @@ namespace MongoDB.Entities.Tests
             var db = new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             //https://placekitten.com/g/4000/4000 - 1097221
             //https://djnitehawk.com/test/test.bmp - 69455612
-            using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp");
-            await img.Data.UploadWithTimeoutAsync(stream, 30, 128);
+            using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp").ConfigureAwait(false);
+            await img.Data.UploadWithTimeoutAsync(stream, 30, 128).ConfigureAwait(false);
 
             var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
@@ -41,10 +41,10 @@ namespace MongoDB.Entities.Tests
             var db = new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             using var stream = File.OpenRead("Models/test.jpg");
-            await img.Data.UploadAsync(stream);
+            await img.Data.UploadAsync(stream).ConfigureAwait(false);
 
             var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
@@ -60,10 +60,10 @@ namespace MongoDB.Entities.Tests
             var db = new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 100, Width = 100, Name = "Test-small.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             using var stream = File.OpenRead("Models/test.jpg");
-            await img.Data.UploadAsync(stream, 4096);
+            await img.Data.UploadAsync(stream, 4096).ConfigureAwait(false);
 
             var count = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
                           .Where(c => c.FileID == img.ID)
@@ -79,10 +79,10 @@ namespace MongoDB.Entities.Tests
             var db = new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             using var stream = File.Open("Models/test.jpg", FileMode.Open);
-            await img.Data.UploadAsync(stream);
+            await img.Data.UploadAsync(stream).ConfigureAwait(false);
 
             var countBefore =
                 db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
@@ -107,16 +107,16 @@ namespace MongoDB.Entities.Tests
             new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             using (var inStream = File.OpenRead("Models/test.jpg"))
             {
-                await img.Data.UploadAsync(inStream);
+                await img.Data.UploadAsync(inStream).ConfigureAwait(false);
             }
 
             using (var outStream = File.OpenWrite("Models/result.jpg"))
             {
-                await img.Data.DownloadAsync(outStream, 3);
+                await img.Data.DownloadAsync(outStream, 3).ConfigureAwait(false);
             }
 
             using var md5 = MD5.Create();
@@ -132,16 +132,16 @@ namespace MongoDB.Entities.Tests
             new DB("mongodb-entities-test-multi");
 
             var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
-            await img.SaveAsync();
+            await img.SaveAsync().ConfigureAwait(false);
 
             using (var inStream = File.OpenRead("Models/test.jpg"))
             {
-                await img.Data.UploadAsync(inStream);
+                await img.Data.UploadAsync(inStream).ConfigureAwait(false);
             }
 
             using (var outStream = File.OpenWrite("Models/result-direct.jpg"))
             {
-                await DB.File<Image>(img.ID).DownloadAsync(outStream);
+                await DB.File<Image>(img.ID).DownloadAsync(outStream).ConfigureAwait(false);
             }
 
             using var md5 = MD5.Create();

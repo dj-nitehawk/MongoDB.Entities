@@ -48,7 +48,7 @@ namespace MongoDB.Entities
                     .GetAssemblies()
                     .Where(a =>
                           (a.IsDynamic != true && !excludes.Any(n => a.FullName.StartsWith(n))) ||
-                          (a.FullName.StartsWith("MongoDB.Entities.Tests")));
+                          a.FullName.StartsWith("MongoDB.Entities.Tests"));
             }
             else
             {

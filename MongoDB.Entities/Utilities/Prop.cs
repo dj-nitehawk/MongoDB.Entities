@@ -20,7 +20,7 @@ namespace MongoDB.Entities
             const char c = 'a';
             while (number >= 0)
             {
-                returnVal = (char)(c + number % 26) + returnVal;
+                returnVal = (char)(c + (number % 26)) + returnVal;
                 number /= 26;
                 number--;
             }

@@ -32,10 +32,7 @@ namespace MongoDB.Entities.Tests
                 .Tag("user", "$user")
                 .Tag("missing", "blah");
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                template.ToString();
-            });
+            Assert.ThrowsException<InvalidOperationException>(() => template.ToString());
         }
 
         [TestMethod]
@@ -61,10 +58,7 @@ namespace MongoDB.Entities.Tests
             }]").Tag("size", "$size")
                 .Tag("user", "$user");
 
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                template.ToString();
-            });
+            Assert.ThrowsException<InvalidOperationException>(() => template.ToString());
         }
 
         [TestMethod]
@@ -110,7 +104,7 @@ namespace MongoDB.Entities.Tests
             var results = DB.Aggregate(pipeline).ToList();
 
             Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results.First().Name == guid);
+            Assert.IsTrue(results[0].Name == guid);
             Assert.IsTrue(results.Last().Age == 54);
         }
 

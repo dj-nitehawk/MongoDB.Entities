@@ -7,6 +7,13 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        internal static UpdateResult Update<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null) where T : IEntity
+        {
+            return session == null
+                   ? Collection<T>().UpdateMany(filter, definition, options)
+                   : Collection<T>().UpdateMany(session, filter, definition, options);
+        }
+
         internal static Task<UpdateResult> UpdateAsync<T>(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
@@ -14,11 +21,25 @@ namespace MongoDB.Entities
                    : Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
         }
 
+        internal static TProjection UpdateAndGet<T, TProjection>(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null) where T : IEntity
+        {
+            return session == null
+                ? Collection<T>().FindOneAndUpdate(filter, definition, options)
+                : Collection<T>().FindOneAndUpdate(session, filter, definition, options);
+        }
+
         internal static Task<TProjection> UpdateAndGetAsync<T, TProjection>(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
                 ? Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
                 : Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
+        }
+
+        internal static BulkWriteResult<T> BulkUpdate<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null) where T : IEntity
+        {
+            return session == null
+                   ? Collection<T>().BulkWrite(models)
+                   : Collection<T>().BulkWrite(session, models);
         }
 
         internal static Task<BulkWriteResult<T>> BulkUpdateAsync<T>(Collection<UpdateManyModel<T>> models, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity

@@ -4,6 +4,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -209,6 +210,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_many_children_count()
+        {
+            var book1 = new Book { Title = "mcc" }; book1.Save();
+            var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
+            var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
+
+            book1.Genres.Add(gen1);
+            book1.Genres.Add(gen2);
+
+            Assert.AreEqual(2, await book1.Genres.ChildrenCountAsync().ConfigureAwait(false));
+
+            var book2 = new Book { Title = "mcc" }; book2.Save();
+
+            gen1.Books.Add(book1);
+            gen1.Books.Add(book2);
+
+            Assert.AreEqual(2, gen1.Books.ChildrenCount());
+        }
+
+        [TestMethod]
         public void adding_many2many_returns_correct_children()
         {
             var book1 = new Book { Title = "ac2mrceb1" }; book1.Save();
@@ -277,35 +298,34 @@ namespace MongoDB.Entities.Tests
                             .ParentsQueryable<Book>(genre.ID)
                             .ToArray();
 
-            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(1, books.Length);
             Assert.AreEqual(book.Title, books.Single().Title);
 
             books = book.Genres
                     .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
                     .ToArray();
 
-            Assert.AreEqual(1, books.Count());
-            Assert.AreEqual(book.Title, books.Where(b => b.ID == book.ID).Single().Title);
+            Assert.AreEqual(1, books.Length);
+            Assert.AreEqual(book.Title, books.Single(b => b.ID == book.ID).Title);
 
             var genres = genre.Books
                               .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
                               .ToArray();
 
-            Assert.AreEqual(2, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).First().Name);
+            Assert.AreEqual(2, genres.Length);
+            Assert.AreEqual(genre.Name, genres.First(g => g.ID == genre.ID).Name);
 
             genres = genre.Books
                      .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
                      .ToArray();
 
-            Assert.AreEqual(2, genres.Count());
+            Assert.AreEqual(2, genres.Length);
             Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
         }
 
         [TestMethod]
         public void getting_parents_of_a_relationship_fluent_works()
         {
-
             var guid = Guid.NewGuid().ToString();
 
             var book = new Book { Title = "Planet Of The Apes " + guid };
@@ -324,30 +344,29 @@ namespace MongoDB.Entities.Tests
                             .ParentsFluent<Book>(genre.ID)
                             .ToList();
 
-            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
 
             books = book.Genres
                             .ParentsFluent<Book>(genre.Fluent().Match(g => g.Name.Contains(guid)))
                             .ToList();
 
-            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
 
             var genres = genre.Books
                               .ParentsFluent<Genre>(new[] { book.ID })
                               .ToList();
 
-            Assert.AreEqual(2, genres.Count());
-            Assert.AreEqual(genre.Name, genres.Where(g => g.ID == genre.ID).Single().Name);
+            Assert.AreEqual(2, genres.Count);
+            Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
 
             genres = genre.Books
                     .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
                     .ToList();
 
-            Assert.AreEqual(1, books.Count());
+            Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
-
         }
 
         [TestMethod]
@@ -366,7 +385,28 @@ namespace MongoDB.Entities.Tests
                               .OrderBy(b => b.Title)
                               .ToList();
 
-            Assert.AreEqual(2, books.Count());
+            Assert.AreEqual(2, books.Count);
+            Assert.IsTrue(books[0].Title == "book1");
+            Assert.IsTrue(books[1].Title == "book2");
+        }
+
+        [TestMethod]
+        public async Task async_add_child_to_many_relationship_with_ID()
+        {
+            var author = new Author { Name = "author" }; author.Save();
+
+            var b1 = new Book { Title = "book1" }; b1.Save();
+            var b2 = new Book { Title = "book2" }; b2.Save();
+
+            await author.Books.AddAsync(b1.ID).ConfigureAwait(false);
+            await author.Books.AddAsync(b2.ID).ConfigureAwait(false);
+
+            var books = author.Books
+                              .ChildrenQueryable()
+                              .OrderBy(b => b.Title)
+                              .ToList();
+
+            Assert.AreEqual(2, books.Count);
             Assert.IsTrue(books[0].Title == "book1");
             Assert.IsTrue(books[1].Title == "book2");
         }
@@ -393,6 +433,27 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_remove_child_from_many_relationship_with_ID()
+        {
+            var author = new Author { Name = "author" }; author.Save();
+
+            var b1 = new Book { Title = "book1" }; b1.Save();
+            var b2 = new Book { Title = "book2" }; b2.Save();
+
+            author.Books.Add(b1.ID);
+            author.Books.Add(b2.ID);
+
+            await author.Books.RemoveAsync(b1.ID).ConfigureAwait(false);
+            await author.Books.RemoveAsync(b2.ID).ConfigureAwait(false);
+
+            var count = author.Books
+                              .ChildrenQueryable()
+                              .Count();
+
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
         public void overload_operator_for_adding_children_to_many_relationships()
         {
             var author = new Author { Name = "author" }; author.Save();
@@ -408,7 +469,7 @@ namespace MongoDB.Entities.Tests
                               .OrderBy(b => b.Title)
                               .ToList();
 
-            Assert.AreEqual(2, books.Count());
+            Assert.AreEqual(2, books.Count);
             Assert.IsTrue(books[0].Title == "book1");
             Assert.IsTrue(books[1].Title == "book2");
         }
@@ -454,7 +515,7 @@ namespace MongoDB.Entities.Tests
             var a2books = a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToArray();
 
             Assert.AreEqual(2, a2books.Length);
-            Assert.AreEqual(b1.Title, a2books.First().Title);
+            Assert.AreEqual(b1.Title, a2books[0].Title);
             Assert.AreEqual(b2.Title, a2books.Last().Title);
         }
     }

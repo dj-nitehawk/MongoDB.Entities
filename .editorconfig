@@ -1,4 +1,15 @@
-﻿[*.cs]
+root = true
 
-# CS1573: Parameter has no matching param tag in the XML comment (but other parameters do)
-dotnet_diagnostic.CS1573.severity = suggestion
+[*.cs]
+dotnet_diagnostic.CS1573.severity = none
+dotnet_diagnostic.IDE1006.severity = none
+dotnet_diagnostic.CS1591.severity = none
+dotnet_diagnostic.RCS1036.severity = none
+dotnet_diagnostic.RCS1135.severity = none
+dotnet_diagnostic.RCS1037.severity = none
+
+[*]
+indent_style = space
+
+[*.xml]
+indent_size = 2

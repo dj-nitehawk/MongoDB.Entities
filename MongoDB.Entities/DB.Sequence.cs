@@ -11,10 +11,18 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, bool _ = false) where T : IEntity
+        public static ulong NextSequentialNumber<T>() where T : IEntity
         {
-            return NextSequentialNumberAsync<T>(cancellation);
+            return NextSequentialNumber(CollectionName<T>());
+        }
+
+        /// <summary>
+        /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
+        /// </summary>
+        /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
+        public ulong NextSequentialNumber<T>(bool _ = false) where T : IEntity
+        {
+            return NextSequentialNumber<T>();
         }
 
         /// <summary>
@@ -31,28 +39,28 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public ulong NextSequentialNumber<T>(bool _ = false) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, bool _ = false) where T : IEntity
         {
-            return Run.Sync(() => DB.NextSequentialNumberAsync<T>());
-        }
-
-        /// <summary>
-        /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
-        /// </summary>
-        /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public static ulong NextSequentialNumber<T>() where T : IEntity
-        {
-            return Run.Sync(() => NextSequentialNumberAsync<T>());
+            return NextSequentialNumberAsync<T>(cancellation);
         }
 
         /// <summary>
         /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, bool _ = false)
+        public static ulong NextSequentialNumber(string sequenceName)
         {
-            return DB.NextSequentialNumberAsync(sequenceName, cancellation);
+            return UpdateAndGetCommand(sequenceName).Execute();
+        }
+
+        /// <summary>
+        /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
+        /// </summary>
+        /// <param name="sequenceName">The name of the sequence to get the next number for</param>
+        public ulong NextSequentialNumber(string sequenceName, bool _ = false)
+        {
+            return NextSequentialNumber(sequenceName);
         }
 
         /// <summary>
@@ -62,31 +70,26 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
         {
-            return
-                new UpdateAndGet<SequenceCounter, ulong>()
-                    .Match(s => s.ID == sequenceName)
-                    .Modify(b => b.Inc(s => s.Count, 1ul))
-                    .Option(o => o.IsUpsert = true)
-                    .Project(s => s.Count)
-                    .ExecuteAsync(cancellation);
+            return UpdateAndGetCommand(sequenceName).ExecuteAsync(cancellation);
         }
 
         /// <summary>
         /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-        public ulong NextSequentialNumber(string sequenceName, bool _ = false)
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, bool _ = false)
         {
-            return Run.Sync(() => DB.NextSequentialNumberAsync(sequenceName));
+            return NextSequentialNumberAsync(sequenceName, cancellation);
         }
 
-        /// <summary>
-        /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
-        /// </summary>
-        /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-        public static ulong NextSequentialNumber(string sequenceName)
+        private static UpdateAndGet<SequenceCounter, ulong> UpdateAndGetCommand(string sequenceName)
         {
-            return Run.Sync(() => NextSequentialNumberAsync(sequenceName));
+            return new UpdateAndGet<SequenceCounter, ulong>()
+                .Match(s => s.ID == sequenceName)
+                .Modify(b => b.Inc(s => s.Count, 1ul))
+                .Option(o => o.IsUpsert = true)
+                .Project(s => s.Count);
         }
     }
 }

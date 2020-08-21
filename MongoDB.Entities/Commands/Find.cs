@@ -48,7 +48,8 @@ namespace MongoDB.Entities
         /// <returns>A single entity or null if not found</returns>
         public TProjection One(string ID)
         {
-            return Run.Sync(() => OneAsync(ID));
+            Match(ID);
+            return Execute().SingleOrDefault();
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace MongoDB.Entities
         public async Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
         {
             Match(ID);
-            return (await ExecuteAsync(cancellation)).SingleOrDefault();
+            return (await ExecuteAsync(cancellation).ConfigureAwait(false)).SingleOrDefault();
         }
 
         /// <summary>
@@ -70,7 +71,8 @@ namespace MongoDB.Entities
         /// <returns>A list of Entities</returns>
         public List<TProjection> Many(Expression<Func<T, bool>> expression)
         {
-            return Run.Sync(() => ManyAsync(expression));
+            Match(expression);
+            return Execute();
         }
 
         /// <summary>
@@ -92,7 +94,8 @@ namespace MongoDB.Entities
         /// <returns>A list of Entities</returns>
         public List<TProjection> Many(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
-            return Run.Sync(() => ManyAsync(filter));
+            Match(filter);
+            return Execute();
         }
 
         /// <summary>
@@ -176,7 +179,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude) 
+        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
         /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
         /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
         /// </summary>
@@ -186,7 +189,7 @@ namespace MongoDB.Entities
         /// <param name="minDistance">Minimum distance in meters from the search point</param>
         public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
         {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance)); ;
+            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance));
         }
 
         /// <summary>
@@ -357,7 +360,7 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public List<TProjection> Execute()
         {
-            return Run.Sync(() => ExecuteAsync());
+            return ExecuteCursor().ToList();
         }
 
         /// <summary>
@@ -367,7 +370,7 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await (await ExecuteCursorAsync(cancellation)).ToListAsync();
+            return await (await ExecuteCursorAsync(cancellation).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -375,7 +378,8 @@ namespace MongoDB.Entities
         /// </summary>
         public IAsyncCursor<TProjection> ExecuteCursor()
         {
-            return Run.Sync(() => ExecuteCursorAsync());
+            CombineSortsIfAny();
+            return DB.Find(filter, options, session);
         }
 
         /// <summary>
@@ -384,8 +388,14 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
         {
-            if (sorts.Count > 0) options.Sort = Builders<T>.Sort.Combine(sorts);
+            CombineSortsIfAny();
             return DB.FindAsync(filter, options, session, cancellation);
+        }
+
+        private void CombineSortsIfAny()
+        {
+            if (sorts.Count > 0)
+                options.Sort = Builders<T>.Sort.Combine(sorts);
         }
 
         private void AddTxtScoreToProjection(string propName)

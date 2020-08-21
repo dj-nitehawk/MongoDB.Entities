@@ -130,15 +130,15 @@ namespace MongoDB.Entities
                 ? chunkCollection.FindAsync(filter, options, cancellation)
                 : chunkCollection.FindAsync(session, filter, options, cancellation);
 
-            using (var cursor = await findTask)
+            using (var cursor = await findTask.ConfigureAwait(false))
             {
                 var hasChunks = false;
 
-                while (await cursor.MoveNextAsync(cancellation))
+                while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
                 {
                     foreach (var chunk in cursor.Current)
                     {
-                        await stream.WriteAsync(chunk, 0, chunk.Length, cancellation);
+                        await stream.WriteAsync(chunk, 0, chunk.Length, cancellation).ConfigureAwait(false);
                         hasChunks = true;
                     }
                 }
@@ -172,7 +172,7 @@ namespace MongoDB.Entities
             parent.ThrowIfUnsaved();
             if (chunkSizeKB < 128 || chunkSizeKB > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
             if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
-            await CleanUpAsync(session);
+            await CleanUpAsync(session).ConfigureAwait(false);
 
             doc = new FileChunk { FileID = parent.ID };
             chunkSize = chunkSizeKB * 1024;
@@ -184,14 +184,14 @@ namespace MongoDB.Entities
             {
                 if (stream.CanSeek && stream.Position > 0) stream.Position = 0;
 
-                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation)) > 0)
+                while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation).ConfigureAwait(false)) > 0)
                 {
-                    await FlushToDBAsync(session, isLastChunk: false, cancellation);
+                    await FlushToDBAsync(session, isLastChunk: false, cancellation).ConfigureAwait(false);
                 }
 
                 if (parent.FileSize > 0)
                 {
-                    await FlushToDBAsync(session, isLastChunk: true, cancellation);
+                    await FlushToDBAsync(session, isLastChunk: true, cancellation).ConfigureAwait(false);
                     parent.UploadSuccessful = true;
                 }
                 else
@@ -201,12 +201,12 @@ namespace MongoDB.Entities
             }
             catch (Exception)
             {
-                await CleanUpAsync(session);
+                await CleanUpAsync(session).ConfigureAwait(false);
                 throw;
             }
             finally
             {
-                await UpdateMetaDataAsync(session);
+                await UpdateMetaDataAsync(session).ConfigureAwait(false);
                 doc = null;
                 buffer = null;
                 dataChunk = null;

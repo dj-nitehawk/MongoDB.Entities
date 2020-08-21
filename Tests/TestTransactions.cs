@@ -70,7 +70,6 @@ namespace MongoDB.Entities.Tests
             Book res;
             Book fnt;
 
-
             using (var TN = new Transaction())
             {
                 TN.Save(book1);
@@ -122,10 +121,10 @@ namespace MongoDB.Entities.Tests
             using (var TN = new Transaction())
             {
                 var tres = TN.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList(); ;
-                Assert.AreEqual(author1.Surname, tres.First().Surname);
+                Assert.AreEqual(author1.Surname, tres[0].Surname);
 
                 var tflu = TN.FluentTextSearch<Author>(Search.Full, author2.Surname).SortByDescending(x => x.ModifiedOn).ToList(); ;
-                Assert.AreEqual(author2.Surname, tflu.First().Surname);
+                Assert.AreEqual(author2.Surname, tflu[0].Surname);
             }
         }
 
@@ -147,7 +146,7 @@ namespace MongoDB.Entities.Tests
             }
 
             var res = DB.Find<Book>().Many(b => b.Title.Contains(guid));
-            Assert.AreEqual(entities.Count(), res.Count());
+            Assert.AreEqual(entities.Length, res.Count);
 
             foreach (var ent in res)
             {
@@ -156,9 +155,8 @@ namespace MongoDB.Entities.Tests
             res.Save();
 
             res = DB.Find<Book>().Many(b => b.Title.Contains(guid));
-            Assert.AreEqual(3, res.Count());
-            Assert.AreEqual("updated " + guid, res.First().Title);
+            Assert.AreEqual(3, res.Count);
+            Assert.AreEqual("updated " + guid, res[0].Title);
         }
-
     }
 }

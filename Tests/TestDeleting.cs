@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -15,6 +16,26 @@ namespace MongoDB.Entities.Tests
             var author3 = new Author { Name = "auth3" }; author3.Save();
 
             author2.Delete();
+
+            var a1 = author1.Queryable()
+                             .Where(a => a.ID == author1.ID)
+                             .SingleOrDefault();
+            var a2 = author2.Queryable()
+                              .Where(a => a.ID == author2.ID)
+                              .SingleOrDefault();
+
+            Assert.AreEqual(null, a2);
+            Assert.AreEqual(author1.Name, a1.Name);
+        }
+
+        [TestMethod]
+        public async Task async_delete_by_id_removes_entity_from_collection()
+        {
+            var author1 = new Author { Name = "auth1" }; author1.Save();
+            var author2 = new Author { Name = "auth2" }; author2.Save();
+            var author3 = new Author { Name = "auth3" }; author3.Save();
+
+            await author2.DeleteAsync().ConfigureAwait(false);
 
             var a1 = author1.Queryable()
                              .Where(a => a.ID == author1.ID)

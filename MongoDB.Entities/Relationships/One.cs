@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         { }
 
         /// <summary>
-        /// Initializes a reference to an entity in MongoDB. 
+        /// Initializes a reference to an entity in MongoDB.
         /// </summary>
         /// <param name="entity">The actual entity this reference represents.</param>
         internal One(T entity)
@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         /// <returns>The actual entity</returns>
         public T ToEntity(IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(session));
+            return new Find<T>(session).One(ID);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (new Find<T>(session)).OneAsync(ID, cancellation);
+            return new Find<T>(session).OneAsync(ID, cancellation);
         }
 
         /// <summary>
@@ -80,7 +80,11 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Expression<Func<T, T>> projection, IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(projection, session));
+            return new Find<T>(session)
+                        .Match(ID)
+                        .Project(projection)
+                        .Execute()
+                        .SingleOrDefault();
         }
 
         /// <summary>
@@ -95,8 +99,8 @@ namespace MongoDB.Entities
             return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
-                        .ExecuteAsync(cancellation))
-                   .FirstOrDefault();
+                        .ExecuteAsync(cancellation).ConfigureAwait(false))
+                   .SingleOrDefault();
         }
 
         /// <summary>
@@ -107,7 +111,11 @@ namespace MongoDB.Entities
         /// <returns>The actual projected entity</returns>
         public T ToEntity(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null)
         {
-            return Run.Sync(() => ToEntityAsync(projection, session));
+            return new Find<T>(session)
+                        .Match(ID)
+                        .Project(projection)
+                        .Execute()
+                        .SingleOrDefault();
         }
 
         /// <summary>
@@ -122,8 +130,8 @@ namespace MongoDB.Entities
             return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
-                        .ExecuteAsync(cancellation))
-                   .FirstOrDefault();
+                        .ExecuteAsync(cancellation).ConfigureAwait(false))
+                   .SingleOrDefault();
         }
     }
 }
