@@ -34,7 +34,7 @@ namespace MongoDB.Entities.Tests
                         .Where(c => c.Name == "Paris " + guid)
                         .ToList();
 
-            Assert.AreEqual(1, res.Count());
+            Assert.AreEqual(1, res.Count);
         }
 
         [TestMethod]

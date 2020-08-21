@@ -25,7 +25,25 @@ namespace MongoDB.Entities.Tests
                         .Execute();
 
             Assert.AreEqual(guid, res);
+        }
 
+        [TestMethod]
+        public async Task async_updating_modifies_correct_documents()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
+            var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
+            var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
+
+            var res = await DB.UpdateAndGet<Author, string>()
+                        .Match(a => a.Surname == guid)
+                        .Modify(a => a.Name, guid)
+                        .Modify(a => a.Surname, author1.Name)
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
+                        .Project(a => a.Name)
+                        .ExecuteAsync().ConfigureAwait(false);
+
+            Assert.AreEqual(guid, res);
         }
 
         [TestMethod]
@@ -42,6 +60,24 @@ namespace MongoDB.Entities.Tests
                           .Modify(b => b.Set(a => a.Name, guid))
                           .Modify(b => b.CurrentDate(a => a.ModifiedOn))
                           .Execute();
+
+            Assert.AreEqual(2, res.Age);
+        }
+
+        [TestMethod]
+        public async Task async_update_by_def_builder_mods_correct_docs()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1", Age = 1 }; author1.Save();
+            var author2 = new Author { Name = "bumcda2", Surname = guid, Age = 1 }; author2.Save();
+            var author3 = new Author { Name = "bumcda3", Surname = guid, Age = 1 }; author3.Save();
+
+            var res = await DB.UpdateAndGet<Author>()
+                          .Match(a => a.Surname == guid)
+                          .Modify(b => b.Inc(a => a.Age, 1))
+                          .Modify(b => b.Set(a => a.Name, guid))
+                          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                          .ExecuteAsync().ConfigureAwait(false);
 
             Assert.AreEqual(2, res.Age);
         }
@@ -215,6 +251,19 @@ namespace MongoDB.Entities.Tests
             {
                 bookNum = book.NextSequentialNumber();
             });
+
+            Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
+        }
+
+        [TestMethod]
+        public async Task async_next_sequential_number_for_entities()
+        {
+            var book = new Book { };
+
+            var lastNum = await book.NextSequentialNumberAsync().ConfigureAwait(false);
+
+            var bookNum = 0ul;
+            Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumber());
 
             Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
         }

@@ -2,6 +2,7 @@
 using MongoDB.Entities.Tests.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -68,7 +69,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.GetInstance("test2");
 
-            Assert.AreEqual("test2", res.Database());
+            Assert.AreEqual("test2", res.DatabaseName());
         }
 
         [TestMethod]
@@ -89,8 +90,8 @@ namespace MongoDB.Entities.Tests
             var db = new DB("multi-init");
             var instance = DB.GetInstance("multi-init");
 
-            Assert.AreEqual("multi-init", instance.Database());
-            Assert.AreEqual("multi-init", db.Database());
+            Assert.AreEqual("multi-init", instance.DatabaseName());
+            Assert.AreEqual("multi-init", db.DatabaseName());
         }
 
         [TestMethod]
@@ -120,6 +121,39 @@ namespace MongoDB.Entities.Tests
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
 
             db.DropCollection<BookMark>();
+
+            Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
+
+            Assert.AreEqual(3, db.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+        }
+
+        [TestMethod]
+        public async Task async_dropping_collections()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var marks = new[] {
+                new BookMark{ BookName = guid},
+                new BookMark{ BookName = guid},
+                new BookMark{ BookName = guid},
+            };
+            marks.Save();
+
+            var covers = new[] {
+                new BookCover{  BookID = guid },
+                new BookCover{  BookID = guid },
+                new BookCover{  BookID = guid }
+            };
+
+            covers.Save();
+
+            foreach (var cover in covers)
+            {
+                cover.BookMarks += marks;
+            }
+
+            Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
+
+            await db.DropCollectionAsync<BookMark>().ConfigureAwait(false);
 
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
 

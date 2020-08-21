@@ -5,6 +5,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -25,6 +26,15 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "Test" };
             book.Save();
+            var title = book.Queryable().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
+            Assert.AreEqual("Test", title);
+        }
+
+        [TestMethod]
+        public async Task async_saved_book_has_correct_title()
+        {
+            var book = new Book { Title = "Test" };
+            await book.SaveAsync().ConfigureAwait(false);
             var title = book.Queryable().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
             Assert.AreEqual("Test", title);
         }
@@ -61,6 +71,30 @@ namespace MongoDB.Entities.Tests
                 b.Review.Stars,
                 Something = b.ReviewArray
             });
+
+            book = DB.Find<Book>().One(book.ID);
+
+            Assert.AreEqual("Title is preserved", book.Title);
+            Assert.AreEqual(543.21m, book.Price);
+            Assert.AreEqual(default, book.DontSaveThis);
+        }
+
+        [TestMethod]
+        public async Task async_save_preserving()
+        {
+            var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };
+            book.Save();
+
+            book.Title = "updated title";
+            book.Price = 543.21m;
+
+            await book.SavePreservingAsync(b => new
+            {
+                b.Title,
+                b.PublishedOn,
+                b.Review.Stars,
+                Something = b.ReviewArray
+            }).ConfigureAwait(false);
 
             book = DB.Find<Book>().One(book.ID);
 
@@ -210,7 +244,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Author>().Many(a => a.Name == guid);
 
-            Assert.AreEqual(2, res.Count());
+            Assert.AreEqual(2, res.Count);
         }
 
         [TestMethod]
@@ -227,6 +261,19 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_find_by_id_returns_correct_document()
+        {
+            var book1 = new Book { Title = "fbircdb1" }; book1.Save();
+            var book2 = new Book { Title = "fbircdb2" }; book2.Save();
+
+            var res1 = await DB.Find<Book>().OneAsync(new ObjectId().ToString()).ConfigureAwait(false);
+            var res2 = await DB.Find<Book>().OneAsync(book2.ID).ConfigureAwait(false);
+
+            Assert.AreEqual(null, res1);
+            Assert.AreEqual(book2.ID, res2.ID);
+        }
+
+        [TestMethod]
         public void find_by_filter_basic_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
@@ -234,6 +281,18 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = guid }; author2.Save();
 
             var res = DB.Find<Author>().Many(f => f.Eq(a => a.Name, guid));
+
+            Assert.AreEqual(2, res.Count());
+        }
+
+        [TestMethod]
+        public async Task async_find_by_filter_basic_returns_correct_documents()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid }; author1.Save();
+            var author2 = new Author { Name = guid }; author2.Save();
+
+            var res = await DB.Find<Author>().ManyAsync(f => f.Eq(a => a.Name, guid)).ConfigureAwait(false);
 
             Assert.AreEqual(2, res.Count());
         }
@@ -257,6 +316,24 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_find_by_multiple_match_methods()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = await DB.Find<Author>()
+                        .Match(a => a.Age > 10)
+                        .Match(a => a.Surname == guid)
+                        .ExecuteAsync().ConfigureAwait(false);
+
+            Assert.AreEqual(3, res.Count);
+            Assert.IsFalse(res.Any(a => a.Age == 10));
+        }
+
+        [TestMethod]
         public void find_by_filter_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
@@ -274,6 +351,28 @@ namespace MongoDB.Entities.Tests
                         .Project(p => p.Include("Name").Include("Surname"))
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute();
+
+            Assert.AreEqual(three.Name, res.First().Name);
+        }
+
+        [TestMethod]
+        public async Task async_find_by_filter_returns_correct_documents()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = await DB.Find<Author>()
+                        .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
+                        .Sort(a => a.Age, Order.Descending)
+                        .Sort(a => a.Name, Order.Descending)
+                        .Skip(1)
+                        .Limit(1)
+                        .Project(p => p.Include("Name").Include("Surname"))
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
+                        .ExecuteAsync().ConfigureAwait(false);
 
             Assert.AreEqual(three.Name, res.First().Name);
         }
@@ -304,6 +403,30 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_find_with_projection_to_custom_type_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var one = new Author { Name = "a", Age = 10, Surname = guid }; one.Save();
+            var two = new Author { Name = "b", Age = 20, Surname = guid }; two.Save();
+            var three = new Author { Name = "c", Age = 30, Surname = guid }; three.Save();
+            var four = new Author { Name = "d", Age = 40, Surname = guid }; four.Save();
+
+            var res = (await DB.Find<Author, Test>()
+                        .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
+                        .Sort(a => a.Age, Order.Descending)
+                        .Sort(a => a.Name, Order.Descending)
+                        .Skip(1)
+                        .Limit(1)
+                        .Project(a => new Test { Tester = a.Name })
+                        .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
+                        .ExecuteAsync().ConfigureAwait(false))
+                        .FirstOrDefault();
+
+            Assert.AreEqual(three.Name, res.Tester);
+
+        }
+
+        [TestMethod]
         public void find_with_exclusion_projection_works()
         {
             var author = new Author
@@ -319,7 +442,7 @@ namespace MongoDB.Entities.Tests
                         .Match(a => a.ID == author.ID)
                         .ProjectExcluding(a => new { a.Age, a.Name })
                         .Execute()
-                        .Single(); ;
+                        .Single();
 
             Assert.AreEqual(author.FullName, res.FullName);
             Assert.AreEqual(author.Surname, res.Surname);
