@@ -131,6 +131,28 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_update_with_aggregation_pipeline_works()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var author = new Author { Name = "uwapw", Surname = guid };
+            author.Save();
+
+            var stage = new Template<Author>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
+                .Path(a => a.FullName)
+                .Path(a => a.Name)
+                .Path(a => a.Surname)
+                .ToString();
+
+            var res = await DB.UpdateAndGet<Author>()
+                          .Match(a => a.ID == author.ID)
+                          .WithPipelineStage(stage)
+                          .ExecutePipelineAsync().ConfigureAwait(false);
+
+            Assert.AreEqual(author.Name + "-" + author.Surname, res.FullName);
+        }
+
+        [TestMethod]
         public void update_with_array_filters_using_templates_work()
         {
             var guid = Guid.NewGuid().ToString();

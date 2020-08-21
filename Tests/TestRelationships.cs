@@ -210,6 +210,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task async_many_children_count()
+        {
+            var book1 = new Book { Title = "mcc" }; book1.Save();
+            var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
+            var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
+
+            book1.Genres.Add(gen1);
+            book1.Genres.Add(gen2);
+
+            Assert.AreEqual(2, await book1.Genres.ChildrenCountAsync().ConfigureAwait(false));
+
+            var book2 = new Book { Title = "mcc" }; book2.Save();
+
+            gen1.Books.Add(book1);
+            gen1.Books.Add(book2);
+
+            Assert.AreEqual(2, gen1.Books.ChildrenCount());
+        }
+
+        [TestMethod]
         public void adding_many2many_returns_correct_children()
         {
             var book1 = new Book { Title = "ac2mrceb1" }; book1.Save();

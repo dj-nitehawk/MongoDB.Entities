@@ -15,7 +15,7 @@
     <PackageReleaseNotes>- eliminate all sync over async anti-pattern usages
 - avoid capturing sync context when awaiting tasks
 - transaction support for IEntity extension methods
-- misc. async optimizations
+- misc. optimizations
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
