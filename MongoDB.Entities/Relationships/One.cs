@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         { }
 
         /// <summary>
-        /// Initializes a reference to an entity in MongoDB. 
+        /// Initializes a reference to an entity in MongoDB.
         /// </summary>
         /// <param name="entity">The actual entity this reference represents.</param>
         internal One(T entity)
@@ -69,7 +69,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (new Find<T>(session)).OneAsync(ID, cancellation);
+            return new Find<T>(session).OneAsync(ID, cancellation);
         }
 
         /// <summary>

@@ -213,7 +213,7 @@ namespace MongoDB.Entities.Tests
             var authors = book.Queryable()
                               .Where(b => b.ID == book.ID)
                               .Select(b => b.OtherAuthors).Single();
-            Assert.AreEqual(authors.Count(), 2);
+            Assert.AreEqual(authors.Length, 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
             Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
         }
@@ -230,7 +230,7 @@ namespace MongoDB.Entities.Tests
             var authors = book.Queryable()
                               .Where(b => b.ID == book.ID)
                               .Select(b => b.OtherAuthors).Single();
-            Assert.AreEqual(authors.Count(), 2);
+            Assert.AreEqual(authors.Length, 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
             Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
         }
@@ -282,7 +282,7 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Author>().Many(f => f.Eq(a => a.Name, guid));
 
-            Assert.AreEqual(2, res.Count());
+            Assert.AreEqual(2, res.Count);
         }
 
         [TestMethod]
@@ -294,7 +294,7 @@ namespace MongoDB.Entities.Tests
 
             var res = await DB.Find<Author>().ManyAsync(f => f.Eq(a => a.Name, guid)).ConfigureAwait(false);
 
-            Assert.AreEqual(2, res.Count());
+            Assert.AreEqual(2, res.Count);
         }
 
         [TestMethod]
@@ -352,7 +352,7 @@ namespace MongoDB.Entities.Tests
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .Execute();
 
-            Assert.AreEqual(three.Name, res.First().Name);
+            Assert.AreEqual(three.Name, res[0].Name);
         }
 
         [TestMethod]
@@ -374,7 +374,7 @@ namespace MongoDB.Entities.Tests
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                         .ExecuteAsync().ConfigureAwait(false);
 
-            Assert.AreEqual(three.Name, res.First().Name);
+            Assert.AreEqual(three.Name, res[0].Name);
         }
 
         private class Test { public string Tester { get; set; } }
@@ -399,7 +399,6 @@ namespace MongoDB.Entities.Tests
                         .FirstOrDefault();
 
             Assert.AreEqual(three.Name, res.Tester);
-
         }
 
         [TestMethod]
@@ -423,7 +422,6 @@ namespace MongoDB.Entities.Tests
                         .FirstOrDefault();
 
             Assert.AreEqual(three.Name, res.Tester);
-
         }
 
         [TestMethod]

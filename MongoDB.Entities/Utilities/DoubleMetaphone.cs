@@ -94,7 +94,7 @@ namespace MongoDB.Entities
         private static readonly string[] ZO_ZI_ZA = new[] { "ZO", "ZI", "ZA" };
 
         private static readonly string[] EmptyKeys = new string[0];
-        private static readonly int MaxLength = 4;
+        private const int MaxLength = 4;
 
         private static readonly Regex regex = new Regex(@"\w(?<!\d)[\w'-]*", RegexOptions.Compiled);
 
@@ -135,7 +135,7 @@ namespace MongoDB.Entities
 
         private static bool Match(string stringRenamed, int pos, char c)
         {
-            return (0 <= pos && pos < stringRenamed.Length) && stringRenamed[pos] == c;
+            return 0 <= pos && pos < stringRenamed.Length && stringRenamed[pos] == c;
         }
 
         private static bool IsSlavoGermanic(string stringRenamed)
@@ -193,7 +193,7 @@ namespace MongoDB.Entities
                         break;
                     case 'B':
                         Add("P", ref sbPrimary, ref sbSecondary);
-                        n += (Match(word, n + 1, 'B') ? 2 : 1);
+                        n += Match(word, n + 1, 'B') ? 2 : 1;
                         break;
                     case 'Ç':
                         Add("S", ref sbPrimary, ref sbSecondary);
@@ -246,13 +246,14 @@ namespace MongoDB.Entities
                                 if (n > 0)
                                 {
                                     if (Match(word, 0, MC))
-                                        // e.g., "McHugh"
                                         Add("K", ref sbPrimary, ref sbSecondary);
                                     else
                                         Add("X", "K", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                                 }
                                 else
+                                {
                                     Add("X", ref sbPrimary, ref sbSecondary);
+                                }
                             }
                             n += 2;
                             break;
@@ -310,7 +311,7 @@ namespace MongoDB.Entities
                         if (Match(word, n + 1, _C__Q__G))
                             n += 3;
                         else
-                            n += ((Match(word, n + 1, C_K_Q) && !Match(word, n + 1, CE_CI)) ? 2 : 1);
+                            n += (Match(word, n + 1, C_K_Q) && !Match(word, n + 1, CE_CI)) ? 2 : 1;
                         break;
 
                     case 'D':
@@ -338,7 +339,7 @@ namespace MongoDB.Entities
                         n++;
                         break;
                     case 'F':
-                        n += (Match(word, n + 1, 'F') ? 2 : 1);
+                        n += Match(word, n + 1, 'F') ? 2 : 1;
                         Add("F", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'G':
@@ -439,7 +440,7 @@ namespace MongoDB.Entities
                         }
 
                         Add("K", ref sbPrimary, ref sbSecondary);
-                        n += (Match(word, n + 1, 'G') ? 2 : 1);
+                        n += Match(word, n + 1, 'G') ? 2 : 1;
                         break;
                     case 'H':
                         if (((n == 0) || IsVowel(word, n - 1)) && IsVowel(word, n + 1))
@@ -491,10 +492,10 @@ namespace MongoDB.Entities
                             }
                         }
 
-                        n += (Match(word, n + 1, 'J') ? 2 : 1);
+                        n += Match(word, n + 1, 'J') ? 2 : 1;
                         break;
                     case 'K':
-                        n += (Match(word, n + 1, 'K') ? 2 : 1);
+                        n += Match(word, n + 1, 'K') ? 2 : 1;
                         Add("K", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'L':
@@ -526,7 +527,7 @@ namespace MongoDB.Entities
                         Add("M", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'N':
-                        n += (Match(word, n + 1, 'N') ? 2 : 1);
+                        n += Match(word, n + 1, 'N') ? 2 : 1;
                         Add("N", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'Ñ':
@@ -541,11 +542,11 @@ namespace MongoDB.Entities
                             break;
                         }
 
-                        n += (Match(word, n + 1, P_B) ? 2 : 1);
+                        n += Match(word, n + 1, P_B) ? 2 : 1;
                         Add("P", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'Q':
-                        n += (Match(word, n + 1, 'Q') ? 2 : 1);
+                        n += Match(word, n + 1, 'Q') ? 2 : 1;
                         Add("K", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'R':
@@ -558,7 +559,7 @@ namespace MongoDB.Entities
                             Add("R", ref sbPrimary, ref sbSecondary);
                         }
 
-                        n += (Match(word, n + 1, 'R') ? 2 : 1);
+                        n += Match(word, n + 1, 'R') ? 2 : 1;
                         break;
                     case 'S':
                         if (Match(word, n - 1, ISL_YSL))
@@ -594,7 +595,7 @@ namespace MongoDB.Entities
                         if (((n == 0) && Match(word, n + 1, M_N_L_W)) || Match(word, n + 1, 'Z'))
                         {
                             Add("S", "X", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                            n += (Match(word, n + 1, 'Z') ? 2 : 1);
+                            n += Match(word, n + 1, 'Z') ? 2 : 1;
                             break;
                         }
 
@@ -629,7 +630,7 @@ namespace MongoDB.Entities
                         else
                             Add("S", ref sbPrimary, ref sbSecondary);
 
-                        n += (Match(word, n + 1, S_Z) ? 2 : 1);
+                        n += Match(word, n + 1, S_Z) ? 2 : 1;
                         break;
                     case 'T':
                         if (Match(word, n, TION))
@@ -656,11 +657,11 @@ namespace MongoDB.Entities
                             break;
                         }
 
-                        n += (Match(word, n + 1, T_D) ? 2 : 1);
+                        n += Match(word, n + 1, T_D) ? 2 : 1;
                         Add("T", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'V':
-                        n += (Match(word, n + 1, 'V') ? 2 : 1);
+                        n += Match(word, n + 1, 'V') ? 2 : 1;
                         Add("F", ref sbPrimary, ref sbSecondary);
                         break;
                     case 'W':
@@ -699,7 +700,7 @@ namespace MongoDB.Entities
                         if (!((n == last) && (Match(word, n - 3, IAU_EAU) || Match(word, n - 2, AU_OU))))
                             Add("KS", ref sbPrimary, ref sbSecondary);
 
-                        n += (Match(word, n + 1, C_X) ? 2 : 1);
+                        n += Match(word, n + 1, C_X) ? 2 : 1;
                         break;
                     case 'Z':
                         if (Match(word, n + 1, 'H'))
@@ -713,9 +714,11 @@ namespace MongoDB.Entities
                             Add("S", "TS", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         }
                         else
+                        {
                             Add("S", ref sbPrimary, ref sbSecondary);
+                        }
 
-                        n += (Match(word, n + 1, 'Z') ? 2 : 1);
+                        n += Match(word, n + 1, 'Z') ? 2 : 1;
                         break;
                     default:
                         n++;
@@ -733,9 +736,9 @@ namespace MongoDB.Entities
             if (hasAlternate)
             {
                 int secondaryLength = Math.Min(MaxLength, sbSecondary.Length);
-                return new[] { sbPrimary.ToString().Substring(0, (primaryLength) - (0)), sbSecondary.ToString().Substring(0, (secondaryLength) - (0)) };
+                return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0), sbSecondary.ToString().Substring(0, secondaryLength - 0) };
             }
-            return new[] { sbPrimary.ToString().Substring(0, (primaryLength) - (0)) };
+            return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0) };
 
         }
 

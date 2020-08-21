@@ -41,7 +41,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// Deletes the collection of a given entity type as well as the join collections for that entity.
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
@@ -64,7 +64,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// Deletes the collection of a given entity type as well as the join collections for that entity.
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
@@ -75,7 +75,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// Deletes the collection of a given entity type as well as the join collections for that entity.
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
@@ -106,7 +106,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes the collection of a given entity type as well as the join collections for that entity. 
+        /// Deletes the collection of a given entity type as well as the join collections for that entity.
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>

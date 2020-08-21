@@ -159,7 +159,7 @@ namespace MongoDB.Entities
 
             if (expression.Body.NodeType == ExpressionType.MemberAccess && type == KeyType.Text)
             {
-                var propType = ((expression.Body as MemberExpression).Member as PropertyInfo).PropertyType;
+                var propType = ((expression.Body as MemberExpression)?.Member as PropertyInfo)?.PropertyType;
 
                 if (propType == typeof(FuzzyString))
                 {

@@ -163,7 +163,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity while preserving some property values in the database. 
+        /// Saves an entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
@@ -182,7 +182,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity while preserving some property values in the database. 
+        /// Saves an entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
@@ -196,7 +196,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity while preserving some property values in the database. 
+        /// Saves an entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
@@ -215,9 +215,8 @@ namespace MongoDB.Entities
                 : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, updateDef, null, cancellation);
         }
 
-
         /// <summary>
-        /// Saves an entity while preserving some property values in the database. 
+        /// Saves an entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>

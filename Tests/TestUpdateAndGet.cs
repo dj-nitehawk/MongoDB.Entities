@@ -242,15 +242,12 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void next_sequential_number_for_entities()
         {
-            var book = new Book { };
+            var book = new Book();
 
             var lastNum = book.NextSequentialNumber();
 
             var bookNum = 0ul;
-            Parallel.For(1, 11, _ =>
-            {
-                bookNum = book.NextSequentialNumber();
-            });
+            Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumber());
 
             Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
         }
@@ -258,7 +255,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task async_next_sequential_number_for_entities()
         {
-            var book = new Book { };
+            var book = new Book();
 
             var lastNum = await book.NextSequentialNumberAsync().ConfigureAwait(false);
 
@@ -273,15 +270,12 @@ namespace MongoDB.Entities.Tests
         {
             var db = new DB("mongodb-entities-test-multi");
 
-            var img = new Image { };
+            var img = new Image();
 
             var lastNum = img.NextSequentialNumber();
 
             var imgNum = 0ul;
-            Parallel.For(1, 11, _ =>
-            {
-                imgNum = img.NextSequentialNumber();
-            });
+            Parallel.For(1, 11, _ => imgNum = img.NextSequentialNumber());
 
             Assert.AreEqual(lastNum + 10, img.NextSequentialNumber() - 1);
         }

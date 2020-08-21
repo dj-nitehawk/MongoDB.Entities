@@ -75,10 +75,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void uninitialized_get_instance_throws()
         {
-            Assert.ThrowsException<InvalidOperationException>(() =>
-            {
-                DB.GetInstance("some-database");
-            });
+            Assert.ThrowsException<InvalidOperationException>(() => DB.GetInstance("some-database"));
         }
 
         [TestMethod]
@@ -160,5 +157,4 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(3, db.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
         }
     }
-
 }

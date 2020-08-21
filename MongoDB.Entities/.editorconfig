@@ -4,6 +4,9 @@ root = true
 dotnet_diagnostic.CS1573.severity = none
 dotnet_diagnostic.IDE1006.severity = none
 dotnet_diagnostic.CS1591.severity = none
+dotnet_diagnostic.RCS1036.severity = none
+dotnet_diagnostic.RCS1135.severity = none
+dotnet_diagnostic.RCS1037.severity = none
 
 [*]
 indent_style = space

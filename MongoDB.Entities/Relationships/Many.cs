@@ -62,8 +62,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IAggregateFluent of JoinRecords for this relationship
         /// </summary>
-        /// <param name="options">An optional AggregateOptions object</param>
         /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="options">An optional AggregateOptions object</param>
         public IAggregateFluent<JoinRecord> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)
         {
             return session == null

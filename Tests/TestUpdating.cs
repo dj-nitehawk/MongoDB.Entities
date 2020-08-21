@@ -90,8 +90,8 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Author>().Many(a => a.Surname == guid && a.Age == 10);
 
-            Assert.AreEqual(2, res.Count());
-            Assert.AreEqual(guid, res.First().Name);
+            Assert.AreEqual(2, res.Count);
+            Assert.AreEqual(guid, res[0].Name);
         }
 
         [TestMethod]
@@ -111,8 +111,8 @@ namespace MongoDB.Entities.Tests
 
             var res = DB.Find<Author>().Many(a => a.Surname == guid && a.Age == 10);
 
-            Assert.AreEqual(2, res.Count());
-            Assert.AreEqual(guid, res.First().Name);
+            Assert.AreEqual(2, res.Count);
+            Assert.AreEqual(guid, res[0].Name);
         }
 
         [TestMethod]

@@ -25,12 +25,12 @@ namespace MongoDB.Entities.Tests
             author2.Save();
 
             var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
-            Assert.AreEqual(author1.Surname, res.First().Surname);
+            Assert.AreEqual(author1.Surname, res[0].Surname);
 
             var res2 = DB.Find<Author>()
                          .Match(Search.Full, author1.Surname)
                          .Execute();
-            Assert.AreEqual(author1.Surname, res2.First().Surname);
+            Assert.AreEqual(author1.Surname, res2[0].Surname);
         }
 
         [TestMethod]
@@ -49,12 +49,12 @@ namespace MongoDB.Entities.Tests
             author2.Save();
 
             var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
-            Assert.AreEqual(author1.Surname, res.First().Surname);
+            Assert.AreEqual(author1.Surname, res[0].Surname);
 
             var res2 = await DB.Find<Author>()
                          .Match(Search.Full, author1.Surname)
                          .ExecuteAsync().ConfigureAwait(false);
-            Assert.AreEqual(author1.Surname, res2.First().Surname);
+            Assert.AreEqual(author1.Surname, res2[0].Surname);
         }
 
         [TestMethod]
@@ -71,9 +71,9 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
             author2.Save();
 
-            var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList(); ;
+            var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
 
-            Assert.AreEqual(author1.Surname, res.First().Surname);
+            Assert.AreEqual(author1.Surname, res[0].Surname);
         }
 
         [TestMethod]
@@ -104,7 +104,7 @@ namespace MongoDB.Entities.Tests
 
             DB.Delete<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
-            Assert.AreEqual(4, res.Count());
+            Assert.AreEqual(4, res.Count);
             Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
         }
 
@@ -136,8 +136,8 @@ namespace MongoDB.Entities.Tests
 
             list.DeleteAll();
 
-            Assert.AreEqual(4, res.Count());
-            Assert.AreEqual(1, res.First().Position);
+            Assert.AreEqual(4, res.Count);
+            Assert.AreEqual(1, res[0].Position);
             Assert.AreEqual(4, res.Last().Position);
         }
 
@@ -169,10 +169,10 @@ namespace MongoDB.Entities.Tests
 
             list.DeleteAll();
 
-            Assert.AreEqual(4, res.Count());
-            Assert.AreEqual(1, res.First().Position);
+            Assert.AreEqual(4, res.Count);
+            Assert.AreEqual(1, res[0].Position);
             Assert.AreEqual(4, res.Last().Position);
-            Assert.IsTrue(res.First().SortScore > 0);
+            Assert.IsTrue(res[0].SortScore > 0);
         }
 
         [TestMethod]
@@ -204,6 +204,5 @@ namespace MongoDB.Entities.Tests
                 .Key(x => x.Age, KeyType.Descending)
                 .Create();
         }
-
     }
 }

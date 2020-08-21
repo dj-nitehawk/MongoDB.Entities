@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using System.Linq;
 
-
 namespace MongoDB.Entities.Tests
 {
     [TestClass]
@@ -39,7 +38,7 @@ namespace MongoDB.Entities.Tests
 
             var res = books.SortByRelevance("One TWO Three", b => b.Review.Alias, 10).ToArray();
 
-            Assert.AreEqual(3, res.Count());
+            Assert.AreEqual(3, res.Length);
             Assert.AreEqual("Five", res[0].Title);
             Assert.AreEqual("Four", res[1].Title);
             Assert.AreEqual("Three", res[2].Title);

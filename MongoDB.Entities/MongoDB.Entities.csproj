@@ -12,10 +12,11 @@
     <AssemblyVersion>14.5.0.0</AssemblyVersion>
     <FileVersion>14.5.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- avoid capturing sync context when awaiting tasks
-- eliminate all sync over async anti-patterns
-- transaction support for IEntity.Save() extension methods
-- misc. async optimizations</PackageReleaseNotes>
+    <PackageReleaseNotes>- eliminate all sync over async anti-pattern usages
+- avoid capturing sync context when awaiting tasks
+- transaction support for IEntity extension methods
+- misc. async optimizations
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

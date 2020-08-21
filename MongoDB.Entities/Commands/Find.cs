@@ -179,7 +179,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude) 
+        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
         /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
         /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
         /// </summary>
@@ -189,7 +189,7 @@ namespace MongoDB.Entities
         /// <param name="minDistance">Minimum distance in meters from the search point</param>
         public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
         {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance)); ;
+            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance));
         }
 
         /// <summary>

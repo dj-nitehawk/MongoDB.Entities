@@ -113,15 +113,15 @@ namespace MongoDB.Entities
         /// An IAggregateFluent collection of sibling Entities.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
         public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
         {
             return DB.Fluent<T>(options, session);
         }
 
         /// <summary>
-        /// Adds a distinct aggregation stage to a fluent pipeline. 
+        /// Adds a distinct aggregation stage to a fluent pipeline.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : IEntity

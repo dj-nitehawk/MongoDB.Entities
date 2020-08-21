@@ -37,7 +37,7 @@ namespace MongoDB.Entities
         public string Name { get; }
 
         /// <summary>
-        /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event. 
+        /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
         public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
