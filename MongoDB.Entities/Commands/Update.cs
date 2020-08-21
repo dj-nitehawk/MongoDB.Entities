@@ -239,7 +239,7 @@ namespace MongoDB.Entities
         {
             if (models.Count > 0)
             {
-                var res = await DB.BulkUpdateAsync(models, session, cancellation);
+                var res = await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false);
                 models.Clear();
                 return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
             }
@@ -249,7 +249,7 @@ namespace MongoDB.Entities
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation);
+                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
         }
 

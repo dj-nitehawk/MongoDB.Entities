@@ -95,7 +95,7 @@ namespace MongoDB.Entities
             return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
-                        .ExecuteAsync(cancellation))
+                        .ExecuteAsync(cancellation).ConfigureAwait(false))
                    .FirstOrDefault();
         }
 
@@ -122,7 +122,7 @@ namespace MongoDB.Entities
             return (await new Find<T>(session)
                         .Match(ID)
                         .Project(projection)
-                        .ExecuteAsync(cancellation))
+                        .ExecuteAsync(cancellation).ConfigureAwait(false))
                    .FirstOrDefault();
         }
     }

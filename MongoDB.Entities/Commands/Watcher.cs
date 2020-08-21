@@ -185,7 +185,7 @@ namespace MongoDB.Entities
                 {
                     using (var cursor = DB.Collection<T>().Watch(pipeline, options))
                     {
-                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync())
+                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))
                         {
                             if (cursor.Current.Any())
                             {

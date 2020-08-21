@@ -60,7 +60,7 @@ namespace MongoDB.Entities
         public async Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
         {
             Match(ID);
-            return (await ExecuteAsync(cancellation)).SingleOrDefault();
+            return (await ExecuteAsync(cancellation).ConfigureAwait(false)).SingleOrDefault();
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await (await ExecuteCursorAsync(cancellation)).ToListAsync();
+            return await (await ExecuteCursorAsync(cancellation).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
         }
 
         /// <summary>

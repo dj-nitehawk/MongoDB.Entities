@@ -21,7 +21,7 @@ namespace MongoDB.Entities
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
             };
 
-            foreach (var cName in await db.ListCollectionNames(options).ToListAsync())
+            foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
             {
                 tasks.Add(
                     session == null
@@ -44,9 +44,9 @@ namespace MongoDB.Entities
                     : db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null));
             }
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
-            return await delRes;
+            return await delRes.ConfigureAwait(false);
         }
 
         /// <summary>
@@ -136,9 +136,9 @@ namespace MongoDB.Entities
             var IDs = await Find<T, string>()
                             .Match(expression)
                             .Project(e => e.ID)
-                            .ExecuteAsync();
+                            .ExecuteAsync().ConfigureAwait(false);
 
-            return await DeleteCascadingAsync<T>(IDs, session);
+            return await DeleteCascadingAsync<T>(IDs, session).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -78,7 +78,7 @@ namespace MongoDB.Entities
                 Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
             };
 
-            foreach (var cName in await db.ListCollectionNames(options).ToListAsync())
+            foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
             {
                 tasks.Add(
                     session == null
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
                 ? db.DropCollectionAsync(collName)
                 : db.DropCollectionAsync(session, collName));
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
         /// <summary>

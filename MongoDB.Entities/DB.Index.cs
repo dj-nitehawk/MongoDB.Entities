@@ -13,7 +13,7 @@ namespace MongoDB.Entities
 
         internal static async Task DropIndexAsync<T>(string name, CancellationToken cancellation = default) where T : IEntity
         {
-            await Collection<T>().Indexes.DropOneAsync(name, cancellation);
+            await Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
