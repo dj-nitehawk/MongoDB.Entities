@@ -1,4 +1,6 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,6 +8,13 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        internal static IAsyncCursor<TProjection> Find<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null) where T : IEntity
+        {
+            return session == null ?
+                        Collection<T>().FindSync(filter, options) :
+                        Collection<T>().FindSync(session, filter, options);
+        }
+
         internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null ?

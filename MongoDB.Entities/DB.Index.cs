@@ -6,9 +6,19 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        internal static void CreateIndex<T>(CreateIndexModel<T> model) where T : IEntity
+        {
+            Collection<T>().Indexes.CreateOne(model);
+        }
+
         internal static Task CreateIndexAsync<T>(CreateIndexModel<T> model, CancellationToken cancellation = default) where T : IEntity
         {
             return Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
+        }
+
+        internal static void DropIndex<T>(string name) where T : IEntity
+        {
+            Collection<T>().Indexes.DropOne(name);
         }
 
         internal static async Task DropIndexAsync<T>(string name, CancellationToken cancellation = default) where T : IEntity

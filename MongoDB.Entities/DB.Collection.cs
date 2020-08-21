@@ -48,7 +48,19 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static void DropCollection<T>(IClientSessionHandle session = null) where T : IEntity
         {
-            Run.Sync(() => DropCollectionAsync<T>(session));
+            DropCollectionPrep<T>(
+                out IMongoDatabase db,
+                out string collName,
+                out ListCollectionNamesOptions options);
+
+            foreach (var cName in db.ListCollectionNames(options).ToList())
+            {
+                if (session == null) db.DropCollection(cName);
+                else db.DropCollection(session, cName);
+            }
+
+            if (session == null) db.DropCollection(collName);
+            else db.DropCollection(session, collName);
         }
 
         /// <summary>
@@ -59,7 +71,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public void DropCollection<T>(IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
-            Run.Sync(() => DropCollectionAsync<T>(session));
+            DropCollection<T>(session);
         }
 
         /// <summary>
@@ -71,12 +83,11 @@ namespace MongoDB.Entities
         public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
         {
             var tasks = new HashSet<Task>();
-            var db = GetDatabase<T>();
-            var collName = CollectionName<T>();
-            var options = new ListCollectionNamesOptions
-            {
-                Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
-            };
+
+            DropCollectionPrep<T>(
+                out IMongoDatabase db,
+                out string collName,
+                out ListCollectionNamesOptions options);
 
             foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
             {
@@ -103,6 +114,16 @@ namespace MongoDB.Entities
         public Task DropCollectionAsync<T>(IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
             return DropCollectionAsync<T>(session);
+        }
+
+        private static void DropCollectionPrep<T>(out IMongoDatabase db, out string collName, out ListCollectionNamesOptions options) where T : IEntity
+        {
+            db = GetDatabase<T>();
+            collName = CollectionName<T>();
+            options = new ListCollectionNamesOptions
+            {
+                Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
+            };
         }
     }
 }

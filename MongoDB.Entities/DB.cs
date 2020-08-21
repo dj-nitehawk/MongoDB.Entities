@@ -114,7 +114,6 @@ namespace MongoDB.Entities
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        /// <returns></returns>
         public static IMongoDatabase GetDatabase<T>() where T : IEntity
         {
             return Cache<T>.Database;

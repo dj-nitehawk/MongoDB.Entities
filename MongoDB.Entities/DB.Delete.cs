@@ -9,17 +9,42 @@ namespace MongoDB.Entities
 {
     public partial class DB
     {
+        private static DeleteResult DeleteCascading<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
+        {
+            DeleteCascadingPrep<T>(
+                out IMongoDatabase db,
+                out ListCollectionNamesOptions options);
+
+            foreach (var cName in db.ListCollectionNames(options).ToList())
+            {
+                if (session == null) db.GetCollection<JoinRecord>(cName).DeleteMany(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID));
+                else db.GetCollection<JoinRecord>(cName).DeleteMany(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null);
+            }
+
+            var delRes =
+                    session == null
+                    ? Collection<T>().DeleteMany(x => IDs.Contains(x.ID))
+                    : Collection<T>().DeleteMany(session, x => IDs.Contains(x.ID), null);
+
+            if (typeof(T).BaseType == typeof(FileEntity))
+            {
+                if (session == null) db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteMany(x => IDs.Contains(x.FileID));
+                else db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteMany(session, x => IDs.Contains(x.FileID), null);
+            }
+
+            return delRes;
+        }
+
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
             // note: cancellation should not be enabled because multiple collections are involved 
             //       and premature cancellation could cause data inconsistencies.
 
+            DeleteCascadingPrep<T>(
+                out IMongoDatabase db,
+                out ListCollectionNamesOptions options);
+
             var tasks = new HashSet<Task>();
-            var db = GetDatabase<T>();
-            var options = new ListCollectionNamesOptions
-            {
-                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
-            };
 
             foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
             {
@@ -29,12 +54,12 @@ namespace MongoDB.Entities
                     : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null));
             }
 
-            var delRes =
+            var delResTask =
                     session == null
                     ? Collection<T>().DeleteManyAsync(x => IDs.Contains(x.ID))
                     : Collection<T>().DeleteManyAsync(session, x => IDs.Contains(x.ID), null);
 
-            tasks.Add(delRes);
+            tasks.Add(delResTask);
 
             if (typeof(T).BaseType == typeof(FileEntity))
             {
@@ -46,7 +71,16 @@ namespace MongoDB.Entities
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
 
-            return await delRes.ConfigureAwait(false);
+            return await delResTask.ConfigureAwait(false);
+        }
+
+        private static void DeleteCascadingPrep<T>(out IMongoDatabase db, out ListCollectionNamesOptions options) where T : IEntity
+        {
+            db = GetDatabase<T>();
+            options = new ListCollectionNamesOptions
+            {
+                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
+            };
         }
 
         /// <summary>
@@ -58,7 +92,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static DeleteResult Delete<T>(string ID, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(ID, session));
+            return DeleteCascading<T>(new[] { ID }, session);
         }
 
         /// <summary>
@@ -70,7 +104,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public DeleteResult Delete<T>(string ID, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(ID, session));
+            return Delete<T>(ID, session);
         }
 
         /// <summary>
@@ -107,7 +141,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static DeleteResult Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync(expression, session));
+            return DeleteCascading<T>(FindIDsCommand(expression).Execute(), session);
         }
 
         /// <summary>
@@ -120,7 +154,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public DeleteResult Delete<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync(expression, session));
+            return Delete(expression, session);
         }
 
         /// <summary>
@@ -133,12 +167,16 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
-            var IDs = await Find<T, string>()
-                            .Match(expression)
-                            .Project(e => e.ID)
-                            .ExecuteAsync().ConfigureAwait(false);
+            return await DeleteCascadingAsync<T>(
+                await FindIDsCommand(expression).ExecuteAsync().ConfigureAwait(false),
+                session).ConfigureAwait(false);
+        }
 
-            return await DeleteCascadingAsync<T>(IDs, session).ConfigureAwait(false);
+        private static Find<T, string> FindIDsCommand<T>(Expression<Func<T, bool>> expression) where T : IEntity
+        {
+            return Find<T, string>()
+                    .Match(expression)
+                    .Project(e => e.ID);
         }
 
         /// <summary>
@@ -164,7 +202,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static DeleteResult Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(IDs, session));
+            return DeleteCascading<T>(IDs, session);
         }
 
         /// <summary>
@@ -177,7 +215,7 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public DeleteResult Delete<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, bool _ = false) where T : IEntity
         {
-            return Run.Sync(() => DeleteAsync<T>(IDs, session));
+            return Delete<T>(IDs, session);
         }
 
         /// <summary>

@@ -33,7 +33,6 @@ namespace MongoDB.Entities
         /// <summary>
         /// Create a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
         /// </summary>
-        /// <returns></returns>
         public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
         {
             return GeoJson.Point(GeoJson.Geographic(longitude, latitude));
