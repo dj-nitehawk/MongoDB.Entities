@@ -315,7 +315,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entities.Select(e => e.ID),session);
+            return DB.DeleteAsync<T>(entities.Select(e => e.ID), session);
         }
 
         /// <summary>

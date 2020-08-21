@@ -607,7 +607,7 @@ namespace MongoDB.Entities
             var filter = BuildRemoveFilter(childIDs);
 
             if (session == null) JoinCollection.DeleteOne(filter);
-            else  JoinCollection.DeleteOne(session, filter);
+            else JoinCollection.DeleteOne(session, filter);
         }
 
         /// <summary>
@@ -661,11 +661,11 @@ namespace MongoDB.Entities
         private FilterDefinition<JoinRecord> BuildRemoveFilter(IEnumerable<string> childIDs)
         {
             return isInverse
-                   
+
                    ? Builders<JoinRecord>.Filter.And(
                        Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
                        Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
-                   
+
                    : Builders<JoinRecord>.Filter.And(
                        Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
                        Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
