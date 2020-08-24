@@ -17,7 +17,7 @@ namespace MongoDB.Entities.Tests
         public async Task not_commiting_and_aborting_update_transaction_doesnt_modify_docs()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "uwtrcd1", Surname = guid };await author1.SaveAsync();
+            var author1 = new Author { Name = "uwtrcd1", Surname = guid }; await author1.SaveAsync();
             var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
@@ -119,14 +119,12 @@ namespace MongoDB.Entities.Tests
             await DB.SaveAsync(author1);
             await DB.SaveAsync(author2);
 
-            using (var TN = new Transaction())
-            {
-                var tres = TN.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList(); ;
-                Assert.AreEqual(author1.Surname, tres[0].Surname);
+            using var TN = new Transaction();
+            var tres = TN.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
+            Assert.AreEqual(author1.Surname, tres[0].Surname);
 
-                var tflu = TN.FluentTextSearch<Author>(Search.Full, author2.Surname).SortByDescending(x => x.ModifiedOn).ToList(); ;
-                Assert.AreEqual(author2.Surname, tflu[0].Surname);
-            }
+            var tflu = TN.FluentTextSearch<Author>(Search.Full, author2.Surname).SortByDescending(x => x.ModifiedOn).ToList();
+            Assert.AreEqual(author2.Surname, tflu[0].Surname);
         }
 
         [TestMethod]

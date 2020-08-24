@@ -14,7 +14,7 @@ namespace MongoDB.Entities.Tests
         public async Task updating_modifies_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1" };await author1.SaveAsync();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
             var author2 = new Author { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
 
@@ -204,7 +204,7 @@ namespace MongoDB.Entities.Tests
               .WithPipeline(stage)
               .ExecutePipelineAsync();
 
-            var fullname =  (await DB.Find<Author>()
+            var fullname = (await DB.Find<Author>()
                              .OneAsync(author.ID))
                              .FullName;
 

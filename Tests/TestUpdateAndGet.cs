@@ -12,7 +12,7 @@ namespace MongoDB.Entities.Tests
         public async Task updating_modifies_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1" };await author1.SaveAsync();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
             var author2 = new Author { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
 
@@ -210,7 +210,7 @@ namespace MongoDB.Entities.Tests
             var lastNum = await book.NextSequentialNumberAsync();
 
             var bookNum = 0ul;
-            Parallel.For(1, 11,async _ => bookNum = await book.NextSequentialNumberAsync());
+            Parallel.For(1, 11, async _ => bookNum = await book.NextSequentialNumberAsync());
 
             Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
         }
@@ -225,7 +225,7 @@ namespace MongoDB.Entities.Tests
             var lastNum = await img.NextSequentialNumberAsync();
 
             var imgNum = 0ul;
-            Parallel.For(1, 11,async _ => imgNum = await img.NextSequentialNumberAsync());
+            Parallel.For(1, 11, async _ => imgNum = await img.NextSequentialNumberAsync());
 
             Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
         }

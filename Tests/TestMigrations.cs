@@ -11,7 +11,7 @@ namespace MongoDB.Entities.Tests
         {
             await DB.MigrateAsync();
 
-            var count =await DB.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
+            var count = await DB.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
 
             Assert.AreEqual(2, count);
 

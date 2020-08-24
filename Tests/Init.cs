@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -6,9 +7,9 @@ namespace MongoDB.Entities.Tests
     public static class InitTest
     {
         [AssemblyInitialize]
-        public static void Init(TestContext context)
+        public static async Task Init(TestContext _)
         {
-            new DB("mongodb-entities-test");
+            await DB.InitAsync("mongodb-entities-test");
         }
     }
 }

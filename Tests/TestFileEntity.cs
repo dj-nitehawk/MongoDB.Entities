@@ -19,7 +19,7 @@ namespace MongoDB.Entities.Tests
         [TestCategory("SkipWhenLiveUnitTesting")]
         public async Task uploading_data_from_http_stream()
         {
-            DB.InitAsync(dbName);
+            await DB.InitAsync(dbName);
 
             var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
             await img.SaveAsync().ConfigureAwait(false);

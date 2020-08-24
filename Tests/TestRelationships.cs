@@ -221,7 +221,7 @@ namespace MongoDB.Entities.Tests
             await book1.Genres.AddAsync(gen1);
             await book1.Genres.AddAsync(gen2);
             await book1.Genres.AddAsync(gen1);
-            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count();
+            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
             Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
             await gen1.Books.AddAsync(book1);
@@ -415,7 +415,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task overload_operator_for_removing_children_from_many_relationships()
         {
-            var author = new Author { Name = "author" }; author.SaveAsync();
+            var author = new Author { Name = "author" }; await author.SaveAsync();
 
             var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
             var b2 = new Book { Title = "book2" }; await b2.SaveAsync();

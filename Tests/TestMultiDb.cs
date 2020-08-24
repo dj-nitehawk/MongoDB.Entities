@@ -26,7 +26,7 @@ namespace MongoDB.Entities.Tests
             await cover.SaveAsync();
             Assert.IsNotNull(cover.ID);
 
-            var res =await DB.Find<BookCover>().OneAsync(cover.ID);
+            var res = await DB.Find<BookCover>().OneAsync(cover.ID);
 
             Assert.AreEqual(cover.ID, res.ID);
             Assert.AreEqual(cover.BookName, res.BookName);
@@ -81,8 +81,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task multiple_initializations_should_not_throw()
         {
-             await DB.InitAsync("multi-init");
-             await DB.InitAsync("multi-init");
+            await DB.InitAsync("multi-init");
+            await DB.InitAsync("multi-init");
 
             var db = DB.Database("multi-init");
 
@@ -122,7 +122,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
 
-            Assert.AreEqual(3,DB.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+            Assert.AreEqual(3, DB.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
         }
 
     }
