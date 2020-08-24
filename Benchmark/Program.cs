@@ -32,9 +32,9 @@ namespace Benchmark
         private const int booksPerAuthor = 1000;
         private const int concurrentTasks = 32;
 
-        private static void Main()
+        private static async Task Main()
         {
-            new DB("benchmark-mongodb-entities");
+            await DB.InitAsync("benchmark-mongodb-entities");
 
             Console.WriteLine("creating 1 million books and 1000 authors...");
             Console.WriteLine();
@@ -44,7 +44,7 @@ namespace Benchmark
 
             var range = Enumerable.Range(1, authorCount);
 
-            Parallel.ForEach(range, new ParallelOptions { MaxDegreeOfParallelism = concurrentTasks }, number =>
+            Parallel.ForEach(range, new ParallelOptions { MaxDegreeOfParallelism = concurrentTasks }, async number =>
             {
                 var author = new Author
                 {
@@ -52,7 +52,7 @@ namespace Benchmark
                     LastName = "last name " + number.ToString(),
                     Birthday = DateTime.UtcNow
                 };
-                author.Save();
+                await author.SaveAsync();
                 authorsCreated.Add(0);
 
                 var book = new Book();
@@ -63,8 +63,8 @@ namespace Benchmark
                     book.Title = $"author {number} - book {i}";
                     book.PublishedOn = DateTime.UtcNow;
                     book.Author = author.ID;
-                    book.Save();
-                    author.Books.Add(book);
+                    await book.SaveAsync();
+                    await author.Books.AddAsync(book);
                     booksCreated.Add(0);
 
                     Console.Write($"\rauthors: {authorsCreated.Count} | books: {booksCreated.Count}                    ");
@@ -78,9 +78,9 @@ namespace Benchmark
             Console.ReadLine();
 
             sw.Restart();
-            var author = DB.Find<Author>()
+            var author = (await DB.Find<Author>()
                            .Match(a => a.FirstName == "first name 666" && a.LastName == "last name 666")
-                           .Execute()
+                           .ExecuteAsync())
                            .FirstOrDefault();
 
             Console.WriteLine();
@@ -90,8 +90,8 @@ namespace Benchmark
             Console.ReadLine();
 
             sw.Restart();
-            author = DB.Find<Author>()
-                       .One(author.ID);
+            author = await DB.Find<Author>()
+                       .OneAsync(author.ID);
 
             Console.WriteLine();
             Console.WriteLine($"looking up author 666 by ID took [{sw.Elapsed.TotalMilliseconds:0}ms]");
@@ -145,12 +145,11 @@ namespace Benchmark
             Console.ReadLine();
 
             sw.Restart();
-            var bookIDs = DB.Find<Book, string>()
+            var bookIDs = await DB.Find<Book, string>()
                             .Match(b => b.Title == "author 999 - book 999" ||
                                         b.Title == "author 333 - book 333")
                             .Project(b => b.ID)
-                            .Execute()
-                            .ToArray();
+                            .ExecuteAsync();
 
             Console.WriteLine();
             Console.WriteLine($"fetched 2 book IDs by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is indexed");
