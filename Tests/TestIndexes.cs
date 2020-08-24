@@ -34,30 +34,6 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task asyn_full_text_search_with_index_returns_correct_result()
-        {
-            await DB.Index<Author>()
-              .Option(o => o.Background = false)
-              .Key(a => a.Name, KeyType.Text)
-              .Key(a => a.Surname, KeyType.Text)
-              .CreateAsync().ConfigureAwait(false);
-
-            var author1 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
-            author1.Save();
-
-            var author2 = new Author { Name = "Name", Surname = Guid.NewGuid().ToString() };
-            author2.Save();
-
-            var res = DB.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
-            Assert.AreEqual(author1.Surname, res[0].Surname);
-
-            var res2 = await DB.Find<Author>()
-                         .Match(Search.Full, author1.Surname)
-                         .ExecuteAsync().ConfigureAwait(false);
-            Assert.AreEqual(author1.Surname, res2[0].Surname);
-        }
-
-        [TestMethod]
         public void full_text_search_with_wilcard_text_index_works()
         {
             DB.Index<Author>()
