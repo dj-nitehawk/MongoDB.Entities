@@ -4,6 +4,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -11,113 +12,113 @@ namespace MongoDB.Entities.Tests
     public class Relationships
     {
         [TestMethod]
-        public void setting_one_to_one_reference_returns_correct_entity()
+        public async Task setting_one_to_one_reference_returns_correct_entity()
         {
             var book = new Book { Title = "book" };
             var author = new Author { Name = "sotorrce" };
-            author.Save();
+            await author.SaveAsync();
             book.MainAuthor = author.ToReference();
-            book.Save();
-            var res = book.Queryable()
+            await book.SaveAsync();
+            var res = await (await book.Queryable()
                           .Where(b => b.ID == book.ID)
-                          .Single()
-                          .MainAuthor.ToEntity();
+                          .SingleAsync())
+                          .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
         }
 
         [TestMethod]
-        public void setting_one_to_one_reference_with_implicit_operator_by_string_id_returns_correct_entity()
+        public async Task setting_one_to_one_reference_with_implicit_operator_by_string_id_returns_correct_entity()
         {
             var book = new Book { Title = "book" };
             var author = new Author { Name = "sotorrce" };
-            author.Save();
+            await author.SaveAsync();
             book.MainAuthor = author.ID;
-            book.Save();
-            var res = book.Queryable()
+            await book.SaveAsync();
+            var res = await (await book.Queryable()
                           .Where(b => b.ID == book.ID)
-                          .Single()
-                          .MainAuthor.ToEntity();
+                          .SingleAsync())
+                          .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
         }
 
         [TestMethod]
-        public void setting_one_to_one_reference_with_implicit_operator_by_entity_returns_correct_entity()
+        public async Task setting_one_to_one_reference_with_implicit_operator_by_entity_returns_correct_entity()
         {
             var book = new Book { Title = "book" };
             var author = new Author { Name = "soorfioberce" };
-            author.Save();
+            await author.SaveAsync();
             book.MainAuthor = author;
-            book.Save();
-            var res = book.Queryable()
+            await book.SaveAsync();
+            var res = await (await book.Queryable()
                           .Where(b => b.ID == book.ID)
-                          .Single()
-                          .MainAuthor.ToEntity();
+                          .SingleAsync())
+                          .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
         }
 
         [TestMethod]
-        public void one_to_one_to_entity_with_lambda_projection()
+        public async Task one_to_one_to_entity_with_lambda_projection()
         {
             var book = new Book { Title = "book" };
             var author = new Author { Name = "ototoewlp" };
-            author.Save();
+            await author.SaveAsync();
             book.MainAuthor = author.ToReference();
-            book.Save();
-            var res = book.Queryable()
+            await book.SaveAsync();
+            var res = await (await book.Queryable()
                           .Where(b => b.ID == book.ID)
-                          .Single()
-                          .MainAuthor.ToEntity(a => new Author { Name = a.Name });
+                          .SingleAsync())
+                          .MainAuthor.ToEntityAsync(a => new Author { Name = a.Name });
             Assert.AreEqual(author.Name, res.Name);
             Assert.AreEqual(null, res.ID);
         }
 
         [TestMethod]
-        public void one_to_one_to_entity_with_mongo_projection()
+        public async Task one_to_one_to_entity_with_mongo_projection()
         {
             var book = new Book { Title = "book" };
             var author = new Author { Name = "ototoewmp" };
-            author.Save();
+            await author.SaveAsync();
             book.MainAuthor = author.ToReference();
-            book.Save();
-            var res = book.Queryable()
+            await book.SaveAsync();
+            var res = await (await book.Queryable()
                           .Where(b => b.ID == book.ID)
-                          .Single()
-                          .MainAuthor.ToEntity(p => p.Include(a => a.Name).Exclude(a => a.ID));
+                          .SingleAsync())
+                          .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
             Assert.AreEqual(author.Name, res.Name);
             Assert.AreEqual(null, res.ID);
         }
 
         [TestMethod]
-        public void adding_one2many_references_returns_correct_entities_queryable()
+        public async Task adding_one2many_references_returns_correct_entities_queryable()
         {
             var author = new Author { Name = "author" };
             var book1 = new Book { Title = "aotmrrceb1" };
             var book2 = new Book { Title = "aotmrrceb2" };
-            book1.Save(); book2.Save();
-            author.Save();
-            author.Books.Add(book1);
-            author.Books.Add(book2);
-            var books = author.Queryable()
+            await book1.SaveAsync(); await book2.SaveAsync();
+            await author.SaveAsync();
+            await author.Books.AddAsync(book1);
+            await author.Books.AddAsync(book2);
+            var books = await author.Queryable()
                               .Where(a => a.ID == author.ID)
                               .Single()
                               .Books
-                              .ChildrenQueryable().ToArray();
+                              .ChildrenQueryable().ToListAsync();
             Assert.AreEqual(book2.Title, books[1].Title);
         }
 
         [TestMethod]
-        public void ienumerable_for_many()
+        public async Task ienumerable_for_many()
         {
             var author = new Author { Name = "author" };
             var book1 = new Book { Title = "aotmrrceb1" };
             var book2 = new Book { Title = "aotmrrceb2" };
-            book1.Save(); book2.Save();
-            author.Save();
-            author.Books.Add(book1);
-            author.Books.Add(book2);
-            var books = author.Queryable()
+            await book1.SaveAsync(); await book2.SaveAsync();
+            await author.SaveAsync();
+            await author.Books.AddAsync(book1);
+            await author.Books.AddAsync(book2);
+            var books = (await author.Queryable()
                               .Where(a => a.ID == author.ID)
-                              .Single()
+                              .SingleAsync())
                               .Books;
 
             List<Book> booklist = new List<Book>();
@@ -131,54 +132,54 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void adding_one2many_references_returns_correct_entities_fluent()
+        public async Task adding_one2many_references_returns_correct_entities_fluent()
         {
             var author = new Author { Name = "author" };
             var book1 = new Book { Title = "aotmrrcebf1" };
             var book2 = new Book { Title = "aotmrrcebf2" };
-            book1.Save(); book2.Save();
-            author.Save();
-            author.Books.Add(book1);
-            author.Books.Add(book2);
-            var books = author.Queryable()
+            await book1.SaveAsync(); await book2.SaveAsync();
+            await author.SaveAsync();
+            await author.Books.AddAsync(book1);
+            await author.Books.AddAsync(book2);
+            var books = await author.Queryable()
                               .Where(a => a.ID == author.ID)
                               .Single()
                               .Books
-                              .ChildrenFluent().ToList();
+                              .ChildrenFluent().ToListAsync();
             Assert.AreEqual(book2.Title, books[1].Title);
         }
 
         [TestMethod]
-        public void removing_a_one2many_ref_removes_correct_entities()
+        public async Task removing_a_one2many_ref_removes_correct_entities()
         {
             var book = new Book { Title = "rotmrrceb" };
-            book.Save();
-            var author1 = new Author { Name = "rotmrrcea1" }; author1.Save();
-            var author2 = new Author { Name = "rotmrrcea2" }; author2.Save();
-            book.GoodAuthors.Add(author1);
-            book.GoodAuthors.Add(author2);
-            var remAuthor = DB.Queryable<Author>()
+            await book.SaveAsync();
+            var author1 = new Author { Name = "rotmrrcea1" }; await author1.SaveAsync();
+            var author2 = new Author { Name = "rotmrrcea2" }; await author2.SaveAsync();
+            await book.GoodAuthors.AddAsync(author1);
+            await book.GoodAuthors.AddAsync(author2);
+            var remAuthor = await DB.Queryable<Author>()
                               .Where(a => a.ID == author2.ID)
-                              .Single();
-            book.GoodAuthors.Remove(remAuthor);
-            var resBook = book.Queryable()
+                              .SingleAsync();
+            await book.GoodAuthors.RemoveAsync(remAuthor);
+            var resBook = await book.Queryable()
                               .Where(b => b.ID == book.ID)
-                              .Single();
-            Assert.AreEqual(1, resBook.GoodAuthors.ChildrenQueryable().Count());
-            Assert.AreEqual(author1.Name, resBook.GoodAuthors.ChildrenQueryable().First().Name);
+                              .SingleAsync();
+            Assert.AreEqual(1, await resBook.GoodAuthors.ChildrenQueryable().CountAsync());
+            Assert.AreEqual(author1.Name, (await resBook.GoodAuthors.ChildrenQueryable().FirstAsync()).Name);
         }
 
         [TestMethod]
-        public void collection_shortcut_of_many_returns_correct_children()
+        public async Task collection_shortcut_of_many_returns_correct_children()
         {
             var book = new Book { Title = "book" };
-            book.Save();
-            var author1 = new Author { Name = "csomrcc1" }; author1.Save();
-            var author2 = new Author { Name = "csomrcc1" }; author2.Save();
-            book.GoodAuthors.Add(author1);
-            book.GoodAuthors.Add(author2);
-            Assert.AreEqual(2, book.GoodAuthors.ChildrenQueryable().Count());
-            Assert.AreEqual(author1.Name, book.GoodAuthors.ChildrenQueryable().First().Name);
+            await book.SaveAsync();
+            var author1 = new Author { Name = "csomrcc1" }; await author1.SaveAsync();
+            var author2 = new Author { Name = "csomrcc1" }; await author2.SaveAsync();
+            await book.GoodAuthors.AddAsync(author1);
+            await book.GoodAuthors.AddAsync(author2);
+            Assert.AreEqual(2, await book.GoodAuthors.ChildrenQueryable().CountAsync());
+            Assert.AreEqual(author1.Name, (await book.GoodAuthors.ChildrenQueryable().FirstAsync()).Name);
         }
 
         [TestMethod]
@@ -189,223 +190,180 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void many_children_count()
+        public async Task many_children_count()
         {
-            var book1 = new Book { Title = "mcc" }; book1.Save();
-            var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
-            var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
+            var book1 = new Book { Title = "mcc" }; await book1.SaveAsync();
+            var gen1 = new Genre { Name = "ac2mrceg1" }; await gen1.SaveAsync();
+            var gen2 = new Genre { Name = "ac2mrceg1" }; await gen2.SaveAsync();
 
-            book1.Genres.Add(gen1);
-            book1.Genres.Add(gen2);
+            await book1.Genres.AddAsync(gen1);
+            await book1.Genres.AddAsync(gen2);
 
-            Assert.AreEqual(2, book1.Genres.ChildrenCount());
+            Assert.AreEqual(2, await book1.Genres.ChildrenCountAsync());
 
-            var book2 = new Book { Title = "mcc" }; book2.Save();
+            var book2 = new Book { Title = "mcc" }; await book2.SaveAsync();
 
-            gen1.Books.Add(book1);
-            gen1.Books.Add(book2);
+            await gen1.Books.AddAsync(book1);
+            await gen1.Books.AddAsync(book2);
 
-            Assert.AreEqual(2, gen1.Books.ChildrenCount());
+            Assert.AreEqual(2, await gen1.Books.ChildrenCountAsync());
         }
 
         [TestMethod]
-        public void adding_many2many_returns_correct_children()
+        public async Task adding_many2many_returns_correct_children()
         {
-            var book1 = new Book { Title = "ac2mrceb1" }; book1.Save();
-            var book2 = new Book { Title = "ac2mrceb2" }; book2.Save();
+            var book1 = new Book { Title = "ac2mrceb1" }; await book1.SaveAsync();
+            var book2 = new Book { Title = "ac2mrceb2" }; await book2.SaveAsync();
 
-            var gen1 = new Genre { Name = "ac2mrceg1" }; gen1.Save();
-            var gen2 = new Genre { Name = "ac2mrceg1" }; gen2.Save();
+            var gen1 = new Genre { Name = "ac2mrceg1" }; await gen1.SaveAsync();
+            var gen2 = new Genre { Name = "ac2mrceg1" }; await gen2.SaveAsync();
 
-            book1.Genres.Add(gen1);
-            book1.Genres.Add(gen2);
-            book1.Genres.Add(gen1);
-            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
+            await book1.Genres.AddAsync(gen1);
+            await book1.Genres.AddAsync(gen2);
+            await book1.Genres.AddAsync(gen1);
+            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count();
             Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
-            gen1.Books.Add(book1);
-            gen1.Books.Add(book2);
-            gen1.Books.Add(book1);
+            await gen1.Books.AddAsync(book1);
+            await gen1.Books.AddAsync(book2);
+            await gen1.Books.AddAsync(book1);
             Assert.AreEqual(2, gen1.Queryable().Where(g => g.ID == gen1.ID).Single().Books.ChildrenQueryable().Count());
             Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
 
-            gen2.Books.Add(book1);
-            gen2.Books.Add(book2);
+            await gen2.Books.AddAsync(book1);
+            await gen2.Books.AddAsync(book2);
             Assert.AreEqual(2, book1.Genres.ChildrenQueryable().Count());
             Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
         }
 
         [TestMethod]
-        public void removing_many2many_returns_correct_children()
+        public async Task removing_many2many_returns_correct_children()
         {
-            var book1 = new Book { Title = "rm2mrceb1" }; book1.Save();
-            var book2 = new Book { Title = "rm2mrceb2" }; book2.Save();
+            var book1 = new Book { Title = "rm2mrceb1" }; await book1.SaveAsync();
+            var book2 = new Book { Title = "rm2mrceb2" }; await book2.SaveAsync();
 
-            var gen1 = new Genre { Name = "rm2mrceg1" }; gen1.Save();
-            var gen2 = new Genre { Name = "rm2mrceg1" }; gen2.Save();
+            var gen1 = new Genre { Name = "rm2mrceg1" }; await gen1.SaveAsync();
+            var gen2 = new Genre { Name = "rm2mrceg1" }; await gen2.SaveAsync();
 
-            book1.Genres.Add(gen1);
-            book1.Genres.Add(gen2);
-            book2.Genres.Add(gen1);
-            book2.Genres.Add(gen2);
+            await book1.Genres.AddAsync(gen1);
+            await book1.Genres.AddAsync(gen2);
+            await book2.Genres.AddAsync(gen1);
+            await book2.Genres.AddAsync(gen2);
 
-            book1.Genres.Remove(gen1);
-            Assert.AreEqual(1, book1.Genres.ChildrenQueryable().Count());
-            Assert.AreEqual(gen2.Name, book1.Genres.ChildrenQueryable().Single().Name);
-            Assert.AreEqual(1, gen1.Books.ChildrenQueryable().Count());
-            Assert.AreEqual(book2.Title, gen1.Books.ChildrenQueryable().First().Title);
+            await book1.Genres.RemoveAsync(gen1);
+            Assert.AreEqual(1, book1.Genres.ChildrenQueryable().CountAsync());
+            Assert.AreEqual(gen2.Name, (await book1.Genres.ChildrenQueryable().SingleAsync()).Name);
+            Assert.AreEqual(1, await gen1.Books.ChildrenQueryable().CountAsync());
+            Assert.AreEqual(book2.Title, (await gen1.Books.ChildrenQueryable().FirstAsync()).Title);
         }
 
         [TestMethod]
-        public void getting_parents_of_a_relationship_queryable_works()
+        public async Task getting_parents_of_a_relationship_queryable_works()
         {
             var guid = Guid.NewGuid().ToString();
 
             var book = new Book { Title = "Planet Of The Apes " + guid };
-            book.Save();
+            await book.SaveAsync();
 
             var genre = new Genre { Name = "SciFi " + guid };
-            genre.Save();
+            await genre.SaveAsync();
 
             var genre1 = new Genre { Name = "Thriller " + guid };
-            genre1.Save();
+            await genre1.SaveAsync();
 
-            book.Genres.Add(genre);
-            book.Genres.Add(genre1);
+            await book.Genres.AddAsync(genre);
+            await book.Genres.AddAsync(genre1);
 
-            var books = book.Genres
+            var books = await book.Genres
                             .ParentsQueryable<Book>(genre.ID)
-                            .ToArray();
+                            .ToListAsync();
 
-            Assert.AreEqual(1, books.Length);
+            Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
 
-            books = book.Genres
+            books = await book.Genres
                     .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
-                    .ToArray();
+                    .ToListAsync();
 
-            Assert.AreEqual(1, books.Length);
+            Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single(b => b.ID == book.ID).Title);
 
-            var genres = genre.Books
+            var genres = await genre.Books
                               .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
-                              .ToArray();
+                              .ToListAsync();
 
-            Assert.AreEqual(2, genres.Length);
+            Assert.AreEqual(2, genres.Count);
             Assert.AreEqual(genre.Name, genres.First(g => g.ID == genre.ID).Name);
 
-            genres = genre.Books
+            genres = await genre.Books
                      .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
-                     .ToArray();
+                     .ToListAsync();
 
-            Assert.AreEqual(2, genres.Length);
+            Assert.AreEqual(2, genres.Count);
             Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
         }
 
         [TestMethod]
-        public void getting_parents_of_a_relationship_fluent_works()
+        public async Task getting_parents_of_a_relationship_fluent_works()
         {
             var guid = Guid.NewGuid().ToString();
 
             var book = new Book { Title = "Planet Of The Apes " + guid };
-            book.Save();
+            await book.SaveAsync();
 
             var genre = new Genre { Name = "SciFi " + guid };
-            genre.Save();
+            await genre.SaveAsync();
 
             var genre1 = new Genre { Name = "Thriller " + guid };
-            genre1.Save();
+            await genre1.SaveAsync();
 
-            book.Genres.Add(genre);
-            book.Genres.Add(genre1);
+            await book.Genres.AddAsync(genre);
+            await book.Genres.AddAsync(genre1);
 
-            var books = book.Genres
+            var books = await book.Genres
                             .ParentsFluent<Book>(genre.ID)
-                            .ToList();
+                            .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
 
-            books = book.Genres
+            books = await book.Genres
                             .ParentsFluent<Book>(genre.Fluent().Match(g => g.Name.Contains(guid)))
-                            .ToList();
+                            .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
 
-            var genres = genre.Books
+            var genres = await genre.Books
                               .ParentsFluent<Genre>(new[] { book.ID })
-                              .ToList();
+                              .ToListAsync();
 
             Assert.AreEqual(2, genres.Count);
             Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
 
-            genres = genre.Books
+            genres = await genre.Books
                     .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
-                    .ToList();
+                    .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
             Assert.AreEqual(book.Title, books.Single().Title);
         }
 
         [TestMethod]
-        public void add_child_to_many_relationship_with_ID()
+        public async Task add_child_to_many_relationship_with_ID()
         {
-            var author = new Author { Name = "author" }; author.Save();
+            var author = new Author { Name = "author" }; await author.SaveAsync();
 
-            var b1 = new Book { Title = "book1" }; b1.Save();
-            var b2 = new Book { Title = "book2" }; b2.Save();
+            var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
+            var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
-            author.Books.Add(b1.ID);
-            author.Books.Add(b2.ID);
+            await author.Books.AddAsync(b1.ID);
+            await author.Books.AddAsync(b2.ID);
 
-            var books = author.Books
+            var books = await author.Books
                               .ChildrenQueryable()
                               .OrderBy(b => b.Title)
-                              .ToList();
-
-            Assert.AreEqual(2, books.Count);
-            Assert.IsTrue(books[0].Title == "book1");
-            Assert.IsTrue(books[1].Title == "book2");
-        }
-
-
-        [TestMethod]
-        public void remove_child_from_many_relationship_with_ID()
-        {
-            var author = new Author { Name = "author" }; author.Save();
-
-            var b1 = new Book { Title = "book1" }; b1.Save();
-            var b2 = new Book { Title = "book2" }; b2.Save();
-
-            author.Books.Add(b1.ID);
-            author.Books.Add(b2.ID);
-
-            author.Books.Remove(b1.ID);
-            author.Books.Remove(b2.ID);
-
-            var count = author.Books
-                              .ChildrenQueryable()
-                              .Count();
-
-            Assert.AreEqual(0, count);
-        }
-
-        [TestMethod]
-        public void overload_operator_for_adding_children_to_many_relationships()
-        {
-            var author = new Author { Name = "author" }; author.Save();
-
-            var b1 = new Book { Title = "book1" }; b1.Save();
-            var b2 = new Book { Title = "book2" }; b2.Save();
-
-            author.Books += b1;
-            author.Books += b2.ID;
-
-            var books = author.Books
-                              .ChildrenQueryable()
-                              .OrderBy(b => b.Title)
-                              .ToList();
+                              .ToListAsync();
 
             Assert.AreEqual(2, books.Count);
             Assert.IsTrue(books[0].Title == "book1");
@@ -413,28 +371,70 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void overload_operator_for_removing_children_from_many_relationships()
+        public async Task remove_child_from_many_relationship_with_ID()
         {
-            var author = new Author { Name = "author" }; author.Save();
+            var author = new Author { Name = "author" }; await author.SaveAsync();
 
-            var b1 = new Book { Title = "book1" }; b1.Save();
-            var b2 = new Book { Title = "book2" }; b2.Save();
+            var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
+            var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
-            author.Books += b1;
-            author.Books += b2.ID;
+            await author.Books.AddAsync(b1.ID);
+            await author.Books.AddAsync(b2.ID);
 
-            author.Books -= b1;
-            author.Books -= b2.ID;
+            await author.Books.RemoveAsync(b1.ID);
+            await author.Books.RemoveAsync(b2.ID);
 
-            var count = author.Books
+            var count = await author.Books
                               .ChildrenQueryable()
-                              .Count();
+                              .CountAsync();
 
             Assert.AreEqual(0, count);
         }
 
         [TestMethod]
-        public void many_to_many_remove_multiple()
+        public async Task overload_operator_for_adding_children_to_many_relationships()
+        {
+            var author = new Author { Name = "author" }; await author.SaveAsync();
+
+            var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
+            var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
+
+            await author.Books.AddAsync(b1);
+            await author.Books.AddAsync(b2.ID);
+
+            var books = await author.Books
+                              .ChildrenQueryable()
+                              .OrderBy(b => b.Title)
+                              .ToListAsync();
+
+            Assert.AreEqual(2, books.Count);
+            Assert.IsTrue(books[0].Title == "book1");
+            Assert.IsTrue(books[1].Title == "book2");
+        }
+
+        [TestMethod]
+        public async Task overload_operator_for_removing_children_from_many_relationships()
+        {
+            var author = new Author { Name = "author" }; author.SaveAsync();
+
+            var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
+            var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
+
+            await author.Books.AddAsync(b1);
+            await author.Books.AddAsync(b2.ID);
+
+            await author.Books.RemoveAsync(b1);
+            await author.Books.RemoveAsync(b2.ID);
+
+            var count = await author.Books
+                              .ChildrenQueryable()
+                              .CountAsync();
+
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public async Task many_to_many_remove_multiple()
         {
             var a1 = new Author { Name = "author one" };
             var a2 = new Author { Name = "author two" };
@@ -442,17 +442,17 @@ namespace MongoDB.Entities.Tests
             var b1 = new Book { Title = "book one" };
             var b2 = new Book { Title = "book two" };
 
-            new[] { a1, a2 }.Save();
-            new[] { b1, b2 }.Save();
+            await new[] { a1, a2 }.SaveAsync();
+            await new[] { b1, b2 }.SaveAsync();
 
-            a1.Books.Add(new[] { b1, b2 });
-            a2.Books.Add(new[] { b1, b2 });
+            await a1.Books.AddAsync(new[] { b1, b2 });
+            await a2.Books.AddAsync(new[] { b1, b2 });
 
-            a1.Books.Remove(new[] { b1, b2 });
+            await a1.Books.RemoveAsync(new[] { b1, b2 });
 
-            var a2books = a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToArray();
+            var a2books = await a2.Books.ChildrenQueryable().OrderBy(b => b.Title).ToListAsync();
 
-            Assert.AreEqual(2, a2books.Length);
+            Assert.AreEqual(2, a2books.Count);
             Assert.AreEqual(b1.Title, a2books[0].Title);
             Assert.AreEqual(b2.Title, a2books.Last().Title);
         }

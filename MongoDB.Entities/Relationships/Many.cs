@@ -260,29 +260,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
-        public long ChildrenCount(IClientSessionHandle session = null, CountOptions options = null)
-        {
-            parent.ThrowIfUnsaved();
-
-            if (isInverse)
-            {
-                return session == null
-                       ? JoinCollection.CountDocuments(j => j.ChildID == parent.ID, options)
-                       : JoinCollection.CountDocuments(session, j => j.ChildID == parent.ID, options);
-            }
-            else
-            {
-                return session == null
-                       ? JoinCollection.CountDocuments(j => j.ParentID == parent.ID, options)
-                       : JoinCollection.CountDocuments(session, j => j.ParentID == parent.ID, options);
-            }
-        }
-
-        /// <summary>
-        /// Get the number of children for a relationship
-        /// </summary>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="options">An optional AggregateOptions object</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default)
         {
