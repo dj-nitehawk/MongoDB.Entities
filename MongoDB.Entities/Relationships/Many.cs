@@ -440,55 +440,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Add(TChild child, IClientSessionHandle session = null)
-        {
-            Add(child.ID, session);
-        }
-
-        /// <summary>
-        /// Adds multiple child references in a single bulk operation.
-        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
-        /// </summary>
-        /// <param name="children">The child Entities to add.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Add(IEnumerable<TChild> children, IClientSessionHandle session = null)
-        {
-            Add(children.Select(c => c.ID), session);
-        }
-
-        /// <summary>
-        /// Adds a new child reference by ID.
-        /// </summary>
-        /// <param name="childID">The ID of the child entity to add.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Add(string childID, IClientSessionHandle session = null)
-        {
-            Add(new[] { childID }, session);
-        }
-
-        /// <summary>
-        /// Adds multiple child references in a single bulk operation.
-        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
-        /// </summary>
-        /// <param name="childIDs">The IDs of the child Entities to add.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Add(IEnumerable<string> childIDs, IClientSessionHandle session = null)
-        {
-            AddPrep(
-                childIDs,
-                out List<WriteModel<BsonDocument>> models,
-                out IMongoCollection<BsonDocument> collection);
-
-            if (session == null) collection.BulkWrite(models, unOrdBlkOpts);
-            else collection.BulkWrite(session, models, unOrdBlkOpts);
-        }
-
-        /// <summary>
-        /// Adds a new child reference.
-        /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
-        /// </summary>
-        /// <param name="child">The child Entity to add.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
@@ -572,49 +523,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="child">The child IEntity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public void Remove(TChild child, IClientSessionHandle session = null)
-        {
-            Remove(child.ID, session);
-        }
-
-        /// <summary>
-        /// Removes a child reference by ID.
-        /// </summary>
-        /// <param name="childID">The ID of the child entity to remove the reference of.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Remove(string childID, IClientSessionHandle session = null)
-        {
-            Remove(new[] { childID }, session);
-        }
-
-        /// <summary>
-        /// Removes child references.
-        /// </summary>
-        /// <param name="children">The child Entities to remove the references of.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Remove(IEnumerable<TChild> children, IClientSessionHandle session = null)
-        {
-            Remove(children.Select(c => c.ID), session);
-        }
-
-        /// <summary>
-        /// Removes child references.
-        /// </summary>
-        /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public void Remove(IEnumerable<string> childIDs, IClientSessionHandle session = null)
-        {
-            var filter = BuildRemoveFilter(childIDs);
-
-            if (session == null) JoinCollection.DeleteOne(filter);
-            else JoinCollection.DeleteOne(session, filter);
-        }
-
-        /// <summary>
-        /// Removes a child reference.
-        /// </summary>
-        /// <param name="child">The child IEntity to remove the reference of.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
@@ -651,114 +559,19 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            var filter = BuildRemoveFilter(childIDs);
+            var filter =
+                isInverse
+                ? Builders<JoinRecord>.Filter.And(
+                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
+                    Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
+
+                : Builders<JoinRecord>.Filter.And(
+                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
+                    Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
 
             return session == null
                    ? JoinCollection.DeleteOneAsync(filter, null, cancellation)
                    : JoinCollection.DeleteOneAsync(session, filter, null, cancellation);
-        }
-
-        private FilterDefinition<JoinRecord> BuildRemoveFilter(IEnumerable<string> childIDs)
-        {
-            return isInverse
-
-                   ? Builders<JoinRecord>.Filter.And(
-                       Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
-                       Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
-
-                   : Builders<JoinRecord>.Filter.And(
-                       Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
-                       Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
-        }
-
-        /// <summary>
-        /// Overloaded operator for adding a child entity
-        /// </summary>
-        /// <param name="many">The left side of the + operand</param>
-        /// <param name="child">The right side of the + operand</param>
-        public static Many<TChild> operator +(Many<TChild> many, TChild child)
-        {
-            many.Add(child);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for adding child entities
-        /// </summary>
-        /// <param name="many">The left side of the + operand</param>
-        /// <param name="children">The right side of the + operand</param>
-        public static Many<TChild> operator +(Many<TChild> many, IEnumerable<TChild> children)
-        {
-            many.Add(children);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for adding a child entity by specifying only the childID
-        /// </summary>
-        /// <param name="many">The left side of the + operand</param>
-        /// <param name="childID">The right side of the + operand</param>
-        public static Many<TChild> operator +(Many<TChild> many, string childID)
-        {
-            many.Add(childID);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for adding entities by specifying only the childIDs
-        /// </summary>
-        /// <param name="many">The left side of the + operand</param>
-        /// <param name="childIDs">The right side of the + operand</param>
-        public static Many<TChild> operator +(Many<TChild> many, IEnumerable<string> childIDs)
-        {
-            many.Add(childIDs);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for removing a child entity
-        /// </summary>
-        /// <param name="many">The left side of the - operand</param>
-        /// <param name="child">The right side of the - operand</param>
-        /// <returns></returns>
-        public static Many<TChild> operator -(Many<TChild> many, TChild child)
-        {
-            many.Remove(child);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for removing a child entities
-        /// </summary>
-        /// <param name="many">The left side of the - operand</param>
-        /// <param name="children">The right side of the - operand</param>
-        public static Many<TChild> operator -(Many<TChild> many, IEnumerable<TChild> children)
-        {
-            many.Remove(children);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for removing a child entity by specifying only the childID
-        /// </summary>
-        /// <param name="many">The left side of the - operand</param>
-        /// <param name="childID">The right side of the - operand</param>
-        /// <returns></returns>
-        public static Many<TChild> operator -(Many<TChild> many, string childID)
-        {
-            many.Remove(childID);
-            return many;
-        }
-
-        /// <summary>
-        /// Overloaded operator for removing a child entity by specifying only the childID
-        /// </summary>
-        /// <param name="many">The left side of the - operand</param>
-        /// <param name="childIDs">The right side of the - operand</param>
-        public static Many<TChild> operator -(Many<TChild> many, IEnumerable<string> childIDs)
-        {
-            many.Remove(childIDs);
-            return many;
         }
 
         /// <summary>

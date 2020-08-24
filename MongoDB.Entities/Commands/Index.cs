@@ -21,41 +21,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
         /// </summary>
-        public void Create()
-        {
-            var model = BuildIndexCreationModel();
-
-            try
-            {
-                DB.CreateIndex(model);
-            }
-            catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
-            {
-                DB.DropIndex<T>(options.Name);
-                DB.CreateIndex(model);
-            }
-        }
-
-        /// <summary>
-        /// Call this method to finalize defining the index after setting the index keys and options.
-        /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task CreateAsync(CancellationToken cancellation = default)
-        {
-            var model = BuildIndexCreationModel();
-
-            try
-            {
-                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
-            }
-            catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
-            {
-                await DB.DropIndexAsync<T>(options.Name, cancellation).ConfigureAwait(false);
-                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
-            }
-        }
-
-        private CreateIndexModel<T> BuildIndexCreationModel()
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 
@@ -113,9 +80,19 @@ namespace MongoDB.Entities
                 }
             }
 
-            return new CreateIndexModel<T>(
+            var model = new CreateIndexModel<T>(
                 Builders<T>.IndexKeys.Combine(keyDefs),
                 options);
+
+            try
+            {
+                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+            }
+            catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
+            {
+                await DB.DropIndexAsync<T>(options.Name, cancellation).ConfigureAwait(false);
+                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+            }
         }
 
         /// <summary>

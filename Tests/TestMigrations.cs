@@ -8,7 +8,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void renaming_and_undoing_a_field()
         {
-            DB.Migrate();
+            DB.MigrateAsync();
 
             var count = DB.Collection<Migration>().CountDocuments(DB.Filter<Migration>().Empty);
 
@@ -20,7 +20,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void migrations_work_with_supplied_type_for_discovery()
         {
-            DB.Migrate<Migrations>();
+            DB.MigrateAsync<Migrations>();
 
             var count = DB.Collection<Migration>().CountDocuments(DB.Filter<Migration>().Empty);
 

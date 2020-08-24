@@ -80,11 +80,11 @@ namespace MongoDB.Entities
 
             db = DB.Database(
                 parent.GetType().GetCustomAttribute<DatabaseAttribute>(false)?.Name);
-            
+
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
-            
+
             var dbName = db.DatabaseNamespace.DatabaseName;
-            
+
             if (!indexedDBs.Contains(dbName))
             {
                 indexedDBs.Add(dbName);

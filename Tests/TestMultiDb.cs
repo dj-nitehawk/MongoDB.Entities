@@ -2,7 +2,6 @@
 using MongoDB.Entities.Tests.Models;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {

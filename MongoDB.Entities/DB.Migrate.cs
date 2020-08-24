@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -12,21 +13,21 @@ namespace MongoDB.Entities
         /// Discover and run migrations from the same assembly as the specified type.
         /// </summary>
         /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
-        public static void Migrate<T>() where T : class
+        public static async Task MigrateAsync<T>() where T : class
         {
-            Migrate(typeof(T));
+            await MigrateAsync(typeof(T)).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
         /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
-        public static void Migrate()
+        public static async Task MigrateAsync()
         {
-            Migrate(null);
+            await MigrateAsync(null).ConfigureAwait(false);
         }
 
-        private static void Migrate(Type targetType)
+        private static async Task MigrateAsync(Type targetType)
         {
             IEnumerable<Assembly> assemblies;
 
@@ -62,13 +63,14 @@ namespace MongoDB.Entities
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
 
-            var lastMigration = Find<Migration>()
-                    .Sort(m => m.Number, Order.Descending)
-                    .Limit(1)
-                    .Execute()
-                    .SingleOrDefault();
-
-            var lastMigNum = (lastMigration?.Number) ?? 0;
+            var lastMigNum = (
+                await Find<Migration, int>()
+                      .Sort(m => m.Number, Order.Descending)
+                      .Limit(1)
+                      .Project(m => m.Number)
+                      .ExecuteAsync()
+                      .ConfigureAwait(false))
+                .SingleOrDefault();
 
             var migrations = new SortedDictionary<int, IMigration>();
 
@@ -88,14 +90,14 @@ namespace MongoDB.Entities
             foreach (var migration in migrations)
             {
                 sw.Start();
-                migration.Value.Upgrade();
+                await migration.Value.Upgrade().ConfigureAwait(false);
                 var mig = new Migration
                 {
                     Number = migration.Key,
                     Name = migration.Value.GetType().Name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
                 };
-                Save(mig);
+                await SaveAsync(mig).ConfigureAwait(false);
                 sw.Stop();
                 sw.Reset();
             }

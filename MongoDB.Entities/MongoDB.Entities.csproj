@@ -10,10 +10,11 @@
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
     <Version>20</Version>
     <AssemblyVersion>20.0.0.0</AssemblyVersion>
-    <FileVersion>20.20.0.0</FileVersion>
+    <FileVersion>20.0.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- remove DB instance support
 - remove sync method support
+- remove ms ioc container extensions
 - rename DB.GetDatabase() to DB.Database() to be consistent with collection methods</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
@@ -31,7 +32,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" /> <!--v2.1.1 is the highest supported by .net core 2.1-->
     <PackageReference Include="MongoDB.Driver" Version="2.11.0" />
   </ItemGroup>
 

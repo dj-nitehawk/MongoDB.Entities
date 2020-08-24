@@ -45,17 +45,6 @@ namespace MongoDB.Entities
         /// Find a single IEntity by ID
         /// </summary>
         /// <param name="ID">The unique ID of an IEntity</param>
-        /// <returns>A single entity or null if not found</returns>
-        public TProjection One(string ID)
-        {
-            Match(ID);
-            return Execute().SingleOrDefault();
-        }
-
-        /// <summary>
-        /// Find a single IEntity by ID
-        /// </summary>
-        /// <param name="ID">The unique ID of an IEntity</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A single entity or null if not found</returns>
         public async Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
@@ -68,34 +57,12 @@ namespace MongoDB.Entities
         /// Find entities by supplying a lambda expression
         /// </summary>
         /// <param name="expression">x => x.Property == Value</param>
-        /// <returns>A list of Entities</returns>
-        public List<TProjection> Many(Expression<Func<T, bool>> expression)
-        {
-            Match(expression);
-            return Execute();
-        }
-
-        /// <summary>
-        /// Find entities by supplying a lambda expression
-        /// </summary>
-        /// <param name="expression">x => x.Property == Value</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A list of Entities</returns>
         public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellation = default)
         {
             Match(expression);
             return ExecuteAsync(cancellation);
-        }
-
-        /// <summary>
-        /// Find entities by supplying a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        /// <returns>A list of Entities</returns>
-        public List<TProjection> Many(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            Match(filter);
-            return Execute();
         }
 
         /// <summary>
@@ -357,15 +324,6 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the Find command in MongoDB server and get the results
         /// </summary>
-        /// <returns>A list of entities</returns>
-        public List<TProjection> Execute()
-        {
-            return ExecuteCursor().ToList();
-        }
-
-        /// <summary>
-        /// Run the Find command in MongoDB server and get the results
-        /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
@@ -376,26 +334,13 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the Find command in MongoDB server and get a cursor intead of materialized results
         /// </summary>
-        public IAsyncCursor<TProjection> ExecuteCursor()
-        {
-            CombineSortsIfAny();
-            return DB.Find(filter, options, session);
-        }
-
-        /// <summary>
-        /// Run the Find command in MongoDB server and get a cursor intead of materialized results
-        /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
         {
-            CombineSortsIfAny();
-            return DB.FindAsync(filter, options, session, cancellation);
-        }
-
-        private void CombineSortsIfAny()
-        {
             if (sorts.Count > 0)
                 options.Sort = Builders<T>.Sort.Combine(sorts);
+
+            return DB.FindAsync(filter, options, session, cancellation);
         }
 
         private void AddTxtScoreToProjection(string propName)
