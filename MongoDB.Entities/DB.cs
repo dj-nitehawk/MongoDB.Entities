@@ -79,7 +79,7 @@ namespace MongoDB.Entities
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public static IMongoDatabase GetDatabase<T>() where T : IEntity
+        public static IMongoDatabase Database<T>() where T : IEntity
         {
             return Cache<T>.Database;
         }
@@ -89,7 +89,7 @@ namespace MongoDB.Entities
         /// You can also get the default database by passing 'default' or 'null' for the name parameter.
         /// </summary>
         /// <param name="name">The name of the database to retrieve</param>
-        public static IMongoDatabase GetDatabase(string name)
+        public static IMongoDatabase Database(string name)
         {
             IMongoDatabase db = null;
 
@@ -174,7 +174,7 @@ namespace MongoDB.Entities
         {
             var type = typeof(T);
 
-            Database = DB.GetDatabase(
+            Database = DB.Database(
                 type.GetCustomAttribute<DatabaseAttribute>(false)?.Name);
 
             DBName = Database.DatabaseNamespace.DatabaseName;

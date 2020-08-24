@@ -8,7 +8,7 @@ namespace MongoDB.Entities
     {
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
-            return GetDatabase<T>().GetCollection<JoinRecord>(name);
+            return Database<T>().GetCollection<JoinRecord>(name);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace MongoDB.Entities
 
         private static void DropCollectionPrep<T>(out IMongoDatabase db, out string collName, out ListCollectionNamesOptions options) where T : IEntity
         {
-            db = GetDatabase<T>();
+            db = Database<T>();
             collName = CollectionName<T>();
             options = new ListCollectionNamesOptions
             {

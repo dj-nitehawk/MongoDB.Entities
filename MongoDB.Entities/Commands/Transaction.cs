@@ -26,7 +26,7 @@ namespace MongoDB.Entities
         /// <param name="options">Client session options for this transaction</param>
         public Transaction(string database = default, ClientSessionOptions options = null)
         {
-            client = DB.GetDatabase(database).Client;
+            client = DB.Database(database).Client;
             Session = client.StartSession(options);
             Session.StartTransaction();
         }

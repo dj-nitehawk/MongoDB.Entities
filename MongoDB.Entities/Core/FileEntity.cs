@@ -78,7 +78,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
 
-            db = DB.GetDatabase(
+            db = DB.Database(
                 parent.GetType().GetCustomAttribute<DatabaseAttribute>(false)?.Name);
             
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());

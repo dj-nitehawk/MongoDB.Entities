@@ -76,7 +76,7 @@ namespace MongoDB.Entities
 
         private static void DeleteCascadingPrep<T>(out IMongoDatabase db, out ListCollectionNamesOptions options) where T : IEntity
         {
-            db = GetDatabase<T>();
+            db = Database<T>();
             options = new ListCollectionNamesOptions
             {
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
