@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -81,12 +82,12 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void tag_replacement_with_db_aggregate()
+        public async Task tag_replacement_with_db_aggregate()
         {
             var guid = Guid.NewGuid().ToString();
             var author1 = new Author { Name = guid, Age = 54 };
             var author2 = new Author { Name = guid, Age = 53 };
-            DB.Save(new[] { author1, author2 });
+            await DB.SaveAsync(new[] { author1, author2 });
 
             var pipeline = new Template<Author>(@"
             [
@@ -101,7 +102,7 @@ namespace MongoDB.Entities.Tests
                 .Tag("author_name", guid)
                 .Path(a => a.Age);
 
-            var results = DB.Aggregate(pipeline).ToList();
+            var results =await (await DB.AggregateAsync(pipeline)).ToListAsync();
 
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results[0].Name == guid);
@@ -109,15 +110,15 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void aggregation_pipeline_with_differnt_input_and_output_types()
+        public async System.Threading.Tasks.Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
         {
             var guid = Guid.NewGuid().ToString();
 
             var author = new Author { Name = guid };
-            author.Save();
+            await author.SaveAsync();
 
             var book = new Book { Title = guid, MainAuthor = author };
-            book.Save();
+            await book.SaveAsync();
 
             var pipeline = new Template<Book, Author>(@"
                 [
@@ -146,8 +147,8 @@ namespace MongoDB.Entities.Tests
              .PathOfResult(a => a.Surname)
              .PathOfResult(a => a.Name);
 
-            var result = DB.Aggregate(pipeline)
-                           .ToList()
+            var result = (await (await DB.AggregateAsync(pipeline))
+                           .ToListAsync())
                            .Single();
 
             Assert.AreEqual(guid, result.Surname);

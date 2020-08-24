@@ -9,49 +9,49 @@ namespace MongoDB.Entities.Tests
     public class UpdateAndGet
     {
         [TestMethod]
-        public void updating_modifies_correct_documents()
+        public async Task updating_modifies_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1" }; author1.Save();
-            var author2 = new Author { Name = "bumcda2", Surname = guid }; author2.Save();
-            var author3 = new Author { Name = "bumcda3", Surname = guid }; author3.Save();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1" };await author1.SaveAsync();
+            var author2 = new Author { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
+            var author3 = new Author { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
 
-            var res = DB.UpdateAndGet<Author, string>()
+            var res = await DB.UpdateAndGet<Author, string>()
                         .Match(a => a.Surname == guid)
                         .Modify(a => a.Name, guid)
                         .Modify(a => a.Surname, author1.Name)
                         .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
                         .Project(a => a.Name)
-                        .Execute();
+                        .ExecuteAsync();
 
             Assert.AreEqual(guid, res);
         }
 
         [TestMethod]
-        public void update_by_def_builder_mods_correct_docs()
+        public async Task update_by_def_builder_mods_correct_docs()
         {
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = "bumcda1", Surname = "surname1", Age = 1 }; author1.Save();
-            var author2 = new Author { Name = "bumcda2", Surname = guid, Age = 1 }; author2.Save();
-            var author3 = new Author { Name = "bumcda3", Surname = guid, Age = 1 }; author3.Save();
+            var author1 = new Author { Name = "bumcda1", Surname = "surname1", Age = 1 }; await author1.SaveAsync();
+            var author2 = new Author { Name = "bumcda2", Surname = guid, Age = 1 }; await author2.SaveAsync();
+            var author3 = new Author { Name = "bumcda3", Surname = guid, Age = 1 }; await author3.SaveAsync();
 
-            var res = DB.UpdateAndGet<Author>()
+            var res = await DB.UpdateAndGet<Author>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
                           .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-                          .Execute();
+                          .ExecuteAsync();
 
             Assert.AreEqual(2, res.Age);
         }
 
         [TestMethod]
-        public void update_with_pipeline_using_template()
+        public async Task update_with_pipeline_using_template()
         {
             var guid = Guid.NewGuid().ToString();
 
             var author = new Author { Name = "uwput", Surname = guid, Age = 666 };
-            author.Save();
+            await author.SaveAsync();
 
             var pipeline = new Template<Author>(@"
             [
@@ -63,21 +63,21 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Surname)
                 .Path(a => a.Age);
 
-            var res = DB.UpdateAndGet<Author>()
+            var res = await DB.UpdateAndGet<Author>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
-                          .ExecutePipeline();
+                          .ExecutePipelineAsync();
 
             Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
         }
 
         [TestMethod]
-        public void update_with_aggregation_pipeline_works()
+        public async Task update_with_aggregation_pipeline_works()
         {
             var guid = Guid.NewGuid().ToString();
 
             var author = new Author { Name = "uwapw", Surname = guid };
-            author.Save();
+            await author.SaveAsync();
 
             var stage = new Template<Author>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
                 .Path(a => a.FullName)
@@ -85,16 +85,16 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Surname)
                 .ToString();
 
-            var res = DB.UpdateAndGet<Author>()
+            var res = await DB.UpdateAndGet<Author>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
-                          .ExecutePipeline();
+                          .ExecutePipelineAsync();
 
             Assert.AreEqual(author.Name + "-" + author.Surname, res.FullName);
         }
 
         [TestMethod]
-        public void update_with_array_filters_using_templates_work()
+        public async Task update_with_array_filters_using_templates_work()
         {
             var guid = Guid.NewGuid().ToString();
             var book = new Book
@@ -116,7 +116,7 @@ namespace MongoDB.Entities.Tests
                     },
                 }
             };
-            book.Save();
+            await book.SaveAsync();
 
             var filters = new Template<Author>(@"
             [
@@ -138,20 +138,20 @@ namespace MongoDB.Entities.Tests
                 .Tag("age", "321")
                 .Tag("value", "updated");
 
-            var res = DB.UpdateAndGet<Book>()
+            var res = await DB.UpdateAndGet<Book>()
 
               .Match(b => b.ID == book.ID)
 
               .WithArrayFilters(filters)
               .Modify(update)
 
-              .Execute();
+              .ExecuteAsync();
 
             Assert.AreEqual(321, res.OtherAuthors[0].Age);
         }
 
         [TestMethod]
-        public void update_with_array_filters_work()
+        public async Task update_with_array_filters_work()
         {
             var guid = Guid.NewGuid().ToString();
             var book = new Book
@@ -173,7 +173,7 @@ namespace MongoDB.Entities.Tests
                     },
                 }
             };
-            book.Save();
+            await book.SaveAsync();
 
             var arrFil = new Template<Author>("{ '<a.Age>': { $gte: <age> } }")
                                 .Elements(0, author => author.Age)
@@ -187,7 +187,7 @@ namespace MongoDB.Entities.Tests
             var filt2 = Prop.Elements<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);
 
-            var res = DB.UpdateAndGet<Book>()
+            var res = await DB.UpdateAndGet<Book>()
 
               .Match(b => b.ID == book.ID)
 
@@ -197,37 +197,37 @@ namespace MongoDB.Entities.Tests
               .WithArrayFilter("{'" + filt2 + "':'name'}")
               .Modify("{$set:{'" + prop2 + "':'updated'}}")
 
-              .Execute();
+              .ExecuteAsync();
 
             Assert.AreEqual(321, res.OtherAuthors[0].Age);
         }
 
         [TestMethod]
-        public void next_sequential_number_for_entities()
+        public async Task next_sequential_number_for_entities()
         {
             var book = new Book();
 
-            var lastNum = book.NextSequentialNumber();
+            var lastNum = await book.NextSequentialNumberAsync();
 
             var bookNum = 0ul;
-            Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumber());
+            Parallel.For(1, 11,async _ => bookNum = await book.NextSequentialNumberAsync());
 
-            Assert.AreEqual(lastNum + 10, book.NextSequentialNumber() - 1);
+            Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
         }
 
         [TestMethod]
-        public void next_sequential_number_for_entities_multidb()
+        public async Task next_sequential_number_for_entities_multidb()
         {
-            var db = new DB("mongodb-entities-test-multi");
+            await DB.InitAsync("mongodb-entities-test-multi");
 
             var img = new Image();
 
-            var lastNum = img.NextSequentialNumber();
+            var lastNum = await img.NextSequentialNumberAsync();
 
             var imgNum = 0ul;
-            Parallel.For(1, 11, _ => imgNum = img.NextSequentialNumber());
+            Parallel.For(1, 11,async _ => imgNum = await img.NextSequentialNumberAsync());
 
-            Assert.AreEqual(lastNum + 10, img.NextSequentialNumber() - 1);
+            Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
         }
     }
 }
