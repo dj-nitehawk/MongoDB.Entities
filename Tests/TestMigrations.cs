@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -6,27 +7,27 @@ namespace MongoDB.Entities.Tests
     public class Migrations
     {
         [TestMethod]
-        public void renaming_and_undoing_a_field()
+        public async Task renaming_and_undoing_a_field()
         {
-            DB.MigrateAsync();
+            await DB.MigrateAsync();
 
-            var count = DB.Collection<Migration>().CountDocuments(DB.Filter<Migration>().Empty);
+            var count =await DB.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
 
             Assert.AreEqual(2, count);
 
-            DB.Collection<Migration>().Database.DropCollection("_migration_history_");
+            await DB.Collection<Migration>().Database.DropCollectionAsync("_migration_history_");
         }
 
         [TestMethod]
-        public void migrations_work_with_supplied_type_for_discovery()
+        public async Task migrations_work_with_supplied_type_for_discovery()
         {
-            DB.MigrateAsync<Migrations>();
+            await DB.MigrateAsync<Migrations>();
 
-            var count = DB.Collection<Migration>().CountDocuments(DB.Filter<Migration>().Empty);
+            var count = await DB.Collection<Migration>().CountDocumentsAsync(DB.Filter<Migration>().Empty);
 
             Assert.AreEqual(2, count);
 
-            DB.Collection<Migration>().Database.DropCollection("_migration_history_");
+            await DB.Collection<Migration>().Database.DropCollectionAsync("_migration_history_");
         }
     }
 }

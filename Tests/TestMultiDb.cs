@@ -1,47 +1,48 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using MongoDB.Entities.Tests.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
     [TestClass]
     public class MultiDb
     {
-        private static readonly DB db = null;
-
-        static MultiDb()
-        {
-            db = new DB("mongodb-entities-test-multi");
-        }
+        private const string dbName = "mongodb-entities-test-multi";
 
         [TestMethod]
-        public void save_entity_works()
+        public async Task save_entity_works()
         {
+            await DB.InitAsync(dbName);
+
             var cover = new BookCover
             {
                 BookID = "123",
                 BookName = "test book " + Guid.NewGuid().ToString()
             };
 
-            cover.Save();
+            await cover.SaveAsync();
             Assert.IsNotNull(cover.ID);
 
-            var res = db.Find<BookCover>().One(cover.ID);
+            var res =await DB.Find<BookCover>().OneAsync(cover.ID);
 
             Assert.AreEqual(cover.ID, res.ID);
             Assert.AreEqual(cover.BookName, res.BookName);
         }
 
         [TestMethod]
-        public void relationships_work()
+        public async Task relationships_work()
         {
+            await DB.InitAsync(dbName);
+
             var cover = new BookCover
             {
                 BookID = "123",
                 BookName = "test book " + Guid.NewGuid().ToString()
             };
-            cover.Save();
+            await cover.SaveAsync();
 
             var mark = new BookMark
             {
@@ -49,57 +50,58 @@ namespace MongoDB.Entities.Tests
                 BookName = cover.BookName,
             };
 
-            mark.Save();
+            await mark.SaveAsync();
 
-            cover.BookMarks.Add(mark);
+            await cover.BookMarks.AddAsync(mark);
 
-            var res = cover.BookMarks.ChildrenQueryable().First();
+            var res = await cover.BookMarks.ChildrenQueryable().FirstAsync();
 
             Assert.AreEqual(cover.BookName, res.BookName);
 
-            Assert.AreEqual(res.BookCover.ToEntity().ID, cover.ID);
+            Assert.AreEqual((await res.BookCover.ToEntityAsync()).ID, cover.ID);
         }
 
         [TestMethod]
-        public void get_instance_by_db_name()
+        public async Task get_instance_by_db_name()
         {
-            new DB("test1");
-            new DB("test2");
+            await DB.InitAsync("test1");
+            await DB.InitAsync("test2");
 
-            var res = DB.GetInstance("test2");
+            var res = DB.Database("test2");
 
-            Assert.AreEqual("test2", res.DatabaseName());
+            Assert.AreEqual("test2", res.DatabaseNamespace.DatabaseName);
         }
 
         [TestMethod]
         public void uninitialized_get_instance_throws()
         {
-            Assert.ThrowsException<InvalidOperationException>(() => DB.GetInstance("some-database"));
+            Assert.ThrowsException<InvalidOperationException>(() => DB.Database("some-database"));
         }
 
         [TestMethod]
-        public void multiple_initializations_should_not_throw()
+        public async Task multiple_initializations_should_not_throw()
         {
-            new DB("multi-init");
-            new DB("multi-init");
+             await DB.InitAsync("multi-init");
+             await DB.InitAsync("multi-init");
 
-            var db = new DB("multi-init");
-            var instance = DB.GetInstance("multi-init");
+            var db = DB.Database("multi-init");
 
-            Assert.AreEqual("multi-init", instance.DatabaseName());
-            Assert.AreEqual("multi-init", db.DatabaseName());
+            Assert.AreEqual("multi-init", db.DatabaseNamespace.DatabaseName);
         }
 
         [TestMethod]
-        public void dropping_collections()
+        public async Task dropping_collections()
         {
+            await DB.InitAsync(dbName);
+
             var guid = Guid.NewGuid().ToString();
             var marks = new[] {
                 new BookMark{ BookName = guid},
                 new BookMark{ BookName = guid},
                 new BookMark{ BookName = guid},
             };
-            marks.Save();
+
+            await marks.SaveAsync();
 
             var covers = new[] {
                 new BookCover{  BookID = guid },
@@ -107,20 +109,20 @@ namespace MongoDB.Entities.Tests
                 new BookCover{  BookID = guid }
             };
 
-            covers.Save();
+            await covers.SaveAsync();
 
             foreach (var cover in covers)
             {
-                cover.BookMarks += marks;
+                await cover.BookMarks.AddAsync(marks);
             }
 
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
 
-            db.DropCollection<BookMark>();
+            await DB.DropCollectionAsync<BookMark>();
 
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
 
-            Assert.AreEqual(3, db.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+            Assert.AreEqual(3,DB.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
         }
 
     }

@@ -3,10 +3,12 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -38,9 +40,9 @@ namespace MongoDB.Entities
         /// <param name="database">Name of the database</param>
         /// <param name="host">Adderss of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
-        public static void Init(string database, string host = "127.0.0.1", int port = 27017)
+        public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
         {
-            Initialize(
+            return Initialize(
                 new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database);
         }
 
@@ -50,12 +52,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="settings">A MongoClientSettings object</param>
-        public static void Init(string database, MongoClientSettings settings)
+        public static Task InitAsync(string database, MongoClientSettings settings)
         {
-            Initialize(settings, database);
+            return Initialize(settings, database);
         }
 
-        private static void Initialize(MongoClientSettings settings, string db)
+        private static async Task Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
 
@@ -64,7 +66,7 @@ namespace MongoDB.Entities
             try
             {
                 dbs.Add(db, new MongoClient(settings).GetDatabase(db));
-                dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
+                await dbs[db].ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
             }
             catch (Exception)
             {

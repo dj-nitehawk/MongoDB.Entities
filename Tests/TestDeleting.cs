@@ -70,26 +70,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void deleting_a_one2many_ref_entity_makes_parent_null()
+        public async Task deleting_a_one2many_ref_entity_makes_parent_nullAsync()
         {
-            var book = new Book { Title = "Test" }; book.SaveAsync();
-            var author = new Author { Name = "ewtrcd1" }; author.SaveAsync();
+            var book = new Book { Title = "Test" }; await book.SaveAsync();
+            var author = new Author { Name = "ewtrcd1" }; await author.SaveAsync();
             book.MainAuthor = author.ToReference();
-            book.SaveAsync();
-            author.DeleteAsync();
-            Assert.AreEqual(null, book.MainAuthor.ToEntityAsync());
+            await book.SaveAsync();
+            await author.DeleteAsync();
+            Assert.AreEqual(null, await book.MainAuthor.ToEntityAsync());
         }
 
         [TestMethod]
-        public void delete_by_expression_deletes_all_matches()
+        public async Task delete_by_expression_deletes_all_matchesAsync()
         {
-            var author1 = new Author { Name = "xxx" }; author1.SaveAsync();
-            var author2 = new Author { Name = "xxx" }; author2.SaveAsync();
+            var author1 = new Author { Name = "xxx" }; await author1.SaveAsync();
+            var author2 = new Author { Name = "xxx" }; await author2.SaveAsync();
 
-            DB.DeleteAsync<Author>(x => x.Name == "xxx");
+            await DB.DeleteAsync<Author>(x => x.Name == "xxx");
 
-            var count = DB.Queryable<Author>()
-                          .Count(a => a.Name == "xxx");
+            var count = await DB.Queryable<Author>()
+                          .CountAsync(a => a.Name == "xxx");
 
             Assert.AreEqual(0, count);
         }

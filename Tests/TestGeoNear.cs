@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -9,28 +10,27 @@ namespace MongoDB.Entities.Tests
     public class GeoNearTest
     {
         [TestMethod]
-        public void find_match_geo_method()
+        public async Task find_match_geo_method()
         {
-            DB.Index<Place>()
+            await DB.Index<Place>()
               .Key(x => x.Location, KeyType.Geo2DSphere)
               .Option(x => x.Background = false)
-              .Create();
+              .CreateAsync();
 
             var guid = Guid.NewGuid().ToString();
 
-            (new[]
+            await new[]
             {
                 new Place { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
                 new Place { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
                 new Place { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
-            })
-            .Save();
+            }.SaveAsync();
 
-            var res = DB.Find<Place>()
+            var res = (await DB.Find<Place>()
                         .Match(p => p.Location, new Coordinates2D(48.857908, 2.295243), 20000) //20km from eiffel tower
                         .Sort(p => p.ModifiedOn, Order.Descending)
                         .Limit(20)
-                        .Execute()
+                        .ExecuteAsync())
                         .Where(c => c.Name == "Paris " + guid)
                         .ToList();
 
@@ -38,64 +38,62 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void geo_near_fluent_interface()
+        public async Task geo_near_fluent_interface()
         {
-            DB.Index<Place>()
+            await DB.Index<Place>()
                 .Key(x => x.Location, KeyType.Geo2DSphere)
                 .Option(x => x.Background = false)
-                .Create();
+                .CreateAsync();
 
             var guid = Guid.NewGuid().ToString();
 
-            (new[]
+            await new[]
             {
                 new Place { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
                 new Place { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
                 new Place { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
-            })
-            .Save();
+            }.SaveAsync();
 
             var qry = DB.FluentGeoNear<Place>(
                          NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
                          DistanceField: x => x.DistanceKM,
                          MaxDistance: 20000);
 
-            var cnt = qry.Match(c => c.Name.Contains(guid)).ToList();
+            var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
             Assert.AreEqual(2, cnt.Count);
 
-            var res = qry.Match(c => c.Name == "Paris " + guid).ToList();
+            var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
             Assert.AreEqual(1, res.Count);
         }
 
         [TestMethod]
-        public void geo_near_transaction_returns_correct_results()
+        public async Task geo_near_transaction_returns_correct_results()
         {
-            DB.Index<Place>()
+            await DB.Index<Place>()
                 .Key(x => x.Location, KeyType.Geo2DSphere)
                 .Option(x => x.Background = false)
-                .Create();
+                .CreateAsync();
 
             var guid = Guid.NewGuid().ToString();
 
             using var TN = new Transaction();
 
-            (new[]
+            await new[]
             {
                 new Place { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
                 new Place { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
                 new Place { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
-                })
-            .Save();
+            }.SaveAsync();
 
             var qry = TN.GeoNear<Place>(
                          NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
                          DistanceField: x => x.DistanceKM,
                          MaxDistance: 20000);
 
-            var cnt = qry.Match(c => c.Name.Contains(guid)).ToList();
+            var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
             Assert.AreEqual(2, cnt.Count);
 
-            var res = qry.Match(c => c.Name == "Paris " + guid).ToList();
+            var res = await qry.Match(c => c.Name == "Paris " + guid).ToListAsync();
             Assert.AreEqual(1, res.Count);
         }
     }

@@ -328,7 +328,10 @@ namespace MongoDB.Entities
         /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await (await ExecuteCursorAsync(cancellation).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
+            return await (
+                    await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+                   .ToListAsync()
+                   .ConfigureAwait(false);
         }
 
         /// <summary>
