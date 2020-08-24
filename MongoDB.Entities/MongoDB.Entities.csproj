@@ -13,6 +13,7 @@
     <FileVersion>20.20.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- remove DB instance support
+- remove sync method support
 - rename DB.GetDatabase() to DB.Database() to be consistent with collection methods</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

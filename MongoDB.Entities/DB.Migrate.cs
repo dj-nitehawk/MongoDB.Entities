@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace MongoDB.Entities
 {
-    public partial class DB
+    public static partial class DB
     {
         /// <summary>
         /// Discover and run migrations from the same assembly as the specified type.
@@ -47,7 +47,7 @@ namespace MongoDB.Entities
                 assemblies = AppDomain.CurrentDomain
                     .GetAssemblies()
                     .Where(a =>
-                          (a.IsDynamic != true && !excludes.Any(n => a.FullName.StartsWith(n))) ||
+                          (!a.IsDynamic && !excludes.Any(n => a.FullName.StartsWith(n))) ||
                           a.FullName.StartsWith("MongoDB.Entities.Tests"));
             }
             else
@@ -68,7 +68,7 @@ namespace MongoDB.Entities
                     .Execute()
                     .SingleOrDefault();
 
-            var lastMigNum = lastMigration != null ? lastMigration.Number : 0;
+            var lastMigNum = (lastMigration?.Number) ?? 0;
 
             var migrations = new SortedDictionary<int, IMigration>();
 

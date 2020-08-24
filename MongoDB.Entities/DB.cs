@@ -73,8 +73,6 @@ namespace MongoDB.Entities
             }
         }
 
-        //todo: move GetDatabase<T>() to Database() after obsoletes are gone at v15
-
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>

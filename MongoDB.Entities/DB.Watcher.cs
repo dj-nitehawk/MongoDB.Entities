@@ -2,7 +2,7 @@
 
 namespace MongoDB.Entities
 {
-    public partial class DB
+    public static partial class DB
     {
         /// <summary>
         /// Retrieves the 'change-stream' watcher instance for a given unique name. 

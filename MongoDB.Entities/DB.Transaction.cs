@@ -2,7 +2,7 @@
 
 namespace MongoDB.Entities
 {
-    public partial class DB
+    public static partial class DB
     {
         /// <summary>
         /// Gets a transaction context/scope for a given database or the default database if not specified.
@@ -12,15 +12,6 @@ namespace MongoDB.Entities
         public static Transaction Transaction(string database = default, ClientSessionOptions options = null)
         {
             return new Transaction(database, options);
-        }
-
-        /// <summary>
-        /// Gets a transaction context/scope for the current instance's database
-        /// </summary>
-        /// <param name="options">Client session options (not required)</param>
-        public Transaction Transaction(ClientSessionOptions options = null)
-        {
-            return new Transaction(DatabaseName(), options);
         }
 
         /// <summary>
