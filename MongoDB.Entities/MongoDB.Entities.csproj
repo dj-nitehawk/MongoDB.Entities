@@ -8,14 +8,15 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>20</Version>
-    <AssemblyVersion>20.0.0.0</AssemblyVersion>
-    <FileVersion>20.0.0.0</FileVersion>
+    <Version>20.0.0</Version>    
+    <AssemblyVersion>20.0.0</AssemblyVersion>
+    <FileVersion>20.0.0</FileVersion>
+    <PackageVersion>20.0.0-beta</PackageVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- remove DB instance support
-- remove sync method support
-- remove ms ioc container extensions
-- rename DB.GetDatabase() to DB.Database() to be consistent with collection methods</PackageReleaseNotes>
+    <PackageReleaseNotes>- removed support for DB instances
+- removed all sync methods
+- removed .net ioc container registration shortcuts
+- renamed DB.GetDatabase() to DB.Database() to be consistent with collection methods</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -9,19 +10,19 @@ namespace MongoDB.Entities.Tests
     public class Dates
     {
         [TestMethod]
-        public void not_setting_date_doesnt_cause_issues()
+        public async Task not_setting_date_doesnt_cause_issuesAsync()
         {
             var book = new Book { Title = "nsddci" };
-            book.Save();
+            await book.SaveAsync();
 
-            var res = DB.Find<Book>().One(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.ID);
 
             Assert.AreEqual(res.Title, book.Title);
             Assert.IsNull(res.PublishedOn);
         }
 
         [TestMethod]
-        public void date_props_contain_correct_value()
+        public async Task date_props_contain_correct_value()
         {
             var pubDate = DateTime.UtcNow;
 
@@ -30,9 +31,9 @@ namespace MongoDB.Entities.Tests
                 Title = "dpccv",
                 PublishedOn = pubDate
             };
-            book.Save();
+            await book.SaveAsync();
 
-            var res = DB.Find<Book>().One(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.ID);
 
             Assert.AreEqual(pubDate.Ticks, res.PublishedOn.Ticks);
             Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
@@ -41,7 +42,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public void querying_on_ticks_work()
+        public async Task querying_on_ticks_work()
         {
             var pubDate = DateTime.UtcNow;
 
@@ -50,25 +51,25 @@ namespace MongoDB.Entities.Tests
                 Title = "qotw",
                 PublishedOn = pubDate
             };
-            book.Save();
+            await book.SaveAsync();
 
-            var res = DB.Find<Book>()
+            var res = (await DB.Find<Book>()
                         .Match(b => b.ID == book.ID && b.PublishedOn.Ticks == pubDate.Ticks)
-                        .Execute()
+                        .ExecuteAsync())
                         .Single();
 
             Assert.AreEqual(book.ID, res.ID);
 
-            res = DB.Find<Book>()
+            res = (await DB.Find<Book>()
                     .Match(b => b.ID == book.ID && b.PublishedOn.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
-                    .Execute()
+                    .ExecuteAsync())
                     .Single();
 
             Assert.AreEqual(book.ID, res.ID);
         }
 
         [TestMethod]
-        public void querying_on_datetime_prop_works()
+        public async Task querying_on_datetime_prop_works()
         {
             var pubDate = DateTime.UtcNow;
 
@@ -77,18 +78,18 @@ namespace MongoDB.Entities.Tests
                 Title = "qodtpw",
                 PublishedOn = pubDate
             };
-            book.Save();
+            await book.SaveAsync();
 
-            var res = DB.Find<Book>()
+            var res = (await DB.Find<Book>()
             .Match(b => b.ID == book.ID && b.PublishedOn.DateTime == pubDate)
-            .Execute()
+            .ExecuteAsync())
             .Single();
 
             Assert.AreEqual(book.ID, res.ID);
 
-            res = DB.Find<Book>()
+            res = (await DB.Find<Book>()
                     .Match(b => b.ID == book.ID && b.PublishedOn.DateTime < pubDate.AddSeconds(1))
-                    .Execute()
+                    .ExecuteAsync())
                     .Single();
 
             Assert.AreEqual(book.ID, res.ID);
