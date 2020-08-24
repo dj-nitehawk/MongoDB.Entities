@@ -8,15 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>14.5</Version>
-    <AssemblyVersion>14.5.0.0</AssemblyVersion>
-    <FileVersion>14.5.0.0</FileVersion>
+    <Version>20</Version>
+    <AssemblyVersion>20.0.0.0</AssemblyVersion>
+    <FileVersion>20.20.0.0</FileVersion>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- eliminate all sync over async anti-pattern usages
-- avoid capturing sync context when awaiting tasks
-- transaction support for IEntity extension methods
-- misc. optimizations
-- new tests</PackageReleaseNotes>
+    <PackageReleaseNotes>- remove DB instance support
+- rename DB.GetDatabase() to DB.Database() to be consistent with collection methods</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl></RepositoryUrl>

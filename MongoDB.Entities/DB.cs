@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace MongoDB.Entities
 {
-    public partial class DB
+    public static partial class DB
     {
         static DB()
         {
@@ -29,83 +29,48 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        //todo: remove obsoletes at version 15
-        [Obsolete("Please use the .Database() method...")]
-        public string DbName { get => dbName; }
-
-        [Obsolete("Please use .DatabaseName<T>() method...")]
-        public static string Database<T>() where T : IEntity => DatabaseName<T>();
-
-        [Obsolete("Please use .DatabaseName() method...")]
-        public string Database() => DatabaseName();
-
-        internal string dbName;
-
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
-        private static readonly Dictionary<string, DB> instances = new Dictionary<string, DB>();
 
         /// <summary>
-        /// Initializes the MongoDB connection with the given connection parameters.
+        /// Initializes a MongoDB connection with the given connection parameters.
+        /// You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="host">Adderss of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
-        public DB(string database, string host = "127.0.0.1", int port = 27017)
+        public static void Init(string database, string host = "127.0.0.1", int port = 27017)
         {
             Initialize(
                 new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database);
         }
 
         /// <summary>
-        /// Initializes the MongoDB connection with an advanced set of parameters.
+        /// Initializes a MongoDB connection with the given connection parameters.
+        /// You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
-        /// <param name="settings">A MongoClientSettings object</param>
         /// <param name="database">Name of the database</param>
-        public DB(MongoClientSettings settings, string database)
+        /// <param name="settings">A MongoClientSettings object</param>
+        public static void Init(string database, MongoClientSettings settings)
         {
             Initialize(settings, database);
         }
 
-        private void Initialize(MongoClientSettings settings, string db)
+        private static void Initialize(MongoClientSettings settings, string db)
         {
             if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
-
-            dbName = db;
 
             if (dbs.ContainsKey(db)) return;
 
             try
             {
                 dbs.Add(db, new MongoClient(settings).GetDatabase(db));
-                instances.Add(db, this);
                 dbs[db].ListCollectionNames().ToList(); //get the list of collection names so that first db connection is established
             }
             catch (Exception)
             {
                 dbs.Remove(db);
-                instances.Remove(db);
-                dbName = null;
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Gets the DB instance for a given database name.
-        /// </summary>
-        /// <param name="database">The database name to retrieve the DB instance for. Pass 'default' to retrieve the default instance</param>
-        /// <exception cref="InvalidOperationException">Throws an exeception if the database has not yet been initialized</exception>
-        public static DB GetInstance(string database)
-        {
-            if (database == default || database == null)
-            {
-                if (instances.Count > 0)
-                    return instances.ElementAt(0).Value;
-                throw new InvalidOperationException("No instances have been initialized yet!");
-            }
-
-            if (instances.ContainsKey(database)) return instances[database];
-
-            throw new InvalidOperationException($"An instance has not been initialized yet for [{database}]");
         }
 
         //todo: move GetDatabase<T>() to Database() after obsoletes are gone at v15
@@ -120,7 +85,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Gets the IMongoDatabase for a given database name.
+        /// Gets the IMongoDatabase for a given database name if it has been previously initialized.
+        /// You can also get the default database by passing 'default' or 'null' for the name parameter.
         /// </summary>
         /// <param name="name">The name of the database to retrieve</param>
         public static IMongoDatabase GetDatabase(string name)
@@ -139,17 +105,12 @@ namespace MongoDB.Entities
                 }
             }
 
-            if (db == null) throw new InvalidOperationException($"Database connection is not initialized for [{name}]");
+            var dbName = string.IsNullOrEmpty(name) ? "Default" : name;
+
+            if (db == null)
+                throw new InvalidOperationException($"Database connection is not initialized for [{dbName}]");
 
             return db;
-        }
-
-        /// <summary>
-        /// Gets the IMongoDatabase of this instance
-        /// </summary>
-        public IMongoDatabase GetDatabase()
-        {
-            return GetDatabase(dbName);
         }
 
         /// <summary>
@@ -159,14 +120,6 @@ namespace MongoDB.Entities
         public static string DatabaseName<T>() where T : IEntity
         {
             return Cache<T>.DBName;
-        }
-
-        /// <summary>
-        /// Returns the name of the database this instance was created with
-        /// </summary>
-        public string DatabaseName()
-        {
-            return dbName;
         }
 
         /// <summary>
@@ -221,10 +174,10 @@ namespace MongoDB.Entities
         {
             var type = typeof(T);
 
-            var dbAttrb = type.GetCustomAttribute<DatabaseAttribute>(false);
-            DBName = dbAttrb != null ? dbAttrb.Name : DB.GetInstance(default).dbName;
+            Database = DB.GetDatabase(
+                type.GetCustomAttribute<DatabaseAttribute>(false)?.Name);
 
-            Database = DB.GetDatabase(DBName);
+            DBName = Database.DatabaseNamespace.DatabaseName;
 
             var collAttrb = type.GetCustomAttribute<NameAttribute>(false);
             CollectionName = collAttrb != null ? collAttrb.Name : type.Name;

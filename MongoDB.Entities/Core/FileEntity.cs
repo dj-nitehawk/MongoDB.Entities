@@ -67,7 +67,7 @@ namespace MongoDB.Entities
         private static readonly HashSet<string> indexedDBs = new HashSet<string>();
 
         private readonly FileEntity parent;
-        private readonly DB db;
+        private readonly IMongoDatabase db;
         private readonly IMongoCollection<FileChunk> chunkCollection;
         private FileChunk doc;
         private int chunkSize, readCount;
@@ -77,10 +77,14 @@ namespace MongoDB.Entities
         public DataStreamer(FileEntity parent)
         {
             this.parent = parent;
-            var attribute = parent.GetType().GetCustomAttribute<DatabaseAttribute>(false);
-            var dbName = attribute != null ? attribute.Name : DB.GetInstance(default).dbName;
-            db = DB.GetInstance(dbName);
-            chunkCollection = db.GetDatabase().GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
+
+            db = DB.GetDatabase(
+                parent.GetType().GetCustomAttribute<DatabaseAttribute>(false)?.Name);
+            
+            chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
+            
+            var dbName = db.DatabaseNamespace.DatabaseName;
+            
             if (!indexedDBs.Contains(dbName))
             {
                 indexedDBs.Add(dbName);
@@ -247,7 +251,7 @@ namespace MongoDB.Entities
         {
             var type = parent.GetType();
             var attribute = type.GetCustomAttribute<NameAttribute>(false);
-            var coll = db.GetDatabase().GetCollection<FileEntity>(attribute != null ? attribute.Name : type.Name);
+            var coll = db.GetCollection<FileEntity>(attribute != null ? attribute.Name : type.Name);
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
                             .Set(e => e.FileSize, parent.FileSize)
