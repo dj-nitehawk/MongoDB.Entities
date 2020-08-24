@@ -1,13 +1,15 @@
-﻿namespace MongoDB.Entities.Tests
+﻿using System.Threading.Tasks;
+
+namespace MongoDB.Entities.Tests
 {
     public class _001_rename_field : IMigration
     {
-        public void Upgrade()
+        public async Task Upgrade()
         {
-            DB.Update<Book>()
+            await DB.Update<Book>()
               .Match(_ => true)
               .Modify(b => b.Rename("SellingPrice", "Price"))
-              .Execute();
+              .ExecuteAsync().ConfigureAwait(false);
         }
     }
 }

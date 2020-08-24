@@ -238,37 +238,15 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the update command in MongoDB and retrieve the first document modified
         /// </summary>
-        public TProjection Execute()
-        {
-            ExecutePrep();
-            return DB.UpdateAndGet(filter, Builders<T>.Update.Combine(defs), options, session);
-        }
-
-        /// <summary>
-        /// Run the update command in MongoDB and retrieve the first document modified
-        /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
-        {
-            ExecutePrep();
-            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
-        }
-
-        private void ExecutePrep()
         {
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-        }
 
-        /// <summary>
-        /// Run the update command with pipeline stages and retrieve the first document modified
-        /// </summary>
-        public TProjection ExecutePipeline()
-        {
-            ExecutePipelinePrep();
-            return DB.UpdateAndGet(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session);
+            return await DB.UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -277,16 +255,12 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            ExecutePipelinePrep();
-            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
-        }
-
-        private void ExecutePipelinePrep()
-        {
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+
+            return DB.UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
     }
 }

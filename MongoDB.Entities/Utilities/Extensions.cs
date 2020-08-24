@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -36,26 +35,23 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID)) throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
-        [Obsolete("Please use .DatabaseName<T>() method...")]
-        public static string Database<T>(this T _) where T : IEntity => DB.DatabaseName<T>();
+        /// <summary>
+        /// Gets the IMongoDatabase for the given entity type
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        public static IMongoDatabase Database<T>(this T _) where T : IEntity => DB.Database<T>();
 
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
-        public static string DatabaseName<T>(this T _) where T : IEntity
-        {
-            return DB.DatabaseName<T>();
-        }
+        public static string DatabaseName<T>(this T _) where T : IEntity => DB.DatabaseName<T>();
 
         /// <summary>
         /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
-        {
-            return DB.Collection<T>();
-        }
+        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity => DB.Collection<T>();
 
         /// <summary>
         /// Gets the collection name for this entity
@@ -72,33 +68,6 @@ namespace MongoDB.Entities
         public static string FullPath<T>(this Expression<Func<T, object>> expression)
         {
             return Prop.Path(expression);
-        }
-
-        /// <summary>
-        /// Registers MongoDB.Entities as a service with the IOC services collection.
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="Database">MongoDB database name.</param>
-        /// <param name="Host">MongoDB host address. Defaults to 127.0.0.1</param>
-        /// <param name="Port">MongoDB port number. Defaults to 27017</param>
-        /// <returns></returns>
-        public static IServiceCollection AddMongoDBEntities(this IServiceCollection services, string Database, string Host = "127.0.0.1", int Port = 27017)
-        {
-            services.AddSingleton(new DB(Database, Host, Port));
-            return services;
-        }
-
-        /// <summary>
-        /// Registers MongoDB.Entities as a service with the IOC services collection.
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="Settings">A 'MongoClientSettings' object with customized connection parameters such as authentication credentials.</param>
-        /// <param name="Database">MongoDB database name.</param>
-        /// <returns></returns>
-        public static IServiceCollection AddMongoDBEntities(this IServiceCollection services, MongoClientSettings Settings, string Database)
-        {
-            services.AddSingleton(new DB(Settings, Database));
-            return services;
         }
 
         /// <summary>
@@ -219,29 +188,11 @@ namespace MongoDB.Entities
         /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
         /// </summary>
-        public static ReplaceOneResult Save<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
-        {
-            return DB.Save(entity, session);
-        }
-
-        /// <summary>
-        /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
-        /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entity, session, cancellation);
-        }
-
-        /// <summary>
-        /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
-        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
-        /// </summary>
-        public static BulkWriteResult<T> Save<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
-        {
-            return DB.Save(entities, session);
         }
 
         /// <summary>
@@ -263,19 +214,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        public static UpdateResult SavePreserving<T>(this T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null) where T : IEntity
-        {
-            return DB.SavePreserving(entity, preservation, session);
-        }
-
-        /// <summary>
-        /// Save this entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
@@ -286,27 +224,9 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static DeleteResult Delete<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
-        {
-            return DB.Delete<T>(entity.ID, session);
-        }
-
-        /// <summary>
-        /// Deletes a single entity from MongoDB.
-        /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// </summary>
         public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
         {
             return DB.DeleteAsync<T>(entity.ID, session);
-        }
-
-        /// <summary>
-        /// Deletes multiple entities from the database
-        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// </summary>
-        public static DeleteResult DeleteAll<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
-        {
-            return DB.Delete<T>(entities.Select(e => e.ID), session);
         }
 
         /// <summary>
@@ -350,15 +270,6 @@ namespace MongoDB.Entities
         public static string ToDoubleMetaphoneHash(this string term)
         {
             return string.Join(" ", DoubleMetaphone.GetKeys(term));
-        }
-
-        /// <summary>
-        /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
-        /// </summary>
-        /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public static ulong NextSequentialNumber<T>(this T _) where T : IEntity
-        {
-            return DB.NextSequentialNumber<T>();
         }
 
         /// <summary>

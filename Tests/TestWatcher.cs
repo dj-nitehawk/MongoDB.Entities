@@ -9,7 +9,7 @@ namespace MongoDB.Entities.Tests
     public class Watcher
     {
         [TestMethod]
-        public void watching_works()
+        public async Task watching_works()
         {
             var watcher = DB.Watcher<Flower>("test");
             var allFlowers = new List<Flower>();
@@ -23,16 +23,16 @@ namespace MongoDB.Entities.Tests
             watcher.OnChanges +=
                 flowers => allFlowers.AddRange(flowers);
 
-            new[] {
+            await new[] {
                 new Flower { Name = "test" },
                 new Flower { Name = "test" },
                 new Flower { Name = "test" }
-            }.Save();
+            }.SaveAsync();
 
             var flower = new Flower { Name = "test" };
-            flower.Save();
+            await flower.SaveAsync();
 
-            flower.Delete();
+            await flower.DeleteAsync();
 
             Task.Delay(1000).Wait();
 

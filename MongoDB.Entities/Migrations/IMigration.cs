@@ -1,7 +1,9 @@
-﻿namespace MongoDB.Entities
+﻿using System.Threading.Tasks;
+
+namespace MongoDB.Entities
 {
     public interface IMigration
     {
-        void Upgrade();
+        Task Upgrade();
     }
 }

@@ -10,15 +10,15 @@ namespace MongoDB.Entities.Tests
     public class FuzzyStringTest
     {
         [TestMethod]
-        public void fuzzystring_type_saving_and_retrieval_works()
+        public async System.Threading.Tasks.Task fuzzystring_type_saving_and_retrieval_worksAsync()
         {
             var guid = Guid.NewGuid().ToString();
 
-            (new Book { Title = "fstsarw", Review = new Review { Alias = guid } }).Save();
+            await new Book { Title = "fstsarw", Review = new Review { Alias = guid } }.SaveAsync();
 
-            var res = DB.Queryable<Book>()
+            var res = await DB.Queryable<Book>()
                         .Where(b => b.Review.Alias.Value == guid)
-                        .Single();
+                        .SingleAsync();
 
             Assert.AreEqual(guid, res.Review.Alias.Value);
         }

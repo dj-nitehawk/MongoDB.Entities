@@ -12,35 +12,9 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public partial class DB
+    public static partial class DB
     {
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
-
-        /// <summary>
-        /// Persists an entity to MongoDB
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The instance to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public static ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null) where T : IEntity
-        {
-            SavePrep(entity);
-
-            return session == null
-                   ? Collection<T>().ReplaceOne(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true })
-                   : Collection<T>().ReplaceOne(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true });
-        }
-
-        /// <summary>
-        /// Persists an entity to MongoDB
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The instance to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public ReplaceOneResult Save<T>(T entity, IClientSessionHandle session = null, bool _ = false) where T : IEntity
-        {
-            return Save(entity, session);
-        }
 
         /// <summary>
         /// Persists an entity to MongoDB
@@ -51,15 +25,6 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            SavePrep(entity);
-
-            return session == null
-                   ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-                   : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation);
-        }
-
-        private static void SavePrep<T>(T entity) where T : IEntity
-        {
             if (string.IsNullOrEmpty(entity.ID))
             {
                 entity.ID = ObjectId.GenerateNewId().ToString();
@@ -69,44 +34,10 @@ namespace MongoDB.Entities
 
             if (Cache<T>.HasModifiedOn)
                 ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        }
-
-        /// <summary>
-        /// Persists an entity to MongoDB
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The instance to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="cancellation">And optional cancellation token</param>
-        public Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
-        {
-            return SaveAsync(entity, session, cancellation);
-        }
-
-        /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entities">The entities to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public static BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
-        {
-            var models = BuildBulkWriteModels(entities);
 
             return session == null
-                   ? Collection<T>().BulkWrite(models, unOrdBlkOpts)
-                   : Collection<T>().BulkWrite(session, models, unOrdBlkOpts);
-        }
-
-        /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entities">The entities to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public BulkWriteResult<T> Save<T>(IEnumerable<T> entities, IClientSessionHandle session = null, bool _ = false) where T : IEntity
-        {
-            return Save(entities, session);
+                   ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+                   : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
@@ -117,15 +48,6 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            var models = BuildBulkWriteModels(entities);
-
-            return session == null
-                   ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
-        }
-
-        private static List<WriteModel<T>> BuildBulkWriteModels<T>(IEnumerable<T> entities) where T : IEntity
         {
             var models = new List<WriteModel<T>>();
             foreach (var ent in entities)
@@ -147,52 +69,9 @@ namespace MongoDB.Entities
                 models.Add(upsert);
             }
 
-            return models;
-        }
-
-        /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entities">The entities to persist</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="cancellation">And optional cancellation token</param>
-        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
-        {
-            return SaveAsync(entities, session, cancellation);
-        }
-
-        /// <summary>
-        /// Saves an entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public static UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null) where T : IEntity
-        {
-            var updateDef = BuildDefinitions(entity, preservation);
-
-            return
-                session == null
-                ? Collection<T>().UpdateOne(e => e.ID == entity.ID, updateDef)
-                : Collection<T>().UpdateOne(session, e => e.ID == entity.ID, updateDef);
-        }
-
-        /// <summary>
-        /// Saves an entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        public UpdateResult SavePreserving<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, bool _ = false) where T : IEntity
-        {
-            return SavePreserving(entity, preservation, session);
+            return session == null
+                   ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>
@@ -206,31 +85,6 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            var updateDef = BuildDefinitions(entity, preservation);
-
-            return
-                session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, updateDef, null, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, updateDef, null, cancellation);
-        }
-
-        /// <summary>
-        /// Saves an entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default, bool _ = false) where T : IEntity
-        {
-            return SavePreservingAsync(entity, preservation, session, cancellation);
-        }
-
-        private static UpdateDefinition<T> BuildDefinitions<T>(T entity, Expression<Func<T, object>> preservation) where T : IEntity
         {
             entity.ThrowIfUnsaved();
 
@@ -293,7 +147,10 @@ namespace MongoDB.Entities
                 }
             }
 
-            return Builders<T>.Update.Combine(defs);
+            return
+                session == null
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation);
         }
     }
 }

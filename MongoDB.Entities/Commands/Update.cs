@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private UpdateOptions options = new UpdateOptions();
-        private readonly IClientSessionHandle session = null;
+        private readonly IClientSessionHandle session;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
 
         internal Update(IClientSessionHandle session = null)
@@ -226,62 +226,24 @@ namespace MongoDB.Entities
         /// <summary>
         /// Run the update command in MongoDB.
         /// </summary>
-        public UpdateResult Execute()
-        {
-            if (models.Count > 0)
-            {
-                return MakeAcknowledgedUpdateResult(DB.BulkUpdate(models, session));
-            }
-            else
-            {
-                ExecutePrep();
-                return DB.Update(filter, Builders<T>.Update.Combine(defs), options, session);
-            }
-        }
-
-        /// <summary>
-        /// Run the update command in MongoDB.
-        /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
         {
             if (models.Count > 0)
             {
-                return MakeAcknowledgedUpdateResult(
-                    await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false));
+                var bulkWriteResult = await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false);
+                models.Clear();
+                return new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
             }
             else
             {
-                ExecutePrep();
+                if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+                if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+                if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+
                 return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
-        }
-
-        private void ExecutePrep()
-        {
-            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-        }
-
-        private UpdateResult MakeAcknowledgedUpdateResult(BulkWriteResult<T> res)
-        {
-            models.Clear();
-            return new UpdateResult.Acknowledged(res.MatchedCount, res.ModifiedCount, null);
-        }
-
-        /// <summary>
-        /// Run the update command with pipeline stages
-        /// </summary>
-        public UpdateResult ExecutePipeline()
-        {
-            ExecutePipelinePrep();
-            return DB.Update(
-                filter,
-                Builders<T>.Update.Pipeline(stages.ToArray()),
-                options,
-                session);
         }
 
         /// <summary>
@@ -290,21 +252,17 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            ExecutePipelinePrep();
+            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+            if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+            if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+
             return DB.UpdateAsync(
                 filter,
                 Builders<T>.Update.Pipeline(stages.ToArray()),
                 options,
                 session,
                 cancellation);
-        }
-
-        private void ExecutePipelinePrep()
-        {
-            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
-            if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
         }
     }
 }
