@@ -11,7 +11,7 @@ namespace Examples
 {
     public static class Program
     {
-        private static async Task Main(string[] args)
+        private static async Task Main(string[] _)
         {
             //BASIC INITIALIZATION
             //
