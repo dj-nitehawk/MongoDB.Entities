@@ -154,16 +154,16 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task trying_to_download_when_no_chunks_present()
+        public void trying_to_download_when_no_chunks_present()
         {
-            await DB.InitAsync(dbName);
+            DB.InitAsync(dbName).GetAwaiter().GetResult();
 
             Assert.ThrowsException<InvalidOperationException>(
-                async () =>
+                () =>
                 {
                     using var stream = File.OpenWrite("test.file");
-                    await DB.File<Image>(ObjectId.GenerateNewId().ToString())
-                      .DownloadAsync(stream);
+                    DB.File<Image>(ObjectId.GenerateNewId().ToString())
+                      .DownloadAsync(stream).GetAwaiter().GetResult();
                 });
         }
     }

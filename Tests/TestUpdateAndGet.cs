@@ -210,7 +210,7 @@ namespace MongoDB.Entities.Tests
             var lastNum = await book.NextSequentialNumberAsync();
 
             var bookNum = 0ul;
-            Parallel.For(1, 11, async _ => bookNum = await book.NextSequentialNumberAsync());
+            Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumberAsync().GetAwaiter().GetResult());
 
             Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
         }
@@ -225,7 +225,7 @@ namespace MongoDB.Entities.Tests
             var lastNum = await img.NextSequentialNumberAsync();
 
             var imgNum = 0ul;
-            Parallel.For(1, 11, async _ => imgNum = await img.NextSequentialNumberAsync());
+            Parallel.For(1, 11, _ => imgNum = img.NextSequentialNumberAsync().GetAwaiter().GetResult());
 
             Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
         }
