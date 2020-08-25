@@ -34,7 +34,7 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
-        private readonly IClientSessionHandle session = null;
+        private readonly IClientSessionHandle session;
 
         internal Find(IClientSessionHandle session = null)
         {
@@ -47,10 +47,10 @@ namespace MongoDB.Entities
         /// <param name="ID">The unique ID of an IEntity</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A single entity or null if not found</returns>
-        public async Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
+        public Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
         {
             Match(ID);
-            return (await ExecuteAsync(cancellation).ConfigureAwait(false)).SingleOrDefault();
+            return ExecuteSingleAsync(cancellation);
         }
 
         /// <summary>
@@ -322,20 +322,40 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Run the Find command in MongoDB server and get the results
+        /// Run the Find command in MongoDB server and get a list of results
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <returns>A list of entities</returns>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await (
-                    await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-                   .ToListAsync()
-                   .ConfigureAwait(false);
+            return await
+                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+                     .ToListAsync().ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Run the Find command in MongoDB server and get a cursor intead of materialized results
+        /// Run the Find command in MongoDB server and get a single result or the default value if not found
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default)
+        {
+            return await
+                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+                    .SingleOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Run the Find command in MongoDB server and get the first result or the default value if not found
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task<TProjection> ExecuteFirstAsync(CancellationToken cancellation = default)
+        {
+            return await
+                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+                    .FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Run the Find command in MongoDB server and get a cursor instead of materialized results
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
