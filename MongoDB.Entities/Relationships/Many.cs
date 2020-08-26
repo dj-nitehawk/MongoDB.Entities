@@ -456,21 +456,9 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            AddPrep(
-                childIDs,
-                out List<WriteModel<BsonDocument>> models,
-                out IMongoCollection<BsonDocument> collection);
-
-            return session == null
-                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
-        }
-
-        private void AddPrep(IEnumerable<string> childIDs, out List<WriteModel<BsonDocument>> models, out IMongoCollection<BsonDocument> collection)
-        {
             parent.ThrowIfUnsaved();
 
-            models = new List<WriteModel<BsonDocument>>();
+            var models = new List<WriteModel<BsonDocument>>();
             foreach (var cid in childIDs)
             {
                 cid.ThrowIfInvalid();
@@ -491,8 +479,12 @@ namespace MongoDB.Entities
                 models.Add(new ReplaceOneModel<BsonDocument>(def, doc) { IsUpsert = true });
             }
 
-            collection = JoinCollection.Database
+            var collection = JoinCollection.Database
                              .GetCollection<BsonDocument>(JoinCollection.CollectionNamespace.CollectionName);
+
+            return session == null
+                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>
