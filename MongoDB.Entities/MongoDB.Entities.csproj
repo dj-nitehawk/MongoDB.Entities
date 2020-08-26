@@ -14,7 +14,7 @@
 - removed support for DB instances
 - removed .net ioc container registration shortcuts
 - renamed DB.GetDatabase() to DB.Database() to be consistent with collection methods
-- renamed DB.Aggregate() to DB.ExecutePipelineAsync()
+- renamed DB.Aggregate() to DB.PipelineAsync()
 - added DB.PipelineCursorAsync() method
 - added DB.PipelineSingleAsync() method
 - added DB.PipelineFirstAsync() method
