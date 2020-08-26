@@ -56,20 +56,20 @@ namespace MongoDB.Entities
             return Initialize(settings, database);
         }
 
-        private static async Task Initialize(MongoClientSettings settings, string db)
+        private static async Task Initialize(MongoClientSettings settings, string dbName)
         {
-            if (string.IsNullOrEmpty(db)) throw new ArgumentNullException("database", "Database name cannot be empty!");
+            if (string.IsNullOrEmpty(dbName)) throw new ArgumentNullException("database", "Database name cannot be empty!");
 
-            if (dbs.ContainsKey(db)) return;
+            if (dbs.ContainsKey(dbName)) return;
 
             try
             {
-                dbs.Add(db, new MongoClient(settings).GetDatabase(db));
-                await dbs[db].ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
+                dbs.Add(dbName, new MongoClient(settings).GetDatabase(dbName));
+                await dbs[dbName].ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
             }
             catch (Exception)
             {
-                dbs.Remove(db);
+                dbs.Remove(dbName);
                 throw;
             }
         }
@@ -104,10 +104,8 @@ namespace MongoDB.Entities
                 }
             }
 
-            var dbName = string.IsNullOrEmpty(name) ? "Default" : name;
-
             if (db == null)
-                throw new InvalidOperationException($"Database connection is not initialized for [{dbName}]");
+                throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
 
             return db;
         }
