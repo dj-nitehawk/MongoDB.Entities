@@ -102,7 +102,7 @@ namespace MongoDB.Entities.Tests
                 .Tag("author_name", guid)
                 .Path(a => a.Age);
 
-            var results = await (await DB.AggregateAsync(pipeline)).ToListAsync();
+            var results = await (await DB.PipelineCursorAsync(pipeline)).ToListAsync();
 
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results[0].Name == guid);
@@ -147,7 +147,7 @@ namespace MongoDB.Entities.Tests
              .PathOfResult(a => a.Surname)
              .PathOfResult(a => a.Name);
 
-            var result = (await (await DB.AggregateAsync(pipeline))
+            var result = (await (await DB.PipelineCursorAsync(pipeline))
                            .ToListAsync())
                            .Single();
 

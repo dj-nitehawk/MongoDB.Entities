@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return await 
-                    (await ExecutePipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
+                    (await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
                     .ToListAsync().ConfigureAwait(false);
         }
 
@@ -52,7 +52,7 @@ namespace MongoDB.Entities
         public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return await
-                    (await ExecutePipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
+                    (await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
                     .SingleOrDefaultAsync().ConfigureAwait(false);
         }
 
@@ -68,7 +68,7 @@ namespace MongoDB.Entities
         public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return await
-                    (await ExecutePipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
+                    (await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
                     .FirstOrDefaultAsync().ConfigureAwait(false);
         }
     }
