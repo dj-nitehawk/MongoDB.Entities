@@ -111,16 +111,59 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Executes an aggregation framework pipeline in the transaction scope by supplying a 'Template' object
+        /// Executes an aggregation pipeline in the transaction scope by supplying a 'Template' object.
+        /// Gets a cursor back as the result.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <typeparam name="TResult">The type of the resulting objects</typeparam>
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<IAsyncCursor<TResult>> AggregateAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.AggregateAsync(template, options, Session, cancellation);
+            return DB.PipelineCursorAsync(template, options, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Executes an aggregation pipeline in the transaction scope by supplying a 'Template' object.
+        /// Gets a list back as the result.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <typeparam name="TResult">The type of the resulting objects</typeparam>
+        /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.PipelineAsync(template, options, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Executes an aggregation pipeline in the transaction scope by supplying a 'Template' object.
+        /// Gets a single or default value as the result.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <typeparam name="TResult">The type of the resulting objects</typeparam>
+        /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.PipelineSingleAsync(template, options, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Executes an aggregation pipeline in the transaction scope by supplying a 'Template' object.
+        /// Gets the first or default value as the result.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <typeparam name="TResult">The type of the resulting objects</typeparam>
+        /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="options">The options for the aggregation. This is not required.</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.PipelineFirstAsync(template, options, Session, cancellation);
         }
 
         /// <summary>
