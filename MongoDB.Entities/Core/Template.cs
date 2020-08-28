@@ -46,7 +46,19 @@ namespace MongoDB.Entities
         /// Turns the given expression (of output type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template<T, TResult> PathOfResult(Expression<Func<TResult, object>> expression) => base.Path(expression) as Template<T, TResult>;
+        public Template<T, TResult> PathOfResult(Expression<Func<TResult, object>> expression) => Path(expression) as Template<T, TResult>;
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression (of input type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
+        public Template<T, TResult> Paths(Expression<Func<T, object>> expression) => base.Paths(expression) as Template<T, TResult>;
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression (of output type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
+        public Template<T, TResult> PathsOfResult(Expression<Func<TResult, object>> expression) => Paths(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given expression (of input type) to a positional filtered path like "Authors.$[a].Name" and replaces matching tags in the template such as "&lt;Authors.$[a].Name&gt;"
@@ -60,7 +72,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template<T, TResult> PosFilteredOfResult(Expression<Func<TResult, object>> expression) => base.PosFiltered(expression) as Template<T, TResult>;
+        public Template<T, TResult> PosFilteredOfResult(Expression<Func<TResult, object>> expression) => PosFiltered(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given expression (of input type) to a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
@@ -72,7 +84,7 @@ namespace MongoDB.Entities
         /// Turns the given expression (of output type) to a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template<T, TResult> PosAllOfResult(Expression<Func<TResult, object>> expression) => base.PosAll(expression) as Template<T, TResult>;
+        public Template<T, TResult> PosAllOfResult(Expression<Func<TResult, object>> expression) => PosAll(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given expression (of input type) to a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
@@ -84,7 +96,7 @@ namespace MongoDB.Entities
         /// Turns the given expression (of output type) to a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-        public Template<T, TResult> PosFirstOfResult(Expression<Func<TResult, object>> expression) => base.PosFirst(expression) as Template<T, TResult>;
+        public Template<T, TResult> PosFirstOfResult(Expression<Func<TResult, object>> expression) => PosFirst(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given expression (of input type) to a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
@@ -96,7 +108,7 @@ namespace MongoDB.Entities
         /// Turns the given expression (of output type) to a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeProp</param>
-        public Template<T, TResult> ElementsOfResult(Expression<Func<TResult, object>> expression) => base.Elements(expression) as Template<T, TResult>;
+        public Template<T, TResult> ElementsOfResult(Expression<Func<TResult, object>> expression) => Elements(expression) as Template<T, TResult>;
 
         /// <summary>
         /// Turns the given index and expression (of input type) to a path with the filtered positional identifier prepended to the property path like "a.Name" and replaces matching tags in the template such as "&lt;a.Name&gt;"
@@ -110,7 +122,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
         /// <param name="expression">x => x.SomeProp</param>
-        public Template<T, TResult> ElementsOfResult(int index, Expression<Func<TResult, object>> expression) => base.Elements(index, expression) as Template<T, TResult>;
+        public Template<T, TResult> ElementsOfResult(int index, Expression<Func<TResult, object>> expression) => Elements(index, expression) as Template<T, TResult>;
 
         /// <summary>
         /// Replaces the given tag in the template like "&lt;search_term&gt;" with the supplied value.
@@ -185,6 +197,26 @@ namespace MongoDB.Entities
         public Template Path<T>(Expression<Func<T, object>> expression)
         {
             return ReplacePath(Prop.Path(expression));
+        }
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
+        public Template Paths<T>(Expression<Func<T, object>> expression)
+        {
+            var paths = 
+                (expression.Body as NewExpression)?
+                .Arguments
+                .Select(a => Prop.GetPath(a.ToString()));
+
+            if (!paths.Any())
+                throw new ArgumentException("Unable to parse any property paths from the supplied `new` expression!");
+
+            foreach (var p in paths)
+                ReplacePath(p);
+
+            return this;
         }
 
         /// <summary>

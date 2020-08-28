@@ -9,23 +9,23 @@ namespace MongoDB.Entities
     /// </summary>
     public static class Prop
     {
-        private static readonly Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);
-        private static readonly Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);
+        private static readonly Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
+        private static readonly Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
         private static readonly Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
         private static readonly Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
 
-        private static string ToLowerCaseLetter(long number)
+        private static string ToLowerCaseLetter(long n)
         {
-            string returnVal = null;
+            string val = null;
             const char c = 'a';
-            while (number >= 0)
+            while (n >= 0)
             {
-                returnVal = (char)(c + (number % 26)) + returnVal;
-                number /= 26;
-                number--;
+                val = (char)(c + (n % 26)) + val;
+                n /= 26;
+                n--;
             }
 
-            return returnVal;
+            return val;
         }
 
         private static string GetPath<T>(Expression<Func<T, object>> expression)
@@ -36,11 +36,19 @@ namespace MongoDB.Entities
             if (expression.Body.NodeType == ExpressionType.Parameter)
                 throw new ArgumentException("Cannot generate property path from lambda parameter!");
 
-            //One.Two[1].Three.get_Item(2).Four
-            var path = rxOne.Match(expression.ToString()).Value.Substring(1);
+            return rxTwo.Replace(
+                rxOne.Match(expression.ToString()).Value.Substring(1),
+                m => "[" + m.Groups[1].Value + "]");
+        }
 
-            //One.Two[1].Three[2].Four
-            return rxTwo.Replace(path, m => "[" + m.Groups[1].Value + "]");
+        internal static string GetPath(string expString)
+        {
+            return
+                rxThree.Replace(
+                    rxTwo.Replace(
+                        rxOne.Match(expString).Value.Substring(1),
+                        m => "[" + m.Groups[1].Value + "]"),
+                    "");
         }
 
         /// <summary>
