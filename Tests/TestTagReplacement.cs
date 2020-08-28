@@ -82,6 +82,36 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void tag_replacement_with_new_expression()
+        {
+            var template = new Template(@"
+            {
+               $match: { 
+                    '<OtherAuthors.Name>': /search_term/is,
+                    '<OtherAuthors.Age2>: 55',
+                    '<ReviewList.Books.Review>: null'
+                }
+            }")
+            .Paths<Book>(b => new
+            {
+                b.OtherAuthors[0].Name,
+                b.OtherAuthors[1].Age2,
+                b.ReviewList[1].Books[1].Review
+            });
+
+            const string expectation = @"
+            {
+               $match: { 
+                    'OtherAuthors.Name': /search_term/is,
+                    'OtherAuthors.Age2: 55',
+                    'ReviewList.Books.Review: null'
+                }
+            }";
+
+            Assert.AreEqual(expectation, template.ToString());
+        }
+
+        [TestMethod]
         public async Task tag_replacement_with_db_aggregate()
         {
             var guid = Guid.NewGuid().ToString();
@@ -110,7 +140,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async System.Threading.Tasks.Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
+        public async Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
         {
             var guid = Guid.NewGuid().ToString();
 
