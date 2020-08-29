@@ -37,6 +37,24 @@ namespace MongoDB.Entities
         public Template(string template) : base(template) { }
 
         /// <summary>
+        /// Gets the collection name of a given entity type and replaces matching tags in the template such as "&lt;EntityName&gt;"
+        /// </summary>
+        /// <typeparam name="TEntity">The type of entity to get the collection name of</typeparam>
+        new public Template<T, TResult> Collection<TEntity>() where TEntity : IEntity => base.Collection<TEntity>() as Template<T, TResult>;
+
+        /// <summary>
+        /// Turns the given member expression (of input type) into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
+        /// </summary>
+        /// <param name="expression">x => x.RootProp.SomeProp</param>
+        public Template<T, TResult> Property(Expression<Func<T, object>> expression) => base.Property(expression) as Template<T, TResult>;
+
+        /// <summary>
+        /// Turns the given member expression (of output type) into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
+        /// </summary>
+        /// <param name="expression">x => x.RootProp.SomeProp</param>
+        public Template<T, TResult> PropertyOfResult(Expression<Func<TResult, object>> expression) => Property(expression) as Template<T, TResult>;
+
+        /// <summary>
         /// Turns the given expression (of input type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
@@ -191,6 +209,24 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets the collection name of a given entity type and replaces matching tags in the template such as "&lt;EntityName&gt;"
+        /// </summary>
+        /// <typeparam name="TEntity">The type of entity to get the collection name of</typeparam>
+        public Template Collection<TEntity>() where TEntity : IEntity
+        {
+            return ReplacePath(Prop.Collection<TEntity>());
+        }
+
+        /// <summary>
+        /// Turns the given member expression into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
+        /// </summary>
+        /// <param name="expression">x => x.RootProp.SomeProp</param>
+        public Template Property<T>(Expression<Func<T, object>> expression)
+        {
+            return ReplacePath(Prop.Property(expression));
+        }
+
+        /// <summary>
         /// Turns the given expression into a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
@@ -205,7 +241,7 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
         public Template Paths<T>(Expression<Func<T, object>> expression)
         {
-            var paths = 
+            var paths =
                 (expression.Body as NewExpression)?
                 .Arguments
                 .Select(a => Prop.GetPath(a.ToString()));

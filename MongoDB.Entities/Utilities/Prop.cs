@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities
@@ -28,13 +29,18 @@ namespace MongoDB.Entities
             return val;
         }
 
-        private static string GetPath<T>(Expression<Func<T, object>> expression)
+        private static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
         {
             if (expression == null)
                 throw new ArgumentNullException(nameof(expression), "The supplied expression is null!");
 
             if (expression.Body.NodeType == ExpressionType.Parameter)
                 throw new ArgumentException("Cannot generate property path from lambda parameter!");
+        }
+
+        private static string GetPath<T>(Expression<Func<T, object>> expression)
+        {
+            ThrowIfInvalid(expression);
 
             return rxTwo.Replace(
                 rxOne.Match(expression.ToString()).Value.Substring(1),
@@ -49,6 +55,28 @@ namespace MongoDB.Entities
                         rxOne.Match(expString).Value.Substring(1),
                         m => "[" + m.Groups[1].Value + "]"),
                     "");
+        }
+
+        //todo: add collection + property methods to wiki docs
+
+        /// <summary>
+        /// Returns the collection/entity name of a given entity type
+        /// </summary>
+        /// <typeparam name="T">The type of the entity to get the collection name of</typeparam>
+        public static string Collection<T>()where T : IEntity
+        {
+            return Cache<T>.CollectionName;
+        }
+
+        /// <summary>
+        /// Returns the name of the property for a given expression.
+        /// <para>EX: Authors[0].Books[0].Title > Title</para>
+        /// </summary>
+        /// <param name="expression">x => x.SomeList[0].SomeProp</param>
+        public static string Property<T>(Expression<Func<T, object>> expression)
+        {
+            ThrowIfInvalid(expression);
+            return (((expression.Body as UnaryExpression)?.Operand ?? expression.Body) as MemberExpression)?.Member.Name;
         }
 
         /// <summary>
