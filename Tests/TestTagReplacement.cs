@@ -82,6 +82,40 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public void tag_replacement_works_for_collection()
+        {
+            var template = new Template<Author>(@"
+            {
+               $match: { '<Book>': /search_term/is }
+            }")
+            .Collection<Book>();
+
+            const string expectation = @"
+            {
+               $match: { 'Book': /search_term/is }
+            }";
+
+            Assert.AreEqual(expectation, template.ToString());
+        }
+
+        [TestMethod]
+        public void tag_replacement_works_for_property()
+        {
+            var template = new Template<Book,Author>(@"
+            {
+               $match: { '<Name>': /search_term/is }
+            }")
+            .Property(b => b.OtherAuthors[0].Name);
+
+            const string expectation = @"
+            {
+               $match: { 'Name': /search_term/is }
+            }";
+
+            Assert.AreEqual(expectation, template.ToString());
+        }
+
+        [TestMethod]
         public void tag_replacement_with_new_expression()
         {
             var template = new Template(@"

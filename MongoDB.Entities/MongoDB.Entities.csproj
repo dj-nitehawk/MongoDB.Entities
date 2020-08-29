@@ -8,7 +8,7 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>20.0.3-beta</Version>
+    <Version>20.0.4-beta</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- removed all sync methods making the library async-only
 - removed support for DB instances
@@ -20,8 +20,10 @@
 - added DB.PipelineFirstAsync() method
 - adedd transaction support for the new PipeLine* methods
 - added Find&lt;T&gt;().ExecuteSingleAsync() method
-- added Find&lt;T&gt;().ExecuteFirstAsync() method
-- added Template&lt;T&gt;.Paths() method
+- added Find().ExecuteFirstAsync() method
+- added Template().Paths() method
+- added Template().Collection() method
+- added Template().Property() method
 - added new tests
 - upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
