@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,7 +34,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return await 
+            return await
                     (await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
                     .ToListAsync().ConfigureAwait(false);
         }

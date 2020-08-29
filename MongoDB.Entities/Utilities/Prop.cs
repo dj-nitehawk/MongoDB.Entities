@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities
@@ -63,7 +62,7 @@ namespace MongoDB.Entities
         /// Returns the collection/entity name of a given entity type
         /// </summary>
         /// <typeparam name="T">The type of the entity to get the collection name of</typeparam>
-        public static string Collection<T>()where T : IEntity
+        public static string Collection<T>() where T : IEntity
         {
             return Cache<T>.CollectionName;
         }

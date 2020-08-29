@@ -4,7 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Benchmark
@@ -65,7 +64,7 @@ namespace Benchmark
                     book.Title = $"author {number} - book {i}";
                     book.PublishedOn = DateTime.UtcNow;
                     book.Author = author.ID;
-                    book.SaveAsync().GetAwaiter().GetResult() ;
+                    book.SaveAsync().GetAwaiter().GetResult();
                     author.Books.AddAsync(book).GetAwaiter().GetResult();
                     booksCreated.Add(0);
 

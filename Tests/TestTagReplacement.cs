@@ -101,7 +101,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void tag_replacement_works_for_property()
         {
-            var template = new Template<Book,Author>(@"
+            var template = new Template<Book, Author>(@"
             {
                $match: { '<Name>': /search_term/is }
             }")
