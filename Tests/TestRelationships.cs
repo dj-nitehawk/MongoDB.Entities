@@ -251,7 +251,7 @@ namespace MongoDB.Entities.Tests
             await book2.Genres.AddAsync(gen2);
 
             await book1.Genres.RemoveAsync(gen1);
-            Assert.AreEqual(1,await  book1.Genres.ChildrenQueryable().CountAsync());
+            Assert.AreEqual(1, await book1.Genres.ChildrenQueryable().CountAsync());
             Assert.AreEqual(gen2.Name, (await book1.Genres.ChildrenQueryable().SingleAsync()).Name);
             Assert.AreEqual(1, await gen1.Books.ChildrenQueryable().CountAsync());
             Assert.AreEqual(book2.Title, (await gen1.Books.ChildrenQueryable().FirstAsync()).Title);
