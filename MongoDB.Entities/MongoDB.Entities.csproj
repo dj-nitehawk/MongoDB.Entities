@@ -19,11 +19,11 @@
 - added DB.PipelineSingleAsync() method
 - added DB.PipelineFirstAsync() method
 - adedd transaction support for the new PipeLine* methods
-- added Find&lt;T&gt;().ExecuteSingleAsync() method
+- added Find().ExecuteSingleAsync() method
 - added Find().ExecuteFirstAsync() method
 - added Template().Paths() method
-- added Template().Collection() method
-- added Template().Property() method
+- added Prop.Collection() method
+- added Prop.Property() method
 - added new tests
 - upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
