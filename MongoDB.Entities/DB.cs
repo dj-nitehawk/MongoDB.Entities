@@ -154,6 +154,11 @@ namespace MongoDB.Entities
         {
             return new T();
         }
+
+        /// <summary>
+        /// Returns a new ObjectId as a string
+        /// </summary>
+        public static string NewID() => ObjectId.GenerateNewId().ToString();
     }
 
     internal static class Cache<T> where T : IEntity

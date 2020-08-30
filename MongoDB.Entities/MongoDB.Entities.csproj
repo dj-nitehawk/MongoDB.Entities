@@ -24,6 +24,7 @@
 - added Template().Paths() method
 - added Prop.Collection() method
 - added Prop.Property() method
+- added DB.NewID() method
 - added new tests
 - upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
