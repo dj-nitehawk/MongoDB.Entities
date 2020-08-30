@@ -90,7 +90,7 @@ namespace MongoDB.Entities
             foreach (var migration in migrations)
             {
                 sw.Start();
-                await migration.Value.Upgrade().ConfigureAwait(false);
+                await migration.Value.UpgradeAsync().ConfigureAwait(false);
                 var mig = new Migration
                 {
                     Number = migration.Key,

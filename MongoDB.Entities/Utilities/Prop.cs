@@ -56,8 +56,6 @@ namespace MongoDB.Entities
                     "");
         }
 
-        //todo: add collection + property methods to wiki docs
-
         /// <summary>
         /// Returns the collection/entity name of a given entity type
         /// </summary>
