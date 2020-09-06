@@ -16,6 +16,8 @@ namespace MongoDB.Entities.Tests
         public async Task save_entity_works()
         {
             await DB.InitAsync(dbName);
+            DB.DatabaseFor<BookCover>(dbName);
+            DB.DatabaseFor<BookMark>(dbName);
 
             var cover = new BookCover
             {
@@ -36,6 +38,8 @@ namespace MongoDB.Entities.Tests
         public async Task relationships_work()
         {
             await DB.InitAsync(dbName);
+            DB.DatabaseFor<BookCover>(dbName);
+            DB.DatabaseFor<BookMark>(dbName);
 
             var cover = new BookCover
             {
@@ -93,6 +97,8 @@ namespace MongoDB.Entities.Tests
         public async Task dropping_collections()
         {
             await DB.InitAsync(dbName);
+            DB.DatabaseFor<BookMark>(dbName);
+            DB.DatabaseFor<BookCover>(dbName);
 
             var guid = Guid.NewGuid().ToString();
             var marks = new[] {

@@ -1,6 +1,5 @@
 ﻿namespace MongoDB.Entities.Tests.Models
 {
-    [Database("mongodb-entities-test-multi")]
     [Name("Pictures")]
     public class Image : FileEntity
     {
