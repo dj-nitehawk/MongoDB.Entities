@@ -77,9 +77,6 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specifies the database that a given entity type should be stored in. 
         /// Only needed for entity types you want stored in a db other than the default db.
-        /// <para>
-        /// TIP: Use this right after initializing the databases at startup.
-        /// </para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="database">The name of the database</param>
