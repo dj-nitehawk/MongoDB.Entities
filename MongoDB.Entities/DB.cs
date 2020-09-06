@@ -75,6 +75,18 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specifies the database that a given entity type should be stored in. 
+        /// Only needed for entity types you want stored in a db other than the default db.
+        /// <para>
+        /// TIP: Use this right after initializing the databases at startup.
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="database">The name of the database</param>
+        public static void DatabaseFor<T>(string database) where T : IEntity
+            => TypeMap.AddDatabaseMapping(typeof(T), Database(database));
+
+        /// <summary>
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
@@ -113,7 +125,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static string DatabaseName<T>() where T : IEntity
         {
             return Cache<T>.DBName;
@@ -167,16 +179,22 @@ namespace MongoDB.Entities
         private static readonly Dictionary<Type, string> TypeToCollMap = new Dictionary<Type, string>();
 
         internal static void AddCollectionMapping(Type entityType, string collectionName)
-            => TypeToCollMap.Add(entityType, collectionName);
+            => TypeToCollMap[entityType] = collectionName;
 
         internal static string GetCollectionName(Type entityType)
-            => TypeToCollMap[entityType];
+        {
+            TypeToCollMap.TryGetValue(entityType, out string name);
+            return name;
+        }
 
         internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
-            => TypeToDBMap.Add(entityType, database);
+            => TypeToDBMap[entityType] = database;
 
         internal static IMongoDatabase GetDatabase(Type entityType)
-            => TypeToDBMap[entityType];
+        {
+            TypeToDBMap.TryGetValue(entityType, out IMongoDatabase db);
+            return db ?? DB.Database(default);
+        }
     }
 
     internal static class Cache<T> where T : IEntity
@@ -194,9 +212,8 @@ namespace MongoDB.Entities
         {
             var type = typeof(T);
 
-            Database = DB.Database(type.GetCustomAttribute<DatabaseAttribute>(false)?.Name);
+            Database = TypeMap.GetDatabase(type);
             DBName = Database.DatabaseNamespace.DatabaseName;
-            TypeMap.AddDatabaseMapping(type, Database);
 
             var collAttrb = type.GetCustomAttribute<NameAttribute>(false);
             CollectionName = collAttrb != null ? collAttrb.Name : type.Name;

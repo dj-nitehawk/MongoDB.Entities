@@ -13,6 +13,7 @@
     <PackageReleaseNotes>- removed all sync methods making the library async-only
 - removed support for DB instances
 - removed .net ioc container registration shortcuts
+- removed [Database] attribute
 - renamed DB.GetDatabase() to DB.Database() to be consistent with collection methods
 - renamed DB.Aggregate() to DB.PipelineAsync()
 - added DB.PipelineCursorAsync() method
@@ -25,7 +26,8 @@
 - added Prop.Collection() method
 - added Prop.Property() method
 - added DB.NewID() method
-- optimize FileEntity handling
+- added DB.DatabaseFor&lt;T&gt;() method
+- optimized FileEntity internals
 - upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
