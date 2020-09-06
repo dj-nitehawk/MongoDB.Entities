@@ -8,12 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/dj-nitehawk/MongoDB.Entities</PackageProjectUrl>
-    <Version>20.0.6-beta</Version>
+    <Version>20.0.7-beta</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- removed all sync methods making the library async-only
 - removed support for DB instances
 - removed .net ioc container registration shortcuts
-- removed [Database] attribute
+- removed [Database] attribute in favor of DB.DatabaseFor&lt;T&gt;()
 - renamed DB.GetDatabase() to DB.Database() to be consistent with collection methods
 - renamed DB.Aggregate() to DB.PipelineAsync()
 - added DB.PipelineCursorAsync() method
