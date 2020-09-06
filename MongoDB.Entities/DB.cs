@@ -161,25 +161,42 @@ namespace MongoDB.Entities
         public static string NewID() => ObjectId.GenerateNewId().ToString();
     }
 
+    internal static class TypeMap
+    {
+        private static readonly Dictionary<Type, IMongoDatabase> TypeToDBMap = new Dictionary<Type, IMongoDatabase>();
+        private static readonly Dictionary<Type, string> TypeToCollMap = new Dictionary<Type, string>();
+
+        internal static void AddCollectionMapping(Type entityType, string collectionName)
+            => TypeToCollMap.Add(entityType, collectionName);
+
+        internal static string GetCollectionName(Type entityType)
+            => TypeToCollMap[entityType];
+
+        internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
+            => TypeToDBMap.Add(entityType, database);
+
+        internal static IMongoDatabase GetDatabase(Type entityType)
+            => TypeToDBMap[entityType];
+    }
+
     internal static class Cache<T> where T : IEntity
     {
-        public static IMongoDatabase Database { get; }
-        public static IMongoCollection<T> Collection { get; }
-        public static string DBName { get; }
-        public static string CollectionName { get; }
-        public static Dictionary<string, Watcher<T>> Watchers { get; set; }
-        public static bool HasCreatedOn { get; set; }
-        public static bool HasModifiedOn { get; set; }
-        public static string ModifiedOnPropName { get; set; }
+        internal static IMongoDatabase Database { get; }
+        internal static IMongoCollection<T> Collection { get; }
+        internal static string DBName { get; }
+        internal static string CollectionName { get; }
+        internal static Dictionary<string, Watcher<T>> Watchers { get; }
+        internal static bool HasCreatedOn { get; }
+        internal static bool HasModifiedOn { get; }
+        internal static string ModifiedOnPropName { get; }
 
         static Cache()
         {
             var type = typeof(T);
 
-            Database = DB.Database(
-                type.GetCustomAttribute<DatabaseAttribute>(false)?.Name);
-
+            Database = DB.Database(type.GetCustomAttribute<DatabaseAttribute>(false)?.Name);
             DBName = Database.DatabaseNamespace.DatabaseName;
+            TypeMap.AddDatabaseMapping(type, Database);
 
             var collAttrb = type.GetCustomAttribute<NameAttribute>(false);
             CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
@@ -188,6 +205,7 @@ namespace MongoDB.Entities
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
             Collection = Database.GetCollection<T>(CollectionName);
+            TypeMap.AddCollectionMapping(type, CollectionName);
 
             Watchers = new Dictionary<string, Watcher<T>>();
 

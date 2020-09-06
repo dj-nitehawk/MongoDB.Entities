@@ -67,6 +67,7 @@ namespace MongoDB.Entities
         private static readonly HashSet<string> indexedDBs = new HashSet<string>();
 
         private readonly FileEntity parent;
+        private readonly Type parentType;
         private readonly IMongoDatabase db;
         private readonly IMongoCollection<FileChunk> chunkCollection;
         private FileChunk doc;
@@ -77,9 +78,9 @@ namespace MongoDB.Entities
         public DataStreamer(FileEntity parent)
         {
             this.parent = parent;
+            parentType = parent.GetType();
 
-            db = DB.Database(
-                parent.GetType().GetCustomAttribute<DatabaseAttribute>(false)?.Name);
+            db = TypeMap.GetDatabase(parentType);
 
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
 
@@ -249,9 +250,7 @@ namespace MongoDB.Entities
 
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
-            var type = parent.GetType();
-            var attribute = type.GetCustomAttribute<NameAttribute>(false);
-            var coll = db.GetCollection<FileEntity>(attribute != null ? attribute.Name : type.Name);
+            var collection = db.GetCollection<FileEntity>(TypeMap.GetCollectionName(parentType));
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
                             .Set(e => e.FileSize, parent.FileSize)
@@ -259,8 +258,8 @@ namespace MongoDB.Entities
                             .Set(e => e.UploadSuccessful, parent.UploadSuccessful);
 
             return session == null
-                   ? coll.UpdateOneAsync(filter, update)
-                   : coll.UpdateOneAsync(session, filter, update);
+                   ? collection.UpdateOneAsync(filter, update)
+                   : collection.UpdateOneAsync(session, filter, update);
         }
     }
 }

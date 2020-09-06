@@ -25,7 +25,7 @@
 - added Prop.Collection() method
 - added Prop.Property() method
 - added DB.NewID() method
-- added new tests
+- optimize FileEntity handling
 - upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
