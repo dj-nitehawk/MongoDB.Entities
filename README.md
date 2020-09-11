@@ -10,6 +10,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ### Advantages:
 - Don't have to deal with `ObjectIds`, `BsonDocuments` & magic strings unless you want to.
 - Built-in support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
+- Async only API for scalable application development.
 - Query data using LINQ, lambda expressions, filters and aggregation pipelines.
 - Sorting, paging and projecting is made convenient.
 - Simple data migration framework similar to EntityFramework.
@@ -35,54 +36,54 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 ## Code Sample
 ```csharp
     //Initialize database connection
-        new DB("bookshop","localhost");
+        await DB.InitAsync("bookshop","localhost");
 
     //Create and persist an entity
         var book = new Book { Title = "The Power Of Now" };
-        book.Save();
+        await book.SaveAsync();
  
     //Embed as document
         var dickens = new Author { Name = "Charles Dickens" };
         book.Author = dickens.ToDocument();
-        book.Save();
+        await book.SaveAsync();
     
     //One-To-One relationship
         var hemmingway = new Author { Name = "Ernest Hemmingway" };
-        hemmingway.Save();
+        await hemmingway.SaveAsync();
         book.MainAuthor = hemmingway;
-        book.Save();
+        await book.SaveAsync();
 
     //One-To-Many relationship
         var tolle = new Author { Name = "Eckhart Tolle" };
-        tolle.Save();
-        book.Authors.Add(tolle);
+        await tolle.SaveAsync();
+        await book.Authors.AddAsync(tolle);
 
     //Many-To-Many relationship
         var genre = new Genre { Name = "Self Help" };
-        genre.Save();
-        book.AllGenres.Add(genre);
-        genre.AllBooks.Add(book);
+        await genre.SaveAsync();
+        await book.AllGenres.AddAsync(genre);
+        await genre.AllBooks.AddAsync(book);
 
     //Queries
-        var author = DB.Find<Author>().One("ID");
+        var author = await DB.Find<Author>().OneAsync("ID");
 
-        var authors = DB.Find<Author>().Many(a => a.Publisher == "Harper Collins");
+        var authors = await DB.Find<Author>().ManyAsync(a => a.Publisher == "Harper Collins");
 
-        var eckhart = DB.Queryable<Author>()
-                        .Where(a => a.Name.Contains("Eckhart"))
-                        .SingleOrDefault();
+        var eckhart = await DB.Queryable<Author>()
+                              .Where(a => a.Name.Contains("Eckhart"))
+                               SingleOrDefaultAsync();
 
-        var powerofnow = genre.AllBooks.ChildrenQueryable()
-                                       .Where(b => b.Title.Contains("Power"))
-                                       .SingleOrDefault();
+        var powerofnow = await genre.AllBooks.ChildrenQueryable()
+                                             .Where(b => b.Title.Contains("Power"))
+                                             .SingleOrDefaultAsync();
 
-        var selfhelp = book.AllGenres.ChildrenQueryable().First();
+        var selfhelp = await book.AllGenres.ChildrenQueryable().FirstAsync();
 
     //Delete
-        book.MainAuthor.Delete();
-        book.AllAuthors.DeleteAll();
-        book.Delete();
-        DB.Delete<Genre>(genre.ID);
+        await book.MainAuthor.DeleteAsync();
+        await book.AllAuthors.DeleteAllAsync();
+        await book.DeleteAsync();
+        await DB.DeleteAsync<Genre>(genre.ID);
 ```
 
 
