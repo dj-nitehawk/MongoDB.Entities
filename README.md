@@ -71,7 +71,7 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 
         var eckhart = await DB.Queryable<Author>()
                               .Where(a => a.Name.Contains("Eckhart"))
-                               SingleOrDefaultAsync();
+                              .SingleOrDefaultAsync();
 
         var powerofnow = await genre.AllBooks.ChildrenQueryable()
                                              .Where(b => b.Title.Contains("Power"))
