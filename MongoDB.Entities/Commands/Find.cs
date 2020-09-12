@@ -333,7 +333,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Run the Find command in MongoDB server and get a single result or the default value if not found
+        /// Run the Find command in MongoDB server and get a single result or the default value if not found.
+        /// If more than one entity is found, it will throw an exception.
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default)
