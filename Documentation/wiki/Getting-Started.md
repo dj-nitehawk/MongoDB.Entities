@@ -20,11 +20,10 @@ await DB.InitAsync("DatabaseName", "HostAddress", PortNumber);
 ```csharp
 await DB.InitAsync(new MongoClientSettings()
 {
-    Server = 
-        new MongoServerAddress("localhost", 27017),
-    Credential = 
-        MongoCredential.CreateCredential("DatabaseName", "username", "password")
-}, "DatabaseName");
+    Server = new MongoServerAddress("localhost", 27017),
+    Credential = MongoCredential.CreateCredential("DatabaseName", "username", "password")
+}, 
+"DatabaseName");
 ```
 
 ## Using a connection string

@@ -281,7 +281,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Getting-Started.html",
-          "hash": "BCCeGyhbvNKEWOWNRYWZvQ=="
+          "hash": "KoAnkjm7nHsO0POEcWqLtw=="
         }
       },
       "is_incremental": false,
@@ -313,7 +313,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 20,
-          "skipped_file_count": 20
+          "skipped_file_count": 19
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

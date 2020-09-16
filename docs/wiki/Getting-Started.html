@@ -91,11 +91,10 @@
 <h2 id="advanced-initialization">Advanced initialization</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
 {
-    Server = 
-        new MongoServerAddress(&quot;localhost&quot;, 27017),
-    Credential = 
-        MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
-}, &quot;DatabaseName&quot;);
+    Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
+    Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
+}, 
+&quot;DatabaseName&quot;);
 </code></pre>
 <h2 id="using-a-connection-string">Using a connection string</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
