@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>1. retrieve a watcher instance | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="1. retrieve a watcher instance | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>change-stream support is provided via the <code>DB.Watcher&lt;T&gt;</code> registry. you can use a watcher to receive notifications when a given entity type gets either created, updated or deleted. only monitoring at the collection level is supported.</p>
+<h3 id="1-retrieve-a-watcher-instance">1. retrieve a watcher instance</h3>
+<pre><code class="lang-csharp">   var watcher = DB.Watcher&lt;Author&gt;(&quot;some-unique-name-for-the-watcher&quot;);
+</code></pre>
+<p>pass a unique string to get a watcher instance. if a watcher by that name already exists in the registry, that instance will be returned. if no such watcher exists, a fresh watcher will be returned.</p>
+<h3 id="2-configure-and-start-the-watcher">2. configure and start the watcher</h3>
+<pre><code class="lang-csharp">    watcher.Start(
+        eventTypes: EventType.Created | EventType.Updated | EventType.Deleted,
+        filter: null,
+        batchSize: 25,
+        onlyGetIDs: false,
+        autoResume: true,
+        cancellation: default);
+</code></pre>
+<blockquote>
+<p>OPTIONAL: all except the eventTypes parameter are optional and the default values are shown above.</p>
+</blockquote>
+<p><strong>eventTypes:</strong> specify what kind of change event you'd like to watch for. multiple types can be specified as shown.</p>
+<p><strong>filter:</strong> if you'd like to receive only a subset of change events, you can do so by supplying a lambda expression to this parameter. for example, if you're interesed in being notified about changes to Authors who are aged 25 and above, set the filter to the following:</p>
+<pre><code class="lang-csharp">  x =&gt; x.FullDocument.Age &gt;= 25
+</code></pre>
+<blockquote>
+<p>NOTE: filtering cannot be done if the types of change you're interested in includes deletions. because the entity data no longer exists in the database when a deletion occurs and mongodb only returns the entity ID with the change event.</p>
+</blockquote>
+<p><strong>batchSize:</strong> specify the maximum number of entities you'd like to receive per change notificatin/ a single event firing. the default is 25.</p>
+<p><strong>onlyGetIDs:</strong> set to true if you don't want the complete entity details. in which case all properties except the ID will be null on the received entities.</p>
+<p><strong>autoResume:</strong> change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an <a href="https://docs.mongodb.com/manual/reference/change-events/#invalidate-event">invalidate event</a>. you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occured while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.</p>
+<p><strong>cancellation:</strong> if you'd like to cancel/abort a watcher and close the change-stream permanantly at a future time, pass a cancellation token to this parameter.</p>
+<h3 id="3-subscribe-to-the-events">3. subscribe to the events</h3>
+<h4 id="onchanges">onChanges</h4>
+<pre><code class="lang-csharp">    watcher.OnChanges += authors =&gt;
+    {
+        foreach (var author in authors)
+        {
+            Console.WriteLine(&quot;received: &quot; + author.Name);
+        }
+    };
+</code></pre>
+<p>this event is fired when desired change events have been received from mongodb. for the above example, when author entities have been either created, updated or deleted, this event/action will receive those entities in batches. you can access the received entities via the input action parameter called <code>authors</code>.</p>
+<h4 id="onerror">OnError</h4>
+<pre><code class="lang-csharp">    watcher.OnError += exception =&gt;
+    {
+        Console.WriteLine(&quot;error: &quot; + exception.Message);
+
+        if (watcher.CanRestart)
+        {
+            watcher.ReStart();
+            Console.WriteLine(&quot;Watching restarted!&quot;);
+        }
+    };
+</code></pre>
+<p>in case the change-stream ends due to an error, the <code>OnError</code> event will be fired with the exception. you can try to restart the watcher as shown above.</p>
+<h4 id="onstop">OnStop</h4>
+<pre><code class="lang-csharp">    watcher.OnStop += () =&gt;
+    {
+        Console.WriteLine(&quot;Watching stopped!&quot;);
+
+        if (watcher.CanRestart)
+        {
+            watcher.ReStart();
+            Console.WriteLine(&quot;Watching restarted!&quot;);
+        }
+        else
+        {
+            Console.WriteLine(&quot;This watcher is dead!&quot;);
+        }
+    };
+</code></pre>
+<p>this event will be fired when the internal cursor gets closed due to either you requesting cancellation or an <code>invalidate</code> event occuring such as renaming or dropping of the watched collection.</p>
+<p>if the cause of stopping is due to aborting via cancellation-token, the watcher has already purged all the event subscribers and no longer can be restarted.</p>
+<p>if the cause was an <code>invalidate</code> event, you can restart watching as shown above. the existing event subscribers will continue to receive change events.</p>
+<h3 id="resuming-across-app-restarts">resuming across app restarts</h3>
+<p>you can retrieve a resume token from the <code>ResumeToken</code> property of the watcher like so:</p>
+<pre><code class="lang-csharp">    var token = watcher.ResumeToken;
+</code></pre>
+<p>persist this token to a non-volatile medium and use it upon app startup to initiate a watcher to continue/resume from where the app left off last time it was running.</p>
+<pre><code class="lang-csharp">    watcher.StartWithToken(token, ...);
+</code></pre>
+<h3 id="access-all-watchers-in-the-registry">access all watchers in the registry</h3>
+<pre><code class="lang-csharp">    var watchers = DB.Watchers&lt;Author&gt;();
+
+    foreach (var w in watchers)
+    {
+        Console.WriteLine(&quot;watcher: &quot; + w.Name);
+    }
+</code></pre>
+<blockquote>
+<p>NOTE: there's a watcher registry per entity type and the watcher names need only be unique to each registry.</p>
+</blockquote>
+<h3 id="notes-on-resource-usage">notes on resource usage</h3>
+<p>each unique watcher instance you create in the registry will consume a thread from the .net thread-pool for iterating the internal change-stream cursor in the background. try to keep the number of watchers in the registry to a minimum due to this reason.</p>
+<blockquote>
+<p>NOTE: the threads are not blocked (and released back to the pool) while there are no change events being received as the change-stream cursor is iterated using async/await pattern. but if there's a constant stream of change events being received, these threads will be busy and unavailable to the system.</p>
+</blockquote>
+<h3 id="next-page-"><a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/Extras">Next Page &gt;&gt;</a></h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/14-Change-Streams.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

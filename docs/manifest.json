@@ -1,0 +1,353 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/SOURCE-CONTROL/MongoDB.Entities/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "UP7H5usKrtCzQHa3/ge8ow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "H5frWk4fYGIWHpFNp3BdfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "iBH2Z3aSdvm4hdcxHIxgzw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "EyoCSKjON5La+Op9NMkLMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/03-Relationships.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/03-Relationships.html",
+          "hash": "j45Ge7kwJqBA5iS0GiAYyw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/04-Queries.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/04-Queries.html",
+          "hash": "jTDaG6i/zaw9arNDssdNHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/05-Indexes.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/05-Indexes.html",
+          "hash": "wgkhGQmHPnnOfW+ba0DASQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/06-Transactions.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/06-Transactions.html",
+          "hash": "N7Zod8dUe/4eT+LnBT/D6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/07-Async-Support.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/07-Async-Support.html",
+          "hash": "vuEdcQ5LzC8dJe0I0tHqpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/08-Schema-Changes.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/08-Schema-Changes.html",
+          "hash": "NsO059u0YVF7vxLRYd3ZqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/09-Data-Migrations.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/09-Data-Migrations.html",
+          "hash": "9RV41hfJ0tytqYcWMx+amQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/10-Multiple-Databases.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/10-Multiple-Databases.html",
+          "hash": "xYlPEh7JBKrAeRRkQko7Aw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/11-Fuzzy-Text-Search.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/11-Fuzzy-Text-Search.html",
+          "hash": "9p/WWqOe9t5VQ/oJgn3Fzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/12-File-Storage.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/12-File-Storage.html",
+          "hash": "VCcOHyeCZE3xR2HoIxmpjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/13-String-Templates.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/13-String-Templates.html",
+          "hash": "pM8T6OQeCvz/WOXK4iCKHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/14-Change-Streams.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/14-Change-Streams.html",
+          "hash": "msm5n0JE/2/cO2ThjwV8QA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/15-Extras.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/15-Extras.html",
+          "hash": "TUZajAZjKvSJsFzhtLRVDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Deleting.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Deleting.html",
+          "hash": "Z6QLf4FaUlBbrAvcLo6IGw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Saving.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Saving.html",
+          "hash": "zCqLmz4t3LPNbiZk5rPLmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Updating.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Updating.html",
+          "hash": "wvDaj9HPyRhQ4c2uCrx73A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities.html",
+          "hash": "Lsf9RT2Ha+IYFgQNsinKvA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Getting-Started.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Getting-Started.html",
+          "hash": "BCCeGyhbvNKEWOWNRYWZvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "wiki/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/toc.html",
+          "hash": "8OBce0BlOFvMafOh3aEeug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 20,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
