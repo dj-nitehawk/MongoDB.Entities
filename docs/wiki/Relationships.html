@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Embedded Relationships | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Embedded Relationships | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h3 id="embedded-relationships">Embedded Relationships</h3>
+
+<h4 id="one-to-one">One-to-one:</h4>
+<pre><code class="lang-csharp">    var author = new Author { Name = &quot;Eckhart Tolle&quot; }
+    await author.SaveAsync();
+    
+    book.Author = author;
+    await book.SaveAsync()
+</code></pre>
+<p>as mentioned earlier, calling <code>SaveAsync()</code> persists <code>author</code> to the &quot;Authors&quot; collection in the database. it is also stored in <code>book.Author</code> property. so, the <code>author</code> entity now lives in two locations (in the collection and also inside the <code>book</code> entity) and are linked by the <code>ID</code>. if the goal is to embed something as an independant/unlinked document, it is best to use a class that does not inherit from the <code>Entity</code> class or simply use the <code>.ToDocument()</code> method of an entity as explained earlier.</p>
+<h6 id="embed-removal">Embed Removal:</h6>
+<p>to remove the embedded <code>author</code>, simply do:</p>
+<pre><code class="lang-csharp">	book.Author = null;
+	await book.SaveAsync();
+</code></pre>
+<p>the original <code>author</code> in the <code>Authors</code> collection is unaffected.</p>
+<h6 id="entity-deletion">Entity Deletion:</h6>
+<p>if you call <code>book.Author.DeleteAsync()</code>, the author entity is deleted from the <code>Authors</code> collection if it was a linked entity.</p>
+<h4 id="one-to-many">One-to-many:</h4>
+<pre><code class="lang-csharp">    book.OtherAuthors = new Author[] { author1, author2 };
+    await book.SaveAsync();
+</code></pre>
+<blockquote>
+<p><strong>Tip:</strong> If you are going to store more than a handful of entities within another entity, it is best to store them by reference as described below.</p>
+</blockquote>
+<h6 id="embed-removal-1">Embed Removal:</h6>
+<pre><code class="lang-csharp">    book.OtherAuthors = null;
+    await book.SaveAsync();
+</code></pre>
+<p>the original <code>author1, author2</code> entities in the <code>Authors</code> collection are unaffected.</p>
+<h6 id="entity-deletion-1">Entity Deletion:</h6>
+<p>if you call <code>book.OtherAuthors.DeleteAllAsync()</code> the respective <code>author1, author2</code> entities are deleted from the <code>Authors</code> collection if they were linked entities.</p>
+<h3 id="referenced-relationships">Referenced Relationships</h3>
+<p>referenced relationships require a bit of special handling. a <strong>one-to-one</strong> relationship is defined by using the <code>One&lt;T&gt;</code> class and <strong>one-to-many</strong> as well as <strong>many-to-many</strong> relationships are defined by using the <code>Many&lt;T&gt;</code> class. it is also a good idea to initialize the <code>Many&lt;T&gt;</code> properties in the constructor of the parent entity as shown below in order to avoid null-reference exceptions during runtime.</p>
+<pre><code class="lang-csharp">    public class Book : Entity
+    {
+        public One&lt;Author&gt; MainAuthor { get; set; }
+        public Many&lt;Author&gt; Authors { get; set; }
+
+        [OwnerSide]
+        public Many&lt;Genre&gt; AllGenres { get; set; }
+
+        public Book()
+        {
+            this.InitOneToMany(() =&gt; Authors);
+            this.InitManyToMany(() =&gt; AllGenres, genre =&gt; genre.AllBooks);
+        }
+    }
+</code></pre>
+<p>notice the parameters of the <code>InitOneToMany</code> and <code>InitManyToMany</code> methods above. the first method only takes one parameter which is just a lambda pointing to the property you want to initialize.</p>
+<p>the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.</p>
+<p>also note that you specify which side of the relationship a property is by using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationsips.</p>
+<h4 id="one-to-one-1">One-to-one:</h4>
+<p>call the <code>ToReference()</code> method of the entity you want to store as a reference like so:</p>
+<pre><code class="lang-csharp">    book.MainAuthor = author.ToReference();
+    await book.SaveAsync();
+</code></pre>
+<p>alternatively you can use the implicit operator functionality by simply assigning an instance or the string ID like so:</p>
+<pre><code class="lang-csharp">  book.MainAuthor = author;
+  book.MainAuthor = author.ID;
+</code></pre>
+<h6 id="reference-removal">Reference Removal:</h6>
+<pre><code class="lang-csharp">    book.MainAuthor = null;
+    await book.SaveAsync();
+</code></pre>
+<p>the original <code>author</code> in the <code>Authors</code> collection is unaffected.</p>
+<h6 id="entity-deletion-2">Entity Deletion:</h6>
+<p>If you delete an entity that is referenced as above by calling <code>author.DeleteAsync()</code> all references pointing to that entity are automatically deleted. as such, <code>book.MainAuthor.ToEntityAsync()</code> will then return <code>null</code>. the <code>.ToEntityAsync()</code> method is described below.</p>
+<h4 id="one-to-many--many-to-many">One-to-many &amp; many-to-many:</h4>
+<pre><code class="lang-charp">    await book.Authors.AddAsync(author); //one-to-many
+    await book.AllGenres.AddAsync(genre); //many-to-many
+</code></pre>
+<p>there's no need to call <code>book.SaveAsync()</code> because references are automatically saved using special join collections. you can read more about them in the <a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/08.-Schema-Changes#reference-collections">Schema Changes</a> section.</p>
+<h6 id="reference-removal-1">Reference Removal:</h6>
+<pre><code class="lang-charp">    await book.Authors.RemoveAsync(author);
+    await .AllGenres.RemoveAsync(genre);
+</code></pre>
+<p>the original <code>author</code> in the <code>Authors</code> collection is unaffected. also the <code>genre</code> entity in the <code>Genres</code> collection is unaffected. only the relationship between entities are deleted.</p>
+<h6 id="entity-deletion-3">Entity Deletion:</h6>
+<p>If you delete an entity that is referenced as above by calling <code>author.DeleteAsync()</code> all references pointing to that <code>author</code> entity are automatically deleted. as such, <code>book.Authors</code> will not have <code>author</code> as a child. the same applies to <code>Many-To-Many</code> relationships. deleting any entity that has references pointing to it from other entities results in those references getting deleted and the relationships being invalidated.</p>
+<h4 id="toentityasync-shortcut">ToEntityAsync() shortcut:</h4>
+<p>a reference can be turned back in to an entity with the <code>ToEntityAsync()</code> method.</p>
+<pre><code class="lang-csharp">    var author = await book.MainAuthor.ToEntityAsync();
+</code></pre>
+<p>you can also project the properties you need instead of getting back the complete entity like so:</p>
+<pre><code class="lang-csharp">    var author = await book.MainAuthor
+                           .ToEntityAsync(a =&gt; new Author
+                               {
+                                 Name = a.Name,
+                                 Age = a.Age
+                               });
+</code></pre>
+<h4 id="transaction-support">Transaction support</h4>
+<p>adding and removing related entities require passing in the session when used within a transaction. see <a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/06.-Transactions#relationship-manipulation">here</a> for an example.</p>
+<h3 id="next-page-"><a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/04.-Queries">Next Page &gt;&gt;</a></h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

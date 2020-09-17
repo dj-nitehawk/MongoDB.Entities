@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace MongoDB.Entities
+   | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace MongoDB.Entities
+   | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../images/logo.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities">
+  
+  <h1 id="MongoDB_Entities" data-uid="MongoDB.Entities" class="text-break">Namespace MongoDB.Entities
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+      <h4><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></h4>
+      <section><p>Represents a GeoJsonPoint of GeoJson2DGeographicCoordinates</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.DataStreamer.html">DataStreamer</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.Date.html">Date</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.DB.html">DB</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.DontPreserveAttribute.html">DontPreserveAttribute</a></h4>
+      <section><p>Properties that don't have this attribute will be omitted when using SavePreserving()
+TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Entity.html">Entity</a></h4>
+      <section><p>Inherit this class for all entities you want to store in their own collection.</p>
+<p>TIP: If you want to store an entity in a particular database, use the [DatabaseAttribute]</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Extensions.html">Extensions</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.FileEntity.html">FileEntity</a></h4>
+      <section><p>Inherit this base class in order to create your own File Entities</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Find-1.html">Find&lt;T&gt;</a></h4>
+      <section><p>Represents a MongoDB Find command.</p>
+<p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
+<p>Note: For building queries, use the DB.Fluent* interfaces</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Find-2.html">Find&lt;T, TProjection&gt;</a></h4>
+      <section><p>Represents a MongoDB Find command with the ability to project to a different result type.</p>
+<p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></h4>
+      <section><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
+<p>WARNING: Only strings of up to 250 characters is allowed</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.GeoNear-1.html">GeoNear&lt;T&gt;</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.IgnoreAttribute.html">IgnoreAttribute</a></h4>
+      <section><p>Indicates that this property should be ignored when this class is persisted to MongoDB.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Index-1.html">Index&lt;T&gt;</a></h4>
+      <section><p>Represents an index creation command</p>
+<p>TIP: Define the keys first with .Key() method and finally call the .Create() method.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.InverseSideAttribute.html">InverseSideAttribute</a></h4>
+      <section><p>Indicates that this property is the inverse side of a many-to-many relationship</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a></h4>
+      <section><p>Represents a parent-child relationship between two entities.</p>
+<p>TIP: The ParentID and ChildID switches around for many-to-many relationships depending on the side of the relationship you&apos;re accessing.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Many-1.html">Many&lt;TChild&gt;</a></h4>
+      <section><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
+<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
+<p>Initialize from the constructor of the parent entity as follows:</p>
+<pre><code>this.InitOneToMany(() => Property)</code></pre>
+<pre><code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code></pre>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Many-1.Joined-1.html">Many&lt;TChild&gt;.Joined&lt;T&gt;</a></h4>
+      <section><p>A class used to hold join results when joining relationships</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.Migration.html">Migration</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.NameAttribute.html">NameAttribute</a></h4>
+      <section><p>Use this attribute to specify a custom MongoDB collection name for an IEntity.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.ObjectIdAttribute.html">ObjectIdAttribute</a></h4>
+      <section><p>Use this attribute to mark a property in order to save it in MongoDB server as ObjectId</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.One-1.html">One&lt;T&gt;</a></h4>
+      <section><p>Represents a one-to-one relationship with an IEntity.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.OwnerSideAttribute.html">OwnerSideAttribute</a></h4>
+      <section><p>Indicates that this property is the owner side of a many-to-many relationship</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.PreserveAttribute.html">PreserveAttribute</a></h4>
+      <section><p>Use this attribute on properties that you want to omit when using SavePreserving() instead of supplying an expression.
+TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Prop.html">Prop</a></h4>
+      <section><p>This class provides methods to generate property path strings from lambda expression.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Template.html">Template</a></h4>
+      <section><p>A helper class to build a JSON command from a string with tag replacement</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Template-1.html">Template&lt;T&gt;</a></h4>
+      <section><p>A helper class to build a JSON command from a string with tag replacement</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Template-2.html">Template&lt;TInput, TResult&gt;</a></h4>
+      <section><p>A helper class to build a JSON command from a string with tag replacement</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Transaction.html">Transaction</a></h4>
+      <section><p>Represents a transaction used to carry out inter-related write operations.</p>
+<p>TIP: Remember to always call .Dispose() after use or enclose in a &apos;Using&apos; statement.</p>
+<p>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Update-1.html">Update&lt;T&gt;</a></h4>
+      <section><p>Represents an update command</p>
+<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.UpdateAndGet-1.html">UpdateAndGet&lt;T&gt;</a></h4>
+      <section><p>Update and retrieve the first document that was updated.</p>
+<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet&lt;T, TProjection&gt;</a></h4>
+      <section><p>Update and retrieve the first document that was updated.</p>
+<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Watcher-1.html">Watcher&lt;T&gt;</a></h4>
+      <section><p>Watcher for subscribing to mongodb change streams.</p>
+</section>
+    <h3 id="interfaces">Interfaces
+  </h3>
+      <h4><a class="xref" href="MongoDB.Entities.ICreatedOn.html">ICreatedOn</a></h4>
+      <section><p>Implement this interface on entities you want the library to automatically store the creation date with</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.IEntity.html">IEntity</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.IMigration.html">IMigration</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.IModifiedOn.html">IModifiedOn</a></h4>
+      <section><p>Implement this interface on entities you want the library to automatically store the modified date with</p>
+</section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="MongoDB.Entities.EventType.html">EventType</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.KeyType.html">KeyType</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.Order.html">Order</a></h4>
+      <section></section>
+      <h4><a class="xref" href="MongoDB.Entities.Search.html">Search</a></h4>
+      <section></section>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

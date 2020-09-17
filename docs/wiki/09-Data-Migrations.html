@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Migration Classes | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Migration Classes | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../images/logo.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>there's a simple data migration system similar to that of EntityFramework where you can write migration classes with logic for transforming the database and content in order to bring it up-to-date with the current shape of your c# entity schema.</p>
+<h3 id="migration-classes">Migration Classes</h3>
+<p>create migration classes that has names starting with <code>_number_</code> followed by anything you'd like and implement the interface <code>IMigration</code>.</p>
+<p>here are a couple of valid migration class definitions:</p>
+<pre><code class="lang-csharp">public class _001_i_will_be_run_first : IMigration { }
+public class _002_i_will_be_run_second : IMigration { }
+public class _003_i_will_be_run_third : IMigration { }
+</code></pre>
+<p>next implement the <code>UpgradeAsync()</code> method of IMigration and place your migration logic there.</p>
+<h3 id="run-migrations">Run Migrations</h3>
+<p>in order to execute the migrations, simply call <code>DB.MigrateAsync()</code> whenever you need the database brought up to date. the library keeps track of the last migration run and will execute all newer migrations in the order of their number. in most cases, you'd place the following line of code in the startup of your app right after initializing the database.</p>
+<pre><code class="lang-csharp">  await DB.MigrateAsync()
+</code></pre>
+<p>the above will try to discover all migrations from all assemblies of the application if it's a multi-project solution. you can speed things up a bit by specifying a type so that migrations will only be discovered from the same assembly/project as the specified type, like so:</p>
+<pre><code class="lang-csharp">  await DB.MigrateAsync&lt;SomeType&gt;();
+</code></pre>
+<h3 id="examples">Examples</h3>
+<h4 id="merge-two-properties">Merge two properties</h4>
+<p>let's take the scenario of having the first and last names of an Author entity stored in two separate properties and later on deciding to merge them into a single property called &quot;FullName&quot;.</p>
+<pre><code class="lang-csharp">public class _001_merge_first_and_last_name_to_fullname_field : IMigration
+{
+    private class Author : Entity
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string FullName { get; set; }
+    }
+
+    public async Task Upgrade()
+    {
+        await DB.Fluent&lt;Author&gt;()
+                .Project(a =&gt; new { id = a.ID, fullname = a.Name + &quot; &quot; + a.Surname })
+                .ForEachAsync(async a =&gt;
+                {
+                    await DB.Update&lt;Author&gt;()
+                            .Match(_ =&gt; true)
+                            .Modify(x =&gt; x.FullName, a.fullname)
+                            .ExecuteAsync();
+                });
+    }
+}
+</code></pre>
+<p>if your collection has many thousands of documents, the above code will be less efficient. below is another more efficient way to achieve the same result using a single mongodb command if your server version is v4.2 or newer.</p>
+<pre><code class="lang-csharp">public class _001_merge_first_and_last_name_to_fullname_field : IMigration
+{
+    public Task Upgrade()
+    {
+      return DB.Update&lt;Author&gt;()
+               .Match(_ =&gt; true)
+               .WithPipelineStage(&quot;{ $set: { FullName: { $concat: ['$Name',' ','$Surname'] } } }&quot;)
+               .ExecutePipelineAsync();
+    }
+}
+</code></pre>
+<h4 id="rename-a-property">Rename a property</h4>
+<pre><code class="lang-csharp">public class _002_rename_fullname_to_authorname : IMigration
+{
+    public Task Upgrade()
+    {
+      return DB.Update&lt;Author&gt;()
+                .Match(_ =&gt; true)
+                .Modify(b =&gt; b.Rename(&quot;FullName&quot;, &quot;AuthorName&quot;))
+                .ExecuteAsync();
+    }
+}
+</code></pre>
+<h4 id="rename-a-collection">Rename a collection</h4>
+<pre><code class="lang-csharp">public class _003_rename_author_collection_to_writer : IMigration
+{
+    public Task Upgrade()
+    {
+      return DB.Database&lt;Author&gt;()
+               .RenameCollectionAsync(&quot;Author&quot;, &quot;Writer&quot;);
+    }
+}
+</code></pre>
+<h3 id="next-page-"><a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/10.-Multiple-Databases">Next Page &gt;&gt;</a></h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

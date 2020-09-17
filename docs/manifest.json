@@ -1,0 +1,957 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/SOURCE-CONTROL/MongoDB.Entities/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "CNAME",
+      "output": {
+        "resource": {
+          "relative_path": "CNAME"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Coordinates2D.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Coordinates2D.html",
+          "hash": "8E7legMCEH+2hQhByGOcTA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.DB.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.DB.html",
+          "hash": "yqE5urx07PEAS3TwbdlMFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.DataStreamer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.DataStreamer.html",
+          "hash": "k5POni/cPfBYRjT6Q8KQPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Date.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Date.html",
+          "hash": "vQ6udpcsCJ2AXT2TSsyUWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.DontPreserveAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.DontPreserveAttribute.html",
+          "hash": "qcvhfXOGwZcThEd0fdVF5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Entity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Entity.html",
+          "hash": "eBdMkBD1114U7TLQcNifgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.EventType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.EventType.html",
+          "hash": "BCBjt406jnKl+jZwsKEUbw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Extensions.html",
+          "hash": "QcicSyzeHGpCMiPwwOCOuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.FileEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.FileEntity.html",
+          "hash": "bCYAAkB34HIKJ8+D/8RRUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Find-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Find-1.html",
+          "hash": "uOqa8+XuwxsFD77ZpdzrHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Find-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Find-2.html",
+          "hash": "+OBEAo5adUQCnLQ7k8bXvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.FuzzyString.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.FuzzyString.html",
+          "hash": "0DeprfN/cs2hsm561CE/kA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.GeoNear-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.GeoNear-1.html",
+          "hash": "qXsiAzrHmTvJo5DpxirjSQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.ICreatedOn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.ICreatedOn.html",
+          "hash": "6QcOpvJ5X3S0g9I0JPQYhQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.IEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.IEntity.html",
+          "hash": "isjGT77BEqhe0vMmJR9zgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.IMigration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.IMigration.html",
+          "hash": "6t9OfguVB4Q1w0QnhIyKzw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.IModifiedOn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.IModifiedOn.html",
+          "hash": "AACYNk+eGkUPTC/ToZZU3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.IgnoreAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.IgnoreAttribute.html",
+          "hash": "v9Ao8UvTue+ioaCu4MZQ6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Index-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Index-1.html",
+          "hash": "Z0wuYSUbv3sG3XH27eNh+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.InverseSideAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.InverseSideAttribute.html",
+          "hash": "vZV66NCpKIGO0tQzAAUDwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.JoinRecord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.JoinRecord.html",
+          "hash": "deiOcDK/vnHdVGgNT7R50A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.KeyType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.KeyType.html",
+          "hash": "Y9ZbeZXPZv6leoqXk42wbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Many-1.Joined-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Many-1.Joined-1.html",
+          "hash": "piXoc/pZy1/+bLMg+04BgA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Many-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Many-1.html",
+          "hash": "zAHW36u/xtZ8hrCK9EtOrg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.ManyBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.ManyBase.html",
+          "hash": "IZUN2WisVTw9F1DPKD8rZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Migration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Migration.html",
+          "hash": "zLp1MotzrvNKHOZvHm1JiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.NameAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.NameAttribute.html",
+          "hash": "fVL5qOamIKYFhPCr64EO0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.ObjectIdAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.ObjectIdAttribute.html",
+          "hash": "4ySi+XH9sVfJrvDhq7QBXA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.One-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.One-1.html",
+          "hash": "Eh1tJCXprHs/VyP6ZVhpgA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Order.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Order.html",
+          "hash": "+ZtC4h4zbiFSuzqDlQFv9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.OwnerSideAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.OwnerSideAttribute.html",
+          "hash": "bPGTogOdn+MDqSMB22wB+w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.PreserveAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.PreserveAttribute.html",
+          "hash": "w2XZUY+mLpIRfX8K813yPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Prop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Prop.html",
+          "hash": "1jTFwvIUqs5iT7Jvmo8dRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Search.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Search.html",
+          "hash": "dCPMWLfvzmfLQJR5qXF7mQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Template-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Template-1.html",
+          "hash": "PMas+ful5w9BIQ/jkWU5iA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Template-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Template-2.html",
+          "hash": "B10e2hCb5lgHCbqCIAo6uA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Template.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Template.html",
+          "hash": "S7/M2lWGPY7wJxKGs8teSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Transaction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Transaction.html",
+          "hash": "bSjt8tZ7Ne6H0ZQrn/42vQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Update-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Update-1.html",
+          "hash": "2tFYPyqmzyy18e1pT3mD1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.UpdateAndGet-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.UpdateAndGet-1.html",
+          "hash": "F0zcM/BS4vBch8IbZ4z/TQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.UpdateAndGet-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.UpdateAndGet-2.html",
+          "hash": "374DJpArXEDy/3DWXpEzSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.Watcher-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.Watcher-1.html",
+          "hash": "oHouXxeP13Gkw+2ukyj0bw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.html",
+          "hash": "rOeaWqi+OLivabk0zwDUPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "bB7ytGsAmmLavJ0bkzcrkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/social.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/social.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "qJC/LvI76rq+pj4/9WNotQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "WV5IyWu3R+Ui71Gg7kEihQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Async-Support.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Async-Support.html",
+          "hash": "kWH5IThDmbwxv/JUVF0d5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Change-Streams.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Change-Streams.html",
+          "hash": "ZC0WzKD0YbU4/1lqbxbzVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Code-Samples.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Code-Samples.html",
+          "hash": "ZsmR0O3PEQuWMMV/P4kHLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Data-Migrations.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Data-Migrations.html",
+          "hash": "5w+uIjXcKlgqtEgQGftTug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Delete.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Delete.html",
+          "hash": "B4Po4IMw43k01P/TD9FDPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Save.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Save.html",
+          "hash": "jOdpYf6qHAk6QusNnqTmBA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities-Update.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities-Update.html",
+          "hash": "OyVBbgCZndRghzPJ6Nr+Gw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Entities.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Entities.html",
+          "hash": "aVqPnrZEnfr2PfwEgUZCuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Extras-Date.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Extras-Date.html",
+          "hash": "u1OF6tLA5vyuDn5Y7PfgjQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Extras-Prop.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Extras-Prop.html",
+          "hash": "5XSnyvvxGei4kOw2dsyFfw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Extras-Sequence.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Extras-Sequence.html",
+          "hash": "u7PP0a+dPtaCCz9PXMkHnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/File-Storage.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/File-Storage.html",
+          "hash": "JuFYgxh1zkXfBKtDVXyv9w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Get-Started.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Get-Started.html",
+          "hash": "3L75CjXCNuFddlnGmP+8yA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Indexes-Fuzzy-Text-Search.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Indexes-Fuzzy-Text-Search.html",
+          "hash": "2yjrmJvMikmDYySX7IVCJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Indexes.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Indexes.html",
+          "hash": "JcYgvhxpEDeSSVsBEcmcAA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Multiple-Databases.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Multiple-Databases.html",
+          "hash": "Fx31eYRI6OaiqHCr0kh86Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Queries-Find.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Queries-Find.html",
+          "hash": "yRCumdn5yD0/L6fKfJk3Mg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Queries-Linq.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Queries-Linq.html",
+          "hash": "Eeg7/B4lHKnJZ2eERZl9YQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Queries-Pipelines.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Queries-Pipelines.html",
+          "hash": "B4oCCfXMOowUIizhcL0l/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Relationships-Embeded.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Relationships-Embeded.html",
+          "hash": "deMoRn8IWO2OYLpKKPRyOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Relationships-Referenced.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Relationships-Referenced.html",
+          "hash": "B2kbFnWP7jrwYJQ9VQjwSA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Schema-Changes.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Schema-Changes.html",
+          "hash": "w5fij0bmdyrPPaRWBK3iDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/String-Templates.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/String-Templates.html",
+          "hash": "8pbvog7puH0wcfhP2UhTBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/Transactions.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Transactions.html",
+          "hash": "USJUK3TWdu2njvW1pAfyLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "wiki/toc.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/toc.html",
+          "hash": "UJNisJ6eGOnjclf/ijIXfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 25,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 43,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

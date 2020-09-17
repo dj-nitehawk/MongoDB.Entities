@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The 'Date' Type | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The 'Date' Type | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../images/logo.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h3 id="the-date-type">The 'Date' Type</h3>
+
+<p>there's a special <code>Date</code> type you can use to store date/time values in mongodb instead of the regular <strong>System.DateTime</strong> type. the benefits of using it would be:</p>
+<ul>
+<li>preserves date/time precision</li>
+<li>can query using ticks</li>
+<li>can extend it by inheriting</li>
+<li>implicitly assignable to and from <em>System.DateTime</em></li>
+</ul>
+<h4 id="examples">Examples:</h4>
+<pre><code class="lang-csharp">// define the entity
+    public class Book : Entity
+    {
+        public Date PublishedOn { get; set; }
+    }
+
+// save the entity
+    new Book
+    {
+        PublishedOn = DateTime.UtcNow
+    }
+    .Save();
+
+// query with 'Ticks'
+    var book = await DB.Find&lt;Book&gt;()
+                       .Match(b =&gt; b.PublishedOn.Ticks &lt; DateTime.UtcNow.Ticks)
+                       .ExecuteFirstAsync();
+
+// query with 'DateTime'
+    var book = await DB.Find&lt;Book&gt;()
+                       .Match(b =&gt; b.PublishedOn.DateTime &lt; DateTime.UtcNow)
+                       .ExecuteFirstAsync();
+
+// assign to 'DateTime' from 'Date'
+    DateTime dt = book.PublishedOn;
+
+// assign from 'DateTime' to 'Date'
+    Date date = dt;
+
+// set/change value with 'Ticks'
+    date.Ticks = DateTime.UtcNow.Ticks;
+
+// set/change value with 'DateTime'
+    date.DateTime = DateTime.UtcNow;
+</code></pre>
+<h3 id="the-prop-class">The 'Prop' Class</h3>
+<p>this static class has several handy methods for getting string property paths from lambda expressions. which can help to eliminate magic strings from your code during advanced scenarios.</p>
+<h4 id="proppath">Prop.Path()</h4>
+<p>returns the full dotted path for a given member expression.</p>
+<blockquote>
+<p>Authors[0].Books[0].Title &gt; Authors.Books.Title</p>
+</blockquote>
+<pre><code class="lang-csharp">    var path = Prop.Path&lt;Book&gt;(b =&gt; b.Authors[0].Books[0].Title);
+</code></pre>
+<h4 id="propproperty">Prop.Property()</h4>
+<p>returns the last property name for a given member expression.</p>
+<blockquote>
+<p>Authors[0].Books[0].Title &gt; Title</p>
+</blockquote>
+<pre><code class="lang-csharp">    var propName = Prop.Property&lt;Book&gt;(b =&gt; b.Authors[0].Books[0].Title);
+</code></pre>
+<h4 id="propcollection">Prop.Collection()</h4>
+<p>returns the collection/entity name for a given entity type.</p>
+<pre><code class="lang-csharp">    var collectionName = Prop.Collection&lt;Book&gt;();
+</code></pre>
+<h4 id="propposall">Prop.PosAll()</h4>
+<p>returns a path with the all positional operator $[] for a given expression.</p>
+<blockquote>
+<p>Authors[0].Name &gt; Authors.$[].Name</p>
+</blockquote>
+<pre><code class="lang-csharp">    var path = Prop.PosAll&lt;Book&gt;(b =&gt; b.Authors[0].Name);
+</code></pre>
+<h4 id="propposfirst">Prop.PosFirst()</h4>
+<p>returns a path with the first positional operator $ for a given expression.</p>
+<blockquote>
+<p>Authors[0].Name &gt; Authors.$.Name</p>
+</blockquote>
+<pre><code class="lang-csharp">    var path = Prop.PosFirst&lt;Book&gt;(b =&gt; b.Authors[0].Name);
+</code></pre>
+<h4 id="propposfiltered">Prop.PosFiltered()</h4>
+<p>returns a path with filtered positional identifiers $[x] for a given expression.</p>
+<blockquote>
+<p>Authors[0].Name &gt; Authors.$[a].Name</p>
+</blockquote>
+<blockquote>
+<p>Authors[1].Age &gt; Authors.$[b].Age</p>
+</blockquote>
+<blockquote>
+<p>Authors[2].Books[3].Title &gt; Authors.$[c].Books.$[d].Title</p>
+</blockquote>
+<p>index positions start from [0] which is converted to $[a] and so on.</p>
+<pre><code class="lang-csharp">    var path = Prop.PosFiltered&lt;Book&gt;(b =&gt; b.Authors[2].Books[3].Title);
+</code></pre>
+<h4 id="propelementsindex-expression">Prop.Elements(index, expression)</h4>
+<p>returns a path with the filtered positional identifier prepended to the property path.</p>
+<blockquote>
+<p>(0, x =&gt; x.Rating) &gt; a.Rating</p>
+</blockquote>
+<blockquote>
+<p>(1, x =&gt; x.Rating) &gt; b.Rating</p>
+</blockquote>
+<p>index positions start from '0' which is converted to 'a' and so on.</p>
+<pre><code class="lang-csharp">    var res = Prop.Elements&lt;Book&gt;(0, x =&gt; x.Rating);
+</code></pre>
+<h4 id="propelements">Prop.Elements()</h4>
+<p>returns a path without any filtered positional identifier prepended to it.</p>
+<blockquote>
+<p>b =&gt; b.Tags &gt; Tags</p>
+</blockquote>
+<pre><code class="lang-csharp">    var path = Prop.Elements&lt;Book&gt;(b =&gt; b.Tags);
+</code></pre>
+<h3 id="sequential-number-generation">Sequential Number Generation</h3>
+<p>we can get mongodb to return a sequentially incrementing number everytime the method <code>.NextSequentialNumber()</code> on an Entity is called. it can be useful when you need to generate custom IDs like in the example below:</p>
+<pre><code class="lang-csharp">    public class Person : Entity
+    {
+        public string CustomID { get; set; }
+    }
+</code></pre>
+<pre><code class="lang-csharp">    var person = new Person();
+
+    var number = await person.NextSequentialNumberAsync();
+
+    person.CustomID = $&quot;PID-{number:00000000}-X&quot;;
+
+    person.Save();
+</code></pre>
+<p>the value of <code>CustomID</code> would be <code>PID-0000001-X</code>. the next Person entities you create/save would have <code>PID-0000002-X</code>, <code>PID-0000003-X</code>, <code>PID-0000004-X</code> and so on.</p>
+<h4 id="alternative-static-method">Alternative Static Method</h4>
+<p>if you don't have an instance of an Entity you can simply call the static method on the <code>DB</code> class like so:</p>
+<pre><code class="lang-csharp">    var number = await DB.NextSequentialNumberAsync&lt;Person&gt;();
+</code></pre>
+<h4 id="generation-for-any-sequence-name">Generation For Any Sequence Name</h4>
+<p>there's also an overload for generating sequential numbers for any given sequence name like so:</p>
+<pre><code class="lang-csharp">    var number = await DB.NextSequentialNumberAsync(&quot;SequenceName&quot;);
+</code></pre>
+<h4 id="considerations">Considerations</h4>
+<p>keep in mind that there will be a separate sequence of numbers for each Entity type.</p>
+<p>calling this method issues a single db call in order to increment a counter document in the database and retrieve the number.</p>
+<p>concurrent access won't result in duplicate numbers being generated but it would cause write locking and performance could suffer.</p>
+<p>multi db support and async methods with task cancellation support are also available.</p>
+<p>there is no transaction support in order to avoid number generation unpredictability. however, you can call this method from within a transaction without any trouble.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

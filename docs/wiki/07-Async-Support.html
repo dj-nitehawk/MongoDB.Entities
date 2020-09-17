@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Next Page &gt;&gt; | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Next Page &gt;&gt; | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../images/logo.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>This library no longer supports synchronous operations after version 20 as it was discovered that the official mongodb driver is doing faux sync (sync-over-async anti-pattern) under the hood in order to maintain backward compatibility.</p>
+<blockquote>
+<p>&quot;One caveat is that the synchronous legacy API in 2.0 is implemented by calling the low level async API and blocking, waiting for the Task to complete. This is not considered a performant way to use async APIs, so for performance-sensitive code you may prefer to use the 1.10 version of the driver until you are ready to convert your application to use the new async API.&quot; - <a href="https://www.mongodb.com/blog/post/introducing-20-net-driver">Robert Stem</a></p>
+</blockquote>
+<p>stress/load testing showed that it is inefficient at handling large volumes leading to thread-pool starvation. since the official driver has been made fully async after v2.0, it was decided to discourage consumers of this library from using the faux-sync api of the driver by removing all sync wrapper methods and only support async operations for IO bound work going forward.</p>
+<p>it is highly recommended you build applications that run in server environments fully async from top to bottom in order to make sure they scale well.</p>
+<p>however, in places where you can't call async code, you can wrap the async methods in a <code>Task.Run()</code> like so:</p>
+<pre><code class="lang-csharp">    Task.Run(async () =&gt;
+    {
+        await DB.InitAsync(&quot;MyDatabase&quot;, &quot;127.0.0.1&quot;);
+    })
+    .GetAwaiter()
+    .GetResult();
+</code></pre>
+<blockquote>
+<p>try not to do that except for calling the init method once at app start-up.</p>
+</blockquote>
+<h4 id="linq-async-extensions">LINQ Async Extensions</h4>
+<p>in order to write async LINQ queries, make sure to import the mongodb linq extensions and write queries as follows:</p>
+<pre><code class="lang-csharp">    using MongoDB.Driver;
+    using MongoDB.Driver.Linq;
+</code></pre>
+<pre><code class="lang-csharp">    var lastAuthor = await (from a in author.Queryable()
+                            orderby a.ModifiedOn descending
+                            select a).FirstOrDefaultAsync();
+</code></pre>
+<h3 id="next-page-"><a href="https://github.com/dj-nitehawk/MongoDB.Entities/wiki/08.-Schema-Changes">Next Page &gt;&gt;</a></h3>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
