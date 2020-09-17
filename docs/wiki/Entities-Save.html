@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Define entities | MongoDB.Entities </title>
+    <title>Save an entity | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Define entities | MongoDB.Entities ">
+    <meta name="title" content="Save an entity | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -77,51 +77,51 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="define-entities">Define entities</h1>
+<h1 id="save-an-entity">Save an entity</h1>
 
-<p>add the import statement shown below and create your entities by inheriting the <code>Entity</code> base class.</p>
-<pre><code class="lang-csharp">using MongoDB.Entities;
+<p>call <code>SaveAsync()</code> on any entity to save the changes. new entities are automatically assigned an <code>ID</code> when they are persisted to the database.</p>
+<pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; }; 
+await book.SaveAsync();
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>the ID property comes from the <a class="xref" href="../api/MongoDB.Entities.Entity.html">Entity</a> base class.</p>
+</div>
+<h1 id="save-multiple-entities">Save multiple entities</h1>
+<p>multiple entities can be saved in a single bulk operation like so:</p>
+<pre><code class="lang-csharp">var books = new[] {
+    new Book{ Title = &quot;Book One&quot; },
+    new Book{ Title = &quot;Book Two&quot; },
+    new Book{ Title = &quot;Book Three&quot;}
+    };
 
-public class Book : Entity
-{
-    public string Title { get; set; }
-}
+await books.SaveAsync();
 </code></pre>
-<h1 id="ignore-some-properties">Ignore some properties</h1>
-<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code></p>
-<pre><code class="lang-csharp">public class Book : Entity
-{
-    [Ignore]
-    public string SomeProperty { get; set; }
-}
+<h1 id="save-via-db-static-class">Save via DB static class</h1>
+<p>you can use the DB static class for saving entities like so:</p>
+<pre><code class="lang-csharp">await DB.SaveAsync(book);
+await DB.SaveAsync(books);
 </code></pre>
-<h1 id="customize-collection-names">Customize collection names</h1>
-<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>NameAttribute</code> as follows:</p>
-<pre><code class="lang-csharp">[Name(&quot;Writer&quot;)]
-public class Author : Entity
-{
-    ...
-}
+<h1 id="partial-save">Partial save</h1>
+<p>if you'd like to skip one or more properties while saving a complete entity, you can do so with the <code>SavePreservingAsync()</code> method.</p>
+<pre><code class="lang-csharp">await book.SavePreservingAsync(x =&gt; new { x.Title, x.Price })
 </code></pre>
-<h1 id="optional-auto-managed-properties">Optional auto-managed properties</h1>
-<p>there are 2 optional interfaces <code>ICreatedOn</code> &amp; <code>IModifiedOn</code> that you can add to entity class definitions like so:</p>
-<pre><code class="lang-csharp">public class Book : Entity, ICreatedOn, IModifiedOn
-{
-    public string Title { get; set; }
-    public DateTime CreatedOn { get; set; }
-    public DateTime ModifiedOn { get; set; }
-}
-</code></pre>
-<p>if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.</p>
-<h1 id="the-ientity-interface">The IEntity interface</h1>
-<p>if for whatever reason, you're unable to inherit the <code>Entity</code> base class, you can simply implement the <code>IEntity</code> interface to make your classes compatible with the library like so:</p>
-<pre><code class="lang-csharp">[BsonIgnoreExtraElements]
-public class Book : IEntity
-{
-    [BsonId, ObjectId]
-    public string ID { get; set; }
-    ...
-}
+<p>this method will build an update command dynamically using reflection and omit the properties you specify. all other properties will be updated in the database with the values from your entity. sometimes, this would be preferable to specifying each and every property with an update command.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>you should only specify root level properties with the <strong>New</strong> expression. i.e. <strong>x =&gt; x.Author.Name</strong> is not valid.</p>
+</div>
+<p>alternatively, you can decorate the properties you want to omit with the <code>[Preserve]</code> attribute and simply call <code>book.SavePreservingAsync()</code> without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.</p>
+<p>you can also do the opposite with the use of <code>[DontPreserve]</code> attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>. also, the same rule applies that attributes are ignored if you supply a <code>new</code> expression to <code>SavePreservingAsync()</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>both <strong>[DontPreserve]</strong> and <strong>[Preserve]</strong> cannot be used together on the same entity type due to the conflicting nature of what they do.</p>
+</div>
+<h1 id="embed-an-entity">Embed an entity</h1>
+<p>to store an unlinked copy of an entity,  call the <code>ToDocument()</code> method. doing so will store an independant duplicate (with a new ID) of the original entity that has no relationship to the original entity.</p>
+<pre><code class="lang-csharp">book.Author = author.ToDocument();
+book.OtherAuthors = (new Author[] { author2, author3 }).ToDocuments();
+await book.SaveAsync();
 </code></pre>
 </article>
           </div>
@@ -131,7 +131,7 @@ public class Book : IEntity
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Entities.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Entities-Save.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

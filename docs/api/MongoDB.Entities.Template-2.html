@@ -1,0 +1,1744 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Template&lt;TInput, TResult&gt;
+   | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Template&lt;TInput, TResult&gt;
+   | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Template`2">
+  
+  
+  <h1 id="MongoDB_Entities_Template_2" data-uid="MongoDB.Entities.Template`2" class="text-break">Class Template&lt;TInput, TResult&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="MongoDB.Entities.Template.html">Template</a></div>
+    <div class="level2"><span class="xref">Template&lt;TInput, TResult&gt;</span></div>
+      <div class="level3"><a class="xref" href="MongoDB.Entities.Template-1.html">Template&lt;T&gt;</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Paths__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Paths&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToString">Template.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToStages">Template.ToStages()</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToPipeline__2">Template.ToPipeline&lt;TInput, TOutput&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToArrayFilters__1">Template.ToArrayFilters&lt;T&gt;()</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
+  <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
+  <h5 id="MongoDB_Entities_Template_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Template&lt;TInput, TResult&gt; : Template where TInput : IEntity</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TInput</span></td>
+        <td><p>The input type</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TResult</span></td>
+        <td><p>The output type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2__ctor_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L37">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2__ctor_" data-uid="MongoDB.Entities.Template`2.#ctor*"></a>
+  <h4 id="MongoDB_Entities_Template_2__ctor_System_String_" data-uid="MongoDB.Entities.Template`2.#ctor(System.String)">Template(String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a template with a tagged input string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template(string template)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">template</span></td>
+        <td><p>The template string with tags for targetting replacements such as &quot;&lt;Author.Name&gt;&quot;</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Collection__1.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Collection%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L43">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Collection_" data-uid="MongoDB.Entities.Template`2.Collection*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Collection__1" data-uid="MongoDB.Entities.Template`2.Collection``1">Collection&lt;TEntity&gt;()</h4>
+  <div class="markdown level1 summary"><p>Gets the collection name of a given entity type and replaces matching tags in the template such as &quot;&lt;EntityName&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Collection&lt;TEntity&gt;()
+
+    where TEntity : IEntity</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TEntity</span></td>
+        <td><p>The type of entity to get the collection name of</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Elements_System_Int32_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Elements(System.Int32%2CSystem.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L195">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Elements_" data-uid="MongoDB.Entities.Template`2.Elements*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Elements_System_Int32_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Elements(System.Int32,System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Elements(Int32, Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given index and expression (of input type) to a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements(int index, Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0=a 1=b 2=c 3=d and so on...</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Elements_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Elements(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L174">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Elements_" data-uid="MongoDB.Entities.Template`2.Elements*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Elements_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Elements(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Elements(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Elements%60%601(System.Int32%2CSystem.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L209">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Elements_" data-uid="MongoDB.Entities.Template`2.Elements*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;TOther&gt;(Int32, Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given index and expression (of any type) to a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements&lt;TOther&gt;(int index, Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0=a 1=b 2=c 3=d and so on...</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Elements%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L186">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Elements_" data-uid="MongoDB.Entities.Template`2.Elements*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_ElementsOfResult_System_Int32_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.ElementsOfResult(System.Int32%2CSystem.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L202">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_ElementsOfResult_" data-uid="MongoDB.Entities.Template`2.ElementsOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_ElementsOfResult_System_Int32_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.ElementsOfResult(System.Int32,System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">ElementsOfResult(Int32, Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given index and expression (of output type) to a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; ElementsOfResult(int index, Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0=a 1=b 2=c 3=d and so on...</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_ElementsOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.ElementsOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L180">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_ElementsOfResult_" data-uid="MongoDB.Entities.Template`2.ElementsOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_ElementsOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.ElementsOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">ElementsOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; ElementsOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Path_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Path(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L71">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Path_" data-uid="MongoDB.Entities.Template`2.Path*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Path_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Path(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Path(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Path(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Path%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L83">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Path_" data-uid="MongoDB.Entities.Template`2.Path*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Path&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Path&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PathOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PathOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L77">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PathOfResult_" data-uid="MongoDB.Entities.Template`2.PathOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PathOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PathOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PathOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PathOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Paths_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Paths(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L91">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Paths_" data-uid="MongoDB.Entities.Template`2.Paths*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Paths_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Paths(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Paths(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of input type) into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Paths(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Paths__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Paths%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L103">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Paths_" data-uid="MongoDB.Entities.Template`2.Paths*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Paths__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Paths&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of any type) into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Paths&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PathsOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PathsOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L97">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PathsOfResult_" data-uid="MongoDB.Entities.Template`2.PathsOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PathsOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PathsOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PathsOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of output type) into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PathsOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosAll_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosAll(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L134">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosAll_" data-uid="MongoDB.Entities.Template`2.PosAll*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosAll_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAll(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosAll(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAll(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosAll%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L146">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosAll_" data-uid="MongoDB.Entities.Template`2.PosAll*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAll&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosAllOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosAllOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L140">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosAllOfResult_" data-uid="MongoDB.Entities.Template`2.PosAllOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosAllOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAllOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosAllOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAllOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFiltered_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFiltered(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L112">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFiltered_" data-uid="MongoDB.Entities.Template`2.PosFiltered*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFiltered_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFiltered(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosFiltered(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+<p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFiltered(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFiltered%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L126">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFiltered_" data-uid="MongoDB.Entities.Template`2.PosFiltered*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+<p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFiltered&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFilteredOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFilteredOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L119">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFilteredOfResult_" data-uid="MongoDB.Entities.Template`2.PosFilteredOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFilteredOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFilteredOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosFilteredOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+<p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFilteredOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFirst_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFirst(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L154">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFirst_" data-uid="MongoDB.Entities.Template`2.PosFirst*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFirst_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirst(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosFirst(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirst(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFirst%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L166">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFirst_" data-uid="MongoDB.Entities.Template`2.PosFirst*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirst&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PosFirstOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PosFirstOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L160">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PosFirstOfResult_" data-uid="MongoDB.Entities.Template`2.PosFirstOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PosFirstOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirstOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosFirstOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirstOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Property(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L51">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Property_" data-uid="MongoDB.Entities.Template`2.Property*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Property(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given member expression (of input type) into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Property(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.RootProp.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Property%60%601(System.Linq.Expressions.Expression%7BSystem.Func%7B%60%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L63">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Property_" data-uid="MongoDB.Entities.Template`2.Property*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given member expression (of any type) into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Property&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.RootProp.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_PropertyOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.PropertyOfResult(System.Linq.Expressions.Expression%7BSystem.Func%7B%601%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L57">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_PropertyOfResult_" data-uid="MongoDB.Entities.Template`2.PropertyOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PropertyOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PropertyOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PropertyOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given member expression (of output type) into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PropertyOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.RootProp.SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_Tag_System_String_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.Tag(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L218">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_Tag_" data-uid="MongoDB.Entities.Template`2.Tag*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Tag_System_String_System_String_" data-uid="MongoDB.Entities.Template`2.Tag(System.String,System.String)">Tag(String, String)</h4>
+  <div class="markdown level1 summary"><p>Replaces the given tag in the template like &quot;&lt;search_term&gt;&quot; with the supplied value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Tag(string tagName, string replacementValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">tagName</span></td>
+        <td><p>The tag name without the surrounding &lt; and &gt;</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">replacementValue</span></td>
+        <td><p>The value to replace with</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_ToArrayFilters.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.ToArrayFilters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L230">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_ToArrayFilters_" data-uid="MongoDB.Entities.Template`2.ToArrayFilters*"></a>
+  <h4 id="MongoDB_Entities_Template_2_ToArrayFilters" data-uid="MongoDB.Entities.Template`2.ToArrayFilters">ToArrayFilters()</h4>
+  <div class="markdown level1 summary"><p>Executes the tag replacement and returns array filter definitions.</p>
+<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ArrayFilterDefinition&gt; ToArrayFilters()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ArrayFilterDefinition</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2_ToPipeline.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602.ToPipeline%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L224">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Template_2_ToPipeline_" data-uid="MongoDB.Entities.Template`2.ToPipeline*"></a>
+  <h4 id="MongoDB_Entities_Template_2_ToPipeline" data-uid="MongoDB.Entities.Template`2.ToPipeline">ToPipeline()</h4>
+  <div class="markdown level1 summary"><p>Executes the tag replacement and returns a pipeline definition.</p>
+<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PipelineDefinition&lt;TInput, TResult&gt; ToPipeline()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.PipelineDefinition</span>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Template_2.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Template%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Core/Template.cs/#L31" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

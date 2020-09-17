@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "src/**.csproj"
+            "_src/**.csproj"
           ]
         }
       ],
@@ -24,7 +24,6 @@
       {
         "files": [
           "wiki/**.md",
-          "wiki/**/toc.yml",
           "toc.yml",
           "*.md"
         ]
@@ -43,8 +42,7 @@
           "apidoc/**.md"
         ],
         "exclude": [
-          "obj/**",
-          "_site/**"
+          "obj/**"
         ]
       }
     ],
@@ -55,12 +53,9 @@
       "_appLogoPath": "images/logo.png",
       "_appFooter": "Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ"
     },
-    "globalMetadataFiles": [],
-    "fileMetadataFiles": [],
     "template": [
       "default"
     ],
-    "postProcessors": [],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,

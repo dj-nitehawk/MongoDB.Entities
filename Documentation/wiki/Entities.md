@@ -1,4 +1,4 @@
-# Defining entities
+# Define entities
 
 add the import statement shown below and create your entities by inheriting the `Entity` base class.
 
@@ -11,7 +11,7 @@ public class Book : Entity
 }
 ```
 
-# Ignoring properties
+# Ignore some properties
 
 if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute` 
 ```csharp
@@ -22,7 +22,7 @@ public class Book : Entity
 }
 ```
 
-# Customizing collection names
+# Customize collection names
 by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `NameAttribute` as follows:
 ```csharp
 [Name("Writer")]
@@ -43,3 +43,16 @@ public class Book : Entity, ICreatedOn, IModifiedOn
 }
 ```
 if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.
+
+# The IEntity interface
+
+if for whatever reason, you're unable to inherit the `Entity` base class, you can simply implement the `IEntity` interface to make your classes compatible with the library like so:
+```csharp
+[BsonIgnoreExtraElements]
+public class Book : IEntity
+{
+    [BsonId, ObjectId]
+    public string ID { get; set; }
+    ...
+}
+```

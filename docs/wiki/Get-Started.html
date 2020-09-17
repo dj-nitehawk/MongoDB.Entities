@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Define entities | MongoDB.Entities </title>
+    <title>Install | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Define entities | MongoDB.Entities ">
+    <meta name="title" content="Install | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -77,51 +77,29 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="define-entities">Define entities</h1>
+<h1 id="install">Install</h1>
 
-<p>add the import statement shown below and create your entities by inheriting the <code>Entity</code> base class.</p>
-<pre><code class="lang-csharp">using MongoDB.Entities;
-
-public class Book : Entity
-{
-    public string Title { get; set; }
-}
+<p>install the nuget package with command:</p>
+<pre><code>Install-Package MongoDB.Entities
 </code></pre>
-<h1 id="ignore-some-properties">Ignore some properties</h1>
-<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code></p>
-<pre><code class="lang-csharp">public class Book : Entity
-{
-    [Ignore]
-    public string SomeProperty { get; set; }
-}
+<h1 id="initialize">Initialize</h1>
+<p>first import the package with <code>using MongoDB.Entities;</code></p>
+<p>then initialize the database connection like so:</p>
+<h2 id="basic-initialization">Basic initialization</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, &quot;HostAddress&quot;, PortNumber);
 </code></pre>
-<h1 id="customize-collection-names">Customize collection names</h1>
-<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>NameAttribute</code> as follows:</p>
-<pre><code class="lang-csharp">[Name(&quot;Writer&quot;)]
-public class Author : Entity
+<h2 id="advanced-initialization">Advanced initialization</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
 {
-    ...
-}
+    Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
+    Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
+}, 
+&quot;DatabaseName&quot;);
 </code></pre>
-<h1 id="optional-auto-managed-properties">Optional auto-managed properties</h1>
-<p>there are 2 optional interfaces <code>ICreatedOn</code> &amp; <code>IModifiedOn</code> that you can add to entity class definitions like so:</p>
-<pre><code class="lang-csharp">public class Book : Entity, ICreatedOn, IModifiedOn
-{
-    public string Title { get; set; }
-    public DateTime CreatedOn { get; set; }
-    public DateTime ModifiedOn { get; set; }
-}
-</code></pre>
-<p>if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.</p>
-<h1 id="the-ientity-interface">The IEntity interface</h1>
-<p>if for whatever reason, you're unable to inherit the <code>Entity</code> base class, you can simply implement the <code>IEntity</code> interface to make your classes compatible with the library like so:</p>
-<pre><code class="lang-csharp">[BsonIgnoreExtraElements]
-public class Book : IEntity
-{
-    [BsonId, ObjectId]
-    public string ID { get; set; }
-    ...
-}
+<h2 id="using-a-connection-string">Using a connection string</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
+      &quot;mongodb+srv://user:password@cluster.mongodb.net/DatabaseName&quot;), 
+      &quot;DatabaseName&quot;);
 </code></pre>
 </article>
           </div>
@@ -131,7 +109,7 @@ public class Book : IEntity
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Entities.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Get-Started.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

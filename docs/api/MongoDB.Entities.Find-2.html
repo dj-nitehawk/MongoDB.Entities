@@ -1,0 +1,1523 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Find&lt;T, TProjection&gt;
+   | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Find&lt;T, TProjection&gt;
+   | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Find`2">
+  
+  
+  <h1 id="MongoDB_Entities_Find_2" data-uid="MongoDB.Entities.Find`2" class="text-break">Class Find&lt;T, TProjection&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a MongoDB Find command with the ability to project to a different result type.</p>
+<p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Find&lt;T, TProjection&gt;</span></div>
+      <div class="level2"><a class="xref" href="MongoDB.Entities.Find-1.html">Find&lt;T&gt;</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
+  <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
+  <h5 id="MongoDB_Entities_Find_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Find&lt;T, TProjection&gt;
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TProjection</span></td>
+        <td><p>The type you'd like to project the results to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ExecuteAsync_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ExecuteAsync(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L328">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ExecuteAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a list of results</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProjection&gt;&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TProjection&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ExecuteCursorAsync_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ExecuteCursorAsync(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L362">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ExecuteCursorAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteCursorAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ExecuteCursorAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)">ExecuteCursorAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a cursor instead of materialized results</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TProjection&gt;&gt; ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.IAsyncCursor</span>&lt;TProjection&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ExecuteFirstAsync_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ExecuteFirstAsync(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L351">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ExecuteFirstAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteFirstAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ExecuteFirstAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)">ExecuteFirstAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get the first result or the default value if not found</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; ExecuteFirstAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ExecuteSingleAsync_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ExecuteSingleAsync(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L340">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ExecuteSingleAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteSingleAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ExecuteSingleAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)">ExecuteSingleAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a single result or the default value if not found.
+If more than one entity is found, it will throw an exception.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; ExecuteSingleAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Limit_System_Int32_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Limit(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L265">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Limit_" data-uid="MongoDB.Entities.Find`2.Limit*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Limit_System_Int32_" data-uid="MongoDB.Entities.Find`2.Limit(System.Int32)">Limit(Int32)</h4>
+  <div class="markdown level1 summary"><p>Specify how many entiteis to Take/Limit</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Limit(int takeCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">takeCount</span></td>
+        <td><p>The number to limit/take</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ManyAsync_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ManyAsync(System.Func%7BMongoDB.Driver.FilterDefinitionBuilder%7B%600%7D%2CMongoDB.Driver.FilterDefinition%7B%600%7D%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L74">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ManyAsync_" data-uid="MongoDB.Entities.Find`2.ManyAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ManyAsync_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)">ManyAsync(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Find entities by supplying a filter expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProjection&gt;&gt; ManyAsync(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TProjection&gt;&gt;</td>
+        <td><p>A list of Entities</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ManyAsync_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ManyAsync(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Boolean%7D%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L62">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ManyAsync_" data-uid="MongoDB.Entities.Find`2.ManyAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ManyAsync_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)">ManyAsync(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Find entities by supplying a lambda expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProjection&gt;&gt; ManyAsync(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.Property == Value</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TProjection&gt;&gt;</td>
+        <td><p>A list of Entities</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(MongoDB.Entities.Search%2CSystem.String%2CSystem.Boolean%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L127">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
+  <div class="markdown level1 summary"><p>Specify a seach term to find results from the text index of this paricular collection.</p>
+<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Search.html">Search</a></td>
+        <td><span class="parametername">searchType</span></td>
+        <td><p>The type of text matching to do</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">searchTerm</span></td>
+        <td><p>The search term</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">caseSensitive</span></td>
+        <td><p>Case sensitivity of the search (optional)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">diacriticSensitive</span></td>
+        <td><p>Diacritic sensitivity of the search (optional)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">language</span></td>
+        <td><p>The language for the search (optional)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_MongoDB_Entities_Template_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(MongoDB.Entities.Template)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L112">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Template template)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
+        <td><span class="parametername">template</span></td>
+        <td><p>A Template with a find query</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(System.Func%7BMongoDB.Driver.FilterDefinitionBuilder%7B%600%7D%2CMongoDB.Driver.FilterDefinition%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L102">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Boolean%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L93">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.Property == Value</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D%2CMongoDB.Entities.Coordinates2D%2CSystem.Nullable%7BSystem.Double%7D%2CSystem.Nullable%7BSystem.Double%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L157">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
+<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
+<p>Note: DB.FluentGeoNear() supports more advanced options</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">coordinatesProperty</span></td>
+        <td><p>The property where 2DCoordinates are stored</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></td>
+        <td><span class="parametername">nearCoordinates</span></td>
+        <td><p>The search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>Maximum distance in meters from the search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">minDistance</span></td>
+        <td><p>Minimum distance in meters from the search point</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Match_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Match(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L84">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Match_System_String_" data-uid="MongoDB.Entities.Find`2.Match(System.String)">Match(String)</h4>
+  <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(string ID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ID</span></td>
+        <td><p>A unique IEntity ID</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_MatchExpression_MongoDB_Entities_Template_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.MatchExpression(MongoDB.Entities.Template)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L186">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_MatchExpression_" data-uid="MongoDB.Entities.Find`2.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_Find_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Find`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchExpression(Template template)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
+        <td><span class="parametername">template</span></td>
+        <td><p>A Template object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_MatchExpression_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.MatchExpression(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L176">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_MatchExpression_" data-uid="MongoDB.Entities.Find`2.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_Find_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.Find`2.MatchExpression(System.String)">MatchExpression(String)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchExpression(string expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>{ $gt: ['$Property1', '$Property2'] }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_MatchString_System_String_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.MatchString(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L166">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_MatchString_" data-uid="MongoDB.Entities.Find`2.MatchString*"></a>
+  <h4 id="MongoDB_Entities_Find_2_MatchString_System_String_" data-uid="MongoDB.Entities.Find`2.MatchString(System.String)">MatchString(String)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchString(string jsonString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">jsonString</span></td>
+        <td><p>{ Title : 'The Power Of Now' }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_OneAsync_System_String_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.OneAsync(System.String%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L50">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_OneAsync_" data-uid="MongoDB.Entities.Find`2.OneAsync*"></a>
+  <h4 id="MongoDB_Entities_Find_2_OneAsync_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.OneAsync(System.String,System.Threading.CancellationToken)">OneAsync(String, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Find a single IEntity by ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; OneAsync(string ID, CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ID</span></td>
+        <td><p>The unique ID of an IEntity</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TProjection&gt;</td>
+        <td><p>A single entity or null if not found</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Option_System_Action_MongoDB_Driver_FindOptions__0__1___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Option(System.Action%7BMongoDB.Driver.FindOptions%7B%600%2C%601%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L318">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Option_" data-uid="MongoDB.Entities.Find`2.Option*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Option_System_Action_MongoDB_Driver_FindOptions__0__1___" data-uid="MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})">Option(Action&lt;FindOptions&lt;T, TProjection&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify an option for this find command (use multiple times if needed)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Option(Action&lt;FindOptions&lt;T, TProjection&gt;&gt; option)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.FindOptions</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="parametername">option</span></td>
+        <td><p>x =&gt; x.OptionName = OptionValue</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Project_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__1___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Project(System.Func%7BMongoDB.Driver.ProjectionDefinitionBuilder%7B%600%7D%2CMongoDB.Driver.ProjectionDefinition%7B%600%2C%601%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L284">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Project_" data-uid="MongoDB.Entities.Find`2.Project*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Project_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__1___" data-uid="MongoDB.Entities.Find`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})">Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to project the results using a projection expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.ProjectionDefinition</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="parametername">projection</span></td>
+        <td><p>p =&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Project(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2C%601%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L275">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Project_" data-uid="MongoDB.Entities.Find`2.Project*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___" data-uid="MongoDB.Entities.Find`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})">Project(Expression&lt;Func&lt;T, TProjection&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to project the results using a lambda expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new Test { PropName = x.Prop }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_ProjectExcluding_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.ProjectExcluding(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L294">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_ProjectExcluding_" data-uid="MongoDB.Entities.Find`2.ProjectExcluding*"></a>
+  <h4 id="MongoDB_Entities_Find_2_ProjectExcluding_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Find`2.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">ProjectExcluding(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to project the results using an exclusion projection expression.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; ProjectExcluding(Expression&lt;Func&lt;T, object&gt;&gt; exclusion)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">exclusion</span></td>
+        <td><p>x =&gt; new { x.PropToExclude, x.AnotherPropToExclude }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Skip_System_Int32_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Skip(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L255">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Skip_" data-uid="MongoDB.Entities.Find`2.Skip*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Skip_System_Int32_" data-uid="MongoDB.Entities.Find`2.Skip(System.Int32)">Skip(Int32)</h4>
+  <div class="markdown level1 summary"><p>Specify how many entities to skip</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Skip(int skipCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">skipCount</span></td>
+        <td><p>The number to skip</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Sort_System_Func_MongoDB_Driver_SortDefinitionBuilder__0__MongoDB_Driver_SortDefinition__0___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Sort(System.Func%7BMongoDB.Driver.SortDefinitionBuilder%7B%600%7D%2CMongoDB.Driver.SortDefinition%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L245">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Sort_" data-uid="MongoDB.Entities.Find`2.Sort*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Sort_System_Func_MongoDB_Driver_SortDefinitionBuilder__0__MongoDB_Driver_SortDefinition__0___" data-uid="MongoDB.Entities.Find`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})">Sort(Func&lt;SortDefinitionBuilder&lt;T&gt;, SortDefinition&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to sort using a sort expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Sort(Func&lt;SortDefinitionBuilder&lt;T&gt;, SortDefinition&lt;T&gt;&gt; sortFunction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.SortDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.SortDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">sortFunction</span></td>
+        <td><p>s =&gt; s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_Sort_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Order_.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.Sort(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D%2CMongoDB.Entities.Order)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L197">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_Sort_" data-uid="MongoDB.Entities.Find`2.Sort*"></a>
+  <h4 id="MongoDB_Entities_Find_2_Sort_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Order_" data-uid="MongoDB.Entities.Find`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)">Sort(Expression&lt;Func&lt;T, Object&gt;&gt;, Order)</h4>
+  <div class="markdown level1 summary"><p>Specify which property and order to use for sorting (use multiple times if needed)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Sort(Expression&lt;Func&lt;T, object&gt;&gt; propertyToSortBy, Order sortOrder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">propertyToSortBy</span></td>
+        <td><p>x =&gt; x.Prop</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Order.html">Order</a></td>
+        <td><span class="parametername">sortOrder</span></td>
+        <td><p>The sort order</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_SortByTextScore.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.SortByTextScore%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L216">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_SortByTextScore_" data-uid="MongoDB.Entities.Find`2.SortByTextScore*"></a>
+  <h4 id="MongoDB_Entities_Find_2_SortByTextScore" data-uid="MongoDB.Entities.Find`2.SortByTextScore">SortByTextScore()</h4>
+  <div class="markdown level1 summary"><p>Sort the results of a text search by the MetaTextScore</p>
+<p>TIP: Use this method after .Project() if you need to do a projection also</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; SortByTextScore()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2_SortByTextScore_System_Linq_Expressions_Expression_System_Func__0_System_Object___.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602.SortByTextScore(System.Linq.Expressions.Expression%7BSystem.Func%7B%600%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L226">View Source</a>
+  </span>
+  <a id="MongoDB_Entities_Find_2_SortByTextScore_" data-uid="MongoDB.Entities.Find`2.SortByTextScore*"></a>
+  <h4 id="MongoDB_Entities_Find_2_SortByTextScore_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Find`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">SortByTextScore(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sort the results of a text search by the MetaTextScore and get back the score as well</p>
+<p>TIP: Use this method after .Project() if you need to do a projection also</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; SortByTextScore(Expression&lt;Func&lt;T, object&gt;&gt; scoreProperty)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">scoreProperty</span></td>
+        <td><p>x =&gt; x.TextScoreProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/new/dev/apiSpec/new?filename=MongoDB_Entities_Find_2.md&amp;value=---%0Auid%3A%20MongoDB.Entities.Find%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/src/Commands/Find.cs/#L32" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

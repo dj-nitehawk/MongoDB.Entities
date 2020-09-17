@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Define entities | MongoDB.Entities </title>
+    <title>Delete entities | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Define entities | MongoDB.Entities ">
+    <meta name="title" content="Delete entities | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -77,51 +77,14 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="define-entities">Define entities</h1>
+<h1 id="delete-entities">Delete entities</h1>
 
-<p>add the import statement shown below and create your entities by inheriting the <code>Entity</code> base class.</p>
-<pre><code class="lang-csharp">using MongoDB.Entities;
-
-public class Book : Entity
-{
-    public string Title { get; set; }
-}
-</code></pre>
-<h1 id="ignore-some-properties">Ignore some properties</h1>
-<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code></p>
-<pre><code class="lang-csharp">public class Book : Entity
-{
-    [Ignore]
-    public string SomeProperty { get; set; }
-}
-</code></pre>
-<h1 id="customize-collection-names">Customize collection names</h1>
-<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>NameAttribute</code> as follows:</p>
-<pre><code class="lang-csharp">[Name(&quot;Writer&quot;)]
-public class Author : Entity
-{
-    ...
-}
-</code></pre>
-<h1 id="optional-auto-managed-properties">Optional auto-managed properties</h1>
-<p>there are 2 optional interfaces <code>ICreatedOn</code> &amp; <code>IModifiedOn</code> that you can add to entity class definitions like so:</p>
-<pre><code class="lang-csharp">public class Book : Entity, ICreatedOn, IModifiedOn
-{
-    public string Title { get; set; }
-    public DateTime CreatedOn { get; set; }
-    public DateTime ModifiedOn { get; set; }
-}
-</code></pre>
-<p>if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.</p>
-<h1 id="the-ientity-interface">The IEntity interface</h1>
-<p>if for whatever reason, you're unable to inherit the <code>Entity</code> base class, you can simply implement the <code>IEntity</code> interface to make your classes compatible with the library like so:</p>
-<pre><code class="lang-csharp">[BsonIgnoreExtraElements]
-public class Book : IEntity
-{
-    [BsonId, ObjectId]
-    public string ID { get; set; }
-    ...
-}
+<p>deleting entities can be achieved in any of the following ways:</p>
+<pre><code class="lang-csharp">    await book.DeleteAsync();
+    await book.OtherAuthors.DeleteAllAsync();
+    await DB.DeleteAsync&lt;Author&gt;(&quot;ID&quot;);
+    await DB.DeleteAsync&lt;Book&gt;(new[] { &quot;ID1&quot;, &quot;ID2&quot; });
+    await DB.DeleteAsync&lt;Book&gt;(b =&gt; b.Title.Contains(&quot;Trump&quot;)); 
 </code></pre>
 </article>
           </div>
@@ -131,7 +94,7 @@ public class Book : IEntity
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Entities.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/dj-nitehawk/MongoDB-DAL-For-ASPNetCore/blob/dev/Documentation/wiki/Entities-Delete.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

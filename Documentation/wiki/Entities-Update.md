@@ -1,4 +1,4 @@
-# Updating without retrieving
+# Update without retrieving
 you can update a single or batch of entities on the mongodb server by supplying a filter criteria and a subset of properties and the data/ values to be set on them as shown below.
 ```csharp
 await DB.Update<Author>()
@@ -9,7 +9,8 @@ await DB.Update<Author>()
 ```
 specify the filter criteria with a lambda expression using the `.Match()` method to indicate which entities/documents you want to target for the update. then use multiples of the `.Modify()` method to specify which properties you want updated with what data. finally call the `.ExecuteAsync()` method to run the update command which will take place remotely on the database server.
 
-if you'd like to update a single entity, simply target it by `.ID` like below:
+## Update by ID
+if you'd like to update a single entity, simply target it by `ID` like below:
 ```csharp
 await DB.Update<Author>()
         .MatchID("xxxxxxxxxxx")
@@ -17,7 +18,8 @@ await DB.Update<Author>()
         .ExecuteAsync();
 ```
 
-you can also use filters to match entities. all of the filters in the official driver is available for use as follows.
+## Update by matching with filters
+you can use [_filter definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_FilterDefinitionBuilder_1.htm) methods to match entities. all of the filters of the official driver are available for use as follows.
 ```csharp
 await DB.Update<Author>()
         .Match(f=> f.Eq(a=>a.Surname,"Stark") & f.Gt(a=>a.Age,35))
@@ -25,7 +27,8 @@ await DB.Update<Author>()
         .ExecuteAsync();
 ```
 
-also you can use all the _update definition builder_ methods supplied by the mongodb driver like so:
+## Update with builder methods
+also you can use all the [_update definition builder_](https://mongodb.github.io/mongo-csharp-driver/2.11/apidocs/html/Methods_T_MongoDB_Driver_UpdateDefinitionBuilder_1.htm) methods supplied by the mongodb driver like so:
 ```csharp
 await DB.Update<Author>()
         .Match(a => a.ID == "xxxxxxx")
@@ -57,27 +60,19 @@ in order to update an entity and retrieve the updated enity, use the `.UpdateAnd
 
 ```csharp
 var result = await DB.UpdateAndGet<Book>()
-                      .Match(b => b.ID == "xxxxxxxxxxxxx")
-                      .Modify(b => b.Title, "updated title")
-                      .ExecuteAsync();
+                     .Match(b => b.ID == "xxxxxxxxxxxxx")
+                     .Modify(b => b.Title, "updated title")
+                     .ExecuteAsync();
 ```
-
+## Update and retrieve with projection
 projection of the returned entity is also possible by using the `.Project()` method before calling `.ExecuteAsync()`. 
-
-# Property preserving updates
-if you'd like to skip one or more properties while saving a complete entity, you can do so with the `SavePreservingAsync()` method.
 ```csharp
-await book.SavePreservingAsync(x => new { x.Title, x.Price })
+var result = await DB.UpdateAndGet<Book>()
+                     .Match(b => b.ID == "xxxxxxxxxxxxx")
+                     .Modify(b => b.Title, "updated title")
+                     .Project(b => new Book { Title = b.Title })
+                     .ExecuteAsync();
 ```
-this method will build an update command dynamically using reflection and omit the properties you specify. all other properties will be updated in the database with the values from your entity. sometimes, this would be preferable to specifying each and every property with an update command.
-
-> **NOTE:** you should only specify root level properties with the `New` expression. i.e. `x => x.Author.Name` is not valid.
-
-alternatively, you can decorate the properties you want to omit with the `[Preserve]` attribute and simply call `book.SavePreservingAsync()` without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.
-
-you can also do the opposite with the use of `[DontPreserve]` attribute. if you decorate properties with `[DontPreserve]`, only the values of those properties are written to the database and all other properties are implicitly ignored when calling `SavePreservingAsync()`. also, the same rule applies that attributes are ignored if you supply a `new` expression to `SavePreservingAsync()`.
-
-> **NOTE:** both `[DontPreserve]` and `[Preserve]` cannot be used together on the same entity type due to the conflicting nature of what they do.
 
 # Aggregation pipeline updates
 starting from mongodb sever v4.2, we can refer to existing fields of the documents when updating as described [here](https://docs.mongodb.com/master/reference/command/update/index.html#update-with-aggregation-pipeline).

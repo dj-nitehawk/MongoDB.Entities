@@ -1,11 +1,11 @@
-# Installing
+# Install
 
 install the nuget package with command: 
 ```
 Install-Package MongoDB.Entities
 ```
 
-# Initializing
+# Initialize
 
 first import the package with `using MongoDB.Entities;`
 

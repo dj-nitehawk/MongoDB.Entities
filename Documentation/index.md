@@ -1,8 +1,9 @@
-# Welcome
+![](images/social.png)
+# What is it?
 
-This library simplifies access to mongodb by abstracting away the C# mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more readable/ human friendly than driver code.
+A light-weight .net standard library which simplifies access to mongodb by abstracting away the official .net mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more human friendly than driver code.
 
-# Advantages
+# Why use it?
 - Don't have to deal with `ObjectIds`, `BsonDocuments` & magic strings unless you want to.
 - Built-in support for `One-To-One`, `One-To-Many` and `Many-To-Many` relationships.
 - Async only API for scalable application development.
@@ -19,4 +20,4 @@ This library simplifies access to mongodb by abstracting away the C# mongodb dri
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
 
-# [Get Started >>](wiki/Getting-Started.md)
+# [Get Started >>](wiki/Get-Started.md)
