@@ -103,16 +103,18 @@ await books.SaveAsync();
 await DB.SaveAsync(books);
 </code></pre>
 <h1 id="partial-save">Partial save</h1>
+<h2 id="partial-save-with-new-expression">Partial save with new expression</h2>
 <p>if you'd like to skip one or more properties while saving a complete entity, you can do so with the <code>SavePreservingAsync()</code> method.</p>
 <pre><code class="lang-csharp">await book.SavePreservingAsync(x =&gt; new { x.Title, x.Price })
 </code></pre>
-<p>this method will build an update command dynamically using reflection and omit the properties you specify. all other properties will be updated in the database with the values from your entity. sometimes, this would be preferable to specifying each and every property with an update command.</p>
+<p>this method will build an update command dynamically using reflection and omit the properties you specify. all other properties will be updated in the database with the values from your entity. sometimes, this would be preferable to specifying each and every property with an <a href="Entities-Update.html">update command</a>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>you should only specify root level properties with the <strong>New</strong> expression. i.e. <strong>x =&gt; x.Author.Name</strong> is not valid.</p>
 </div>
-<p>alternatively, you can decorate the properties you want to omit with the <code>[Preserve]</code> attribute and simply call <code>book.SavePreservingAsync()</code> without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.</p>
-<p>you can also do the opposite with the use of <code>[DontPreserve]</code> attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>. also, the same rule applies that attributes are ignored if you supply a <code>new</code> expression to <code>SavePreservingAsync()</code>.</p>
+<h2 id="partial-save-with-attribute">Partial save with attribute</h2>
+<p>you can decorate the properties you want to omit with the [<a class="xref" href="../api/MongoDB.Entities.PreserveAttribute.html">Preserve</a>] attribute and simply call <code>book.SavePreservingAsync()</code> without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.</p>
+<p>you can also do the opposite with the use of [<a class="xref" href="../api/MongoDB.Entities.DontPreserveAttribute.html">DontPreserve</a>] attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>. also, the same rule applies that attributes are ignored if you supply a <code>new</code> expression to <code>SavePreservingAsync()</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>both <strong>[DontPreserve]</strong> and <strong>[Preserve]</strong> cannot be used together on the same entity type due to the conflicting nature of what they do.</p>

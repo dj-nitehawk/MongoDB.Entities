@@ -11,7 +11,7 @@ public class Book : Entity
 }
 ```
 
-# Ignore some properties
+# Ignore properties
 
 if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute` 
 ```csharp

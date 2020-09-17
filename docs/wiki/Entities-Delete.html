@@ -80,11 +80,20 @@
 <h1 id="delete-entities">Delete entities</h1>
 
 <p>deleting entities can be achieved in any of the following ways:</p>
-<pre><code class="lang-csharp">    await book.DeleteAsync();
-    await book.OtherAuthors.DeleteAllAsync();
-    await DB.DeleteAsync&lt;Author&gt;(&quot;ID&quot;);
-    await DB.DeleteAsync&lt;Book&gt;(new[] { &quot;ID1&quot;, &quot;ID2&quot; });
-    await DB.DeleteAsync&lt;Book&gt;(b =&gt; b.Title.Contains(&quot;Trump&quot;)); 
+<h3 id="delete-a-single-entity">Delete a single entity</h3>
+<pre><code class="lang-csharp">  await book.DeleteAsync();
+</code></pre>
+<h3 id="delete-embeded-entities">Delete embeded entities</h3>
+<pre><code class="lang-csharp">  await book.OtherAuthors.DeleteAllAsync();
+</code></pre>
+<h3 id="delete-by-id">Delete by ID</h3>
+<pre><code class="lang-csharp">  await DB.DeleteAsync&lt;Author&gt;(&quot;ID&quot;);
+</code></pre>
+<h3 id="delete-by-multiple-ids">Delete by multiple IDs</h3>
+<pre><code class="lang-csharp">  await DB.DeleteAsync&lt;Book&gt;(new[] { &quot;ID1&quot;, &quot;ID2&quot; });
+</code></pre>
+<h3 id="delete-by-lambda-expression">Delete by lambda expression</h3>
+<pre><code class="lang-csharp">  await DB.DeleteAsync&lt;Book&gt;(b =&gt; b.Title.Contains(&quot;Trump&quot;)); 
 </code></pre>
 </article>
           </div>

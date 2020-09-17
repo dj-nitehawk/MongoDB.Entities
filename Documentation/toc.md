@@ -1,2 +1,5 @@
 #[Wiki](wiki/)
+#[Code Samples](wiki/Code-Samples.md)
 #[Api Reference](api/)
+#[Source Code](https://github.com/dj-nitehawk/MongoDB.Entities)
+#[Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)

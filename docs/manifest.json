@@ -579,7 +579,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "gzYyvLJx885nGbVx7MQq2w=="
+          "hash": "wX0BFCIv/AlSnU0zxS8bNQ=="
         }
       },
       "is_incremental": false,
@@ -591,7 +591,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "5DGTdCf1Wka7YsqJmCnKwg=="
+          "hash": "WV5IyWu3R+Ui71Gg7kEihQ=="
         }
       },
       "is_incremental": false,
@@ -755,11 +755,23 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "wiki/Code-Samples.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Code-Samples.html",
+          "hash": "RRYAfQ46dbQ4S9En8DufYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "wiki/Entities-Delete.md",
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Delete.html",
-          "hash": "3mAjHOQVwoREY9nrANEoJg=="
+          "hash": "kfuURLzgamVuzbmbMybPZA=="
         }
       },
       "is_incremental": false,
@@ -771,7 +783,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Save.html",
-          "hash": "WTvoEqUv7wTaC9BYBez3Ow=="
+          "hash": "dmBxgBlkvQJkptgEqDlXgA=="
         }
       },
       "is_incremental": false,
@@ -795,7 +807,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "I5EzL7qFIAE4adjqTPrgIw=="
+          "hash": "N49bbKdWQCIW+qbCpOcrVA=="
         }
       },
       "is_incremental": false,
@@ -819,7 +831,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/toc.html",
-          "hash": "6Q8/CMDKX+AAve2xJw5uMg=="
+          "hash": "EkNyH1OOqWNqUJ9nDlIvqw=="
         }
       },
       "is_incremental": false,
@@ -838,7 +850,7 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 19,
+          "total_file_count": 20,
           "skipped_file_count": 19
         },
         "ManagedReferenceDocumentProcessor": {
