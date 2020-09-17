@@ -50,14 +50,15 @@
     "dest": "../docs",
     "globalMetadata": {
       "_appTitle": "MongoDB.Entities",
+      "_description": "A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.",
       "_enableSearch": true,
       "_enableNewTab": true,
-      "_appLogoPath": "images/logo.png",
-      "_appFaviconPath": "images/logo.png",
+      "_appLogoPath": "images/icon.png",
+      "_appFaviconPath": "images/icon.png",
       "_appFooter": "Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ"
     },
     "template": [
-      "default"
+      "templates\\default"
     ],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,

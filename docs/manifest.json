@@ -29,7 +29,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Coordinates2D.html",
-          "hash": "8E7legMCEH+2hQhByGOcTA=="
+          "hash": "x6Ku0x+wSqQaMphQK30ohA=="
         }
       },
       "is_incremental": false,
@@ -41,7 +41,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "yqE5urx07PEAS3TwbdlMFA=="
+          "hash": "PZszdCfHiHS9z05TnMw4NQ=="
         }
       },
       "is_incremental": false,
@@ -53,7 +53,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DataStreamer.html",
-          "hash": "k5POni/cPfBYRjT6Q8KQPg=="
+          "hash": "wD8PK83VhCqOCua4OBgdPg=="
         }
       },
       "is_incremental": false,
@@ -65,7 +65,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Date.html",
-          "hash": "vQ6udpcsCJ2AXT2TSsyUWg=="
+          "hash": "C9hCHqWpXXTljbC6HWljPA=="
         }
       },
       "is_incremental": false,
@@ -77,7 +77,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DontPreserveAttribute.html",
-          "hash": "qcvhfXOGwZcThEd0fdVF5Q=="
+          "hash": "Y9ilDsHBA1382qadujfYEw=="
         }
       },
       "is_incremental": false,
@@ -89,7 +89,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Entity.html",
-          "hash": "eBdMkBD1114U7TLQcNifgQ=="
+          "hash": "/6QEUWww703iMjaDb4IleA=="
         }
       },
       "is_incremental": false,
@@ -101,7 +101,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.EventType.html",
-          "hash": "BCBjt406jnKl+jZwsKEUbw=="
+          "hash": "7CC2LYd+CdvWysDvldEjvA=="
         }
       },
       "is_incremental": false,
@@ -113,7 +113,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Extensions.html",
-          "hash": "QcicSyzeHGpCMiPwwOCOuw=="
+          "hash": "Qf5/dZpuY3WT8M9IyJJGAg=="
         }
       },
       "is_incremental": false,
@@ -125,7 +125,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.FileEntity.html",
-          "hash": "bCYAAkB34HIKJ8+D/8RRUw=="
+          "hash": "+ndx75WAagFtCToZ8bkSRw=="
         }
       },
       "is_incremental": false,
@@ -137,7 +137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Find-1.html",
-          "hash": "uOqa8+XuwxsFD77ZpdzrHA=="
+          "hash": "tu9sI0VjkEkkzjpSQUgj9w=="
         }
       },
       "is_incremental": false,
@@ -149,7 +149,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Find-2.html",
-          "hash": "+OBEAo5adUQCnLQ7k8bXvQ=="
+          "hash": "JXzTHdxnDq3ZgnwF/BARSA=="
         }
       },
       "is_incremental": false,
@@ -161,7 +161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.FuzzyString.html",
-          "hash": "0DeprfN/cs2hsm561CE/kA=="
+          "hash": "3fwSV3Z4VyHtkswoqL00Jg=="
         }
       },
       "is_incremental": false,
@@ -173,7 +173,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.GeoNear-1.html",
-          "hash": "qXsiAzrHmTvJo5DpxirjSQ=="
+          "hash": "tQEo1CgJ7bR6W0Ayr2AlyA=="
         }
       },
       "is_incremental": false,
@@ -185,7 +185,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.ICreatedOn.html",
-          "hash": "6QcOpvJ5X3S0g9I0JPQYhQ=="
+          "hash": "R6tRXoendjEtufqPNwlHkw=="
         }
       },
       "is_incremental": false,
@@ -197,7 +197,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IEntity.html",
-          "hash": "isjGT77BEqhe0vMmJR9zgQ=="
+          "hash": "adV7f1cqnnnaHX1380W8Vg=="
         }
       },
       "is_incremental": false,
@@ -209,7 +209,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IMigration.html",
-          "hash": "6t9OfguVB4Q1w0QnhIyKzw=="
+          "hash": "Rub4dXlcO0mAeO+LGWI7+w=="
         }
       },
       "is_incremental": false,
@@ -221,7 +221,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IModifiedOn.html",
-          "hash": "AACYNk+eGkUPTC/ToZZU3Q=="
+          "hash": "U0pNL1O2ICbowoKK1FTkXQ=="
         }
       },
       "is_incremental": false,
@@ -233,7 +233,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IgnoreAttribute.html",
-          "hash": "v9Ao8UvTue+ioaCu4MZQ6Q=="
+          "hash": "4Z8UBl/5VZhyTFzC9WMHKA=="
         }
       },
       "is_incremental": false,
@@ -245,7 +245,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Index-1.html",
-          "hash": "Z0wuYSUbv3sG3XH27eNh+w=="
+          "hash": "oz5GK116BLhrsHSOfz3juA=="
         }
       },
       "is_incremental": false,
@@ -257,7 +257,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.InverseSideAttribute.html",
-          "hash": "vZV66NCpKIGO0tQzAAUDwA=="
+          "hash": "NW23Q0UtLl0xFsNwpRUuJA=="
         }
       },
       "is_incremental": false,
@@ -269,7 +269,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.JoinRecord.html",
-          "hash": "deiOcDK/vnHdVGgNT7R50A=="
+          "hash": "iVsoapciKlR8LVfz96AgFA=="
         }
       },
       "is_incremental": false,
@@ -281,7 +281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.KeyType.html",
-          "hash": "Y9ZbeZXPZv6leoqXk42wbg=="
+          "hash": "pDiiBmzVLglU5paF67qi5g=="
         }
       },
       "is_incremental": false,
@@ -293,7 +293,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.Joined-1.html",
-          "hash": "piXoc/pZy1/+bLMg+04BgA=="
+          "hash": "juDt6drN4/JjlGicE6C+kw=="
         }
       },
       "is_incremental": false,
@@ -305,7 +305,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.html",
-          "hash": "zAHW36u/xtZ8hrCK9EtOrg=="
+          "hash": "10XEQIaoFrZzmBiD04ckgw=="
         }
       },
       "is_incremental": false,
@@ -317,7 +317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.ManyBase.html",
-          "hash": "IZUN2WisVTw9F1DPKD8rZA=="
+          "hash": "Vd26tNuA7eG7Qz6BKWDaeA=="
         }
       },
       "is_incremental": false,
@@ -329,7 +329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Migration.html",
-          "hash": "zLp1MotzrvNKHOZvHm1JiQ=="
+          "hash": "stJYUczQx9OWJA+nhRLYyQ=="
         }
       },
       "is_incremental": false,
@@ -341,7 +341,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.NameAttribute.html",
-          "hash": "fVL5qOamIKYFhPCr64EO0g=="
+          "hash": "7uLp29i/ijH70uK/TP44mw=="
         }
       },
       "is_incremental": false,
@@ -353,7 +353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.ObjectIdAttribute.html",
-          "hash": "4ySi+XH9sVfJrvDhq7QBXA=="
+          "hash": "co40nxPzzXyJ+6uuo1ZZ8g=="
         }
       },
       "is_incremental": false,
@@ -365,7 +365,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.One-1.html",
-          "hash": "Eh1tJCXprHs/VyP6ZVhpgA=="
+          "hash": "Cr1dgj4+G/SpQwW+Lya8NA=="
         }
       },
       "is_incremental": false,
@@ -377,7 +377,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Order.html",
-          "hash": "+ZtC4h4zbiFSuzqDlQFv9A=="
+          "hash": "VwTooGONUi+Xn172x4cy9A=="
         }
       },
       "is_incremental": false,
@@ -389,7 +389,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.OwnerSideAttribute.html",
-          "hash": "bPGTogOdn+MDqSMB22wB+w=="
+          "hash": "aekBnR45WqAOp39N0Q08yA=="
         }
       },
       "is_incremental": false,
@@ -401,7 +401,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.PreserveAttribute.html",
-          "hash": "w2XZUY+mLpIRfX8K813yPw=="
+          "hash": "abLkapdG1un+VvIoPmqK6w=="
         }
       },
       "is_incremental": false,
@@ -413,7 +413,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Prop.html",
-          "hash": "1jTFwvIUqs5iT7Jvmo8dRQ=="
+          "hash": "6/LTv+vxEtTAhi7xt/tgkg=="
         }
       },
       "is_incremental": false,
@@ -425,7 +425,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Search.html",
-          "hash": "dCPMWLfvzmfLQJR5qXF7mQ=="
+          "hash": "U5bGuYV3jQEwxLbEhPjAbQ=="
         }
       },
       "is_incremental": false,
@@ -437,7 +437,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-1.html",
-          "hash": "PMas+ful5w9BIQ/jkWU5iA=="
+          "hash": "w03rkayAAYsfd8OPAuTEgA=="
         }
       },
       "is_incremental": false,
@@ -449,7 +449,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-2.html",
-          "hash": "B10e2hCb5lgHCbqCIAo6uA=="
+          "hash": "7vBZu8fc/IDmeh/Sb81htQ=="
         }
       },
       "is_incremental": false,
@@ -461,7 +461,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template.html",
-          "hash": "S7/M2lWGPY7wJxKGs8teSg=="
+          "hash": "yenLN2/IDuvLmtDM2syJgQ=="
         }
       },
       "is_incremental": false,
@@ -473,7 +473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Transaction.html",
-          "hash": "bSjt8tZ7Ne6H0ZQrn/42vQ=="
+          "hash": "0lZSwjNGSyEBPotVoLdWVw=="
         }
       },
       "is_incremental": false,
@@ -485,7 +485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Update-1.html",
-          "hash": "2tFYPyqmzyy18e1pT3mD1A=="
+          "hash": "ig5jHOVUcGaMkElMqa5oTQ=="
         }
       },
       "is_incremental": false,
@@ -497,7 +497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-1.html",
-          "hash": "F0zcM/BS4vBch8IbZ4z/TQ=="
+          "hash": "pBtd+V0e2LCfZWCtTuTsNA=="
         }
       },
       "is_incremental": false,
@@ -509,7 +509,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-2.html",
-          "hash": "374DJpArXEDy/3DWXpEzSA=="
+          "hash": "sIltQvYLluBxDUNG+iDKhQ=="
         }
       },
       "is_incremental": false,
@@ -521,7 +521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Watcher-1.html",
-          "hash": "oHouXxeP13Gkw+2ukyj0bw=="
+          "hash": "dZngY1I0hrd1cwwksO3Rvg=="
         }
       },
       "is_incremental": false,
@@ -533,7 +533,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "rOeaWqi+OLivabk0zwDUPA=="
+          "hash": "RbcWA/ZYx2FNiPuM3PCcGQ=="
         }
       },
       "is_incremental": false,
@@ -553,10 +553,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/logo.png",
+      "source_relative_path": "images/icon.png",
       "output": {
         "resource": {
-          "relative_path": "images/logo.png"
+          "relative_path": "images/icon.png"
         }
       },
       "is_incremental": false,
@@ -579,7 +579,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "qJC/LvI76rq+pj4/9WNotQ=="
+          "hash": "qsCzrFz4YLcRaSCQfX9O3g=="
         }
       },
       "is_incremental": false,
@@ -603,7 +603,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Async-Support.html",
-          "hash": "kWH5IThDmbwxv/JUVF0d5A=="
+          "hash": "NoRDDu6TJFeBoJwHEhksBQ=="
         }
       },
       "is_incremental": false,
@@ -615,7 +615,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Change-Streams.html",
-          "hash": "ZC0WzKD0YbU4/1lqbxbzVw=="
+          "hash": "ah84kINR7Oofq9WD/nzcIQ=="
         }
       },
       "is_incremental": false,
@@ -627,7 +627,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Code-Samples.html",
-          "hash": "ZsmR0O3PEQuWMMV/P4kHLQ=="
+          "hash": "qwB0K9X4w6qC/rUBVjecIw=="
         }
       },
       "is_incremental": false,
@@ -639,7 +639,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Data-Migrations.html",
-          "hash": "5w+uIjXcKlgqtEgQGftTug=="
+          "hash": "QGl6GKxlJP5wDHX5HFj6Tw=="
         }
       },
       "is_incremental": false,
@@ -651,7 +651,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Delete.html",
-          "hash": "B4Po4IMw43k01P/TD9FDPQ=="
+          "hash": "bWktoIR4JQgYQeICsaKdRw=="
         }
       },
       "is_incremental": false,
@@ -663,7 +663,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Save.html",
-          "hash": "jOdpYf6qHAk6QusNnqTmBA=="
+          "hash": "r/Bp5BzzvI8Pl5pw0JlyXw=="
         }
       },
       "is_incremental": false,
@@ -675,7 +675,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Update.html",
-          "hash": "OyVBbgCZndRghzPJ6Nr+Gw=="
+          "hash": "lFmuRva0Ajcar2Q3j+DYFg=="
         }
       },
       "is_incremental": false,
@@ -687,7 +687,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "aVqPnrZEnfr2PfwEgUZCuw=="
+          "hash": "AzdD20tC9MsC+1fydvjHGA=="
         }
       },
       "is_incremental": false,
@@ -699,7 +699,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Extras-Date.html",
-          "hash": "u1OF6tLA5vyuDn5Y7PfgjQ=="
+          "hash": "KuujkZvky886+f3yqNioKg=="
         }
       },
       "is_incremental": false,
@@ -711,7 +711,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Extras-Prop.html",
-          "hash": "5XSnyvvxGei4kOw2dsyFfw=="
+          "hash": "8dD0aLiwBtCd+PHMLrva2w=="
         }
       },
       "is_incremental": false,
@@ -723,7 +723,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Extras-Sequence.html",
-          "hash": "u7PP0a+dPtaCCz9PXMkHnA=="
+          "hash": "s9o8O+F4+DgMOrz4kbk8bw=="
         }
       },
       "is_incremental": false,
@@ -735,7 +735,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/File-Storage.html",
-          "hash": "JuFYgxh1zkXfBKtDVXyv9w=="
+          "hash": "+UTNIr8KwGk10JsLYfeSCA=="
         }
       },
       "is_incremental": false,
@@ -747,7 +747,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Get-Started.html",
-          "hash": "3L75CjXCNuFddlnGmP+8yA=="
+          "hash": "hu4bqxeBEkzUuFLFvUvH5g=="
         }
       },
       "is_incremental": false,
@@ -759,7 +759,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Indexes-Fuzzy-Text-Search.html",
-          "hash": "2yjrmJvMikmDYySX7IVCJw=="
+          "hash": "9NoaW3ubUySQBORB6mV6yg=="
         }
       },
       "is_incremental": false,
@@ -771,7 +771,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Indexes.html",
-          "hash": "JcYgvhxpEDeSSVsBEcmcAA=="
+          "hash": "bGcNmgC9l8sOtLt2ksTjfg=="
         }
       },
       "is_incremental": false,
@@ -783,7 +783,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Multiple-Databases.html",
-          "hash": "Fx31eYRI6OaiqHCr0kh86Q=="
+          "hash": "YMB9sAV4AWQB8nZhrKcGWQ=="
         }
       },
       "is_incremental": false,
@@ -795,7 +795,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Queries-Find.html",
-          "hash": "yRCumdn5yD0/L6fKfJk3Mg=="
+          "hash": "acIZcFb8pE9A0aNdaPtIow=="
         }
       },
       "is_incremental": false,
@@ -807,7 +807,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Queries-Linq.html",
-          "hash": "Eeg7/B4lHKnJZ2eERZl9YQ=="
+          "hash": "Ya+jIMX9J94wTW1XzjH90Q=="
         }
       },
       "is_incremental": false,
@@ -819,7 +819,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Queries-Pipelines.html",
-          "hash": "B4oCCfXMOowUIizhcL0l/w=="
+          "hash": "YQB+tp6Oarkc8j1Ddak7UA=="
         }
       },
       "is_incremental": false,
@@ -831,7 +831,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Relationships-Embeded.html",
-          "hash": "deMoRn8IWO2OYLpKKPRyOg=="
+          "hash": "dOFunqnBIfw5h2pLDTGzIw=="
         }
       },
       "is_incremental": false,
@@ -843,7 +843,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Relationships-Referenced.html",
-          "hash": "B2kbFnWP7jrwYJQ9VQjwSA=="
+          "hash": "CoxE5MF5mgyh2o+riMhN4w=="
         }
       },
       "is_incremental": false,
@@ -855,7 +855,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Schema-Changes.html",
-          "hash": "w5fij0bmdyrPPaRWBK3iDg=="
+          "hash": "OLAcTrTcplcra6g++jOa8Q=="
         }
       },
       "is_incremental": false,
@@ -867,7 +867,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/String-Templates.html",
-          "hash": "8pbvog7puH0wcfhP2UhTBw=="
+          "hash": "akyxs199JcDRvZghjTEKLw=="
         }
       },
       "is_incremental": false,
@@ -879,7 +879,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Transactions.html",
-          "hash": "USJUK3TWdu2njvW1pAfyLA=="
+          "hash": "S4wf1PCNjPTKEf73zd047g=="
         }
       },
       "is_incremental": false,
