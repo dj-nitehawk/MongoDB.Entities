@@ -13,3 +13,8 @@
 # [Relationships](Relationships-Embeded.md)
 ## [Embeded](Relationships-Embeded.md)
 ## [Referenced](Relationships-Referenced.md)
+
+# [Queries](Queries-Find.md)
+## [Find](Queries-Find.md)
+## [LINQ](Queries-Linq.md)
+## [Fluent Pipelines](Queries-Pipelines.md)
