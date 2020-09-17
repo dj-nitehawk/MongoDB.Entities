@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fluent Aggregation Pipelines | MongoDB.Entities </title>
+    <title>Fluent aggregation pipelines | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Fluent Aggregation Pipelines | MongoDB.Entities ">
+    <meta name="title" content="Fluent aggregation pipelines | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="../images/logo.png">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -18,7 +18,7 @@
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
-    
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -77,31 +77,22 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h3 id="fluent-aggregation-pipelines">Fluent Aggregation Pipelines</h3>
+<h1 id="fluent-aggregation-pipelines">Fluent aggregation pipelines</h1>
 
-<p>99% of querying requirements can be catered to with the above APIs. in case you need to build fluent aggregation pipelines, use the <code>Fluent</code> method for getting access to the <code>IAggregateFluent&lt;T&gt;</code> interface for a given entity type like so:</p>
-<pre><code class="lang-csharp">    var author = await DB.Fluent&lt;Author&gt;()
-                         .Match(a =&gt; a.Surname == &quot;Stark&quot; &amp;&amp; a.Age &gt; 10)
-                         .SortByDescending(a =&gt; a.Age)
-                         .ThenByAscending(a =&gt; a.Name)
-                         .Skip(1).Limit(1)
-                         .Project(a =&gt; new { Test = a.Name })
-                         .SingleOrDefaultAsync();
+<p>99% of querying requirements can be catered to with the <a href="Queries-Find.html"><em>Find</em></a> &amp; <a href="Queries-Linq.html"><em>Queryable</em></a> APIs. in case you need to build fluent aggregation pipelines, use the <code>Fluent</code> method for getting access to the <code>IAggregateFluent&lt;T&gt;</code> interface for a given entity type like so:</p>
+<pre><code class="lang-csharp">var author = await DB.Fluent&lt;Author&gt;()
+                     .Match(a =&gt; a.Surname == &quot;Stark&quot; &amp;&amp; a.Age &gt; 10)
+                     .SortByDescending(a =&gt; a.Age)
+                     .ThenByAscending(a =&gt; a.Name)
+                     .Skip(1).Limit(1)
+                     .Project(a =&gt; new { Test = a.Name })
+                     .SingleOrDefaultAsync();
 </code></pre>
-<blockquote>
-<p>you'll have to add <code>using MongoDB.Driver;</code> import statement for the async extension methods such as <code>SingleOrDefaultAsync()</code> to work.</p>
-</blockquote>
-<p>there are also fluent counterparts of other methods such as:</p>
-<pre><code class="lang-csharp">    Many&lt;T&gt;.ChildrenFluent() //pre-filtered children of the parent
-    Many&lt;T&gt;.ParentsFluent() //access parents of a given child
-    Many&lt;T&gt;.JoinFluent() //all records of the join collection
-    Transaction.Fluent&lt;T&gt;() //transactional variation of DB.Fluent&lt;T&gt;()
-    DB.FluentTextSearch&lt;T&gt;() //full text search    
-    Transaction.FluentTextSearch&lt;T&gt;() //transactional full text search
-    DB.Fluent&lt;T&gt;().MatchExpression() //$expr queries
-    author.Fluent() //shortcut for DB.Fluent&lt;Author&gt;()
-</code></pre>
-<h4 id="geonear-aggregation-pipelines">GeoNear Aggregation Pipelines</h4>
+<div class="TIP">
+<h5>Tip</h5>
+<p>you'll have to add <strong>using MongoDB.Driver;</strong> import statement for the async extension methods such as <strong>SingleOrDefaultAsync()</strong> to work.</p>
+</div>
+<h1 id="geonear-aggregation-pipelines">GeoNear aggregation pipelines</h1>
 <p>in order to start a fluent aggregation pipeline with a <code>GeoNear</code> query, simply do the following:</p>
 <pre><code class="lang-csharp">var query = DB.FluentGeoNear&lt;Place&gt;(
                NearCoordinates: new Coordinates2D(48.857908, 2.295243),
@@ -110,6 +101,18 @@
 </code></pre>
 <p>the above code builds an aggregation pipeline that will find all the documents tagged with locations within 20Km from the eiffel tower in paris.</p>
 <p>you can then add more pipeline stages to the above query in order to do further processing. you can specify all the supported options for <code>$geoNear</code> using the constructor above.</p>
+<h1 id="other-fluent-interfaces">Other fluent interfaces</h1>
+<p>there are also fluent counterparts of other methods such as:</p>
+<pre><code class="lang-csharp">Many&lt;T&gt;.ChildrenFluent() //pre-filtered children of the parent
+Many&lt;T&gt;.ParentsFluent() //access parents of a given child
+Many&lt;T&gt;.JoinFluent() //all records of the join collection
+Transaction.Fluent&lt;T&gt;() //transactional variation of DB.Fluent&lt;T&gt;()
+DB.FluentTextSearch&lt;T&gt;() //full text search
+DB.FluentGeoNear&lt;T&gt;() //geospatial fluent pupeline
+Transaction.FluentTextSearch&lt;T&gt;() //transactional full text search
+DB.Fluent&lt;T&gt;().MatchExpression() //$expr queries
+author.Fluent() //shortcut for DB.Fluent&lt;Author&gt;()
+</code></pre>
 </article>
           </div>
           

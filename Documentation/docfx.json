@@ -51,7 +51,9 @@
     "globalMetadata": {
       "_appTitle": "MongoDB.Entities",
       "_enableSearch": true,
+      "_enableNewTab": true,
       "_appLogoPath": "images/logo.png",
+      "_appFaviconPath": "images/logo.png",
       "_appFooter": "Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ"
     },
     "template": [

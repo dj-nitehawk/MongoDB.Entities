@@ -1,22 +1,24 @@
+
+# ACID compliant transactions
 multi-document transactions are performed as shown below:
 
 ```csharp
-    var book1 = new Book { Title = "book one" };
-    var book2 = new Book { Title = "book two" };
-    
-    await DB.SaveAsync(new[] { book1, book2 });
+var book1 = new Book { Title = "book one" };
+var book2 = new Book { Title = "book two" };
 
-    using (var TN = DB.Transaction())
-    {
-         var author1 = new Author { Name = "one" };
-         var author2 = new Author { Name = "two" };
+await DB.SaveAsync(new[] { book1, book2 });
 
-         await TN.SaveAsync(new[] { author1, author2 });
+using (var TN = DB.Transaction())
+{
+      var author1 = new Author { Name = "one" };
+      var author2 = new Author { Name = "two" };
 
-         await TN.DeleteAsync<Book>(new[] { book1.ID, book2.ID });
+      await TN.SaveAsync(new[] { author1, author2 });
 
-         await TN.CommitAsync();
-    }
+      await TN.DeleteAsync<Book>(new[] { book1.ID, book2.ID });
+
+      await TN.CommitAsync();
+}
 ```
 in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 is created within the transaction and book1 and book2 are deleted within the transaction.
 
@@ -32,56 +34,53 @@ it is best to always wrap the transaction in a using statement because reaching 
 
 you can also call `.AbortAsync()` to abort a transaction prematurely if needed at which point all changes will be rolled back.
 
-### Relationship Manipulation
-[relationships](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/03.-Relationships) within a transaction requires passing down the session to the `.Add()` and `.Remove()` methods as shown below.
+## Relationship Manipulation
+[relationships](Relationships-Referenced.md) within a transaction requires passing down the session to the `.Add()` and `.Remove()` methods as shown below.
 ```csharp
-    using (var TN = DB.Transaction())
-    {
-        var author = new Author { Name = "author one" };
-        await TN.SaveAsync(author);
+using (var TN = DB.Transaction())
+{
+    var author = new Author { Name = "author one" };
+    await TN.SaveAsync(author);
 
-        var book = new Book { Title = "book one" };
-        await TN.SaveAsync(book);
+    var book = new Book { Title = "book one" };
+    await TN.SaveAsync(book);
 
-        await author.Books.AddAsync(book, TN.Session);
-        await author.Books.RemoveAsync(book, TN.Session);
+    await author.Books.AddAsync(book, TN.Session);
+    await author.Books.RemoveAsync(book, TN.Session);
 
-        await TN.CommitAsync();
-    }
+    await TN.CommitAsync();
+}
 ```
 
-### File Storage
-[file storage](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/12.-File-Storage) within a transaction also requires passing down the session like so:
+## File Storage
+[file storage](File-Storage.md) within a transaction also requires passing down the session like so:
 ```csharp
-    using (var TN = DB.Transaction())
+using (var TN = DB.Transaction())
+{
+    var picture = new Picture { Title = "my picture" };
+    await TN.SaveAsync(picture);
+
+    var streamTask = new HttpClient()
+                      .GetStreamAsync("https://placekitten.com/g/4000/4000");
+
+    using (var stream = await streamTask)
     {
-        var picture = new Picture { Title = "my picture" };
-        await TN.SaveAsync(picture);
-
-        var streamTask = new HttpClient()
-                         .GetStreamAsync("https://placekitten.com/g/4000/4000");
-
-        using (var stream = await streamTask)
-        {
-            await picture.Data.UploadAsync(stream, session: TN.Session);
-        }
-
-        await TN.CommitAsync();
+        await picture.Data.UploadAsync(stream, session: TN.Session);
     }
+
+    await TN.CommitAsync();
+}
 ```
 
-### Multiple Databases
-
+## Multiple Databases
 
 a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.
 ```csharp
-    var TN = DB.Transaction("DatabaseName") // manually specify the database name
-    var TN = DB.Transaction<Book>() // gets the database from the entity type
+var TN = DB.Transaction("DatabaseName") // manually specify the database name
+var TN = DB.Transaction<Book>() // gets the database from the entity type
 ```
 
 if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.
 
->**NOTE:** please read the page on [multiple databases](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/10.-Multiple-Databases) to understand how multi-db support works.
-
-
-### [Next Page >>](https://github.com/dj-nitehawk/MongoDB.Entities/wiki/07.-Async-Support)
+> [!note]
+> please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works.

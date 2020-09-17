@@ -18,3 +18,27 @@
 ## [Find](Queries-Find.md)
 ## [LINQ](Queries-Linq.md)
 ## [Fluent Pipelines](Queries-Pipelines.md)
+
+# [Indexes](Indexes.md)
+## [Fuzzy Text](Indexes-Fuzzy-Text-Search.md)
+
+# [Transactions](Transactions.md)
+
+# [Multiple Databases](Multiple-Databases.md)
+
+# [File Storage](File-Storage.md)
+
+# [Change Streams](Change-Streams.md)
+
+# [String Templates](String-Templates.md)
+
+# [Schema Changes](Schema-Changes.md)
+
+# [Data Migrations](Data-Migrations.md)
+
+# [Async Support](Async-Support.md)
+
+# [Extras](Extras-Date.md)
+## [The Date Type](Extras-Date.md)
+## [The Prop Class](Extras-Prop.md)
+## [Sequential Number Generation](Extras-Sequence.md)

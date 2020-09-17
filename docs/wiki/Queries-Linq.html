@@ -10,7 +10,7 @@
     <meta name="title" content="LINQ Queries | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     
-    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="shortcut icon" href="../images/logo.png">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -18,7 +18,7 @@
     <meta property="docfx:tocrel" content="toc.html">
     
     <meta property="docfx:rel" content="../">
-    
+    <meta property="docfx:newtab" content="true">
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -85,23 +85,23 @@ also see the c# driver <a href="http://mongodb.github.io/mongo-csharp-driver/2.1
 <h5>Tip</h5>
 <p>don't forget to first import the mongodb linq extensions with <strong>using MongoDB.Driver.Linq;</strong></p>
 </div>
-<h2 id="entity-collections">Entity collections</h2>
+<h2 id="query-collections">Query collections</h2>
 <pre><code class="lang-csharp">var author = await (from a in DB.Queryable&lt;Author&gt;()
                     where a.Name.Contains(&quot;Eckhart&quot;)
                     select a).FirstOrDefaultAsync();
 </code></pre>
-<h3 id="entity-collection-shortcut">Entity collection shortcut</h3>
+<h3 id="collection-shortcut">Collection shortcut</h3>
 <pre><code class="lang-csharp">var authors = from a in author.Queryable()
               select a;
 </code></pre>
 <p>this <code>.Queryable()</code> is an <code>IQueryable</code> for the whole collection of <code>Authors</code> which you can write queries against.</p>
-<h2 id="forward-relationship-access">Forward relationship access:</h2>
+<h2 id="forward-relationship-access">Forward relationship access</h2>
 <p>every <code>Many&lt;T&gt;</code> property gives you access to an <code>IQueryable</code> of child entities.</p>
 <pre><code class="lang-csharp">var authors = from a in book.Authors.ChildrenQueryable()
               select a;
 </code></pre>
 <p>this <code>.ChildrenQueryable()</code> is an already filtered <code>IQueryable</code> of child entities. For ex: the above <code>.ChildrenQueryable()</code> is limited to only the Authors of that particular <code>Book</code> entity. It does not give you access to all of the <code>Author</code> entities in the Authors collection.</p>
-<h2 id="reverse-relationship-access">Reverse relationship access:</h2>
+<h2 id="reverse-relationship-access">Reverse relationship access</h2>
 <p>for example, if you'd like to get all the books belonging to a genre, you can do it with the help of <code>.ParentsQueryable()</code> like so:</p>
 <pre><code class="lang-csharp">var books = book.Genres
                 .ParentsQueryable&lt;Book&gt;(&quot;GenreID&quot;);
@@ -114,13 +114,13 @@ var books = book.Genres
                 .ParentsQueryable&lt;Book&gt;(query);
 </code></pre>
 <p>it is basically a convenience method instead of having to do a manual join like the one shown below in order to access parents of one-to-many or many-to-many relationships.</p>
-<h2 id="relationship-joins">Relationship Joins:</h2>
+<h2 id="relationship-joins">Relationship joins</h2>
 <p><code>Many&lt;T&gt;.JoinQueryable()</code> gives you access to all the join records of that particular relationship. A join record has two properties <code>ParentID</code> and <code>ChildID</code> that you can use to gain access to parent Entities like so:</p>
 <pre><code class="lang-csharp">var books = from j in book.Authors.JoinQueryable()
             join b in book.Queryable() on j.ParentID equals b.ID
             select b;
 </code></pre>
-<h2 id="counting-children">Counting Children</h2>
+<h2 id="counting-children">Counting children</h2>
 <p>you can get how many entities are there in the opposite side of any relationship as shown below:</p>
 <pre><code class="lang-csharp">var authorCount = await book.Authors.ChildrenCountAsync();
 var bookCount = await author.Books.ChildrenCountAsync();
