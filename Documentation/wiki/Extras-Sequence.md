@@ -1,6 +1,5 @@
 
-
-### Sequential number generation
+# Sequential number generation
 we can get mongodb to return a sequentially incrementing number everytime the method `.NextSequentialNumber()` on an Entity is called. it can be useful when you need to generate custom IDs like in the example below:
 
 ```csharp

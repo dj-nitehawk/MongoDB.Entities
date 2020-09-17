@@ -54,7 +54,7 @@ db.Book.find(
 
 the `.Tag()` method simply replaces matching tags on the text query with the supplied value. you don't have to use the `<` and `>` characters while using the `.Tag()` method. infact, avoid it as the tags won't match if you use them.
 
-the `.Path()` method is one of many offered by the `Prop` class you can use to get the full 'dotted' path of a property by supplying a lambda/member expression. please see the documentation of the 'Prop' class [here](Extras.md#the-prop-class) for the other methods available.
+the `.Path()` method is one of many offered by the `Prop` class you can use to get the full 'dotted' path of a property by supplying a lambda/member expression. please see the documentation of the 'Prop' class [here](Extras-Prop.md) for the other methods available.
 
 notice, that most of these 'Prop' methods only require a single parameter. whatever member expression you supply to them gets converted to a property/field path like this:
 

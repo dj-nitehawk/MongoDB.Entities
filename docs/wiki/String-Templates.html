@@ -122,7 +122,7 @@ var result = await DB.Find&lt;Book&gt;()
 )
 </code></pre>
 <p>the <code>.Tag()</code> method simply replaces matching tags on the text query with the supplied value. you don't have to use the <code>&lt;</code> and <code>&gt;</code> characters while using the <code>.Tag()</code> method. infact, avoid it as the tags won't match if you use them.</p>
-<p>the <code>.Path()</code> method is one of many offered by the <code>Prop</code> class you can use to get the full 'dotted' path of a property by supplying a lambda/member expression. please see the documentation of the 'Prop' class <a href="Extras.md#the-prop-class">here</a> for the other methods available.</p>
+<p>the <code>.Path()</code> method is one of many offered by the <code>Prop</code> class you can use to get the full 'dotted' path of a property by supplying a lambda/member expression. please see the documentation of the 'Prop' class <a href="Extras-Prop.html">here</a> for the other methods available.</p>
 <p>notice, that most of these 'Prop' methods only require a single parameter. whatever member expression you supply to them gets converted to a property/field path like this:</p>
 <blockquote>
 <p>expression: x =&gt; x.Authors[0].Books[0].Title</p>
