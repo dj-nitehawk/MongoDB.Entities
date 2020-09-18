@@ -134,7 +134,7 @@ using (var stream = File.OpenWrite(&quot;kitty.jpg&quot;))
 <p>alternatively, if the ID of the file entity is known, you can avoid fetching the file entity from the database and access the data directly like so:</p>
 <pre><code class="lang-csharp">await DB.File&lt;Picture&gt;(&quot;xxxxxxxxx&quot;).DownloadAsync(stream);
 </code></pre>
-<h3 id="transaction-support">Transaction Support</h3>
+<h3 id="transaction-support">Transaction support</h3>
 <p>uploading &amp; downloading file data within a transaction requires passing in a session to the upload and download methods. see <a href="Transactions.html#file-storage">here</a> for an example.</p>
 </article>
           </div>
