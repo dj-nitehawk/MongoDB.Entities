@@ -1,4 +1,5 @@
 # Code Samples
+---
 ### Initialize connection
 ```csharp
   await DB.InitAsync("bookshop","localhost");
@@ -57,6 +58,14 @@
   await book.DeleteAsync();
   await DB.DeleteAsync<Genre>(genre.ID);
 ```
+---
+# [Get Started >>](Get-Started.md)
+---
+# Tutorials
+- [Introduction](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
+- [Fuzzy Text Search](https://dev.to/djnitehawk/mongodb-fuzzy-text-search-with-c-the-easy-way-3l8j)
+- [GeoSpatial Search](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd)
+---
 # More Examples
 - [.net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 - [asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)

@@ -56,5 +56,5 @@ alternatively, if the ID of the file entity is known, you can avoid fetching the
 await DB.File<Picture>("xxxxxxxxx").DownloadAsync(stream);
 ```
 
-### Transaction Support
+### Transaction support
 uploading & downloading file data within a transaction requires passing in a session to the upload and download methods. see [here](Transactions.md#file-storage) for an example.

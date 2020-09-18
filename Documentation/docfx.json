@@ -17,14 +17,12 @@
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
+          "api/**.yml"
         ]
       },
       {
         "files": [
           "wiki/**.md",
-          "toc.yml",
           "*.md"
         ]
       }
@@ -39,9 +37,7 @@
     ],
     "overwrite": [
       {
-        "files": [
-          "apidoc/**.md"
-        ],
+        "files": [],
         "exclude": [
           "obj/**"
         ]
@@ -58,7 +54,8 @@
       "_appFooter": "Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ"
     },
     "template": [
-      "templates\\default"
+      "default",
+      "templates\\custom"
     ],
     "markdownEngineName": "markdig",
     "noLangKeyword": false,
