@@ -28,3 +28,7 @@ code{
 .navbar-brand {
   padding: 1px;
 }
+
+article[data-uid="MongoDB.Entities"] h4{
+  border-bottom: 1px solid #d6d6d6;
+}

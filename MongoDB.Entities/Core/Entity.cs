@@ -5,7 +5,6 @@ namespace MongoDB.Entities
 {
     /// <summary>
     /// Inherit this class for all entities you want to store in their own collection.
-    /// <para>TIP: If you want to store an entity in a particular database, use the [DatabaseAttribute]</para>
     /// </summary>
     [BsonIgnoreExtraElements]
     public abstract class Entity : IEntity
