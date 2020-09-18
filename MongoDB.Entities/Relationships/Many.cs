@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    /// <summary>
+    /// Base class providing shared state for Many'1 classes
+    /// </summary>
     public abstract class ManyBase
     {
         //shared state for all Many<T> instances
