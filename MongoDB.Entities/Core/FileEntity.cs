@@ -62,6 +62,9 @@ namespace MongoDB.Entities
         public byte[] Data { get; set; }
     }
 
+    /// <summary>
+    /// Provides the interface for uploading and downloading data chunks for file entities.
+    /// </summary>
     public class DataStreamer
     {
         private static readonly HashSet<string> indexedDBs = new HashSet<string>();

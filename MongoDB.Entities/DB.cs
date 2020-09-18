@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    /// <summary>
+    /// The main entrypoint for all data access methods of the library
+    /// </summary>
     public static partial class DB
     {
         static DB()
