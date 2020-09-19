@@ -31,15 +31,14 @@ var query = new Template<Book>(@"
   <Title> : '<book_name>',
   <Price> : <book_price>
 }")
-
 .Path(b => b.Title)    
 .Path(b => b.Price)
 .Tag("book_name","The Power Of Now")
 .Tag("book_price","10.95");
 
 var result = await DB.Find<Book>()
-                      .Match(query)
-                      .ExecuteAsync();
+                     .Match(query)
+                     .ExecuteAsync();
 ```
 
 the resulting query sent to mongodb is this:
@@ -94,7 +93,6 @@ var pipeline = new Template<Book>(@"
       $replaceWith: '$product'
     }
 ]")
-
 .Path(b => b.Title)
 .Path(b => b.Price)
 .Path(b => b.AuthorId)
@@ -107,30 +105,30 @@ var book = await DB.PipelineSingleAsync(pipeline);
 
 ```csharp
 var pipeline = new Template<Book, Author>(@"
-    [
+[
+    {
+        $match: { _id: <book_id> }
+    },
+    {
+        $lookup: 
         {
-            $match: { _id: <book_id> }
-        },
-        {
-            $lookup: 
-            {
-                from: '<author_collection>',
-                localField: '<AuthorID>',
-                foreignField: '_id',
-                as: 'authors'
-            }
-        },
-        {
-            $replaceWith: { $arrayElemAt: ['$authors', 0] }
-        },
-        {
-            $set: { <Age> : 34 }
+            from: '<author_collection>',
+            localField: '<AuthorID>',
+            foreignField: '_id',
+            as: 'authors'
         }
-    ]"
-).Tag("book_id", "ObjectId('5e572df44467000021005692')")
-  .Tag("author_collection", DB.Entity<Author>().CollectionName())
-  .Path(b => b.AuthorID)
-  .PathOfResult(a => a.Age);
+    },
+    {
+        $replaceWith: { $arrayElemAt: ['$authors', 0] }
+    },
+    {
+        $set: { <Age> : 34 }
+    }
+]")
+.Tag("book_id", "ObjectId('5e572df44467000021005692')")
+.Tag("author_collection", DB.Entity<Author>().CollectionName())
+.Path(b => b.AuthorID)
+.PathOfResult(a => a.Age);
 
 var authors = await DB.PipelineAsync(pipeline);
 ```
@@ -139,13 +137,12 @@ var authors = await DB.PipelineAsync(pipeline);
 
 ```csharp
 var query = new Template<Author>(@"
-    {
-      $and: [
-        { $gt: [ '$<Age>', <author_age> ] },
-        { $eq: [ '$<Surname>', '<author_surname>' ] }
-      ]
-    }")
-
+{
+  $and: [
+    { $gt: [ '$<Age>', <author_age> ] },
+    { $eq: [ '$<Surname>', '<author_surname>' ] }
+  ]
+}")
 .Path(a => a.Age)
 .Path(a => a.Surname)
 .Tag("author_age", "54")
@@ -159,11 +156,10 @@ var authors = await DB.Find<Author>()
 ### Update with aggregation pipeline
 ```csharp
 var pipeline = new Template<Author>(@"
-    [
-      { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
-      { $unset: '<Age>'}
-    ]
-")             
+[
+  { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
+  { $unset: '<Age>'}
+]")             
 .Path(a => a.FullName)
 .Path(a => a.Name)
 .Path(a => a.Surname)
@@ -178,22 +174,20 @@ await DB.Update<Author>()
 ### Update with array filters
 ```csharp
 var filters = new Template<Author>(@"
-    [
-      { '<a.Age>': { $gte: <age> } },
-      { '<b.Name>': 'Echkart Tolle' }
-    ]
-")
+[
+  { '<a.Age>': { $gte: <age> } },
+  { '<b.Name>': 'Echkart Tolle' }
+]")
 .Elements(0, author => author.Age)
 .Elements(1, author => author.Name);
 .Tag("age", "55")        
 
 var update = new Template<Book>(@"
-  { $set: { 
-      '<Authors.$[a].Age>': <age>,
-      '<Authors.$[b].Name>': '<name>'
-    } 
-  }
-")
+{ $set: { 
+    '<Authors.$[a].Age>': <age>,
+    '<Authors.$[b].Name>': '<name>'
+  } 
+}")
 .PosFiltered(book => book.Authors[0].Age)
 .PosFiltered(book => book.Authors[1].Name)
 .Tag("age", "55")
