@@ -1,4 +1,4 @@
-#[Wiki](wiki/)
+#[Documentation](wiki/)
 #[Code Samples](wiki/Code-Samples.md)
 #[Api Reference](api/)
 #[GitHub](https://github.com/dj-nitehawk/MongoDB.Entities)

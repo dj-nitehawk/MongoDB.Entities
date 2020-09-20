@@ -21,12 +21,15 @@ A light-weight .net standard library which simplifies access to mongodb by abstr
 - GeoSpatial search.
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
----
-# [Get Started >>](wiki/Get-Started.md)
-# [View Code Samples >>](wiki/Code-Samples.md)
----
-# Donations
-If this library has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking below:
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
+---
 
+<div class="actions-container">
+  <div><a href="wiki/Get-Started.md">Get Started</a></div>
+  <div><a href="wiki/Code-Samples.md">Code Samples</a></div>
+</div>
+<div class="actions-container">
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE">
+    <img src="images/donate.png" style="margin-top:20px;"/>
+  </a>
+</div>

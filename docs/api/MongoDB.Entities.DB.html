@@ -149,6 +149,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoCollection&lt;T&gt; Collection&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -192,6 +193,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string CollectionName&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -280,6 +282,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoDatabase Database&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -324,6 +327,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void DatabaseFor&lt;T&gt;(string database)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -370,6 +374,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string DatabaseName&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -415,6 +420,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -484,6 +490,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -552,6 +559,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -620,6 +628,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task DropCollectionAsync&lt;T&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -681,6 +690,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static T Entity&lt;T&gt;()
+
     where T : IEntity, new()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -724,6 +734,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static DataStreamer File&lt;T&gt;(string ID)
+
     where T : FileEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -785,6 +796,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static FilterDefinitionBuilder&lt;T&gt; Filter&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -829,6 +841,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Find&lt;T&gt; Find&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -873,6 +886,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Find&lt;T, TProjection&gt; Find&lt;T, TProjection&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -921,6 +935,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -988,6 +1003,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; FluentGeoNear&lt;T&gt;(Coordinates2D NearCoordinates, Expression&lt;Func&lt;T, object&gt;&gt; DistanceField, bool Spherical = true, double? MaxDistance = default(double? ), double? MinDistance = default(double? ), int? Limit = default(int? ), BsonDocument Query = null, double? DistanceMultiplier = default(double? ), Expression&lt;Func&lt;T, object&gt;&gt; IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1114,6 +1130,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; FluentTextSearch&lt;T&gt;(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1211,6 +1228,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Index&lt;T&gt; Index&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1389,6 +1407,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task MigrateAsync&lt;T&gt;()
+
     where T : class</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1508,6 +1527,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;ulong&gt; NextSequentialNumberAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1569,6 +1589,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;List&lt;TResult&gt;&gt; PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1653,6 +1674,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;IAsyncCursor&lt;TResult&gt;&gt; PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1737,6 +1759,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1821,6 +1844,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1905,6 +1929,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static ProjectionDefinitionBuilder&lt;T&gt; Projection&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1948,6 +1973,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2015,6 +2041,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;ReplaceOneResult&gt; SaveAsync&lt;T&gt;(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2088,6 +2115,7 @@ You can call this method as many times as you want (such as in serveless functio
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2163,6 +2191,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SavePreservingAsync&lt;T&gt;(T entity, Expression&lt;Func&lt;T, object&gt;&gt; preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2242,6 +2271,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static SortDefinitionBuilder&lt;T&gt; Sort&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -2335,6 +2365,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Transaction Transaction&lt;T&gt;(ClientSessionOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2397,6 +2428,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Update&lt;T&gt; Update&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -2441,6 +2473,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T&gt; UpdateAndGet&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -2485,6 +2518,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T, TProjection&gt; UpdateAndGet&lt;T, TProjection&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -2535,6 +2569,7 @@ If an instance already exists, that instance will be returned.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Watcher&lt;T&gt; Watcher&lt;T&gt;(string name)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2596,6 +2631,7 @@ If an instance already exists, that instance will be returned.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Watcher&lt;T&gt;&gt; Watchers&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>

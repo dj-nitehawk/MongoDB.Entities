@@ -59,8 +59,13 @@
   await DB.DeleteAsync<Genre>(genre.ID);
 ```
 ---
-# [Get Started >>](Get-Started.md)
+
+<div class="actions-container">
+  <div><a href="Get-Started.md">Get Started</a></div>
+</div>
+
 ---
+
 # Tutorials
 - [Beginners Guide](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
 - [Fuzzy Text Search](https://dev.to/djnitehawk/mongodb-fuzzy-text-search-with-c-the-easy-way-3l8j)
