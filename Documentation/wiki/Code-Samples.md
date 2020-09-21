@@ -15,6 +15,14 @@
   book.Author = dickens.ToDocument();
   await book.SaveAsync();
 ```
+### Update entity properties
+```csharp
+  await DB.Update<Book>()
+          .Match(b => b.Title == "The Power Of Now")
+          .Modify(b => b.Publisher, "New World Order")
+          .Modify(b => b.ISBN, "SOMEISBNNUMBER")
+          .ExecuteAsync();
+```
 ### One-To-One relationship
 ```csharp
   var hemmingway = new Author { Name = "Ernest Hemmingway" };

@@ -100,6 +100,13 @@
   book.Author = dickens.ToDocument();
   await book.SaveAsync();
 </code></pre>
+<h3 id="update-entity-properties">Update entity properties</h3>
+<pre><code class="lang-csharp">  await DB.Update&lt;Book&gt;()
+          .Match(b =&gt; b.Title == &quot;The Power Of Now&quot;)
+          .Modify(b =&gt; b.Publisher, &quot;New World Order&quot;)
+          .Modify(b =&gt; b.ISBN, &quot;SOMEISBNNUMBER&quot;)
+          .ExecuteAsync();
+</code></pre>
 <h3 id="one-to-one-relationship">One-To-One relationship</h3>
 <pre><code class="lang-csharp">  var hemmingway = new Author { Name = &quot;Ernest Hemmingway&quot; };
   await hemmingway.SaveAsync();

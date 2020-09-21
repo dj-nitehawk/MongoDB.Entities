@@ -57,3 +57,7 @@ article[data-uid="MongoDB.Entities"] h4{
 .actions-container div:hover{
   background-color: #000000;
 }
+
+pre code{
+  white-space: pre;
+}
