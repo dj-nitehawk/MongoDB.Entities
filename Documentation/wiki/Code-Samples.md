@@ -64,7 +64,8 @@
   await book.MainAuthor.DeleteAsync();
   await book.AllAuthors.DeleteAllAsync();
   await book.DeleteAsync();
-  await DB.DeleteAsync<Genre>(genre.ID);
+  await DB.DeleteAsync<Genre>("ID");
+  await DB.DeleteAsync<Book>(b => b.Title == "The Power Of Now");
 ```
 ---
 

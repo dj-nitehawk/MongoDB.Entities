@@ -143,7 +143,8 @@
 <pre><code class="lang-csharp">  await book.MainAuthor.DeleteAsync();
   await book.AllAuthors.DeleteAllAsync();
   await book.DeleteAsync();
-  await DB.DeleteAsync&lt;Genre&gt;(genre.ID);
+  await DB.DeleteAsync&lt;Genre&gt;(&quot;ID&quot;);
+  await DB.DeleteAsync&lt;Book&gt;(b =&gt; b.Title == &quot;The Power Of Now&quot;);
 </code></pre>
 <hr>
 <div class="actions-container">
