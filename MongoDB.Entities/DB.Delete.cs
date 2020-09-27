@@ -72,32 +72,43 @@ namespace MongoDB.Entities
         /// <param name = "session" >An optional session if using within a transaction</param>
         public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
-            long deleteCount = 0;
+            long deletedCount = 0;
 
             using (var cursor = await new Find<T, string>(session).Match(expression).Project(e => e.ID).Option(o => o.BatchSize = 250000).ExecuteCursorAsync().ConfigureAwait(false))
             {
                 while (await cursor.MoveNextAsync().ConfigureAwait(false))
                 {
                     if (cursor.Current.Any())
-                        deleteCount += (await DeleteCascadingAsync<T>(cursor.Current).ConfigureAwait(false)).DeletedCount;
+                        deletedCount += (await DeleteCascadingAsync<T>(cursor.Current, session).ConfigureAwait(false)).DeletedCount;
                 }
             }
 
-            return new DeleteResult.Acknowledged(deleteCount);
+            return new DeleteResult.Acknowledged(deletedCount);
             //todo: write test for deleting 1mil entities.
         }
 
         /// <summary>
         /// Deletes matching entities from MongoDB
+        /// <para>HINT: If more than 250,000 IDs are passed in, they will be processed in batches of 250k.</para>
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
-        public static Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
+        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
-            return DeleteCascadingAsync<T>(IDs, session);
+            if (IDs.Count() <= 250000)
+                return await DeleteCascadingAsync<T>(IDs, session).ConfigureAwait(false);
+
+            long deletedCount = 0;
+
+            foreach (var batch in IDs.ToBatches(250000))
+            {
+                deletedCount += (await DeleteCascadingAsync<T>(batch, session).ConfigureAwait(false)).DeletedCount;
+            }
+
+            return new DeleteResult.Acknowledged(deletedCount);
+            //todo: write test for deleting 1mil ids.
         }
     }
 }
