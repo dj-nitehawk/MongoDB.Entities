@@ -64,21 +64,27 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Deletes matching entities from MongoDB
+        /// <para>HINT: If the expression matches more than 250,000 entities, they will be deleted in batches of 250k.</para>
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <param name = "session" >An optional session if using within a transaction</param>
         public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null) where T : IEntity
         {
-            return await DeleteCascadingAsync<T>(
-                await Find<T, string>()
-                      .Match(expression)
-                      .Project(e => e.ID)
-                      .ExecuteAsync()
-                      .ConfigureAwait(false),
-                session).ConfigureAwait(false);
+            long deleteCount = 0;
+
+            using (var cursor = await new Find<T, string>(session).Match(expression).Project(e => e.ID).Option(o => o.BatchSize = 250000).ExecuteCursorAsync().ConfigureAwait(false))
+            {
+                while (await cursor.MoveNextAsync().ConfigureAwait(false))
+                {
+                    if (cursor.Current.Any())
+                        deleteCount += (await DeleteCascadingAsync<T>(cursor.Current).ConfigureAwait(false)).DeletedCount;
+                }
+            }
+
+            return new DeleteResult.Acknowledged(deleteCount);
+            //todo: write test for deleting 1mil entities.
         }
 
         /// <summary>
