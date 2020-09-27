@@ -2,7 +2,7 @@
 
 [![nuget](https://img.shields.io/nuget/v/MongoDB.Entities?label=version&logo=NuGet&style=flat-square)](https://www.nuget.org/packages/MongoDB.Entities) [![nuget](https://img.shields.io/nuget/dt/MongoDB.Entities?color=blue&label=downloads&logo=NuGet&style=flat-square)](https://www.nuget.org/packages/MongoDB.Entities) [![tests](https://img.shields.io/azure-devops/tests/RyanGunner/MongoDB%20Entities/1?color=blue&label=tests&logo=Azure%20DevOps&style=flat-square)](https://dev.azure.com/RyanGunner/MongoDB%20Entities/_build/latest?definitionId=1) [![license](https://img.shields.io/github/license/dj-nitehawk/MongoDB.Entities?color=blue&label=license&logo=Github&style=flat-square)](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/README.md)
 
-# Introduction
+# What is it?
 A light-weight .net standard library which simplifies access to mongodb by abstracting away the official .net mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more human friendly than driver code.
 
 # Why use it?
@@ -21,12 +21,15 @@ A light-weight .net standard library which simplifies access to mongodb by abstr
 - GeoSpatial search.
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
----
-# [Get Started >>](wiki/Get-Started.md)
-# [View Code Samples >>](wiki/Code-Samples.md)
----
-# Donations
-If this library has made your life easier and you'd like to express your gratitude, you can donate a couple of bucks via paypal by clicking below:
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
+---
 
+<div class="actions-container">
+  <div><a href="wiki/Get-Started.md">Get Started</a></div>
+  <div><a href="wiki/Code-Samples.md">Code Samples</a></div>
+</div>
+<div class="actions-container">
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE">
+    <img src="images/donate.png" style="margin-top:20px;"/>
+  </a>
+</div>

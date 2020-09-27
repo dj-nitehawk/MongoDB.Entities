@@ -39,6 +39,10 @@ namespace MongoDB.Entities
         }
     }
 
+    /// <summary>
+    /// Fluent aggregation pipeline builder for GeoNear
+    /// </summary>
+    /// <typeparam name="T">The type of entity</typeparam>
     public class GeoNear<T> where T : IEntity
     {
         public Coordinates2D near { get; set; }

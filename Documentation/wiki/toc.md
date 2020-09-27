@@ -1,5 +1,5 @@
 # [Tutorials]()
-## [Introduction](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
+## [Beginners Guide](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
 ## [Fuzzy Text Search](https://dev.to/djnitehawk/mongodb-fuzzy-text-search-with-c-the-easy-way-3l8j)
 ## [GeoSpatial Search](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd)
 

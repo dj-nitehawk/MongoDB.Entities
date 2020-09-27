@@ -39,6 +39,14 @@ var result = await DB.Find<Picture>().OneAsync(pic.ID);
 > [!note]
 > an entity type is tied to a specific database by calling the **DatabaseFor** method with the database name on startup. that entity type will always be stored in and retrieved from that specific database only. it is not possible to save a single entity type in multiple databases.
 
+if you prefer to keep your database specifications inside the entity classes themselves, you could even call `DatabaseFor` in the static constructor like so:
+```csharp
+public class Picture : Entity
+{
+    static Picture() => DB.DatabaseFor<Picture>("BookShopFILES");
+}
+```
+
 ### Get database name from an entity instance or type
 ```csharp
     var dbName = pic.DatabaseName();

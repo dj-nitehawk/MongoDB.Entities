@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,6 +61,9 @@ namespace MongoDB.Entities
         public byte[] Data { get; set; }
     }
 
+    /// <summary>
+    /// Provides the interface for uploading and downloading data chunks for file entities.
+    /// </summary>
     public class DataStreamer
     {
         private static readonly HashSet<string> indexedDBs = new HashSet<string>();

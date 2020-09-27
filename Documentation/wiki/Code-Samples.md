@@ -15,6 +15,14 @@
   book.Author = dickens.ToDocument();
   await book.SaveAsync();
 ```
+### Update entity properties
+```csharp
+  await DB.Update<Book>()
+          .Match(b => b.Title == "The Power Of Now")
+          .Modify(b => b.Publisher, "New World Order")
+          .Modify(b => b.ISBN, "SOMEISBNNUMBER")
+          .ExecuteAsync();
+```
 ### One-To-One relationship
 ```csharp
   var hemmingway = new Author { Name = "Ernest Hemmingway" };
@@ -56,21 +64,27 @@
   await book.MainAuthor.DeleteAsync();
   await book.AllAuthors.DeleteAllAsync();
   await book.DeleteAsync();
-  await DB.DeleteAsync<Genre>(genre.ID);
+  await DB.DeleteAsync<Genre>("ID");
+  await DB.DeleteAsync<Book>(b => b.Title == "The Power Of Now");
 ```
 ---
-# [Get Started >>](Get-Started.md)
+
+<div class="actions-container">
+  <div><a href="Get-Started.md">Get Started</a></div>
+</div>
+
 ---
+
 # Tutorials
-- [Introduction](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
+- [Beginners Guide](https://dev.to/djnitehawk/tutorial-mongodb-with-c-the-easy-way-1g68)
 - [Fuzzy Text Search](https://dev.to/djnitehawk/mongodb-fuzzy-text-search-with-c-the-easy-way-3l8j)
 - [GeoSpatial Search](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd)
 ---
 # More Examples
-- [.net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
-- [asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
-- [a collection of gists](https://gist.github.com/dj-nitehawk)
-- [integration/unit test project](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
-- [solutions to stackoverflow questions](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
+- [.Net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
+- [Asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
+- [A collection of gists](https://gist.github.com/dj-nitehawk)
+- [Integration/unit test project](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
+- [Solutions to stackoverflow questions](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)
 
 

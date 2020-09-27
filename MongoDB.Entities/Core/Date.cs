@@ -57,6 +57,9 @@ namespace MongoDB.Entities
         }
     }
 
+    /// <summary>
+    /// A custom date/time type for precision datetime handling
+    /// </summary>
     public class Date
     {
         private long ticks = 0;

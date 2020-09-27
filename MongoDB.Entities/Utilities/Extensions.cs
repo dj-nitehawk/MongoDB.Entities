@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    /// <summary>
+    /// Extension methods for entities
+    /// </summary>
     public static class Extensions
     {
         private class Holder<T>

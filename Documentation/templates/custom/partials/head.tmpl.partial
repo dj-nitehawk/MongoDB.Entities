@@ -26,4 +26,10 @@
   {{#_noindex}}<meta name="searchOption" content="noindex">{{/_noindex}}
   {{#_enableSearch}}<meta property="docfx:rel" content="{{_rel}}">{{/_enableSearch}}
   {{#_enableNewTab}}<meta property="docfx:newtab" content="true">{{/_enableNewTab}}
+  <meta property="og:title" content="MongoDB.Entities">
+  <meta property="og:site_name" content="MongoDB.Entities">
+  <meta property="og:url" content="https://mongodb-entities.com">
+  <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
 </head>

@@ -21,7 +21,7 @@
    | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../images/icon.png">
+    <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
@@ -30,6 +30,12 @@
     
     <meta property="docfx:rel" content="../">
     <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
@@ -100,21 +106,24 @@
       <section><p>Represents a GeoJsonPoint of GeoJson2DGeographicCoordinates</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.DataStreamer.html">DataStreamer</a></h4>
-      <section></section>
+      <section><p>Provides the interface for uploading and downloading data chunks for file entities.</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.Date.html">Date</a></h4>
-      <section></section>
+      <section><p>A custom date/time type for precision datetime handling</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.DB.html">DB</a></h4>
-      <section></section>
+      <section><p>The main entrypoint for all data access methods of the library</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.DontPreserveAttribute.html">DontPreserveAttribute</a></h4>
       <section><p>Properties that don't have this attribute will be omitted when using SavePreserving()
 TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Entity.html">Entity</a></h4>
       <section><p>Inherit this class for all entities you want to store in their own collection.</p>
-<p>TIP: If you want to store an entity in a particular database, use the [DatabaseAttribute]</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Extensions.html">Extensions</a></h4>
-      <section></section>
+      <section><p>Extension methods for entities</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.FileEntity.html">FileEntity</a></h4>
       <section><p>Inherit this base class in order to create your own File Entities</p>
 </section>
@@ -132,7 +141,8 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 <p>WARNING: Only strings of up to 250 characters is allowed</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.GeoNear-1.html">GeoNear&lt;T&gt;</a></h4>
-      <section></section>
+      <section><p>Fluent aggregation pipeline builder for GeoNear</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.IgnoreAttribute.html">IgnoreAttribute</a></h4>
       <section><p>Indicates that this property should be ignored when this class is persisted to MongoDB.</p>
 </section>
@@ -158,9 +168,11 @@ TIP: These attribute decorations are only effective if you do not specify a pres
       <section><p>A class used to hold join results when joining relationships</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></h4>
-      <section></section>
+      <section><p>Base class providing shared state for Many'1 classes</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.Migration.html">Migration</a></h4>
-      <section></section>
+      <section><p>Represents a migration history item in the database</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.NameAttribute.html">NameAttribute</a></h4>
       <section><p>Use this attribute to specify a custom MongoDB collection name for an IEntity.</p>
 </section>
@@ -215,9 +227,11 @@ TIP: These attribute decorations are only effective if you do not specify a pres
       <section><p>Implement this interface on entities you want the library to automatically store the creation date with</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.IEntity.html">IEntity</a></h4>
-      <section></section>
+      <section><p>The contract for Entity classes</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.IMigration.html">IMigration</a></h4>
-      <section></section>
+      <section><p>The contract for writing user data migration classes</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.IModifiedOn.html">IModifiedOn</a></h4>
       <section><p>Implement this interface on entities you want the library to automatically store the modified date with</p>
 </section>
@@ -255,7 +269,7 @@ TIP: These attribute decorations are only effective if you do not specify a pres
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Copyright © 2020 Đĵ ΝιΓΞΗΛψΚ
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
             
           </div>
         </div>

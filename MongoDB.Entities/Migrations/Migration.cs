@@ -1,5 +1,8 @@
 ﻿namespace MongoDB.Entities
 {
+    /// <summary>
+    /// Represents a migration history item in the database
+    /// </summary>
     [Name("_migration_history_")]
     public class Migration : Entity
     {
