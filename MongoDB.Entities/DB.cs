@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -175,8 +176,8 @@ namespace MongoDB.Entities
 
     internal static class TypeMap
     {
-        private static readonly Dictionary<Type, IMongoDatabase> TypeToDBMap = new Dictionary<Type, IMongoDatabase>();
-        private static readonly Dictionary<Type, string> TypeToCollMap = new Dictionary<Type, string>();
+        private static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new ConcurrentDictionary<Type, IMongoDatabase>();
+        private static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new ConcurrentDictionary<Type, string>();
 
         internal static void AddCollectionMapping(Type entityType, string collectionName)
             => TypeToCollMap[entityType] = collectionName;
@@ -203,7 +204,7 @@ namespace MongoDB.Entities
         internal static IMongoCollection<T> Collection { get; }
         internal static string DBName { get; }
         internal static string CollectionName { get; }
-        internal static Dictionary<string, Watcher<T>> Watchers { get; }
+        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; }
         internal static bool HasCreatedOn { get; }
         internal static bool HasModifiedOn { get; }
         internal static string ModifiedOnPropName { get; }
@@ -224,7 +225,7 @@ namespace MongoDB.Entities
             Collection = Database.GetCollection<T>(CollectionName);
             TypeMap.AddCollectionMapping(type, CollectionName);
 
-            Watchers = new Dictionary<string, Watcher<T>>();
+            Watchers = new ConcurrentDictionary<string, Watcher<T>>();
 
             var interfaces = type.GetInterfaces();
             HasCreatedOn = interfaces.Any(it => it == typeof(ICreatedOn));
@@ -244,7 +245,3 @@ namespace MongoDB.Entities
         }
     }
 }
-
-//todo: update readme with new async code before releasing v20.0
-
-//todo: merge v20 wiki repo to master after releasing v20.0

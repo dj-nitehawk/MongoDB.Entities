@@ -17,7 +17,7 @@ namespace MongoDB.Entities
                 return watcher;
 
             watcher = new Watcher<T>(name.ToLower().Trim());
-            Cache<T>.Watchers.Add(name, watcher);
+            Cache<T>.Watchers.TryAdd(name, watcher);
             return watcher;
         }
 
