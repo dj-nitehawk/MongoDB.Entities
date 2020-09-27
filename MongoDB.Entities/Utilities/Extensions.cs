@@ -39,6 +39,29 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Extension method for processing collections in batches
+        /// </summary>
+        /// <typeparam name="T">The type of the objects inside the source collection</typeparam>
+        /// <param name="collection">The source collection</param>
+        /// <param name="batchSize">The size of each batch</param>
+        public static IEnumerable<IEnumerable<T>> ToBatches<T>(this IEnumerable<T> collection, int batchSize = 100)
+        {
+            var batch = new List<T>(batchSize);
+
+            foreach (T item in collection)
+            {
+                batch.Add(item);
+                if (batch.Count == batchSize)
+                {
+                    yield return batch;
+                    batch = new List<T>(batchSize);
+                }
+            }
+            if (batch.Count > 0)
+                yield return batch;
+        }
+
+        /// <summary>
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
