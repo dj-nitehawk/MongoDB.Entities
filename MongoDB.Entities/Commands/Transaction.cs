@@ -44,6 +44,27 @@ namespace MongoDB.Entities
         public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
 
         /// <summary>
+        /// Gets an accurate count of how many entities are matched for a given expression/filter in the transaction scope.
+        /// </summary>
+        /// <typeparam name="T">The entity type to get the count for</typeparam>
+        /// <param name="expression">A lambda expression for getting the count for a subset of the data</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.CountAsync(expression, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Gets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.
+        /// </summary>
+        /// <typeparam name="T">The entity type to get the count for</typeparam>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.CountAsync<T>(_ => true, Session, cancellation);
+        }
+
+        /// <summary>
         /// Starts an update command for the given entity type in the transaction scope.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>

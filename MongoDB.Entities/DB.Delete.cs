@@ -86,7 +86,6 @@ namespace MongoDB.Entities
             }
 
             return new DeleteResult.Acknowledged(deletedCount);
-            //todo: write test for deleting 1mil entities.
         }
 
         /// <summary>
@@ -110,7 +109,6 @@ namespace MongoDB.Entities
             }
 
             return new DeleteResult.Acknowledged(deletedCount);
-            //todo: write test for deleting 1mil ids.
         }
     }
 }

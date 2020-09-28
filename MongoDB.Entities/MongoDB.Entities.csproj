@@ -10,8 +10,10 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.1.0-rc</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- improved high concurrency handling
-- improved deletes by doing high volume deletes in batches
+    <PackageReleaseNotes>- added methods for counting entities to the DB class
+- added transaction support for the new count methods
+- improved high concurrency handling
+- improved deletes by performing high volume deletes in batches
 - new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
