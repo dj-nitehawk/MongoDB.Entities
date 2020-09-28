@@ -9,6 +9,8 @@ namespace MongoDB.Entities
 {
     public static partial class DB
     {
+        private static readonly int deleteBatchSize = 100000;
+
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
             // note: cancellation should not be enabled because multiple collections are involved 
@@ -63,8 +65,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes matching entities from MongoDB
-        /// <para>HINT: If the expression matches more than 250,000 entities, they will be deleted in batches of 250k.</para>
+        /// Deletes matching entities with an expression
+        /// <para>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</para>
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -74,7 +76,7 @@ namespace MongoDB.Entities
         {
             long deletedCount = 0;
 
-            using (var cursor = await new Find<T, string>(session).Match(expression).Project(e => e.ID).Option(o => o.BatchSize = 250000).ExecuteCursorAsync().ConfigureAwait(false))
+            using (var cursor = await new Find<T, string>(session).Match(expression).Project(e => e.ID).Option(o => o.BatchSize = deleteBatchSize).ExecuteCursorAsync().ConfigureAwait(false))
             {
                 while (await cursor.MoveNextAsync().ConfigureAwait(false))
                 {
@@ -88,8 +90,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Deletes matching entities from MongoDB
-        /// <para>HINT: If more than 250,000 IDs are passed in, they will be processed in batches of 250k.</para>
+        /// Deletes entities using a collection of IDs
+        /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -97,12 +99,12 @@ namespace MongoDB.Entities
         /// <param name = "session" > An optional session if using within a transaction</param>
         public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null) where T : IEntity
         {
-            if (IDs.Count() <= 250000)
+            if (IDs.Count() <= deleteBatchSize)
                 return await DeleteCascadingAsync<T>(IDs, session).ConfigureAwait(false);
 
             long deletedCount = 0;
 
-            foreach (var batch in IDs.ToBatches(250000))
+            foreach (var batch in IDs.ToBatches(deleteBatchSize))
             {
                 deletedCount += (await DeleteCascadingAsync<T>(batch, session).ConfigureAwait(false)).DeletedCount;
             }
