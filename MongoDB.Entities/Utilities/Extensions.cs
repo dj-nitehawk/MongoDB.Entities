@@ -39,7 +39,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Extension method for processing collections in batches
+        /// Extension method for processing collections in batches with streaming (yield return)
         /// </summary>
         /// <typeparam name="T">The type of the objects inside the source collection</typeparam>
         /// <param name="collection">The source collection</param>
@@ -54,7 +54,7 @@ namespace MongoDB.Entities
                 if (batch.Count == batchSize)
                 {
                     yield return batch;
-                    batch = new List<T>(batchSize);
+                    batch.Clear();
                 }
             }
             if (batch.Count > 0)

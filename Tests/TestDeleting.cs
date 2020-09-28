@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -92,6 +95,37 @@ namespace MongoDB.Entities.Tests
                           .CountAsync(a => a.Name == "xxx");
 
             Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public async Task high_volume_deletes_with_idsAsync()
+        {
+            var IDs = new List<string>(100100);
+
+            for (int i = 0; i < 100100; i++)
+            {
+                IDs.Add(ObjectId.GenerateNewId().ToString());
+            }
+
+            await DB.DeleteAsync<Blank>(IDs);
+        }
+
+        [TestCategory("SkipWhenLiveUnitTesting")]
+        [TestMethod]
+        public async Task high_volume_deletes_with_expressionAsync()
+        {
+            var list = new List<Blank>(100100);
+            for (int i = 0; i < 100100; i++)
+            {
+                list.Add(new Blank());
+            }
+            await list.SaveAsync();
+
+            Assert.AreEqual(100100, DB.Queryable<Blank>().Count());
+
+            await DB.DeleteAsync<Blank>(_ => true);
+
+            Assert.AreEqual(0, await DB.CountAsync<Blank>());
         }
     }
 }

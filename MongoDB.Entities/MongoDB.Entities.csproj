@@ -8,10 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.1.0-beta2</Version>
+    <Version>20.1.0-rc</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- fix multi-threading issue with the Cache&lt;T&gt; class
-- batch up deletions to circumvent driver's 16mb command size</PackageReleaseNotes>
+    <PackageReleaseNotes>- added methods for counting entities to the DB class
+- added transaction support for the new count methods
+- improved high concurrency handling
+- improved deletes by performing high volume deletes in batches
+- new tests</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
