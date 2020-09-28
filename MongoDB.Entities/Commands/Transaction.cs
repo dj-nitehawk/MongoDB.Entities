@@ -249,9 +249,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
-        public Task<DeleteResult> DeleteAsync<T>(string ID) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(ID, Session);
+            return DB.DeleteAsync<T>(ID, Session, cancellation);
         }
 
         /// <summary>
@@ -261,9 +262,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync(expression, Session);
+            return DB.DeleteAsync(expression, Session, cancellation);
         }
 
         /// <summary>
@@ -273,9 +275,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
-        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(IDs, Session);
+            return DB.DeleteAsync<T>(IDs, Session, cancellation);
         }
 
         /// <summary>
