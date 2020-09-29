@@ -230,7 +230,7 @@ namespace MongoDB.Entities
                    : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID);
         }
 
-        private async Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
+        private Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
         {
             if (!isLastChunk)
             {
@@ -244,10 +244,12 @@ namespace MongoDB.Entities
                 doc.Data = dataChunk.ToArray();
                 dataChunk.Clear();
                 parent.ChunkCount++;
-                await (session == null
+                return session == null
                        ? chunkCollection.InsertOneAsync(doc, null, cancellation)
-                       : chunkCollection.InsertOneAsync(session, doc, null, cancellation));
+                       : chunkCollection.InsertOneAsync(session, doc, null, cancellation);
             }
+
+            return Task.CompletedTask;
         }
 
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
