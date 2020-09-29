@@ -34,7 +34,8 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new ConcurrentDictionary<string, IMongoDatabase>();
+        private static IMongoDatabase defaultDb;
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -62,18 +63,25 @@ namespace MongoDB.Entities
 
         private static async Task Initialize(MongoClientSettings settings, string dbName)
         {
-            if (string.IsNullOrEmpty(dbName)) throw new ArgumentNullException("database", "Database name cannot be empty!");
+            if (string.IsNullOrEmpty(dbName))
+                throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-            if (dbs.ContainsKey(dbName)) return;
+            if (dbs.ContainsKey(dbName))
+                return;
 
             try
             {
-                dbs.Add(dbName, new MongoClient(settings).GetDatabase(dbName));
-                await dbs[dbName].ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
+                var db = new MongoClient(settings).GetDatabase(dbName);
+
+                if (dbs.Count == 0)
+                    defaultDb = db;
+
+                dbs.TryAdd(dbName, db);
+                await db.ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
             }
             catch (Exception)
             {
-                dbs.Remove(dbName);
+                dbs.TryRemove(dbName, out _);
                 throw;
             }
         }
@@ -108,13 +116,9 @@ namespace MongoDB.Entities
             if (dbs.Count > 0)
             {
                 if (string.IsNullOrEmpty(name))
-                {
-                    db = dbs.First().Value;
-                }
+                    db = defaultDb;
                 else
-                {
                     dbs.TryGetValue(name, out db);
-                }
             }
 
             if (db == null)
@@ -124,35 +128,18 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Change current default database.
+        /// Switches the default database at runtime
+        /// <para>The default database is the very first connection your application initiates. You can switch the default database at any time by using this method.</para>
         /// </summary>
-        /// <param name="name"></param>
-        /// <exception cref="ArgumentNullException">Throws when specified database <see cref="name"/> null or empty.</exception>
-        /// <exception cref="InvalidOperationException">Throws when database with the specified <see cref="name"/> was not initialized.</exception>
+        /// <param name="name">The name of the database to mark as the new default database</param>
         public static void ChangeDefaultDatabase(string name)
         {
-            if(string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name),"Database name cannot be null or empty");
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
-            dbs.TryGetValue(name, out var db);
-            
-            if (db == null)
-                throw new InvalidOperationException($"Database connection is not initialized for [{name}]");
+            defaultDb = Database(name);
+        }// todo: add ChangeDefaultDatabase() to documentation
 
-            var defaultDb = dbs.First().Value;
-            if (db == defaultDb) return;
-            
-            dbs.Remove(name);
-            
-            var oldDbs = dbs;
-            dbs = new Dictionary<string, IMongoDatabase> { { name, db } };
-            
-            foreach (var oldDb in oldDbs)
-            {
-                dbs.Add(oldDb.Key, oldDb.Value);
-            }
-        }
-        
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>

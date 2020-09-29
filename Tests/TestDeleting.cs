@@ -111,9 +111,12 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestCategory("SkipWhenLiveUnitTesting")]
-        [TestMethod]
+        //[TestMethod]
         public async Task high_volume_deletes_with_expressionAsync()
         {
+            //start with clean collection
+            await DB.DropCollectionAsync<Blank>();
+
             var list = new List<Blank>(100100);
             for (int i = 0; i < 100100; i++)
             {
@@ -126,6 +129,10 @@ namespace MongoDB.Entities.Tests
             await DB.DeleteAsync<Blank>(_ => true);
 
             Assert.AreEqual(0, await DB.CountAsync<Blank>());
+
+            //reclaim disk space disk space
+            await DB.DropCollectionAsync<Blank>();
+            await DB.SaveAsync(new Blank());
         }
     }
 }
