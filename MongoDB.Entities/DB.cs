@@ -34,7 +34,7 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -123,6 +123,36 @@ namespace MongoDB.Entities
             return db;
         }
 
+        /// <summary>
+        /// Change current default database.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <exception cref="ArgumentNullException">Throws when specified database <see cref="name"/> null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Throws when database with the specified <see cref="name"/> was not initialized.</exception>
+        public static void ChangeDefaultDatabase(string name)
+        {
+            if(string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name),"Database name cannot be null or empty");
+
+            dbs.TryGetValue(name, out var db);
+            
+            if (db == null)
+                throw new InvalidOperationException($"Database connection is not initialized for [{name}]");
+
+            var defaultDb = dbs.First().Value;
+            if (db == defaultDb) return;
+            
+            dbs.Remove(name);
+            
+            var oldDbs = dbs;
+            dbs = new Dictionary<string, IMongoDatabase> { { name, db } };
+            
+            foreach (var oldDb in oldDbs)
+            {
+                dbs.Add(oldDb.Key, oldDb.Value);
+            }
+        }
+        
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
