@@ -31,10 +31,10 @@ namespace MongoDB.Entities.Tests
 
             var bookDb = DB.Database<Book>();
 
-            Assert.AreEqual(database, bookDb);
+            Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
         }
-        
-        //[TestMethod]
+
+        [TestMethod]
         public async Task do_not_change_default_database_when_the_same()
         {
             await DB.InitAsync("test1");

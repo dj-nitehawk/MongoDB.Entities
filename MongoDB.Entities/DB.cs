@@ -138,7 +138,7 @@ namespace MongoDB.Entities
                 throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
             defaultDb = Database(name);
-        }// todo: add ChangeDefaultDatabase() to documentation
+        }
 
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
