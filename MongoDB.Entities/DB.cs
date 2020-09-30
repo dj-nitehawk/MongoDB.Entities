@@ -35,6 +35,7 @@ namespace MongoDB.Entities
         }
 
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static IMongoDatabase defaultDb;
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -62,14 +63,22 @@ namespace MongoDB.Entities
 
         private static async Task Initialize(MongoClientSettings settings, string dbName)
         {
-            if (string.IsNullOrEmpty(dbName)) throw new ArgumentNullException("database", "Database name cannot be empty!");
+            if (string.IsNullOrEmpty(dbName))
+                throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-            if (dbs.ContainsKey(dbName)) return;
+            if (dbs.ContainsKey(dbName))
+                return;
 
             try
             {
-                dbs.Add(dbName, new MongoClient(settings).GetDatabase(dbName));
-                await dbs[dbName].ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
+                var db = new MongoClient(settings).GetDatabase(dbName);
+
+                if (dbs.Count == 0)
+                    defaultDb = db;
+
+                dbs.Add(dbName, db);
+
+                await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -108,13 +117,9 @@ namespace MongoDB.Entities
             if (dbs.Count > 0)
             {
                 if (string.IsNullOrEmpty(name))
-                {
-                    db = dbs.First().Value;
-                }
+                    db = defaultDb;
                 else
-                {
                     dbs.TryGetValue(name, out db);
-                }
             }
 
             if (db == null)
