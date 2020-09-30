@@ -111,7 +111,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestCategory("SkipWhenLiveUnitTesting")]
-        //[TestMethod]
+        [TestMethod]
         public async Task high_volume_deletes_with_expressionAsync()
         {
             //start with clean collection
@@ -130,7 +130,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(0, await DB.CountAsync<Blank>());
 
-            //reclaim disk space disk space
+            //reclaim disk space
             await DB.DropCollectionAsync<Blank>();
             await DB.SaveAsync(new Blank());
         }

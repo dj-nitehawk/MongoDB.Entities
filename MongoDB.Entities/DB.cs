@@ -34,7 +34,7 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new ConcurrentDictionary<string, IMongoDatabase>();
+        private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static IMongoDatabase defaultDb;
 
         /// <summary>
@@ -76,12 +76,13 @@ namespace MongoDB.Entities
                 if (dbs.Count == 0)
                     defaultDb = db;
 
-                dbs.TryAdd(dbName, db);
-                await db.ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
+                dbs.Add(dbName, db);
+
+                await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
             }
             catch (Exception)
             {
-                dbs.TryRemove(dbName, out _);
+                dbs.Remove(dbName);
                 throw;
             }
         }
@@ -125,19 +126,6 @@ namespace MongoDB.Entities
                 throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
 
             return db;
-        }
-
-        /// <summary>
-        /// Switches the default database at runtime
-        /// <para>The default database is the very first connection your application initiates. You can switch the default database at any time by using this method.</para>
-        /// </summary>
-        /// <param name="name">The name of the database to mark as the new default database</param>
-        public static void ChangeDefaultDatabase(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
-
-            defaultDb = Database(name);
         }
 
         /// <summary>
