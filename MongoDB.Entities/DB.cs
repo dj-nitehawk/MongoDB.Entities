@@ -215,9 +215,9 @@ namespace MongoDB.Entities
 
     internal static class Cache<T> where T : IEntity
     {
-        internal static IMongoDatabase Database { get; }
-        internal static IMongoCollection<T> Collection { get; }
-        internal static string DBName { get; }
+        internal static IMongoDatabase Database { get; private set; }
+        internal static IMongoCollection<T> Collection { get; private set; }
+        internal static string DBName { get; private set; }
         internal static string CollectionName { get; }
         internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; }
         internal static bool HasCreatedOn { get; }
@@ -246,6 +246,18 @@ namespace MongoDB.Entities
             HasCreatedOn = interfaces.Any(it => it == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(it => it == typeof(IModifiedOn));
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
+
+            DefaultDb.Instance.DatabaseChanged -= OnDatabaseChanged;
+            DefaultDb.Instance.DatabaseChanged += OnDatabaseChanged;
+        }
+
+        private static void OnDatabaseChanged(object sender, EventArgs e)
+        {
+            var type = typeof(T);
+            Database = TypeMap.GetDatabase(type);
+            DBName = Database.DatabaseNamespace.DatabaseName;
+            Collection = Database.GetCollection<T>(CollectionName);
+            TypeMap.AddCollectionMapping(type, CollectionName);
         }
     }
 
