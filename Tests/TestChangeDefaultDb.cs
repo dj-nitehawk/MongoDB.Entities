@@ -41,7 +41,11 @@ namespace MongoDB.Entities.Tests
 
             var defaultDb = DB.Database(default);
 
-            DB.ChangeDefaultDatabase("mongodb-entities-test");
+            // to ensure default db name
+            var defaultDbName = DB.Database<Author>().DatabaseNamespace.DatabaseName;
+
+            //DB.ChangeDefaultDatabase("mongodb-entities-test");
+            DB.ChangeDefaultDatabase(defaultDbName);
 
             var bookDb = DB.Database<Book>();
             Assert.AreSame(defaultDb, bookDb);
