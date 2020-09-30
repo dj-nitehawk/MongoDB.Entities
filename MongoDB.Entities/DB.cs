@@ -5,7 +5,6 @@ using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -35,7 +34,6 @@ namespace MongoDB.Entities
         }
 
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new ConcurrentDictionary<string, IMongoDatabase>();
-        private static IMongoDatabase defaultDb;
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -74,7 +72,7 @@ namespace MongoDB.Entities
                 var db = new MongoClient(settings).GetDatabase(dbName);
 
                 if (dbs.Count == 0)
-                    defaultDb = db;
+                    DefaultDb.Instance.Database = db;
 
                 dbs.TryAdd(dbName, db);
                 await db.ListCollectionNamesAsync().ConfigureAwait(false); //get a cursor for the list of collection names so that first db connection is established
@@ -116,7 +114,7 @@ namespace MongoDB.Entities
             if (dbs.Count > 0)
             {
                 if (string.IsNullOrEmpty(name))
-                    db = defaultDb;
+                    db = DefaultDb.Instance.Database;
                 else
                     dbs.TryGetValue(name, out db);
             }
@@ -137,7 +135,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
-            defaultDb = Database(name);
+            DefaultDb.Instance.Database = Database(name);
         }
 
         /// <summary>
@@ -260,5 +258,28 @@ namespace MongoDB.Entities
                 _ = mMap.SetShouldSerializeMethod(_ => false);
             }
         }
+    }
+
+    internal class DefaultDb
+    {
+        static DefaultDb() { }
+
+        private DefaultDb() { }
+
+        public static DefaultDb Instance { get; } = new DefaultDb();
+
+        private IMongoDatabase database;
+
+        public IMongoDatabase Database
+        {
+            get => database;
+            set
+            {
+                database = value;
+                DatabaseChanged?.Invoke(this, null);
+            }
+        }
+
+        public event EventHandler DatabaseChanged;
     }
 }
