@@ -13,6 +13,3 @@ namespace MongoDB.Entities.Tests
         }
     }
 }
-
-//db.setProfilingLevel(2)
-//db.system.profile.find().limit(3).sort( { ts : -1 } ).pretty()

@@ -34,6 +34,8 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
+        internal static event Action DefaultDbChanged;
+
         private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
         private static IMongoDatabase defaultDb;
 
@@ -138,6 +140,24 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Switches the default database at runtime
+        /// <para>WARNING: Use at your own risk!!! Might result in entities getting saved in the wrong databases under high concurrency situations.</para>
+        /// <para>TIP: Make sure to cancel any watchers (change-streams) before switching the default database.</para>
+        /// </summary>
+        /// <param name="name">The name of the database to mark as the new default database</param>
+        public static void ChangeDefaultDatabase(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
+
+            defaultDb = Database(name);
+
+            TypeMap.Clear();
+
+            DefaultDbChanged?.Invoke();
+        }
+
+        /// <summary>
         /// Exposes the mongodb Filter Definition Builder for a given type.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -196,6 +216,12 @@ namespace MongoDB.Entities
         internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
             => TypeToDBMap[entityType] = database;
 
+        internal static void Clear()
+        {
+            TypeToDBMap.Clear();
+            TypeToCollMap.Clear();
+        }
+
         internal static IMongoDatabase GetDatabase(Type entityType)
         {
             TypeToDBMap.TryGetValue(entityType, out IMongoDatabase db);
@@ -205,16 +231,22 @@ namespace MongoDB.Entities
 
     internal static class Cache<T> where T : IEntity
     {
-        internal static IMongoDatabase Database { get; }
-        internal static IMongoCollection<T> Collection { get; }
-        internal static string DBName { get; }
-        internal static string CollectionName { get; }
-        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; }
-        internal static bool HasCreatedOn { get; }
-        internal static bool HasModifiedOn { get; }
-        internal static string ModifiedOnPropName { get; }
+        internal static IMongoDatabase Database { get; private set; }
+        internal static IMongoCollection<T> Collection { get; private set; }
+        internal static string DBName { get; private set; }
+        internal static string CollectionName { get; private set; }
+        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; }
+        internal static bool HasCreatedOn { get; private set; }
+        internal static bool HasModifiedOn { get; private set; }
+        internal static string ModifiedOnPropName { get; private set; }
 
         static Cache()
+        {
+            Initialize();
+            DB.DefaultDbChanged += Initialize;
+        }
+
+        private static void Initialize()
         {
             var type = typeof(T);
 
