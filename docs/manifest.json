@@ -824,6 +824,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "wiki/Queries-Count.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Queries-Count.html",
+          "hash": "g3Zj5W4bw2tt0c5Aqm4F6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "wiki/Queries-Find.md",
       "output": {
         ".html": {
@@ -840,7 +852,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Queries-Linq.html",
-          "hash": "Sbw8TKzdHFpe0KD3iACEsw=="
+          "hash": "80R9NsxmgcgTIc2kbs4CIw=="
         }
       },
       "is_incremental": false,
@@ -924,7 +936,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/toc.html",
-          "hash": "6CMdp7sC1Nb5ZpwYyDL03w=="
+          "hash": "rZCJPNK8yVdHKszNy+d1Og=="
         }
       },
       "is_incremental": false,
@@ -943,14 +955,14 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 25,
+          "total_file_count": 26,
           "skipped_file_count": 25
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 43,
-          "skipped_file_count": 13
+          "skipped_file_count": 43
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

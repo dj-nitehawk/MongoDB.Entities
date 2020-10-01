@@ -1,4 +1,4 @@
-# LINQ Queries
+# LINQ queries
 
 see the mongodb c# driver [linq documentation](http://mongodb.github.io/mongo-csharp-driver/2.11/reference/driver/crud/linq/) to see which LINQ operations are available.
 also see the c# driver [expressions documentation](http://mongodb.github.io/mongo-csharp-driver/2.11/reference/driver/expressions/) to see all supported expressions.
