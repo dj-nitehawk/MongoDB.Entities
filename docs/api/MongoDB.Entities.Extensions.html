@@ -1380,6 +1380,72 @@ The properties to be preserved can be specified with a 'New' expression or using
   </table>
   
   
+  <a id="MongoDB_Entities_Extensions_ToBatches_" data-uid="MongoDB.Entities.Extensions.ToBatches*"></a>
+  <h4 id="MongoDB_Entities_Extensions_ToBatches__1_System_Collections_Generic_IEnumerable___0__System_Int32_" data-uid="MongoDB.Entities.Extensions.ToBatches``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">ToBatches&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</h4>
+  <div class="markdown level1 summary"><p>Extension method for processing collections in batches with streaming (yield return)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;IEnumerable&lt;T&gt;&gt; ToBatches&lt;T&gt;(this IEnumerable&lt;T&gt; collection, int batchSize = 100)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">collection</span></td>
+        <td><p>The source collection</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">batchSize</span></td>
+        <td><p>The size of each batch</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the objects inside the source collection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Extensions_ToDocument_" data-uid="MongoDB.Entities.Extensions.ToDocument*"></a>
   <h4 id="MongoDB_Entities_Extensions_ToDocument__1___0_" data-uid="MongoDB.Entities.Extensions.ToDocument``1(``0)">ToDocument&lt;T&gt;(T)</h4>
   <div class="markdown level1 summary"><p>Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.</p>

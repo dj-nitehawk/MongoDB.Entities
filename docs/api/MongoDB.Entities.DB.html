@@ -140,10 +140,41 @@
   </h3>
   
   
+  <a id="MongoDB_Entities_DB_ChangeDefaultDatabase_" data-uid="MongoDB.Entities.DB.ChangeDefaultDatabase*"></a>
+  <h4 id="MongoDB_Entities_DB_ChangeDefaultDatabase_System_String_" data-uid="MongoDB.Entities.DB.ChangeDefaultDatabase(System.String)">ChangeDefaultDatabase(String)</h4>
+  <div class="markdown level1 summary"><p>Switches the default database at runtime</p>
+<p>WARNING: Use at your own risk!!! Might result in entities getting saved in the wrong databases under high concurrency situations.</p>
+<p>TIP: Make sure to cancel any watchers (change-streams) before switching the default database.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeDefaultDatabase(string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the database to mark as the new default database</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DB_Collection_" data-uid="MongoDB.Entities.DB.Collection*"></a>
   <h4 id="MongoDB_Entities_DB_Collection__1" data-uid="MongoDB.Entities.DB.Collection``1">Collection&lt;T&gt;()</h4>
   <div class="markdown level1 summary"><p>Gets the IMongoCollection for a given IEntity type.</p>
-<p>TIP: Try never to use this unless really neccessary.</p>
+<p>TIP: Try never to use this unless really necessary.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -223,6 +254,211 @@
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The type of entity to get the collection name for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_CountAsync_" data-uid="MongoDB.Entities.DB.CountAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">CountAsync&lt;T&gt;(IClientSessionHandle, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to get the count for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_CountAsync_" data-uid="MongoDB.Entities.DB.CountAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an accurate count of how many entities are matched for a given expression/filter</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>A lambda expression for getting the count for a subset of the data</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to get the count for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_CountEstimatedAsync_" data-uid="MongoDB.Entities.DB.CountEstimatedAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_CountEstimatedAsync__1_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountEstimatedAsync``1(System.Threading.CancellationToken)">CountEstimatedAsync&lt;T&gt;(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets a fast estimation of how many documents are in the collection using metadata.</p>
+<p>HINT: The estimation may not be exactly accurate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountEstimatedAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to get the count for</p>
 </td>
       </tr>
     </tbody>
@@ -411,15 +647,15 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, IClientSessionHandle)</h4>
-  <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB</p>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes entities using a collection of IDs</p>
+<p>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
-<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, IClientSessionHandle session = null)
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -445,6 +681,12 @@ Only needed for entity types you want stored in a db other than the default db.<
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -481,15 +723,15 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle)</h4>
-  <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB</p>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Deletes matching entities with an expression</p>
+<p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
-<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null)
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -515,6 +757,12 @@ Only needed for entity types you want stored in a db other than the default db.<
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -551,14 +799,14 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_String_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.String,MongoDB.Driver.IClientSessionHandle)">DeleteAsync&lt;T&gt;(String, IClientSessionHandle)</h4>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_String_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(String, IClientSessionHandle, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes a single entity from MongoDB.</p>
 <p>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, IClientSessionHandle session = null)
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -582,6 +830,12 @@ Only needed for entity types you want stored in a db other than the default db.<
         <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
 </td>
       </tr>
     </tbody>
@@ -1267,7 +1521,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <a id="MongoDB_Entities_DB_InitAsync_" data-uid="MongoDB.Entities.DB.InitAsync*"></a>
   <h4 id="MongoDB_Entities_DB_InitAsync_System_String_MongoDB_Driver_MongoClientSettings_" data-uid="MongoDB.Entities.DB.InitAsync(System.String,MongoDB.Driver.MongoClientSettings)">InitAsync(String, MongoClientSettings)</h4>
   <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.
-You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.</p>
+You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1318,7 +1572,7 @@ You can call this method as many times as you want (such as in serveless functio
   <a id="MongoDB_Entities_DB_InitAsync_" data-uid="MongoDB.Entities.DB.InitAsync*"></a>
   <h4 id="MongoDB_Entities_DB_InitAsync_System_String_System_String_System_Int32_" data-uid="MongoDB.Entities.DB.InitAsync(System.String,System.String,System.Int32)">InitAsync(String, String, Int32)</h4>
   <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.
-You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.</p>
+You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1344,7 +1598,7 @@ You can call this method as many times as you want (such as in serveless functio
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">host</span></td>
-        <td><p>Adderss of the MongoDB server</p>
+        <td><p>Address of the MongoDB server</p>
 </td>
       </tr>
       <tr>

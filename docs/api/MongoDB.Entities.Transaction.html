@@ -212,7 +212,7 @@
   
   <a id="MongoDB_Entities_Transaction_AbortAsync_" data-uid="MongoDB.Entities.Transaction.AbortAsync*"></a>
   <h4 id="MongoDB_Entities_Transaction_AbortAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)">AbortAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Aborts and rolls back a tranaction</p>
+  <div class="markdown level1 summary"><p>Aborts and rolls back a transaction</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -256,7 +256,7 @@
   
   <a id="MongoDB_Entities_Transaction_CommitAsync_" data-uid="MongoDB.Entities.Transaction.CommitAsync*"></a>
   <h4 id="MongoDB_Entities_Transaction_CommitAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)">CommitAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Commits a tranaction to MongoDB</p>
+  <div class="markdown level1 summary"><p>Commits a transaction to MongoDB</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -298,8 +298,138 @@
   </table>
   
   
+  <a id="MongoDB_Entities_Transaction_CountAsync_" data-uid="MongoDB.Entities.Transaction.CountAsync*"></a>
+  <h4 id="MongoDB_Entities_Transaction_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an accurate count of how many entities are matched for a given expression/filter in the transaction scope.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>A lambda expression for getting the count for a subset of the data</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to get the count for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Transaction_CountAsync_" data-uid="MongoDB.Entities.Transaction.CountAsync*"></a>
+  <h4 id="MongoDB_Entities_Transaction_CountAsync__1_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.CountAsync``1(System.Threading.CancellationToken)">CountAsync&lt;T&gt;(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to get the count for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Transaction_DeleteAsync_" data-uid="MongoDB.Entities.Transaction.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String})">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;)</h4>
+  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB in the transaction scope</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 <p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
@@ -307,7 +437,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -327,6 +457,12 @@
         <td><p>An IEnumerable of entity IDs</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -363,7 +499,7 @@
   
   
   <a id="MongoDB_Entities_Transaction_DeleteAsync_" data-uid="MongoDB.Entities.Transaction.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB in the transaction scope</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 <p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
@@ -371,7 +507,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -391,6 +527,12 @@
         <td><p>A lambda expression for matching entities to delete.</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -427,14 +569,14 @@
   
   
   <a id="MongoDB_Entities_Transaction_DeleteAsync_" data-uid="MongoDB.Entities.Transaction.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_String_" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.String)">DeleteAsync&lt;T&gt;(String)</h4>
+  <h4 id="MongoDB_Entities_Transaction_DeleteAsync__1_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.DeleteAsync``1(System.String,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes a single entity from MongoDB in the transaction scope.</p>
 <p>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -452,6 +594,12 @@
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>The Id of the entity to delete</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
 </td>
       </tr>
     </tbody>
