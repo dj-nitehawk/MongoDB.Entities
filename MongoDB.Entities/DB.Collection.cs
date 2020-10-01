@@ -13,7 +13,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Gets the IMongoCollection for a given IEntity type.
-        /// <para>TIP: Try never to use this unless really neccessary.</para>
+        /// <para>TIP: Try never to use this unless really necessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static IMongoCollection<T> Collection<T>() where T : IEntity
