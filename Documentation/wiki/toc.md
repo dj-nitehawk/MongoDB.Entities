@@ -18,6 +18,7 @@
 ## [Find](Queries-Find.md)
 ## [LINQ](Queries-Linq.md)
 ## [Fluent Pipelines](Queries-Pipelines.md)
+## [Count](Queries-Count.md)
 
 # [Indexes](Indexes.md)
 ## [Fuzzy Text](Indexes-Fuzzy-Text-Search.md)

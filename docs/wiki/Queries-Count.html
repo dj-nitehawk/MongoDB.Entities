@@ -14,9 +14,9 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>LINQ queries | MongoDB.Entities </title>
+    <title>Count entities | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="LINQ queries | MongoDB.Entities ">
+    <meta name="title" content="Count entities | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
@@ -92,54 +92,22 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="linq-queries">LINQ queries</h1>
+<h1 id="count-entities">Count entities</h1>
 
-<p>see the mongodb c# driver <a href="http://mongodb.github.io/mongo-csharp-driver/2.11/reference/driver/crud/linq/">linq documentation</a> to see which LINQ operations are available.
-also see the c# driver <a href="http://mongodb.github.io/mongo-csharp-driver/2.11/reference/driver/expressions/">expressions documentation</a> to see all supported expressions.</p>
-<div class="TIP">
-<h5>Tip</h5>
-<p>don't forget to first import the mongodb linq extensions with <strong>using MongoDB.Driver.Linq;</strong></p>
-</div>
-<h2 id="query-collections">Query collections</h2>
-<pre><code class="lang-csharp">var author = await (from a in DB.Queryable&lt;Author&gt;()
-                    where a.Name.Contains(&quot;Eckhart&quot;)
-                    select a).FirstOrDefaultAsync();
+<p>there are a couple of ways to get the count of entities stored in a collection.</p>
+<h3 id="count-estimated-total">Count estimated total</h3>
+<pre><code class="lang-csharp">var count = await DB.CountEstimatedAsync&lt;Author&gt;();
 </code></pre>
-<h3 id="collection-shortcut">Collection shortcut</h3>
-<pre><code class="lang-csharp">var authors = from a in author.Queryable()
-              select a;
+<p>you can get a fast estimate of total entities for a given entity type at the expense of accuracy.
+the above will give you a rough estimate of the total entities using collection meta-data.</p>
+<h3 id="count-total-entities">Count total entities</h3>
+<pre><code class="lang-csharp">var count = await DB.CountAsync&lt;Author&gt;();
 </code></pre>
-<p>this <code>.Queryable()</code> is an <code>IQueryable</code> for the whole collection of <code>Authors</code> which you can write queries against.</p>
-<h2 id="forward-relationship-access">Forward relationship access</h2>
-<p>every <code>Many&lt;T&gt;</code> property gives you access to an <code>IQueryable</code> of child entities.</p>
-<pre><code class="lang-csharp">var authors = from a in book.Authors.ChildrenQueryable()
-              select a;
+<p>the above will give you an accurate count of total entities by running an aggregation query.</p>
+<h3 id="count-matches-for-an-expression">Count matches for an expression</h3>
+<pre><code class="lang-csharp">var count = await DB.CountAsync&lt;Author&gt;(a =&gt; a.Title == &quot;The Power Of Now&quot;);
 </code></pre>
-<p>this <code>.ChildrenQueryable()</code> is an already filtered <code>IQueryable</code> of child entities. For ex: the above <code>.ChildrenQueryable()</code> is limited to only the Authors of that particular <code>Book</code> entity. It does not give you access to all of the <code>Author</code> entities in the Authors collection.</p>
-<h2 id="reverse-relationship-access">Reverse relationship access</h2>
-<p>for example, if you'd like to get all the books belonging to a genre, you can do it with the help of <code>.ParentsQueryable()</code> like so:</p>
-<pre><code class="lang-csharp">var books = book.Genres
-                .ParentsQueryable&lt;Book&gt;(&quot;GenreID&quot;);
-</code></pre>
-<p>you can also pass in an <code>IQueryable</code> of genres and get back an <code>IQueryable</code> of books like shown below:</p>
-<pre><code class="lang-csharp">var query = genre.Queryable()
-                 .Where(g =&gt; g.Name.Contains(&quot;Music&quot;));
-
-var books = book.Genres
-                .ParentsQueryable&lt;Book&gt;(query);
-</code></pre>
-<p>it is basically a convenience method instead of having to do a manual join like the one shown below in order to access parents of one-to-many or many-to-many relationships.</p>
-<h2 id="relationship-joins">Relationship joins</h2>
-<p><code>Many&lt;T&gt;.JoinQueryable()</code> gives you access to all the join records of that particular relationship. A join record has two properties <code>ParentID</code> and <code>ChildID</code> that you can use to gain access to parent Entities like so:</p>
-<pre><code class="lang-csharp">var books = from j in book.Authors.JoinQueryable()
-            join b in book.Queryable() on j.ParentID equals b.ID
-            select b;
-</code></pre>
-<h2 id="counting-children">Counting children</h2>
-<p>you can get how many entities are there in the opposite side of any relationship as shown below:</p>
-<pre><code class="lang-csharp">var authorCount = await book.Authors.ChildrenCountAsync();
-var bookCount = await author.Books.ChildrenCountAsync();
-</code></pre>
+<p>you can get the number of entities that matches a given expression/filter with the above.</p>
 </article>
           </div>
           
