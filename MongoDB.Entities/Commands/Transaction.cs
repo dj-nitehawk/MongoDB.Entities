@@ -32,13 +32,13 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Commits a tranaction to MongoDB
+        /// Commits a transaction to MongoDB
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task CommitAsync(CancellationToken cancellation = default) => Session.CommitTransactionAsync(cancellation);
 
         /// <summary>
-        /// Aborts and rolls back a tranaction
+        /// Aborts and rolls back a transaction
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);

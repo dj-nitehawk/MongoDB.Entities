@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Initializes a template with a tagged input string.
         /// </summary>
-        /// <param name="template">The template string with tags for targetting replacements such as "&lt;Author.Name&gt;"</param>
+        /// <param name="template">The template string with tags for targeting replacements such as "&lt;Author.Name&gt;"</param>
         public Template(string template) : base(template) { }
     }
 
@@ -33,7 +33,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Initializes a template with a tagged input string.
         /// </summary>
-        /// <param name="template">The template string with tags for targetting replacements such as "&lt;Author.Name&gt;"</param>
+        /// <param name="template">The template string with tags for targeting replacements such as "&lt;Author.Name&gt;"</param>
         public Template(string template) : base(template) { }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Initialize a command builder with the supplied template string.
         /// </summary>
-        /// <param name="template">The template string with tags for targetting replacements such as "&lt;Author.Name&gt;"</param>
+        /// <param name="template">The template string with tags for targeting replacements such as "&lt;Author.Name&gt;"</param>
         public Template(string template)
         {
             builder = new StringBuilder(template, template.Length);

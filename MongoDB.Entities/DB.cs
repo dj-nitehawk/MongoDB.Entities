@@ -25,7 +25,7 @@ namespace MongoDB.Entities
             BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
 
             ConventionRegistry.Register(
-                "DefaultConvetions",
+                "DefaultConventions",
                 new ConventionPack
                 {
                         new IgnoreExtraElementsConvention(true),
@@ -41,10 +41,10 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
-        /// You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.
+        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
         /// <param name="database">Name of the database</param>
-        /// <param name="host">Adderss of the MongoDB server</param>
+        /// <param name="host">Address of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
         public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
         {
@@ -54,7 +54,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
-        /// You can call this method as many times as you want (such as in serveless functions) with the same parameters and the connections won't get duplicated.
+        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="settings">A MongoClientSettings object</param>

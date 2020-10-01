@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -116,7 +115,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify a seach term to find results from the text index of this paricular collection.
+        /// Specify a search term to find results from the text index of this particular collection.
         /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
         /// </summary>
         /// <param name="searchType">The type of text matching to do</param>
@@ -259,7 +258,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify how many entiteis to Take/Limit
+        /// Specify how many entities to Take/Limit
         /// </summary>
         /// <param name="takeCount">The number to limit/take</param>
         public Find<T, TProjection> Limit(int takeCount)
