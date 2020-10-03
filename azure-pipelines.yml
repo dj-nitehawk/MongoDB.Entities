@@ -1,0 +1,58 @@
+trigger:
+  tags:
+    include:
+    - 'v*'
+  branches:
+    exclude:
+    - master
+    - dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: |
+   wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+   echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+   sudo apt-get update
+   sudo apt-get install -y mongodb-org
+   mkdir $(System.DefaultWorkingDirectory)/mongodb
+   mkdir $(System.DefaultWorkingDirectory)/mongodb/log
+   mongod --fork --replSet 'MyRep' --dbpath $(System.DefaultWorkingDirectory)/mongodb --logpath $(System.DefaultWorkingDirectory)/mongodb/log/mongod.log
+   mongo --eval "rs.initiate()"
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Install MongoDB'
+
+- task: UseDotNet@2
+  displayName: 'Use .Net Core SDK 3.x'
+  inputs:
+    packageType: 'sdk'
+    version: '3.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Tests'
+  inputs:
+    command: 'test'
+    projects: '**/*[Tt]ests/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+    workingDirectory: 'Tests'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Make Nuget Package'
+  inputs:
+    command: 'pack'
+    packagesToPack: 'MongoDB.Entities/MongoDB.Entities.csproj'
+    versioningScheme: 'off'
+    verbosityPack: 'Minimal'
+
+- task: NuGetCommand@2
+  displayName: 'Publish To Nuget'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget-djnitehawk'
+
