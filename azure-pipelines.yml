@@ -4,8 +4,7 @@ trigger:
     - 'v*'
   branches:
     exclude:
-    - master
-    - dev
+    - '*'
 
 pool:
   vmImage: 'ubuntu-latest'
