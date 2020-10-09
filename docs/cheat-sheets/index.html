@@ -14,9 +14,9 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Fuzzy Text Search | MongoDB.Entities </title>
+    <title>Welcome to the cheat sheets | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Fuzzy Text Search | MongoDB.Entities ">
+    <meta name="title" content="Welcome to the cheat sheets | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
@@ -92,56 +92,9 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="fuzzy-text-search">Fuzzy Text Search</h1>
+<h1 id="welcome-to-the-cheat-sheets">Welcome to the cheat sheets</h1>
 
-<p>fuzzy text matching is done using the <a href="https://en.wikipedia.org/wiki/Metaphone">double metaphone</a> algorythm. with it you can find non-exact matches that sounds similar to your search term.</p>
-<p>fuzzy matching will only work on properties that are of the type <a href="xref:MongoDB.Entities.FuzzyString">FuzzyString</a> which is supplied by this library. it also requires adding these properties to a text index.</p>
-<p>here's how you'd typically get the fuzzy search to work:</p>
-<h2 id="1-define-entity-class">1. Define entity class</h2>
-<pre><code class="lang-csharp">public class Book : Entity
-{
-    public FuzzyString AuthorName { get; set; }
-}
-</code></pre>
-<h2 id="2-create-text-index">2. Create text index</h2>
-<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;()
-        .Key(b =&gt; b.AuthorName, KeyType.Text)
-        .CreateAsync();
-</code></pre>
-<h2 id="3-store-the-entity">3. Store the entity</h2>
-<pre><code class="lang-csharp">await new Book { AuthorName = &quot;Eckhart Tolle&quot; }.SaveAsync();
-</code></pre>
-<h2 id="4-do-a-fuzzy-search-on-the-index">4. Do a fuzzy search on the index</h2>
-<pre><code class="lang-csharp">var results = await DB.Find&lt;Book&gt;()
-                      .Match(Search.Fuzzy, &quot;ekard tole&quot;)
-                      .ExecuteAsync();
-</code></pre>
-<p>that's all there's to it...</p>
-<p>in case you need to start a flunt aggregation pipeline with fuzzy text matching, you can do it like so:</p>
-<pre><code class="lang-csharp">DB.FluentTextSearch&lt;Book&gt;(Search.Fuzzy, &quot;ekard tole&quot;)
-</code></pre>
-<h1 id="how-it-works">How it works</h1>
-<p>when you store text using <code>FuzzyString</code> class, the resulting mongodb document will look like this:</p>
-<pre><code class="lang-java">{
-  ...
-  &quot;AuthorName&quot;: {
-      &quot;Value&quot;: &quot;Eckhart Tolle&quot;,
-      &quot;Hash&quot;: &quot;AKRT TL&quot;
-  }
-  ...
-}
-</code></pre>
-<p>the text is stored in both the original form and also a hash consisting of double metaphone key codes for each word. when you perform a fuzzy search, your search term is converted to double metaphone key codes on the fly and matched against the stored hash to find results using standard mongodb full text functionality.</p>
-<h1 id="limitations">Limitations:</h1>
-<p>you are only allowed to store strings of up to 250 characters in length, which is roughly about 25 to 30 words max.</p>
-<h1 id="sorting-fuzzy-results">Sorting Fuzzy Results:</h1>
-<p>if you'd like to sort the results by relevence (closeness to the original search term) you can use the following utility method:</p>
-<pre><code class="lang-csharp">var sortedResults = results.SortByRelevance(&quot;ekard tole&quot;, b =&gt; b.AuthorName);
-</code></pre>
-<p>this sorting is done client-side after the fuzzy search retrieves the entities from mongodb. what this extension method does is; it will compare your search term with the value of the property you specify as the second argument to see how close it is using <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">levenshtein distance</a> algorythm. then it will return a new list with the closest matches at the top.</p>
-<p>you can also exclude items from the resulting list that has a greater edit distance than a given value by specifiying the <code>maxDistance</code> optional parameter like so:</p>
-<pre><code class="lang-csharp">var sortedResults = results.SortByRelevance(&quot;ekard tole&quot;, b =&gt; b.AuthorName, 10);
-</code></pre>
+<p>blah blah blah</p>
 </article>
           </div>
           

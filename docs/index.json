@@ -214,6 +214,76 @@
     "title": "Class Watcher<T> | MongoDB.Entities",
     "keywords": "Class Watcher<T> Watcher for subscribing to mongodb change streams. Inheritance System.Object Watcher<T> Inherited Members System.Object.Equals(System.Object) System.Object.Equals(System.Object, System.Object) System.Object.GetHashCode() System.Object.GetType() System.Object.MemberwiseClone() System.Object.ReferenceEquals(System.Object, System.Object) System.Object.ToString() Namespace : MongoDB.Entities Assembly : MongoDB.Entities.dll Syntax public class Watcher<T> where T : IEntity Type Parameters Name Description T The type of entity Properties CanRestart Returns true if watching can be restarted if it was stopped due to an error or invalidate event. Will always return false after cancellation is requested via the cancellation token. Declaration public bool CanRestart { get; } Property Value Type Description System.Boolean Name The name of this watcher instance Declaration public string Name { get; } Property Value Type Description System.String ResumeToken The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method. Declaration public BsonDocument ResumeToken { get; } Property Value Type Description MongoDB.Bson.BsonDocument Methods ReStart() If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method. Declaration public void ReStart() Start(EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, Boolean, CancellationToken) Starts the watcher instance with the supplied parameters Declaration public void Start(EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken)) Parameters Type Name Description EventType eventTypes Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted System.Linq.Expressions.Expression < System.Func < MongoDB.Driver.ChangeStreamDocument <T>, System.Boolean >> filter x => x.FullDocument.Prop1 == \"SomeValue\" System.Int32 batchSize The max number of entities to receive for a single event occurence System.Boolean onlyGetIDs Set to true if you don't want the complete entity details. All properties except the ID will then be null. System.Boolean autoResume Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken. System.Threading.CancellationToken cancellation A cancellation token for ending the watching/change stream StartWithToken(BsonDocument, EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, CancellationToken) Starts the watcher instance with the supplied configuration Declaration public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken)) Parameters Type Name Description MongoDB.Bson.BsonDocument resumeToken A resume token to start receiving changes after some point back in time EventType eventTypes Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted System.Linq.Expressions.Expression < System.Func < MongoDB.Driver.ChangeStreamDocument <T>, System.Boolean >> filter x => x.FullDocument.Prop1 == \"SomeValue\" System.Int32 batchSize The max number of entities to receive for a single event occurence System.Boolean onlyGetIDs Set to true if you don't want the complete entity details. All properties except the ID will then be null. System.Threading.CancellationToken cancellation A cancellation token for ending the watching/change stream Events OnChanges This event is fired when the desired types of events have occured. Will have a list of entities that was received as input. Declaration public event Action<IEnumerable<T>> OnChanges Event Type Type Description System.Action < System.Collections.Generic.IEnumerable <T>> OnError This event is fired when an exception is thrown in the change-stream. Declaration public event Action<Exception> OnError Event Type Type Description System.Action < System.Exception > OnStop This event is fired when the internal cursor get closed due to an 'invalidate' event or cancellation is requested via the cancellation token. Declaration public event Action OnStop Event Type Type Description System.Action"
   },
+  "cheat-sheets/change-streams/index.html": {
+    "href": "cheat-sheets/change-streams/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/connections/index.html": {
+    "href": "cheat-sheets/connections/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/create/index.html": {
+    "href": "cheat-sheets/create/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/data-migrations/index.html": {
+    "href": "cheat-sheets/data-migrations/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/delete/index.html": {
+    "href": "cheat-sheets/delete/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/entities/index.html": {
+    "href": "cheat-sheets/entities/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/file-storage/index.html": {
+    "href": "cheat-sheets/file-storage/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/index.html": {
+    "href": "cheat-sheets/index.html",
+    "title": "Welcome to the cheat sheets | MongoDB.Entities",
+    "keywords": "Welcome to the cheat sheets blah blah blah"
+  },
+  "cheat-sheets/indexes/index.html": {
+    "href": "cheat-sheets/indexes/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/multi-db/index.html": {
+    "href": "cheat-sheets/multi-db/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/queries/index.html": {
+    "href": "cheat-sheets/queries/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/relationships/index.html": {
+    "href": "cheat-sheets/relationships/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/transactions/index.html": {
+    "href": "cheat-sheets/transactions/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
+  "cheat-sheets/update/index.html": {
+    "href": "cheat-sheets/update/index.html",
+    "title": "| MongoDB.Entities",
+    "keywords": ""
+  },
   "index.html": {
     "href": "index.html",
     "title": "What is it? | MongoDB.Entities",

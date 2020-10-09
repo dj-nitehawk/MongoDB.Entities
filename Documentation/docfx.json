@@ -22,7 +22,8 @@
       },
       {
         "files": [
-          "wiki/**.md",
+          "wiki/*.md",
+          "cheat-sheets/**/*.md",
           "*.md"
         ]
       }
