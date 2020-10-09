@@ -14,9 +14,9 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> | MongoDB.Entities </title>
+    <title>Connections | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" | MongoDB.Entities ">
+    <meta name="title" content="Connections | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../../images/favicon.ico">
@@ -92,7 +92,35 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="connections">Connections</h1>
 
+<p>This category is for showcasing the different methods of setting up the connections to mongodb.</p>
+<h2 id="connect-to-localhost">Connect to localhost</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;,&quot;localhost&quot;);
+</code></pre>
+<h2 id="connect-using-a-connection-string">Connect using a connection string</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
+      &quot;mongodb+srv://user:password@cluster.mongodb.net/db-name&quot;), 
+      &quot;DatabaseName&quot;);
+</code></pre>
+<h2 id="connect-with-a-username--password">Connect with a username &amp; password</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
+{
+    Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
+    Credential = MongoCredential.CreateCredential(&quot;db-name&quot;, &quot;username&quot;, &quot;password&quot;)
+}, 
+&quot;db-name&quot;);
+</code></pre>
+<h2 id="increase-connection-pool-limit">Increase connection pool limit</h2>
+<pre><code class="lang-csharp">await DB.InitAsync(
+    &quot;db-name&quot;,
+    new MongoClientSettings
+    {
+        MinConnectionPoolSize = 100,
+        MaxConnectionPoolSize = 500,
+    });
+</code></pre>
+<h2 id="section"></h2>
 </article>
           </div>
           

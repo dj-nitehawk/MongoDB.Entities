@@ -214,75 +214,85 @@
     "title": "Class Watcher<T> | MongoDB.Entities",
     "keywords": "Class Watcher<T> Watcher for subscribing to mongodb change streams. Inheritance System.Object Watcher<T> Inherited Members System.Object.Equals(System.Object) System.Object.Equals(System.Object, System.Object) System.Object.GetHashCode() System.Object.GetType() System.Object.MemberwiseClone() System.Object.ReferenceEquals(System.Object, System.Object) System.Object.ToString() Namespace : MongoDB.Entities Assembly : MongoDB.Entities.dll Syntax public class Watcher<T> where T : IEntity Type Parameters Name Description T The type of entity Properties CanRestart Returns true if watching can be restarted if it was stopped due to an error or invalidate event. Will always return false after cancellation is requested via the cancellation token. Declaration public bool CanRestart { get; } Property Value Type Description System.Boolean Name The name of this watcher instance Declaration public string Name { get; } Property Value Type Description System.String ResumeToken The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method. Declaration public BsonDocument ResumeToken { get; } Property Value Type Description MongoDB.Bson.BsonDocument Methods ReStart() If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method. Declaration public void ReStart() Start(EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, Boolean, CancellationToken) Starts the watcher instance with the supplied parameters Declaration public void Start(EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken)) Parameters Type Name Description EventType eventTypes Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted System.Linq.Expressions.Expression < System.Func < MongoDB.Driver.ChangeStreamDocument <T>, System.Boolean >> filter x => x.FullDocument.Prop1 == \"SomeValue\" System.Int32 batchSize The max number of entities to receive for a single event occurence System.Boolean onlyGetIDs Set to true if you don't want the complete entity details. All properties except the ID will then be null. System.Boolean autoResume Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken. System.Threading.CancellationToken cancellation A cancellation token for ending the watching/change stream StartWithToken(BsonDocument, EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, CancellationToken) Starts the watcher instance with the supplied configuration Declaration public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken)) Parameters Type Name Description MongoDB.Bson.BsonDocument resumeToken A resume token to start receiving changes after some point back in time EventType eventTypes Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted System.Linq.Expressions.Expression < System.Func < MongoDB.Driver.ChangeStreamDocument <T>, System.Boolean >> filter x => x.FullDocument.Prop1 == \"SomeValue\" System.Int32 batchSize The max number of entities to receive for a single event occurence System.Boolean onlyGetIDs Set to true if you don't want the complete entity details. All properties except the ID will then be null. System.Threading.CancellationToken cancellation A cancellation token for ending the watching/change stream Events OnChanges This event is fired when the desired types of events have occured. Will have a list of entities that was received as input. Declaration public event Action<IEnumerable<T>> OnChanges Event Type Type Description System.Action < System.Collections.Generic.IEnumerable <T>> OnError This event is fired when an exception is thrown in the change-stream. Declaration public event Action<Exception> OnError Event Type Type Description System.Action < System.Exception > OnStop This event is fired when the internal cursor get closed due to an 'invalidate' event or cancellation is requested via the cancellation token. Declaration public event Action OnStop Event Type Type Description System.Action"
   },
-  "cheat-sheets/change-streams/index.html": {
-    "href": "cheat-sheets/change-streams/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/change-streams/index.html": {
+    "href": "cheat-sheet/change-streams/index.html",
+    "title": "Change Streams | MongoDB.Entities",
+    "keywords": "Change Streams This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/connections/index.html": {
-    "href": "cheat-sheets/connections/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/connections/index.html": {
+    "href": "cheat-sheet/connections/index.html",
+    "title": "Connections | MongoDB.Entities",
+    "keywords": "Connections This category is for showcasing the different methods of setting up the connections to mongodb. Connect to localhost await DB.InitAsync(\"db-name\",\"localhost\"); Connect using a connection string await DB.InitAsync(MongoClientSettings.FromConnectionString( \"mongodb+srv://user:password@cluster.mongodb.net/db-name\"), \"DatabaseName\"); Connect with a username & password await DB.InitAsync(new MongoClientSettings() { Server = new MongoServerAddress(\"localhost\", 27017), Credential = MongoCredential.CreateCredential(\"db-name\", \"username\", \"password\") }, \"db-name\"); Increase connection pool limit await DB.InitAsync( \"db-name\", new MongoClientSettings { MinConnectionPoolSize = 100, MaxConnectionPoolSize = 500, });"
   },
-  "cheat-sheets/create/index.html": {
-    "href": "cheat-sheets/create/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/create/index.html": {
+    "href": "cheat-sheet/create/index.html",
+    "title": "Create Entities | MongoDB.Entities",
+    "keywords": "Create Entities This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/data-migrations/index.html": {
-    "href": "cheat-sheets/data-migrations/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/data-migrations/index.html": {
+    "href": "cheat-sheet/data-migrations/index.html",
+    "title": "Data Migrations | MongoDB.Entities",
+    "keywords": "Data Migrations This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/delete/index.html": {
-    "href": "cheat-sheets/delete/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/delete/index.html": {
+    "href": "cheat-sheet/delete/index.html",
+    "title": "Delete Entities | MongoDB.Entities",
+    "keywords": "Delete Entities This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/entities/index.html": {
-    "href": "cheat-sheets/entities/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/entities/index.html": {
+    "href": "cheat-sheet/entities/index.html",
+    "title": "Define Entities | MongoDB.Entities",
+    "keywords": "Define Entities This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/file-storage/index.html": {
-    "href": "cheat-sheets/file-storage/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/extras/index.html": {
+    "href": "cheat-sheet/extras/index.html",
+    "title": "Extras | MongoDB.Entities",
+    "keywords": "Extras This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/index.html": {
-    "href": "cheat-sheets/index.html",
-    "title": "Welcome to the cheat sheets | MongoDB.Entities",
-    "keywords": "Welcome to the cheat sheets blah blah blah"
+  "cheat-sheet/file-storage/index.html": {
+    "href": "cheat-sheet/file-storage/index.html",
+    "title": "File Storage | MongoDB.Entities",
+    "keywords": "File Storage This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/indexes/index.html": {
-    "href": "cheat-sheets/indexes/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/index.html": {
+    "href": "cheat-sheet/index.html",
+    "title": "The Cheat-Sheet | MongoDB.Entities",
+    "keywords": "The Cheat-Sheet The cheat-sheet exists to showcase how things are done; the MongoDB.Entities way. Choose a category on the left to start browsing. Help improve the cheat-sheet If you're interested in contributing to the cheat-sheet section of the documentation, please send in your PR's to the cheat-sheet branch of the github repository . Guidelines to follow: Only add non-existing code Add your contribution to the appropriate category Create new categories if needed Only use the domain/context of a bookshop or library which would have entities such as: Author Book Publisher Editor Genre etc. Optionally add your name/github profile link right below your code like: Contributed by: YourName How to edit/build the docs: Clone the repo and checkout the cheat-sheet branch Download DocFX from here Add DocFX to your system path or place the executable in the MongoDB.Entities > Documentation folder Change the current working directory to MongoDB.Entities > Documentation folder Run DocFX with the command docfx --serve Open a browser and visit: http://localhost:8080 Make your changes to the markdown files inside MongoDB.Entities > Documentation > cheat-sheet folder To see your changes in the browser, CTRL+C and run docfx --serve again"
   },
-  "cheat-sheets/multi-db/index.html": {
-    "href": "cheat-sheets/multi-db/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/indexes/index.html": {
+    "href": "cheat-sheet/indexes/index.html",
+    "title": "Indexes | MongoDB.Entities",
+    "keywords": "Indexes This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/queries/index.html": {
-    "href": "cheat-sheets/queries/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/multi-db/index.html": {
+    "href": "cheat-sheet/multi-db/index.html",
+    "title": "Multiple Databases | MongoDB.Entities",
+    "keywords": "Multiple Databases This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/relationships/index.html": {
-    "href": "cheat-sheets/relationships/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/queries/index.html": {
+    "href": "cheat-sheet/queries/index.html",
+    "title": "Queries | MongoDB.Entities",
+    "keywords": "Queries This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/transactions/index.html": {
-    "href": "cheat-sheets/transactions/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/relationships/index.html": {
+    "href": "cheat-sheet/relationships/index.html",
+    "title": "Relationships | MongoDB.Entities",
+    "keywords": "Relationships This content requires community contributions. Please click here to see how to contribute."
   },
-  "cheat-sheets/update/index.html": {
-    "href": "cheat-sheets/update/index.html",
-    "title": "| MongoDB.Entities",
-    "keywords": ""
+  "cheat-sheet/string-templates/index.html": {
+    "href": "cheat-sheet/string-templates/index.html",
+    "title": "String Templates | MongoDB.Entities",
+    "keywords": "String Templates This content requires community contributions. Please click here to see how to contribute."
+  },
+  "cheat-sheet/transactions/index.html": {
+    "href": "cheat-sheet/transactions/index.html",
+    "title": "Transactions | MongoDB.Entities",
+    "keywords": "Transactions This content requires community contributions. Please click here to see how to contribute."
+  },
+  "cheat-sheet/update/index.html": {
+    "href": "cheat-sheet/update/index.html",
+    "title": "Update Entities | MongoDB.Entities",
+    "keywords": "Update Entities This content requires community contributions. Please click here to see how to contribute."
   },
   "index.html": {
     "href": "index.html",

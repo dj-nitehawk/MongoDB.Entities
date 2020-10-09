@@ -95,7 +95,7 @@
 <h1 id="fuzzy-text-search">Fuzzy Text Search</h1>
 
 <p>fuzzy text matching is done using the <a href="https://en.wikipedia.org/wiki/Metaphone">double metaphone</a> algorythm. with it you can find non-exact matches that sounds similar to your search term.</p>
-<p>fuzzy matching will only work on properties that are of the type <a href="xref:MongoDB.Entities.FuzzyString">FuzzyString</a> which is supplied by this library. it also requires adding these properties to a text index.</p>
+<p>fuzzy matching will only work on properties that are of the type <a class="xref" href="../api/MongoDB.Entities.FuzzyString.html">FuzzyString</a> which is supplied by this library. it also requires adding these properties to a text index.</p>
 <p>here's how you'd typically get the fuzzy search to work:</p>
 <h2 id="1-define-entity-class">1. Define entity class</h2>
 <pre><code class="lang-csharp">public class Book : Entity

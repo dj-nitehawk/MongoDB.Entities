@@ -100,7 +100,7 @@ await book.SaveAsync();
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>the ID property comes from the <a href="xref:MongoDB.Entities.Entity">Entity</a> base class.</p>
+<p>the ID property comes from the <a class="xref" href="../api/MongoDB.Entities.Entity.html">Entity</a> base class.</p>
 </div>
 <h1 id="save-multiple-entities">Save multiple entities</h1>
 <p>multiple entities can be saved in a single bulk operation like so:</p>
@@ -128,8 +128,8 @@ await DB.SaveAsync(books);
 <p>you should only specify root level properties with the <strong>New</strong> expression. i.e. <strong>x =&gt; x.Author.Name</strong> is not valid.</p>
 </div>
 <h2 id="partial-save-with-attribute">Partial save with attribute</h2>
-<p>you can decorate the properties you want to omit with the [<a href="xref:MongoDB.Entities.PreserveAttribute">Preserve</a>] attribute and simply call <code>book.SavePreservingAsync()</code> without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.</p>
-<p>you can also do the opposite with the use of [<a href="xref:MongoDB.Entities.DontPreserveAttribute">DontPreserve</a>] attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>. also, the same rule applies that attributes are ignored if you supply a <code>new</code> expression to <code>SavePreservingAsync()</code>.</p>
+<p>you can decorate the properties you want to omit with the [<a class="xref" href="../api/MongoDB.Entities.PreserveAttribute.html">Preserve</a>] attribute and simply call <code>book.SavePreservingAsync()</code> without supplying an expression. if you specify ommissions using both an expression and attributes, the expression will take precedence and the attributes are ignored.</p>
+<p>you can also do the opposite with the use of [<a class="xref" href="../api/MongoDB.Entities.DontPreserveAttribute.html">DontPreserve</a>] attribute. if you decorate properties with <code>[DontPreserve]</code>, only the values of those properties are written to the database and all other properties are implicitly ignored when calling <code>SavePreservingAsync()</code>. also, the same rule applies that attributes are ignored if you supply a <code>new</code> expression to <code>SavePreservingAsync()</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>both <strong>[DontPreserve]</strong> and <strong>[Preserve]</strong> cannot be used together on the same entity type due to the conflicting nature of what they do.</p>

@@ -1,6 +1,6 @@
 # [Documentation](wiki/)
 # [Code Samples](wiki/Code-Samples.md)
-# [Cheat Sheets](cheat-sheets/index.md)
+# [Cheat-Sheet](cheat-sheet/index.md)
 # [Api Reference](api/)
 # [GitHub](https://github.com/dj-nitehawk/MongoDB.Entities)
 # [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)
