@@ -101,7 +101,7 @@
 <h2 id="connect-using-a-connection-string">Connect using a connection string</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
       &quot;mongodb+srv://user:password@cluster.mongodb.net/db-name&quot;), 
-      &quot;DatabaseName&quot;);
+      &quot;db-name&quot;);
 </code></pre>
 <h2 id="connect-with-a-username--password">Connect with a username &amp; password</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()

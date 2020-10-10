@@ -10,7 +10,7 @@ await DB.InitAsync("db-name","localhost");
 ```csharp
 await DB.InitAsync(MongoClientSettings.FromConnectionString(
       "mongodb+srv://user:password@cluster.mongodb.net/db-name"), 
-      "DatabaseName");
+      "db-name");
 ```
 
 ## Connect with a username & password
