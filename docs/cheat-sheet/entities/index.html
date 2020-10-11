@@ -94,7 +94,62 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="define-entities">Define Entities</h1>
 
-<p>This content requires community contributions. Please <a href="../index.html">click here</a> to see how to contribute.</p>
+<p>This category showcases differnt ways of defining entities and other handy methods.</p>
+<h3 id="basic-entity">Basic entity</h3>
+<pre><code class="lang-csharp">public class Book : Entity
+{
+    public string Title { get; set; }
+}
+</code></pre>
+<h3 id="ignore-a-property-when-saving">Ignore a property when saving</h3>
+<pre><code class="lang-csharp">public class Book : Entity
+{
+    public string Title { get; set; }
+    [Ignore] public int SomeProperty { get; set; }
+}
+</code></pre>
+<h3 id="customize-collection-name-for-an-entity-type">Customize collection name for an entity type</h3>
+<pre><code class="lang-csharp">[Name(&quot;Publication&quot;)]
+public class Book : Entity
+{
+    ...
+}
+</code></pre>
+<h3 id="automatically-set-creation-date">Automatically set creation date</h3>
+<pre><code class="lang-csharp">public class Book : Entity, ICreatedOn
+{
+    public string Title { get; set; }
+    public DateTime CreatedOn { get; set; }
+}
+</code></pre>
+<h3 id="automatically-set-modified-date">Automatically set modified date</h3>
+<pre><code class="lang-csharp">public class Book : Entity, IModifiedOn
+{
+    public string Title { get; set; }
+    public DateTime ModifiedOn { get; set; }
+}
+</code></pre>
+<h3 id="byo-entities">BYO entities</h3>
+<pre><code class="lang-csharp">[BsonIgnoreExtraElements]
+public class BookEntity : IEntity
+{
+    [BsonId, ObjectId]
+    public string ID { get; set; }
+    ...
+}
+</code></pre>
+<h3 id="get-the-collection-for-an-entity-type">Get the collection for an entity type</h3>
+<pre><code class="lang-csharp">IMongoCollection&lt;Book&gt; collection = DB.Collection&lt;Book&gt;();
+</code></pre>
+<h3 id="get-the-collection-name-for-an-entity-type">Get the collection name for an entity type</h3>
+<pre><code class="lang-csharp">string collectionName = DB.CollectionName&lt;Book&gt;();
+</code></pre>
+<h3 id="entity-creation-factory-method">Entity creation factory method</h3>
+<pre><code class="lang-csharp">Book book = DB.Entity&lt;Book&gt;();
+</code></pre>
+<h3 id="generate-a-new-objectid-string">Generate a new ObjectId string</h3>
+<pre><code class="lang-csharp">string objectIdString = DB.NewID()
+</code></pre>
 </article>
           </div>
           

@@ -1,19 +1,19 @@
 # Connections
-This category is for showcasing the different methods of setting up the connections to mongodb.
+This category showcases the different methods of setting up the connections to mongodb.
 
-## Connect to localhost
+### Connect to localhost
 ```csharp
 await DB.InitAsync("db-name","localhost");
 ```
 
-## Connect using a connection string
+### Connect using a connection string
 ```csharp
 await DB.InitAsync(MongoClientSettings.FromConnectionString(
       "mongodb+srv://user:password@cluster.mongodb.net/db-name"), 
       "db-name");
 ```
 
-## Connect with a username & password
+### Connect with a username & password
 ```csharp
 await DB.InitAsync(new MongoClientSettings()
 {
@@ -23,7 +23,7 @@ await DB.InitAsync(new MongoClientSettings()
 "db-name");
 ```
 
-## Increase connection pool limit
+### Increase connection pool limit
 ```csharp
 await DB.InitAsync(
     "db-name",
@@ -33,5 +33,3 @@ await DB.InitAsync(
         MaxConnectionPoolSize = 500,
     });
 ```
-
-## 

@@ -14,19 +14,19 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Connections | MongoDB.Entities </title>
+    <title>Create Entities | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Connections | MongoDB.Entities ">
+    <meta name="title" content="Create Entities | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
-    <link rel="shortcut icon" href="../../images/favicon.ico">
-    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
-    <link rel="stylesheet" href="../../styles/docfx.css">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <meta property="docfx:navrel" content="../../toc.html">
-    <meta property="docfx:tocrel" content="../toc.html">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
     
-    <meta property="docfx:rel" content="../../">
+    <meta property="docfx:rel" content="../">
     <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
@@ -49,8 +49,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="../../index.html">
-                <img id="logo" class="svg" src="../../images/icon.png" alt="">
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -92,34 +92,9 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="connections">Connections</h1>
+<h1 id="create-entities">Create Entities</h1>
 
-<p>This category showcases the different methods of setting up the connections to mongodb.</p>
-<h3 id="connect-to-localhost">Connect to localhost</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;,&quot;localhost&quot;);
-</code></pre>
-<h3 id="connect-using-a-connection-string">Connect using a connection string</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
-      &quot;mongodb+srv://user:password@cluster.mongodb.net/db-name&quot;), 
-      &quot;db-name&quot;);
-</code></pre>
-<h3 id="connect-with-a-username--password">Connect with a username &amp; password</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
-{
-    Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
-    Credential = MongoCredential.CreateCredential(&quot;db-name&quot;, &quot;username&quot;, &quot;password&quot;)
-}, 
-&quot;db-name&quot;);
-</code></pre>
-<h3 id="increase-connection-pool-limit">Increase connection pool limit</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(
-    &quot;db-name&quot;,
-    new MongoClientSettings
-    {
-        MinConnectionPoolSize = 100,
-        MaxConnectionPoolSize = 500,
-    });
-</code></pre>
+<p>This content requires community contributions. Please <a href="index.html">click here</a> to see how to contribute.</p>
 </article>
           </div>
           
@@ -151,8 +126,8 @@
       </footer>
     </div>
     
-    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="../../styles/docfx.js"></script>
-    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
   </body>
 </html>

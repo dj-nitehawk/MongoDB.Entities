@@ -553,11 +553,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/change-streams/index.md",
+      "source_relative_path": "cheat-sheet/change-streams.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/change-streams/index.html",
-          "hash": "iB7uQIFeI90mYyjvyYyh6A=="
+          "relative_path": "cheat-sheet/change-streams.html",
+          "hash": "YbmTANw4uaKihKpnLM9cRg=="
         }
       },
       "is_incremental": false,
@@ -565,11 +565,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/connections/index.md",
+      "source_relative_path": "cheat-sheet/connections.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/connections/index.html",
-          "hash": "DRsm1gSdRVHIdTp+u/qe4g=="
+          "relative_path": "cheat-sheet/connections.html",
+          "hash": "wA3rwfIScVnkvetDgR3xFw=="
         }
       },
       "is_incremental": false,
@@ -577,11 +577,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/create/index.md",
+      "source_relative_path": "cheat-sheet/create.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/create/index.html",
-          "hash": "jp35yw2H2o3ofAqmDJQRNA=="
+          "relative_path": "cheat-sheet/create.html",
+          "hash": "N3AE+BglNDH09aO2fr9ckA=="
         }
       },
       "is_incremental": false,
@@ -589,11 +589,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/data-migrations/index.md",
+      "source_relative_path": "cheat-sheet/data-migrations.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/data-migrations/index.html",
-          "hash": "dOADITCSq2XKlog+8xHz6A=="
+          "relative_path": "cheat-sheet/data-migrations.html",
+          "hash": "v7JiSlg3VubPF2gwsRklDQ=="
         }
       },
       "is_incremental": false,
@@ -601,11 +601,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/delete/index.md",
+      "source_relative_path": "cheat-sheet/delete.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/delete/index.html",
-          "hash": "Tj+p9msC7YKo8/UgK9H8Ig=="
+          "relative_path": "cheat-sheet/delete.html",
+          "hash": "TZq+AClEunUDFBxNpBX0Ng=="
         }
       },
       "is_incremental": false,
@@ -613,11 +613,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/entities/index.md",
+      "source_relative_path": "cheat-sheet/entities.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/entities/index.html",
-          "hash": "jhG+NMxFEV2ChAhAZIMmUw=="
+          "relative_path": "cheat-sheet/entities.html",
+          "hash": "KO6N4WfibLRMothkZD4/Sw=="
         }
       },
       "is_incremental": false,
@@ -625,11 +625,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/extras/index.md",
+      "source_relative_path": "cheat-sheet/extras.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/extras/index.html",
-          "hash": "7vARAChhPWhmUHW5ast2Ww=="
+          "relative_path": "cheat-sheet/extras.html",
+          "hash": "TtBDMH3D4eJNC0RbnAQu5w=="
         }
       },
       "is_incremental": false,
@@ -637,11 +637,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/file-storage/index.md",
+      "source_relative_path": "cheat-sheet/file-storage.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/file-storage/index.html",
-          "hash": "7b3H68Pvcqh8UJ4yrvB2bw=="
+          "relative_path": "cheat-sheet/file-storage.html",
+          "hash": "U3uFZizBe5C344nQTlIV4w=="
         }
       },
       "is_incremental": false,
@@ -661,11 +661,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/indexes/index.md",
+      "source_relative_path": "cheat-sheet/indexes.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/indexes/index.html",
-          "hash": "YtfBt6CysdRkdRGGThc1MQ=="
+          "relative_path": "cheat-sheet/indexes.html",
+          "hash": "676w3hQLsyKMu8dG++CUGw=="
         }
       },
       "is_incremental": false,
@@ -673,11 +673,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/multi-db/index.md",
+      "source_relative_path": "cheat-sheet/multi-db.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/multi-db/index.html",
-          "hash": "WVSOxQNM6Cwx9uN+sI7x2w=="
+          "relative_path": "cheat-sheet/multi-db.html",
+          "hash": "lhfWS+Jv+gm2Om/333r5zg=="
         }
       },
       "is_incremental": false,
@@ -685,11 +685,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/queries/index.md",
+      "source_relative_path": "cheat-sheet/queries.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/queries/index.html",
-          "hash": "GtsljxU152kRryAzdR+5UA=="
+          "relative_path": "cheat-sheet/queries.html",
+          "hash": "nia2FW4ILjsThv+BltQgLw=="
         }
       },
       "is_incremental": false,
@@ -697,11 +697,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/relationships/index.md",
+      "source_relative_path": "cheat-sheet/relationships.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/relationships/index.html",
-          "hash": "1XSIl+Ir4ImLpu9Y0FaiTA=="
+          "relative_path": "cheat-sheet/relationships.html",
+          "hash": "tSLsFfzk64PP3f0XXOoAEA=="
         }
       },
       "is_incremental": false,
@@ -709,11 +709,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/string-templates/index.md",
+      "source_relative_path": "cheat-sheet/string-templates.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/string-templates/index.html",
-          "hash": "WUQAIiRqpbFasqjOI3EgDA=="
+          "relative_path": "cheat-sheet/string-templates.html",
+          "hash": "/rqxYZUMuZQtW8Kl+xGeWA=="
         }
       },
       "is_incremental": false,
@@ -725,7 +725,7 @@
       "output": {
         ".html": {
           "relative_path": "cheat-sheet/toc.html",
-          "hash": "UD2TVLJZcpzVsifld4VaRA=="
+          "hash": "B2WTn9EmIfoNpK/7XNx0lg=="
         }
       },
       "is_incremental": false,
@@ -733,11 +733,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/transactions/index.md",
+      "source_relative_path": "cheat-sheet/transactions.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/transactions/index.html",
-          "hash": "KCd6sI9uzdpYApwJ1vv4OQ=="
+          "relative_path": "cheat-sheet/transactions.html",
+          "hash": "9lMvgZdtH/wisp3fZsUpiw=="
         }
       },
       "is_incremental": false,
@@ -745,11 +745,11 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/update/index.md",
+      "source_relative_path": "cheat-sheet/update.md",
       "output": {
         ".html": {
-          "relative_path": "cheat-sheet/update/index.html",
-          "hash": "EMi62HvCuQkgOy1FzsONIw=="
+          "relative_path": "cheat-sheet/update.html",
+          "hash": "DWGCzM+nxeUSCKJ4k4kpRw=="
         }
       },
       "is_incremental": false,
@@ -828,7 +828,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "2JsjIfF6XFMQM8X3yjHPzA=="
+          "hash": "VWt567muz78QAGEt0mqGVw=="
         }
       },
       "is_incremental": false,
@@ -1160,7 +1160,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 42,
-          "skipped_file_count": 42
+          "skipped_file_count": 41
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
