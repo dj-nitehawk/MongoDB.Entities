@@ -21,10 +21,6 @@ blockquote{
   border-color: #d0f7ff;
 }
 
-code{
-  padding: 0;
-}
-
 .navbar-brand {
   padding: 1px;
 }
@@ -58,6 +54,11 @@ article[data-uid="MongoDB.Entities"] h4{
   background-color: #000000;
 }
 
+pre{
+  max-height: 600px;
+}
+
 pre code{
   white-space: pre;
+  padding: 0;
 }
