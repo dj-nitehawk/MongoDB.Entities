@@ -45,7 +45,7 @@ public class Book : Entity, IModifiedOn
 }
 ```
 
-### Store a property as ObjectId in the database
+### Store a properties as ObjectId in the database
 ```csharp
 public class Book : Entity
 {
