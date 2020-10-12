@@ -5,20 +5,23 @@ referenced relationships require a bit of special handling. a **one-to-one** rel
 public class Book : Entity
 {
     public One<Author> MainAuthor { get; set; }
-    public Many<Author> Authors { get; set; }
-    [OwnerSide] public Many<Genre> Genres { get; set; }
+    
+    public Many<Author> CoAuthors { get; set; }
+    
+    [OwnerSide] 
+    public Many<Genre> Genres { get; set; }
 
     public Book()
     {
-        this.InitOneToMany(() => Authors);
+        this.InitOneToMany(() => CoAuthors);
         this.InitManyToMany(() => Genres, genre => genre.Books);
     }
 }
 
 public class Genre : Entity
 {
-    public string Name { get; set; }
-    [InverseSide] public Many<Book> Books { get; set; }
+    [InverseSide] 
+    public Many<Book> Books { get; set; }
 
     public Genre()
     {

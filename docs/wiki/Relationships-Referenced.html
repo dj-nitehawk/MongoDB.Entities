@@ -98,20 +98,23 @@
 <pre><code class="lang-csharp">public class Book : Entity
 {
     public One&lt;Author&gt; MainAuthor { get; set; }
-    public Many&lt;Author&gt; Authors { get; set; }
-    [OwnerSide] public Many&lt;Genre&gt; Genres { get; set; }
+    
+    public Many&lt;Author&gt; CoAuthors { get; set; }
+    
+    [OwnerSide] 
+    public Many&lt;Genre&gt; Genres { get; set; }
 
     public Book()
     {
-        this.InitOneToMany(() =&gt; Authors);
+        this.InitOneToMany(() =&gt; CoAuthors);
         this.InitManyToMany(() =&gt; Genres, genre =&gt; genre.Books);
     }
 }
 
 public class Genre : Entity
 {
-    public string Name { get; set; }
-    [InverseSide] public Many&lt;Book&gt; Books { get; set; }
+    [InverseSide] 
+    public Many&lt;Book&gt; Books { get; set; }
 
     public Genre()
     {
