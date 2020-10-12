@@ -6,14 +6,23 @@ public class Book : Entity
 {
     public One<Author> MainAuthor { get; set; }
     public Many<Author> Authors { get; set; }
-
-    [OwnerSide]
-    public Many<Genre> AllGenres { get; set; }
+    [OwnerSide] public Many<Genre> Genres { get; set; }
 
     public Book()
     {
         this.InitOneToMany(() => Authors);
-        this.InitManyToMany(() => AllGenres, genre => genre.AllBooks);
+        this.InitManyToMany(() => Genres, genre => genre.Books);
+    }
+}
+
+public class Genre : Entity
+{
+    public string Name { get; set; }
+    [InverseSide] public Many<Book> Books { get; set; }
+
+    public Genre()
+    {
+        this.InitManyToMany(() => Books, book => book.Genres);
     }
 }
 ```
