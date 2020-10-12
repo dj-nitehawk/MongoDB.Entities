@@ -62,17 +62,21 @@ If you delete an entity that is referenced as above by calling `author.DeleteAsy
 ## One-to-many & many-to-many
 ```csharp
 await book.Authors.AddAsync(author); //one-to-many
-await book.AllGenres.AddAsync(genre); //many-to-many
+await book.Genres.AddAsync(genre); //many-to-many
 ```
 there's no need to call `book.SaveAsync()` because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
+
+there are other *[overloads](xref:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
 
 ### Reference removal
 ```csharp
 await book.Authors.RemoveAsync(author);
-await .AllGenres.RemoveAsync(genre);
+await book.Genres.RemoveAsync(genre);
 ```
 
 the original `author` in the `Authors` collection is unaffected. also the `genre` entity in the `Genres` collection is unaffected. only the relationship between entities are deleted.
+
+there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
 
 ### Entity deletion
 If you delete an entity that is referenced as above by calling `author.DeleteAsync()` all references pointing to that `author` entity are automatically deleted. as such, `book.Authors` will not have `author` as a child. the same applies to `Many-To-Many` relationships. deleting any entity that has references pointing to it from other entities results in those references getting deleted and the relationships being invalidated.

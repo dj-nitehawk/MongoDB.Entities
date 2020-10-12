@@ -143,14 +143,16 @@ await book.SaveAsync();
 <p>If you delete an entity that is referenced as above by calling <code>author.DeleteAsync()</code> all references pointing to that entity are automatically deleted. as such, <code>book.MainAuthor.ToEntityAsync()</code> will then return <code>null</code>. the <code>.ToEntityAsync()</code> method is described below.</p>
 <h2 id="one-to-many--many-to-many">One-to-many &amp; many-to-many</h2>
 <pre><code class="lang-csharp">await book.Authors.AddAsync(author); //one-to-many
-await book.AllGenres.AddAsync(genre); //many-to-many
+await book.Genres.AddAsync(genre); //many-to-many
 </code></pre>
 <p>there's no need to call <code>book.SaveAsync()</code> because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html">Schema Changes</a> section.</p>
+<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_AddAsync_System_Collections_Generic_IEnumerable__0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
 <h3 id="reference-removal-1">Reference removal</h3>
 <pre><code class="lang-csharp">await book.Authors.RemoveAsync(author);
-await .AllGenres.RemoveAsync(genre);
+await book.Genres.RemoveAsync(genre);
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected. also the <code>genre</code> entity in the <code>Genres</code> collection is unaffected. only the relationship between entities are deleted.</p>
+<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync_System_Collections_Generic_IEnumerable__0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
 <h3 id="entity-deletion-1">Entity deletion</h3>
 <p>If you delete an entity that is referenced as above by calling <code>author.DeleteAsync()</code> all references pointing to that <code>author</code> entity are automatically deleted. as such, <code>book.Authors</code> will not have <code>author</code> as a child. the same applies to <code>Many-To-Many</code> relationships. deleting any entity that has references pointing to it from other entities results in those references getting deleted and the relationships being invalidated.</p>
 <h1 id="toentityasync-shortcut">ToEntityAsync() shortcut</h1>
