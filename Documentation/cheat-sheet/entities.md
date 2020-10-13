@@ -80,6 +80,11 @@ string collectionName = DB.CollectionName<Book>();
 Book book = DB.Entity<Book>();
 ```
 
+### Entity creation factory with ID
+```csharp
+Book book = DB.Entity<Book>("ID");
+```
+
 ### Generate a new ObjectId string
 ```csharp
 string objectIdString = DB.NewID()
