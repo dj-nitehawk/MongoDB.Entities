@@ -204,7 +204,30 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Returns a new ObjectId as a string
+        /// Specify a custom ID generation logic for new entities of the given type
+        /// </summary>
+        /// <typeparam name="T">The type of entity the logic applies for</typeparam>
+        /// <param name="function">The function to use for generating new IDs. The function must return a unique string value. For ex:
+        /// <code>() => Guid.NewGuid().ToString()</code>
+        /// </param>
+        public static void IDGenerationLogicFor<T>(Func<string> function) where T : IEntity 
+            => Cache<T>.IDLogic = function;
+
+        /// <summary>
+        /// Returns a new ID for the given entity type using the custom IDGenerationLogic if it has been configured.
+        /// If no custom logic is configured, a new ObjectId will be returned.
+        /// </summary>
+        /// <typeparam name="T">The entity type to generate a new ID for</typeparam>
+        public static string NewIDFor<T>() where T : IEntity
+        {
+            if (Cache<T>.IDLogic == default)
+                return ObjectId.GenerateNewId().ToString();
+
+            return Cache<T>.IDLogic();
+        }
+
+        /// <summary>
+        /// Returns a new ObjectId string
         /// </summary>
         public static string NewID() => ObjectId.GenerateNewId().ToString();
     }
@@ -249,6 +272,7 @@ namespace MongoDB.Entities
         internal static bool HasCreatedOn { get; private set; }
         internal static bool HasModifiedOn { get; private set; }
         internal static string ModifiedOnPropName { get; private set; }
+        internal static Func<string> IDLogic { get; set; }
 
         static Cache()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public static partial class DB //todo: add count methods to documentation
+    public static partial class DB
     {
         /// <summary>
         /// Gets a fast estimation of how many documents are in the collection using metadata.

@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -428,6 +429,17 @@ namespace MongoDB.Entities.Tests
 
             Assert.IsTrue(res.Age == 0);
             Assert.IsTrue(res.Birthday == null);
+        }
+
+        [TestMethod]
+        public async Task custom_id_generation_logic_works()
+        {
+            var customer = new Customer();
+            await customer.SaveAsync();
+
+            var res = await DB.Find<Customer>().OneAsync(customer.ID);
+
+            Assert.AreEqual(res.ID, customer.ID);
         }
     }
 }

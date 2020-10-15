@@ -26,7 +26,7 @@ namespace MongoDB.Entities
         {
             if (string.IsNullOrEmpty(entity.ID))
             {
-                entity.ID = ObjectId.GenerateNewId().ToString();
+                entity.ID = NewIDFor<T>();
                 if (Cache<T>.HasCreatedOn)
                     ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
             }
@@ -53,7 +53,7 @@ namespace MongoDB.Entities
             {
                 if (string.IsNullOrEmpty(ent.ID))
                 {
-                    ent.ID = ObjectId.GenerateNewId().ToString();
+                    ent.ID = NewIDFor<T>();
                     if (Cache<T>.HasCreatedOn)
                         ((ICreatedOn)ent).CreatedOn = DateTime.UtcNow;
                 }

@@ -158,7 +158,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="aggregate"></param>
         /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
-        /// <returns></returns>
         public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression) where T : IEntity
         {
             PipelineStageDefinition<T, T> stage = "{$match:{$expr:" + expression + "}}";
@@ -180,7 +179,7 @@ namespace MongoDB.Entities
         public static T ToDocument<T>(this T entity) where T : IEntity
         {
             var res = entity.Duplicate();
-            res.ID = ObjectId.GenerateNewId().ToString();
+            res.ID = DB.NewIDFor<T>();
             return res;
         }
 
@@ -192,7 +191,7 @@ namespace MongoDB.Entities
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = DB.NewIDFor<T>();
             }
             return res;
         }
@@ -205,7 +204,7 @@ namespace MongoDB.Entities
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = ObjectId.GenerateNewId().ToString();
+                e.ID = DB.NewIDFor<T>();
             }
             return res;
         }
