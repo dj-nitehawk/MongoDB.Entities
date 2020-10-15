@@ -137,12 +137,24 @@ public class Book : Entity
 }
 </code></pre>
 <h3 id="byo-entities">BYO entities</h3>
-<pre><code class="lang-csharp">[BsonIgnoreExtraElements]
-public class BookEntity : IEntity
+<pre><code class="lang-csharp">public class Book : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; }
     ...
+}
+</code></pre>
+<h3 id="customize-id-format">Customize ID format</h3>
+<pre><code class="lang-csharp">public class Book : IEntity
+{
+    [BsonId]
+    public string ID { get; set; }
+
+    static Book()
+    {
+        DB.IDGenerationLogicFor&lt;Book&gt;(
+            () =&gt; $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;));
+    }
 }
 </code></pre>
 <h3 id="get-the-collection-for-an-entity-type">Get the collection for an entity type</h3>
@@ -154,8 +166,14 @@ public class BookEntity : IEntity
 <h3 id="entity-creation-factory">Entity creation factory</h3>
 <pre><code class="lang-csharp">Book book = DB.Entity&lt;Book&gt;();
 </code></pre>
+<h3 id="entity-creation-factory-with-id">Entity creation factory with ID</h3>
+<pre><code class="lang-csharp">Book book = DB.Entity&lt;Book&gt;(&quot;ID&quot;);
+</code></pre>
 <h3 id="generate-a-new-objectid-string">Generate a new ObjectId string</h3>
 <pre><code class="lang-csharp">string objectIdString = DB.NewID()
+</code></pre>
+<h3 id="generate-new-id-when-using-custom-id-generation-logic">Generate new ID when using custom ID generation logic</h3>
+<pre><code class="lang-csharp">string customIdforABook = DB.NewIDFor&lt;Book&gt;();
 </code></pre>
 </article>
           </div>

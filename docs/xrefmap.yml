@@ -421,6 +421,15 @@ references:
   fullName.vb: MongoDB.Entities.DB.Entity(Of T)()
   nameWithType: DB.Entity<T>()
   nameWithType.vb: DB.Entity(Of T)()
+- uid: MongoDB.Entities.DB.Entity``1(System.String)
+  name: Entity<T>(String)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Entity__1_System_String_
+  commentId: M:MongoDB.Entities.DB.Entity``1(System.String)
+  name.vb: Entity(Of T)(String)
+  fullName: MongoDB.Entities.DB.Entity<T>(System.String)
+  fullName.vb: MongoDB.Entities.DB.Entity(Of T)(System.String)
+  nameWithType: DB.Entity<T>(String)
+  nameWithType.vb: DB.Entity(Of T)(String)
 - uid: MongoDB.Entities.DB.File*
   name: File
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_File_
@@ -526,6 +535,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions, MongoDB.Driver.IClientSessionHandle)
   nameWithType: DB.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions, IClientSessionHandle)
   nameWithType.vb: DB.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions, IClientSessionHandle)
+- uid: MongoDB.Entities.DB.IDGenerationLogicFor*
+  name: IDGenerationLogicFor
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_IDGenerationLogicFor_
+  commentId: Overload:MongoDB.Entities.DB.IDGenerationLogicFor
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.IDGenerationLogicFor
+  nameWithType: DB.IDGenerationLogicFor
+- uid: MongoDB.Entities.DB.IDGenerationLogicFor``1(System.Func{System.String})
+  name: IDGenerationLogicFor<T>(Func<String>)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_IDGenerationLogicFor__1_System_Func_System_String__
+  commentId: M:MongoDB.Entities.DB.IDGenerationLogicFor``1(System.Func{System.String})
+  name.vb: IDGenerationLogicFor(Of T)(Func(Of String))
+  fullName: MongoDB.Entities.DB.IDGenerationLogicFor<T>(System.Func<System.String>)
+  fullName.vb: MongoDB.Entities.DB.IDGenerationLogicFor(Of T)(System.Func(Of System.String))
+  nameWithType: DB.IDGenerationLogicFor<T>(Func<String>)
+  nameWithType.vb: DB.IDGenerationLogicFor(Of T)(Func(Of String))
 - uid: MongoDB.Entities.DB.Index*
   name: Index
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Index_
@@ -596,6 +621,22 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.NewID
   nameWithType: DB.NewID
+- uid: MongoDB.Entities.DB.NewIDFor*
+  name: NewIDFor
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewIDFor_
+  commentId: Overload:MongoDB.Entities.DB.NewIDFor
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.NewIDFor
+  nameWithType: DB.NewIDFor
+- uid: MongoDB.Entities.DB.NewIDFor``1
+  name: NewIDFor<T>()
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewIDFor__1
+  commentId: M:MongoDB.Entities.DB.NewIDFor``1
+  name.vb: NewIDFor(Of T)()
+  fullName: MongoDB.Entities.DB.NewIDFor<T>()
+  fullName.vb: MongoDB.Entities.DB.NewIDFor(Of T)()
+  nameWithType: DB.NewIDFor<T>()
+  nameWithType.vb: DB.NewIDFor(Of T)()
 - uid: MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)
   name: NextSequentialNumberAsync(String, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NextSequentialNumberAsync_System_String_System_Threading_CancellationToken_

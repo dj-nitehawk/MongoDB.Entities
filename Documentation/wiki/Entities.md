@@ -48,7 +48,6 @@ if your entity classes implements these interfaces, the library will automatical
 
 if for whatever reason, you're unable to inherit the `Entity` base class, you can simply implement the `IEntity` interface to make your classes compatible with the library like so:
 ```csharp
-[BsonIgnoreExtraElements]
 public class Book : IEntity
 {
     [BsonId, ObjectId]
@@ -56,3 +55,27 @@ public class Book : IEntity
     ...
 }
 ```
+
+# Customizing the ID format
+the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and specify a function that returns a string using the `DB.IDGenerationLogicFor<T>()` method in the static constructor. make sure to use a function that returns trully unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field.
+```csharp
+public class Book : IEntity
+{
+    [BsonId]
+    public string ID { get; set; }
+
+    static Book()
+    {
+        DB.IDGenerationLogicFor<Book>(
+            () => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}"));
+    }
+}
+```
+if you'd like to manually generate a custom ID for a given type, use the `NewIDFor` method like so:
+```csharp
+var customIdforABook = DB.NewIDFor<Book>();
+```
+
+
+> [!note]
+> the type of the ID property cannot be changed to something other than string.

@@ -56,12 +56,26 @@ public class Book : Entity
 
 ### BYO entities
 ```csharp
-[BsonIgnoreExtraElements]
-public class BookEntity : IEntity
+public class Book : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; }
     ...
+}
+```
+
+### Customize ID format
+```csharp
+public class Book : IEntity
+{
+    [BsonId]
+    public string ID { get; set; }
+
+    static Book()
+    {
+        DB.IDGenerationLogicFor<Book>(
+            () => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}"));
+    }
 }
 ```
 
@@ -88,4 +102,9 @@ Book book = DB.Entity<Book>("ID");
 ### Generate a new ObjectId string
 ```csharp
 string objectIdString = DB.NewID()
+```
+
+### Generate new ID when using custom ID generation logic
+```csharp
+string customIdforABook = DB.NewIDFor<Book>();
 ```

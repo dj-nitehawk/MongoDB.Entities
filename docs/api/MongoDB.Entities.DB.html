@@ -980,6 +980,68 @@ Only needed for entity types you want stored in a db other than the default db.<
   </table>
   
   
+  <a id="MongoDB_Entities_DB_Entity_" data-uid="MongoDB.Entities.DB.Entity*"></a>
+  <h4 id="MongoDB_Entities_DB_Entity__1_System_String_" data-uid="MongoDB.Entities.DB.Entity``1(System.String)">Entity&lt;T&gt;(String)</h4>
+  <div class="markdown level1 summary"><p>Returns a new instance of the supplied IEntity type with the ID set to the supplied value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T Entity&lt;T&gt;(string ID)
+
+    where T : IEntity, new()</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ID</span></td>
+        <td><p>The ID to set on the returned instance</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DB_File_" data-uid="MongoDB.Entities.DB.File*"></a>
   <h4 id="MongoDB_Entities_DB_File__1_System_String_" data-uid="MongoDB.Entities.DB.File``1(System.String)">File&lt;T&gt;(String)</h4>
   <div class="markdown level1 summary"><p>Returns a DataStreamer object to enable downloading file data directly by supplying the ID of the file entity</p>
@@ -1473,6 +1535,54 @@ Only needed for entity types you want stored in a db other than the default db.<
   </table>
   
   
+  <a id="MongoDB_Entities_DB_IDGenerationLogicFor_" data-uid="MongoDB.Entities.DB.IDGenerationLogicFor*"></a>
+  <h4 id="MongoDB_Entities_DB_IDGenerationLogicFor__1_System_Func_System_String__" data-uid="MongoDB.Entities.DB.IDGenerationLogicFor``1(System.Func{System.String})">IDGenerationLogicFor&lt;T&gt;(Func&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify a custom ID generation logic for new entities of the given type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void IDGenerationLogicFor&lt;T&gt;(Func&lt;string&gt; function)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="parametername">function</span></td>
+        <td><p>The function to use for generating new IDs. The function must return a unique string value. For ex:</p>
+<pre><code>() => Guid.NewGuid().ToString()</code></pre>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of entity the logic applies for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DB_Index_" data-uid="MongoDB.Entities.DB.Index*"></a>
   <h4 id="MongoDB_Entities_DB_Index__1" data-uid="MongoDB.Entities.DB.Index``1">Index&lt;T&gt;()</h4>
   <div class="markdown level1 summary"><p>Represents an index for a given IEntity</p>
@@ -1699,7 +1809,7 @@ You can call this method as many times as you want (such as in serverless functi
   
   <a id="MongoDB_Entities_DB_NewID_" data-uid="MongoDB.Entities.DB.NewID*"></a>
   <h4 id="MongoDB_Entities_DB_NewID" data-uid="MongoDB.Entities.DB.NewID">NewID()</h4>
-  <div class="markdown level1 summary"><p>Returns a new ObjectId as a string</p>
+  <div class="markdown level1 summary"><p>Returns a new ObjectId string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -1718,6 +1828,51 @@ You can call this method as many times as you want (such as in serverless functi
       <tr>
         <td><span class="xref">System.String</span></td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_NewIDFor_" data-uid="MongoDB.Entities.DB.NewIDFor*"></a>
+  <h4 id="MongoDB_Entities_DB_NewIDFor__1" data-uid="MongoDB.Entities.DB.NewIDFor``1">NewIDFor&lt;T&gt;()</h4>
+  <div class="markdown level1 summary"><p>Returns a new ID for the given entity type using the custom IDGenerationLogic if it has been configured.
+If no custom logic is configured, a new ObjectId will be returned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string NewIDFor&lt;T&gt;()
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The entity type to generate a new ID for</p>
+</td>
       </tr>
     </tbody>
   </table>
