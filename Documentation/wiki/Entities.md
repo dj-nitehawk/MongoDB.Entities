@@ -79,3 +79,4 @@ var customIdforABook = DB.NewIDFor<Book>();
 
 > [!note]
 > the type of the ID property cannot be changed to something other than string.
+> you also loose the ability to use `One<T>` and `Many<T>` classes for referencing relationships if you use any other ID format than `ObjectId`. PRs are welcome to get rid of this limitation.
