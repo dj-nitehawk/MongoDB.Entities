@@ -96,7 +96,7 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(0, count);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task high_volume_deletes_with_idsAsync()
         {
             var IDs = new List<string>(100100);
@@ -110,7 +110,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestCategory("SkipWhenLiveUnitTesting")]
-        [TestMethod]
+        //[TestMethod]
         public async Task high_volume_deletes_with_expressionAsync()
         {
             //start with clean collection

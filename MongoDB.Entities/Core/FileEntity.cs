@@ -54,7 +54,7 @@ namespace MongoDB.Entities
         [BsonId, ObjectId]
         public string ID { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
+        [ObjectId]
         public string FileID { get; set; }
 
         public byte[] Data { get; set; }

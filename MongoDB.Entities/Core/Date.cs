@@ -34,6 +34,7 @@ namespace MongoDB.Entities
         {
             var ticks = docSerializer.Deserialize(context, args)
                                      .GetValue("Ticks").AsInt64;
+
             return
                 (ticks == 0) ?
                 null :

@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,7 +16,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// The Id of the entity referenced by this instance.
         /// </summary>
-        [BsonRepresentation(BsonType.ObjectId)]
+        [AsObjectId]
         public string ID { get; set; }
 
         public One()
