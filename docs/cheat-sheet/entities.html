@@ -129,7 +129,7 @@ public class Book : Entity
     public DateTime ModifiedOn { get; set; }
 }
 </code></pre>
-<h3 id="store-a-properties-as-objectid-in-the-database">Store a properties as ObjectId in the database</h3>
+<h3 id="store-properties-as-objectid-in-the-database">Store properties as ObjectId in the database</h3>
 <pre><code class="lang-csharp">public class Book : Entity
 {
     [ObjectId] public string AuthorID { get; set; }
@@ -141,7 +141,8 @@ public class Book : Entity
 {
     [BsonId, ObjectId]
     public string ID { get; set; }
-    ...
+
+    public void SetNewID() =&gt; ID = ObjectId.GenerateNewId().ToString();
 }
 </code></pre>
 <h3 id="customize-id-format">Customize ID format</h3>
@@ -150,10 +151,9 @@ public class Book : Entity
     [BsonId]
     public string ID { get; set; }
 
-    static Book()
+    public void SetNewID()
     {
-        DB.IDGenerationLogicFor&lt;Book&gt;(
-            () =&gt; $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;));
+        ID = $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;;
     }
 }
 </code></pre>
@@ -169,11 +169,8 @@ public class Book : Entity
 <h3 id="entity-creation-factory-with-id">Entity creation factory with ID</h3>
 <pre><code class="lang-csharp">Book book = DB.Entity&lt;Book&gt;(&quot;ID&quot;);
 </code></pre>
-<h3 id="generate-a-new-objectid-string">Generate a new ObjectId string</h3>
-<pre><code class="lang-csharp">string objectIdString = DB.NewID()
-</code></pre>
-<h3 id="generate-new-id-when-using-custom-id-generation-logic">Generate new ID when using custom ID generation logic</h3>
-<pre><code class="lang-csharp">string customIdforABook = DB.NewIDFor&lt;Book&gt;();
+<h3 id="set-a-new-id-on-an-entity">Set a new ID on an entity</h3>
+<pre><code class="lang-csharp">book.SetNewID();
 </code></pre>
 </article>
           </div>

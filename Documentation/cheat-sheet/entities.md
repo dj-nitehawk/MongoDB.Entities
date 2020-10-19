@@ -45,7 +45,7 @@ public class Book : Entity, IModifiedOn
 }
 ```
 
-### Store a properties as ObjectId in the database
+### Store properties as ObjectId in the database
 ```csharp
 public class Book : Entity
 {
@@ -60,7 +60,8 @@ public class Book : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; }
-    ...
+
+    public void SetNewID() => ID = ObjectId.GenerateNewId().ToString();
 }
 ```
 
@@ -71,10 +72,9 @@ public class Book : IEntity
     [BsonId]
     public string ID { get; set; }
 
-    static Book()
+    public void SetNewID()
     {
-        DB.IDGenerationLogicFor<Book>(
-            () => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}"));
+        ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
     }
 }
 ```
@@ -99,12 +99,7 @@ Book book = DB.Entity<Book>();
 Book book = DB.Entity<Book>("ID");
 ```
 
-### Generate a new ObjectId string
+### Set a new ID on an entity
 ```csharp
-string objectIdString = DB.NewID()
-```
-
-### Generate new ID when using custom ID generation logic
-```csharp
-string customIdforABook = DB.NewIDFor<Book>();
+book.SetNewID();
 ```

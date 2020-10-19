@@ -52,31 +52,26 @@ public class Book : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; }
-    ...
+    
+    public void SetNewID() => ID = ObjectId.GenerateNewId().ToString();
 }
 ```
 
 # Customizing the ID format
-the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and specify a function that returns a string using the `DB.IDGenerationLogicFor<T>()` method in the static constructor. make sure to use a function that returns trully unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field.
+the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and place the logic for generating a new ID inside the `SetNewID` method. make sure to only assign trully unique strings to the ID property in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the `[BsonId]` attribute.
 ```csharp
 public class Book : IEntity
 {
     [BsonId]
     public string ID { get; set; }
 
-    static Book()
+    public void SetNewID()
     {
-        DB.IDGenerationLogicFor<Book>(
-            () => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}"));
+        ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
     }
 }
 ```
-if you'd like to manually generate a custom ID for a given type, use the `NewIDFor` method like so:
-```csharp
-var customIdforABook = DB.NewIDFor<Book>();
-```
-
 
 > [!note]
 > the type of the ID property cannot be changed to something other than string.
-> you also loose the ability to use `One<T>` and `Many<T>` classes for referencing relationships if you use any other ID format than `ObjectId`. PRs are welcome to get rid of this limitation.
+> you also loose the ability to use `One<T>` and `Many<T>` classes for referencing relationships if you use any other ID format than `ObjectId`. PRs are welcome to remove this limitation.

@@ -535,22 +535,6 @@ references:
   fullName.vb: MongoDB.Entities.DB.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions, MongoDB.Driver.IClientSessionHandle)
   nameWithType: DB.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions, IClientSessionHandle)
   nameWithType.vb: DB.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions, IClientSessionHandle)
-- uid: MongoDB.Entities.DB.IDGenerationLogicFor*
-  name: IDGenerationLogicFor
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_IDGenerationLogicFor_
-  commentId: Overload:MongoDB.Entities.DB.IDGenerationLogicFor
-  isSpec: "True"
-  fullName: MongoDB.Entities.DB.IDGenerationLogicFor
-  nameWithType: DB.IDGenerationLogicFor
-- uid: MongoDB.Entities.DB.IDGenerationLogicFor``1(System.Func{System.String})
-  name: IDGenerationLogicFor<T>(Func<String>)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_IDGenerationLogicFor__1_System_Func_System_String__
-  commentId: M:MongoDB.Entities.DB.IDGenerationLogicFor``1(System.Func{System.String})
-  name.vb: IDGenerationLogicFor(Of T)(Func(Of String))
-  fullName: MongoDB.Entities.DB.IDGenerationLogicFor<T>(System.Func<System.String>)
-  fullName.vb: MongoDB.Entities.DB.IDGenerationLogicFor(Of T)(System.Func(Of System.String))
-  nameWithType: DB.IDGenerationLogicFor<T>(Func<String>)
-  nameWithType.vb: DB.IDGenerationLogicFor(Of T)(Func(Of String))
 - uid: MongoDB.Entities.DB.Index*
   name: Index
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Index_
@@ -608,35 +592,6 @@ references:
   fullName.vb: MongoDB.Entities.DB.MigrateAsync(Of T)()
   nameWithType: DB.MigrateAsync<T>()
   nameWithType.vb: DB.MigrateAsync(Of T)()
-- uid: MongoDB.Entities.DB.NewID
-  name: NewID()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewID
-  commentId: M:MongoDB.Entities.DB.NewID
-  fullName: MongoDB.Entities.DB.NewID()
-  nameWithType: DB.NewID()
-- uid: MongoDB.Entities.DB.NewID*
-  name: NewID
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewID_
-  commentId: Overload:MongoDB.Entities.DB.NewID
-  isSpec: "True"
-  fullName: MongoDB.Entities.DB.NewID
-  nameWithType: DB.NewID
-- uid: MongoDB.Entities.DB.NewIDFor*
-  name: NewIDFor
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewIDFor_
-  commentId: Overload:MongoDB.Entities.DB.NewIDFor
-  isSpec: "True"
-  fullName: MongoDB.Entities.DB.NewIDFor
-  nameWithType: DB.NewIDFor
-- uid: MongoDB.Entities.DB.NewIDFor``1
-  name: NewIDFor<T>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NewIDFor__1
-  commentId: M:MongoDB.Entities.DB.NewIDFor``1
-  name.vb: NewIDFor(Of T)()
-  fullName: MongoDB.Entities.DB.NewIDFor<T>()
-  fullName.vb: MongoDB.Entities.DB.NewIDFor(Of T)()
-  nameWithType: DB.NewIDFor<T>()
-  nameWithType.vb: DB.NewIDFor(Of T)()
 - uid: MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)
   name: NextSequentialNumberAsync(String, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NextSequentialNumberAsync_System_String_System_Threading_CancellationToken_
@@ -932,6 +887,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Entity.ID
   nameWithType: Entity.ID
+- uid: MongoDB.Entities.Entity.SetNewID
+  name: SetNewID()
+  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_SetNewID
+  commentId: M:MongoDB.Entities.Entity.SetNewID
+  fullName: MongoDB.Entities.Entity.SetNewID()
+  nameWithType: Entity.SetNewID()
+- uid: MongoDB.Entities.Entity.SetNewID*
+  name: SetNewID
+  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_SetNewID_
+  commentId: Overload:MongoDB.Entities.Entity.SetNewID
+  isSpec: "True"
+  fullName: MongoDB.Entities.Entity.SetNewID
+  nameWithType: Entity.SetNewID
 - uid: MongoDB.Entities.EventType
   name: EventType
   href: api/MongoDB.Entities.EventType.html
@@ -2049,6 +2017,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.IEntity.ID
   nameWithType: IEntity.ID
+- uid: MongoDB.Entities.IEntity.SetNewID
+  name: SetNewID()
+  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_SetNewID
+  commentId: M:MongoDB.Entities.IEntity.SetNewID
+  fullName: MongoDB.Entities.IEntity.SetNewID()
+  nameWithType: IEntity.SetNewID()
+- uid: MongoDB.Entities.IEntity.SetNewID*
+  name: SetNewID
+  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_SetNewID_
+  commentId: Overload:MongoDB.Entities.IEntity.SetNewID
+  isSpec: "True"
+  fullName: MongoDB.Entities.IEntity.SetNewID
+  nameWithType: IEntity.SetNewID
 - uid: MongoDB.Entities.IgnoreAttribute
   name: IgnoreAttribute
   href: api/MongoDB.Entities.IgnoreAttribute.html
