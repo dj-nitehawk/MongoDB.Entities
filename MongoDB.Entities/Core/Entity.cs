@@ -11,9 +11,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// This property is auto managed. A new ID will be assigned for new entities upon saving.
         /// </summary>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId, ObjectId]
         public string ID { get; set; }
 
+        public void SetNewID() => 
+            ID = ObjectId.GenerateNewId().ToString();
     }
 }

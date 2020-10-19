@@ -6,6 +6,9 @@ dotnet_diagnostic.RCS1036.severity = none
 dotnet_diagnostic.RCS1135.severity = none
 dotnet_diagnostic.RCS1037.severity = none
 
+# RCS1079: Throwing of new NotImplementedException.
+dotnet_diagnostic.RCS1079.severity = none
+
 [*]
 indent_style = space
 

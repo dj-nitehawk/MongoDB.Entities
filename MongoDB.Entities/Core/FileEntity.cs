@@ -51,14 +51,15 @@ namespace MongoDB.Entities
     [Name("[BINARY_CHUNKS]")]
     internal class FileChunk : IEntity
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonId, ObjectId]
         public string ID { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string FileID { get; set; }
 
         public byte[] Data { get; set; }
+
+        public void SetNewID() => ID = ObjectId.GenerateNewId().ToString();
     }
 
     /// <summary>
@@ -240,7 +241,7 @@ namespace MongoDB.Entities
 
             if (dataChunk.Count >= chunkSize || isLastChunk)
             {
-                doc.ID = ObjectId.GenerateNewId().ToString();
+                doc.SetNewID();
                 doc.Data = dataChunk.ToArray();
                 dataChunk.Clear();
                 parent.ChunkCount++;

@@ -179,7 +179,7 @@ namespace MongoDB.Entities
         public static T ToDocument<T>(this T entity) where T : IEntity
         {
             var res = entity.Duplicate();
-            res.ID = DB.NewIDFor<T>();
+            res.SetNewID();
             return res;
         }
 
@@ -191,7 +191,7 @@ namespace MongoDB.Entities
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = DB.NewIDFor<T>();
+                e.SetNewID();
             }
             return res;
         }
@@ -204,7 +204,7 @@ namespace MongoDB.Entities
             var res = entities.Duplicate();
             foreach (var e in res)
             {
-                e.ID = DB.NewIDFor<T>();
+                e.SetNewID();
             }
             return res;
         }

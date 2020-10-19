@@ -8,10 +8,9 @@ namespace MongoDB.Entities.Tests.Models
         [BsonId]
         public string ID { get; set; }
 
-        static Customer()
+        public void SetNewID()
         {
-            DB.IDGenerationLogicFor<Customer>(
-                () => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}");
+            ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
         }
     }
 }
