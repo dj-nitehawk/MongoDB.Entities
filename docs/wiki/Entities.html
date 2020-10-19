@@ -135,11 +135,12 @@ public class Author : Entity
     [BsonId, ObjectId]
     public string ID { get; set; }
     
-    public void SetNewID() =&gt; ID = ObjectId.GenerateNewId().ToString();
+    public void SetNewID() =&gt; 
+        ID = ObjectId.GenerateNewId().ToString();
 }
 </code></pre>
 <h1 id="customizing-the-id-format">Customizing the ID format</h1>
-<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply implement the <code>IEntity</code> interface and place the logic for generating a new ID inside the <code>SetNewID</code> method. make sure to only assign trully unique strings to the ID property in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
+<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>SetNewID</code> method. make sure to only assign truly unique strings to the ID property in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
     [BsonId]
@@ -153,8 +154,7 @@ public class Author : Entity
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>the type of the ID property cannot be changed to something other than string.
-you also loose the ability to use <code>One&lt;T&gt;</code> and <code>Many&lt;T&gt;</code> classes for referencing relationships if you use any other ID format than <code>ObjectId</code>. PRs are welcome to remove this limitation.</p>
+<p>the type of the ID property cannot be changed to something other than <code>string</code>. PRs are welcome for removing this limitation.</p>
 </div>
 </article>
           </div>

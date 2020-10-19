@@ -72,9 +72,9 @@ namespace MongoDB.Entities
     /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class AsObjectId : BsonSerializerAttribute
+    public class AsObjectIdAttribute : BsonSerializerAttribute
     {
-        public AsObjectId() : base(typeof(IDSerializer)) { }
+        public AsObjectIdAttribute() : base(typeof(IDSerializer)) { }
 
         private class IDSerializer : SerializerBase<string>
         {

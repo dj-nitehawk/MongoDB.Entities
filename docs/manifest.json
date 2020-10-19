@@ -25,6 +25,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.AsObjectIdAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.AsObjectIdAttribute.html",
+          "hash": "QiOtdfE+oGoY6qx+qhPQ7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/MongoDB.Entities.Coordinates2D.yml",
       "output": {
         ".html": {
@@ -41,7 +53,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "wPUMQF6520lM5JEUh4oIfA=="
+          "hash": "yRQBqqP1/ps9h0HfIoBxiQ=="
         }
       },
       "is_incremental": false,
@@ -113,7 +125,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Extensions.html",
-          "hash": "uISj5EoqTp0OsIISI2+Oiw=="
+          "hash": "IEINhOqVR1A/wQqwkZrJ1Q=="
         }
       },
       "is_incremental": false,
@@ -149,7 +161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Find-2.html",
-          "hash": "ieYrPnPCU0RZQsD5lmtzww=="
+          "hash": "5NrJmfu+EdNex03wnMHJ1Q=="
         }
       },
       "is_incremental": false,
@@ -173,7 +185,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.GeoNear-1.html",
-          "hash": "eBzbBijvZta0+wiLOyheUQ=="
+          "hash": "u5GRa2y0qFGLyDhT2F46KA=="
         }
       },
       "is_incremental": false,
@@ -233,7 +245,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IgnoreAttribute.html",
-          "hash": "ugDZmPulE0NAzmxzsDyEHg=="
+          "hash": "EBYF5CeBtGeL1bnyV9AicA=="
         }
       },
       "is_incremental": false,
@@ -245,7 +257,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Index-1.html",
-          "hash": "EfPQP2ehI2j8ZgWo91va4g=="
+          "hash": "FlKbe0rgpW6YP+zKyr/fcw=="
         }
       },
       "is_incremental": false,
@@ -269,7 +281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.JoinRecord.html",
-          "hash": "SrygE6AOzYDWQwy8+00EtA=="
+          "hash": "5y2iuAii4Gbo7bt0xlZALQ=="
         }
       },
       "is_incremental": false,
@@ -305,7 +317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.html",
-          "hash": "iWpNHujzDT0fdJTD2mD9hA=="
+          "hash": "A/vsGUB8PZOegxjvdGg2dg=="
         }
       },
       "is_incremental": false,
@@ -353,7 +365,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.ObjectIdAttribute.html",
-          "hash": "wxUNqyNhN09Y37d6j8dgcg=="
+          "hash": "s2VX1wkkQRRwp9IrdKvR6g=="
         }
       },
       "is_incremental": false,
@@ -365,7 +377,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.One-1.html",
-          "hash": "HD2Ywq8/xDDEaD3vp7TSNA=="
+          "hash": "+Lrxy0M+b1XC9rMLpgUrxg=="
         }
       },
       "is_incremental": false,
@@ -413,7 +425,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Prop.html",
-          "hash": "5QYnaAPjGR7QXsWcc7DnlA=="
+          "hash": "vOHrSR4VE6v0aQva/uYdhw=="
         }
       },
       "is_incremental": false,
@@ -449,7 +461,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-2.html",
-          "hash": "38byznwyJTJt1EMJnCJ2tg=="
+          "hash": "opB1v/cT8vUJYkUG+d7BNQ=="
         }
       },
       "is_incremental": false,
@@ -461,7 +473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template.html",
-          "hash": "L3k7K6tQ6JkCGZecrntEvQ=="
+          "hash": "0e97czEl15k4hIR+ufmieA=="
         }
       },
       "is_incremental": false,
@@ -473,7 +485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Transaction.html",
-          "hash": "M1AFgeQO1g2+IpUoRFeRsg=="
+          "hash": "t+IUVK8xZF0oEnn/ugw3/g=="
         }
       },
       "is_incremental": false,
@@ -485,7 +497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Update-1.html",
-          "hash": "P/k0KxmTcx8hd0lDiMqCxg=="
+          "hash": "g8P+FP92lXhGB+3C3+YYeg=="
         }
       },
       "is_incremental": false,
@@ -509,7 +521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-2.html",
-          "hash": "Z04Oc/yzK2oWapmYjVK9AA=="
+          "hash": "0rjewaMknWQFLE4wu377Iw=="
         }
       },
       "is_incremental": false,
@@ -521,7 +533,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Watcher-1.html",
-          "hash": "s7e6PmeGT75j8RJ7O7t5sA=="
+          "hash": "664uvwLyVwN6hmKPdQWGXA=="
         }
       },
       "is_incremental": false,
@@ -533,7 +545,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "apFnUnUFfUIdS3y4XLLX9w=="
+          "hash": "YCno9mYRYZgdsdGxNLYhBg=="
         }
       },
       "is_incremental": false,
@@ -545,7 +557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "bB7ytGsAmmLavJ0bkzcrkg=="
+          "hash": "bS9Sdk0frDGIqI1BKmiGhQ=="
         }
       },
       "is_incremental": false,
@@ -924,7 +936,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "EFdzocD0vSIQg9m0KDOkRA=="
+          "hash": "7ilIxeHNiIrKzZS04PC7+A=="
         }
       },
       "is_incremental": false,
@@ -1160,13 +1172,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 42,
-          "skipped_file_count": 40
+          "skipped_file_count": 42
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 43,
-          "skipped_file_count": 13
+          "total_file_count": 44,
+          "skipped_file_count": 44
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

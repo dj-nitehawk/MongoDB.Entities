@@ -14,10 +14,10 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ObjectIdAttribute
+    <title>Class AsObjectIdAttribute
    | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ObjectIdAttribute
+    <meta name="title" content="Class AsObjectIdAttribute
    | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.56.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
@@ -93,21 +93,21 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.ObjectIdAttribute">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.AsObjectIdAttribute">
   
   
-  <h1 id="MongoDB_Entities_ObjectIdAttribute" data-uid="MongoDB.Entities.ObjectIdAttribute" class="text-break">Class ObjectIdAttribute
+  <h1 id="MongoDB_Entities_AsObjectIdAttribute" data-uid="MongoDB.Entities.AsObjectIdAttribute" class="text-break">Class AsObjectIdAttribute
   </h1>
-  <div class="markdown level0 summary"><p>Use this attribute to mark a property in order to save it in MongoDB server as ObjectId</p>
+  <div class="markdown level0 summary"><p>Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string.
+If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">System.Attribute</span></div>
-    <div class="level2"><span class="xref">MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute</span></div>
-    <div class="level3"><span class="xref">MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute</span></div>
-    <div class="level4"><span class="xref">ObjectIdAttribute</span></div>
+    <div class="level2"><span class="xref">MongoDB.Bson.Serialization.Attributes.BsonSerializerAttribute</span></div>
+    <div class="level3"><span class="xref">AsObjectIdAttribute</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -116,19 +116,10 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.Apply(MongoDB.Bson.Serialization.IBsonSerializer)</span>
+      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonSerializerAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)</span>
     </div>
     <div>
-      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.Representation</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.AllowOverflow</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonRepresentationAttribute.AllowTruncation</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonSerializationOptionsAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)</span>
+      <span class="xref">MongoDB.Bson.Serialization.Attributes.BsonSerializerAttribute.SerializerType</span>
     </div>
     <div>
       <span class="xref">System.Attribute.Equals(System.Object)</span>
@@ -259,22 +250,22 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
-  <h5 id="MongoDB_Entities_ObjectIdAttribute_syntax">Syntax</h5>
+  <h5 id="MongoDB_Entities_AsObjectIdAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Property)]
-public class ObjectIdAttribute : BsonRepresentationAttribute, IBsonMemberMapAttribute</code></pre>
+public class AsObjectIdAttribute : BsonSerializerAttribute, IBsonMemberMapAttribute</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="MongoDB_Entities_ObjectIdAttribute__ctor_" data-uid="MongoDB.Entities.ObjectIdAttribute.#ctor*"></a>
-  <h4 id="MongoDB_Entities_ObjectIdAttribute__ctor" data-uid="MongoDB.Entities.ObjectIdAttribute.#ctor">ObjectIdAttribute()</h4>
+  <a id="MongoDB_Entities_AsObjectIdAttribute__ctor_" data-uid="MongoDB.Entities.AsObjectIdAttribute.#ctor*"></a>
+  <h4 id="MongoDB_Entities_AsObjectIdAttribute__ctor" data-uid="MongoDB.Entities.AsObjectIdAttribute.#ctor">AsObjectIdAttribute()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ObjectIdAttribute()</code></pre>
+    <pre><code class="lang-csharp hljs">public AsObjectIdAttribute()</code></pre>
   </div>
   <h3 id="implements">Implements</h3>
   <div>

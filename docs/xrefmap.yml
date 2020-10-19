@@ -7,6 +7,25 @@ references:
   commentId: N:MongoDB.Entities
   fullName: MongoDB.Entities
   nameWithType: MongoDB.Entities
+- uid: MongoDB.Entities.AsObjectIdAttribute
+  name: AsObjectIdAttribute
+  href: api/MongoDB.Entities.AsObjectIdAttribute.html
+  commentId: T:MongoDB.Entities.AsObjectIdAttribute
+  fullName: MongoDB.Entities.AsObjectIdAttribute
+  nameWithType: AsObjectIdAttribute
+- uid: MongoDB.Entities.AsObjectIdAttribute.#ctor
+  name: AsObjectIdAttribute()
+  href: api/MongoDB.Entities.AsObjectIdAttribute.html#MongoDB_Entities_AsObjectIdAttribute__ctor
+  commentId: M:MongoDB.Entities.AsObjectIdAttribute.#ctor
+  fullName: MongoDB.Entities.AsObjectIdAttribute.AsObjectIdAttribute()
+  nameWithType: AsObjectIdAttribute.AsObjectIdAttribute()
+- uid: MongoDB.Entities.AsObjectIdAttribute.#ctor*
+  name: AsObjectIdAttribute
+  href: api/MongoDB.Entities.AsObjectIdAttribute.html#MongoDB_Entities_AsObjectIdAttribute__ctor_
+  commentId: Overload:MongoDB.Entities.AsObjectIdAttribute.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.AsObjectIdAttribute.AsObjectIdAttribute
+  nameWithType: AsObjectIdAttribute.AsObjectIdAttribute
 - uid: MongoDB.Entities.Coordinates2D
   name: Coordinates2D
   href: api/MongoDB.Entities.Coordinates2D.html
