@@ -441,5 +441,24 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(res.ID, customer.ID);
         }
+
+        [TestMethod]
+        public async Task custom_id_used_in_a_relationship()
+        {
+            var customer = new Customer();
+            await customer.SaveAsync();
+
+            var book = new Book { Title = "ciuiar", Customer = customer };
+            await book.SaveAsync();
+
+            var res = await book.Customer.ToEntityAsync();
+            Assert.AreEqual(res.ID, customer.ID);
+
+            var cus = await DB.Queryable<Book>()
+                              .Where(b => b.Customer.ID == customer.ID)
+                              .Select(b => b.Customer)
+                              .SingleOrDefaultAsync();
+            Assert.AreEqual(cus.ID, customer.ID);
+        }
     }
 }

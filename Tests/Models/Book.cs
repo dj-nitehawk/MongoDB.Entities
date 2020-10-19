@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Entities.Tests.Models;
+using System;
 using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests
@@ -21,6 +22,8 @@ namespace MongoDB.Entities.Tests
         public string[] Tags { get; set; }
         public IList<Review> ReviewList { get; set; }
         public One<Author> MainAuthor { get; set; }
+
+        public One<Customer> Customer { get; set; }
         public Many<Author> GoodAuthors { get; set; }
         public Many<Author> BadAuthors { get; set; }
 

@@ -86,7 +86,7 @@ namespace MongoDB.Entities
                     return;
                 }
 
-                base.Serialize(ctx, args, value);
+                ctx.Writer.WriteString(value);
             }
 
             public override string Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
