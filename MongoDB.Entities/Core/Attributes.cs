@@ -91,10 +91,21 @@ namespace MongoDB.Entities
 
             public override string Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
             {
-                if (ctx.Reader.CurrentBsonType == BsonType.ObjectId)
-                    return ctx.Reader.ReadObjectId().ToString();
+                switch (ctx.Reader.CurrentBsonType) //todo: try this with other custom serializers
+                {
+                    case BsonType.String:
+                        return ctx.Reader.ReadString();
+ 
+                    case BsonType.ObjectId:
+                        return ctx.Reader.ReadObjectId().ToString();
 
-                return ctx.Reader.ReadString();
+                    case BsonType.Null:
+                        ctx.Reader.ReadNull();
+                        return null;
+
+                    default:
+                        throw new BsonSerializationException($"'{ctx.Reader.CurrentBsonType}' values are not valid on properties decorated with an [AsObjectId] attribute!");
+                }             
             }
         }
     }
