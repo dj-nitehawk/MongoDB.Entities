@@ -80,7 +80,13 @@ namespace MongoDB.Entities
         {
             public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
             {
-                if (value?.Length == 24 && ObjectId.TryParse(value, out var oId))
+                if (value == null)
+                {
+                    ctx.Writer.WriteNull();
+                    return;
+                }
+
+                if (value.Length == 24 && ObjectId.TryParse(value, out var oId))
                 {
                     ctx.Writer.WriteObjectId(oId);
                     return;
@@ -95,7 +101,7 @@ namespace MongoDB.Entities
                 {
                     case BsonType.String:
                         return ctx.Reader.ReadString();
- 
+
                     case BsonType.ObjectId:
                         return ctx.Reader.ReadObjectId().ToString();
 
@@ -105,7 +111,7 @@ namespace MongoDB.Entities
 
                     default:
                         throw new BsonSerializationException($"'{ctx.Reader.CurrentBsonType}' values are not valid on properties decorated with an [AsObjectId] attribute!");
-                }             
+                }
             }
         }
     }
