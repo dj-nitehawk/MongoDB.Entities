@@ -74,9 +74,9 @@ namespace MongoDB.Entities
     [AttributeUsage(AttributeTargets.Property)]
     public class AsObjectIdAttribute : BsonSerializerAttribute
     {
-        public AsObjectIdAttribute() : base(typeof(IDSerializer)) { }
+        public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-        private class IDSerializer : SerializerBase<string>
+        private class ObjectIdSerializer : SerializerBase<string>
         {
             public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
             {
@@ -97,7 +97,7 @@ namespace MongoDB.Entities
 
             public override string Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
             {
-                switch (ctx.Reader.CurrentBsonType) //todo: try this with other custom serializers
+                switch (ctx.Reader.CurrentBsonType)
                 {
                     case BsonType.String:
                         return ctx.Reader.ReadString();

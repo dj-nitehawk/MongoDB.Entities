@@ -3,7 +3,7 @@ using System;
 
 namespace MongoDB.Entities.Tests.Models
 {
-    public class Customer : IEntity
+    public class CustomerWithCustomID : IEntity
     {
         [BsonId]
         public string ID { get; set; }

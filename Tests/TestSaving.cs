@@ -434,10 +434,10 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task custom_id_generation_logic_works()
         {
-            var customer = new Customer();
+            var customer = new CustomerWithCustomID();
             await customer.SaveAsync();
 
-            var res = await DB.Find<Customer>().OneAsync(customer.ID);
+            var res = await DB.Find<CustomerWithCustomID>().OneAsync(customer.ID);
 
             Assert.AreEqual(res.ID, customer.ID);
         }
@@ -445,7 +445,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task custom_id_used_in_a_relationship()
         {
-            var customer = new Customer();
+            var customer = new CustomerWithCustomID();
             await customer.SaveAsync();
 
             var book = new Book { Title = "ciuiar", Customer = customer };

@@ -23,7 +23,7 @@ namespace MongoDB.Entities.Tests
         public IList<Review> ReviewList { get; set; }
         public One<Author> MainAuthor { get; set; }
 
-        public One<Customer> Customer { get; set; }
+        public One<CustomerWithCustomID> Customer { get; set; }
         public Many<Author> GoodAuthors { get; set; }
         public Many<Author> BadAuthors { get; set; }
 
