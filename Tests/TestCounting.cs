@@ -31,7 +31,7 @@ namespace MongoDB.Entities.Tests
 
             var count = await DB.CountEstimatedAsync<Author>();
 
-            Assert.IsTrue(count > 25);
+            Assert.IsTrue(count > 0);
         }
 
         [TestMethod]
