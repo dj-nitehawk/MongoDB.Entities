@@ -14,8 +14,20 @@ var count = await DB.CountAsync<Author>();
 ```
 the above will give you an accurate count of total entities by running an aggregation query.
 
-### Count matches for an expression
+### Count matches with an expression
 ```csharp
 var count = await DB.CountAsync<Author>(a => a.Title == "The Power Of Now");
 ```
-you can get the number of entities that matches a given expression/filter with the above.
+
+### Count matches with a filter builder function
+```csharp
+var count = await DB.CountAsync<Author>(b => b.Eq(a => a.Name, "Eckhart Tolle"));
+```
+
+### Count matches with a filter definition
+```csharp
+var filter = DB.Filter<Author>()
+               .Eq(a => a.Name, "Eckhart Tolle");
+
+var count = await DB.CountAsync(filter);
+```

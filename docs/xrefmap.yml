@@ -286,6 +286,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.CountAsync
   nameWithType: DB.CountAsync
+- uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: CountAsync<T>(IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
@@ -295,6 +304,15 @@ references:
   fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: DB.CountAsync<T>(IClientSessionHandle, CancellationToken)
   nameWithType.vb: DB.CountAsync(Of T)(IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
