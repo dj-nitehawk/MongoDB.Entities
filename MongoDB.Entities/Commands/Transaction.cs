@@ -65,6 +65,28 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.
+        /// </summary>
+        /// <typeparam name="T">The entity type to get the count for</typeparam>
+        /// <param name="filter">A filter definition</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.CountAsync(filter, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Gets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.
+        /// </summary>
+        /// <typeparam name="T">The entity type to get the count for</typeparam>
+        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.CountAsync(filter, Session, cancellation);
+        }
+
+        /// <summary>
         /// Starts an update command for the given entity type in the transaction scope.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>

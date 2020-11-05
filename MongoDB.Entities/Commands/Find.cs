@@ -363,7 +363,9 @@ namespace MongoDB.Entities
             if (sorts.Count > 0)
                 options.Sort = Builders<T>.Sort.Combine(sorts);
 
-            return DB.FindAsync(filter, options, session, cancellation);
+            return session == null 
+                   ? DB.Collection<T>().FindAsync(filter, options, cancellation) 
+                   : DB.Collection<T>().FindAsync(session, filter, options, cancellation);
         }
 
         private void AddTxtScoreToProjection(string propName)

@@ -22,7 +22,8 @@ namespace MongoDB.Entities
         /// Call this method to finalize defining the index after setting the index keys and options.
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public async Task CreateAsync(CancellationToken cancellation = default)
+        /// <returns>The name of the created index</returns>
+        public async Task<string> CreateAsync(CancellationToken cancellation = default)
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 
@@ -71,13 +72,9 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(options.Name))
             {
                 if (isTextIndex)
-                {
                     options.Name = "[TEXT]";
-                }
                 else
-                {
                     options.Name = string.Join(" | ", propNames);
-                }
             }
 
             var model = new CreateIndexModel<T>(
@@ -86,13 +83,15 @@ namespace MongoDB.Entities
 
             try
             {
-                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+                await CreateAsync(model, cancellation).ConfigureAwait(false);
             }
             catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
             {
-                await DB.DropIndexAsync<T>(options.Name, cancellation).ConfigureAwait(false);
-                await DB.CreateIndexAsync(model, cancellation).ConfigureAwait(false);
+                await DropAsync(options.Name, cancellation).ConfigureAwait(false);
+                await CreateAsync(model, cancellation).ConfigureAwait(false);
             }
+
+            return options.Name;
         }
 
         /// <summary>
@@ -116,6 +115,30 @@ namespace MongoDB.Entities
         {
             Keys.Add(new Key<T>(propertyToIndex, type));
             return this;
+        }
+
+        /// <summary>
+        /// Drops an index by name for this entity type
+        /// </summary>
+        /// <param name="name">The name of the index to drop</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task DropAsync(string name, CancellationToken cancellation = default)
+        {
+            await DB.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Drops all indexes for this entity type
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task DropAllAsync(CancellationToken cancellation = default)
+        {
+            await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
+        }
+
+        private Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
+        {
+            return DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
         }
     }
 

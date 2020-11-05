@@ -231,8 +231,14 @@ namespace MongoDB.Entities
         {
             if (models.Count > 0)
             {
-                var bulkWriteResult = await DB.BulkUpdateAsync(models, session, cancellation).ConfigureAwait(false);
+                var bulkWriteResult = await (
+                    session == null
+                    ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
+                    : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                    ).ConfigureAwait(false);
+
                 models.Clear();
+
                 return new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
             }
             else
@@ -242,7 +248,7 @@ namespace MongoDB.Entities
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
-                return await DB.UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
+                return await UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
         }
 
@@ -257,12 +263,19 @@ namespace MongoDB.Entities
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
-            return DB.UpdateAsync(
+            return UpdateAsync(
                 filter,
                 Builders<T>.Update.Pipeline(stages.ToArray()),
                 options,
                 session,
                 cancellation);
+        }
+
+        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            return session == null
+                   ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
+                   : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
         }
     }
 }

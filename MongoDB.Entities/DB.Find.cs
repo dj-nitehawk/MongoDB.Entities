@@ -6,13 +6,6 @@ namespace MongoDB.Entities
 {
     public static partial class DB
     {
-        internal static Task<IAsyncCursor<TProjection>> FindAsync<T, TProjection>(FilterDefinition<T> filter, FindOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            return session == null ?
-                        Collection<T>().FindAsync(filter, options, cancellation) :
-                        Collection<T>().FindAsync(session, filter, options, cancellation);
-        }
-
         /// <summary>
         /// Represents a MongoDB Find command
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>

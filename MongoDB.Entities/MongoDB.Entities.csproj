@@ -8,10 +8,18 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.4.0-beta1</Version>
+    <Version>20.4.0-beta2</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added DB.Count() filter definition overload
-- added DB.Count() filter builder overload
+    <PackageReleaseNotes>- add DB.Count() filter definition overload
+- add DB.Count() filter builder overload
+- add transaction support for the new DB.Count() methods
+- add ability to drop an index by name
+- add ability to drop all indexes for an entity type
+- DB.Index().CreateAsync() now returns the name of the index created
+- optimize DB.Find() method
+- optimize DB.Index() method
+- optimize DB.Update() method
+- optimize DB.UpdateAndGet() method
 - improved test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

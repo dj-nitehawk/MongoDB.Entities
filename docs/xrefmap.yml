@@ -2137,6 +2137,40 @@ references:
   fullName.vb: MongoDB.Entities.Index(Of T).CreateAsync
   nameWithType: Index<T>.CreateAsync
   nameWithType.vb: Index(Of T).CreateAsync
+- uid: MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
+  name: DropAllAsync(CancellationToken)
+  href: api/MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAllAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.DropAllAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAllAsync(System.Threading.CancellationToken)
+  nameWithType: Index<T>.DropAllAsync(CancellationToken)
+  nameWithType.vb: Index(Of T).DropAllAsync(CancellationToken)
+- uid: MongoDB.Entities.Index`1.DropAllAsync*
+  name: DropAllAsync
+  href: api/MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAllAsync_
+  commentId: Overload:MongoDB.Entities.Index`1.DropAllAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Index<T>.DropAllAsync
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAllAsync
+  nameWithType: Index<T>.DropAllAsync
+  nameWithType.vb: Index(Of T).DropAllAsync
+- uid: MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
+  name: DropAsync(String, CancellationToken)
+  href: api/MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAsync_System_String_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.DropAsync(System.String, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync(System.String, System.Threading.CancellationToken)
+  nameWithType: Index<T>.DropAsync(String, CancellationToken)
+  nameWithType.vb: Index(Of T).DropAsync(String, CancellationToken)
+- uid: MongoDB.Entities.Index`1.DropAsync*
+  name: DropAsync
+  href: api/MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_DropAsync_
+  commentId: Overload:MongoDB.Entities.Index`1.DropAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Index<T>.DropAsync
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync
+  nameWithType: Index<T>.DropAsync
+  nameWithType.vb: Index(Of T).DropAsync
 - uid: MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
   name: Key(Expression<Func<T, Object>>, KeyType)
   href: api/MongoDB.Entities.Index-1.html#MongoDB_Entities_Index_1_Key_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_KeyType_
@@ -3715,6 +3749,24 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.CountAsync
   nameWithType: Transaction.CountAsync
+- uid: MongoDB.Entities.Transaction.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken)
+  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
+  fullName: MongoDB.Entities.Transaction.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken)
+  nameWithType: Transaction.CountAsync<T>(FilterDefinition<T>, CancellationToken)
+  nameWithType.vb: Transaction.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
+- uid: MongoDB.Entities.Transaction.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
+  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
+  fullName: MongoDB.Entities.Transaction.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
+  nameWithType: Transaction.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
+  nameWithType.vb: Transaction.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
 - uid: MongoDB.Entities.Transaction.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
   name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
   href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
