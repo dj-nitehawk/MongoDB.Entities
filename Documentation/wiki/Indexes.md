@@ -61,3 +61,22 @@ await DB.Index<Book>()
         .Option(o => o.Unique = true)
         .CreateAsync();
 ```
+
+## Retrieve the name of created index
+The `.CreateAsync()` method returns the name of the index that was created.
+```csharp
+var name = await DB.Index<Book>()
+                   .Key(x => x.Title, KeyType.Ascending)
+                   .Key(x=> x.Price, KeyType.Descending)
+                   .CreateAsync();              
+```
+
+## Delete an index by name
+```csharp
+await DB.Index<Book>().DropAsync(name);
+```
+
+## Delete all indexes for an entity type
+```csharp
+await DB.Index<Book>().DropAllAsync();
+```

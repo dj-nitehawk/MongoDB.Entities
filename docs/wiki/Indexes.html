@@ -152,6 +152,19 @@
         .Option(o =&gt; o.Unique = true)
         .CreateAsync();
 </code></pre>
+<h2 id="retrieve-the-name-of-created-index">Retrieve the name of created index</h2>
+<p>The <code>.CreateAsync()</code> method returns the name of the index that was created.</p>
+<pre><code class="lang-csharp">var name = await DB.Index&lt;Book&gt;()
+                   .Key(x =&gt; x.Title, KeyType.Ascending)
+                   .Key(x=&gt; x.Price, KeyType.Descending)
+                   .CreateAsync();              
+</code></pre>
+<h2 id="delete-an-index-by-name">Delete an index by name</h2>
+<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAsync(name);
+</code></pre>
+<h2 id="delete-all-indexes-for-an-entity-type">Delete all indexes for an entity type</h2>
+<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAllAsync();
+</code></pre>
 </article>
           </div>
           
