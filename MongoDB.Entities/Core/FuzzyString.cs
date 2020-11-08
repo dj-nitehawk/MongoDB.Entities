@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.IO;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
@@ -7,36 +8,58 @@ namespace MongoDB.Entities
 {
     internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
     {
-        private static readonly BsonDocumentSerializer docSerializer = new BsonDocumentSerializer();
         private static readonly StringSerializer strSerializer = new StringSerializer();
 
-        public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, FuzzyString fString)
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
         {
-            if (fString == null)
+            if (fString == null || string.IsNullOrWhiteSpace(fString.Value))
             {
-                context.Writer.WriteStartDocument();
-                context.Writer.WriteString("Value", string.Empty);
-                context.Writer.WriteString("Hash", string.Empty);
-                context.Writer.WriteEndDocument();
+                ctx.Writer.WriteNull();
             }
             else
             {
-                if (fString.Value.Length > 250) throw new NotSupportedException("FuzzyString can only hold a maximum of 250 characters!");
+                if (fString.Value.Length > 250)
+                    throw new NotSupportedException("FuzzyString can only hold a maximum of 250 characters!");
 
-                context.Writer.WriteStartDocument();
-                context.Writer.WriteString("Value", fString.Value);
-                context.Writer.WriteString("Hash", fString.Value.ToDoubleMetaphoneHash());
-                context.Writer.WriteEndDocument();
+                ctx.Writer.WriteStartDocument();
+                ctx.Writer.WriteString("Value", fString.Value);
+                ctx.Writer.WriteString("Hash", fString.Value.ToDoubleMetaphoneHash());
+                ctx.Writer.WriteEndDocument();
             }
         }
 
-        public override FuzzyString Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+        public override FuzzyString Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
         {
-            return new FuzzyString
+            var bsonType = ctx.Reader.GetCurrentBsonType();
+
+            switch (bsonType)
             {
-                Value = docSerializer.Deserialize(context, args)
-                                     .GetValue("Value").AsString
-            };
+                case BsonType.Document:
+
+                    string value = null;
+
+                    ctx.Reader.ReadStartDocument();
+                    while (ctx.Reader.ReadBsonType() != BsonType.EndOfDocument)
+                    {
+                        if (ctx.Reader.ReadName() == "Value")
+                            value = ctx.Reader.ReadString();
+                        else
+                            ctx.Reader.SkipValue();
+                    }
+                    ctx.Reader.ReadEndDocument();
+
+                    if (value == null)
+                        throw new FormatException("Unable to deserialize a value from the FuzzyString document!");
+
+                    return value;
+
+                case BsonType.Null:
+                    ctx.Reader.ReadNull();
+                    return new FuzzyString();
+
+                default:
+                    throw new FormatException($"Cannot deserialize a FuzzyString value from a [{bsonType}]");
+            }
         }
 
         public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)

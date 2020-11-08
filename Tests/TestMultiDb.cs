@@ -15,10 +15,11 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task save_entity_works()
         {
-            DB.DatabaseFor<BookCover>(dbName);
-            DB.DatabaseFor<BookMark>(dbName);
 
             await DB.InitAsync(dbName);
+
+            DB.DatabaseFor<BookCover>(dbName);
+            DB.DatabaseFor<BookMark>(dbName);
 
             var cover = new BookCover
             {

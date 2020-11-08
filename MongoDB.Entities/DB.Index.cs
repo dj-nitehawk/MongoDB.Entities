@@ -1,8 +1,4 @@
-﻿using MongoDB.Driver;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace MongoDB.Entities
+﻿namespace MongoDB.Entities
 {
     public static partial class DB
     {

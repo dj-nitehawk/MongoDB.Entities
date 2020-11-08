@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
 using System;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
 {
@@ -8,7 +9,7 @@ namespace MongoDB.Entities.Tests
     public class FuzzyStringTest
     {
         [TestMethod]
-        public async System.Threading.Tasks.Task fuzzystring_type_saving_and_retrieval_worksAsync()
+        public async Task fuzzystring_type_saving_and_retrieval_worksAsync()
         {
             var guid = Guid.NewGuid().ToString();
 
@@ -19,6 +20,20 @@ namespace MongoDB.Entities.Tests
                         .SingleAsync();
 
             Assert.AreEqual(guid, res.Review.Alias.Value);
+        }
+
+        [TestMethod]
+        public async Task fuzzystring_type_with_nulls_workAsync()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            await new Book { Title = guid, Review = new Review { Alias = null } }.SaveAsync();
+
+            var res = await DB.Queryable<Book>()
+                        .Where(b => b.Title == guid)
+                        .SingleAsync();
+
+            Assert.AreEqual(null, res.Review.Alias.Value);
         }
     }
 }

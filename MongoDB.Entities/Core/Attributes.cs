@@ -3,31 +3,32 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
+using MongoDB.Bson.IO;
 
 namespace MongoDB.Entities
 {
     /// <summary>
     /// Indicates that this property should be ignored when this class is persisted to MongoDB.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class IgnoreAttribute : BsonIgnoreAttribute { }
 
     /// <summary>
     /// Indicates that this property is the owner side of a many-to-many relationship
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class OwnerSideAttribute : Attribute { }
 
     /// <summary>
     /// Indicates that this property is the inverse side of a many-to-many relationship
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InverseSideAttribute : Attribute { }
 
     /// <summary>
     /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class NameAttribute : Attribute
     {
         public string Name { get; }
@@ -47,20 +48,20 @@ namespace MongoDB.Entities
     /// Use this attribute on properties that you want to omit when using SavePreserving() instead of supplying an expression. 
     /// TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving() 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class PreserveAttribute : Attribute { }
 
     /// <summary>
     /// Properties that don't have this attribute will be omitted when using SavePreserving()
     /// TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DontPreserveAttribute : Attribute { }
 
     /// <summary>
     /// Use this attribute to mark a property in order to save it in MongoDB server as ObjectId
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ObjectIdAttribute : BsonRepresentationAttribute
     {
         public ObjectIdAttribute() : base(BsonType.ObjectId)
@@ -71,7 +72,7 @@ namespace MongoDB.Entities
     /// Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string. 
     /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class AsObjectIdAttribute : BsonSerializerAttribute
     {
         public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }

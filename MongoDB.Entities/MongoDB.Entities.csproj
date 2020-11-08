@@ -20,6 +20,7 @@
 - optimize DB.Index() method
 - optimize DB.Update() method
 - optimize DB.UpdateAndGet() method
+- optimize FuzzyString serializer
 - improved test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
