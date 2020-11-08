@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +40,22 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
             Assert.AreEqual(pubDate, res.PublishedOn.DateTime);
             Assert.AreEqual(DateTimeKind.Utc, res.PublishedOn.DateTime.Kind);
+        }
+
+        [TestMethod]
+        public async Task querying_on_ticks_when_null()
+        {
+            var book = new Book
+            {
+                Title = "qotwn",
+            };
+            await book.SaveAsync();
+
+            var res = await DB.Queryable<Book>()
+                        .Where(b => b.ID == book.ID && b.PublishedOn.Ticks > 0)
+                        .SingleOrDefaultAsync();
+
+            Assert.IsNull(res);
         }
 
         [TestMethod]

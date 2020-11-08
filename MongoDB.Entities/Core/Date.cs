@@ -8,37 +8,54 @@ namespace MongoDB.Entities
 {
     internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
     {
-        private static readonly BsonDocumentSerializer docSerializer = new BsonDocumentSerializer();
         private static readonly Int64Serializer longSerializer = new Int64Serializer();
         private static readonly DateTimeSerializer dtSerializer = new DateTimeSerializer();
 
-        public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, Date date)
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
         {
             if (date == null)
             {
-                context.Writer.WriteStartDocument();
-                context.Writer.WriteNull("DateTime");
-                context.Writer.WriteInt64("Ticks", 0);
-                context.Writer.WriteEndDocument();
-                return;
+                ctx.Writer.WriteNull();
             }
-
-            var dtUTC = BsonUtils.ToUniversalTime(date.DateTime);
-            context.Writer.WriteStartDocument();
-            context.Writer.WriteDateTime("DateTime", BsonUtils.ToMillisecondsSinceEpoch(dtUTC));
-            context.Writer.WriteInt64("Ticks", dtUTC.Ticks);
-            context.Writer.WriteEndDocument();
+            else
+            {
+                var dtUTC = BsonUtils.ToUniversalTime(date.DateTime);
+                ctx.Writer.WriteStartDocument();
+                ctx.Writer.WriteDateTime("DateTime", BsonUtils.ToMillisecondsSinceEpoch(dtUTC));
+                ctx.Writer.WriteInt64("Ticks", dtUTC.Ticks);
+                ctx.Writer.WriteEndDocument();
+            }
         }
 
-        public override Date Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+        public override Date Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
         {
-            var ticks = docSerializer.Deserialize(context, args)
-                                     .GetValue("Ticks").AsInt64;
+            var bsonType = ctx.Reader.GetCurrentBsonType();
 
-            return
-                (ticks == 0) ?
-                null :
-                new Date() { DateTime = new DateTime(ticks, DateTimeKind.Utc) };
+            switch (bsonType)
+            {
+                case BsonType.Document:
+
+                    long ticks = 0;
+
+                    ctx.Reader.ReadStartDocument();
+                    while (ctx.Reader.ReadBsonType() != BsonType.EndOfDocument)
+                    {
+                        if (ctx.Reader.ReadName() == "Ticks")
+                            ticks = ctx.Reader.ReadInt64();
+                        else
+                            ctx.Reader.SkipValue();
+                    }
+                    ctx.Reader.ReadEndDocument();
+
+                    return new Date() { DateTime = new DateTime(ticks, DateTimeKind.Utc) };
+
+                case BsonType.Null:
+                    ctx.Reader.ReadNull();
+                    return null;
+
+                default:
+                    throw new FormatException($"Cannot deserialize a 'Date' from a [{bsonType}]");
+            }
         }
 
         public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
@@ -63,7 +80,7 @@ namespace MongoDB.Entities
     /// </summary>
     public class Date
     {
-        private long ticks = 0;
+        private long ticks;
         private DateTime date = new DateTime();
 
         public long Ticks

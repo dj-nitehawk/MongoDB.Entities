@@ -57,16 +57,16 @@ namespace MongoDB.Entities.Tests
         {
             await DB.Index<Book>()
               .Option(o => o.Background = false)
-              .Key(b => b.Review.Alias, KeyType.Text)
+              .Key(b => b.Review.Fuzzy, KeyType.Text)
               .Key(b => b.Title, KeyType.Text)
               .CreateAsync();
 
-            var b1 = new Book { Title = "One", Review = new Review { Alias = "Katherine Zeta Jones" } };
-            var b2 = new Book { Title = "Two", Review = new Review { Alias = "Katheryne Zeta Jones" } };
-            var b3 = new Book { Title = "Three", Review = new Review { Alias = "Katheryne Jones Abigale" } };
-            var b4 = new Book { Title = "Four", Review = new Review { Alias = "Katheryne Jones Abigale" } };
-            var b5 = new Book { Title = "Five", Review = new Review { Alias = "Katya Bykova Jhohanes" } };
-            var b6 = new Book { Title = "Five", Review = new Review { Alias = " " } };
+            var b1 = new Book { Title = "One", Review = new Review { Fuzzy = "Katherine Zeta Jones" } };
+            var b2 = new Book { Title = "Two", Review = new Review { Fuzzy = "Katheryne Zeta Jones" } };
+            var b3 = new Book { Title = "Three", Review = new Review { Fuzzy = "Katheryne Jones Abigale" } };
+            var b4 = new Book { Title = "Four", Review = new Review { Fuzzy = "Katheryne Jones Abigale" } };
+            var b5 = new Book { Title = "Five", Review = new Review { Fuzzy = "Katya Bykova Jhohanes" } };
+            var b6 = new Book { Title = "Five", Review = new Review { Fuzzy = " " } };
 
             await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 

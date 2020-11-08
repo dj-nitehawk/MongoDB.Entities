@@ -13,13 +13,13 @@ namespace MongoDB.Entities.Tests
         {
             var guid = Guid.NewGuid().ToString();
 
-            await new Book { Title = "fstsarw", Review = new Review { Alias = guid } }.SaveAsync();
+            await new Book { Title = "fstsarw", Review = new Review { Fuzzy = guid } }.SaveAsync();
 
             var res = await DB.Queryable<Book>()
-                        .Where(b => b.Review.Alias.Value == guid)
+                        .Where(b => b.Review.Fuzzy.Value == guid)
                         .SingleAsync();
 
-            Assert.AreEqual(guid, res.Review.Alias.Value);
+            Assert.AreEqual(guid, res.Review.Fuzzy.Value);
         }
 
         [TestMethod]
@@ -27,13 +27,13 @@ namespace MongoDB.Entities.Tests
         {
             var guid = Guid.NewGuid().ToString();
 
-            await new Book { Title = guid, Review = new Review { Alias = null } }.SaveAsync();
+            await new Book { Title = guid, Review = new Review { Fuzzy = null } }.SaveAsync();
 
             var res = await DB.Queryable<Book>()
                         .Where(b => b.Title == guid)
                         .SingleAsync();
 
-            Assert.AreEqual(null, res.Review.Alias.Value);
+            Assert.AreEqual(null, res.Review.Fuzzy?.Value);
         }
     }
 }

@@ -110,7 +110,7 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestCategory("SkipWhenLiveUnitTesting")]
-        //todo: uncomment here [TestMethod]
+        [TestMethod]
         public async Task high_volume_deletes_with_expressionAsync()
         {
             //start with clean collection

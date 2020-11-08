@@ -55,7 +55,7 @@ namespace MongoDB.Entities
 
                 case BsonType.Null:
                     ctx.Reader.ReadNull();
-                    return new FuzzyString();
+                    return null;
 
                 default:
                     throw new FormatException($"Cannot deserialize a FuzzyString value from a [{bsonType}]");
