@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -368,6 +369,28 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, books.Count);
             Assert.IsTrue(books[0].Title == "book1");
             Assert.IsTrue(books[1].Title == "book2");
+        }
+
+        [TestMethod]
+        public async Task relationships_with_custom_ID()
+        {
+            var customer = new CustomerWithCustomID();
+            await customer.SaveAsync();
+
+            var flower = new Flower() { Name = customer.ID };
+            await flower.SaveAsync();
+
+            var flower2 = new Flower();
+            await flower2.SaveAsync();
+
+            await flower.Customers.AddAsync(customer);
+
+            var cust = await flower.Customers
+                                   .ChildrenQueryable()
+                                   .Where(c => c.ID == customer.ID)
+                                   .SingleAsync();
+
+            Assert.AreEqual(cust.ID, customer.ID);
         }
 
         [TestMethod]

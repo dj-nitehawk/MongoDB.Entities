@@ -461,33 +461,28 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            var models = new List<WriteModel<BsonDocument>>();
+            var models = new List<WriteModel<JoinRecord>>();
             foreach (var cid in childIDs)
             {
-                cid.ThrowIfInvalid();
+                cid.ThrowIfUnsaved();
 
-                var parentID = isInverse ? new ObjectId(cid) : new ObjectId(parent.ID);
-                var childID = isInverse ? new ObjectId(parent.ID) : new ObjectId(cid);
+                var parentID = isInverse ? cid : parent.ID;
+                var childID = isInverse ? parent.ID : cid;
 
-                var def = Builders<BsonDocument>.Filter.Where(d =>
-                            d[parentProp] == parentID &&
-                            d[childProp] == childID);
+                var filter = Builders<JoinRecord>.Filter.Where(
+                    j => j.ParentID == parentID &&
+                    j.ChildID == childID);
 
-                var doc = new BsonDocument
-                {
-                    { parentProp, parentID },
-                    { childProp, childID }
-                };
+                var update = Builders<JoinRecord>.Update
+                    .Set(j => j.ParentID, parentID)
+                    .Set(j => j.ChildID, childID);
 
-                models.Add(new ReplaceOneModel<BsonDocument>(def, doc) { IsUpsert = true });
+                models.Add(new UpdateOneModel<JoinRecord>(filter, update) { IsUpsert = true });
             }
 
-            var collection = JoinCollection.Database
-                             .GetCollection<BsonDocument>(JoinCollection.CollectionNamespace.CollectionName);
-
             return session == null
-                   ? collection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : collection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+                   ? JoinCollection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                   : JoinCollection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
         /// <summary>

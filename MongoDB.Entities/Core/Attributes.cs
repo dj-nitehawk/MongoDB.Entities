@@ -87,9 +87,9 @@ namespace MongoDB.Entities
                     return;
                 }
 
-                if (value.Length == 24 && ObjectId.TryParse(value, out var oId))
+                if (value.Length == 24 && ObjectId.TryParse(value, out var oID))
                 {
-                    ctx.Writer.WriteObjectId(oId);
+                    ctx.Writer.WriteObjectId(oID);
                     return;
                 }
 
