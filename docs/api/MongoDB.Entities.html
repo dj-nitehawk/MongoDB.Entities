@@ -142,7 +142,10 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 </section>
       <h4><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></h4>
       <section><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
-<p>WARNING: Only strings of up to 250 characters is allowed</p>
+<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance. 
+If you exceed the default limit, an exception will be thrown. 
+You can increase the limit by sacrificing performance/resource utilization by setting the static property 
+<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.GeoNear-1.html">GeoNear&lt;T&gt;</a></h4>
       <section><p>Fluent aggregation pipeline builder for GeoNear</p>

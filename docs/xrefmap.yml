@@ -1796,6 +1796,19 @@ references:
   commentId: T:MongoDB.Entities.FuzzyString
   fullName: MongoDB.Entities.FuzzyString
   nameWithType: FuzzyString
+- uid: MongoDB.Entities.FuzzyString.CharacterLimit
+  name: CharacterLimit
+  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_CharacterLimit
+  commentId: P:MongoDB.Entities.FuzzyString.CharacterLimit
+  fullName: MongoDB.Entities.FuzzyString.CharacterLimit
+  nameWithType: FuzzyString.CharacterLimit
+- uid: MongoDB.Entities.FuzzyString.CharacterLimit*
+  name: CharacterLimit
+  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_CharacterLimit_
+  commentId: Overload:MongoDB.Entities.FuzzyString.CharacterLimit
+  isSpec: "True"
+  fullName: MongoDB.Entities.FuzzyString.CharacterLimit
+  nameWithType: FuzzyString.CharacterLimit
 - uid: MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
   name: Implicit(FuzzyString to String)
   href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_op_Implicit_MongoDB_Entities_FuzzyString__System_String

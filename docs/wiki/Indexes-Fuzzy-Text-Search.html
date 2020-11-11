@@ -132,8 +132,6 @@
 }
 </code></pre>
 <p>the text is stored in both the original form and also a hash consisting of double metaphone key codes for each word. when you perform a fuzzy search, your search term is converted to double metaphone key codes on the fly and matched against the stored hash to find results using standard mongodb full text functionality.</p>
-<h1 id="limitations">Limitations:</h1>
-<p>you are only allowed to store strings of up to 250 characters in length, which is roughly about 25 to 30 words max.</p>
 <h1 id="sorting-fuzzy-results">Sorting Fuzzy Results:</h1>
 <p>if you'd like to sort the results by relevence (closeness to the original search term) you can use the following utility method:</p>
 <pre><code class="lang-csharp">var sortedResults = results.SortByRelevance(&quot;ekard tole&quot;, b =&gt; b.AuthorName);
@@ -141,6 +139,11 @@
 <p>this sorting is done client-side after the fuzzy search retrieves the entities from mongodb. what this extension method does is; it will compare your search term with the value of the property you specify as the second argument to see how close it is using <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">levenshtein distance</a> algorythm. then it will return a new list with the closest matches at the top.</p>
 <p>you can also exclude items from the resulting list that has a greater edit distance than a given value by specifiying the <code>maxDistance</code> optional parameter like so:</p>
 <pre><code class="lang-csharp">var sortedResults = results.SortByRelevance(&quot;ekard tole&quot;, b =&gt; b.AuthorName, 10);
+</code></pre>
+<h1 id="performance-considerations">Performance considerations:</h1>
+<p>by default, you are only allowed to store strings of up to 250 characters in length, which is roughly about 25 to 30 words max. if the you try to store strings larger than that, an exception will be thrown. this is to discourage abuse of this feature which would lead to performance degradation and wasted resources.</p>
+<p>however, you have the option of changing the default limit at application startup by setting the following static property:</p>
+<pre><code class="lang-csharp">FuzzyString.CharacterLimit = 500;
 </code></pre>
 </article>
           </div>
