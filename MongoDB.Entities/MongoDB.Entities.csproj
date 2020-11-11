@@ -22,6 +22,7 @@
 - optimize DB.UpdateAndGet() method
 - optimize FuzzyString serializer
 - optimize Date serializer
+- fix one-to-many relationships not working with custom IDs
 - upgrade mongo driver to latest
 - improved test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
