@@ -8,13 +8,14 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.4.0-beta4</Version>
+    <Version>20.4.0</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- add DB.Count() filter definition overload
 - add DB.Count() filter builder overload
 - add transaction support for the new DB.Count() methods
 - add ability to drop an index by name
 - add ability to drop all indexes for an entity type
+- add ability to change the character limit of FuzzyString
 - DB.Index().CreateAsync() now returns the name of the index created
 - optimize DB.Find() method
 - optimize DB.Index() method

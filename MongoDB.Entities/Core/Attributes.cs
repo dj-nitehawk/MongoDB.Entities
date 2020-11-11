@@ -116,4 +116,7 @@ namespace MongoDB.Entities
             }
         }
     }
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    sealed class IgnoreFuzzyLimitAttribute : Attribute { }
 }

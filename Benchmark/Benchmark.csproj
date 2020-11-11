@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>  
 
   <ItemGroup>
     <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities.csproj" />

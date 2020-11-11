@@ -18,8 +18,8 @@ namespace MongoDB.Entities
             }
             else
             {
-                if (fString.Value.Length > 250)
-                    throw new NotSupportedException("FuzzyString can only hold a maximum of 250 characters!");
+                if (fString.Value.Length > FuzzyString.CharacterLimit)
+                    throw new NotSupportedException($"FuzzyString can only hold a maximum of {FuzzyString.CharacterLimit} characters!");
 
                 ctx.Writer.WriteStartDocument();
                 ctx.Writer.WriteString("Value", fString.Value);
@@ -78,10 +78,15 @@ namespace MongoDB.Entities
 
     /// <summary>
     /// Use this type to store strings if you need fuzzy text searching with MongoDB
-    /// <para>WARNING: Only strings of up to 250 characters is allowed</para>
+    /// <para>TIP: There's a default limit of 250 characters for ensuring best performance. 
+    /// If you exceed the default limit, an exception will be thrown. 
+    /// You can increase the limit by sacrificing performance/resource utilization by setting the static property 
+    /// <c>FuzzyString.CharacterLimit = 500</c> at startup.</para>
     /// </summary>
     public class FuzzyString
     {
+        public static int CharacterLimit { get; set; } = 250;
+
         public string Value { get; set; }
 
         public static implicit operator FuzzyString(string value)
