@@ -26,10 +26,10 @@ steps:
   displayName: 'Install MongoDB'
 
 - task: UseDotNet@2
-  displayName: 'Use .Net Core SDK 3.x'
+  displayName: 'Use .Net Core SDK 5.x'
   inputs:
     packageType: 'sdk'
-    version: '3.x'
+    version: '5.x'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run Tests'
