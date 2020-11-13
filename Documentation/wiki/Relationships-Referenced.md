@@ -1,6 +1,6 @@
 # Referenced Relationships
 
-referenced relationships require a bit of special handling. a **one-to-one** relationship is defined by using the `One<T>` class and **one-to-many** as well as **many-to-many** relationships are defined by using the `Many<T>` class. it is also a good idea to initialize the `Many<T>` properties in the constructor of the parent entity as shown below in order to avoid null-reference exceptions during runtime.
+referenced relationships require a bit of special handling. a **one-to-one** relationship is defined using the `One<T>` class and **one-to-many** as well as **many-to-many** relationships are defined using the `Many<T>` class and you have to initialize the `Many<T>` child properties in the constructor of the parent entity as shown below.
 ```csharp
 public class Book : Entity
 {
@@ -33,7 +33,7 @@ notice the parameters of the `InitOneToMany` and `InitManyToMany` methods above.
 
 the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.
 
-also note that you specify which side of the relationship a property is by using the attributes `[OwnerSide]` or `[InverseSide]` for defining many-to-many relationsips.
+also note that you specify which side of the relationship a property is using the attributes `[OwnerSide]` or `[InverseSide]` for defining many-to-many relationsips.
 
 ## One-to-one
 
@@ -67,6 +67,8 @@ await book.Genres.AddAsync(genre); //many-to-many
 there's no need to call `book.SaveAsync()` because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
 
 there are other *[overloads](xref:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
+
+[click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
 
 ### Reference removal
 ```csharp

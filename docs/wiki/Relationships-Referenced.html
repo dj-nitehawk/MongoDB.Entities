@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="referenced-relationships">Referenced Relationships</h1>
 
-<p>referenced relationships require a bit of special handling. a <strong>one-to-one</strong> relationship is defined by using the <code>One&lt;T&gt;</code> class and <strong>one-to-many</strong> as well as <strong>many-to-many</strong> relationships are defined by using the <code>Many&lt;T&gt;</code> class. it is also a good idea to initialize the <code>Many&lt;T&gt;</code> properties in the constructor of the parent entity as shown below in order to avoid null-reference exceptions during runtime.</p>
+<p>referenced relationships require a bit of special handling. a <strong>one-to-one</strong> relationship is defined using the <code>One&lt;T&gt;</code> class and <strong>one-to-many</strong> as well as <strong>many-to-many</strong> relationships are defined using the <code>Many&lt;T&gt;</code> class and you have to initialize the <code>Many&lt;T&gt;</code> child properties in the constructor of the parent entity as shown below.</p>
 <pre><code class="lang-csharp">public class Book : Entity
 {
     public One&lt;Author&gt; MainAuthor { get; set; }
@@ -124,7 +124,7 @@ public class Genre : Entity
 </code></pre>
 <p>notice the parameters of the <code>InitOneToMany</code> and <code>InitManyToMany</code> methods above. the first method only takes one parameter which is just a lambda pointing to the property you want to initialize.</p>
 <p>the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.</p>
-<p>also note that you specify which side of the relationship a property is by using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationsips.</p>
+<p>also note that you specify which side of the relationship a property is using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationsips.</p>
 <h2 id="one-to-one">One-to-one</h2>
 <p>call the <code>ToReference()</code> method of the entity you want to store as a reference like so:</p>
 <pre><code class="lang-csharp">book.MainAuthor = author.ToReference();
@@ -147,6 +147,7 @@ await book.Genres.AddAsync(genre); //many-to-many
 </code></pre>
 <p>there's no need to call <code>book.SaveAsync()</code> because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html">Schema Changes</a> section.</p>
 <p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_AddAsync_System_Collections_Generic_IEnumerable__0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
+<p><a href="https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714">click here</a> to see a full example of a referenced one-to-many relationship.</p>
 <h3 id="reference-removal-1">Reference removal</h3>
 <pre><code class="lang-csharp">await book.Authors.RemoveAsync(author);
 await book.Genres.RemoveAsync(genre);
