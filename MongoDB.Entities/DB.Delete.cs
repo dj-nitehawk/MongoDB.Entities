@@ -14,8 +14,10 @@ namespace MongoDB.Entities
 
         private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            // note: cancellation should not be enabled because multiple collections are involved 
+            // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
             //       and premature cancellation could cause data inconsistencies.
+            //       i.e. don't pass the cancellation token to delete methods below that don't take a session.
+            //       also make consumers call ThrowIfCancellationNotSupported() before calling this method.
 
             var db = Database<T>();
             var options = new ListCollectionNamesOptions
@@ -25,8 +27,8 @@ namespace MongoDB.Entities
 
             var tasks = new HashSet<Task>();
 
-            // note: db.listCollections() does not support transactions.
-            //       so don't add session support here:
+            // note: db.listCollections() mongo command does not support transactions.
+            //       so don't add session support here.
             var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
 
             foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))

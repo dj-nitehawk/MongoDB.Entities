@@ -1,9 +1,8 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
-using MongoDB.Bson.IO;
 
 namespace MongoDB.Entities
 {
@@ -116,7 +115,4 @@ namespace MongoDB.Entities
             }
         }
     }
-
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    sealed class IgnoreFuzzyLimitAttribute : Attribute { }
 }

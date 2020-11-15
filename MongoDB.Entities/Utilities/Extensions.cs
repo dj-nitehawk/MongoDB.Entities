@@ -24,13 +24,14 @@ namespace MongoDB.Entities
 
         private static T Duplicate<T>(this T source)
         {
-            var holder = new Holder<T> { Data = source };
-            return BsonSerializer.Deserialize<Holder<T>>(holder.ToBson()).Data;
+            return BsonSerializer.Deserialize<Holder<T>>(
+                new Holder<T> { Data = source }.ToBson()
+                ).Data;
         }
 
         internal static void ThrowIfUnsaved(this string entityID)
         {
-            if (string.IsNullOrWhiteSpace(entityID)) 
+            if (string.IsNullOrWhiteSpace(entityID))
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
