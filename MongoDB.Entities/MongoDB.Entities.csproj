@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.5.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- misc. code optimizations</PackageReleaseNotes>
+    <PackageReleaseNotes>- add DB.Find().MatchID() method
+- misc. code optimizations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
