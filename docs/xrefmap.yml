@@ -1623,6 +1623,23 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchExpression
   nameWithType: Find<T, TProjection>.MatchExpression
   nameWithType.vb: Find(Of T, TProjection).MatchExpression
+- uid: MongoDB.Entities.Find`2.MatchID(System.String)
+  name: MatchID(String)
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchID_System_String_
+  commentId: M:MongoDB.Entities.Find`2.MatchID(System.String)
+  fullName: MongoDB.Entities.Find<T, TProjection>.MatchID(System.String)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID(System.String)
+  nameWithType: Find<T, TProjection>.MatchID(String)
+  nameWithType.vb: Find(Of T, TProjection).MatchID(String)
+- uid: MongoDB.Entities.Find`2.MatchID*
+  name: MatchID
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchID_
+  commentId: Overload:MongoDB.Entities.Find`2.MatchID
+  isSpec: "True"
+  fullName: MongoDB.Entities.Find<T, TProjection>.MatchID
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID
+  nameWithType: Find<T, TProjection>.MatchID
+  nameWithType.vb: Find(Of T, TProjection).MatchID
 - uid: MongoDB.Entities.Find`2.MatchString(System.String)
   name: MatchString(String)
   href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_MatchString_System_String_

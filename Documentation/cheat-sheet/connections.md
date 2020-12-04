@@ -29,7 +29,7 @@ await DB.InitAsync(
     "db-name",
     new MongoClientSettings
     {
-        MinConnectionPoolSize = 100,
-        MaxConnectionPoolSize = 500,
+        MinConnectionPoolSize = 25,
+        MaxConnectionPoolSize = 250,
     });
 ```

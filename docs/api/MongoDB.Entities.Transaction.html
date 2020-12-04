@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Transaction
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.2.0">
+    <meta name="generator" content="docfx 2.56.5.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -76,11 +76,11 @@
       <div class="container body-content">
         
         <div id="search-results">
-          <div class="search-list"></div>
+          <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
             <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
           </div>
-          <ul id="pagination"></ul>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
@@ -306,6 +306,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -373,6 +374,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -440,6 +442,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -507,6 +510,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -570,6 +574,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -639,6 +644,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -707,6 +713,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -811,6 +818,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T&gt; Find&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -854,6 +862,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Find&lt;T, TProjection&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -902,6 +911,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -964,6 +974,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; FluentTextSearch&lt;T&gt;(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1054,6 +1065,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; GeoNear&lt;T&gt;(Coordinates2D NearCoordinates, Expression&lt;Func&lt;T, object&gt;&gt; DistanceField, bool Spherical = true, int? MaxDistance = default(int? ), int? MinDistance = default(int? ), int? Limit = default(int? ), BsonDocument Query = null, int? DistanceMultiplier = default(int? ), Expression&lt;Func&lt;T, object&gt;&gt; IncludeLocations = null, string IndexKey = null, AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1175,6 +1187,7 @@ Gets a list back as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TResult&gt;&gt; PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1254,6 +1267,7 @@ Gets a cursor back as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TResult&gt;&gt; PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1333,6 +1347,7 @@ Gets the first or default value as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1412,6 +1427,7 @@ Gets a single or default value as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1490,6 +1506,7 @@ Gets a single or default value as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1551,6 +1568,7 @@ Gets a single or default value as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;ReplaceOneResult&gt; SaveAsync&lt;T&gt;(T entity, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1618,6 +1636,7 @@ Gets a single or default value as the result.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1687,6 +1706,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;UpdateResult&gt; SavePreservingAsync&lt;T&gt;(T entity, Expression&lt;Func&lt;T, object&gt;&gt; preservation = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1760,6 +1780,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Update&lt;T&gt; Update&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1803,6 +1824,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T&gt; UpdateAndGet&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1846,6 +1868,7 @@ The properties to be preserved can be specified with a 'New' expression or using
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; UpdateAndGet&lt;T, TProjection&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1898,7 +1921,8 @@ The properties to be preserved can be specified with a 'New' expression or using
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+                <h5>In This Article</h5>
+                <div></div>
               </nav>
             </div>
           </div>
