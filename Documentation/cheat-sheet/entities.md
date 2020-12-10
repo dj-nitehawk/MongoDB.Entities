@@ -61,7 +61,8 @@ public class Book : IEntity
     [BsonId, ObjectId]
     public string ID { get; set; }
 
-    public void SetNewID() => ID = ObjectId.GenerateNewId().ToString();
+    public string GenerateNewID() 
+        => ObjectId.GenerateNewId().ToString();
 }
 ```
 
@@ -72,10 +73,8 @@ public class Book : IEntity
     [BsonId]
     public string ID { get; set; }
 
-    public void SetNewID()
-    {
-        ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-    }
+    public string GenerateNewID()
+        => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
 }
 ```
 
@@ -101,5 +100,5 @@ Book book = DB.Entity<Book>("ID");
 
 ### Set a new ID on an entity
 ```csharp
-book.SetNewID();
+book.ID = book.GenerateNewID();
 ```

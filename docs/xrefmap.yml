@@ -911,6 +911,19 @@ references:
   commentId: T:MongoDB.Entities.Entity
   fullName: MongoDB.Entities.Entity
   nameWithType: Entity
+- uid: MongoDB.Entities.Entity.GenerateNewID
+  name: GenerateNewID()
+  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_GenerateNewID
+  commentId: M:MongoDB.Entities.Entity.GenerateNewID
+  fullName: MongoDB.Entities.Entity.GenerateNewID()
+  nameWithType: Entity.GenerateNewID()
+- uid: MongoDB.Entities.Entity.GenerateNewID*
+  name: GenerateNewID
+  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_GenerateNewID_
+  commentId: Overload:MongoDB.Entities.Entity.GenerateNewID
+  isSpec: "True"
+  fullName: MongoDB.Entities.Entity.GenerateNewID
+  nameWithType: Entity.GenerateNewID
 - uid: MongoDB.Entities.Entity.ID
   name: ID
   href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_ID
@@ -924,19 +937,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Entity.ID
   nameWithType: Entity.ID
-- uid: MongoDB.Entities.Entity.SetNewID
-  name: SetNewID()
-  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_SetNewID
-  commentId: M:MongoDB.Entities.Entity.SetNewID
-  fullName: MongoDB.Entities.Entity.SetNewID()
-  nameWithType: Entity.SetNewID()
-- uid: MongoDB.Entities.Entity.SetNewID*
-  name: SetNewID
-  href: api/MongoDB.Entities.Entity.html#MongoDB_Entities_Entity_SetNewID_
-  commentId: Overload:MongoDB.Entities.Entity.SetNewID
-  isSpec: "True"
-  fullName: MongoDB.Entities.Entity.SetNewID
-  nameWithType: Entity.SetNewID
 - uid: MongoDB.Entities.EventType
   name: EventType
   href: api/MongoDB.Entities.EventType.html
@@ -2071,6 +2071,19 @@ references:
   commentId: T:MongoDB.Entities.IEntity
   fullName: MongoDB.Entities.IEntity
   nameWithType: IEntity
+- uid: MongoDB.Entities.IEntity.GenerateNewID
+  name: GenerateNewID()
+  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_GenerateNewID
+  commentId: M:MongoDB.Entities.IEntity.GenerateNewID
+  fullName: MongoDB.Entities.IEntity.GenerateNewID()
+  nameWithType: IEntity.GenerateNewID()
+- uid: MongoDB.Entities.IEntity.GenerateNewID*
+  name: GenerateNewID
+  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_GenerateNewID_
+  commentId: Overload:MongoDB.Entities.IEntity.GenerateNewID
+  isSpec: "True"
+  fullName: MongoDB.Entities.IEntity.GenerateNewID
+  nameWithType: IEntity.GenerateNewID
 - uid: MongoDB.Entities.IEntity.ID
   name: ID
   href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_ID
@@ -2084,19 +2097,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.IEntity.ID
   nameWithType: IEntity.ID
-- uid: MongoDB.Entities.IEntity.SetNewID
-  name: SetNewID()
-  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_SetNewID
-  commentId: M:MongoDB.Entities.IEntity.SetNewID
-  fullName: MongoDB.Entities.IEntity.SetNewID()
-  nameWithType: IEntity.SetNewID()
-- uid: MongoDB.Entities.IEntity.SetNewID*
-  name: SetNewID
-  href: api/MongoDB.Entities.IEntity.html#MongoDB_Entities_IEntity_SetNewID_
-  commentId: Overload:MongoDB.Entities.IEntity.SetNewID
-  isSpec: "True"
-  fullName: MongoDB.Entities.IEntity.SetNewID
-  nameWithType: IEntity.SetNewID
 - uid: MongoDB.Entities.IgnoreAttribute
   name: IgnoreAttribute
   href: api/MongoDB.Entities.IgnoreAttribute.html

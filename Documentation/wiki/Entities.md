@@ -53,23 +53,21 @@ public class Book : IEntity
     [BsonId, ObjectId]
     public string ID { get; set; }
     
-    public void SetNewID() => 
-        ID = ObjectId.GenerateNewId().ToString();
+    public string GenerateNewID() 
+        => ObjectId.GenerateNewId().ToString();
 }
 ```
 
 # Customizing the ID format
-the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and place the logic for generating new IDs inside the `SetNewID` method. make sure to only assign truly unique strings to the ID property in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the `[BsonId]` attribute.
+the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and place the logic for generating new IDs inside the `GenerateNewID` method. make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the `[BsonId]` attribute.
 ```csharp
 public class Book : IEntity
 {
     [BsonId]
     public string ID { get; set; }
 
-    public void SetNewID()
-    {
-        ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-    }
+    public string GenerateNewID()
+        => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
 }
 ```
 

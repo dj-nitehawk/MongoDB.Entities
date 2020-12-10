@@ -142,7 +142,8 @@ public class Book : Entity
     [BsonId, ObjectId]
     public string ID { get; set; }
 
-    public void SetNewID() =&gt; ID = ObjectId.GenerateNewId().ToString();
+    public string GenerateNewID() 
+        =&gt; ObjectId.GenerateNewId().ToString();
 }
 </code></pre>
 <h3 id="customize-id-format">Customize ID format</h3>
@@ -151,10 +152,8 @@ public class Book : Entity
     [BsonId]
     public string ID { get; set; }
 
-    public void SetNewID()
-    {
-        ID = $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;;
-    }
+    public string GenerateNewID()
+        =&gt; $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;;
 }
 </code></pre>
 <h3 id="get-the-collection-for-an-entity-type">Get the collection for an entity type</h3>
@@ -170,7 +169,7 @@ public class Book : Entity
 <pre><code class="lang-csharp">Book book = DB.Entity&lt;Book&gt;(&quot;ID&quot;);
 </code></pre>
 <h3 id="set-a-new-id-on-an-entity">Set a new ID on an entity</h3>
-<pre><code class="lang-csharp">book.SetNewID();
+<pre><code class="lang-csharp">book.ID = book.GenerateNewID();
 </code></pre>
 </article>
           </div>
