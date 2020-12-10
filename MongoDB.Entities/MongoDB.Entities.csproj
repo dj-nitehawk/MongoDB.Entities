@@ -8,10 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.5.0-beta1</Version>
+    <Version>20.5.0</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- add DB.Find().MatchID() method
-- misc. code optimizations</PackageReleaseNotes>
+    <PackageReleaseNotes>- removed interface void method IEntity.SetNewID()
+- added interface method IEntity.GenerateNewID()
+- upgraded driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
@@ -28,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.5" />
   </ItemGroup>
 
   <ItemGroup>

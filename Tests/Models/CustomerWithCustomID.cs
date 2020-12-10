@@ -8,9 +8,7 @@ namespace MongoDB.Entities.Tests.Models
         [BsonId]
         public string ID { get; set; }
 
-        public void SetNewID()
-        {
-            ID = $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-        }
+        public string GenerateNewID()
+            => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
     }
 }

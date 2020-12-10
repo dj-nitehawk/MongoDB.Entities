@@ -59,7 +59,8 @@ namespace MongoDB.Entities
 
         public byte[] Data { get; set; }
 
-        public void SetNewID() => ID = ObjectId.GenerateNewId().ToString();
+        public string GenerateNewID()
+            => ObjectId.GenerateNewId().ToString();
     }
 
     /// <summary>
@@ -241,7 +242,7 @@ namespace MongoDB.Entities
 
             if (dataChunk.Count >= chunkSize || isLastChunk)
             {
-                doc.SetNewID();
+                doc.ID = doc.GenerateNewID();
                 doc.Data = dataChunk.ToArray();
                 dataChunk.Clear();
                 parent.ChunkCount++;

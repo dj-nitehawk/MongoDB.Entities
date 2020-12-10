@@ -12,6 +12,7 @@ namespace MongoDB.Entities
         [BsonRepresentation(BsonType.Int64)]
         public ulong Count { get; set; }
 
-        public void SetNewID() => throw new System.NotImplementedException();
+        public string GenerateNewID()
+            => throw new System.NotImplementedException();
     }
 }

@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         [BsonId, ObjectId]
         public string ID { get; set; }
 
-        public void SetNewID() =>
-            ID = ObjectId.GenerateNewId().ToString();
+        public string GenerateNewID()
+            => ObjectId.GenerateNewId().ToString();
     }
 }
