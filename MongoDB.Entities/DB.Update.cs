@@ -1,4 +1,6 @@
-﻿namespace MongoDB.Entities
+﻿using MongoDB.Driver;
+
+namespace MongoDB.Entities
 {
     public static partial class DB
     {
@@ -8,9 +10,7 @@
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static Update<T> Update<T>() where T : IEntity
-        {
-            return new Update<T>();
-        }
+            => new Update<T>();
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
@@ -19,9 +19,7 @@
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type to project to</typeparam>
         public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
-        {
-            return new UpdateAndGet<T, TProjection>();
-        }
+            => new UpdateAndGet<T, TProjection>();
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
@@ -29,8 +27,15 @@
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
-        {
-            return new UpdateAndGet<T>();
-        }
+            => new UpdateAndGet<T>();
+
+        public static Update<T> Update<T>(IClientSessionHandle session) where T : IEntity
+            => new Update<T>(session);
+
+        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session) where T : IEntity
+            => new UpdateAndGet<T, TProjection>(session);
+
+        public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session) where T : IEntity
+            => new UpdateAndGet<T>(session);
     }
 }

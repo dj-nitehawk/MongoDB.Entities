@@ -8,11 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.5.0</Version>
+    <Version>20.5.1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- removed interface void method IEntity.SetNewID()
-- added interface method IEntity.GenerateNewID()
-- upgraded driver to latest</PackageReleaseNotes>
+    <PackageReleaseNotes>- add overload that takes a session to DB.Find() method
+- add overload that takes a session to DB.Update() method
+- add overload that takes a session to DB.UpdateAndGet() method</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
