@@ -9,8 +9,9 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static Update<T> Update<T>() where T : IEntity
-            => new Update<T>();
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static Update<T> Update<T>(IClientSessionHandle session = null) where T : IEntity
+            => new Update<T>(session);
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
@@ -18,24 +19,17 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type to project to</typeparam>
-        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
-            => new UpdateAndGet<T, TProjection>();
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session = null) where T : IEntity
+            => new UpdateAndGet<T, TProjection>(session);
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
         /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
-            => new UpdateAndGet<T>();
-
-        public static Update<T> Update<T>(IClientSessionHandle session) where T : IEntity
-            => new Update<T>(session);
-
-        public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session) where T : IEntity
-            => new UpdateAndGet<T, TProjection>(session);
-
-        public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session) where T : IEntity
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session = null) where T : IEntity
             => new UpdateAndGet<T>(session);
     }
 }

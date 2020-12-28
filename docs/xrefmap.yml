@@ -506,24 +506,24 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.Find
   nameWithType: DB.Find
-- uid: MongoDB.Entities.DB.Find``1
-  name: Find<T>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Find__1
-  commentId: M:MongoDB.Entities.DB.Find``1
-  name.vb: Find(Of T)()
-  fullName: MongoDB.Entities.DB.Find<T>()
-  fullName.vb: MongoDB.Entities.DB.Find(Of T)()
-  nameWithType: DB.Find<T>()
-  nameWithType.vb: DB.Find(Of T)()
-- uid: MongoDB.Entities.DB.Find``2
-  name: Find<T, TProjection>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Find__2
-  commentId: M:MongoDB.Entities.DB.Find``2
-  name.vb: Find(Of T, TProjection)()
-  fullName: MongoDB.Entities.DB.Find<T, TProjection>()
-  fullName.vb: MongoDB.Entities.DB.Find(Of T, TProjection)()
-  nameWithType: DB.Find<T, TProjection>()
-  nameWithType.vb: DB.Find(Of T, TProjection)()
+- uid: MongoDB.Entities.DB.Find``1(MongoDB.Driver.IClientSessionHandle)
+  name: Find<T>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Find__1_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.Find``1(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Find(Of T)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Find<T>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.Find(Of T)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.Find<T>(IClientSessionHandle)
+  nameWithType.vb: DB.Find(Of T)(IClientSessionHandle)
+- uid: MongoDB.Entities.DB.Find``2(MongoDB.Driver.IClientSessionHandle)
+  name: Find<T, TProjection>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Find__2_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.Find``2(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Find(Of T, TProjection)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Find<T, TProjection>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.Find(Of T, TProjection)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.Find<T, TProjection>(IClientSessionHandle)
+  nameWithType.vb: DB.Find(Of T, TProjection)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.Fluent*
   name: Fluent
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Fluent_
@@ -833,15 +833,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.Update
   nameWithType: DB.Update
-- uid: MongoDB.Entities.DB.Update``1
-  name: Update<T>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Update__1
-  commentId: M:MongoDB.Entities.DB.Update``1
-  name.vb: Update(Of T)()
-  fullName: MongoDB.Entities.DB.Update<T>()
-  fullName.vb: MongoDB.Entities.DB.Update(Of T)()
-  nameWithType: DB.Update<T>()
-  nameWithType.vb: DB.Update(Of T)()
+- uid: MongoDB.Entities.DB.Update``1(MongoDB.Driver.IClientSessionHandle)
+  name: Update<T>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Update__1_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.Update``1(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Update(Of T)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Update<T>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.Update(Of T)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.Update<T>(IClientSessionHandle)
+  nameWithType.vb: DB.Update(Of T)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.UpdateAndGet*
   name: UpdateAndGet
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_UpdateAndGet_
@@ -849,24 +849,24 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.UpdateAndGet
   nameWithType: DB.UpdateAndGet
-- uid: MongoDB.Entities.DB.UpdateAndGet``1
-  name: UpdateAndGet<T>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_UpdateAndGet__1
-  commentId: M:MongoDB.Entities.DB.UpdateAndGet``1
-  name.vb: UpdateAndGet(Of T)()
-  fullName: MongoDB.Entities.DB.UpdateAndGet<T>()
-  fullName.vb: MongoDB.Entities.DB.UpdateAndGet(Of T)()
-  nameWithType: DB.UpdateAndGet<T>()
-  nameWithType.vb: DB.UpdateAndGet(Of T)()
-- uid: MongoDB.Entities.DB.UpdateAndGet``2
-  name: UpdateAndGet<T, TProjection>()
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_UpdateAndGet__2
-  commentId: M:MongoDB.Entities.DB.UpdateAndGet``2
-  name.vb: UpdateAndGet(Of T, TProjection)()
-  fullName: MongoDB.Entities.DB.UpdateAndGet<T, TProjection>()
-  fullName.vb: MongoDB.Entities.DB.UpdateAndGet(Of T, TProjection)()
-  nameWithType: DB.UpdateAndGet<T, TProjection>()
-  nameWithType.vb: DB.UpdateAndGet(Of T, TProjection)()
+- uid: MongoDB.Entities.DB.UpdateAndGet``1(MongoDB.Driver.IClientSessionHandle)
+  name: UpdateAndGet<T>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_UpdateAndGet__1_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.UpdateAndGet``1(MongoDB.Driver.IClientSessionHandle)
+  name.vb: UpdateAndGet(Of T)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.UpdateAndGet<T>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.UpdateAndGet(Of T)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.UpdateAndGet<T>(IClientSessionHandle)
+  nameWithType.vb: DB.UpdateAndGet(Of T)(IClientSessionHandle)
+- uid: MongoDB.Entities.DB.UpdateAndGet``2(MongoDB.Driver.IClientSessionHandle)
+  name: UpdateAndGet<T, TProjection>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_UpdateAndGet__2_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.UpdateAndGet``2(MongoDB.Driver.IClientSessionHandle)
+  name.vb: UpdateAndGet(Of T, TProjection)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.UpdateAndGet<T, TProjection>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.UpdateAndGet(Of T, TProjection)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.UpdateAndGet<T, TProjection>(IClientSessionHandle)
+  nameWithType.vb: DB.UpdateAndGet(Of T, TProjection)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.Watcher*
   name: Watcher
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Watcher_

@@ -1297,17 +1297,35 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_Find_" data-uid="MongoDB.Entities.DB.Find*"></a>
-  <h4 id="MongoDB_Entities_DB_Find__1" data-uid="MongoDB.Entities.DB.Find``1">Find&lt;T&gt;()</h4>
+  <h4 id="MongoDB_Entities_DB_Find__1_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.Find``1(MongoDB.Driver.IClientSessionHandle)">Find&lt;T&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Represents a MongoDB Find command</p>
 <p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Find&lt;T&gt; Find&lt;T&gt;()
+    <pre><code class="lang-csharp hljs">public static Find&lt;T&gt; Find&lt;T&gt;(IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -1342,17 +1360,35 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_Find_" data-uid="MongoDB.Entities.DB.Find*"></a>
-  <h4 id="MongoDB_Entities_DB_Find__2" data-uid="MongoDB.Entities.DB.Find``2">Find&lt;T, TProjection&gt;()</h4>
+  <h4 id="MongoDB_Entities_DB_Find__2_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.Find``2(MongoDB.Driver.IClientSessionHandle)">Find&lt;T, TProjection&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Represents a MongoDB Find command</p>
 <p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Find&lt;T, TProjection&gt; Find&lt;T, TProjection&gt;()
+    <pre><code class="lang-csharp hljs">public static Find&lt;T, TProjection&gt; Find&lt;T, TProjection&gt;(IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -2858,17 +2894,35 @@ The properties to be preserved can be specified with a 'New' expression or using
   
   
   <a id="MongoDB_Entities_DB_Update_" data-uid="MongoDB.Entities.DB.Update*"></a>
-  <h4 id="MongoDB_Entities_DB_Update__1" data-uid="MongoDB.Entities.DB.Update``1">Update&lt;T&gt;()</h4>
+  <h4 id="MongoDB_Entities_DB_Update__1_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.Update``1(MongoDB.Driver.IClientSessionHandle)">Update&lt;T&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Represents an update command</p>
 <p>TIP: Specify a filter first with the .Match() method. Then set property values with .Modify() and finally call .Execute() to run the command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Update&lt;T&gt; Update&lt;T&gt;()
+    <pre><code class="lang-csharp hljs">public static Update&lt;T&gt; Update&lt;T&gt;(IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -2903,17 +2957,35 @@ The properties to be preserved can be specified with a 'New' expression or using
   
   
   <a id="MongoDB_Entities_DB_UpdateAndGet_" data-uid="MongoDB.Entities.DB.UpdateAndGet*"></a>
-  <h4 id="MongoDB_Entities_DB_UpdateAndGet__1" data-uid="MongoDB.Entities.DB.UpdateAndGet``1">UpdateAndGet&lt;T&gt;()</h4>
+  <h4 id="MongoDB_Entities_DB_UpdateAndGet__1_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.UpdateAndGet``1(MongoDB.Driver.IClientSessionHandle)">UpdateAndGet&lt;T&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Update and retrieve the first document that was updated.</p>
 <p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T&gt; UpdateAndGet&lt;T&gt;()
+    <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T&gt; UpdateAndGet&lt;T&gt;(IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -2948,17 +3020,35 @@ The properties to be preserved can be specified with a 'New' expression or using
   
   
   <a id="MongoDB_Entities_DB_UpdateAndGet_" data-uid="MongoDB.Entities.DB.UpdateAndGet*"></a>
-  <h4 id="MongoDB_Entities_DB_UpdateAndGet__2" data-uid="MongoDB.Entities.DB.UpdateAndGet``2">UpdateAndGet&lt;T, TProjection&gt;()</h4>
+  <h4 id="MongoDB_Entities_DB_UpdateAndGet__2_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.UpdateAndGet``2(MongoDB.Driver.IClientSessionHandle)">UpdateAndGet&lt;T, TProjection&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Update and retrieve the first document that was updated.</p>
 <p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T, TProjection&gt; UpdateAndGet&lt;T, TProjection&gt;()
+    <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T, TProjection&gt; UpdateAndGet&lt;T, TProjection&gt;(IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
