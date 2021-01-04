@@ -331,5 +331,26 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, res.Count(a => a.Age == 321));
             Assert.AreEqual(3, res.Count(a => a.Name == "updated"));
         }
+
+        [TestMethod]
+        public async Task skip_setting_mod_date_if_user_is_doing_something_with_it()
+        {
+            var book = new Book { Title = "test" };
+            await book.SaveAsync();
+
+            book = await DB.Find<Book>().OneAsync(book.ID);
+            Assert.IsTrue(DateTime.UtcNow.Subtract(book.ModifiedOn).TotalSeconds < 5);
+
+            var targetDate = DateTime.UtcNow.AddDays(100);
+
+            await DB
+                .Update<Book>()
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, targetDate)
+                .ExecuteAsync();
+
+            book = await DB.Find<Book>().OneAsync(book.ID);
+            Assert.AreEqual(targetDate.ToShortDateString(), book.ModifiedOn.ToShortDateString());
+        }
     }
 }

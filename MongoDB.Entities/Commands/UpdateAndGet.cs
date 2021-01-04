@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -244,7 +245,7 @@ namespace MongoDB.Entities
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
             return await UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
@@ -258,9 +259,21 @@ namespace MongoDB.Entities
             if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (Cache<T>.HasModifiedOn) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
             return UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+        }
+
+        private bool ShouldSetModDate()
+        {
+            //only set mod date by library if user hasn't done anything with the ModifiedOn property
+
+            return
+                Cache<T>.HasModifiedOn &&
+                !defs.Any(d => d
+                       .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+                       .ToString()
+                       .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
         }
 
         private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default)
