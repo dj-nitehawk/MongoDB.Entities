@@ -8,9 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.6.0-beta1</Version>
+    <Version>20.6.0</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- skip setting ModifiedOn property if user is doing something with it when updating
+    <PackageReleaseNotes>- tighten up high concurrency handling of connections
+- skip setting ModifiedOn property if user is doing something with it when updating
 - combine overloads for DB.Find(), DB.Update(), DB.UpdateAndGet() methods
 - improve test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>

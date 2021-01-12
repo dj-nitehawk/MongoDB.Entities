@@ -36,7 +36,7 @@ namespace MongoDB.Entities
 
         internal static event Action DefaultDbChanged;
 
-        private static readonly Dictionary<string, IMongoDatabase> dbs = new Dictionary<string, IMongoDatabase>();
+        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new ConcurrentDictionary<string, IMongoDatabase>();
         private static IMongoDatabase defaultDb;
 
         /// <summary>
@@ -78,13 +78,12 @@ namespace MongoDB.Entities
                 if (dbs.Count == 0)
                     defaultDb = db;
 
-                dbs.Add(dbName, db);
-
-                await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
+                if (dbs.TryAdd(dbName, db))
+                    await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
             }
             catch (Exception)
             {
-                dbs.Remove(dbName);
+                dbs.TryRemove(dbName, out _);
                 throw;
             }
         }
