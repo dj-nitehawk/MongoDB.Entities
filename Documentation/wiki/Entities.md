@@ -59,7 +59,11 @@ public class Book : IEntity
 ```
 
 # Customizing the ID format
-the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply implement the `IEntity` interface and place the logic for generating new IDs inside the `GenerateNewID` method. make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the `[BsonId]` attribute.
+the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply override the `GenerateNewID` method of the `Entity` class or implement the `IEntity` interface and place the logic for generating new IDs inside the `GenerateNewID` method. 
+
+make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field. 
+
+if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute.
 ```csharp
 public class Book : IEntity
 {

@@ -140,7 +140,9 @@ public class Author : Entity
 }
 </code></pre>
 <h1 id="customizing-the-id-format">Customizing the ID format</h1>
-<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>GenerateNewID</code> method. make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field. also don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
+<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply override the <code>GenerateNewID</code> method of the <code>Entity</code> class or implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>GenerateNewID</code> method.</p>
+<p>make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field.</p>
+<p>if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
     [BsonId]
