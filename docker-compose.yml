@@ -1,0 +1,69 @@
+version: "3.3"
+
+services:
+  mongo-admin:
+    image: mongo-express
+    container_name: "mongo-admin"
+    environment:
+      # - USER=root
+      # - PASSWORD=123456
+      # - RS=rs
+      - ME_CONFIG_MONGODB_SERVER=mongodb1,mongodb2,mongodb3
+      # - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=123456
+    ports:
+      - 8081:8081
+    # restart: on-failure
+    depends_on:
+      - mongodb1
+      - mongodb2
+      - mongodb3
+
+  mongodb1:
+    image: mongo:latest
+    container_name: mongodb1
+    volumes:
+      - mongodb1:/data/db
+    command: mongod --replSet rs --bind_ip 0.0.0.0
+    ports:
+      - "27017:27017"
+    restart: always
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=123456
+
+
+  mongodb2:
+    image: mongo:latest
+    container_name: mongodb2
+    volumes:
+      - mongodb2:/data/db
+    command: mongod --replSet rs --bind_ip 0.0.0.0
+    ports:
+      - "27018:27017"
+    restart: always
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=123456
+
+
+  mongodb3:
+    image: mongo:latest
+    container_name: mongodb3
+    volumes:
+      - mongodb3:/data/db
+    command: mongod --replSet rs --bind_ip 0.0.0.0
+    ports:
+      - "27019:27017"
+    restart: always
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=123456
+
+
+#
+volumes:
+  mongodb1:
+  mongodb2:
+  mongodb3:
