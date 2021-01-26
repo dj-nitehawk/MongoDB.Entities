@@ -24,14 +24,12 @@ namespace MongoDB.Entities
     /// Represents a one-to-many/many-to-many relationship between two Entities.
     /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
     /// <para>Initialize from the constructor of the parent entity as follows:</para>
-    /// <code>this.InitOneToMany(() => Property)</code>
-    /// <code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
+    /// <c>this.InitOneToMany(() => Property)</c>
+    /// <c>this.InitManyToMany(() => Property, x => x.OtherProperty)</c>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
     public class Many<TChild> : ManyBase, IEnumerable<TChild> where TChild : IEntity
     {
-        private const string parentProp = nameof(JoinRecord.ParentID);
-        private const string childProp = nameof(JoinRecord.ChildID);
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
 
         private bool isInverse;
