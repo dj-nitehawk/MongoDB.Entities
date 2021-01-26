@@ -13,7 +13,7 @@ namespace MongoDB.Entities
         /// </summary>
         [BsonId, ObjectId]
         public string ID { get; set; }
-        
+
         /// <summary>
         /// Override this method in order to control the generation of IDs for new entities.
         /// </summary>

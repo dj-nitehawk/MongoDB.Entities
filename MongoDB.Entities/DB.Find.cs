@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle session = null) where T : IEntity 
+        public static Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle session = null) where T : IEntity
             => new Find<T, TProjection>(session);
     }
 }
