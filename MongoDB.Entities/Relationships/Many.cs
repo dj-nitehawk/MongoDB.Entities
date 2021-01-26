@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -349,7 +350,20 @@ namespace MongoDB.Entities
 
         internal Many(object parent, string property)
         {
-            Init((dynamic)parent, property);
+            //Multi-Database error
+            //not supported in .Net Core. typeof(TParent) returns base type { Name = "Entity" FullName = "MongoDB.Entities.Entity"} and not the actual 'TParent' type
+            //Init((dynamic)parent, property);
+            //TODO: thinking about optimization or caching...
+            MethodInfo method = typeof(Many<TChild>).GetMethod(nameof(Many<TChild>.Init), BindingFlags.NonPublic | BindingFlags.Instance);
+            if (method != null)
+            {
+                MethodInfo generic = method.MakeGenericMethod(parent.GetType());
+                generic.Invoke(this, new[] { parent, property });
+            }
+            else
+            {
+                Init((dynamic)parent, property);
+            }
         }
 
         private void Init<TParent>(TParent parent, string property) where TParent : IEntity
@@ -365,10 +379,10 @@ namespace MongoDB.Entities
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
         {
-            Init((dynamic)parent, propertyParent, propertyChild, isInverse);
+            InitInverse((dynamic)parent, propertyParent, propertyChild, isInverse);
         }
 
-        private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : IEntity
+        private void InitInverse<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : IEntity
         {
             this.parent = parent;
             this.isInverse = isInverse;
