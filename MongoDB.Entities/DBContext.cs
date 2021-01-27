@@ -221,6 +221,11 @@ namespace MongoDB.Entities
             return DB.SaveAsync(entity, Session, cancellation);
         }
 
+        public virtual Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveAsync(entity, members, Session, cancellation);
+        }
+
         /// <summary>
         /// Persists multiple entities to MongoDB in a single bulk operation in the transaction scope
         /// </summary>

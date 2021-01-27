@@ -218,6 +218,11 @@ namespace MongoDB.Entities
             return DB.SaveAsync(entity, session, cancellation);
         }
 
+        public static Task<UpdateResult> SaveAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveAsync(entity, members, session, cancellation);
+        }
+
         /// <summary>
         /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
         /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
