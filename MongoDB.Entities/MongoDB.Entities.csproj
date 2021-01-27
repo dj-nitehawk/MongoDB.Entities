@@ -8,11 +8,12 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.7.0-beta1</Version>
+    <Version>20.7.0-beta2</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added support for DBContext instances
-- optimized Transaction class
-- upgraded mongo driver to latest</PackageReleaseNotes>
+    <PackageReleaseNotes>- ability to save entities partially
+- support for DBContext instances
+- optimize Transaction class
+- upgrade mongo driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

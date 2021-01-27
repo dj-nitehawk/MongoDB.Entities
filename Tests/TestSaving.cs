@@ -48,6 +48,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task save_partially_single()
+        {
+            var book = new Book { Title = "test book", Price = 100 };
+
+            await book.SaveAsync(b => new { b.Title });
+
+            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual(0, res.Price);
+
+            res.Price = 200;
+
+            await res.SaveAsync(b => new { b.Price });
+
+            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual(200, res.Price);
+        }
+
+        [TestMethod]
         public async Task save_preserving()
         {
             var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };

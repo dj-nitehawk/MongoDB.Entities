@@ -220,7 +220,16 @@ namespace MongoDB.Entities
         {
             return DB.SaveAsync(entity, Session, cancellation);
         }
-
+        
+        /// <summary>
+        /// Saves an entity partially by specifying a subset of properties. 
+        /// The properties to be saved can be specified with a 'New' expression. 
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entity, members, Session, cancellation);

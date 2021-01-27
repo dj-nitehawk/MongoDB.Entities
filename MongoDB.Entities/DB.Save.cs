@@ -31,7 +31,16 @@ namespace MongoDB.Entities
                    : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
-        //todo: write test
+        /// <summary>
+        /// Saves an entity partially by specifying a subset of properties. 
+        /// The properties to be saved can be specified with a 'New' expression. 
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             IEnumerable<string> propsToInclude =
@@ -47,7 +56,7 @@ namespace MongoDB.Entities
 
             var defs = new Collection<UpdateDefinition<T>>();
 
-            foreach (var p in propsToSave.Where(p => !propsToInclude.Contains(p.Name)))
+            foreach (var p in propsToSave.Where(p => propsToInclude.Contains(p.Name)))
                 defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
 
             return
@@ -81,6 +90,8 @@ namespace MongoDB.Entities
                    ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
                    : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
+
+        //todo: partial save for IEnumerable<T>
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database.
