@@ -11,6 +11,7 @@
     <Version>20.7.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added support for DBContext instances
+- optimized Transaction class
 - upgraded mongo driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

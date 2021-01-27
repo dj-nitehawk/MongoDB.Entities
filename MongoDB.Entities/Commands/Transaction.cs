@@ -12,17 +12,14 @@ namespace MongoDB.Entities
     /// </summary>
     public class Transaction : DBContext, IDisposable
     {
-        private readonly IMongoClient client;
-
         /// <summary>
         /// Instantiates and begins a transaction.
         /// </summary>
         /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
         public Transaction(string database = default, ClientSessionOptions options = null)
+            : base(DB.Database(database).Client.StartSession(options))
         {
-            client = DB.Database(database).Client;
-            Session = client.StartSession(options);
             Session.StartTransaction();
         }
 
