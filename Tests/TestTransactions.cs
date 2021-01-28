@@ -76,7 +76,7 @@ namespace MongoDB.Entities.Tests
                 await TN.SaveAsync(book2);
 
                 res = await TN.Find<Book>().OneAsync(book1.ID);
-                res = book1.Fluent(TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+                res = book1.Fluent(TN.session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
                 fnt = TN.Fluent<Book>().FirstOrDefault();
                 fnt = TN.Fluent<Book>().Match(b => b.ID == book2.ID).SingleOrDefault();
                 fnt = TN.Fluent<Book>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();

@@ -12,14 +12,16 @@ namespace MongoDB.Entities
     /// </summary>
     public class Transaction : DBContext, IDisposable
     {
+        public IClientSessionHandle Session { get => session; }
+
         /// <summary>
         /// Instantiates and begins a transaction.
         /// </summary>
         /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
         public Transaction(string database = default, ClientSessionOptions options = null)
-            : base(DB.Database(database).Client.StartSession(options))
         {
+            session = DB.Database(database).Client.StartSession(options);
             Session.StartTransaction();
         }
 
@@ -45,7 +47,7 @@ namespace MongoDB.Entities
             {
                 if (disposing)
                 {
-                    Session.Dispose();
+                    session.Dispose();
                 }
 
                 disposedValue = true;
