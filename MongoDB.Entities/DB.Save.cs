@@ -43,26 +43,15 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            IEnumerable<string> propsToInclude =
-                (members?.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString().Split('.')[1]);
+            IEnumerable<string> propsToInclude = RootPropNames(members);
 
             if (!propsToInclude.Any())
                 throw new ArgumentException("Unable to get any properties from the members expression!");
 
-            var propsToSave = AllUpdatableProps(entity);
-
-            PrepareForSave(entity);
-
-            var defs = new Collection<UpdateDefinition<T>>();
-
-            foreach (var p in propsToSave.Where(p => propsToInclude.Contains(p.Name)))
-                defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
-
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), new UpdateOptions { IsUpsert = true }, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), new UpdateOptions { IsUpsert = true }, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
@@ -91,7 +80,40 @@ namespace MongoDB.Entities
                    : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
 
-        //todo: partial save for IEnumerable<T>
+        /// <summary>
+        /// Saves a batch of entities partially by specifying a subset of properties. 
+        /// The properties to be saved can be specified with a 'New' expression. 
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            IEnumerable<string> propsToInclude = RootPropNames(members);
+
+            if (!propsToInclude.Any())
+                throw new ArgumentException("Unable to get any properties from the members expression!");
+
+            var models = new List<WriteModel<T>>();
+
+            foreach (var ent in entities)
+            {
+                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, propsToInclude));
+
+                var upsert = new UpdateOneModel<T>(
+                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        update: update)
+                { IsUpsert = true };
+                models.Add(upsert);
+            }
+
+            return session == null
+                ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+        }
 
         /// <summary>
         /// Saves an entity while preserving some property values in the database.
@@ -106,7 +128,7 @@ namespace MongoDB.Entities
         public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             entity.ThrowIfUnsaved();
-            var propsToUpdate = AllUpdatableProps(entity);
+            var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
             IEnumerable<string> propsToPreserve = default;
 
@@ -129,8 +151,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                propsToPreserve = (preservation.Body as NewExpression)?.Arguments
-                    .Select(a => a.ToString().Split('.')[1]);
+                propsToPreserve = RootPropNames(preservation);
 
                 if (!propsToPreserve.Any())
                     throw new ArgumentException("Unable to get any properties from the preservation expression!");
@@ -157,16 +178,6 @@ namespace MongoDB.Entities
                 : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation);
         }
 
-        private static IEnumerable<PropertyInfo> AllUpdatableProps<T>(T entity) where T : IEntity
-        {
-            return entity.GetType().GetProperties().Where(p =>
-                    p.PropertyType.Name != ManyBase.PropType &&
-                    !p.IsDefined(typeof(BsonIdAttribute), false) &&
-                    !p.IsDefined(typeof(BsonIgnoreAttribute), false) &&
-                    !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
-                    !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
-        }
-
         private static void PrepareForSave<T>(T entity) where T : IEntity
         {
             if (string.IsNullOrEmpty(entity.ID))
@@ -178,6 +189,21 @@ namespace MongoDB.Entities
 
             if (Cache<T>.HasModifiedOn)
                 ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        }
+
+        private static IEnumerable<string> RootPropNames<T>(Expression<Func<T, object>> members) where T : IEntity
+        {
+            return (members?.Body as NewExpression)?.Arguments
+                .Select(a => a.ToString().Split('.')[1]);
+        }
+
+        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propsToInclude) where T : IEntity
+        {
+            PrepareForSave(entity);
+
+            return Cache<T>.UpdatableProps(entity)
+                .Where(p => propsToInclude.Contains(p.Name))
+                .Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
     }
 }

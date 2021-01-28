@@ -48,6 +48,28 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task save_partially_batch()
+        {
+            var books = new[] {
+                new Book{ Title = "one", Price = 100},
+                new Book{ Title = "two", Price = 200}
+            };
+
+            await books.SaveAsync(b => new { b.Title });
+            var ids = books.Select(b => b.ID).ToArray();
+
+            var res = await DB.Find<Book>()
+                .Match(b => ids.Contains(b.ID))
+                .Sort(b => b.ID, Order.Ascending)
+                .ExecuteAsync();
+
+            Assert.AreEqual(0, res[0].Price);
+            Assert.AreEqual(0, res[1].Price);
+            Assert.AreEqual("one", res[0].Title);
+            Assert.AreEqual("two", res[1].Title);
+        }
+
+        [TestMethod]
         public async Task save_partially_single()
         {
             var book = new Book { Title = "test book", Price = 100 };
@@ -57,6 +79,7 @@ namespace MongoDB.Entities.Tests
             var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
             Assert.AreEqual(0, res.Price);
+            Assert.AreEqual("test book", res.Title);
 
             res.Price = 200;
 

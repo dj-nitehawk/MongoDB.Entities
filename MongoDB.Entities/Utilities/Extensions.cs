@@ -245,6 +245,21 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Saves a batch of entities partially by specifying a subset of properties. 
+        /// The properties to be saved can be specified with a 'New' expression. 
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveAsync(entities, members, session, cancellation);
+        }
+
+        /// <summary>
         /// Save this entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>

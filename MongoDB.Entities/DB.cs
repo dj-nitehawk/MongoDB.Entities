@@ -1,10 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -242,7 +244,8 @@ namespace MongoDB.Entities
         internal static bool HasCreatedOn { get; private set; }
         internal static bool HasModifiedOn { get; private set; }
         internal static string ModifiedOnPropName { get; private set; }
-        internal static Func<string> IDLogic { get; set; }
+
+        private static PropertyInfo[] updatableProps;
 
         static Cache()
         {
@@ -272,6 +275,20 @@ namespace MongoDB.Entities
             HasCreatedOn = interfaces.Any(it => it == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(it => it == typeof(IModifiedOn));
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
+
+            updatableProps = type.GetProperties()
+                .Where(p =>
+                       p.PropertyType.Name != ManyBase.PropType &&
+                      !p.IsDefined(typeof(BsonIdAttribute), false) &&
+                      !p.IsDefined(typeof(BsonIgnoreAttribute), false))
+                .ToArray();
+        }
+
+        public static IEnumerable<PropertyInfo> UpdatableProps(T entity)
+        {
+            return updatableProps.Where(p =>
+                !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
+                !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
         }
     }
 

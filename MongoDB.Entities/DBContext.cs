@@ -220,9 +220,9 @@ namespace MongoDB.Entities
         {
             return DB.SaveAsync(entity, Session, cancellation);
         }
-        
+
         /// <summary>
-        /// Saves an entity partially by specifying a subset of properties. 
+        /// Saves an entity partially by specifying a subset of properties in the transaction scope. 
         /// The properties to be saved can be specified with a 'New' expression. 
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
         /// </summary>
@@ -244,6 +244,20 @@ namespace MongoDB.Entities
         public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entities, Session, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially by specifying a subset of properties in the transaction scope. 
+        /// The properties to be saved can be specified with a 'New' expression. 
+        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveAsync(entities, members, Session, cancellation);
         }
 
         /// <summary>
