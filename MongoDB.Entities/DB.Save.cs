@@ -70,15 +70,10 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            IEnumerable<string> propsToInclude = RootPropNames(members);
-
-            if (!propsToInclude.Any())
-                throw new ArgumentException("Unable to get any properties from the members expression!");
-
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members)), new UpdateOptions { IsUpsert = true }, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members)), new UpdateOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
@@ -94,16 +89,11 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            IEnumerable<string> propsToInclude = RootPropNames(members);
-
-            if (!propsToInclude.Any())
-                throw new ArgumentException("Unable to get any properties from the members expression!");
-
             var models = new List<WriteModel<T>>();
 
             foreach (var ent in entities)
             {
-                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, propsToInclude));
+                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, members));
 
                 var upsert = new UpdateOneModel<T>(
                         filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
@@ -199,8 +189,13 @@ namespace MongoDB.Entities
                 .Select(a => a.ToString().Split('.')[1]);
         }
 
-        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
+        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members, bool excludeMode = false) where T : IEntity
         {
+            var propNames = RootPropNames(members);
+
+            if (!propNames.Any())
+                throw new ArgumentException("Unable to get any properties from the members expression!");
+
             PrepareForSave(entity);
 
             var props = Cache<T>.UpdatableProps(entity);

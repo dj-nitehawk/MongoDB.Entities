@@ -48,7 +48,28 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task save_partially_batch()
+        public async Task save_partially_single_include()
+        {
+            var book = new Book { Title = "test book", Price = 100 };
+
+            await book.SaveOnlyAsync(b => new { b.Title });
+
+            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual(0, res.Price);
+            Assert.AreEqual("test book", res.Title);
+
+            res.Price = 200;
+
+            await res.SaveOnlyAsync(b => new { b.Price });
+
+            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual(200, res.Price);
+        }
+
+        [TestMethod]
+        public async Task save_partially_batch_include()
         {
             var books = new[] {
                 new Book{ Title = "one", Price = 100},
@@ -67,27 +88,6 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(0, res[1].Price);
             Assert.AreEqual("one", res[0].Title);
             Assert.AreEqual("two", res[1].Title);
-        }
-
-        [TestMethod]
-        public async Task save_partially_single()
-        {
-            var book = new Book { Title = "test book", Price = 100 };
-
-            await book.SaveOnlyAsync(b => new { b.Title });
-
-            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
-
-            Assert.AreEqual(0, res.Price);
-            Assert.AreEqual("test book", res.Title);
-
-            res.Price = 200;
-
-            await res.SaveOnlyAsync(b => new { b.Price });
-
-            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
-
-            Assert.AreEqual(200, res.Price);
         }
 
         [TestMethod]
