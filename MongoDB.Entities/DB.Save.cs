@@ -70,10 +70,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return
-                session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members)), new UpdateOptions { IsUpsert = true }, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members)), new UpdateOptions { IsUpsert = true }, cancellation);
+            return SavePartial(entity, members, session, cancellation);
         }
 
         /// <summary>
@@ -89,22 +86,39 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            var models = new List<WriteModel<T>>();
+            return SavePartial(entities, members, session, cancellation);
+        }
 
-            foreach (var ent in entities)
-            {
-                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, members));
+        /// <summary>
+        /// Saves an entity partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return SavePartial(entity, members, session, cancellation, true);
+        }
 
-                var upsert = new UpdateOneModel<T>(
-                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
-                        update: update)
-                { IsUpsert = true };
-                models.Add(upsert);
-            }
-
-            return session == null
-                ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+        /// <summary>
+        /// Saves a batch of entities partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return SavePartial(entities, members, session, cancellation, true);
         }
 
         /// <summary>
@@ -206,6 +220,34 @@ namespace MongoDB.Entities
                 props = props.Where(p => propNames.Contains(p.Name));
 
             return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+        }
+
+        private static Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
+        {
+            return
+                session == null
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), new UpdateOptions { IsUpsert = true }, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), new UpdateOptions { IsUpsert = true }, cancellation);
+        }
+
+        private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
+        {
+            var models = new List<WriteModel<T>>();
+
+            foreach (var ent in entities)
+            {
+                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, members, excludeMode));
+
+                var upsert = new UpdateOneModel<T>(
+                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        update: update)
+                { IsUpsert = true };
+                models.Add(upsert);
+            }
+
+            return session == null
+                ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
+                : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
         }
     }
 }
