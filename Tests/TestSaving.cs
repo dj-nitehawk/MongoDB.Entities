@@ -55,7 +55,7 @@ namespace MongoDB.Entities.Tests
                 new Book{ Title = "two", Price = 200}
             };
 
-            await books.SaveAsync(b => new { b.Title });
+            await books.SaveOnlyAsync(b => new { b.Title });
             var ids = books.Select(b => b.ID).ToArray();
 
             var res = await DB.Find<Book>()
@@ -74,7 +74,7 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "test book", Price = 100 };
 
-            await book.SaveAsync(b => new { b.Title });
+            await book.SaveOnlyAsync(b => new { b.Title });
 
             var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
@@ -83,7 +83,7 @@ namespace MongoDB.Entities.Tests
 
             res.Price = 200;
 
-            await res.SaveAsync(b => new { b.Price });
+            await res.SaveOnlyAsync(b => new { b.Price });
 
             res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
 

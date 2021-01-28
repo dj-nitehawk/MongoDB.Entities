@@ -199,13 +199,18 @@ namespace MongoDB.Entities
                 .Select(a => a.ToString().Split('.')[1]);
         }
 
-        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propsToInclude) where T : IEntity
+        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
         {
             PrepareForSave(entity);
 
-            return Cache<T>.UpdatableProps(entity)
-                .Where(p => propsToInclude.Contains(p.Name))
-                .Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+            var props = Cache<T>.UpdatableProps(entity);
+
+            if (excludeMode)
+                props = props.Where(p => !propNames.Contains(p.Name));
+            else
+                props = props.Where(p => propNames.Contains(p.Name));
+
+            return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
     }
 }
