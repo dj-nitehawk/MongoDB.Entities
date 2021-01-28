@@ -71,3 +71,6 @@ it is however, recommended that you encapsulate all data access logic in reposit
 
 > [!tip]
 > as an alternative, have a look at **vertical slice architecture** as done [_here_](https://github.com/dj-nitehawk/MongoWebApiStarter) for a far superior developer experience compared to the commonly used layerd+di+repositories mess.
+
+> **UPDATE:**
+> a [DBContext](xref:MongoDB.Entities.DBContext) class has been added to the library due to popular demand with the v20.7 release.

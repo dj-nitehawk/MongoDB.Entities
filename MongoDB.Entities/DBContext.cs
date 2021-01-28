@@ -288,17 +288,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity while preserving some property values in the database in the transaction scope.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// Saves an entity partially while excluding some properties in the transaction scope.
+        /// The properties to be excluded can be specified using the [Preserve] or [DontPreserve] attributes.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, preservation, session, cancellation);
+            return DB.SavePreservingAsync(entity, session, cancellation);
         }
 
         /// <summary>

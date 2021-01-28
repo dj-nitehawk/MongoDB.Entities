@@ -12,6 +12,7 @@ namespace MongoDB.Entities
     public static partial class DB
     {
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+        private static readonly UpdateOptions updateOptions = new UpdateOptions { IsUpsert = true };
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
@@ -122,46 +123,33 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity while preserving some property values in the database.
-        /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// Saves an entity partially while excluding some properties. 
+        /// The properties to be excluded can be specified using the [Preserve] or [DontPreserve] attributes.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
-        /// <param name="preservation">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(T entity, Expression<Func<T, object>> preservation = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            entity.ThrowIfUnsaved();
             var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
             IEnumerable<string> propsToPreserve = default;
 
-            if (preservation == null)
-            {
-                var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
-                var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
+            var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
+            var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
 
-                if (dontProps.Any() && presProps.Any())
-                    throw new NotSupportedException("[Preseve] and [DontPreserve] attributes cannot be used together on the same entity!");
+            if (dontProps.Any() && presProps.Any())
+                throw new NotSupportedException("[Preseve] and [DontPreserve] attributes cannot be used together on the same entity!");
 
-                if (dontProps.Any())
-                    propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name);
+            if (dontProps.Any())
+                propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name);
 
-                if (presProps.Any())
-                    propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name);
+            if (presProps.Any())
+                propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name);
 
-                if (!propsToPreserve.Any())
-                    throw new ArgumentException("No properties are being preserved. Please use .Save() method instead!");
-            }
-            else
-            {
-                propsToPreserve = RootPropNames(preservation);
-
-                if (!propsToPreserve.Any())
-                    throw new ArgumentException("Unable to get any properties from the preservation expression!");
-            }
+            if (!propsToPreserve.Any())
+                throw new ArgumentException("No properties are being preserved. Please use .Save() method instead!");
 
             propsToUpdate = propsToUpdate.Where(p => !propsToPreserve.Contains(p.Name));
 
@@ -180,8 +168,8 @@ namespace MongoDB.Entities
 
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), null, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
         }
 
         private static void PrepareForSave<T>(T entity) where T : IEntity
@@ -226,8 +214,8 @@ namespace MongoDB.Entities
         {
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), new UpdateOptions { IsUpsert = true }, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), new UpdateOptions { IsUpsert = true }, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation);
         }
 
         private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity

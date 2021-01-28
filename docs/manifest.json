@@ -53,7 +53,19 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "NKPaHZ+71h0o8nSKQm8kHA=="
+          "hash": "wYh+GLzb9cpGi2fQmqKi5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.DBContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.DBContext.html",
+          "hash": "pmFWjmmQbhVBavZZDnSF9A=="
         }
       },
       "is_incremental": false,
@@ -101,7 +113,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Entity.html",
-          "hash": "zeMabb0GvQ0gMdQKSxQtmA=="
+          "hash": "hpkPIaCyfihdvOGk3Oo3FQ=="
         }
       },
       "is_incremental": false,
@@ -125,7 +137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Extensions.html",
-          "hash": "2sll72UXM/Ky+/QGtZ6IQw=="
+          "hash": "I/1fGy1KIF6XPiaCgNSPkg=="
         }
       },
       "is_incremental": false,
@@ -137,7 +149,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.FileEntity.html",
-          "hash": "vAGSCHAvF5jzvcwW7od0Vw=="
+          "hash": "6bgkyvvuOliTctwP5siuVQ=="
         }
       },
       "is_incremental": false,
@@ -209,7 +221,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IEntity.html",
-          "hash": "/+EVjslySO2lpxbmMoYjJw=="
+          "hash": "8tmKuXYVr+nYtqKbTDdgyg=="
         }
       },
       "is_incremental": false,
@@ -281,7 +293,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.JoinRecord.html",
-          "hash": "Q/VXzTS0hlwVsZ+bLP8U6w=="
+          "hash": "5GsYd34LrSmtXFEzw0+OSQ=="
         }
       },
       "is_incremental": false,
@@ -305,7 +317,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.Joined-1.html",
-          "hash": "/1g6wlOVcOPWLDjHFfSEDg=="
+          "hash": "CIoxOEokFCtZUpm5SiMgGg=="
         }
       },
       "is_incremental": false,
@@ -317,7 +329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.html",
-          "hash": "pAQlIoi+h+9dZUBYzXiRyw=="
+          "hash": "Ju2VvYemKt7LNJRZvw0CdQ=="
         }
       },
       "is_incremental": false,
@@ -341,7 +353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Migration.html",
-          "hash": "72A0rfqUFgmBZJ4SYPNt8A=="
+          "hash": "DfKlBD9m90Cm5TMwmplCRQ=="
         }
       },
       "is_incremental": false,
@@ -485,7 +497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Transaction.html",
-          "hash": "Y0mqC+cWgM5SZOLwtxQ5bA=="
+          "hash": "koy8Ha2Yl1MAcechYRjvrA=="
         }
       },
       "is_incremental": false,
@@ -545,7 +557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "P3NOxPte14mBROBcptsZlg=="
+          "hash": "s9COgVA8OJghI2+6YtPSNg=="
         }
       },
       "is_incremental": false,
@@ -557,7 +569,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "bS9Sdk0frDGIqI1BKmiGhQ=="
+          "hash": "tEpDUWgzlHrGjkZCCXcniw=="
         }
       },
       "is_incremental": false,
@@ -912,7 +924,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Save.html",
-          "hash": "RUM0iguYjaFlr9K7S0ni/w=="
+          "hash": "Jb4uVN/ZpjaL3UP/+nRXbQ=="
         }
       },
       "is_incremental": false,
@@ -1032,7 +1044,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Multiple-Databases.html",
-          "hash": "JfX1+Q9O6VGV8z0gz0wv6g=="
+          "hash": "Cq6Q5GchdGg+f84gFTmpqw=="
         }
       },
       "is_incremental": false,
@@ -1172,13 +1184,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 42,
-          "skipped_file_count": 41
+          "skipped_file_count": 42
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 44,
-          "skipped_file_count": 13
+          "total_file_count": 45,
+          "skipped_file_count": 45
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

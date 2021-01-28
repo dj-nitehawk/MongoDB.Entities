@@ -101,8 +101,8 @@
   <div class="markdown level0 summary"><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
 <p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
 <p>Initialize from the constructor of the parent entity as follows:</p>
-<pre><code>this.InitOneToMany(() => Property)</code></pre>
-<pre><code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code></pre>
+<code>this.InitOneToMany(() => Property)</code>
+<code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -1401,6 +1401,12 @@
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveOnlyAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveExceptAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAllAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_">Extensions.DeleteAllAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle)</a>

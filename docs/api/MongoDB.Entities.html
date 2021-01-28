@@ -118,6 +118,10 @@ If it is not a valid ObjectId string, it will be stored as string. This is usefu
       <h4><a class="xref" href="MongoDB.Entities.DB.html">DB</a></h4>
       <section><p>The main entrypoint for all data access methods of the library</p>
 </section>
+      <h4><a class="xref" href="MongoDB.Entities.DBContext.html">DBContext</a></h4>
+      <section><p>This db context class can be used as an alternative entry point instead of the DB static class.
+All methods on this class can be overriden if needed.</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.DontPreserveAttribute.html">DontPreserveAttribute</a></h4>
       <section><p>Properties that don't have this attribute will be omitted when using SavePreserving()
 TIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()</p>
@@ -168,8 +172,8 @@ You can increase the limit by sacrificing performance/resource utilization by se
       <section><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
 <p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
 <p>Initialize from the constructor of the parent entity as follows:</p>
-<pre><code>this.InitOneToMany(() => Property)</code></pre>
-<pre><code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code></pre>
+<code>this.InitOneToMany(() => Property)</code>
+<code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Many-1.Joined-1.html">Many&lt;TChild&gt;.Joined&lt;T&gt;</a></h4>
       <section><p>A class used to hold join results when joining relationships</p>

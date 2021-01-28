@@ -772,6 +772,56 @@ references:
   fullName.vb: MongoDB.Entities.DB.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: DB.SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
   nameWithType.vb: DB.SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.SaveExceptAsync*
+  name: SaveExceptAsync
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveExceptAsync_
+  commentId: Overload:MongoDB.Entities.DB.SaveExceptAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.SaveExceptAsync
+  nameWithType: DB.SaveExceptAsync
+- uid: MongoDB.Entities.DB.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.SaveExceptAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.SaveExceptAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.SaveExceptAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.SaveOnlyAsync*
+  name: SaveOnlyAsync
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveOnlyAsync_
+  commentId: Overload:MongoDB.Entities.DB.SaveOnlyAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.SaveOnlyAsync
+  nameWithType: DB.SaveOnlyAsync
+- uid: MongoDB.Entities.DB.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.SaveOnlyAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.SaveOnlyAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.SavePreservingAsync*
   name: SavePreservingAsync
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SavePreservingAsync_
@@ -779,15 +829,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.SavePreservingAsync
   nameWithType: DB.SavePreservingAsync
-- uid: MongoDB.Entities.DB.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: SavePreservingAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SavePreservingAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DB.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.SavePreservingAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DB.SavePreservingAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: DB.SavePreservingAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: DB.SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SavePreservingAsync<T>(T, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SavePreservingAsync__1___0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DB.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SavePreservingAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.SavePreservingAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.SavePreservingAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DB.SavePreservingAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.SavePreservingAsync(Of T)(T, IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.Sort*
   name: Sort
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Sort_
@@ -899,6 +949,380 @@ references:
   fullName.vb: MongoDB.Entities.DB.Watchers(Of T)()
   nameWithType: DB.Watchers<T>()
   nameWithType.vb: DB.Watchers(Of T)()
+- uid: MongoDB.Entities.DBContext
+  name: DBContext
+  href: api/MongoDB.Entities.DBContext.html
+  commentId: T:MongoDB.Entities.DBContext
+  fullName: MongoDB.Entities.DBContext
+  nameWithType: DBContext
+- uid: MongoDB.Entities.DBContext.CountAsync*
+  name: CountAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.CountAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.CountAsync
+  nameWithType: DBContext.CountAsync
+- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken)
+  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken)
+  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
+  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
+  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
+  name: CountAsync<T>(CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Threading.CancellationToken)
+  nameWithType: DBContext.CountAsync<T>(CancellationToken)
+  nameWithType.vb: DBContext.CountAsync(Of T)(CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync*
+  name: DeleteAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.DeleteAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.DeleteAsync
+  nameWithType: DBContext.DeleteAsync
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  name: DeleteAsync<T>(String, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_String_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(String, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.String, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken)
+- uid: MongoDB.Entities.DBContext.Find*
+  name: Find
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Find_
+  commentId: Overload:MongoDB.Entities.DBContext.Find
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Find
+  nameWithType: DBContext.Find
+- uid: MongoDB.Entities.DBContext.Find``1
+  name: Find<T>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Find__1
+  commentId: M:MongoDB.Entities.DBContext.Find``1
+  name.vb: Find(Of T)()
+  fullName: MongoDB.Entities.DBContext.Find<T>()
+  fullName.vb: MongoDB.Entities.DBContext.Find(Of T)()
+  nameWithType: DBContext.Find<T>()
+  nameWithType.vb: DBContext.Find(Of T)()
+- uid: MongoDB.Entities.DBContext.Find``2
+  name: Find<T, TProjection>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Find__2
+  commentId: M:MongoDB.Entities.DBContext.Find``2
+  name.vb: Find(Of T, TProjection)()
+  fullName: MongoDB.Entities.DBContext.Find<T, TProjection>()
+  fullName.vb: MongoDB.Entities.DBContext.Find(Of T, TProjection)()
+  nameWithType: DBContext.Find<T, TProjection>()
+  nameWithType.vb: DBContext.Find(Of T, TProjection)()
+- uid: MongoDB.Entities.DBContext.Fluent*
+  name: Fluent
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Fluent_
+  commentId: Overload:MongoDB.Entities.DBContext.Fluent
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Fluent
+  nameWithType: DBContext.Fluent
+- uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
+  name: Fluent<T>(AggregateOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Fluent__1_MongoDB_Driver_AggregateOptions_
+  commentId: M:MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
+  name.vb: Fluent(Of T)(AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.Fluent<T>(MongoDB.Driver.AggregateOptions)
+  fullName.vb: MongoDB.Entities.DBContext.Fluent(Of T)(MongoDB.Driver.AggregateOptions)
+  nameWithType: DBContext.Fluent<T>(AggregateOptions)
+  nameWithType.vb: DBContext.Fluent(Of T)(AggregateOptions)
+- uid: MongoDB.Entities.DBContext.FluentTextSearch*
+  name: FluentTextSearch
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_FluentTextSearch_
+  commentId: Overload:MongoDB.Entities.DBContext.FluentTextSearch
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.FluentTextSearch
+  nameWithType: DBContext.FluentTextSearch
+- uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_FluentTextSearch__1_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_MongoDB_Driver_AggregateOptions_
+  commentId: M:MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
+  fullName.vb: MongoDB.Entities.DBContext.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
+  nameWithType: DBContext.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
+  nameWithType.vb: DBContext.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
+- uid: MongoDB.Entities.DBContext.GeoNear*
+  name: GeoNear
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_GeoNear_
+  commentId: Overload:MongoDB.Entities.DBContext.GeoNear
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.GeoNear
+  nameWithType: DBContext.GeoNear
+- uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_GeoNear__1_MongoDB_Entities_Coordinates2D_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Boolean_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__MongoDB_Bson_BsonDocument_System_Nullable_System_Int32__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_String_MongoDB_Driver_AggregateOptions_
+  commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions)
+  fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
+  nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
+  nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+- uid: MongoDB.Entities.DBContext.PipelineAsync*
+  name: PipelineAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.PipelineAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.PipelineAsync
+  nameWithType: DBContext.PipelineAsync
+- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineCursorAsync*
+  name: PipelineCursorAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineCursorAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.PipelineCursorAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync
+  nameWithType: DBContext.PipelineCursorAsync
+- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineCursorAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineFirstAsync*
+  name: PipelineFirstAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineFirstAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.PipelineFirstAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync
+  nameWithType: DBContext.PipelineFirstAsync
+- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineFirstAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineSingleAsync*
+  name: PipelineSingleAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineSingleAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.PipelineSingleAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync
+  nameWithType: DBContext.PipelineSingleAsync
+- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineSingleAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.Queryable*
+  name: Queryable
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Queryable_
+  commentId: Overload:MongoDB.Entities.DBContext.Queryable
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Queryable
+  nameWithType: DBContext.Queryable
+- uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  name: Queryable<T>(AggregateOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Queryable__1_MongoDB_Driver_AggregateOptions_
+  commentId: M:MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  name.vb: Queryable(Of T)(AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.Queryable<T>(MongoDB.Driver.AggregateOptions)
+  fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
+  nameWithType: DBContext.Queryable<T>(AggregateOptions)
+  nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions)
+- uid: MongoDB.Entities.DBContext.SaveAsync*
+  name: SaveAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.SaveAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.SaveAsync
+  nameWithType: DBContext.SaveAsync
+- uid: MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
+  name: SaveAsync<T>(T, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveAsync__1___0_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of T)(T, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveAsync<T>(T, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveAsync(Of T)(T, System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveAsync<T>(T, CancellationToken)
+  nameWithType.vb: DBContext.SaveAsync(Of T)(T, CancellationToken)
+- uid: MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  name: SaveAsync<T>(IEnumerable<T>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveAsync__1_System_Collections_Generic_IEnumerable___0__System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of T)(IEnumerable(Of T), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveAsync<T>(IEnumerable<T>, CancellationToken)
+  nameWithType.vb: DBContext.SaveAsync(Of T)(IEnumerable(Of T), CancellationToken)
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync*
+  name: SaveExceptAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveExceptAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.SaveExceptAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync
+  nameWithType: DBContext.SaveExceptAsync
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync*
+  name: SaveOnlyAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveOnlyAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.SaveOnlyAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync
+  nameWithType: DBContext.SaveOnlyAsync
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Threading.CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.SavePreservingAsync*
+  name: SavePreservingAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SavePreservingAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.SavePreservingAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.SavePreservingAsync
+  nameWithType: DBContext.SavePreservingAsync
+- uid: MongoDB.Entities.DBContext.SavePreservingAsync``1(``0,System.Threading.CancellationToken)
+  name: SavePreservingAsync<T>(T, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SavePreservingAsync__1___0_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.SavePreservingAsync``1(``0,System.Threading.CancellationToken)
+  name.vb: SavePreservingAsync(Of T)(T, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SavePreservingAsync<T>(T, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SavePreservingAsync(Of T)(T, System.Threading.CancellationToken)
+  nameWithType: DBContext.SavePreservingAsync<T>(T, CancellationToken)
+  nameWithType.vb: DBContext.SavePreservingAsync(Of T)(T, CancellationToken)
+- uid: MongoDB.Entities.DBContext.session
+  name: session
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_session
+  commentId: F:MongoDB.Entities.DBContext.session
+  fullName: MongoDB.Entities.DBContext.session
+  nameWithType: DBContext.session
+- uid: MongoDB.Entities.DBContext.Update*
+  name: Update
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Update_
+  commentId: Overload:MongoDB.Entities.DBContext.Update
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Update
+  nameWithType: DBContext.Update
+- uid: MongoDB.Entities.DBContext.Update``1
+  name: Update<T>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Update__1
+  commentId: M:MongoDB.Entities.DBContext.Update``1
+  name.vb: Update(Of T)()
+  fullName: MongoDB.Entities.DBContext.Update<T>()
+  fullName.vb: MongoDB.Entities.DBContext.Update(Of T)()
+  nameWithType: DBContext.Update<T>()
+  nameWithType.vb: DBContext.Update(Of T)()
+- uid: MongoDB.Entities.DBContext.UpdateAndGet*
+  name: UpdateAndGet
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_UpdateAndGet_
+  commentId: Overload:MongoDB.Entities.DBContext.UpdateAndGet
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet
+  nameWithType: DBContext.UpdateAndGet
+- uid: MongoDB.Entities.DBContext.UpdateAndGet``1
+  name: UpdateAndGet<T>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_UpdateAndGet__1
+  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``1
+  name.vb: UpdateAndGet(Of T)()
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T>()
+  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T)()
+  nameWithType: DBContext.UpdateAndGet<T>()
+  nameWithType.vb: DBContext.UpdateAndGet(Of T)()
+- uid: MongoDB.Entities.DBContext.UpdateAndGet``2
+  name: UpdateAndGet<T, TProjection>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_UpdateAndGet__2
+  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``2
+  name.vb: UpdateAndGet(Of T, TProjection)()
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T, TProjection>()
+  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T, TProjection)()
+  nameWithType: DBContext.UpdateAndGet<T, TProjection>()
+  nameWithType.vb: DBContext.UpdateAndGet(Of T, TProjection)()
 - uid: MongoDB.Entities.DontPreserveAttribute
   name: DontPreserveAttribute
   href: api/MongoDB.Entities.DontPreserveAttribute.html
@@ -1232,6 +1656,56 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: Extensions.SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
   nameWithType.vb: Extensions.SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync*
+  name: SaveExceptAsync
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync_
+  commentId: Overload:MongoDB.Entities.Extensions.SaveExceptAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync
+  nameWithType: Extensions.SaveExceptAsync
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync*
+  name: SaveOnlyAsync
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync_
+  commentId: Overload:MongoDB.Entities.Extensions.SaveOnlyAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync
+  nameWithType: Extensions.SaveOnlyAsync
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(IEnumerable<T>, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SavePreservingAsync*
   name: SavePreservingAsync
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync_
@@ -1239,15 +1713,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Extensions.SavePreservingAsync
   nameWithType: Extensions.SavePreservingAsync
-- uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: SavePreservingAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Extensions.SavePreservingAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Extensions.SavePreservingAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: Extensions.SavePreservingAsync<T>(T, Expression<Func<T, Object>>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: Extensions.SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SavePreservingAsync<T>(T, IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SavePreservingAsync__1___0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name.vb: SavePreservingAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SavePreservingAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SavePreservingAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: Extensions.SavePreservingAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType.vb: Extensions.SavePreservingAsync(Of T)(T, IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SortByRelevance*
   name: SortByRelevance
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SortByRelevance_
@@ -3772,83 +4246,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.CommitAsync
   nameWithType: Transaction.CommitAsync
-- uid: MongoDB.Entities.Transaction.CountAsync*
-  name: CountAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.CountAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.CountAsync
-  nameWithType: Transaction.CountAsync
-- uid: MongoDB.Entities.Transaction.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  name: CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken)
-  nameWithType: Transaction.CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  nameWithType.vb: Transaction.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-- uid: MongoDB.Entities.Transaction.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
-  nameWithType: Transaction.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  nameWithType.vb: Transaction.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-- uid: MongoDB.Entities.Transaction.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  nameWithType: Transaction.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType.vb: Transaction.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-- uid: MongoDB.Entities.Transaction.CountAsync``1(System.Threading.CancellationToken)
-  name: CountAsync<T>(CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CountAsync__1_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.CountAsync``1(System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CountAsync<T>(System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.CountAsync(Of T)(System.Threading.CancellationToken)
-  nameWithType: Transaction.CountAsync<T>(CancellationToken)
-  nameWithType.vb: Transaction.CountAsync(Of T)(CancellationToken)
-- uid: MongoDB.Entities.Transaction.DeleteAsync*
-  name: DeleteAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_DeleteAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.DeleteAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.DeleteAsync
-  nameWithType: Transaction.DeleteAsync
-- uid: MongoDB.Entities.Transaction.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
-  nameWithType: Transaction.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  nameWithType.vb: Transaction.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-- uid: MongoDB.Entities.Transaction.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  nameWithType: Transaction.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType.vb: Transaction.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-- uid: MongoDB.Entities.Transaction.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  name: DeleteAsync<T>(String, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_DeleteAsync__1_System_String_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(String, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.DeleteAsync<T>(System.String, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
-  nameWithType: Transaction.DeleteAsync<T>(String, CancellationToken)
-  nameWithType.vb: Transaction.DeleteAsync(Of T)(String, CancellationToken)
 - uid: MongoDB.Entities.Transaction.Dispose
   name: Dispose()
   href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Dispose
@@ -3868,200 +4265,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.Dispose
   nameWithType: Transaction.Dispose
-- uid: MongoDB.Entities.Transaction.Find*
-  name: Find
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Find_
-  commentId: Overload:MongoDB.Entities.Transaction.Find
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.Find
-  nameWithType: Transaction.Find
-- uid: MongoDB.Entities.Transaction.Find``1
-  name: Find<T>()
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Find__1
-  commentId: M:MongoDB.Entities.Transaction.Find``1
-  name.vb: Find(Of T)()
-  fullName: MongoDB.Entities.Transaction.Find<T>()
-  fullName.vb: MongoDB.Entities.Transaction.Find(Of T)()
-  nameWithType: Transaction.Find<T>()
-  nameWithType.vb: Transaction.Find(Of T)()
-- uid: MongoDB.Entities.Transaction.Find``2
-  name: Find<T, TProjection>()
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Find__2
-  commentId: M:MongoDB.Entities.Transaction.Find``2
-  name.vb: Find(Of T, TProjection)()
-  fullName: MongoDB.Entities.Transaction.Find<T, TProjection>()
-  fullName.vb: MongoDB.Entities.Transaction.Find(Of T, TProjection)()
-  nameWithType: Transaction.Find<T, TProjection>()
-  nameWithType.vb: Transaction.Find(Of T, TProjection)()
-- uid: MongoDB.Entities.Transaction.Fluent*
-  name: Fluent
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Fluent_
-  commentId: Overload:MongoDB.Entities.Transaction.Fluent
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.Fluent
-  nameWithType: Transaction.Fluent
-- uid: MongoDB.Entities.Transaction.Fluent``1(MongoDB.Driver.AggregateOptions)
-  name: Fluent<T>(AggregateOptions)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Fluent__1_MongoDB_Driver_AggregateOptions_
-  commentId: M:MongoDB.Entities.Transaction.Fluent``1(MongoDB.Driver.AggregateOptions)
-  name.vb: Fluent(Of T)(AggregateOptions)
-  fullName: MongoDB.Entities.Transaction.Fluent<T>(MongoDB.Driver.AggregateOptions)
-  fullName.vb: MongoDB.Entities.Transaction.Fluent(Of T)(MongoDB.Driver.AggregateOptions)
-  nameWithType: Transaction.Fluent<T>(AggregateOptions)
-  nameWithType.vb: Transaction.Fluent(Of T)(AggregateOptions)
-- uid: MongoDB.Entities.Transaction.FluentTextSearch*
-  name: FluentTextSearch
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_FluentTextSearch_
-  commentId: Overload:MongoDB.Entities.Transaction.FluentTextSearch
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.FluentTextSearch
-  nameWithType: Transaction.FluentTextSearch
-- uid: MongoDB.Entities.Transaction.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_FluentTextSearch__1_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_MongoDB_Driver_AggregateOptions_
-  commentId: M:MongoDB.Entities.Transaction.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
-  fullName: MongoDB.Entities.Transaction.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  fullName.vb: MongoDB.Entities.Transaction.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  nameWithType: Transaction.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  nameWithType.vb: Transaction.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
-- uid: MongoDB.Entities.Transaction.GeoNear*
-  name: GeoNear
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_GeoNear_
-  commentId: Overload:MongoDB.Entities.Transaction.GeoNear
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.GeoNear
-  nameWithType: Transaction.GeoNear
-- uid: MongoDB.Entities.Transaction.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_GeoNear__1_MongoDB_Entities_Coordinates2D_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Boolean_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__MongoDB_Bson_BsonDocument_System_Nullable_System_Int32__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_String_MongoDB_Driver_AggregateOptions_
-  commentId: M:MongoDB.Entities.Transaction.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
-  fullName: MongoDB.Entities.Transaction.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions)
-  fullName.vb: MongoDB.Entities.Transaction.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
-  nameWithType: Transaction.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  nameWithType.vb: Transaction.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
-- uid: MongoDB.Entities.Transaction.PipelineAsync*
-  name: PipelineAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.PipelineAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.PipelineAsync
-  nameWithType: Transaction.PipelineAsync
-- uid: MongoDB.Entities.Transaction.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType: Transaction.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType.vb: Transaction.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.Transaction.PipelineCursorAsync*
-  name: PipelineCursorAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineCursorAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.PipelineCursorAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.PipelineCursorAsync
-  nameWithType: Transaction.PipelineCursorAsync
-- uid: MongoDB.Entities.Transaction.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineCursorAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType: Transaction.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType.vb: Transaction.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.Transaction.PipelineFirstAsync*
-  name: PipelineFirstAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineFirstAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.PipelineFirstAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.PipelineFirstAsync
-  nameWithType: Transaction.PipelineFirstAsync
-- uid: MongoDB.Entities.Transaction.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineFirstAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType: Transaction.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType.vb: Transaction.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.Transaction.PipelineSingleAsync*
-  name: PipelineSingleAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineSingleAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.PipelineSingleAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.PipelineSingleAsync
-  nameWithType: Transaction.PipelineSingleAsync
-- uid: MongoDB.Entities.Transaction.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_PipelineSingleAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType: Transaction.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType.vb: Transaction.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.Transaction.Queryable*
-  name: Queryable
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Queryable_
-  commentId: Overload:MongoDB.Entities.Transaction.Queryable
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.Queryable
-  nameWithType: Transaction.Queryable
-- uid: MongoDB.Entities.Transaction.Queryable``1(MongoDB.Driver.AggregateOptions)
-  name: Queryable<T>(AggregateOptions)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Queryable__1_MongoDB_Driver_AggregateOptions_
-  commentId: M:MongoDB.Entities.Transaction.Queryable``1(MongoDB.Driver.AggregateOptions)
-  name.vb: Queryable(Of T)(AggregateOptions)
-  fullName: MongoDB.Entities.Transaction.Queryable<T>(MongoDB.Driver.AggregateOptions)
-  fullName.vb: MongoDB.Entities.Transaction.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
-  nameWithType: Transaction.Queryable<T>(AggregateOptions)
-  nameWithType.vb: Transaction.Queryable(Of T)(AggregateOptions)
-- uid: MongoDB.Entities.Transaction.SaveAsync*
-  name: SaveAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_SaveAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.SaveAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.SaveAsync
-  nameWithType: Transaction.SaveAsync
-- uid: MongoDB.Entities.Transaction.SaveAsync``1(``0,System.Threading.CancellationToken)
-  name: SaveAsync<T>(T, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_SaveAsync__1___0_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.SaveAsync``1(``0,System.Threading.CancellationToken)
-  name.vb: SaveAsync(Of T)(T, CancellationToken)
-  fullName: MongoDB.Entities.Transaction.SaveAsync<T>(T, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.SaveAsync(Of T)(T, System.Threading.CancellationToken)
-  nameWithType: Transaction.SaveAsync<T>(T, CancellationToken)
-  nameWithType.vb: Transaction.SaveAsync(Of T)(T, CancellationToken)
-- uid: MongoDB.Entities.Transaction.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
-  name: SaveAsync<T>(IEnumerable<T>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_SaveAsync__1_System_Collections_Generic_IEnumerable___0__System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
-  name.vb: SaveAsync(Of T)(IEnumerable(Of T), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.SaveAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Threading.CancellationToken)
-  nameWithType: Transaction.SaveAsync<T>(IEnumerable<T>, CancellationToken)
-  nameWithType.vb: Transaction.SaveAsync(Of T)(IEnumerable(Of T), CancellationToken)
-- uid: MongoDB.Entities.Transaction.SavePreservingAsync*
-  name: SavePreservingAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_SavePreservingAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.SavePreservingAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.SavePreservingAsync
-  nameWithType: Transaction.SavePreservingAsync
-- uid: MongoDB.Entities.Transaction.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
-  name: SavePreservingAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_SavePreservingAsync__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.SavePreservingAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
-  name.vb: SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
-  fullName: MongoDB.Entities.Transaction.SavePreservingAsync<T>(T, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.Transaction.SavePreservingAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Threading.CancellationToken)
-  nameWithType: Transaction.SavePreservingAsync<T>(T, Expression<Func<T, Object>>, CancellationToken)
-  nameWithType.vb: Transaction.SavePreservingAsync(Of T)(T, Expression(Of Func(Of T, Object)), CancellationToken)
 - uid: MongoDB.Entities.Transaction.Session
   name: Session
   href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Session
@@ -4075,47 +4278,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.Session
   nameWithType: Transaction.Session
-- uid: MongoDB.Entities.Transaction.Update*
-  name: Update
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Update_
-  commentId: Overload:MongoDB.Entities.Transaction.Update
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.Update
-  nameWithType: Transaction.Update
-- uid: MongoDB.Entities.Transaction.Update``1
-  name: Update<T>()
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Update__1
-  commentId: M:MongoDB.Entities.Transaction.Update``1
-  name.vb: Update(Of T)()
-  fullName: MongoDB.Entities.Transaction.Update<T>()
-  fullName.vb: MongoDB.Entities.Transaction.Update(Of T)()
-  nameWithType: Transaction.Update<T>()
-  nameWithType.vb: Transaction.Update(Of T)()
-- uid: MongoDB.Entities.Transaction.UpdateAndGet*
-  name: UpdateAndGet
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_UpdateAndGet_
-  commentId: Overload:MongoDB.Entities.Transaction.UpdateAndGet
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.UpdateAndGet
-  nameWithType: Transaction.UpdateAndGet
-- uid: MongoDB.Entities.Transaction.UpdateAndGet``1
-  name: UpdateAndGet<T>()
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_UpdateAndGet__1
-  commentId: M:MongoDB.Entities.Transaction.UpdateAndGet``1
-  name.vb: UpdateAndGet(Of T)()
-  fullName: MongoDB.Entities.Transaction.UpdateAndGet<T>()
-  fullName.vb: MongoDB.Entities.Transaction.UpdateAndGet(Of T)()
-  nameWithType: Transaction.UpdateAndGet<T>()
-  nameWithType.vb: Transaction.UpdateAndGet(Of T)()
-- uid: MongoDB.Entities.Transaction.UpdateAndGet``2
-  name: UpdateAndGet<T, TProjection>()
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_UpdateAndGet__2
-  commentId: M:MongoDB.Entities.Transaction.UpdateAndGet``2
-  name.vb: UpdateAndGet(Of T, TProjection)()
-  fullName: MongoDB.Entities.Transaction.UpdateAndGet<T, TProjection>()
-  fullName.vb: MongoDB.Entities.Transaction.UpdateAndGet(Of T, TProjection)()
-  nameWithType: Transaction.UpdateAndGet<T, TProjection>()
-  nameWithType.vb: Transaction.UpdateAndGet(Of T, TProjection)()
 - uid: MongoDB.Entities.Update`1
   name: Update<T>
   href: api/MongoDB.Entities.Update-1.html

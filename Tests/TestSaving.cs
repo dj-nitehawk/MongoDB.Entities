@@ -134,25 +134,36 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task save_preserving_upsert()
+        {
+            var book = new Book { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
+
+            book.Title = "updated title";
+            book.Price = 543.21m;
+
+            await book.SavePreservingAsync();
+
+            book = await DB.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual("updated title", book.Title);
+            Assert.AreEqual(543.21m, book.Price);
+            Assert.AreEqual(default, book.DontSaveThis);
+        }
+
+        [TestMethod]
         public async Task save_preserving()
         {
-            var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };
+            var book = new Book { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
             await book.SaveAsync();
 
             book.Title = "updated title";
             book.Price = 543.21m;
 
-            await book.SavePreservingAsync(b => new
-            {
-                b.Title,
-                b.PublishedOn,
-                b.Review.Stars,
-                Something = b.ReviewArray
-            });
+            await book.SavePreservingAsync();
 
             book = await DB.Find<Book>().OneAsync(book.ID);
 
-            Assert.AreEqual("Title is preserved", book.Title);
+            Assert.AreEqual("updated title", book.Title);
             Assert.AreEqual(543.21m, book.Price);
             Assert.AreEqual(default, book.DontSaveThis);
         }
