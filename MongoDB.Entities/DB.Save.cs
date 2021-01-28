@@ -14,7 +14,8 @@ namespace MongoDB.Entities
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
 
         /// <summary>
-        /// Persists an entity to MongoDB
+        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
@@ -25,35 +26,13 @@ namespace MongoDB.Entities
             PrepareForSave(entity);
 
             return session == null
-                   ? Collection<T>().ReplaceOneAsync(x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-                   : Collection<T>().ReplaceOneAsync(session, x => x.ID.Equals(entity.ID), entity, new ReplaceOptions { IsUpsert = true }, cancellation);
+                   ? Collection<T>().ReplaceOneAsync(x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+                   : Collection<T>().ReplaceOneAsync(session, x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
-        /// Saves an entity partially by specifying a subset of properties. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            IEnumerable<string> propsToInclude = RootPropNames(members);
-
-            if (!propsToInclude.Any())
-                throw new ArgumentException("Unable to get any properties from the members expression!");
-
-            return
-                session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation);
-        }
-
-        /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation
+        /// Saves a batch of complete entities replacing existing ones or creating new ones if they do not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
@@ -79,16 +58,41 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves a batch of entities partially by specifying a subset of properties. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// Saves an entity partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            IEnumerable<string> propsToInclude = RootPropNames(members);
+
+            if (!propsToInclude.Any())
+                throw new ArgumentException("Unable to get any properties from the members expression!");
+
+            return
+                session == null
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, propsToInclude)), new UpdateOptions { IsUpsert = true }, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             IEnumerable<string> propsToInclude = RootPropNames(members);
 

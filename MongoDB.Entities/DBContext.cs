@@ -204,7 +204,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Persists an entity to MongoDB in the transaction scope
+        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
@@ -215,21 +216,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity partially by specifying a subset of properties in the transaction scope. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SaveAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
-        {
-            return DB.SaveAsync(entity, members, session, cancellation);
-        }
-
-        /// <summary>
-        /// Persists multiple entities to MongoDB in a single bulk operation in the transaction scope
+        /// Saves a batch of complete entities replacing an existing entities or creating a new ones if they do not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entities">The entities to persist</param>
@@ -240,17 +228,33 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves a batch of entities partially by specifying a subset of properties in the transaction scope. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// Saves an entity partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveOnlyAsync(entity, members, session, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities, members, session, cancellation);
+            return DB.SaveOnlyAsync(entities, members, session, cancellation);
         }
 
         /// <summary>

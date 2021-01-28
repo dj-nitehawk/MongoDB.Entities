@@ -208,8 +208,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Replaces an IEntity in the databse if a matching item is found (by ID) or creates a new one if not found.
-        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
+        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -219,23 +219,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves an entity partially by specifying a subset of properties. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="entity">The entity to save</param>
-        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SaveAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            return DB.SaveAsync(entity, members, session, cancellation);
-        }
-
-        /// <summary>
-        /// Replaces Entities in the databse if matching items are found (by ID) or creates new ones if not found.
-        /// <para>WARNING: The shape of the IEntity in the database is always owerwritten with the current shape of the IEntity. So be mindful of data loss due to schema changes.</para>
+        /// Saves a batch of complete entities replacing existing ones or creating new ones if they do not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -245,18 +230,35 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Saves a batch of entities partially by specifying a subset of properties. 
-        /// The properties to be saved can be specified with a 'New' expression. 
-        /// <para>TIP: The 'New' expression should specify only root level properties.</para>
+        /// Saves an entity partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveOnlyAsync(entity, members, session, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially with only the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities, members, session, cancellation);
+            return DB.SaveOnlyAsync(entities, members, session, cancellation);
         }
 
         /// <summary>
