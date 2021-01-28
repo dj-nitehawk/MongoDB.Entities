@@ -10,9 +10,9 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.7.0-beta4</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- ability to save entities partially by including a subset of properties
-- 
-- support for DBContext instances
+    <PackageReleaseNotes>- support for extensible DBContext instances
+- ability to save entities partially by including a subset of properties
+- ability to save entities partially by excluding a subset of properties
 - optimize Transaction class
 - upgrade mongo driver to latest
 - increase test coverage</PackageReleaseNotes>

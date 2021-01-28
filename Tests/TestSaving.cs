@@ -91,6 +91,49 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task save_partially_single_exclude()
+        {
+            var book = new Book { Title = "test book", Price = 100 };
+
+            await book.SaveExceptAsync(b => new { b.Title });
+
+            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual(100, res.Price);
+            Assert.AreEqual(null, res.Title);
+
+            res.Title = "updated";
+
+            await res.SaveExceptAsync(b => new { b.Price });
+
+            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+
+            Assert.AreEqual("updated", res.Title);
+        }
+
+        [TestMethod]
+        public async Task save_partially_batch_exclude()
+        {
+            var books = new[] {
+                new Book{ Title = "one", Price = 100},
+                new Book{ Title = "two", Price = 200}
+            };
+
+            await books.SaveExceptAsync(b => new { b.Title });
+            var ids = books.Select(b => b.ID).ToArray();
+
+            var res = await DB.Find<Book>()
+                .Match(b => ids.Contains(b.ID))
+                .Sort(b => b.ID, Order.Ascending)
+                .ExecuteAsync();
+
+            Assert.AreEqual(100, res[0].Price);
+            Assert.AreEqual(200, res[1].Price);
+            Assert.AreEqual(null, res[0].Title);
+            Assert.AreEqual(null, res[1].Title);
+        }
+
+        [TestMethod]
         public async Task save_preserving()
         {
             var book = new Book { Title = "Title is preserved", Price = 123.45m, DontSaveThis = 111 };
