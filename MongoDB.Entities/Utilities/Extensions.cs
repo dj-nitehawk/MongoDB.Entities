@@ -262,6 +262,38 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Saves an entity partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveExceptAsync(entity, members, session, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveExceptAsync(entities, members, session, cancellation);
+        }
+
+        /// <summary>
         /// Save this entity while preserving some property values in the database.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] attribute.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>

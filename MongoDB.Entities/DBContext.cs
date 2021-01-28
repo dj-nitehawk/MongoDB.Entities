@@ -258,6 +258,36 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Saves an entity partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entity">The entity to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveExceptAsync(entity, members, session, cancellation);
+        }
+
+        /// <summary>
+        /// Saves a batch of entities partially excluding the specified subset of properties. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
+        /// You can only specify root level properties with the expression.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="entities">The batch of entities to save</param>
+        /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.SaveExceptAsync(entities, members, session, cancellation);
+        }
+
+        /// <summary>
         /// Saves an entity while preserving some property values in the database in the transaction scope.
         /// The properties to be preserved can be specified with a 'New' expression or using the [Preserve] or [DontPreserve] attributes.
         /// <para>TIP: The 'New' expression should specify only root level properties.</para>
