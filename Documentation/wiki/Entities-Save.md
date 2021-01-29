@@ -6,10 +6,7 @@ call `SaveAsync()` on any entity to persist it to the database.
 var book = new Book { Title = "The Power Of Now" }; 
 await book.SaveAsync();
 ```
-
-> [!note]
-> new entities are automatically assigned an `ID` when saved.
-> saving an entity that has the `ID` already populated will replace the matching entity in the database.
+new entities are automatically assigned an `ID` when saved. saving an entity that has the `ID` already populated will *[replace](Schema-Changes.md)* the matching entity in the database if it exists. if an entity with that `ID` does not exist in the database, a new one will be created. aka upserted.
 
 # Save multiple entities
 
@@ -32,7 +29,7 @@ await DB.SaveAsync(books);
 ```
 
 # Save entities partially
-the above-mentioned `SaveAsync` methods will replace the entire document on the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two choices to make your life easier.
+the above-mentioned `SaveAsync` methods will replace the entire document in the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two choices to make your life easier.
 
 ### Save only a few specified properties
 ```csharp

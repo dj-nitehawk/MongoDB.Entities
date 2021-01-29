@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="schema-changes">Schema changes</h1>
 
-<p>be mindful when changing the schema of your entities. the documents/entities stored in mongodb are always overwritten with the current schema/ shape of your entities. for example:</p>
+<p>be mindful when changing the schema of your entities. the documents/entities stored in mongodb are overwritten with the current schema/ shape of your entities when you call <a href="Entities-Save.html">SaveAsync</a>. for example:</p>
 <h6 id="old-schema">Old schema</h6>
 <pre><code class="lang-csharp">public class Book : Entity
 {
@@ -109,14 +109,14 @@
 </code></pre>
 <p>the data stored in mongodb under <code>Price</code> will be lost upon saving if you do not manually handle the transfer of data from the old property to the new property.</p>
 <h3 id="renaming-entities">Renaming entities</h3>
-<p>If you for example rename the <code>Book</code> entity to <code>Test</code> when you run you app, a new collection called &quot;Test&quot; will be created and the old collection called &quot;Book&quot; will be orphaned. Any new entities you save will be added to the &quot;Test&quot; collection. To avoid that, you can simply rename the collection called &quot;Book&quot; to &quot;Test&quot; before running your app.</p>
+<p>if you for example rename the <code>Book</code> entity to <code>Test</code> when you run you app, a new collection called &quot;Test&quot; will be created and the old collection called &quot;Book&quot; will be orphaned. Any new entities you save will be added to the &quot;Test&quot; collection. To avoid that, you can simply rename the collection called &quot;Book&quot; to &quot;Test&quot; before running your app. or you can tie down the name of the collection using the <a href="Entities.html#customize-collection-names">[Name]</a> attribute</p>
 <h3 id="reference-collections">Reference collections</h3>
 <p>Reference(Join) collections use the naming format <code>[Parent~Child(PropertyName)]</code> for <strong>One-To-Many</strong> and <code>[(PropertyName)Parent~Child(PropertyName)]</code> for <strong>Many-To-Many</strong>. you don't have to pay any attention to these special collections unless you rename your entities or properties.</p>
 <p>for ex: if you rename the <code>Book</code> entity to <code>AwesomeBook</code> and property holding it to <code>GoodAuthors</code> just rename the corresponding join collection from <code>[Book~Author(Authors)]</code> to <code>[AwesomeBook~Author(GoodAuthors)]</code> in order to get the references working again.</p>
 <h3 id="indexes">Indexes</h3>
 <p>some care is needed to make sure there won't be any orphaned/ redundant indexes in mongodb after changing your schema.</p>
 <h4 id="renaming-entities-1">Renaming entities</h4>
-<p>if you rename an entity, simply rename the corresponding collection in mongodb before running your app as mentioned in the previous section and all indexes will continue to work because indexes are tied to the collections they're in.</p>
+<p>if you rename an entity, simply rename the corresponding collection in mongodb before running your app as mentioned in the previous section and all indexes will continue to work because indexes are tied to the collections they're in. or simply tie down the collection name with the <a href="Entities.html#customize-collection-names">[Name]</a> attribute.</p>
 <h4 id="changing-entity-properties-or-index-definitions">Changing entity properties or index definitions</h4>
 <p>after running the app with changed property names or modified index definitions, new indexes will be automatically created to match the current shape of index definitions in your code. you should manually drop indexes that have old schema in order to get rid of redundant/ orphaned indexes.</p>
 <div class="NOTE">

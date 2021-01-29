@@ -98,11 +98,7 @@
 <pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; }; 
 await book.SaveAsync();
 </code></pre>
-<div class="NOTE">
-<h5>Note</h5>
-<p>new entities are automatically assigned an <code>ID</code> when saved.
-saving an entity that has the <code>ID</code> already populated will replace the matching entity in the database.</p>
-</div>
+<p>new entities are automatically assigned an <code>ID</code> when saved. saving an entity that has the <code>ID</code> already populated will <em><a href="Schema-Changes.html">replace</a></em> the matching entity in the database if it exists. if an entity with that <code>ID</code> does not exist in the database, a new one will be created. aka upserted.</p>
 <h1 id="save-multiple-entities">Save multiple entities</h1>
 <p>multiple entities can be saved in a single bulk operation like so:</p>
 <pre><code class="lang-csharp">var books = new[] {
@@ -119,7 +115,7 @@ await books.SaveAsync();
 await DB.SaveAsync(books);
 </code></pre>
 <h1 id="save-entities-partially">Save entities partially</h1>
-<p>the above-mentioned <code>SaveAsync</code> methods will replace the entire document on the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two choices to make your life easier.</p>
+<p>the above-mentioned <code>SaveAsync</code> methods will replace the entire document in the database with the values from the entity. if the goal is to only save the values of a subset of the properties, you have two choices to make your life easier.</p>
 <h3 id="save-only-a-few-specified-properties">Save only a few specified properties</h3>
 <pre><code class="lang-csharp">await book.SaveOnlyAsync(x =&gt; new { x.Title, x.Price });
 </code></pre>

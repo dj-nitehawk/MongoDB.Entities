@@ -924,7 +924,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities-Save.html",
-          "hash": "Jb4uVN/ZpjaL3UP/+nRXbQ=="
+          "hash": "ClM9Crzebw/MF7jIfNGXTw=="
         }
       },
       "is_incremental": false,
@@ -1044,7 +1044,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Multiple-Databases.html",
-          "hash": "Cq6Q5GchdGg+f84gFTmpqw=="
+          "hash": "d999tnOPdtW615gLPgQqDg=="
         }
       },
       "is_incremental": false,
@@ -1123,12 +1123,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "wiki/Schema-Changes.md",
       "output": {
         ".html": {
           "relative_path": "wiki/Schema-Changes.html",
-          "hash": "EL6S1Iq7iUVmaJfWtTqHvQ=="
+          "hash": "hs68ZqUoXTjiiz1n/NY0uw=="
         }
       },
       "is_incremental": false,
