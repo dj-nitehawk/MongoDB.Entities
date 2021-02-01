@@ -72,16 +72,16 @@ namespace MongoDB.Entities.Tests
 
             var res = await DB.Find<Book>()
                         .Match(Search.Fuzzy, "catherine jones")
-                        .Project(b => new Book { ID = b.ID, Title = b.Title })
+                        .Project(b => new Book { Id = b.Id, Title = b.Title })
                         .SortByTextScore()
                         .Skip(0)
                         .Limit(6)
                         .ExecuteAsync();
 
-            await DB.DeleteAsync<Book>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+            await DB.DeleteAsync<Book>(new[] { b1.Id, b2.Id, b3.Id, b4.Id, b5.Id, b6.Id });
 
             Assert.AreEqual(4, res.Count);
-            Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
+            Assert.IsFalse(res.Select(b => b.Id).Contains(b5.Id));
         }
 
         [TestMethod]
@@ -95,11 +95,11 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid();
 
             var list = new[] {
-                new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},
-                new Genre{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-                new Genre{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-                new Genre{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-                new Genre{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+                new Genre{ GuidId = guid, Position = 0, Name = "this should not match"},
+                new Genre{ GuidId = guid, Position = 3, Name = "one two three four five six"},
+                new Genre{ GuidId = guid, Position = 4, Name = "one two three four five six seven"},
+                new Genre{ GuidId = guid, Position = 2, Name = "one two three four five six seven eight"},
+                new Genre{ GuidId = guid, Position = 1, Name = "one two three four five six seven eight nine"}
             };
 
             await list.SaveAsync();
@@ -128,11 +128,11 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid();
 
             var list = new[] {
-                new Genre{ GuidID = guid, Position = 0, Name = "this should not match"},
-                new Genre{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-                new Genre{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-                new Genre{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-                new Genre{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+                new Genre{ GuidId = guid, Position = 0, Name = "this should not match"},
+                new Genre{ GuidId = guid, Position = 3, Name = "one two three four five six"},
+                new Genre{ GuidId = guid, Position = 4, Name = "one two three four five six seven"},
+                new Genre{ GuidId = guid, Position = 2, Name = "one two three four five six seven eight"},
+                new Genre{ GuidId = guid, Position = 1, Name = "one two three four five six seven eight nine"}
             };
 
             await list.SaveAsync();

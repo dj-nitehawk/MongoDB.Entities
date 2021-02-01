@@ -69,7 +69,7 @@ namespace MongoDB.Entities
 
     /// <summary>
     /// Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string. 
-    /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.
+    /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the Id field.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class AsObjectIdAttribute : BsonSerializerAttribute

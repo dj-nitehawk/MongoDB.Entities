@@ -194,13 +194,13 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Returns a new instance of the supplied IEntity type with the ID set to the supplied value
+        /// Returns a new instance of the supplied IEntity type with the Id set to the supplied value
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="ID">The ID to set on the returned instance</param>
-        public static T Entity<T>(string ID) where T : IEntity, new()
+        /// <param name="id">The Id to set on the returned instance</param>
+        public static T Entity<T>(string id) where T : IEntity, new()
         {
-            return new T { ID = ID };
+            return new T { Id = id };
         }
     }
 

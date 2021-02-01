@@ -60,10 +60,10 @@ namespace Benchmark
 
                 for (int i = 1; i <= booksPerAuthor; i++)
                 {
-                    book.ID = null;
+                    book.Id = null;
                     book.Title = $"author {number} - book {i}";
                     book.PublishedOn = DateTime.UtcNow;
-                    book.Author = author.ID;
+                    book.Author = author.Id;
                     book.SaveAsync().GetAwaiter().GetResult();
                     author.Books.AddAsync(book).GetAwaiter().GetResult();
                     booksCreated.Add(0);
@@ -85,17 +85,17 @@ namespace Benchmark
                            .FirstOrDefault();
 
             Console.WriteLine();
-            Console.WriteLine($"found author 66 by name in [{sw.Elapsed.TotalMilliseconds:0}ms] with an un-indexed query - his id: {author.ID}");
+            Console.WriteLine($"found author 66 by name in [{sw.Elapsed.TotalMilliseconds:0}ms] with an un-indexed query - his id: {author.Id}");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
 
             sw.Restart();
             author = await DB.Find<Author>()
-                       .OneAsync(author.ID);
+                       .OneAsync(author.Id);
 
             Console.WriteLine();
-            Console.WriteLine($"looking up author 66 by ID took [{sw.Elapsed.TotalMilliseconds:0}ms]");
+            Console.WriteLine($"looking up author 66 by Id took [{sw.Elapsed.TotalMilliseconds:0}ms]");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();
@@ -149,11 +149,11 @@ namespace Benchmark
             var bookIDs = await DB.Find<Book, string>()
                             .Match(b => b.Title == "author 99 - book 99" ||
                                         b.Title == "author 33 - book 33")
-                            .Project(b => b.ID)
+                            .Project(b => b.Id)
                             .ExecuteAsync();
 
             Console.WriteLine();
-            Console.WriteLine($"fetched 2 book IDs by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is indexed");
+            Console.WriteLine($"fetched 2 book Ids by title in [{sw.Elapsed.TotalMilliseconds:0}ms] - title field is indexed");
             Console.WriteLine();
             Console.WriteLine("press a key to continnue...");
             Console.ReadLine();

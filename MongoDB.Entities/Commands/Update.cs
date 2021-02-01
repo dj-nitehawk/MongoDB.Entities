@@ -30,12 +30,12 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify an IEntity ID as the matching criteria
+        /// Specify an IEntity id as the matching criteria
         /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Update<T> MatchID(string ID)
+        /// <param name="id">A unique IEntity id</param>
+        public Update<T> MatchId(string id)
         {
-            return Match(f => f.Eq(t => t.ID, ID));
+            return Match(f => f.Eq(t => t.Id, id));
         }
 
         /// <summary>

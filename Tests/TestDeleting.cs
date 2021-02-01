@@ -22,11 +22,11 @@ namespace MongoDB.Entities.Tests
             await author2.DeleteAsync();
 
             var a1 = await author1.Queryable()
-                             .Where(a => a.ID == author1.ID)
+                             .Where(a => a.Id == author1.Id)
                              .SingleOrDefaultAsync();
 
             var a2 = await author2.Queryable()
-                              .Where(a => a.ID == author2.ID)
+                              .Where(a => a.Id == author2.Id)
                               .SingleOrDefaultAsync();
 
             Assert.AreEqual(null, a2);
@@ -68,7 +68,7 @@ namespace MongoDB.Entities.Tests
             await book.SaveAsync();
             await book.OtherAuthors.DeleteAllAsync();
             Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
-            Assert.AreEqual(null, await author1.Queryable().Where(a => a.ID == author1.ID).SingleOrDefaultAsync());
+            Assert.AreEqual(null, await author1.Queryable().Where(a => a.Id == author1.Id).SingleOrDefaultAsync());
         }
 
         [TestMethod]
@@ -99,14 +99,14 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task high_volume_deletes_with_idsAsync()
         {
-            var IDs = new List<string>(100100);
+            var Ids = new List<string>(100100);
 
             for (int i = 0; i < 100100; i++)
             {
-                IDs.Add(ObjectId.GenerateNewId().ToString());
+                Ids.Add(ObjectId.GenerateNewId().ToString());
             }
 
-            await DB.DeleteAsync<Blank>(IDs);
+            await DB.DeleteAsync<Blank>(Ids);
         }
 
         [TestCategory("SkipWhenLiveUnitTesting")]

@@ -18,7 +18,7 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "Test" };
             await book.SaveAsync();
-            var idEmpty = string.IsNullOrEmpty(book.ID);
+            var idEmpty = string.IsNullOrEmpty(book.Id);
             Assert.IsFalse(idEmpty);
         }
 
@@ -27,7 +27,7 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "Test" };
             await book.SaveAsync();
-            var title = book.Queryable().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
+            var title = book.Queryable().Where(b => b.Id == book.Id).Select(b => b.Title).SingleOrDefault();
             Assert.AreEqual("Test", title);
         }
 
@@ -38,7 +38,7 @@ namespace MongoDB.Entities.Tests
             await author.SaveAsync();
 
             var res = (await DB.Find<Author, DateTime>()
-                        .Match(a => a.ID == author.ID)
+                        .Match(a => a.Id == author.Id)
                         .Project(a => a.CreatedOn)
                         .ExecuteAsync())
                         .Single();
@@ -54,7 +54,7 @@ namespace MongoDB.Entities.Tests
 
             await book.SaveOnlyAsync(b => new { b.Title });
 
-            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+            var res = await DB.Find<Book>().MatchId(book.Id).ExecuteSingleAsync();
 
             Assert.AreEqual(0, res.Price);
             Assert.AreEqual("test book", res.Title);
@@ -63,7 +63,7 @@ namespace MongoDB.Entities.Tests
 
             await res.SaveOnlyAsync(b => new { b.Price });
 
-            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+            res = await DB.Find<Book>().MatchId(res.Id).ExecuteSingleAsync();
 
             Assert.AreEqual(200, res.Price);
         }
@@ -77,11 +77,11 @@ namespace MongoDB.Entities.Tests
             };
 
             await books.SaveOnlyAsync(b => new { b.Title });
-            var ids = books.Select(b => b.ID).ToArray();
+            var ids = books.Select(b => b.Id).ToArray();
 
             var res = await DB.Find<Book>()
-                .Match(b => ids.Contains(b.ID))
-                .Sort(b => b.ID, Order.Ascending)
+                .Match(b => ids.Contains(b.Id))
+                .Sort(b => b.Id, Order.Ascending)
                 .ExecuteAsync();
 
             Assert.AreEqual(0, res[0].Price);
@@ -97,7 +97,7 @@ namespace MongoDB.Entities.Tests
 
             await book.SaveExceptAsync(b => new { b.Title });
 
-            var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+            var res = await DB.Find<Book>().MatchId(book.Id).ExecuteSingleAsync();
 
             Assert.AreEqual(100, res.Price);
             Assert.AreEqual(null, res.Title);
@@ -106,7 +106,7 @@ namespace MongoDB.Entities.Tests
 
             await res.SaveExceptAsync(b => new { b.Price });
 
-            res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+            res = await DB.Find<Book>().MatchId(res.Id).ExecuteSingleAsync();
 
             Assert.AreEqual("updated", res.Title);
         }
@@ -120,11 +120,11 @@ namespace MongoDB.Entities.Tests
             };
 
             await books.SaveExceptAsync(b => new { b.Title });
-            var ids = books.Select(b => b.ID).ToArray();
+            var ids = books.Select(b => b.Id).ToArray();
 
             var res = await DB.Find<Book>()
-                .Match(b => ids.Contains(b.ID))
-                .Sort(b => b.ID, Order.Ascending)
+                .Match(b => ids.Contains(b.Id))
+                .Sort(b => b.Id, Order.Ascending)
                 .ExecuteAsync();
 
             Assert.AreEqual(100, res[0].Price);
@@ -143,7 +143,7 @@ namespace MongoDB.Entities.Tests
 
             await book.SavePreservingAsync();
 
-            book = await DB.Find<Book>().OneAsync(book.ID);
+            book = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual("updated title", book.Title);
             Assert.AreEqual(543.21m, book.Price);
@@ -161,7 +161,7 @@ namespace MongoDB.Entities.Tests
 
             await book.SavePreservingAsync();
 
-            book = await DB.Find<Book>().OneAsync(book.ID);
+            book = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual("updated title", book.Title);
             Assert.AreEqual(543.21m, book.Price);
@@ -187,12 +187,12 @@ namespace MongoDB.Entities.Tests
 
             await book.SavePreservingAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual(res.Title, book.Title);
             Assert.AreEqual(res.Price, book.Price);
             Assert.AreEqual(res.PriceDbl, 666);
-            Assert.IsFalse(res.MainAuthor.ID == null);
+            Assert.IsFalse(res.MainAuthor.Id == null);
         }
 
         [TestMethod]
@@ -216,14 +216,14 @@ namespace MongoDB.Entities.Tests
 
             await author.SavePreservingAsync();
 
-            var res = await DB.Find<Author>().OneAsync(author.ID);
+            var res = await DB.Find<Author>().OneAsync(author.Id);
 
             Assert.AreEqual("updated author name", res.Name);
             Assert.AreEqual(123, res.Age);
             Assert.AreEqual(default, res.Age2);
             Assert.AreNotEqual(DateTime.MinValue, res.Birthday);
             Assert.AreEqual("initial fullname", res.FullName);
-            Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
+            Assert.AreEqual(author.BestSeller.Id, res.BestSeller.Id);
         }
 
         [TestMethod]
@@ -233,7 +233,7 @@ namespace MongoDB.Entities.Tests
             book.Review = new Review { Stars = 5, Reviewer = "enercd" };
             await book.SaveAsync();
             var res = book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .Select(b => b.Review.Reviewer)
                           .SingleOrDefault();
             Assert.AreEqual(book.Review.Reviewer, res);
@@ -247,7 +247,7 @@ namespace MongoDB.Entities.Tests
             book.RelatedAuthor = author.ToDocument();
             await book.SaveAsync();
             var res = book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .Select(b => b.RelatedAuthor.Name)
                           .SingleOrDefault();
             Assert.AreEqual(book.RelatedAuthor.Name, res);
@@ -261,10 +261,10 @@ namespace MongoDB.Entities.Tests
             book.RelatedAuthor = author.ToDocument();
             await book.SaveAsync();
             var res = book.Queryable()
-                          .Where(b => b.ID == book.ID)
-                          .Select(b => b.RelatedAuthor.ID)
+                          .Where(b => b.Id == book.Id)
+                          .Select(b => b.RelatedAuthor.Id)
                           .SingleOrDefault();
-            Assert.AreEqual(book.RelatedAuthor.ID, res);
+            Assert.AreEqual(book.RelatedAuthor.Id, res);
         }
 
         [TestMethod]
@@ -276,11 +276,11 @@ namespace MongoDB.Entities.Tests
             book.OtherAuthors = (new Author[] { author1, author2 }).ToDocuments();
             await book.SaveAsync();
             var authors = book.Queryable()
-                              .Where(b => b.ID == book.ID)
+                              .Where(b => b.Id == book.Id)
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Length, 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
-            Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
+            Assert.AreEqual(book.OtherAuthors[0].Id, authors[0].Id);
         }
 
         [TestMethod]
@@ -293,11 +293,11 @@ namespace MongoDB.Entities.Tests
             book.OtherAuthors = list.ToDocuments().ToArray();
             await book.SaveAsync();
             var authors = book.Queryable()
-                              .Where(b => b.ID == book.ID)
+                              .Where(b => b.Id == book.Id)
                               .Select(b => b.OtherAuthors).Single();
             Assert.AreEqual(authors.Length, 2);
             Assert.AreEqual(author2.Name, authors[1].Name);
-            Assert.AreEqual(book.OtherAuthors[0].ID, authors[0].ID);
+            Assert.AreEqual(book.OtherAuthors[0].Id, authors[0].Id);
         }
 
         [TestMethod]
@@ -319,10 +319,10 @@ namespace MongoDB.Entities.Tests
             var book2 = new Book { Title = "fbircdb2" }; await book2.SaveAsync();
 
             var res1 = await DB.Find<Book>().OneAsync(new ObjectId().ToString());
-            var res2 = await DB.Find<Book>().OneAsync(book2.ID);
+            var res2 = await DB.Find<Book>().OneAsync(book2.Id);
 
             Assert.AreEqual(null, res1);
-            Assert.AreEqual(book2.ID, res2.ID);
+            Assert.AreEqual(book2.Id, res2.Id);
         }
 
         [TestMethod]
@@ -414,7 +414,7 @@ namespace MongoDB.Entities.Tests
             await author.SaveAsync();
 
             var res = (await DB.Find<Author>()
-                        .Match(a => a.ID == author.ID)
+                        .Match(a => a.Id == author.Id)
                         .ProjectExcluding(a => new { a.Age, a.Name })
                         .ExecuteAsync())
                         .Single();
@@ -522,7 +522,7 @@ namespace MongoDB.Entities.Tests
             };
             await author.SaveAsync();
 
-            var res = await DB.Find<Author>().OneAsync(author.ID);
+            var res = await DB.Find<Author>().OneAsync(author.Id);
 
             Assert.IsTrue(res.Age == 0);
             Assert.IsTrue(res.Birthday == null);
@@ -534,9 +534,9 @@ namespace MongoDB.Entities.Tests
             var customer = new CustomerWithCustomID();
             await customer.SaveAsync();
 
-            var res = await DB.Find<CustomerWithCustomID>().OneAsync(customer.ID);
+            var res = await DB.Find<CustomerWithCustomID>().OneAsync(customer.Id);
 
-            Assert.AreEqual(res.ID, customer.ID);
+            Assert.AreEqual(res.Id, customer.Id);
         }
 
         [TestMethod]
@@ -549,13 +549,13 @@ namespace MongoDB.Entities.Tests
             await book.SaveAsync();
 
             var res = await book.Customer.ToEntityAsync();
-            Assert.AreEqual(res.ID, customer.ID);
+            Assert.AreEqual(res.Id, customer.Id);
 
             var cus = await DB.Queryable<Book>()
-                              .Where(b => b.Customer.ID == customer.ID)
+                              .Where(b => b.Customer.Id == customer.Id)
                               .Select(b => b.Customer)
                               .SingleOrDefaultAsync();
-            Assert.AreEqual(cus.ID, customer.ID);
+            Assert.AreEqual(cus.Id, customer.Id);
         }
     }
 }

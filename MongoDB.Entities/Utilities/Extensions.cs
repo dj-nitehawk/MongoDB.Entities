@@ -37,7 +37,7 @@ namespace MongoDB.Entities
 
         internal static void ThrowIfUnsaved(this IEntity entity)
         {
-            ThrowIfUnsaved(entity.ID);
+            ThrowIfUnsaved(entity.Id);
         }
 
         /// <summary>
@@ -176,40 +176,40 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
+        /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank Id.
         /// </summary>
         public static T ToDocument<T>(this T entity) where T : IEntity
         {
             var res = entity.Duplicate();
-            res.ID = res.GenerateNewID();
+            res.Id = res.GenerateNewId();
             return res;
         }
 
         /// <summary>
-        /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
+        /// Creates unlinked duplicates of the original Entities ready for embedding with blank Ids.
         /// </summary>
         public static T[] ToDocuments<T>(this T[] entities) where T : IEntity
         {
             var res = entities.Duplicate();
             foreach (var e in res)
-                e.ID = e.GenerateNewID();
+                e.Id = e.GenerateNewId();
             return res;
         }
 
         /// <summary>
-        ///Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
+        ///Creates unlinked duplicates of the original Entities ready for embedding with blank Ids.
         /// </summary>
         public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
         {
             var res = entities.Duplicate();
             foreach (var e in res)
-                e.ID = e.GenerateNewID();
+                e.Id = e.GenerateNewId();
             return res;
         }
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -220,7 +220,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of complete entities replacing existing ones or creating new ones if they do not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -231,7 +231,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -247,7 +247,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -263,7 +263,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -279,7 +279,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -311,7 +311,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entity.ID, session);
+            return DB.DeleteAsync<T>(entity.Id, session);
         }
 
         /// <summary>
@@ -320,7 +320,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entities.Select(e => e.ID), session);
+            return DB.DeleteAsync<T>(entities.Select(e => e.Id), session);
         }
 
         /// <summary>

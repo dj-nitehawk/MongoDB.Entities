@@ -64,7 +64,7 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Age);
 
             var res = await DB.UpdateAndGet<Author>()
-                          .Match(a => a.ID == author.ID)
+                          .Match(a => a.Id == author.Id)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
 
@@ -86,7 +86,7 @@ namespace MongoDB.Entities.Tests
                 .ToString();
 
             var res = await DB.UpdateAndGet<Author>()
-                          .Match(a => a.ID == author.ID)
+                          .Match(a => a.Id == author.Id)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
 
@@ -140,7 +140,7 @@ namespace MongoDB.Entities.Tests
 
             var res = await DB.UpdateAndGet<Book>()
 
-              .Match(b => b.ID == book.ID)
+              .Match(b => b.Id == book.Id)
 
               .WithArrayFilters(filters)
               .Modify(update)
@@ -189,7 +189,7 @@ namespace MongoDB.Entities.Tests
 
             var res = await DB.UpdateAndGet<Book>()
 
-              .Match(b => b.ID == book.ID)
+              .Match(b => b.Id == book.Id)
 
               .WithArrayFilter(arrFil)
               .Modify(prop1)

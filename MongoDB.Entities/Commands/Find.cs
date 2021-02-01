@@ -41,14 +41,14 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Find a single IEntity by ID
+        /// Find a single IEntity by id
         /// </summary>
-        /// <param name="ID">The unique ID of an IEntity</param>
+        /// <param name="id">The unique id of an IEntity</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A single entity or null if not found</returns>
-        public Task<TProjection> OneAsync(string ID, CancellationToken cancellation = default)
+        public Task<TProjection> OneAsync(string id, CancellationToken cancellation = default)
         {
-            Match(ID);
+            Match(id);
             return ExecuteSingleAsync(cancellation);
         }
 
@@ -77,21 +77,21 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify an IEntity ID as the matching criteria
+        /// Specify an IEntity id as the matching criteria
         /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Find<T, TProjection> MatchID(string ID)
+        /// <param name="id">A unique IEntity id</param>
+        public Find<T, TProjection> MatchId(string id)
         {
-            return Match(f => f.Eq(t => t.ID, ID));
+            return Match(f => f.Eq(t => t.Id, id));
         }
 
         /// <summary>
-        /// Specify an IEntity ID as the matching criteria
+        /// Specify an IEntity id as the matching criteria
         /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Find<T, TProjection> Match(string ID)
+        /// <param name="id">A unique IEntity id</param>
+        public Find<T, TProjection> Match(string id)
         {
-            return Match(f => f.Eq(t => t.ID, ID));
+            return Match(f => f.Eq(t => t.Id, id));
         }
 
         /// <summary>

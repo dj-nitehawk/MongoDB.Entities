@@ -205,7 +205,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
@@ -217,7 +217,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of complete entities replacing an existing entities or creating a new ones if they do not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entities">The entities to persist</param>
@@ -229,7 +229,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -244,7 +244,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -259,7 +259,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -274,7 +274,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -304,11 +304,11 @@ namespace MongoDB.Entities
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        /// <param name="ID">The Id of the entity to delete</param>
+        /// <param name="id">The Id of the entity to delete</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<DeleteResult> DeleteAsync<T>(string id, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(ID, session, cancellation);
+            return DB.DeleteAsync<T>(id, session, cancellation);
         }
 
         /// <summary>
@@ -330,11 +330,11 @@ namespace MongoDB.Entities
         /// <para>TIP: Try to keep the number of entities to delete under 100 in a single call</para>
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        /// <param name="Ids">An IEnumerable of entity Ids</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> Ids, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(IDs, session, cancellation);
+            return DB.DeleteAsync<T>(Ids, session, cancellation);
         }
 
         /// <summary>

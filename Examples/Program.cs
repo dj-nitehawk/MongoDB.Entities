@@ -100,7 +100,7 @@ namespace Examples
             await book2.SaveAsync();
 
             ////Delete by lambda expression
-            await DB.DeleteAsync<Book>(b => b.ID == book2.ID);
+            await DB.DeleteAsync<Book>(b => b.Id == book2.Id);
 
             //THE END
             Console.WriteLine($"All operations completed in {stopWatch.Elapsed.TotalSeconds:0.00} seconds.");

@@ -52,14 +52,14 @@ namespace MongoDB.Entities
     internal class FileChunk : IEntity
     {
         [BsonId, ObjectId]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         [ObjectId]
-        public string FileID { get; set; }
+        public string FileId { get; set; }
 
         public byte[] Data { get; set; }
 
-        public string GenerateNewID()
+        public string GenerateNewId()
             => ObjectId.GenerateNewId().ToString();
     }
 
@@ -96,8 +96,8 @@ namespace MongoDB.Entities
 
                 _ = chunkCollection.Indexes.CreateOneAsync(
                     new CreateIndexModel<FileChunk>(
-                        Builders<FileChunk>.IndexKeys.Ascending(c => c.FileID),
-                        new CreateIndexOptions { Background = true, Name = $"{nameof(FileChunk.FileID)}(Asc)" }));
+                        Builders<FileChunk>.IndexKeys.Ascending(c => c.FileId),
+                        new CreateIndexOptions { Background = true, Name = $"{nameof(FileChunk.FileId)}(Asc)" }));
             }
         }
 
@@ -126,11 +126,11 @@ namespace MongoDB.Entities
             if (!parent.UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
             if (!stream.CanWrite) throw new NotSupportedException("The supplied stream is not writable!");
 
-            var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, parent.ID);
+            var filter = Builders<FileChunk>.Filter.Eq(c => c.FileId, parent.Id);
             var options = new FindOptions<FileChunk, byte[]>
             {
                 BatchSize = batchSize,
-                Sort = Builders<FileChunk>.Sort.Ascending(c => c.ID),
+                Sort = Builders<FileChunk>.Sort.Ascending(c => c.Id),
                 Projection = Builders<FileChunk>.Projection.Expression(c => c.Data)
             };
 
@@ -152,7 +152,7 @@ namespace MongoDB.Entities
                     }
                 }
 
-                if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
+                if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with Id: {parent.Id}");
             }
         }
 
@@ -183,7 +183,7 @@ namespace MongoDB.Entities
             if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
             await CleanUpAsync(session).ConfigureAwait(false);
 
-            doc = new FileChunk { FileID = parent.ID };
+            doc = new FileChunk { FileId = parent.Id };
             chunkSize = chunkSizeKB * 1024;
             dataChunk = new List<byte>(chunkSize);
             buffer = new byte[64 * 1024]; // 64kb read buffer
@@ -228,8 +228,8 @@ namespace MongoDB.Entities
             parent.ChunkCount = 0;
             parent.UploadSuccessful = false;
             return session == null
-                   ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
-                   : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID);
+                   ? chunkCollection.DeleteManyAsync(c => c.FileId == parent.Id)
+                   : chunkCollection.DeleteManyAsync(session, c => c.FileId == parent.Id);
         }
 
         private Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)
@@ -242,7 +242,7 @@ namespace MongoDB.Entities
 
             if (dataChunk.Count >= chunkSize || isLastChunk)
             {
-                doc.ID = doc.GenerateNewID();
+                doc.Id = doc.GenerateNewId();
                 doc.Data = dataChunk.ToArray();
                 dataChunk.Clear();
                 parent.ChunkCount++;
@@ -257,7 +257,7 @@ namespace MongoDB.Entities
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
             var collection = db.GetCollection<FileEntity>(TypeMap.GetCollectionName(parentType));
-            var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
+            var filter = Builders<FileEntity>.Filter.Eq(e => e.Id, parent.Id);
             var update = Builders<FileEntity>.Update
                             .Set(e => e.FileSize, parent.FileSize)
                             .Set(e => e.ChunkCount, parent.ChunkCount)

@@ -23,16 +23,16 @@ namespace MongoDB.Entities.Tests
 
             var cover = new BookCover
             {
-                BookID = "123",
+                BookId = "123",
                 BookName = "test book " + Guid.NewGuid().ToString()
             };
 
             await cover.SaveAsync();
-            Assert.IsNotNull(cover.ID);
+            Assert.IsNotNull(cover.Id);
 
-            var res = await DB.Find<BookCover>().OneAsync(cover.ID);
+            var res = await DB.Find<BookCover>().OneAsync(cover.Id);
 
-            Assert.AreEqual(cover.ID, res.ID);
+            Assert.AreEqual(cover.Id, res.Id);
             Assert.AreEqual(cover.BookName, res.BookName);
         }
 
@@ -45,7 +45,7 @@ namespace MongoDB.Entities.Tests
 
             var cover = new BookCover
             {
-                BookID = "123",
+                BookId = "123",
                 BookName = "test book " + Guid.NewGuid().ToString()
             };
             await cover.SaveAsync();
@@ -64,7 +64,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(cover.BookName, res.BookName);
 
-            Assert.AreEqual((await res.BookCover.ToEntityAsync()).ID, cover.ID);
+            Assert.AreEqual((await res.BookCover.ToEntityAsync()).Id, cover.Id);
         }
 
         [TestMethod]
@@ -112,9 +112,9 @@ namespace MongoDB.Entities.Tests
             await marks.SaveAsync();
 
             var covers = new[] {
-                new BookCover{  BookID = guid },
-                new BookCover{  BookID = guid },
-                new BookCover{  BookID = guid }
+                new BookCover{  BookId = guid },
+                new BookCover{  BookId = guid },
+                new BookCover{  BookId = guid }
             };
 
             await covers.SaveAsync();
@@ -130,7 +130,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
 
-            Assert.AreEqual(3, DB.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+            Assert.AreEqual(3, DB.Queryable<BookCover>().Where(b => b.BookId == guid).Count());
         }
 
     }

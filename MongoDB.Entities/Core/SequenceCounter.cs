@@ -7,12 +7,12 @@ namespace MongoDB.Entities
     internal class SequenceCounter : IEntity
     {
         [BsonId]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         [BsonRepresentation(BsonType.Int64)]
         public ulong Count { get; set; }
 
-        public string GenerateNewID()
+        public string GenerateNewId()
             => throw new System.NotImplementedException();
     }
 }

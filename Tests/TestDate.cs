@@ -16,7 +16,7 @@ namespace MongoDB.Entities.Tests
             var book = new Book { Title = "nsddci" };
             await book.SaveAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual(res.Title, book.Title);
             Assert.IsNull(res.PublishedOn);
@@ -34,7 +34,7 @@ namespace MongoDB.Entities.Tests
             };
             await book.SaveAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual(pubDate.Ticks, res.PublishedOn.Ticks);
             Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
@@ -52,7 +52,7 @@ namespace MongoDB.Entities.Tests
             await book.SaveAsync();
 
             var res = await DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID && b.PublishedOn.Ticks > 0)
+                        .Where(b => b.Id == book.Id && b.PublishedOn.Ticks > 0)
                         .SingleOrDefaultAsync();
 
             Assert.IsNull(res);
@@ -71,18 +71,18 @@ namespace MongoDB.Entities.Tests
             await book.SaveAsync();
 
             var res = (await DB.Find<Book>()
-                        .Match(b => b.ID == book.ID && b.PublishedOn.Ticks == pubDate.Ticks)
+                        .Match(b => b.Id == book.Id && b.PublishedOn.Ticks == pubDate.Ticks)
                         .ExecuteAsync())
                         .Single();
 
-            Assert.AreEqual(book.ID, res.ID);
+            Assert.AreEqual(book.Id, res.Id);
 
             res = (await DB.Find<Book>()
-                    .Match(b => b.ID == book.ID && b.PublishedOn.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
+                    .Match(b => b.Id == book.Id && b.PublishedOn.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
                     .ExecuteAsync())
                     .Single();
 
-            Assert.AreEqual(book.ID, res.ID);
+            Assert.AreEqual(book.Id, res.Id);
         }
 
         [TestMethod]
@@ -98,18 +98,18 @@ namespace MongoDB.Entities.Tests
             await book.SaveAsync();
 
             var res = (await DB.Find<Book>()
-            .Match(b => b.ID == book.ID && b.PublishedOn.DateTime == pubDate)
+            .Match(b => b.Id == book.Id && b.PublishedOn.DateTime == pubDate)
             .ExecuteAsync())
             .Single();
 
-            Assert.AreEqual(book.ID, res.ID);
+            Assert.AreEqual(book.Id, res.Id);
 
             res = (await DB.Find<Book>()
-                    .Match(b => b.ID == book.ID && b.PublishedOn.DateTime < pubDate.AddSeconds(1))
+                    .Match(b => b.Id == book.Id && b.PublishedOn.DateTime < pubDate.AddSeconds(1))
                     .ExecuteAsync())
                     .Single();
 
-            Assert.AreEqual(book.ID, res.ID);
+            Assert.AreEqual(book.Id, res.Id);
         }
 
         [TestMethod]

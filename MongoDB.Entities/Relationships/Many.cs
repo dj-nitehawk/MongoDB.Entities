@@ -72,10 +72,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Get an IQueryable of parents matching a single child ID for this relationship.
+        /// Get an IQueryable of parents matching a single child Id for this relationship.
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
-        /// <param name="childID">A child ID</param>
+        /// <param name="childID">A child Id</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
         public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
@@ -84,10 +84,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Get an IQueryable of parents matching multiple child IDs for this relationship.
+        /// Get an IQueryable of parents matching multiple child Ids for this relationship.
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
-        /// <param name="childIDs">An IEnumerable of child IDs</param>
+        /// <param name="childIDs">An IEnumerable of child Ids</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
         public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
@@ -101,7 +101,7 @@ namespace MongoDB.Entities
                        .Join(
                            DB.Collection<TParent>(),
                            j => j.ChildID,
-                           p => p.ID,
+                           p => p.Id,
                            (_, p) => p)
                        .Distinct();
             }
@@ -112,7 +112,7 @@ namespace MongoDB.Entities
                        .Join(
                            DB.Collection<TParent>(),
                            j => j.ParentID,
-                           p => p.ID,
+                           p => p.Id,
                            (_, p) => p)
                        .Distinct();
             }
@@ -134,13 +134,13 @@ namespace MongoDB.Entities
                 return children
                         .Join(
                              JoinQueryable(session, options),
-                             c => c.ID,
+                             c => c.Id,
                              j => j.ParentID,
                              (_, j) => j)
                         .Join(
                            DB.Collection<TParent>(),
                            j => j.ChildID,
-                           p => p.ID,
+                           p => p.Id,
                            (_, p) => p)
                         .Distinct();
             }
@@ -149,13 +149,13 @@ namespace MongoDB.Entities
                 return children
                        .Join(
                             JoinQueryable(session, options),
-                            c => c.ID,
+                            c => c.Id,
                             j => j.ChildID,
                             (_, j) => j)
                        .Join(
                             DB.Collection<TParent>(),
                             j => j.ParentID,
-                            p => p.ID,
+                            p => p.Id,
                             (_, p) => p)
                        .Distinct();
             }
@@ -175,14 +175,14 @@ namespace MongoDB.Entities
                 return children
                        .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                             JoinCollection,
-                            c => c.ID,
+                            c => c.Id,
                             r => r.ParentID,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
                             DB.Collection<TParent>(),
                             r => r.ChildID,
-                            p => p.ID,
+                            p => p.Id,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Distinct();
@@ -192,14 +192,14 @@ namespace MongoDB.Entities
                 return children
                        .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                             JoinCollection,
-                            c => c.ID,
+                            c => c.Id,
                             r => r.ChildID,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
                             DB.Collection<TParent>(),
                             r => r.ParentID,
-                            p => p.ID,
+                            p => p.Id,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Distinct();
@@ -207,10 +207,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
+        /// Get an IAggregateFluent of parents matching a single child Id for this relationship.
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
-        /// <param name="childID">An child ID</param>
+        /// <param name="childID">An child Id</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
         public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
@@ -219,10 +219,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
+        /// Get an IAggregateFluent of parents matching multiple child Ids for this relationship.
         /// </summary>
         /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
-        /// <param name="childIDs">An IEnumerable of child IDs</param>
+        /// <param name="childIDs">An IEnumerable of child Ids</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">An optional AggregateOptions object</param>
         public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
@@ -236,7 +236,7 @@ namespace MongoDB.Entities
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
                             DB.Collection<TParent>(),
                             j => j.ChildID,
-                            p => p.ID,
+                            p => p.Id,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Distinct();
@@ -248,7 +248,7 @@ namespace MongoDB.Entities
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
                             DB.Collection<TParent>(),
                             r => r.ParentID,
-                            p => p.ID,
+                            p => p.Id,
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Distinct();
@@ -268,14 +268,14 @@ namespace MongoDB.Entities
             if (isInverse)
             {
                 return session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options, cancellation)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options, cancellation);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.Id, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.Id, options, cancellation);
             }
             else
             {
                 return session == null
-                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options, cancellation)
-                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options, cancellation);
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.Id, options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.Id, options, cancellation);
             }
         }
 
@@ -291,21 +291,21 @@ namespace MongoDB.Entities
             if (isInverse)
             {
                 return JoinQueryable(session, options)
-                       .Where(j => j.ChildID == parent.ID)
+                       .Where(j => j.ChildID == parent.Id)
                        .Join(
                            DB.Collection<TChild>(),
                            j => j.ParentID,
-                           c => c.ID,
+                           c => c.Id,
                            (_, c) => c);
             }
             else
             {
                 return JoinQueryable(session, options)
-                       .Where(j => j.ParentID == parent.ID)
+                       .Where(j => j.ParentID == parent.Id)
                        .Join(
                            DB.Collection<TChild>(),
                            j => j.ChildID,
-                           c => c.ID,
+                           c => c.Id,
                            (_, c) => c);
             }
         }
@@ -322,22 +322,22 @@ namespace MongoDB.Entities
             if (isInverse)
             {
                 return JoinFluent(session, options)
-                        .Match(f => f.Eq(r => r.ChildID, parent.ID))
+                        .Match(f => f.Eq(r => r.ChildID, parent.Id))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
                             DB.Collection<TChild>(),
                             r => r.ParentID,
-                            c => c.ID,
+                            c => c.Id,
                             j => j.Results)
                         .ReplaceRoot(j => j.Results[0]);
             }
             else
             {
                 return JoinFluent(session, options)
-                        .Match(f => f.Eq(r => r.ParentID, parent.ID))
+                        .Match(f => f.Eq(r => r.ParentID, parent.Id))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
                             DB.Collection<TChild>(),
                             r => r.ChildID,
-                            c => c.ID,
+                            c => c.Id,
                             j => j.Results)
                         .ReplaceRoot(j => j.Results[0]);
             }
@@ -420,7 +420,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return AddAsync(child.ID, session, cancellation);
+            return AddAsync(child.Id, session, cancellation);
         }
 
         /// <summary>
@@ -432,14 +432,14 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return AddAsync(children.Select(c => c.ID), session, cancellation);
+            return AddAsync(children.Select(c => c.Id), session, cancellation);
         }
 
         /// <summary>
         /// Adds a new child reference.
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="childID">The ID of the child Entity to add.</param>
+        /// <param name="childID">The Id of the child Entity to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
@@ -451,7 +451,7 @@ namespace MongoDB.Entities
         /// Adds multiple child references in a single bulk operation
         /// <para>WARNING: Make sure to save the parent and child Entities before calling this method.</para>
         /// </summary>
-        /// <param name="childIDs">The IDs of the child Entities to add.</param>
+        /// <param name="childIDs">The Ids of the child Entities to add.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
@@ -463,8 +463,8 @@ namespace MongoDB.Entities
             {
                 cid.ThrowIfUnsaved();
 
-                var parentID = isInverse ? cid : parent.ID;
-                var childID = isInverse ? parent.ID : cid;
+                var parentID = isInverse ? cid : parent.Id;
+                var childID = isInverse ? parent.Id : cid;
 
                 var filter = Builders<JoinRecord>.Filter.Where(
                     j => j.ParentID == parentID &&
@@ -490,13 +490,13 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return RemoveAsync(child.ID, session, cancellation);
+            return RemoveAsync(child.Id, session, cancellation);
         }
 
         /// <summary>
         /// Removes a child reference.
         /// </summary>
-        /// <param name="childID">The ID of the child Entity to remove the reference of.</param>
+        /// <param name="childID">The Id of the child Entity to remove the reference of.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
@@ -512,13 +512,13 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return RemoveAsync(children.Select(c => c.ID), session, cancellation);
+            return RemoveAsync(children.Select(c => c.Id), session, cancellation);
         }
 
         /// <summary>
         /// Removes child references.
         /// </summary>
-        /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
+        /// <param name="childIDs">The Ids of the child Entities to remove the references of</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
@@ -526,11 +526,11 @@ namespace MongoDB.Entities
             var filter =
                 isInverse
                 ? Builders<JoinRecord>.Filter.And(
-                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.ID),
+                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.Id),
                     Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
 
                 : Builders<JoinRecord>.Filter.And(
-                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.ID),
+                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.Id),
                     Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
 
             return session == null

@@ -7,13 +7,13 @@
     public class JoinRecord : Entity
     {
         /// <summary>
-        /// The ID of the parent IEntity for both one-to-many and the owner side of many-to-many relationships.
+        /// The Id of the parent IEntity for both one-to-many and the owner side of many-to-many relationships.
         /// </summary>
         [AsObjectId]
         public string ParentID { get; set; }
 
         /// <summary>
-        /// The ID of the child IEntity in one-to-many relationships and the ID of the inverse side IEntity in many-to-many relationships.
+        /// The Id of the child IEntity in one-to-many relationships and the Id of the inverse side IEntity in many-to-many relationships.
         /// </summary>
         [AsObjectId]
         public string ChildID { get; set; }

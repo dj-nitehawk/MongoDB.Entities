@@ -21,7 +21,7 @@ namespace MongoDB.Entities.Tests
             book.MainAuthor = author.ToReference();
             await book.SaveAsync();
             var res = await (await book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .SingleAsync())
                           .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
@@ -33,10 +33,10 @@ namespace MongoDB.Entities.Tests
             var book = new Book { Title = "book" };
             var author = new Author { Name = "sotorrce" };
             await author.SaveAsync();
-            book.MainAuthor = author.ID;
+            book.MainAuthor = author.Id;
             await book.SaveAsync();
             var res = await (await book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .SingleAsync())
                           .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
@@ -51,7 +51,7 @@ namespace MongoDB.Entities.Tests
             book.MainAuthor = author;
             await book.SaveAsync();
             var res = await (await book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .SingleAsync())
                           .MainAuthor.ToEntityAsync();
             Assert.AreEqual(author.Name, res.Name);
@@ -66,11 +66,11 @@ namespace MongoDB.Entities.Tests
             book.MainAuthor = author.ToReference();
             await book.SaveAsync();
             var res = await (await book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .SingleAsync())
                           .MainAuthor.ToEntityAsync(a => new Author { Name = a.Name });
             Assert.AreEqual(author.Name, res.Name);
-            Assert.AreEqual(null, res.ID);
+            Assert.AreEqual(null, res.Id);
         }
 
         [TestMethod]
@@ -82,11 +82,11 @@ namespace MongoDB.Entities.Tests
             book.MainAuthor = author.ToReference();
             await book.SaveAsync();
             var res = await (await book.Queryable()
-                          .Where(b => b.ID == book.ID)
+                          .Where(b => b.Id == book.Id)
                           .SingleAsync())
-                          .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
+                          .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.Id));
             Assert.AreEqual(author.Name, res.Name);
-            Assert.AreEqual(null, res.ID);
+            Assert.AreEqual(null, res.Id);
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace MongoDB.Entities.Tests
             await author.Books.AddAsync(book1);
             await author.Books.AddAsync(book2);
             var books = await author.Queryable()
-                              .Where(a => a.ID == author.ID)
+                              .Where(a => a.Id == author.Id)
                               .Single()
                               .Books
                               .ChildrenQueryable().ToListAsync();
@@ -118,7 +118,7 @@ namespace MongoDB.Entities.Tests
             await author.Books.AddAsync(book1);
             await author.Books.AddAsync(book2);
             var books = (await author.Queryable()
-                              .Where(a => a.ID == author.ID)
+                              .Where(a => a.Id == author.Id)
                               .SingleAsync())
                               .Books;
 
@@ -143,7 +143,7 @@ namespace MongoDB.Entities.Tests
             await author.Books.AddAsync(book1);
             await author.Books.AddAsync(book2);
             var books = await author.Queryable()
-                              .Where(a => a.ID == author.ID)
+                              .Where(a => a.Id == author.Id)
                               .Single()
                               .Books
                               .ChildrenFluent().ToListAsync();
@@ -160,11 +160,11 @@ namespace MongoDB.Entities.Tests
             await book.GoodAuthors.AddAsync(author1);
             await book.GoodAuthors.AddAsync(author2);
             var remAuthor = await DB.Queryable<Author>()
-                              .Where(a => a.ID == author2.ID)
+                              .Where(a => a.Id == author2.Id)
                               .SingleAsync();
             await book.GoodAuthors.RemoveAsync(remAuthor);
             var resBook = await book.Queryable()
-                              .Where(b => b.ID == book.ID)
+                              .Where(b => b.Id == book.Id)
                               .SingleAsync();
             Assert.AreEqual(1, await resBook.GoodAuthors.ChildrenQueryable().CountAsync());
             Assert.AreEqual(author1.Name, (await resBook.GoodAuthors.ChildrenQueryable().FirstAsync()).Name);
@@ -222,19 +222,19 @@ namespace MongoDB.Entities.Tests
             await book1.Genres.AddAsync(gen1);
             await book1.Genres.AddAsync(gen2);
             await book1.Genres.AddAsync(gen1);
-            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.ID == book1.ID).Single().Genres.ChildrenQueryable().Count());
+            Assert.AreEqual(2, DB.Queryable<Book>().Where(b => b.Id == book1.Id).Single().Genres.ChildrenQueryable().Count());
             Assert.AreEqual(gen1.Name, book1.Genres.ChildrenQueryable().First().Name);
 
             await gen1.Books.AddAsync(book1);
             await gen1.Books.AddAsync(book2);
             await gen1.Books.AddAsync(book1);
-            Assert.AreEqual(2, gen1.Queryable().Where(g => g.ID == gen1.ID).Single().Books.ChildrenQueryable().Count());
-            Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
+            Assert.AreEqual(2, gen1.Queryable().Where(g => g.Id == gen1.Id).Single().Books.ChildrenQueryable().Count());
+            Assert.AreEqual(gen1.Name, book2.Queryable().Where(b => b.Id == book2.Id).Single().Genres.ChildrenQueryable().First().Name);
 
             await gen2.Books.AddAsync(book1);
             await gen2.Books.AddAsync(book2);
             Assert.AreEqual(2, book1.Genres.ChildrenQueryable().Count());
-            Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.ID == book2.ID).Single().Genres.ChildrenQueryable().First().Name);
+            Assert.AreEqual(gen2.Name, book2.Queryable().Where(b => b.Id == book2.Id).Single().Genres.ChildrenQueryable().First().Name);
         }
 
         [TestMethod]
@@ -276,7 +276,7 @@ namespace MongoDB.Entities.Tests
             await book.Genres.AddAsync(genre1);
 
             var books = await book.Genres
-                            .ParentsQueryable<Book>(genre.ID)
+                            .ParentsQueryable<Book>(genre.Id)
                             .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
@@ -287,21 +287,21 @@ namespace MongoDB.Entities.Tests
                     .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
-            Assert.AreEqual(book.Title, books.Single(b => b.ID == book.ID).Title);
+            Assert.AreEqual(book.Title, books.Single(b => b.Id == book.Id).Title);
 
             var genres = await genre.Books
-                              .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
+                              .ParentsQueryable<Genre>(new[] { book.Id, book.Id })
                               .ToListAsync();
 
             Assert.AreEqual(2, genres.Count);
-            Assert.AreEqual(genre.Name, genres.First(g => g.ID == genre.ID).Name);
+            Assert.AreEqual(genre.Name, genres.First(g => g.Id == genre.Id).Name);
 
             genres = await genre.Books
-                     .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
+                     .ParentsQueryable<Genre>(book.Queryable().Where(b => b.Id == book.Id))
                      .ToListAsync();
 
             Assert.AreEqual(2, genres.Count);
-            Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
+            Assert.IsTrue(genres.Any(g => g.Id == genre.Id));
         }
 
         [TestMethod]
@@ -322,7 +322,7 @@ namespace MongoDB.Entities.Tests
             await book.Genres.AddAsync(genre1);
 
             var books = await book.Genres
-                            .ParentsFluent<Book>(genre.ID)
+                            .ParentsFluent<Book>(genre.Id)
                             .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
@@ -336,14 +336,14 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book.Title, books.Single().Title);
 
             var genres = await genre.Books
-                              .ParentsFluent<Genre>(new[] { book.ID })
+                              .ParentsFluent<Genre>(new[] { book.Id })
                               .ToListAsync();
 
             Assert.AreEqual(2, genres.Count);
-            Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
+            Assert.AreEqual(genre.Name, genres.Single(g => g.Id == genre.Id).Name);
 
             genres = await genre.Books
-                    .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
+                    .ParentsFluent<Genre>(book.Fluent().Match(b => b.Id == book.Id))
                     .ToListAsync();
 
             Assert.AreEqual(1, books.Count);
@@ -351,15 +351,15 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task add_child_to_many_relationship_with_ID()
+        public async Task add_child_to_many_relationship_with_id()
         {
             var author = new Author { Name = "author" }; await author.SaveAsync();
 
             var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
             var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
-            await author.Books.AddAsync(b1.ID);
-            await author.Books.AddAsync(b2.ID);
+            await author.Books.AddAsync(b1.Id);
+            await author.Books.AddAsync(b2.Id);
 
             var books = await author.Books
                               .ChildrenQueryable()
@@ -372,12 +372,12 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task relationships_with_custom_ID()
+        public async Task relationships_with_custom_id()
         {
             var customer = new CustomerWithCustomID();
             await customer.SaveAsync();
 
-            var flower = new Flower() { Name = customer.ID };
+            var flower = new Flower() { Name = customer.Id };
             await flower.SaveAsync();
 
             var flower2 = new Flower();
@@ -387,25 +387,25 @@ namespace MongoDB.Entities.Tests
 
             var cust = await flower.Customers
                                    .ChildrenQueryable()
-                                   .Where(c => c.ID == customer.ID)
+                                   .Where(c => c.Id == customer.Id)
                                    .SingleAsync();
 
-            Assert.AreEqual(cust.ID, customer.ID);
+            Assert.AreEqual(cust.Id, customer.Id);
         }
 
         [TestMethod]
-        public async Task remove_child_from_many_relationship_with_ID()
+        public async Task remove_child_from_many_relationship_with_id()
         {
             var author = new Author { Name = "author" }; await author.SaveAsync();
 
             var b1 = new Book { Title = "book1" }; await b1.SaveAsync();
             var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
-            await author.Books.AddAsync(b1.ID);
-            await author.Books.AddAsync(b2.ID);
+            await author.Books.AddAsync(b1.Id);
+            await author.Books.AddAsync(b2.Id);
 
-            await author.Books.RemoveAsync(b1.ID);
-            await author.Books.RemoveAsync(b2.ID);
+            await author.Books.RemoveAsync(b1.Id);
+            await author.Books.RemoveAsync(b2.Id);
 
             var count = await author.Books
                               .ChildrenQueryable()
@@ -423,7 +423,7 @@ namespace MongoDB.Entities.Tests
             var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
             await author.Books.AddAsync(b1);
-            await author.Books.AddAsync(b2.ID);
+            await author.Books.AddAsync(b2.Id);
 
             var books = await author.Books
                               .ChildrenQueryable()
@@ -444,10 +444,10 @@ namespace MongoDB.Entities.Tests
             var b2 = new Book { Title = "book2" }; await b2.SaveAsync();
 
             await author.Books.AddAsync(b1);
-            await author.Books.AddAsync(b2.ID);
+            await author.Books.AddAsync(b2.Id);
 
             await author.Books.RemoveAsync(b1);
-            await author.Books.RemoveAsync(b2.ID);
+            await author.Books.RemoveAsync(b2.Id);
 
             var count = await author.Books
                               .ChildrenQueryable()

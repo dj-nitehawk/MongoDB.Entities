@@ -31,7 +31,7 @@ namespace MongoDB.Entities.Tests
             await img.Data.UploadWithTimeoutAsync(stream, 30, 128).ConfigureAwait(false);
 
             var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                          .Where(c => c.FileID == img.ID)
+                          .Where(c => c.FileId == img.Id)
                           .CountAsync();
 
             Assert.AreEqual(1097221, img.FileSize);
@@ -51,7 +51,7 @@ namespace MongoDB.Entities.Tests
             await img.Data.UploadAsync(stream).ConfigureAwait(false);
 
             var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                          .Where(c => c.FileID == img.ID)
+                          .Where(c => c.FileId == img.Id)
                           .CountAsync();
 
             Assert.AreEqual(2047524, img.FileSize);
@@ -71,7 +71,7 @@ namespace MongoDB.Entities.Tests
             await img.Data.UploadAsync(stream, 4096).ConfigureAwait(false);
 
             var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                          .Where(c => c.FileID == img.ID)
+                          .Where(c => c.FileId == img.Id)
                           .CountAsync();
 
             Assert.AreEqual(2047524, img.FileSize);
@@ -92,7 +92,7 @@ namespace MongoDB.Entities.Tests
 
             var countBefore =
                 await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                  .Where(c => c.FileID == img.ID)
+                  .Where(c => c.FileId == img.Id)
                   .CountAsync();
 
             Assert.AreEqual(img.ChunkCount, countBefore);
@@ -101,7 +101,7 @@ namespace MongoDB.Entities.Tests
 
             var countAfter =
                 await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                  .Where(c => c.FileID == img.ID)
+                  .Where(c => c.FileId == img.Id)
                   .CountAsync();
 
             Assert.AreEqual(0, countAfter);
@@ -149,7 +149,7 @@ namespace MongoDB.Entities.Tests
 
             using (var outStream = File.OpenWrite("Models/result-direct.jpg"))
             {
-                await DB.File<Image>(img.ID).DownloadAsync(outStream).ConfigureAwait(false);
+                await DB.File<Image>(img.Id).DownloadAsync(outStream).ConfigureAwait(false);
             }
 
             using var md5 = MD5.Create();

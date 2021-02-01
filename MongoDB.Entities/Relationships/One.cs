@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         /// The Id of the entity referenced by this instance.
         /// </summary>
         [AsObjectId]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         public One()
         { }
@@ -29,16 +29,16 @@ namespace MongoDB.Entities
         internal One(T entity)
         {
             entity.ThrowIfUnsaved();
-            ID = entity.ID;
+            Id = entity.Id;
         }
 
         /// <summary>
-        /// Operator for returning a new One&lt;T&gt; object from a string ID
+        /// Operator for returning a new One&lt;T&gt; object from a string Id
         /// </summary>
-        /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
+        /// <param name="id">The Id to create a new One&lt;T&gt; with</param>
         public static implicit operator One<T>(string id)
         {
-            return new One<T> { ID = id };
+            return new One<T> { Id = id };
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return new Find<T>(session).OneAsync(ID, cancellation);
+            return new Find<T>(session).OneAsync(Id, cancellation);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace MongoDB.Entities
         public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             return (await new Find<T>(session)
-                        .Match(ID)
+                        .Match(Id)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
                    .SingleOrDefault();
@@ -87,7 +87,7 @@ namespace MongoDB.Entities
         public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             return (await new Find<T>(session)
-                        .Match(ID)
+                        .Match(Id)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
                    .SingleOrDefault();

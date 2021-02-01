@@ -13,6 +13,7 @@ namespace MongoDB.Entities
         private static readonly Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
         private static readonly Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
         private static readonly Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
+        private static readonly Regex rxFive = new Regex(@"(\.Id((?=\W)|$))", RegexOptions.Compiled);
 
         private static string ToLowerCaseLetter(long n)
         {
@@ -42,7 +43,7 @@ namespace MongoDB.Entities
             ThrowIfInvalid(expression);
 
             return rxTwo.Replace(
-                rxOne.Match(expression.ToString()).Value.Substring(1),
+                rxOne.Match(rxFive.Replace(expression.ToString(),"._id")).Value.Substring(1),
                 m => "[" + m.Groups[1].Value + "]");
         }
 

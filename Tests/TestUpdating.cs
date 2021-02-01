@@ -92,7 +92,7 @@ namespace MongoDB.Entities.Tests
                 .Modify(b => b.Review.Rating, 22.22)
                 .ExecuteAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+            var res = await DB.Find<Book>().OneAsync(book.Id);
 
             Assert.AreEqual(22.22, res.Review.Rating);
         }
@@ -113,7 +113,7 @@ namespace MongoDB.Entities.Tests
 
             foreach (var book in books)
             {
-                bulk.Match(b => b.ID == book.ID)
+                bulk.Match(b => b.Id == book.Id)
                     .Modify(b => b.Price, 100)
                     .AddToQueue();
             }
@@ -147,11 +147,11 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.Age);
 
             await DB.Update<Author>()
-              .Match(a => a.ID == author.ID)
+              .Match(a => a.Id == author.Id)
               .WithPipeline(pipeline)
               .ExecutePipelineAsync();
 
-            var res = await DB.Find<Author>().OneAsync(author.ID);
+            var res = await DB.Find<Author>().OneAsync(author.Id);
 
             Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
             Assert.AreEqual(0, res.Age);
@@ -172,11 +172,11 @@ namespace MongoDB.Entities.Tests
                 .ToString();
 
             await DB.Update<Author>()
-              .Match(a => a.ID == author.ID)
+              .Match(a => a.Id == author.Id)
               .WithPipelineStage(stage)
               .ExecutePipelineAsync();
 
-            var fullname = (await DB.Find<Author>().OneAsync(author.ID)).FullName;
+            var fullname = (await DB.Find<Author>().OneAsync(author.Id)).FullName;
             Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
         }
 
@@ -190,9 +190,9 @@ namespace MongoDB.Entities.Tests
 
             var filter = new Template(@"
             { 
-                _id: ObjectId('<ID>') 
+                _id: ObjectId('<Id>') 
             }")
-                .Tag("ID", author.ID);
+                .Tag("Id", author.Id);
 
             var stage = new Template<Author>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
                 .Path(a => a.FullName)
@@ -205,7 +205,7 @@ namespace MongoDB.Entities.Tests
               .ExecutePipelineAsync();
 
             var fullname = (await DB.Find<Author>()
-                             .OneAsync(author.ID))
+                             .OneAsync(author.Id))
                              .FullName;
 
             Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
@@ -258,7 +258,7 @@ namespace MongoDB.Entities.Tests
 
             await DB.Update<Book>()
 
-              .Match(b => b.ID == book.ID)
+              .Match(b => b.Id == book.Id)
 
               .WithArrayFilters(filters)
               .Modify(update)
@@ -266,7 +266,7 @@ namespace MongoDB.Entities.Tests
               .ExecuteAsync();
 
             var res = DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID)
+                        .Where(b => b.Id == book.Id)
                         .SelectMany(b => b.OtherAuthors)
                         .ToList();
 
@@ -313,7 +313,7 @@ namespace MongoDB.Entities.Tests
 
             await DB.Update<Book>()
 
-              .Match(b => b.ID == book.ID)
+              .Match(b => b.Id == book.Id)
 
               .WithArrayFilter(arrFil)
               .Modify(prop1)
@@ -324,7 +324,7 @@ namespace MongoDB.Entities.Tests
               .ExecuteAsync();
 
             var res = DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID)
+                        .Where(b => b.Id == book.Id)
                         .SelectMany(b => b.OtherAuthors)
                         .ToList();
 
@@ -338,18 +338,18 @@ namespace MongoDB.Entities.Tests
             var book = new Book { Title = "test" };
             await book.SaveAsync();
 
-            book = await DB.Find<Book>().OneAsync(book.ID);
+            book = await DB.Find<Book>().OneAsync(book.Id);
             Assert.IsTrue(DateTime.UtcNow.Subtract(book.ModifiedOn).TotalSeconds < 5);
 
             var targetDate = DateTime.UtcNow.AddDays(100);
 
             await DB
                 .Update<Book>()
-                .MatchID(book.ID)
+                .MatchId(book.Id)
                 .Modify(b => b.ModifiedOn, targetDate)
                 .ExecuteAsync();
 
-            book = await DB.Find<Book>().OneAsync(book.ID);
+            book = await DB.Find<Book>().OneAsync(book.Id);
             Assert.AreEqual(targetDate.ToShortDateString(), book.ModifiedOn.ToShortDateString());
         }
     }

@@ -6,9 +6,9 @@ namespace MongoDB.Entities.Tests.Models
     public class CustomerWithCustomID : IEntity
     {
         [BsonId]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
-        public string GenerateNewID()
+        public string GenerateNewId()
             => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
     }
 }

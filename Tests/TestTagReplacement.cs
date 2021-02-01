@@ -193,7 +193,7 @@ namespace MongoDB.Entities.Tests
                         $lookup: 
                         {
                             from: '<author_collection>',
-                            localField: '<MainAuthor.ID>',
+                            localField: '<MainAuthor._id>',
                             foreignField: '_id',
                             as: 'authors'
                         }
@@ -205,9 +205,9 @@ namespace MongoDB.Entities.Tests
                         $set: { <Surname> : '$<Name>' }
                     }
                 ]"
-            ).Tag("book_id", $"ObjectId('{book.ID}')")
+            ).Tag("book_id", $"ObjectId('{book.Id}')")
              .Tag("author_collection", DB.Entity<Author>().CollectionName())
-             .Path(b => b.MainAuthor.ID)
+             .Path(b => b.MainAuthor.Id)
              .PathOfResult(a => a.Surname)
              .PathOfResult(a => a.Name);
 

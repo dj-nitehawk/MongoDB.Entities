@@ -16,7 +16,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
@@ -27,13 +27,13 @@ namespace MongoDB.Entities
             PrepareForSave(entity);
 
             return session == null
-                   ? Collection<T>().ReplaceOneAsync(x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-                   : Collection<T>().ReplaceOneAsync(session, x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
+                   ? Collection<T>().ReplaceOneAsync(x => x.Id == entity.Id, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+                   : Collection<T>().ReplaceOneAsync(session, x => x.Id == entity.Id, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
         /// Saves a batch of complete entities replacing existing ones or creating new ones if they do not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
@@ -47,7 +47,7 @@ namespace MongoDB.Entities
                 PrepareForSave(ent);
 
                 var upsert = new ReplaceOneModel<T>(
-                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        filter: Builders<T>.Filter.Eq(e => e.Id, ent.Id),
                         replacement: ent)
                 { IsUpsert = true };
                 models.Add(upsert);
@@ -60,7 +60,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -76,7 +76,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially with only the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -92,7 +92,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves an entity partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -108,7 +108,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Saves a batch of entities partially excluding the specified subset of properties. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+        /// If Id value is null, a new entity is created. If Id has a value, then existing entity is updated.
         /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
         /// You can only specify root level properties with the expression.</para>
         /// </summary>
@@ -168,15 +168,15 @@ namespace MongoDB.Entities
 
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.Id == entity.Id, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.Id == entity.Id, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
         }
 
         private static void PrepareForSave<T>(T entity) where T : IEntity
         {
-            if (string.IsNullOrEmpty(entity.ID))
+            if (string.IsNullOrEmpty(entity.Id))
             {
-                entity.ID = entity.GenerateNewID();
+                entity.Id = entity.GenerateNewId();
                 if (Cache<T>.HasCreatedOn)
                     ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
             }
@@ -214,8 +214,8 @@ namespace MongoDB.Entities
         {
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.Id == entity.Id, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.Id == entity.Id, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation);
         }
 
         private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
@@ -227,7 +227,7 @@ namespace MongoDB.Entities
                 var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, members, excludeMode));
 
                 var upsert = new UpdateOneModel<T>(
-                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        filter: Builders<T>.Filter.Eq(e => e.Id, ent.Id),
                         update: update)
                 { IsUpsert = true };
                 models.Add(upsert);

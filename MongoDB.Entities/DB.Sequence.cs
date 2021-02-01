@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
         {
             return new UpdateAndGet<SequenceCounter, ulong>()
-                .Match(s => s.ID == sequenceName)
+                .Match(s => s.Id == sequenceName)
                 .Modify(b => b.Inc(s => s.Count, 1ul))
                 .Option(o => o.IsUpsert = true)
                 .Project(s => s.Count)

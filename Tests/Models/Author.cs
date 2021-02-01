@@ -27,7 +27,7 @@ namespace MongoDB.Entities.Tests
         public Many<Book> Books { get; set; }
 
         [ObjectId]
-        public string BookIDs { get; set; }
+        public string BookIds { get; set; }
 
         public DateTime ModifiedOn { get; set; }
 

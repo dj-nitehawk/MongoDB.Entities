@@ -32,7 +32,7 @@ namespace MongoDB.Entities.Tests
                 //TN.CommitAsync();
             }
 
-            var res = await DB.Find<Author>().OneAsync(author1.ID);
+            var res = await DB.Find<Author>().OneAsync(author1.Id);
 
             Assert.AreEqual(author1.Name, res.Name);
         }
@@ -56,7 +56,7 @@ namespace MongoDB.Entities.Tests
                 await TN.CommitAsync();
             }
 
-            var res = await DB.Find<Author>().OneAsync(author1.ID);
+            var res = await DB.Find<Author>().OneAsync(author1.Id);
 
             Assert.AreEqual(guid, res.Name);
         }
@@ -75,18 +75,18 @@ namespace MongoDB.Entities.Tests
                 await TN.SaveAsync(book1);
                 await TN.SaveAsync(book2);
 
-                res = await TN.Find<Book>().OneAsync(book1.ID);
-                res = book1.Fluent(TN.session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
+                res = await TN.Find<Book>().OneAsync(book1.Id);
+                res = book1.Fluent(TN.session).Match(f => f.Eq(b => b.Id, book1.Id)).SingleOrDefault();
                 fnt = TN.Fluent<Book>().FirstOrDefault();
-                fnt = TN.Fluent<Book>().Match(b => b.ID == book2.ID).SingleOrDefault();
-                fnt = TN.Fluent<Book>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();
+                fnt = TN.Fluent<Book>().Match(b => b.Id == book2.Id).SingleOrDefault();
+                fnt = TN.Fluent<Book>().Match(f => f.Eq(b => b.Id, book2.Id)).SingleOrDefault();
 
                 await TN.CommitAsync();
             }
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(book1.ID, res.ID);
-            Assert.AreEqual(book2.ID, fnt.ID);
+            Assert.AreEqual(book1.Id, res.Id);
+            Assert.AreEqual(book2.Id, fnt.Id);
         }
 
         [TestMethod]
@@ -97,11 +97,11 @@ namespace MongoDB.Entities.Tests
 
             using (var TN = new Transaction())
             {
-                await TN.DeleteAsync<Book>(book1.ID);
+                await TN.DeleteAsync<Book>(book1.Id);
                 await TN.CommitAsync();
             }
 
-            Assert.AreEqual(null, await DB.Find<Book>().OneAsync(book1.ID));
+            Assert.AreEqual(null, await DB.Find<Book>().OneAsync(book1.Id));
         }
 
         [TestMethod]
