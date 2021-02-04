@@ -76,7 +76,7 @@ namespace MongoDB.Entities.Tests
 
             var guid = Guid.NewGuid().ToString();
 
-            using var TN = new Transaction();
+            using var TN = new DbContext();
 
             await new[]
             {

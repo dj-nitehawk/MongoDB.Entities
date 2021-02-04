@@ -20,7 +20,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-            using (var TN = new Transaction())
+            using (var TN = new DbContext())
             {
                 await TN.Update<Author>()
                   .Match(a => a.Surname == guid)
@@ -45,7 +45,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-            using (var TN = new Transaction())
+            using (var TN = new DbContext())
             {
                 await TN.Update<Author>()
                   .Match(a => a.Surname == guid)
@@ -70,7 +70,7 @@ namespace MongoDB.Entities.Tests
             Book res;
             Book fnt;
 
-            using (var TN = new Transaction())
+            using (var TN = new DbContext())
             {
                 await TN.SaveAsync(book1);
                 await TN.SaveAsync(book2);
@@ -95,7 +95,7 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = "caftrcd1" };
             await book1.SaveAsync();
 
-            using (var TN = new Transaction())
+            using (var TN = new DbContext(transactional:true))
             {
                 await TN.DeleteAsync<Book>(book1.Id);
                 await TN.CommitAsync();
@@ -118,7 +118,7 @@ namespace MongoDB.Entities.Tests
             await DB.SaveAsync(author1);
             await DB.SaveAsync(author2);
 
-            using var TN = new Transaction();
+            using var TN = new DbContext();
             var tres = TN.FluentTextSearch<Author>(Search.Full, author1.Surname).ToList();
             Assert.AreEqual(author1.Surname, tres[0].Surname);
 
@@ -137,7 +137,7 @@ namespace MongoDB.Entities.Tests
                 new Book{Title="thr "+guid}
             };
 
-            using (var TN = new Transaction())
+            using (var TN = new DbContext())
             {
                 await TN.SaveAsync(entities);
                 await TN.CommitAsync();

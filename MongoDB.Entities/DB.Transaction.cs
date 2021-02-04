@@ -9,9 +9,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="database">The name of the database which this transaction is for (not required)</param>
         /// <param name="options">Client session options (not required)</param>
-        public static Transaction Transaction(string database = default, ClientSessionOptions options = null)
+        public static DbContext Transaction(string database = default, ClientSessionOptions options = null)
         {
-            return new Transaction(database, options);
+            return new DbContext(database, true, options);
         }
 
         /// <summary>
@@ -19,9 +19,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
         /// <param name="options">Client session options (not required)</param>
-        public static Transaction Transaction<T>(ClientSessionOptions options = null) where T : IEntity
+        public static DbContext Transaction<T>(ClientSessionOptions options = null) where T : IEntity
         {
-            return new Transaction(DatabaseName<T>(), options);
+            return new DbContext(DatabaseName<T>(), true, options);
         }
     }
 }

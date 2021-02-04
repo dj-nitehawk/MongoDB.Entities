@@ -1,21 +1,40 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
+﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// This db context class can be used as an alternative entry point instead of the DB static class. 
-    /// All methods on this class can be overriden if needed.
+    /// Represents a transaction used to carry out inter-related write operations.
+    /// <para>TIP: Remember to always call .Dispose() after use or enclose in a 'Using' statement.</para>
+    /// <para>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</para>
     /// </summary>
-    public class DBContext
+    public class DbContext : IDisposable
     {
-        protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
+        protected internal IClientSessionHandle
+            session; //this will be set by Transaction class when inherited. otherwise null.
+
+        public IClientSessionHandle Session
+        {
+            get => session;
+        }
+
+        /// <summary>
+        /// Instantiates and begins a transaction.
+        /// </summary>
+        /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
+        /// <param name="transactional"></param>
+        /// <param name="options">Client session options for this transaction</param>
+        public DbContext(string database = default,bool transactional = false, ClientSessionOptions options = null)
+        {
+            session = DB.Database(database).Client.StartSession(options);
+            Session.StartTransaction();
+        }
 
         /// <summary>
         /// Gets an accurate count of how many entities are matched for a given expression/filter in the transaction scope.
@@ -23,7 +42,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The entity type to get the count for</typeparam>
         /// <param name="expression">A lambda expression for getting the count for a subset of the data</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.CountAsync(expression, session, cancellation);
         }
@@ -44,7 +64,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The entity type to get the count for</typeparam>
         /// <param name="filter">A filter definition</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default)
+            where T : IEntity
         {
             return DB.CountAsync(filter, session, cancellation);
         }
@@ -55,7 +76,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The entity type to get the count for</typeparam>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.CountAsync(filter, session, cancellation);
         }
@@ -136,7 +158,8 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template,
+            AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineCursorAsync(template, options, session, cancellation);
         }
@@ -150,7 +173,8 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template,
+            AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineAsync(template, options, session, cancellation);
         }
@@ -164,7 +188,8 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template,
+            AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineSingleAsync(template, options, session, cancellation);
         }
@@ -178,7 +203,8 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template,
+            AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineFirstAsync(template, options, session, cancellation);
         }
@@ -198,9 +224,14 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
+        public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates,
+            Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null,
+            int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null,
+            Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null,
+            AggregateOptions options = null) where T : IEntity
         {
-            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, session);
+            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query,
+                DistanceMultiplier, IncludeLocations, IndexKey, options, session);
         }
 
         /// <summary>
@@ -210,7 +241,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public virtual Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default)
+            where T : IEntity
         {
             return DB.SaveAsync(entity, session, cancellation);
         }
@@ -222,7 +254,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entities, session, cancellation);
         }
@@ -237,7 +270,8 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveOnlyAsync(entity, members, session, cancellation);
         }
@@ -252,7 +286,8 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
+            Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveOnlyAsync(entities, members, session, cancellation);
         }
@@ -267,7 +302,8 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveExceptAsync(entity, members, session, cancellation);
         }
@@ -282,7 +318,8 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
+            Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveExceptAsync(entities, members, session, cancellation);
         }
@@ -294,7 +331,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default)
+            where T : IEntity
         {
             return DB.SavePreservingAsync(entity, session, cancellation);
         }
@@ -306,7 +344,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="id">The Id of the entity to delete</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(string id, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<DeleteResult> DeleteAsync<T>(string id, CancellationToken cancellation = default)
+            where T : IEntity
         {
             return DB.DeleteAsync<T>(id, session, cancellation);
         }
@@ -319,7 +358,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync(expression, session, cancellation);
         }
@@ -332,7 +372,8 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="Ids">An IEnumerable of entity Ids</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> Ids, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> Ids,
+            CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync<T>(Ids, session, cancellation);
         }
@@ -347,9 +388,49 @@ namespace MongoDB.Entities
         /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
-        public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
+        public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm,
+            bool caseSensitive = false, bool diacriticSensitive = false, string language = null,
+            AggregateOptions options = null) where T : IEntity
         {
-            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session);
+            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options,
+                session);
         }
+
+        /// <summary>
+        /// Commits a transaction to MongoDB
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task CommitAsync(CancellationToken cancellation = default) =>
+            Session.CommitTransactionAsync(cancellation);
+
+        /// <summary>
+        /// Aborts and rolls back a transaction
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
+
+        #region IDisposable Support
+
+        private bool disposedValue;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    session.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        #endregion
     }
 }
