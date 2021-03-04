@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -16,6 +17,21 @@ namespace MongoDB.Entities
     public class DBContext
     {
         protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
+
+        /// <summary>
+        /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
+        /// </summary>
+        public ModifiedBy ModifiedBy;
+
+        /// <summary>
+        /// Instantiates a DBContext
+        /// </summary>
+        /// <param name="modifiedBy">An optional ModifiedBy instance. 
+        /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
+        /// You can even inherit from the ModifiedBy class and add your own properties to it. 
+        /// Only one ModifiedBy property is allowed on a single entity type.</param>
+        public DBContext(ModifiedBy modifiedBy = null)
+            => ModifiedBy = modifiedBy;
 
         /// <summary>
         /// Gets an accurate count of how many entities are matched for a given expression/filter in the transaction scope.
@@ -66,7 +82,13 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual Update<T> Update<T>() where T : IEntity
         {
-            return new Update<T>(session);
+            var update = new Update<T>(session);
+            if (Cache<T>.ModifiedByProp != null)
+            {
+                ThrowIfModifiedByIsEmpty<T>();
+                update.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy)); //todo: write test
+            }
+            return update;
         }
 
         /// <summary>
@@ -75,7 +97,13 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
         {
-            return new UpdateAndGet<T>(session);
+            var upGet = new UpdateAndGet<T>(session);
+            if (Cache<T>.ModifiedByProp != null)
+            {
+                ThrowIfModifiedByIsEmpty<T>();
+                upGet.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+            }
+            return upGet;
         }
 
         /// <summary>
@@ -85,7 +113,13 @@ namespace MongoDB.Entities
         /// <typeparam name="TProjection">The type of the end result</typeparam>
         public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
-            return new UpdateAndGet<T, TProjection>(session);
+            var upGet = new UpdateAndGet<T, TProjection>(session);
+            if (Cache<T>.ModifiedByProp != null)
+            {
+                ThrowIfModifiedByIsEmpty<T>();
+                upGet.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+            }
+            return upGet;
         }
 
         /// <summary>
@@ -212,6 +246,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public virtual Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedBySingle(entity); //todo: write test
             return DB.SaveAsync(entity, session, cancellation);
         }
 
@@ -224,6 +259,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedByMultiple(entities); //todo: write test
             return DB.SaveAsync(entities, session, cancellation);
         }
 
@@ -239,6 +275,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedBySingle(entity);
             return DB.SaveOnlyAsync(entity, members, session, cancellation);
         }
 
@@ -254,6 +291,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedByMultiple(entities);
             return DB.SaveOnlyAsync(entities, members, session, cancellation);
         }
 
@@ -269,6 +307,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedBySingle(entity);
             return DB.SaveExceptAsync(entity, members, session, cancellation);
         }
 
@@ -284,6 +323,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedByMultiple(entities);
             return DB.SaveExceptAsync(entities, members, session, cancellation);
         }
 
@@ -296,6 +336,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
+            SetModifiedBySingle(entity);
             return DB.SavePreservingAsync(entity, session, cancellation);
         }
 
@@ -350,6 +391,36 @@ namespace MongoDB.Entities
         public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
         {
             return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session);
+        }
+
+        private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
+        {
+            if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
+            {
+                throw new InvalidOperationException(
+                    $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
+            }
+        }
+
+        private void SetModifiedBySingle<T>(T entity) where T : IEntity
+        {
+            ThrowIfModifiedByIsEmpty<T>();
+            Cache<T>.ModifiedByProp?.SetValue(
+                entity,
+                BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+        }
+
+        private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
+        {
+            if (Cache<T>.ModifiedByProp is null)
+                return;
+
+            ThrowIfModifiedByIsEmpty<T>();
+
+            var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType);
+
+            foreach (var e in entities)
+                Cache<T>.ModifiedByProp.SetValue(e, val);
         }
     }
 }

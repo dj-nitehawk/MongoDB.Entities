@@ -20,7 +20,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-            using (var TN = new Transaction())
+            using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
             {
                 await TN.Update<Author>()
                   .Match(a => a.Surname == guid)
@@ -45,7 +45,7 @@ namespace MongoDB.Entities.Tests
             var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
             var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-            using (var TN = new Transaction())
+            using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
             {
                 await TN.Update<Author>()
                   .Match(a => a.Surname == guid)
@@ -70,7 +70,7 @@ namespace MongoDB.Entities.Tests
             Book res;
             Book fnt;
 
-            using (var TN = new Transaction())
+            using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
             {
                 await TN.SaveAsync(book1);
                 await TN.SaveAsync(book2);
@@ -137,7 +137,7 @@ namespace MongoDB.Entities.Tests
                 new Book{Title="thr "+guid}
             };
 
-            using (var TN = new Transaction())
+            using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
             {
                 await TN.SaveAsync(entities);
                 await TN.CommitAsync();

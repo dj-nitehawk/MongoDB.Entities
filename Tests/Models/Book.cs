@@ -35,11 +35,18 @@ namespace MongoDB.Entities.Tests
 
         public DateTime ModifiedOn { get; set; }
 
+        public UpdatedBy ModifiedBy { get; set; }
+
         public Book()
         {
             this.InitOneToMany(() => GoodAuthors);
             this.InitOneToMany(() => BadAuthors);
             this.InitManyToMany(() => Genres, g => g.Books);
         }
+    }
+
+    public class UpdatedBy : Entities.ModifiedBy
+    {
+        public string UserType { get; set; }
     }
 }

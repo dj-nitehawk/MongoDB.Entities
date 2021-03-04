@@ -31,6 +31,8 @@ namespace MongoDB.Entities.Tests
 
         public DateTime ModifiedOn { get; set; }
 
+        public Entities.ModifiedBy UpdatedBy { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public Author() => this.InitOneToMany(() => Books);

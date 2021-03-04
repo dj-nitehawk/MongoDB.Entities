@@ -19,10 +19,15 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
-        public Transaction(string database = default, ClientSessionOptions options = null)
+        /// <param name="modifiedBy">An optional ModifiedBy instance. 
+        /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
+        /// You can inherit from the ModifiedBy class and add your own properties to it. 
+        /// Only one ModifiedBy property is allowed on a single entity type.</param>
+        public Transaction(string database = default, ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
         {
             session = DB.Database(database).Client.StartSession(options);
             Session.StartTransaction();
+            ModifiedBy = modifiedBy;
         }
 
         /// <summary>

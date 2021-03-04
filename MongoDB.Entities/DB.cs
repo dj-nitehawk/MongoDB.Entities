@@ -244,6 +244,7 @@ namespace MongoDB.Entities
         internal static bool HasCreatedOn { get; private set; }
         internal static bool HasModifiedOn { get; private set; }
         internal static string ModifiedOnPropName { get; private set; }
+        internal static PropertyInfo ModifiedByProp { get; private set; }
 
         private static PropertyInfo[] updatableProps;
 
@@ -282,6 +283,17 @@ namespace MongoDB.Entities
                       !p.IsDefined(typeof(BsonIdAttribute), false) &&
                       !p.IsDefined(typeof(BsonIgnoreAttribute), false))
                 .ToArray();
+
+            try
+            {
+                ModifiedByProp = updatableProps.SingleOrDefault(p =>
+                                p.PropertyType == typeof(ModifiedBy) ||
+                                p.PropertyType.IsSubclassOf(typeof(ModifiedBy)));
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Multiple [ModifiedBy] properties are not allowed on entities!");
+            }
         }
 
         public static IEnumerable<PropertyInfo> UpdatableProps(T entity)

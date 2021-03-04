@@ -8,15 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.7.0</Version>
+    <Version>20.8.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- support for extensible DBContext instances
-- ability to save entities partially by including a subset of properties
-- ability to save entities partially by excluding a subset of properties
-- change the signature of SavePreserving method due to new additions
-- optimize Transaction class
-- upgrade mongo driver to latest
-- increase test coverage</PackageReleaseNotes>
+    <PackageReleaseNotes>- added support for audit fields (ModifiedBy)
+- upgraded mongo driver to latest
+- increased test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
@@ -33,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.0" />
   </ItemGroup>
 
   <ItemGroup>
