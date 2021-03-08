@@ -22,6 +22,7 @@ A light-weight .net standard library which simplifies access to mongodb by abstr
 - Multiple database support.
 - Easy bulk operations.
 - Easy Change-stream support.
+- Easy audit fields support.
 - GeoSpatial search.
 - Stream files in chunks to and from mongodb (GridFS alternative).
 - Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)

@@ -854,12 +854,12 @@ references:
   fullName.vb: MongoDB.Entities.DB.Sort(Of T)()
   nameWithType: DB.Sort<T>()
   nameWithType.vb: DB.Sort(Of T)()
-- uid: MongoDB.Entities.DB.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
-  name: Transaction(String, ClientSessionOptions)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Transaction_System_String_MongoDB_Driver_ClientSessionOptions_
-  commentId: M:MongoDB.Entities.DB.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
-  fullName: MongoDB.Entities.DB.Transaction(System.String, MongoDB.Driver.ClientSessionOptions)
-  nameWithType: DB.Transaction(String, ClientSessionOptions)
+- uid: MongoDB.Entities.DB.Transaction(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  name: Transaction(String, ClientSessionOptions, ModifiedBy)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Transaction_System_String_MongoDB_Driver_ClientSessionOptions_MongoDB_Entities_ModifiedBy_
+  commentId: M:MongoDB.Entities.DB.Transaction(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  fullName: MongoDB.Entities.DB.Transaction(System.String, MongoDB.Driver.ClientSessionOptions, MongoDB.Entities.ModifiedBy)
+  nameWithType: DB.Transaction(String, ClientSessionOptions, ModifiedBy)
 - uid: MongoDB.Entities.DB.Transaction*
   name: Transaction
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Transaction_
@@ -867,15 +867,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.Transaction
   nameWithType: DB.Transaction
-- uid: MongoDB.Entities.DB.Transaction``1(MongoDB.Driver.ClientSessionOptions)
-  name: Transaction<T>(ClientSessionOptions)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Transaction__1_MongoDB_Driver_ClientSessionOptions_
-  commentId: M:MongoDB.Entities.DB.Transaction``1(MongoDB.Driver.ClientSessionOptions)
-  name.vb: Transaction(Of T)(ClientSessionOptions)
-  fullName: MongoDB.Entities.DB.Transaction<T>(MongoDB.Driver.ClientSessionOptions)
-  fullName.vb: MongoDB.Entities.DB.Transaction(Of T)(MongoDB.Driver.ClientSessionOptions)
-  nameWithType: DB.Transaction<T>(ClientSessionOptions)
-  nameWithType.vb: DB.Transaction(Of T)(ClientSessionOptions)
+- uid: MongoDB.Entities.DB.Transaction``1(MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  name: Transaction<T>(ClientSessionOptions, ModifiedBy)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Transaction__1_MongoDB_Driver_ClientSessionOptions_MongoDB_Entities_ModifiedBy_
+  commentId: M:MongoDB.Entities.DB.Transaction``1(MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  name.vb: Transaction(Of T)(ClientSessionOptions, ModifiedBy)
+  fullName: MongoDB.Entities.DB.Transaction<T>(MongoDB.Driver.ClientSessionOptions, MongoDB.Entities.ModifiedBy)
+  fullName.vb: MongoDB.Entities.DB.Transaction(Of T)(MongoDB.Driver.ClientSessionOptions, MongoDB.Entities.ModifiedBy)
+  nameWithType: DB.Transaction<T>(ClientSessionOptions, ModifiedBy)
+  nameWithType.vb: DB.Transaction(Of T)(ClientSessionOptions, ModifiedBy)
 - uid: MongoDB.Entities.DB.Update*
   name: Update
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Update_
@@ -955,6 +955,19 @@ references:
   commentId: T:MongoDB.Entities.DBContext
   fullName: MongoDB.Entities.DBContext
   nameWithType: DBContext
+- uid: MongoDB.Entities.DBContext.#ctor(MongoDB.Entities.ModifiedBy)
+  name: DBContext(ModifiedBy)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext__ctor_MongoDB_Entities_ModifiedBy_
+  commentId: M:MongoDB.Entities.DBContext.#ctor(MongoDB.Entities.ModifiedBy)
+  fullName: MongoDB.Entities.DBContext.DBContext(MongoDB.Entities.ModifiedBy)
+  nameWithType: DBContext.DBContext(ModifiedBy)
+- uid: MongoDB.Entities.DBContext.#ctor*
+  name: DBContext
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext__ctor_
+  commentId: Overload:MongoDB.Entities.DBContext.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.DBContext
+  nameWithType: DBContext.DBContext
 - uid: MongoDB.Entities.DBContext.CountAsync*
   name: CountAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync_
@@ -1105,6 +1118,12 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
   nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
   nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+- uid: MongoDB.Entities.DBContext.ModifiedBy
+  name: ModifiedBy
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_ModifiedBy
+  commentId: F:MongoDB.Entities.DBContext.ModifiedBy
+  fullName: MongoDB.Entities.DBContext.ModifiedBy
+  nameWithType: DBContext.ModifiedBy
 - uid: MongoDB.Entities.DBContext.PipelineAsync*
   name: PipelineAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_PipelineAsync_
@@ -3179,6 +3198,38 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Migration.TimeTakenSeconds
   nameWithType: Migration.TimeTakenSeconds
+- uid: MongoDB.Entities.ModifiedBy
+  name: ModifiedBy
+  href: api/MongoDB.Entities.ModifiedBy.html
+  commentId: T:MongoDB.Entities.ModifiedBy
+  fullName: MongoDB.Entities.ModifiedBy
+  nameWithType: ModifiedBy
+- uid: MongoDB.Entities.ModifiedBy.UserID
+  name: UserID
+  href: api/MongoDB.Entities.ModifiedBy.html#MongoDB_Entities_ModifiedBy_UserID
+  commentId: P:MongoDB.Entities.ModifiedBy.UserID
+  fullName: MongoDB.Entities.ModifiedBy.UserID
+  nameWithType: ModifiedBy.UserID
+- uid: MongoDB.Entities.ModifiedBy.UserID*
+  name: UserID
+  href: api/MongoDB.Entities.ModifiedBy.html#MongoDB_Entities_ModifiedBy_UserID_
+  commentId: Overload:MongoDB.Entities.ModifiedBy.UserID
+  isSpec: "True"
+  fullName: MongoDB.Entities.ModifiedBy.UserID
+  nameWithType: ModifiedBy.UserID
+- uid: MongoDB.Entities.ModifiedBy.UserName
+  name: UserName
+  href: api/MongoDB.Entities.ModifiedBy.html#MongoDB_Entities_ModifiedBy_UserName
+  commentId: P:MongoDB.Entities.ModifiedBy.UserName
+  fullName: MongoDB.Entities.ModifiedBy.UserName
+  nameWithType: ModifiedBy.UserName
+- uid: MongoDB.Entities.ModifiedBy.UserName*
+  name: UserName
+  href: api/MongoDB.Entities.ModifiedBy.html#MongoDB_Entities_ModifiedBy_UserName_
+  commentId: Overload:MongoDB.Entities.ModifiedBy.UserName
+  isSpec: "True"
+  fullName: MongoDB.Entities.ModifiedBy.UserName
+  nameWithType: ModifiedBy.UserName
 - uid: MongoDB.Entities.NameAttribute
   name: NameAttribute
   href: api/MongoDB.Entities.NameAttribute.html
@@ -4207,12 +4258,12 @@ references:
   commentId: T:MongoDB.Entities.Transaction
   fullName: MongoDB.Entities.Transaction
   nameWithType: Transaction
-- uid: MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions)
-  name: Transaction(String, ClientSessionOptions)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction__ctor_System_String_MongoDB_Driver_ClientSessionOptions_
-  commentId: M:MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions)
-  fullName: MongoDB.Entities.Transaction.Transaction(System.String, MongoDB.Driver.ClientSessionOptions)
-  nameWithType: Transaction.Transaction(String, ClientSessionOptions)
+- uid: MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  name: Transaction(String, ClientSessionOptions, ModifiedBy)
+  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction__ctor_System_String_MongoDB_Driver_ClientSessionOptions_MongoDB_Entities_ModifiedBy_
+  commentId: M:MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
+  fullName: MongoDB.Entities.Transaction.Transaction(System.String, MongoDB.Driver.ClientSessionOptions, MongoDB.Entities.ModifiedBy)
+  nameWithType: Transaction.Transaction(String, ClientSessionOptions, ModifiedBy)
 - uid: MongoDB.Entities.Transaction.#ctor*
   name: Transaction
   href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction__ctor_

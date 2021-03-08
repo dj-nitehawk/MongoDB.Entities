@@ -39,6 +39,8 @@
 
 # [Async Support](Async-Support.md)
 
+# [Audit Fields](Audit-Fields.md)
+
 # [Extras](Extras-Date.md)
 ## [The Date Type](Extras-Date.md)
 ## [The Prop Class](Extras-Prop.md)
