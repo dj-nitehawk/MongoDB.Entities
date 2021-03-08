@@ -135,6 +135,18 @@ await dbContext
 	}
 }
 </code></pre>
+<h2 id="getset-audit-values">Get/Set Audit Values</h2>
+<p>it is also possible to instantiate a <code>DBContext</code> without supplying a <code>ModifiedBy</code> to the constructor and set or get it like so:</p>
+<pre><code class="lang-csharp">var dbContext = new DBContext();
+
+dbContext.ModifiedBy = new ModifiedBy
+{
+    UserID = ObjectId.GenerateNewId().ToString(),
+    UserName = &quot;Kip Jennings&quot;
+};
+
+var currentUser = dbContext.ModifiedBy;
+</code></pre>
 <h2 id="transaction-support">Transaction Support</h2>
 <p>you can use auto audit fields in a similar manner inside of transactions. the only difference is you use the transaction context instead of <code>DBContext</code> like follows:</p>
 <pre><code class="lang-csharp">using var TN = DB.Transaction(modifiedBy: currentUser);

@@ -50,6 +50,20 @@ doing so will result in the following document in mongodb:
 }
 ```
 
+## Get/Set Audit Values
+it is also possible to instantiate a `DBContext` without supplying a `ModifiedBy` to the constructor and set or get it like so:
+```csharp
+var dbContext = new DBContext();
+
+dbContext.ModifiedBy = new ModifiedBy
+{
+    UserID = ObjectId.GenerateNewId().ToString(),
+    UserName = "Kip Jennings"
+};
+
+var currentUser = dbContext.ModifiedBy;
+```
+
 ## Transaction Support
 you can use auto audit fields in a similar manner inside of transactions. the only difference is you use the transaction context instead of `DBContext` like follows:
 ```csharp
