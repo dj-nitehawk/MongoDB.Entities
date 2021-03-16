@@ -76,7 +76,7 @@ namespace MongoDB.Entities
         /// Starts the watcher instance with the supplied parameters
         /// </summary>
         /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
-/// <param name="filter"></param>
+        /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
         /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
@@ -113,7 +113,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="resumeToken">A resume token to start receiving changes after some point back in time</param>
         /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
-/// <param name="filter"></param>
+        /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
         /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
         /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
         /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
