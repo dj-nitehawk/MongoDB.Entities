@@ -557,5 +557,29 @@ namespace MongoDB.Entities.Tests
                               .SingleOrDefaultAsync();
             Assert.AreEqual(cus.ID, customer.ID);
         }
+
+        [TestMethod]
+        public async Task custom_id_override_string()
+        {
+            var e = new CustomIDOverride();
+            await DB.SaveAsync(e);
+            await Task.Delay(100);
+
+            var creationTime = new DateTime(long.Parse(e.ID));
+
+            Assert.IsTrue(creationTime < DateTime.Now);
+        }
+
+        [TestMethod]
+        public async Task custom_id_override_objectid()
+        {
+            var e = new CustomIDOverride
+            {
+                ID = ObjectId.GenerateNewId().ToString()
+            };
+            await e.SaveAsync();
+
+            Assert.IsTrue(ObjectId.TryParse(e.ID, out _));
+        }
     }
 }

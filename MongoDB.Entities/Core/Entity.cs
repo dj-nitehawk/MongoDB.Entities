@@ -11,7 +11,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// This property is auto managed. A new ID will be assigned for new entities upon saving.
         /// </summary>
-        [BsonId, ObjectId]
+        [BsonId, AsObjectId]
         public string ID { get; set; }
 
         /// <summary>
