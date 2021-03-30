@@ -99,26 +99,23 @@
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;,&quot;localhost&quot;);
 </code></pre>
 <h3 id="connect-using-a-connection-string">Connect using a connection string</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
-      &quot;mongodb+srv://user:password@cluster.mongodb.net/db-name&quot;), 
-      &quot;db-name&quot;);
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;,
+    MongoClientSettings.FromConnectionString(
+        &quot;mongodb+srv://user:password@cluster.mongodb.net/db-name&quot;));
 </code></pre>
 <h3 id="connect-with-a-username--password">Connect with a username &amp; password</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;, new MongoClientSettings()
 {
     Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
     Credential = MongoCredential.CreateCredential(&quot;db-name&quot;, &quot;username&quot;, &quot;password&quot;)
-}, 
-&quot;db-name&quot;);
+});
 </code></pre>
 <h3 id="increase-connection-pool-limit">Increase connection pool limit</h3>
-<pre><code class="lang-csharp">await DB.InitAsync(
-    &quot;db-name&quot;,
-    new MongoClientSettings
-    {
-        MinConnectionPoolSize = 25,
-        MaxConnectionPoolSize = 250,
-    });
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;db-name&quot;, new MongoClientSettings
+{
+    MinConnectionPoolSize = 25,
+    MaxConnectionPoolSize = 250,
+});
 </code></pre>
 </article>
           </div>

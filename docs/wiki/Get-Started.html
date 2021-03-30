@@ -104,17 +104,16 @@
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, &quot;HostAddress&quot;, PortNumber);
 </code></pre>
 <h2 id="advanced-initialization">Advanced initialization</h2>
-<pre><code class="lang-csharp">await DB.InitAsync(new MongoClientSettings()
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, new MongoClientSettings()
 {
     Server = new MongoServerAddress(&quot;localhost&quot;, 27017),
     Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
-}, 
-&quot;DatabaseName&quot;);
+});
 </code></pre>
 <h2 id="using-a-connection-string">Using a connection string</h2>
-<pre><code class="lang-csharp">await DB.InitAsync(MongoClientSettings.FromConnectionString(
-      &quot;mongodb+srv://user:password@cluster.mongodb.net/DatabaseName&quot;), 
-      &quot;DatabaseName&quot;);
+<pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;,
+    MongoClientSettings.FromConnectionString(
+        &quot;mongodb+srv://user:password@cluster.mongodb.net/DatabaseName&quot;));
 </code></pre>
 </article>
           </div>
