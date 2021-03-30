@@ -110,6 +110,9 @@
     Credential = MongoCredential.CreateCredential(&quot;DatabaseName&quot;, &quot;username&quot;, &quot;password&quot;)
 });
 </code></pre>
+<blockquote>
+<p>this will only work for mongodb v4.0 or newer databases as it will use the <code>SCRAM-SHA-256</code> authentication method. if your db version is older than that and uses <code>SCRAM-SHA-1</code> authentication method, please <a href="https://gist.github.com/dj-nitehawk/a0b1484dbba90085305520c156502608">click here</a> to see how to connect or you may use a connection string to connect as shown below.</p>
+</blockquote>
 <h2 id="using-a-connection-string">Using a connection string</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;,
     MongoClientSettings.FromConnectionString(

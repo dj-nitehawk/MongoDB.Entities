@@ -1032,7 +1032,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Get-Started.html",
-          "hash": "4ruAGd0iwdKugtpPx58poA=="
+          "hash": "lRvI1lxYYxUrybZxfoRazg=="
         }
       },
       "is_incremental": false,
@@ -1217,7 +1217,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 46,
-          "skipped_file_count": 14
+          "skipped_file_count": 46
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
