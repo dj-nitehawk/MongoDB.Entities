@@ -83,7 +83,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void Start(
             EventType eventTypes,
-            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter = null,
+            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
             int batchSize = 25,
             bool onlyGetIDs = false,
             bool autoResume = true,
@@ -120,7 +120,7 @@ namespace MongoDB.Entities
         public void StartWithToken(
             BsonDocument resumeToken,
             EventType eventTypes,
-            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter = null,
+            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
             int batchSize = 25,
             bool onlyGetIDs = false,
             CancellationToken cancellation = default)

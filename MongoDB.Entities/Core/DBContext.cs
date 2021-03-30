@@ -86,7 +86,7 @@ namespace MongoDB.Entities
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
-                update.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy)); //todo: write test
+                update.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
             return update;
         }
@@ -246,7 +246,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public virtual Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
-            SetModifiedBySingle(entity); //todo: write test
+            SetModifiedBySingle(entity);
             return DB.SaveAsync(entity, session, cancellation);
         }
 
@@ -259,7 +259,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
-            SetModifiedByMultiple(entities); //todo: write test
+            SetModifiedByMultiple(entities);
             return DB.SaveAsync(entities, session, cancellation);
         }
 
