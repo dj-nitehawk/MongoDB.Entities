@@ -74,4 +74,4 @@ it is however, recommended that you encapsulate all data access logic in reposit
 
 > **UPDATE:**
 > 
-> a *[DBContext](xref:MongoDB.Entities.DBContext)* class has been added to the library due to popular demand with the v20.7 release.
+> a *[DBContext](xref:MongoDB.Entities.DBContext)* class has been added to the library due to popular demand with the v20.7 release. see the [audit fields page](Audit-Fields.html) for an example of how to use it.
