@@ -217,7 +217,13 @@ namespace MongoDB.Entities
             if (filter == null) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs)) { ArrayFilters = options.ArrayFilters });
+            models.Add(new UpdateManyModel<T>(filter, Builders<T>.Update.Combine(defs))
+            {
+                ArrayFilters = options.ArrayFilters,
+                Collation = options.Collation,
+                Hint = options.Hint,
+                IsUpsert = options.IsUpsert
+            });
             filter = Builders<T>.Filter.Empty;
             defs.Clear();
             options = new UpdateOptions();

@@ -8,9 +8,9 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.9.2</Version>
+    <Version>20.9.3</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- hotfix for watcher method ambiguity
+    <PackageReleaseNotes>- upsert and other options support for batch updates
 - upgraded official driver to latest</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.12.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
   </ItemGroup>
 
   <ItemGroup>
