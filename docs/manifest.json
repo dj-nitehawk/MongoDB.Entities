@@ -473,7 +473,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-1.html",
-          "hash": "av1tr3n+FQN8FP1Rk/LMVQ=="
+          "hash": "nhZHJDlGQRiaqRESRJxbQg=="
         }
       },
       "is_incremental": false,
@@ -485,7 +485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-2.html",
-          "hash": "NhPM8J2m5ESsiAYu2mPfKA=="
+          "hash": "7kaNEmdSkXVIj2nZnnmsDg=="
         }
       },
       "is_incremental": false,
@@ -497,7 +497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template.html",
-          "hash": "qwb7OcdJ9C2klLKmnGXbLQ=="
+          "hash": "+tRT20Ms2BzqgBG/KHu6LA=="
         }
       },
       "is_incremental": false,
@@ -1170,7 +1170,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/String-Templates.html",
-          "hash": "DAttn+/wrLGd+8NcymVbAw=="
+          "hash": "mHJ3CBISM0eoTK3DOhnIxA=="
         }
       },
       "is_incremental": false,
@@ -1220,7 +1220,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 46,
-          "skipped_file_count": 46
+          "skipped_file_count": 14
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

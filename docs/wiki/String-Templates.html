@@ -268,6 +268,21 @@ await DB.Update&lt;Book&gt;()
         .Modify(update)
         .ExecuteAsync();
 </code></pre>
+<h3 id="dynamically-append-stages-to-the-pipeline">Dynamically append stages to the pipeline</h3>
+<pre><code class="lang-csharp">var pipeline = new Template&lt;Book&gt;(&quot;[{ $match: { &lt;Title&gt;: '&lt;book_name&gt;' }}]&quot;);
+
+if (sortByPrice)
+{
+    pipeline.AppendStage(&quot;{ $sort: { &lt;Price&gt;: 1 } }&quot;);
+    pipeline.Path(b =&gt; b.Price);
+}
+
+pipeline
+.Path(b =&gt; b.Title)
+.Tag(&quot;book_name&quot;, &quot;MongoDB Templates&quot;);
+
+var books = await DB.PipelineAsync(pipeline);
+</code></pre>
 </article>
           </div>
           

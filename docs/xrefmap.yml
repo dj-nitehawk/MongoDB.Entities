@@ -3581,6 +3581,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Template.Template
   nameWithType: Template.Template
+- uid: MongoDB.Entities.Template.AppendStage(System.String)
+  name: AppendStage(String)
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_AppendStage_System_String_
+  commentId: M:MongoDB.Entities.Template.AppendStage(System.String)
+  fullName: MongoDB.Entities.Template.AppendStage(System.String)
+  nameWithType: Template.AppendStage(String)
+- uid: MongoDB.Entities.Template.AppendStage*
+  name: AppendStage
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_AppendStage_
+  commentId: Overload:MongoDB.Entities.Template.AppendStage
+  isSpec: "True"
+  fullName: MongoDB.Entities.Template.AppendStage
+  nameWithType: Template.AppendStage
 - uid: MongoDB.Entities.Template.Collection*
   name: Collection
   href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_Collection_
