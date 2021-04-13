@@ -78,7 +78,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'OtherAuthors.Name': /Eckhart Tolle/is }
             }";
 
-            Assert.AreEqual(expectation, template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.ToString());
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'Book': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation, template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.ToString());
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'Name': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation, template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.ToString());
         }
 
         [TestMethod]
@@ -142,7 +142,7 @@ namespace MongoDB.Entities.Tests
                 }
             }";
 
-            Assert.AreEqual(expectation, template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.ToString());
         }
 
         [TestMethod]

@@ -245,16 +245,22 @@ namespace MongoDB.Entities
         /// <param name="template">The template string with tags for targeting replacements such as "&lt;Author.Name&gt;"</param>
         public Template(string template)
         {
+            if (string.IsNullOrWhiteSpace(template))
+                throw new ArgumentException("Unable to instantiate a template from an empty string!");
+
             builder = new StringBuilder(template.Trim(), template.Length);
             tags = new HashSet<string>();
             missingTags = new HashSet<string>();
             replacedTags = new HashSet<string>();
 
-            foreach (Match match in regex.Matches(template))
-                tags.Add(match.Value);
+            if (!(builder[0] == '[' && builder[1] == ']')) //not an empty array
+            {
+                foreach (Match match in regex.Matches(template))
+                    tags.Add(match.Value);
 
-            if (!(builder[0] == '[' && builder[1] == ']') && tags.Count == 0)
-                throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
+                if (tags.Count == 0)
+                    throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
+            }
         }
 
         private Template ReplacePath(string path)
@@ -274,7 +280,16 @@ namespace MongoDB.Entities
             return this;
         }
 
-        public Template AppendStage(string pipelineStageString)
+        //todo: write tests
+        //todo: update docs
+
+        /// <summary>
+        /// Appends a pipeline stage json string to the current pipeline. 
+        /// This method can only be used if the template was initialized with an array of pipeline stages. 
+        /// If this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <c>new Template("[]")</c>
+        /// </summary>
+        /// <param name="pipelineStageString">The pipeline stage json string to append</param>
+        public void AppendStage(string pipelineStageString)
         {
             int pipelineEndPos = 0;
 
@@ -290,6 +305,18 @@ namespace MongoDB.Entities
 
             if (!pipelineStageString.StartsWith("{") && !pipelineStageString.EndsWith("}"))
                 throw new ArgumentException("A pipeline stage string must begin with a { and end with a }");
+
+            foreach (Match match in regex.Matches(pipelineStageString))
+                tags.Add(match.Value);
+
+            if (builder[0] == '[' && builder[1] == ']')//empty array
+                builder.Remove(builder.Length - 1, 1);
+            else
+                builder[builder.Length - 1] = ',';
+
+            builder
+                .Append(pipelineStageString)
+                .Append(']');
         }
 
         /// <summary>
