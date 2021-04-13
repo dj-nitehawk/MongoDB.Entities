@@ -280,9 +280,6 @@ namespace MongoDB.Entities
             return this;
         }
 
-        //todo: write tests
-        //todo: update docs
-
         /// <summary>
         /// Appends a pipeline stage json string to the current pipeline. 
         /// This method can only be used if the template was initialized with an array of pipeline stages. 
@@ -292,9 +289,10 @@ namespace MongoDB.Entities
         public void AppendStage(string pipelineStageString)
         {
             int pipelineEndPos = 0;
+            int lastCharPos = builder.Length - 1;
 
-            if (builder[builder.Length - 1] == ']')
-                pipelineEndPos = builder.Length - 1;
+            if (builder[lastCharPos] == ']')
+                pipelineEndPos = lastCharPos;
 
             if (pipelineEndPos == 0)
             {
@@ -310,9 +308,9 @@ namespace MongoDB.Entities
                 tags.Add(match.Value);
 
             if (builder[0] == '[' && builder[1] == ']')//empty array
-                builder.Remove(builder.Length - 1, 1);
+                builder.Remove(lastCharPos, 1);
             else
-                builder[builder.Length - 1] = ',';
+                builder[lastCharPos] = ',';
 
             builder
                 .Append(pipelineStageString)

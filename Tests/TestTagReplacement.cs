@@ -218,5 +218,44 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(guid, result.Surname);
             Assert.AreEqual(guid, result.Name);
         }
+
+        [TestMethod]
+        public void throws_when_template_not_a_stage_array()
+        {
+            var pipeline = new Template<Book>("{$match:{<Title>:'test'}}");
+
+            Assert.ThrowsException<InvalidOperationException>(() => pipeline.AppendStage(""));
+        }
+
+        [TestMethod]
+        public void throws_when_added_stage_not_json_object()
+        {
+            var pipeline = new Template<Book>("[]");
+
+            Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
+        }
+
+        [TestMethod]
+        public void appending_pipeline_stages()
+        {
+            var pipeline = new Template<Book>("[{$match:{<Title>:'test'}}]");
+            pipeline.AppendStage("{$match:{<Title>:'test'}}");
+            pipeline.Property(b => b.Title);
+            var res = pipeline.ToString();
+
+            Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
+        }
+
+        [TestMethod]
+        public void appending_pipeline_stages_with_empty_pipeline()
+        {
+            var pipeline = new Template<Book>("[]");
+            pipeline.AppendStage("{$match:{<Title>:'test'}}");
+            pipeline.AppendStage("{$match:{<Title>:'test'}}");
+            pipeline.Property(b => b.Title);
+            var res = pipeline.ToString();
+
+            Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
+        }
     }
 }
