@@ -245,17 +245,15 @@ namespace MongoDB.Entities
         /// <param name="template">The template string with tags for targeting replacements such as "&lt;Author.Name&gt;"</param>
         public Template(string template)
         {
-            builder = new StringBuilder(template, template.Length);
+            builder = new StringBuilder(template.Trim(), template.Length);
             tags = new HashSet<string>();
             missingTags = new HashSet<string>();
             replacedTags = new HashSet<string>();
 
             foreach (Match match in regex.Matches(template))
-            {
                 tags.Add(match.Value);
-            }
 
-            if (tags.Count == 0)
+            if (!(builder[0] == '[' && builder[1] == ']') && tags.Count == 0)
                 throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
         }
 
@@ -274,6 +272,24 @@ namespace MongoDB.Entities
             }
 
             return this;
+        }
+
+        public Template AppendStage(string pipelineStageString)
+        {
+            int pipelineEndPos = 0;
+
+            if (builder[builder.Length - 1] == ']')
+                pipelineEndPos = builder.Length - 1;
+
+            if (pipelineEndPos == 0)
+            {
+                throw new InvalidOperationException(
+                    "Stages can only be appended to a template initialized with an array of stages. " +
+                    "Initialize the template with an empty array \"[]\" if this is the first stage.");
+            }
+
+            if (!pipelineStageString.StartsWith("{") && !pipelineStageString.EndsWith("}"))
+                throw new ArgumentException("A pipeline stage string must begin with a { and end with a }");
         }
 
         /// <summary>
