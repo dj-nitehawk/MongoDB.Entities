@@ -11,7 +11,7 @@ await author.SaveAsync();
 book.Author = author;
 await book.SaveAsync()
 ```
-as mentioned earlier, calling `SaveAsync()` persists `author` to the "Authors" collection in the database. it is also stored in `book.Author` property. so, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and are linked by the `ID`. if the goal is to embed something as an independant/unlinked document, it is best to use a class that does not inherit from the `Entity` class or simply use the `.ToDocument()` method of an entity as explained earlier.
+as mentioned earlier, calling `SaveAsync()` persists `author` to the "Authors" collection in the database. it is also stored in `book.Author` property. so, the `author` entity now lives in two locations (in the collection and also inside the `book` entity) and will have the same `ID`. if the goal is to embed something as an independant document, it is best to use a class that does not inherit from the `Entity` class or simply use the `.ToDocument()` method of an entity as explained earlier.
 
 ### Embed removal
 to remove the embedded `author`, simply do:
@@ -22,7 +22,7 @@ await book.SaveAsync();
 the original `author` in the `Authors` collection is unaffected.
 
 ### Entity deletion
-if you call `book.Author.DeleteAsync()`, the author entity is deleted from the `Authors` collection if it was a linked entity.
+if you call `book.Author.DeleteAsync()`, the author entity is deleted from the `Authors` collection if it was a linked entity (has the same `ID`).
 
 ## One-to-many
 
@@ -38,5 +38,4 @@ if you call `book.Author.DeleteAsync()`, the author entity is deleted from the `
 the original `author1, author2` entities in the `Authors` collection are unaffected.
 
 ### Entity deletion:
-if you call `book.OtherAuthors.DeleteAllAsync()` the respective `author1, author2` entities are deleted from the `Authors` collection if they were linked entities.
-
+if you call `book.OtherAuthors.DeleteAllAsync()` the respective `author1, author2` entities are deleted from the `Authors` collection if they were linked entities (has the same `IDs`).

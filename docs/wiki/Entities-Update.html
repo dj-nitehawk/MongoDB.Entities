@@ -138,7 +138,7 @@ bulkUpdate.Match(a =&gt; a.Sex == &quot;Male&quot;)
 
 await bulkUpdate.ExecuteAsync();
 </code></pre>
-<p>first get a reference to a <code>Update&lt;T&gt;</code> class. then specify matching criteria with <code>Match()</code> method and modifications with <code>Modify()</code> method just like you would with a regular update. then instead of calling <code>ExecuteAsync()</code>, simply call <code>AddToQueue()</code> in order to queue it up for batch execution. when you are ready commit the updates, call <code>ExecuteAsync()</code> which will issue a single <code>bulkWrite</code> command to the database.</p>
+<p>first get a reference to a <code>Update&lt;T&gt;</code> class. then specify matching criteria with <code>Match()</code> method and modifications with <code>Modify()</code> method just like you would with a regular update. then instead of calling <code>ExecuteAsync()</code>, simply call <code>AddToQueue()</code> in order to queue it up for batch execution. when you are ready to commit the updates, call <code>ExecuteAsync()</code> which will issue a single <code>bulkWrite</code> command to the database.</p>
 <h1 id="update-and-retrieve">Update and retrieve</h1>
 <p>in order to update an entity and retrieve the updated enity, use the <code>.UpdateAndGet&lt;T&gt;()</code> method on the <code>DB</code> class like so:</p>
 <pre><code class="lang-csharp">var result = await DB.UpdateAndGet&lt;Book&gt;()
@@ -147,11 +147,18 @@ await bulkUpdate.ExecuteAsync();
                      .ExecuteAsync();
 </code></pre>
 <h2 id="update-and-retrieve-with-projection">Update and retrieve with projection</h2>
-<p>projection of the returned entity is also possible by using the <code>.Project()</code> method before calling <code>.ExecuteAsync()</code>.</p>
+<p>projection of the returned entity is possible using the <code>.Project()</code> method before calling <code>.ExecuteAsync()</code>.</p>
 <pre><code class="lang-csharp">var result = await DB.UpdateAndGet&lt;Book&gt;()
                      .Match(b =&gt; b.ID == &quot;xxxxxxxxxxxxx&quot;)
                      .Modify(b =&gt; b.Title, &quot;updated title&quot;)
                      .Project(b =&gt; new Book { Title = b.Title })
+                     .ExecuteAsync();
+</code></pre>
+<p>you can also project the result to a completely different type using the generic overload like so:</p>
+<pre><code class="lang-csharp">var result = await DB.UpdateAndGet&lt;Book, decimal&gt;()
+                     .Match(b =&gt; b.ID == &quot;xxxxxxxxxxxxx&quot;)
+                     .Modify(b =&gt; b.Title, &quot;updated title&quot;)
+                     .Project(b =&gt; b.Price)
                      .ExecuteAsync();
 </code></pre>
 <h1 id="aggregation-pipeline-updates">Aggregation pipeline updates</h1>

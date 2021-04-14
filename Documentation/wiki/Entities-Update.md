@@ -52,7 +52,7 @@ bulkUpdate.Match(a => a.Sex == "Male")
 
 await bulkUpdate.ExecuteAsync();
 ```
-first get a reference to a `Update<T>` class. then specify matching criteria with `Match()` method and modifications with `Modify()` method just like you would with a regular update. then instead of calling `ExecuteAsync()`, simply call `AddToQueue()` in order to queue it up for batch execution. when you are ready commit the updates, call `ExecuteAsync()` which will issue a single `bulkWrite` command to the database.
+first get a reference to a `Update<T>` class. then specify matching criteria with `Match()` method and modifications with `Modify()` method just like you would with a regular update. then instead of calling `ExecuteAsync()`, simply call `AddToQueue()` in order to queue it up for batch execution. when you are ready to commit the updates, call `ExecuteAsync()` which will issue a single `bulkWrite` command to the database.
 
 # Update and retrieve
 
@@ -65,12 +65,20 @@ var result = await DB.UpdateAndGet<Book>()
                      .ExecuteAsync();
 ```
 ## Update and retrieve with projection
-projection of the returned entity is also possible by using the `.Project()` method before calling `.ExecuteAsync()`. 
+projection of the returned entity is possible using the `.Project()` method before calling `.ExecuteAsync()`. 
 ```csharp
 var result = await DB.UpdateAndGet<Book>()
                      .Match(b => b.ID == "xxxxxxxxxxxxx")
                      .Modify(b => b.Title, "updated title")
                      .Project(b => new Book { Title = b.Title })
+                     .ExecuteAsync();
+```
+you can also project the result to a completely different type using the generic overload like so:
+```csharp
+var result = await DB.UpdateAndGet<Book, decimal>()
+                     .Match(b => b.ID == "xxxxxxxxxxxxx")
+                     .Modify(b => b.Title, "updated title")
+                     .Project(b => b.Price)
                      .ExecuteAsync();
 ```
 

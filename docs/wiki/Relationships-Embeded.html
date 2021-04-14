@@ -105,7 +105,7 @@ await author.SaveAsync();
 book.Author = author;
 await book.SaveAsync()
 </code></pre>
-<p>as mentioned earlier, calling <code>SaveAsync()</code> persists <code>author</code> to the &quot;Authors&quot; collection in the database. it is also stored in <code>book.Author</code> property. so, the <code>author</code> entity now lives in two locations (in the collection and also inside the <code>book</code> entity) and are linked by the <code>ID</code>. if the goal is to embed something as an independant/unlinked document, it is best to use a class that does not inherit from the <code>Entity</code> class or simply use the <code>.ToDocument()</code> method of an entity as explained earlier.</p>
+<p>as mentioned earlier, calling <code>SaveAsync()</code> persists <code>author</code> to the &quot;Authors&quot; collection in the database. it is also stored in <code>book.Author</code> property. so, the <code>author</code> entity now lives in two locations (in the collection and also inside the <code>book</code> entity) and will have the same <code>ID</code>. if the goal is to embed something as an independant document, it is best to use a class that does not inherit from the <code>Entity</code> class or simply use the <code>.ToDocument()</code> method of an entity as explained earlier.</p>
 <h3 id="embed-removal">Embed removal</h3>
 <p>to remove the embedded <code>author</code>, simply do:</p>
 <pre><code class="lang-csharp">book.Author = null;
@@ -113,7 +113,7 @@ await book.SaveAsync();
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected.</p>
 <h3 id="entity-deletion">Entity deletion</h3>
-<p>if you call <code>book.Author.DeleteAsync()</code>, the author entity is deleted from the <code>Authors</code> collection if it was a linked entity.</p>
+<p>if you call <code>book.Author.DeleteAsync()</code>, the author entity is deleted from the <code>Authors</code> collection if it was a linked entity (has the same <code>ID</code>).</p>
 <h2 id="one-to-many">One-to-many</h2>
 <pre><code class="lang-csharp">  book.OtherAuthors = new Author[] { author1, author2 };
   await book.SaveAsync();
@@ -124,7 +124,7 @@ await book.SaveAsync();
 </code></pre>
 <p>the original <code>author1, author2</code> entities in the <code>Authors</code> collection are unaffected.</p>
 <h3 id="entity-deletion-1">Entity deletion:</h3>
-<p>if you call <code>book.OtherAuthors.DeleteAllAsync()</code> the respective <code>author1, author2</code> entities are deleted from the <code>Authors</code> collection if they were linked entities.</p>
+<p>if you call <code>book.OtherAuthors.DeleteAllAsync()</code> the respective <code>author1, author2</code> entities are deleted from the <code>Authors</code> collection if they were linked entities (has the same <code>IDs</code>).</p>
 </article>
           </div>
           
