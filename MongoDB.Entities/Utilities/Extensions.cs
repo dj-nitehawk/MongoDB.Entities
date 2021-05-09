@@ -373,7 +373,7 @@ namespace MongoDB.Entities
         /// <param name="propertyToInit">() => PropertyName</param>
         public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
         {
-            var property = (PropertyInfo)((MemberExpression)propertyToInit.Body).Member;
+            var property = (((propertyToInit.Body as UnaryExpression)?.Operand ?? propertyToInit.Body) as MemberExpression)?.Member as PropertyInfo;
             property.SetValue(parent, new Many<TChild>(parent, property.Name));
         }
 
@@ -385,13 +385,13 @@ namespace MongoDB.Entities
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
         public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
         {
-            var property = (PropertyInfo)((MemberExpression)propertyToInit.Body).Member;
+            var property = (((propertyToInit.Body as UnaryExpression)?.Operand ?? propertyToInit.Body) as MemberExpression)?.Member as PropertyInfo;
             var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
             var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute), false);
             if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
-            var osProperty = (PropertyInfo)((MemberExpression)propertyOtherSide.Body).Member;
+            var osProperty = (((propertyOtherSide.Body as UnaryExpression)?.Operand ?? propertyOtherSide.Body) as MemberExpression)?.Member;
             var osHasOwnerAttrib = osProperty.IsDefined(typeof(OwnerSideAttribute), false);
             var osHasInverseAttrib = osProperty.IsDefined(typeof(InverseSideAttribute), false);
             if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");

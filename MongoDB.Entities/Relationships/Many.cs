@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -343,7 +344,11 @@ namespace MongoDB.Entities
             }
         }
 
-        internal Many() => throw new InvalidOperationException("Parameterless constructor is disabled!");
+        /// <summary>
+        /// Creates an instance of Many&lt;TChild&gt; 
+        /// This is only needed in VB.Net
+        /// </summary>
+        public Many() { }
 
         internal Many(object parent, string property)
         {
@@ -359,6 +364,17 @@ namespace MongoDB.Entities
             isInverse = false;
             JoinCollection = DB.GetRefCollection<TParent>($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
             CreateIndexesAsync(JoinCollection);
+        }
+
+        /// <summary>
+        /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent</typeparam>
+        /// <param name="parent">The parent entity instance</param>
+        /// <param name="property">Function(x) x.PropName</param>
+        public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property) where TParent : IEntity
+        {
+            Init(parent, Prop.Property(property));
         }
 
         internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
@@ -381,6 +397,23 @@ namespace MongoDB.Entities
             }
 
             CreateIndexesAsync(JoinCollection);
+        }
+
+        /// <summary>
+        /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
+        /// </summary>
+        /// <typeparam name="TParent">The type of the parent</typeparam>
+        /// <param name="parent">The parent entity instance</param>
+        /// <param name="propertyParent">Function(x) x.ParentProp</param>
+        /// <param name="propertyChild">Function(x) x.ChildProp</param>
+        /// <param name="isInverse">Specify if this is the inverse side of the relationship or not</param>
+        public void VB_InitManyToMany<TParent>(
+            TParent parent,
+            Expression<Func<TParent, object>> propertyParent,
+            Expression<Func<TChild, object>> propertyChild,
+            bool isInverse) where TParent : IEntity
+        {
+            Init(parent, Prop.Property(propertyParent), Prop.Property(propertyChild), isInverse);
         }
 
         private static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
