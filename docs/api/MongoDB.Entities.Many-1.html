@@ -162,6 +162,20 @@
       </tr>
     </tbody>
   </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="MongoDB_Entities_Many_1__ctor_" data-uid="MongoDB.Entities.Many`1.#ctor*"></a>
+  <h4 id="MongoDB_Entities_Many_1__ctor" data-uid="MongoDB.Entities.Many`1.#ctor">Many()</h4>
+  <div class="markdown level1 summary"><p>Creates an instance of Many&lt;TChild&gt;
+This is only needed in VB.Net</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Many()</code></pre>
+  </div>
   <h3 id="properties">Properties
   </h3>
   
@@ -1355,6 +1369,124 @@
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Many_1_VB_InitManyToMany_" data-uid="MongoDB.Entities.Many`1.VB_InitManyToMany*"></a>
+  <h4 id="MongoDB_Entities_Many_1_VB_InitManyToMany__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Linq_Expressions_Expression_System_Func__0_System_Object___System_Boolean_" data-uid="MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)">VB_InitManyToMany&lt;TParent&gt;(TParent, Expression&lt;Func&lt;TParent, Object&gt;&gt;, Expression&lt;Func&lt;TChild, Object&gt;&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void VB_InitManyToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; propertyParent, Expression&lt;Func&lt;TChild, object&gt;&gt; propertyChild, bool isInverse)
+
+    where TParent : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TParent</span></td>
+        <td><span class="parametername">parent</span></td>
+        <td><p>The parent entity instance</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TParent, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">propertyParent</span></td>
+        <td><p>Function(x) x.ParentProp</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TChild, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">propertyChild</span></td>
+        <td><p>Function(x) x.ChildProp</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isInverse</span></td>
+        <td><p>Specify if this is the inverse side of the relationship or not</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TParent</span></td>
+        <td><p>The type of the parent</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Many_1_VB_InitOneToMany_" data-uid="MongoDB.Entities.Many`1.VB_InitOneToMany*"></a>
+  <h4 id="MongoDB_Entities_Many_1_VB_InitOneToMany__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">VB_InitOneToMany&lt;TParent&gt;(TParent, Expression&lt;Func&lt;TParent, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void VB_InitOneToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; property)
+
+    where TParent : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TParent</span></td>
+        <td><span class="parametername">parent</span></td>
+        <td><p>The parent entity instance</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TParent, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">property</span></td>
+        <td><p>Function(x) x.PropName</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TParent</span></td>
+        <td><p>The type of the parent</p>
+</td>
       </tr>
     </tbody>
   </table>

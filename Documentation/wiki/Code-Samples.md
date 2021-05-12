@@ -83,6 +83,7 @@
 # More Examples
 - [.Net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 - [Asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
+- [Repository pattern project](https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern)
 - [A collection of gists](https://gist.github.com/dj-nitehawk)
 - [Integration/unit test project](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Tests)
 - [Solutions to stackoverflow questions](https://stackoverflow.com/search?tab=newest&q=user%3a4368485%20%5bmongodb%5d)

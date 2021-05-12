@@ -2825,6 +2825,23 @@ references:
   fullName.vb: MongoDB.Entities.Many(Of TChild)
   nameWithType: Many<TChild>
   nameWithType.vb: Many(Of TChild)
+- uid: MongoDB.Entities.Many`1.#ctor
+  name: Many()
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1__ctor
+  commentId: M:MongoDB.Entities.Many`1.#ctor
+  fullName: MongoDB.Entities.Many<TChild>.Many()
+  fullName.vb: MongoDB.Entities.Many(Of TChild).Many()
+  nameWithType: Many<TChild>.Many()
+  nameWithType.vb: Many(Of TChild).Many()
+- uid: MongoDB.Entities.Many`1.#ctor*
+  name: Many
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1__ctor_
+  commentId: Overload:MongoDB.Entities.Many`1.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.Many<TChild>.Many
+  fullName.vb: MongoDB.Entities.Many(Of TChild).Many
+  nameWithType: Many<TChild>.Many
+  nameWithType.vb: Many(Of TChild).Many
 - uid: MongoDB.Entities.Many`1.AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: AddAsync(TChild, IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_AddAsync__0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
@@ -3147,6 +3164,42 @@ references:
   fullName.vb: MongoDB.Entities.Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
   nameWithType: Many<TChild>.IEnumerable.GetEnumerator
   nameWithType.vb: Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
+- uid: MongoDB.Entities.Many`1.VB_InitManyToMany*
+  name: VB_InitManyToMany
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_VB_InitManyToMany_
+  commentId: Overload:MongoDB.Entities.Many`1.VB_InitManyToMany
+  isSpec: "True"
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitManyToMany
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitManyToMany
+  nameWithType: Many<TChild>.VB_InitManyToMany
+  nameWithType.vb: Many(Of TChild).VB_InitManyToMany
+- uid: MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
+  name: VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_VB_InitManyToMany__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Linq_Expressions_Expression_System_Func__0_System_Object___System_Boolean_
+  commentId: M:MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
+  name.vb: VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitManyToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>, System.Linq.Expressions.Expression<System.Func<TChild, System.Object>>, System.Boolean)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)), System.Linq.Expressions.Expression(Of System.Func(Of TChild, System.Object)), System.Boolean)
+  nameWithType: Many<TChild>.VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
+  nameWithType.vb: Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
+- uid: MongoDB.Entities.Many`1.VB_InitOneToMany*
+  name: VB_InitOneToMany
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_VB_InitOneToMany_
+  commentId: Overload:MongoDB.Entities.Many`1.VB_InitOneToMany
+  isSpec: "True"
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitOneToMany
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitOneToMany
+  nameWithType: Many<TChild>.VB_InitOneToMany
+  nameWithType.vb: Many(Of TChild).VB_InitOneToMany
+- uid: MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name: VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
+  href: api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_VB_InitOneToMany__1___0_System_Linq_Expressions_Expression_System_Func___0_System_Object___
+  commentId: M:MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name.vb: VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitOneToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)))
+  nameWithType: Many<TChild>.VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
+  nameWithType.vb: Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
 - uid: MongoDB.Entities.ManyBase
   name: ManyBase
   href: api/MongoDB.Entities.ManyBase.html
