@@ -22,9 +22,14 @@ namespace MongoDB.Entities
         /// <param name="entity">The instance to persist</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public static Task<ReplaceOneResult> SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            PrepareForSave(entity);
+            if (PrepAndCheckIfInsert(entity))
+            {
+                return session == null
+                       ? Collection<T>().InsertOneAsync(entity, null, cancellation)
+                       : Collection<T>().InsertOneAsync(session, entity, null, cancellation);
+            }
 
             return session == null
                    ? Collection<T>().ReplaceOneAsync(x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
@@ -44,13 +49,19 @@ namespace MongoDB.Entities
             var models = new List<WriteModel<T>>();
             foreach (var ent in entities)
             {
-                PrepareForSave(ent);
-
-                var upsert = new ReplaceOneModel<T>(
+                WriteModel<T> model;
+                if (PrepAndCheckIfInsert(ent))
+                {
+                    model = new InsertOneModel<T>(ent);
+                }
+                else
+                {
+                    model = new ReplaceOneModel<T>(
                         filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
                         replacement: ent)
-                { IsUpsert = true };
-                models.Add(upsert);
+                    { IsUpsert = true };
+                }
+                models.Add(model);
             }
 
             return session == null
@@ -172,10 +183,13 @@ namespace MongoDB.Entities
                 : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
         }
 
-        private static void PrepareForSave<T>(T entity) where T : IEntity
+        private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
         {
+            bool isInsert = false;
+
             if (string.IsNullOrEmpty(entity.ID))
             {
+                isInsert = true;
                 entity.ID = entity.GenerateNewID();
                 if (Cache<T>.HasCreatedOn)
                     ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
@@ -183,6 +197,8 @@ namespace MongoDB.Entities
 
             if (Cache<T>.HasModifiedOn)
                 ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+
+            return isInsert;
         }
 
         private static IEnumerable<string> RootPropNames<T>(Expression<Func<T, object>> members) where T : IEntity
@@ -198,7 +214,7 @@ namespace MongoDB.Entities
             if (!propNames.Any())
                 throw new ArgumentException("Unable to get any properties from the members expression!");
 
-            PrepareForSave(entity);
+            PrepAndCheckIfInsert(entity); //we don't care if insert here
 
             var props = Cache<T>.UpdatableProps(entity);
 

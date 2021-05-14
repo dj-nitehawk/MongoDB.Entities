@@ -244,7 +244,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public virtual Task<ReplaceOneResult> SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        public virtual Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
             return DB.SaveAsync(entity, session, cancellation);

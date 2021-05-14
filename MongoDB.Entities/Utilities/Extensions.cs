@@ -213,7 +213,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ReplaceOneResult> SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.SaveAsync(entity, session, cancellation);
         }

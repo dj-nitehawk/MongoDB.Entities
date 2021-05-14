@@ -581,5 +581,14 @@ namespace MongoDB.Entities.Tests
 
             Assert.IsTrue(ObjectId.TryParse(e.ID, out _));
         }
+
+        [TestMethod]
+        public Task custom_id_duplicate_throws()
+        {
+            var one = new CustomIDDuplicate();
+            var two = new CustomIDDuplicate();
+            return Assert.ThrowsExceptionAsync<MongoBulkWriteException<CustomIDDuplicate>>(() =>
+                new[] { one, two }.SaveAsync());
+        }
     }
 }
