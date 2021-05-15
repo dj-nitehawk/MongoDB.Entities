@@ -138,6 +138,7 @@ namespace MongoDB.Entities.Tests
         {
             var book = new Book { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
 
+            book.ID = book.GenerateNewID();
             book.Title = "updated title";
             book.Price = 543.21m;
 

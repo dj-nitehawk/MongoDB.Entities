@@ -46,7 +46,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">And optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            var models = new List<WriteModel<T>>();
+            var models = new List<WriteModel<T>>(entities.Count());
             foreach (var ent in entities)
             {
                 WriteModel<T> model;
@@ -63,7 +63,6 @@ namespace MongoDB.Entities
                 }
                 models.Add(model);
             }
-
             return session == null
                    ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
                    : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
@@ -143,9 +142,11 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
+            entity.ThrowIfUnsaved();
+
             var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
-            IEnumerable<string> propsToPreserve = default;
+            IEnumerable<string> propsToPreserve = new string[0];
 
             var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
             var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
@@ -160,14 +161,16 @@ namespace MongoDB.Entities
                 propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name);
 
             if (!propsToPreserve.Any())
-                throw new ArgumentException("No properties are being preserved. Please use .Save() method instead!");
+                throw new ArgumentException("No properties are being preserved. Please use .SaveAsync() method instead!");
 
             propsToUpdate = propsToUpdate.Where(p => !propsToPreserve.Contains(p.Name));
 
-            if (!propsToUpdate.Any())
+            var propsToUpdateCount = propsToUpdate.Count();
+
+            if (propsToUpdateCount == 0)
                 throw new ArgumentException("At least one property must be not preserved!");
 
-            var defs = new Collection<UpdateDefinition<T>>();
+            var defs = new List<UpdateDefinition<T>>(propsToUpdateCount);
 
             foreach (var p in propsToUpdate)
             {
@@ -201,20 +204,13 @@ namespace MongoDB.Entities
             return isInsert;
         }
 
-        private static IEnumerable<string> RootPropNames<T>(Expression<Func<T, object>> members) where T : IEntity
-        {
-            return (members?.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString().Split('.')[1]);
-        }
-
         private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members, bool excludeMode = false) where T : IEntity
         {
-            var propNames = RootPropNames(members);
+            var propNames = (members?.Body as NewExpression)?.Arguments
+                .Select(a => a.ToString().Split('.')[1]);
 
             if (!propNames.Any())
                 throw new ArgumentException("Unable to get any properties from the members expression!");
-
-            PrepAndCheckIfInsert(entity); //we don't care if insert here
 
             var props = Cache<T>.UpdatableProps(entity);
 
@@ -228,6 +224,7 @@ namespace MongoDB.Entities
 
         private static Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
         {
+            PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
             return
                 session == null
                 ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
@@ -236,17 +233,16 @@ namespace MongoDB.Entities
 
         private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
         {
-            var models = new List<WriteModel<T>>();
+            var models = new List<WriteModel<T>>(entities.Count());
 
             foreach (var ent in entities)
             {
-                var update = Builders<T>.Update.Combine(BuildUpdateDefs(ent, members, excludeMode));
-
-                var upsert = new UpdateOneModel<T>(
-                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
-                        update: update)
-                { IsUpsert = true };
-                models.Add(upsert);
+                PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
+                models.Add(
+                    new UpdateOneModel<T>(
+                            filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                            update: Builders<T>.Update.Combine(BuildUpdateDefs(ent, members, excludeMode)))
+                    { IsUpsert = true });
             }
 
             return session == null
