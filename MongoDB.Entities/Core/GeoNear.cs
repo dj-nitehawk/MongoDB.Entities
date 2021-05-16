@@ -6,20 +6,23 @@ using MongoDB.Driver.GeoJsonObjectModel;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Represents a GeoJsonPoint of GeoJson2DGeographicCoordinates
+    /// Represents a 2D geographical coordinate consisting of longitude and latitude
     /// </summary>
-    public class Coordinates2D : GeoJsonPoint<GeoJson2DGeographicCoordinates>
+    public class Coordinates2D
     {
-        public string type { get; set; }
-        public double[] coordinates { get; set; }
+        [BsonElement("type")]
+        public string Type { get; set; }
+
+        [BsonElement("coordinates")]
+        public double[] Coordinates { get; set; }
 
         /// <summary>
         /// Instantiate a new Coordinates2D instance with the supplied longtitude and latitude
         /// </summary>
-        public Coordinates2D(double longitude, double latitude) : base(GeoJson.Geographic(longitude, latitude))
+        public Coordinates2D(double longitude, double latitude)
         {
-            type = "Point";
-            coordinates = new[] { longitude, latitude };
+            Type = "Point";
+            Coordinates = new[] { longitude, latitude };
         }
 
         /// <summary>
@@ -27,7 +30,7 @@ namespace MongoDB.Entities
         /// </summary>
         public GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint()
         {
-            return GeoJson.Point(GeoJson.Geographic(coordinates[0], coordinates[1]));
+            return GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
         }
 
         /// <summary>

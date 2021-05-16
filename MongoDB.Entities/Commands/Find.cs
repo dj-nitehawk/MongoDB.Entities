@@ -164,7 +164,7 @@ namespace MongoDB.Entities
         /// <param name="minDistance">Minimum distance in meters from the search point</param>
         public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
         {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates, maxDistance, minDistance));
+            return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
         }
 
         /// <summary>
