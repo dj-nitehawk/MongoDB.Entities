@@ -45,19 +45,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Coordinates2D.Coordinates2D
   nameWithType: Coordinates2D.Coordinates2D
-- uid: MongoDB.Entities.Coordinates2D.coordinates
-  name: coordinates
-  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_coordinates
-  commentId: P:MongoDB.Entities.Coordinates2D.coordinates
-  fullName: MongoDB.Entities.Coordinates2D.coordinates
-  nameWithType: Coordinates2D.coordinates
-- uid: MongoDB.Entities.Coordinates2D.coordinates*
-  name: coordinates
-  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_coordinates_
-  commentId: Overload:MongoDB.Entities.Coordinates2D.coordinates
+- uid: MongoDB.Entities.Coordinates2D.Coordinates
+  name: Coordinates
+  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_Coordinates
+  commentId: P:MongoDB.Entities.Coordinates2D.Coordinates
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates
+  nameWithType: Coordinates2D.Coordinates
+- uid: MongoDB.Entities.Coordinates2D.Coordinates*
+  name: Coordinates
+  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_Coordinates_
+  commentId: Overload:MongoDB.Entities.Coordinates2D.Coordinates
   isSpec: "True"
-  fullName: MongoDB.Entities.Coordinates2D.coordinates
-  nameWithType: Coordinates2D.coordinates
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates
+  nameWithType: Coordinates2D.Coordinates
 - uid: MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double,System.Double)
   name: GeoJsonPoint(Double, Double)
   href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_GeoJsonPoint_System_Double_System_Double_
@@ -84,19 +84,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
   nameWithType: Coordinates2D.ToGeoJsonPoint
-- uid: MongoDB.Entities.Coordinates2D.type
-  name: type
-  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_type
-  commentId: P:MongoDB.Entities.Coordinates2D.type
-  fullName: MongoDB.Entities.Coordinates2D.type
-  nameWithType: Coordinates2D.type
-- uid: MongoDB.Entities.Coordinates2D.type*
-  name: type
-  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_type_
-  commentId: Overload:MongoDB.Entities.Coordinates2D.type
+- uid: MongoDB.Entities.Coordinates2D.Type
+  name: Type
+  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_Type
+  commentId: P:MongoDB.Entities.Coordinates2D.Type
+  fullName: MongoDB.Entities.Coordinates2D.Type
+  nameWithType: Coordinates2D.Type
+- uid: MongoDB.Entities.Coordinates2D.Type*
+  name: Type
+  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D_Type_
+  commentId: Overload:MongoDB.Entities.Coordinates2D.Type
   isSpec: "True"
-  fullName: MongoDB.Entities.Coordinates2D.type
-  nameWithType: Coordinates2D.type
+  fullName: MongoDB.Entities.Coordinates2D.Type
+  nameWithType: Coordinates2D.Type
 - uid: MongoDB.Entities.DataStreamer
   name: DataStreamer
   href: api/MongoDB.Entities.DataStreamer.html

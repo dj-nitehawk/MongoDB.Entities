@@ -98,34 +98,16 @@
   
   <h1 id="MongoDB_Entities_Coordinates2D" data-uid="MongoDB.Entities.Coordinates2D" class="text-break">Class Coordinates2D
   </h1>
-  <div class="markdown level0 summary"><p>Represents a GeoJsonPoint of GeoJson2DGeographicCoordinates</p>
+  <div class="markdown level0 summary"><p>Represents a 2D geographical coordinate consisting of longitude and latitude</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonObject</span>&lt;<span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates</span>&gt;</div>
-    <div class="level2"><span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonGeometry</span>&lt;<span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates</span>&gt;</div>
-    <div class="level3"><span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint</span>&lt;<span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates</span>&gt;</div>
-    <div class="level4"><span class="xref">Coordinates2D</span></div>
+    <div class="level1"><span class="xref">Coordinates2D</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint&lt;MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates&gt;.Coordinates</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint&lt;MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates&gt;.Type</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonObject&lt;MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates&gt;.BoundingBox</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonObject&lt;MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates&gt;.CoordinateReferenceSystem</span>
-    </div>
-    <div>
-      <span class="xref">MongoDB.Driver.GeoJsonObjectModel.GeoJsonObject&lt;MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates&gt;.ExtraMembers</span>
-    </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
@@ -152,7 +134,7 @@
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_Coordinates2D_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Coordinates2D : GeoJsonPoint&lt;GeoJson2DGeographicCoordinates&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class Coordinates2D</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -193,13 +175,14 @@
   </h3>
   
   
-  <a id="MongoDB_Entities_Coordinates2D_coordinates_" data-uid="MongoDB.Entities.Coordinates2D.coordinates*"></a>
-  <h4 id="MongoDB_Entities_Coordinates2D_coordinates" data-uid="MongoDB.Entities.Coordinates2D.coordinates">coordinates</h4>
+  <a id="MongoDB_Entities_Coordinates2D_Coordinates_" data-uid="MongoDB.Entities.Coordinates2D.Coordinates*"></a>
+  <h4 id="MongoDB_Entities_Coordinates2D_Coordinates" data-uid="MongoDB.Entities.Coordinates2D.Coordinates">Coordinates</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public double[] coordinates { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[BsonElement(&quot;coordinates&quot;)]
+public double[] Coordinates { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -218,13 +201,14 @@
   </table>
   
   
-  <a id="MongoDB_Entities_Coordinates2D_type_" data-uid="MongoDB.Entities.Coordinates2D.type*"></a>
-  <h4 id="MongoDB_Entities_Coordinates2D_type" data-uid="MongoDB.Entities.Coordinates2D.type">type</h4>
+  <a id="MongoDB_Entities_Coordinates2D_Type_" data-uid="MongoDB.Entities.Coordinates2D.Type*"></a>
+  <h4 id="MongoDB_Entities_Coordinates2D_Type" data-uid="MongoDB.Entities.Coordinates2D.Type">Type</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string type { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[BsonElement(&quot;type&quot;)]
+public string Type { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
