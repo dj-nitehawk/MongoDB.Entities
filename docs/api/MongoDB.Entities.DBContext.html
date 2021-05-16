@@ -1460,7 +1460,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task&lt;ReplaceOneResult&gt; SaveAsync&lt;T&gt;(T entity, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public virtual Task SaveAsync&lt;T&gt;(T entity, CancellationToken cancellation = default(CancellationToken))
 
     where T : IEntity</code></pre>
   </div>
@@ -1498,7 +1498,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.ReplaceOneResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>

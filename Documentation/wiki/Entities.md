@@ -61,8 +61,6 @@ public class Book : IEntity
 # Customizing the ID format
 the default format of the IDs automatically generated for new entities is `ObjectId`. if you'd like to change the format of the ID, simply override the `GenerateNewID` method of the `Entity` class or implement the `IEntity` interface and place the logic for generating new IDs inside the `GenerateNewID` method. 
 
-make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field. 
-
 if implementing `IEntity`, don't forget to decorate the ID property with the `[BsonId]` attribute.
 ```csharp
 public class Book : IEntity
@@ -77,3 +75,13 @@ public class Book : IEntity
 
 > [!note]
 > the type of the ID property cannot be changed to something other than `string`. PRs are welcome for removing this limitation.
+
+<h2 style="color:#cb0000">A word of warning about custom IDs</h2>
+
+it is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
+
+if you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.html#save-entities-partially) operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
+
+the normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.
+
+so you're better off sticking with `ObjectId` because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.

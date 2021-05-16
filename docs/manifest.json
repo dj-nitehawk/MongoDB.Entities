@@ -53,7 +53,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "C1JBeNSk6+X6CcEEBQ/+Vg=="
+          "hash": "m1zTldc9XIv2zExDYl288A=="
         }
       },
       "is_incremental": false,
@@ -65,7 +65,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DBContext.html",
-          "hash": "NwNPx2yc26YXwxN1wnDdIA=="
+          "hash": "A4S6oUqZsGjge2/sGURf9g=="
         }
       },
       "is_incremental": false,
@@ -137,7 +137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Extensions.html",
-          "hash": "JqDv7L2ccqcSmJaKS87Ziw=="
+          "hash": "SUaOCsKZW6REX/r78CTETg=="
         }
       },
       "is_incremental": false,
@@ -967,12 +967,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "wiki/Entities.md",
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "R9H/cBEnKhQrQnGJwwIoyQ=="
+          "hash": "8chiVGWpXSG2okifd+/WLw=="
         }
       },
       "is_incremental": false,
@@ -1214,13 +1217,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 43,
-          "skipped_file_count": 43
+          "skipped_file_count": 42
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 46,
-          "skipped_file_count": 14
+          "skipped_file_count": 46
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

@@ -141,7 +141,6 @@ public class Author : Entity
 </code></pre>
 <h1 id="customizing-the-id-format">Customizing the ID format</h1>
 <p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply override the <code>GenerateNewID</code> method of the <code>Entity</code> class or implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>GenerateNewID</code> method.</p>
-<p>make sure to only return truly unique strings in order to avoid mongodb server from complaining as there's a unique index on the ID field.</p>
 <p>if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
@@ -156,6 +155,11 @@ public class Author : Entity
 <h5>Note</h5>
 <p>the type of the ID property cannot be changed to something other than <code>string</code>. PRs are welcome for removing this limitation.</p>
 </div>
+<h2 style="color:#cb0000">A word of warning about custom IDs</h2>
+<p>it is highly recommended that you stick with <code>ObjectId</code> as it's highly unlikely it would generate duplicate IDs due to <a href="https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb">the way it works</a>.</p>
+<p>if you choose something like <code>Guid</code>, there's a possibility for duplicates to be generated and data loss could occur when using the <a href="Entities-Save.html#save-entities-partially">partial entity saving</a> operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.</p>
+<p>the normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.</p>
+<p>so you're better off sticking with <code>ObjectId</code> because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.</p>
 </article>
           </div>
           
