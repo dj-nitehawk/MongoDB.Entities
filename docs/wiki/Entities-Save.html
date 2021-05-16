@@ -98,7 +98,7 @@
 <pre><code class="lang-csharp">var book = new Book { Title = &quot;The Power Of Now&quot; }; 
 await book.SaveAsync();
 </code></pre>
-<p>new entities are automatically assigned an <code>ID</code> when saved. saving an entity that has the <code>ID</code> already populated will <em><a href="Schema-Changes.html">replace</a></em> the matching entity in the database if it exists. if an entity with that <code>ID</code> does not exist in the database, a new one will be created. aka upserted.</p>
+<p>new entities are automatically assigned an <code>ID</code> when saved. saving an entity that has the <code>ID</code> already populated will <em><a href="Schema-Changes.html">replace</a></em> the matching entity in the database if it exists. if an entity with that <code>ID</code> does not exist in the database, a new one will be created.</p>
 <h1 id="save-multiple-entities">Save multiple entities</h1>
 <p>multiple entities can be saved in a single bulk operation like so:</p>
 <pre><code class="lang-csharp">var books = new[] {

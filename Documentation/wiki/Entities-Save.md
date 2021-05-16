@@ -6,7 +6,7 @@ call `SaveAsync()` on any entity to persist it to the database.
 var book = new Book { Title = "The Power Of Now" }; 
 await book.SaveAsync();
 ```
-new entities are automatically assigned an `ID` when saved. saving an entity that has the `ID` already populated will *[replace](Schema-Changes.md)* the matching entity in the database if it exists. if an entity with that `ID` does not exist in the database, a new one will be created. aka upserted.
+new entities are automatically assigned an `ID` when saved. saving an entity that has the `ID` already populated will *[replace](Schema-Changes.md)* the matching entity in the database if it exists. if an entity with that `ID` does not exist in the database, a new one will be created.
 
 # Save multiple entities
 
