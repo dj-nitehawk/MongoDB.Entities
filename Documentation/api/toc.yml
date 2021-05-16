@@ -1,0 +1,107 @@
+### YamlMime:TableOfContent
+- uid: MongoDB.Entities
+  name: MongoDB.Entities
+  items:
+  - uid: MongoDB.Entities.AsObjectIdAttribute
+    name: AsObjectIdAttribute
+  - uid: MongoDB.Entities.Coordinates2D
+    name: Coordinates2D
+  - uid: MongoDB.Entities.DataStreamer
+    name: DataStreamer
+  - uid: MongoDB.Entities.Date
+    name: Date
+  - uid: MongoDB.Entities.DB
+    name: DB
+  - uid: MongoDB.Entities.DBContext
+    name: DBContext
+  - uid: MongoDB.Entities.DontPreserveAttribute
+    name: DontPreserveAttribute
+  - uid: MongoDB.Entities.Entity
+    name: Entity
+  - uid: MongoDB.Entities.EventType
+    name: EventType
+  - uid: MongoDB.Entities.Extensions
+    name: Extensions
+  - uid: MongoDB.Entities.FileEntity
+    name: FileEntity
+  - uid: MongoDB.Entities.Find`2
+    name: Find<T, TProjection>
+    name.vb: Find(Of T, TProjection)
+  - uid: MongoDB.Entities.Find`1
+    name: Find<T>
+    name.vb: Find(Of T)
+  - uid: MongoDB.Entities.FuzzyString
+    name: FuzzyString
+  - uid: MongoDB.Entities.GeoNear`1
+    name: GeoNear<T>
+    name.vb: GeoNear(Of T)
+  - uid: MongoDB.Entities.ICreatedOn
+    name: ICreatedOn
+  - uid: MongoDB.Entities.IEntity
+    name: IEntity
+  - uid: MongoDB.Entities.IgnoreAttribute
+    name: IgnoreAttribute
+  - uid: MongoDB.Entities.IMigration
+    name: IMigration
+  - uid: MongoDB.Entities.IModifiedOn
+    name: IModifiedOn
+  - uid: MongoDB.Entities.Index`1
+    name: Index<T>
+    name.vb: Index(Of T)
+  - uid: MongoDB.Entities.InverseSideAttribute
+    name: InverseSideAttribute
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+  - uid: MongoDB.Entities.KeyType
+    name: KeyType
+  - uid: MongoDB.Entities.Many`1
+    name: Many<TChild>
+    name.vb: Many(Of TChild)
+  - uid: MongoDB.Entities.Many`1.Joined`1
+    name: Many<TChild>.Joined<T>
+    name.vb: Many(Of TChild).Joined(Of T)
+  - uid: MongoDB.Entities.ManyBase
+    name: ManyBase
+  - uid: MongoDB.Entities.Migration
+    name: Migration
+  - uid: MongoDB.Entities.ModifiedBy
+    name: ModifiedBy
+  - uid: MongoDB.Entities.NameAttribute
+    name: NameAttribute
+  - uid: MongoDB.Entities.ObjectIdAttribute
+    name: ObjectIdAttribute
+  - uid: MongoDB.Entities.One`1
+    name: One<T>
+    name.vb: One(Of T)
+  - uid: MongoDB.Entities.Order
+    name: Order
+  - uid: MongoDB.Entities.OwnerSideAttribute
+    name: OwnerSideAttribute
+  - uid: MongoDB.Entities.PreserveAttribute
+    name: PreserveAttribute
+  - uid: MongoDB.Entities.Prop
+    name: Prop
+  - uid: MongoDB.Entities.Search
+    name: Search
+  - uid: MongoDB.Entities.Template
+    name: Template
+  - uid: MongoDB.Entities.Template`1
+    name: Template<T>
+    name.vb: Template(Of T)
+  - uid: MongoDB.Entities.Template`2
+    name: Template<TInput, TResult>
+    name.vb: Template(Of TInput, TResult)
+  - uid: MongoDB.Entities.Transaction
+    name: Transaction
+  - uid: MongoDB.Entities.Update`1
+    name: Update<T>
+    name.vb: Update(Of T)
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet<T, TProjection>
+    name.vb: UpdateAndGet(Of T, TProjection)
+  - uid: MongoDB.Entities.UpdateAndGet`1
+    name: UpdateAndGet<T>
+    name.vb: UpdateAndGet(Of T)
+  - uid: MongoDB.Entities.Watcher`1
+    name: Watcher<T>
+    name.vb: Watcher(Of T)

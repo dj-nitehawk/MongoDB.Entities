@@ -1,0 +1,1374 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Template
+  commentId: T:MongoDB.Entities.Template
+  id: Template
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Template.#ctor(System.String)
+  - MongoDB.Entities.Template.AppendStage(System.String)
+  - MongoDB.Entities.Template.Collection``1
+  - MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Tag(System.String,System.String)
+  - MongoDB.Entities.Template.ToArrayFilters``1
+  - MongoDB.Entities.Template.ToPipeline``2
+  - MongoDB.Entities.Template.ToStages
+  - MongoDB.Entities.Template.ToString
+  langs:
+  - csharp
+  - vb
+  name: Template
+  nameWithType: Template
+  fullName: MongoDB.Entities.Template
+  type: Class
+  source:
+    id: Template
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 235
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nA helper class to build a JSON command from a string with tag replacement\n"
+  example: []
+  syntax:
+    content: public class Template
+    content.vb: Public Class Template
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - MongoDB.Entities.Template`2
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: MongoDB.Entities.Template.#ctor(System.String)
+  commentId: M:MongoDB.Entities.Template.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Template(String)
+  nameWithType: Template.Template(String)
+  fullName: MongoDB.Entities.Template.Template(System.String)
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 245
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInitialize a command builder with the supplied template string.\n"
+  example: []
+  syntax:
+    content: public Template(string template)
+    parameters:
+    - id: template
+      type: System.String
+      description: The template string with tags for targeting replacements such as &quot;&lt;Author.Name>&quot;
+    content.vb: Public Sub New(template As String)
+  overload: MongoDB.Entities.Template.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Template.AppendStage(System.String)
+  commentId: M:MongoDB.Entities.Template.AppendStage(System.String)
+  id: AppendStage(System.String)
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: AppendStage(String)
+  nameWithType: Template.AppendStage(String)
+  fullName: MongoDB.Entities.Template.AppendStage(System.String)
+  type: Method
+  source:
+    id: AppendStage
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 288
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAppends a pipeline stage json string to the current pipeline. \nThis method can only be used if the template was initialized with an array of pipeline stages. \nIf this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code>\n"
+  example: []
+  syntax:
+    content: public void AppendStage(string pipelineStageString)
+    parameters:
+    - id: pipelineStageString
+      type: System.String
+      description: The pipeline stage json string to append
+    content.vb: Public Sub AppendStage(pipelineStageString As String)
+  overload: MongoDB.Entities.Template.AppendStage*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Template.Collection``1
+  commentId: M:MongoDB.Entities.Template.Collection``1
+  id: Collection``1
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Collection<TEntity>()
+  nameWithType: Template.Collection<TEntity>()
+  fullName: MongoDB.Entities.Template.Collection<TEntity>()
+  type: Method
+  source:
+    id: Collection
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 323
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets the collection name of a given entity type and replaces matching tags in the template such as &quot;&lt;EntityName>&quot;\n"
+  example: []
+  syntax:
+    content: >-
+      public Template Collection<TEntity>()
+
+          where TEntity : IEntity
+    typeParameters:
+    - id: TEntity
+      description: The type of entity to get the collection name of
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Collection(Of TEntity As IEntity) As Template
+  overload: MongoDB.Entities.Template.Collection*
+  nameWithType.vb: Template.Collection(Of TEntity)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Collection(Of TEntity)()
+  name.vb: Collection(Of TEntity)()
+- uid: MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Property<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Property<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Property<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Property
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 332
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given member expression into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp>&quot;\n"
+  example: []
+  syntax:
+    content: public Template Property<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.RootProp.SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Property(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Property*
+  nameWithType.vb: Template.Property(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Property(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Path<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Path<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Path<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Path
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 341
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given expression into a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp>&quot;\n"
+  example: []
+  syntax:
+    content: public Template Path<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeList[0].SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Path(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Path*
+  nameWithType.vb: Template.Path(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Path(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Path(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Paths<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Paths<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Paths<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Paths
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 350
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the property paths in the given `new` expression into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.\n"
+  example: []
+  syntax:
+    content: public Template Paths<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => new { x.Prop1.Child1, x.Prop2.Child2 }
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Paths(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Paths*
+  nameWithType.vb: Template.Paths(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Paths(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Paths(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: PosFiltered<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.PosFiltered<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.PosFiltered<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: PosFiltered
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 371
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given expression into a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name>&quot;\n<p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>\n"
+  example: []
+  syntax:
+    content: public Template PosFiltered<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeList[0].SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function PosFiltered(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.PosFiltered*
+  nameWithType.vb: Template.PosFiltered(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.PosFiltered(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: PosFiltered(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: PosAll<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.PosAll<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.PosAll<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: PosAll
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 380
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given expression into a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name>&quot;\n"
+  example: []
+  syntax:
+    content: public Template PosAll<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeList[0].SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function PosAll(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.PosAll*
+  nameWithType.vb: Template.PosAll(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.PosAll(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: PosAll(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: PosFirst<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.PosFirst<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.PosFirst<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: PosFirst
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 389
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given expression into a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name>&quot;\n"
+  example: []
+  syntax:
+    content: public Template PosFirst<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeList[0].SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function PosFirst(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.PosFirst*
+  nameWithType.vb: Template.PosFirst(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.PosFirst(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: PosFirst(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Elements<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Elements<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Elements<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Elements
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 398
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given expression into a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name>&quot;\n"
+  example: []
+  syntax:
+    content: public Template Elements<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Elements(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Elements*
+  nameWithType.vb: Template.Elements(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Elements(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Elements(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Elements<T>(Int32, Expression<Func<T, Object>>)
+  nameWithType: Template.Elements<T>(Int32, Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Elements<T>(System.Int32, System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Elements
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 408
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the given index and expression into a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name>&quot;\n"
+  example: []
+  syntax:
+    content: public Template Elements<T>(int index, Expression<Func<T, object>> expression)
+    parameters:
+    - id: index
+      type: System.Int32
+      description: 0=a 1=b 2=c 3=d and so on...
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.SomeProp
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Elements(Of T)(index As Integer, expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Elements*
+  nameWithType.vb: Template.Elements(Of T)(Int32, Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Elements(Of T)(System.Int32, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Elements(Of T)(Int32, Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Tag(System.String,System.String)
+  commentId: M:MongoDB.Entities.Template.Tag(System.String,System.String)
+  id: Tag(System.String,System.String)
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Tag(String, String)
+  nameWithType: Template.Tag(String, String)
+  fullName: MongoDB.Entities.Template.Tag(System.String, System.String)
+  type: Method
+  source:
+    id: Tag
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 418
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nReplaces the given tag in the template like &quot;&lt;search_term>&quot; with the supplied value.\n"
+  example: []
+  syntax:
+    content: public Template Tag(string tagName, string replacementValue)
+    parameters:
+    - id: tagName
+      type: System.String
+      description: The tag name without the surrounding &lt; and >
+    - id: replacementValue
+      type: System.String
+      description: The value to replace with
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Tag(tagName As String, replacementValue As String) As Template
+  overload: MongoDB.Entities.Template.Tag*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Template.ToString
+  commentId: M:MongoDB.Entities.Template.ToString
+  id: ToString
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: Template.ToString()
+  fullName: MongoDB.Entities.Template.ToString()
+  type: Method
+  source:
+    id: ToString
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 439
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the tag replacement and returns a string.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
+  example: []
+  syntax:
+    content: public string ToString()
+    return:
+      type: System.String
+    content.vb: Public Function ToString As String
+  overload: MongoDB.Entities.Template.ToString*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Template.ToStages
+  commentId: M:MongoDB.Entities.Template.ToStages
+  id: ToStages
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: ToStages()
+  nameWithType: Template.ToStages()
+  fullName: MongoDB.Entities.Template.ToStages()
+  type: Method
+  source:
+    id: ToStages
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 456
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the tag replacement and returns the pipeline stages as an array of BsonDocuments.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
+  example: []
+  syntax:
+    content: public IEnumerable<BsonDocument> ToStages()
+    return:
+      type: System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonDocument}
+    content.vb: Public Function ToStages As IEnumerable(Of BsonDocument)
+  overload: MongoDB.Entities.Template.ToStages*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Template.ToPipeline``2
+  commentId: M:MongoDB.Entities.Template.ToPipeline``2
+  id: ToPipeline``2
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: ToPipeline<TInput, TOutput>()
+  nameWithType: Template.ToPipeline<TInput, TOutput>()
+  fullName: MongoDB.Entities.Template.ToPipeline<TInput, TOutput>()
+  type: Method
+  source:
+    id: ToPipeline
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 469
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the tag replacement and returns a pipeline definition.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
+  example: []
+  syntax:
+    content: public PipelineDefinition<TInput, TOutput> ToPipeline<TInput, TOutput>()
+    typeParameters:
+    - id: TInput
+      description: The input type
+    - id: TOutput
+      description: The output type
+    return:
+      type: MongoDB.Driver.PipelineDefinition{{TInput},{TOutput}}
+    content.vb: Public Function ToPipeline(Of TInput, TOutput) As PipelineDefinition(Of TInput, TOutput)
+  overload: MongoDB.Entities.Template.ToPipeline*
+  nameWithType.vb: Template.ToPipeline(Of TInput, TOutput)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.ToPipeline(Of TInput, TOutput)()
+  name.vb: ToPipeline(Of TInput, TOutput)()
+- uid: MongoDB.Entities.Template.ToArrayFilters``1
+  commentId: M:MongoDB.Entities.Template.ToArrayFilters``1
+  id: ToArrayFilters``1
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: ToArrayFilters<T>()
+  nameWithType: Template.ToArrayFilters<T>()
+  fullName: MongoDB.Entities.Template.ToArrayFilters<T>()
+  type: Method
+  source:
+    id: ToArrayFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 478
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the tag replacement and returns array filter definitions.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
+  example: []
+  syntax:
+    content: public IEnumerable<ArrayFilterDefinition> ToArrayFilters<T>()
+    typeParameters:
+    - id: T
+    return:
+      type: System.Collections.Generic.IEnumerable{MongoDB.Driver.ArrayFilterDefinition}
+    content.vb: Public Function ToArrayFilters(Of T) As IEnumerable(Of ArrayFilterDefinition)
+  overload: MongoDB.Entities.Template.ToArrayFilters*
+  nameWithType.vb: Template.ToArrayFilters(Of T)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.ToArrayFilters(Of T)()
+  name.vb: ToArrayFilters(Of T)()
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Template.#ctor*
+  commentId: Overload:MongoDB.Entities.Template.#ctor
+  name: Template
+  nameWithType: Template.Template
+  fullName: MongoDB.Entities.Template.Template
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.Template.AppendStage*
+  commentId: Overload:MongoDB.Entities.Template.AppendStage
+  name: AppendStage
+  nameWithType: Template.AppendStage
+  fullName: MongoDB.Entities.Template.AppendStage
+- uid: MongoDB.Entities.Template.Collection*
+  commentId: Overload:MongoDB.Entities.Template.Collection
+  name: Collection
+  nameWithType: Template.Collection
+  fullName: MongoDB.Entities.Template.Collection
+- uid: MongoDB.Entities.Template
+  commentId: T:MongoDB.Entities.Template
+  parent: MongoDB.Entities
+  name: Template
+  nameWithType: Template
+  fullName: MongoDB.Entities.Template
+- uid: MongoDB.Entities.Template.Property*
+  commentId: Overload:MongoDB.Entities.Template.Property
+  name: Property
+  nameWithType: Template.Property
+  fullName: MongoDB.Entities.Template.Property
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Object>>
+  nameWithType: Expression<Func<T, Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  nameWithType.vb: Expression(Of Func(Of T, Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  name.vb: Expression(Of Func(Of T, Object))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+- uid: MongoDB.Entities.Template.Path*
+  commentId: Overload:MongoDB.Entities.Template.Path
+  name: Path
+  nameWithType: Template.Path
+  fullName: MongoDB.Entities.Template.Path
+- uid: MongoDB.Entities.Template.Paths*
+  commentId: Overload:MongoDB.Entities.Template.Paths
+  name: Paths
+  nameWithType: Template.Paths
+  fullName: MongoDB.Entities.Template.Paths
+- uid: MongoDB.Entities.Template.PosFiltered*
+  commentId: Overload:MongoDB.Entities.Template.PosFiltered
+  name: PosFiltered
+  nameWithType: Template.PosFiltered
+  fullName: MongoDB.Entities.Template.PosFiltered
+- uid: MongoDB.Entities.Template.PosAll*
+  commentId: Overload:MongoDB.Entities.Template.PosAll
+  name: PosAll
+  nameWithType: Template.PosAll
+  fullName: MongoDB.Entities.Template.PosAll
+- uid: MongoDB.Entities.Template.PosFirst*
+  commentId: Overload:MongoDB.Entities.Template.PosFirst
+  name: PosFirst
+  nameWithType: Template.PosFirst
+  fullName: MongoDB.Entities.Template.PosFirst
+- uid: MongoDB.Entities.Template.Elements*
+  commentId: Overload:MongoDB.Entities.Template.Elements
+  name: Elements
+  nameWithType: Template.Elements
+  fullName: MongoDB.Entities.Template.Elements
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: MongoDB.Entities.Template.Tag*
+  commentId: Overload:MongoDB.Entities.Template.Tag
+  name: Tag
+  nameWithType: Template.Tag
+  fullName: MongoDB.Entities.Template.Tag
+- uid: MongoDB.Entities.Template.ToString*
+  commentId: Overload:MongoDB.Entities.Template.ToString
+  name: ToString
+  nameWithType: Template.ToString
+  fullName: MongoDB.Entities.Template.ToString
+- uid: MongoDB.Entities.Template.ToStages*
+  commentId: Overload:MongoDB.Entities.Template.ToStages
+  name: ToStages
+  nameWithType: Template.ToStages
+  fullName: MongoDB.Entities.Template.ToStages
+- uid: System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonDocument}
+  commentId: T:System.Collections.Generic.IEnumerable{MongoDB.Bson.BsonDocument}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<BsonDocument>
+  nameWithType: IEnumerable<BsonDocument>
+  fullName: System.Collections.Generic.IEnumerable<MongoDB.Bson.BsonDocument>
+  nameWithType.vb: IEnumerable(Of BsonDocument)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of MongoDB.Bson.BsonDocument)
+  name.vb: IEnumerable(Of BsonDocument)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Bson.BsonDocument
+    name: BsonDocument
+    nameWithType: BsonDocument
+    fullName: MongoDB.Bson.BsonDocument
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Bson.BsonDocument
+    name: BsonDocument
+    nameWithType: BsonDocument
+    fullName: MongoDB.Bson.BsonDocument
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: MongoDB.Entities.Template.ToPipeline*
+  commentId: Overload:MongoDB.Entities.Template.ToPipeline
+  name: ToPipeline
+  nameWithType: Template.ToPipeline
+  fullName: MongoDB.Entities.Template.ToPipeline
+- uid: MongoDB.Driver.PipelineDefinition{{TInput},{TOutput}}
+  commentId: T:MongoDB.Driver.PipelineDefinition{``0,``1}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.PipelineDefinition`2
+  name: PipelineDefinition<TInput, TOutput>
+  nameWithType: PipelineDefinition<TInput, TOutput>
+  fullName: MongoDB.Driver.PipelineDefinition<TInput, TOutput>
+  nameWithType.vb: PipelineDefinition(Of TInput, TOutput)
+  fullName.vb: MongoDB.Driver.PipelineDefinition(Of TInput, TOutput)
+  name.vb: PipelineDefinition(Of TInput, TOutput)
+  spec.csharp:
+  - uid: MongoDB.Driver.PipelineDefinition`2
+    name: PipelineDefinition
+    nameWithType: PipelineDefinition
+    fullName: MongoDB.Driver.PipelineDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TOutput
+    nameWithType: TOutput
+    fullName: TOutput
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.PipelineDefinition`2
+    name: PipelineDefinition
+    nameWithType: PipelineDefinition
+    fullName: MongoDB.Driver.PipelineDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TOutput
+    nameWithType: TOutput
+    fullName: TOutput
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.PipelineDefinition`2
+  commentId: T:MongoDB.Driver.PipelineDefinition`2
+  isExternal: true
+  name: PipelineDefinition<TInput, TOutput>
+  nameWithType: PipelineDefinition<TInput, TOutput>
+  fullName: MongoDB.Driver.PipelineDefinition<TInput, TOutput>
+  nameWithType.vb: PipelineDefinition(Of TInput, TOutput)
+  fullName.vb: MongoDB.Driver.PipelineDefinition(Of TInput, TOutput)
+  name.vb: PipelineDefinition(Of TInput, TOutput)
+  spec.csharp:
+  - uid: MongoDB.Driver.PipelineDefinition`2
+    name: PipelineDefinition
+    nameWithType: PipelineDefinition
+    fullName: MongoDB.Driver.PipelineDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TOutput
+    nameWithType: TOutput
+    fullName: TOutput
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.PipelineDefinition`2
+    name: PipelineDefinition
+    nameWithType: PipelineDefinition
+    fullName: MongoDB.Driver.PipelineDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TOutput
+    nameWithType: TOutput
+    fullName: TOutput
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
+- uid: MongoDB.Entities.Template.ToArrayFilters*
+  commentId: Overload:MongoDB.Entities.Template.ToArrayFilters
+  name: ToArrayFilters
+  nameWithType: Template.ToArrayFilters
+  fullName: MongoDB.Entities.Template.ToArrayFilters
+- uid: System.Collections.Generic.IEnumerable{MongoDB.Driver.ArrayFilterDefinition}
+  commentId: T:System.Collections.Generic.IEnumerable{MongoDB.Driver.ArrayFilterDefinition}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<ArrayFilterDefinition>
+  nameWithType: IEnumerable<ArrayFilterDefinition>
+  fullName: System.Collections.Generic.IEnumerable<MongoDB.Driver.ArrayFilterDefinition>
+  nameWithType.vb: IEnumerable(Of ArrayFilterDefinition)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of MongoDB.Driver.ArrayFilterDefinition)
+  name.vb: IEnumerable(Of ArrayFilterDefinition)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.ArrayFilterDefinition
+    name: ArrayFilterDefinition
+    nameWithType: ArrayFilterDefinition
+    fullName: MongoDB.Driver.ArrayFilterDefinition
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.ArrayFilterDefinition
+    name: ArrayFilterDefinition
+    nameWithType: ArrayFilterDefinition
+    fullName: MongoDB.Driver.ArrayFilterDefinition
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )

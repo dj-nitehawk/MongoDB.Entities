@@ -53,7 +53,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "uK0YUHtpU6/aN/brilJpbA=="
+          "hash": "m1zTldc9XIv2zExDYl288A=="
         }
       },
       "is_incremental": false,
@@ -65,7 +65,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DBContext.html",
-          "hash": "U/wjVhW34jDcc5m3rT4aoQ=="
+          "hash": "A4S6oUqZsGjge2/sGURf9g=="
         }
       },
       "is_incremental": false,
@@ -137,7 +137,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Extensions.html",
-          "hash": "fiHKcI2X/202Q359nu1Aww=="
+          "hash": "SUaOCsKZW6REX/r78CTETg=="
         }
       },
       "is_incremental": false,
@@ -173,7 +173,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Find-2.html",
-          "hash": "2/NLNe6ph4OzHlsB1cyXiQ=="
+          "hash": "OtzY0rc/9k8T+l7xhf2ibQ=="
         }
       },
       "is_incremental": false,
@@ -197,7 +197,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.GeoNear-1.html",
-          "hash": "GN+ms9vb8tiR+EUSRlkRtA=="
+          "hash": "WHllezoZp7CeHGWjAsQCZg=="
         }
       },
       "is_incremental": false,
@@ -269,7 +269,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Index-1.html",
-          "hash": "ogT9c6FKZ8vRJg7nxy84mA=="
+          "hash": "PrIg+4rfnwS7B8GQyTMG1w=="
         }
       },
       "is_incremental": false,
@@ -329,7 +329,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Many-1.html",
-          "hash": "zqnlHim2VFg2z3fRRkgoVQ=="
+          "hash": "n8AD9AjvvoHdBboVMO5yOg=="
         }
       },
       "is_incremental": false,
@@ -401,7 +401,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.One-1.html",
-          "hash": "ANvWxJdvq1yIcLbtiDPB/w=="
+          "hash": "LIJRDo7QKwSxQdDv/IDVPA=="
         }
       },
       "is_incremental": false,
@@ -449,7 +449,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Prop.html",
-          "hash": "lAN322pHdp9ZpdEwNGeVcQ=="
+          "hash": "aAqnB3oFwKglRzxRerfjcw=="
         }
       },
       "is_incremental": false,
@@ -485,7 +485,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template-2.html",
-          "hash": "lWAi9Ogvvol98+Rtq2OwiA=="
+          "hash": "7kaNEmdSkXVIj2nZnnmsDg=="
         }
       },
       "is_incremental": false,
@@ -497,7 +497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Template.html",
-          "hash": "3Ctxu/7b8ReImEOd03XR8A=="
+          "hash": "+tRT20Ms2BzqgBG/KHu6LA=="
         }
       },
       "is_incremental": false,
@@ -521,7 +521,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Update-1.html",
-          "hash": "PE5WA9xneDQfg99ar0uIDA=="
+          "hash": "QL2646EGZXAu8eGmZZ5ZoQ=="
         }
       },
       "is_incremental": false,
@@ -545,7 +545,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-2.html",
-          "hash": "ecaGKgyVQirDawChht/4uw=="
+          "hash": "hP3IoyrhQ6gBkFPbvEOoOQ=="
         }
       },
       "is_incremental": false,
@@ -557,7 +557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Watcher-1.html",
-          "hash": "T0OkiliHMmQLdcTub9j1Jw=="
+          "hash": "VXmvU9NjIlNLYQFUN18mxw=="
         }
       },
       "is_incremental": false,
@@ -1207,23 +1207,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 43,
-          "skipped_file_count": 43
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 46,
-          "skipped_file_count": 14
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

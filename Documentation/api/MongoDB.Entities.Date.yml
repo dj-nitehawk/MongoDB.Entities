@@ -1,0 +1,516 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Date
+  commentId: T:MongoDB.Entities.Date
+  id: Date
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Date.DateTime
+  - MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
+  - MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
+  - MongoDB.Entities.Date.Ticks
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: Date
+  fullName: MongoDB.Entities.Date
+  type: Class
+  source:
+    id: Date
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 80
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nA custom date/time type for precision datetime handling\n"
+  example: []
+  syntax:
+    content: public class Date
+    content.vb: Public Class Date
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: MongoDB.Entities.Date.Ticks
+  commentId: P:MongoDB.Entities.Date.Ticks
+  id: Ticks
+  parent: MongoDB.Entities.Date
+  langs:
+  - csharp
+  - vb
+  name: Ticks
+  nameWithType: Date.Ticks
+  fullName: MongoDB.Entities.Date.Ticks
+  type: Property
+  source:
+    id: Ticks
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 85
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public long Ticks { get; set; }
+    parameters: []
+    return:
+      type: System.Int64
+    content.vb: Public Property Ticks As Long
+  overload: MongoDB.Entities.Date.Ticks*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Date.DateTime
+  commentId: P:MongoDB.Entities.Date.DateTime
+  id: DateTime
+  parent: MongoDB.Entities.Date
+  langs:
+  - csharp
+  - vb
+  name: DateTime
+  nameWithType: Date.DateTime
+  fullName: MongoDB.Entities.Date.DateTime
+  type: Property
+  source:
+    id: DateTime
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 91
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public DateTime DateTime { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property DateTime As Date
+  overload: MongoDB.Entities.Date.DateTime*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
+  commentId: M:MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
+  id: op_Implicit(System.DateTime)~MongoDB.Entities.Date
+  parent: MongoDB.Entities.Date
+  langs:
+  - csharp
+  - vb
+  name: Implicit(DateTime to Date)
+  nameWithType: Date.Implicit(DateTime to Date)
+  fullName: MongoDB.Entities.Date.Implicit(System.DateTime to MongoDB.Entities.Date)
+  type: Operator
+  source:
+    id: op_Implicit
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 97
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public static implicit operator Date(DateTime datetime)
+    parameters:
+    - id: datetime
+      type: System.DateTime
+    return:
+      type: MongoDB.Entities.Date
+    content.vb: Public Shared Widening Operator CType(datetime As Date) As Date
+  overload: MongoDB.Entities.Date.op_Implicit*
+  nameWithType.vb: Date.Widening(DateTime to Date)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Date.Widening(System.DateTime to MongoDB.Entities.Date)
+  name.vb: Widening(DateTime to Date)
+- uid: MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
+  commentId: M:MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
+  id: op_Implicit(MongoDB.Entities.Date)~System.DateTime
+  parent: MongoDB.Entities.Date
+  langs:
+  - csharp
+  - vb
+  name: Implicit(Date to DateTime)
+  nameWithType: Date.Implicit(Date to DateTime)
+  fullName: MongoDB.Entities.Date.Implicit(MongoDB.Entities.Date to System.DateTime)
+  type: Operator
+  source:
+    id: op_Implicit
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 102
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public static implicit operator DateTime(Date date)
+    parameters:
+    - id: date
+      type: MongoDB.Entities.Date
+    return:
+      type: System.DateTime
+    content.vb: Public Shared Widening Operator CType(date As Date) As Date
+  overload: MongoDB.Entities.Date.op_Implicit*
+  nameWithType.vb: Date.Widening(Date to DateTime)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Date.Widening(MongoDB.Entities.Date to System.DateTime)
+  name.vb: Widening(Date to DateTime)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Date.Ticks*
+  commentId: Overload:MongoDB.Entities.Date.Ticks
+  name: Ticks
+  nameWithType: Date.Ticks
+  fullName: MongoDB.Entities.Date.Ticks
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: Int64
+  nameWithType: Int64
+  fullName: System.Int64
+- uid: MongoDB.Entities.Date.DateTime*
+  commentId: Overload:MongoDB.Entities.Date.DateTime
+  name: DateTime
+  nameWithType: Date.DateTime
+  fullName: MongoDB.Entities.Date.DateTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: MongoDB.Entities.Date.op_Implicit*
+  commentId: Overload:MongoDB.Entities.Date.op_Implicit
+  name: Implicit
+  nameWithType: Date.Implicit
+  fullName: MongoDB.Entities.Date.Implicit
+  nameWithType.vb: Date.Widening
+  fullName.vb: MongoDB.Entities.Date.Widening
+  name.vb: Widening
+- uid: MongoDB.Entities.Date
+  commentId: T:MongoDB.Entities.Date
+  parent: MongoDB.Entities
+  name: Date
+  nameWithType: Date
+  fullName: MongoDB.Entities.Date

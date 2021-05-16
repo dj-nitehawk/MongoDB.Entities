@@ -1,0 +1,245 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.KeyType
+  commentId: T:MongoDB.Entities.KeyType
+  id: KeyType
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.KeyType.Ascending
+  - MongoDB.Entities.KeyType.Descending
+  - MongoDB.Entities.KeyType.Geo2D
+  - MongoDB.Entities.KeyType.Geo2DSphere
+  - MongoDB.Entities.KeyType.Hashed
+  - MongoDB.Entities.KeyType.Text
+  - MongoDB.Entities.KeyType.Wildcard
+  langs:
+  - csharp
+  - vb
+  name: KeyType
+  nameWithType: KeyType
+  fullName: MongoDB.Entities.KeyType
+  type: Enum
+  source:
+    id: KeyType
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 178
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public enum KeyType
+    content.vb: Public Enum KeyType
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: MongoDB.Entities.KeyType.Ascending
+  commentId: F:MongoDB.Entities.KeyType.Ascending
+  id: Ascending
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Ascending
+  nameWithType: KeyType.Ascending
+  fullName: MongoDB.Entities.KeyType.Ascending
+  type: Field
+  source:
+    id: Ascending
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 180
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Ascending = 0
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Descending
+  commentId: F:MongoDB.Entities.KeyType.Descending
+  id: Descending
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Descending
+  nameWithType: KeyType.Descending
+  fullName: MongoDB.Entities.KeyType.Descending
+  type: Field
+  source:
+    id: Descending
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 181
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Descending = 1
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Geo2D
+  commentId: F:MongoDB.Entities.KeyType.Geo2D
+  id: Geo2D
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Geo2D
+  nameWithType: KeyType.Geo2D
+  fullName: MongoDB.Entities.KeyType.Geo2D
+  type: Field
+  source:
+    id: Geo2D
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 182
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Geo2D = 2
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Geo2DSphere
+  commentId: F:MongoDB.Entities.KeyType.Geo2DSphere
+  id: Geo2DSphere
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Geo2DSphere
+  nameWithType: KeyType.Geo2DSphere
+  fullName: MongoDB.Entities.KeyType.Geo2DSphere
+  type: Field
+  source:
+    id: Geo2DSphere
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 183
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Geo2DSphere = 3
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Hashed
+  commentId: F:MongoDB.Entities.KeyType.Hashed
+  id: Hashed
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Hashed
+  nameWithType: KeyType.Hashed
+  fullName: MongoDB.Entities.KeyType.Hashed
+  type: Field
+  source:
+    id: Hashed
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 184
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Hashed = 4
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Text
+  commentId: F:MongoDB.Entities.KeyType.Text
+  id: Text
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Text
+  nameWithType: KeyType.Text
+  fullName: MongoDB.Entities.KeyType.Text
+  type: Field
+  source:
+    id: Text
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 185
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Text = 5
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.KeyType.Wildcard
+  commentId: F:MongoDB.Entities.KeyType.Wildcard
+  id: Wildcard
+  parent: MongoDB.Entities.KeyType
+  langs:
+  - csharp
+  - vb
+  name: Wildcard
+  nameWithType: KeyType.Wildcard
+  fullName: MongoDB.Entities.KeyType.Wildcard
+  type: Field
+  source:
+    id: Wildcard
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 186
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Wildcard = 6
+    return:
+      type: MongoDB.Entities.KeyType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.KeyType
+  commentId: T:MongoDB.Entities.KeyType
+  parent: MongoDB.Entities
+  name: KeyType
+  nameWithType: KeyType
+  fullName: MongoDB.Entities.KeyType

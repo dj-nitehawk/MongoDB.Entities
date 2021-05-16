@@ -1,0 +1,1822 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Update`1
+  commentId: T:MongoDB.Entities.Update`1
+  id: Update`1
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Update`1.AddToQueue
+  - MongoDB.Entities.Update`1.ExecuteAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Update`1.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - MongoDB.Entities.Update`1.Match(System.String)
+  - MongoDB.Entities.Update`1.MatchID(System.String)
+  - MongoDB.Entities.Update`1.Modify(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - MongoDB.Entities.Update`1.Modify(System.String)
+  - MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - MongoDB.Entities.Update`1.Option(System.Action{MongoDB.Driver.UpdateOptions})
+  - MongoDB.Entities.Update`1.WithArrayFilter(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.WithArrayFilter(System.String)
+  - MongoDB.Entities.Update`1.WithArrayFilters(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.WithPipeline(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.WithPipelineStage(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.WithPipelineStage(System.String)
+  langs:
+  - csharp
+  - vb
+  name: Update<T>
+  nameWithType: Update<T>
+  fullName: MongoDB.Entities.Update<T>
+  type: Class
+  source:
+    id: Update
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 17
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents an update command\n<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public class Update<T>
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    content.vb: Public Class Update(Of T As IEntity)
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  nameWithType.vb: Update(Of T)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+  fullName.vb: MongoDB.Entities.Update(Of T)
+  name.vb: Update(Of T)
+- uid: MongoDB.Entities.Update`1.MatchID(System.String)
+  commentId: M:MongoDB.Entities.Update`1.MatchID(System.String)
+  id: MatchID(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: MatchID(String)
+  nameWithType: Update<T>.MatchID(String)
+  fullName: MongoDB.Entities.Update<T>.MatchID(System.String)
+  type: Method
+  source:
+    id: MatchID
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 35
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an IEntity ID as the matching criteria\n"
+  example: []
+  syntax:
+    content: public Update<T> MatchID(string ID)
+    parameters:
+    - id: ID
+      type: System.String
+      description: A unique IEntity ID
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function MatchID(ID As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.MatchID*
+  nameWithType.vb: Update(Of T).MatchID(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchID(System.String)
+- uid: MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  commentId: M:MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Expression<Func<T, Boolean>>)
+  nameWithType: Update<T>.Match(Expression<Func<T, Boolean>>)
+  fullName: MongoDB.Entities.Update<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 44
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the IEntity matching criteria with a lambda expression\n"
+  example: []
+  syntax:
+    content: public Update<T> Match(Expression<Func<T, bool>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+      description: A lambda expression to select the Entities to update
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Boolean)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  name.vb: Match(Expression(Of Func(Of T, Boolean)))
+- uid: MongoDB.Entities.Update`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  commentId: M:MongoDB.Entities.Update`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  id: Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  nameWithType: Update<T>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  fullName: MongoDB.Entities.Update<T>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 53
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a filter expression\n"
+  example: []
+  syntax:
+    content: public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+    parameters:
+    - id: filter
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
+  id: Match(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Template)
+  nameWithType: Update<T>.Match(Template)
+  fullName: MongoDB.Entities.Update<T>.Match(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 63
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a Template\n"
+  example: []
+  syntax:
+    content: public Update<T> Match(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: The filter Template
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.Match(System.String)
+  commentId: M:MongoDB.Entities.Update`1.Match(System.String)
+  id: Match(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Match(String)
+  nameWithType: Update<T>.Match(String)
+  fullName: MongoDB.Entities.Update<T>.Match(System.String)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 73
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a JSON string\n"
+  example: []
+  syntax:
+    content: public Update<T> Match(string jsonString)
+    parameters:
+    - id: jsonString
+      type: System.String
+      description: '{ Title : &apos;The Power Of Now&apos; }'
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(jsonString As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.String)
+- uid: MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  commentId: M:MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  id: Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Modify<TProp>(Expression<Func<T, TProp>>, TProp)
+  nameWithType: Update<T>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.Update<T>.Modify<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 85
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the property and it&apos;s value to modify (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
+    parameters:
+    - id: property
+      type: System.Linq.Expressions.Expression{System.Func{{T},{TProp}}}
+      description: x => x.Property
+    - id: value
+      type: '{TProp}'
+      description: The value to set on the property
+    typeParameters:
+    - id: TProp
+    return:
+      type: MongoDB.Entities.Update`1
+      description: ''
+    content.vb: Public Function Modify(Of TProp)(property As Expression(Of Func(Of T, TProp)), value As TProp) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Modify*
+  nameWithType.vb: Update(Of T).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  name.vb: Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+- uid: MongoDB.Entities.Update`1.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  commentId: M:MongoDB.Entities.Update`1.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  id: Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  nameWithType: Update<T>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.Update<T>.Modify(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 96
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the update definition builder operation to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+    parameters:
+    - id: operation
+      type: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
+      description: b => b.Inc(x => x.PropName, Value)
+    return:
+      type: MongoDB.Entities.Update`1
+      description: ''
+    content.vb: Public Function Modify(operation As Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Modify*
+  nameWithType.vb: Update(Of T).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Modify(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  name.vb: Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+- uid: MongoDB.Entities.Update`1.Modify(System.String)
+  commentId: M:MongoDB.Entities.Update`1.Modify(System.String)
+  id: Modify(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Modify(String)
+  nameWithType: Update<T>.Modify(String)
+  fullName: MongoDB.Entities.Update<T>.Modify(System.String)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 106
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update (json string) to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public Update<T> Modify(string update)
+    parameters:
+    - id: update
+      type: System.String
+      description: '{ $set: { &apos;RootProp.$[x].SubProp&apos; : 321 } }'
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Modify(update As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Modify*
+  nameWithType.vb: Update(Of T).Modify(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Modify(System.String)
+- uid: MongoDB.Entities.Update`1.Modify(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.Modify(MongoDB.Entities.Template)
+  id: Modify(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Modify(Template)
+  nameWithType: Update<T>.Modify(Template)
+  fullName: MongoDB.Entities.Update<T>.Modify(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 116
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update with a Template to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public Update<T> Modify(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template with a single update
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Modify(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Modify*
+  nameWithType.vb: Update(Of T).Modify(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Modify(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.WithPipeline(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.WithPipeline(MongoDB.Entities.Template)
+  id: WithPipeline(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithPipeline(Template)
+  nameWithType: Update<T>.WithPipeline(Template)
+  fullName: MongoDB.Entities.Update<T>.WithPipeline(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithPipeline
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 127
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline with multiple stages using a Template to modify the Entities.\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public Update<T> WithPipeline(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object containing multiple pipeline stages
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithPipeline(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithPipeline*
+  nameWithType.vb: Update(Of T).WithPipeline(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithPipeline(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.WithPipelineStage(System.String)
+  commentId: M:MongoDB.Entities.Update`1.WithPipelineStage(System.String)
+  id: WithPipelineStage(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithPipelineStage(String)
+  nameWithType: Update<T>.WithPipelineStage(String)
+  fullName: MongoDB.Entities.Update<T>.WithPipelineStage(System.String)
+  type: Method
+  source:
+    id: WithPipelineStage
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 142
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline stage to modify the Entities (use multiple times if needed)\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public Update<T> WithPipelineStage(string stage)
+    parameters:
+    - id: stage
+      type: System.String
+      description: '{ $set: { FullName: { $concat: [&apos;$Name&apos;, &apos; &apos;, &apos;$Surname&apos;] } } }'
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithPipelineStage(stage As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithPipelineStage*
+  nameWithType.vb: Update(Of T).WithPipelineStage(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithPipelineStage(System.String)
+- uid: MongoDB.Entities.Update`1.WithPipelineStage(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.WithPipelineStage(MongoDB.Entities.Template)
+  id: WithPipelineStage(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithPipelineStage(Template)
+  nameWithType: Update<T>.WithPipelineStage(Template)
+  fullName: MongoDB.Entities.Update<T>.WithPipelineStage(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithPipelineStage
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 153
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public Update<T> WithPipelineStage(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object containing a pipeline stage
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithPipelineStage(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithPipelineStage*
+  nameWithType.vb: Update(Of T).WithPipelineStage(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithPipelineStage(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.WithArrayFilter(System.String)
+  commentId: M:MongoDB.Entities.Update`1.WithArrayFilter(System.String)
+  id: WithArrayFilter(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilter(String)
+  nameWithType: Update<T>.WithArrayFilter(String)
+  fullName: MongoDB.Entities.Update<T>.WithArrayFilter(System.String)
+  type: Method
+  source:
+    id: WithArrayFilter
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 162
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an array filter to target nested entities for updates (use multiple times if needed).\n"
+  example: []
+  syntax:
+    content: public Update<T> WithArrayFilter(string filter)
+    parameters:
+    - id: filter
+      type: System.String
+      description: '{ &apos;x.SubProp&apos;: { $gte: 123 } }'
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithArrayFilter(filter As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithArrayFilter*
+  nameWithType.vb: Update(Of T).WithArrayFilter(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithArrayFilter(System.String)
+- uid: MongoDB.Entities.Update`1.WithArrayFilter(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.WithArrayFilter(MongoDB.Entities.Template)
+  id: WithArrayFilter(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilter(Template)
+  nameWithType: Update<T>.WithArrayFilter(Template)
+  fullName: MongoDB.Entities.Update<T>.WithArrayFilter(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithArrayFilter
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 178
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify a single array filter using a Template to target nested entities for updates\n"
+  example: []
+  syntax:
+    content: public Update<T> WithArrayFilter(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: ''
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithArrayFilter(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithArrayFilter*
+  nameWithType.vb: Update(Of T).WithArrayFilter(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithArrayFilter(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.WithArrayFilters(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.WithArrayFilters(MongoDB.Entities.Template)
+  id: WithArrayFilters(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilters(Template)
+  nameWithType: Update<T>.WithArrayFilters(Template)
+  fullName: MongoDB.Entities.Update<T>.WithArrayFilters(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithArrayFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 188
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify multiple array filters with a Template to target nested entities for updates.\n"
+  example: []
+  syntax:
+    content: public Update<T> WithArrayFilters(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: The template with an array [...] of filters
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function WithArrayFilters(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.WithArrayFilters*
+  nameWithType.vb: Update(Of T).WithArrayFilters(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).WithArrayFilters(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.Option(System.Action{MongoDB.Driver.UpdateOptions})
+  commentId: M:MongoDB.Entities.Update`1.Option(System.Action{MongoDB.Driver.UpdateOptions})
+  id: Option(System.Action{MongoDB.Driver.UpdateOptions})
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Option(Action<UpdateOptions>)
+  nameWithType: Update<T>.Option(Action<UpdateOptions>)
+  fullName: MongoDB.Entities.Update<T>.Option(System.Action<MongoDB.Driver.UpdateOptions>)
+  type: Method
+  source:
+    id: Option
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 205
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an option for this update command (use multiple times if needed)\n<p>TIP: Setting options is not required</p>\n"
+  example: []
+  syntax:
+    content: public Update<T> Option(Action<UpdateOptions> option)
+    parameters:
+    - id: option
+      type: System.Action{MongoDB.Driver.UpdateOptions}
+      description: x => x.OptionName = OptionValue
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Option(option As Action(Of UpdateOptions)) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Option*
+  nameWithType.vb: Update(Of T).Option(Action(Of UpdateOptions))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Option(System.Action(Of MongoDB.Driver.UpdateOptions))
+  name.vb: Option(Action(Of UpdateOptions))
+- uid: MongoDB.Entities.Update`1.AddToQueue
+  commentId: M:MongoDB.Entities.Update`1.AddToQueue
+  id: AddToQueue
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: AddToQueue()
+  nameWithType: Update<T>.AddToQueue()
+  fullName: MongoDB.Entities.Update<T>.AddToQueue()
+  type: Method
+  source:
+    id: AddToQueue
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 214
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nQueue up an update command for bulk execution later.\n"
+  example: []
+  syntax:
+    content: public Update<T> AddToQueue()
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function AddToQueue As Update(Of T)
+  overload: MongoDB.Entities.Update`1.AddToQueue*
+  nameWithType.vb: Update(Of T).AddToQueue()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).AddToQueue()
+- uid: MongoDB.Entities.Update`1.ExecuteAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Update`1.ExecuteAsync(System.Threading.CancellationToken)
+  id: ExecuteAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(CancellationToken)
+  nameWithType: Update<T>.ExecuteAsync(CancellationToken)
+  fullName: MongoDB.Entities.Update<T>.ExecuteAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecuteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 236
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the update command in MongoDB.\n"
+  example: []
+  syntax:
+    content: public Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of UpdateResult)
+  overload: MongoDB.Entities.Update`1.ExecuteAsync*
+  nameWithType.vb: Update(Of T).ExecuteAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).ExecuteAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Update`1.ExecutePipelineAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Update`1.ExecutePipelineAsync(System.Threading.CancellationToken)
+  id: ExecutePipelineAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: ExecutePipelineAsync(CancellationToken)
+  nameWithType: Update<T>.ExecutePipelineAsync(CancellationToken)
+  fullName: MongoDB.Entities.Update<T>.ExecutePipelineAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecutePipelineAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 268
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the update command with pipeline stages\n"
+  example: []
+  syntax:
+    content: public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+    content.vb: Public Function ExecutePipelineAsync(cancellation As CancellationToken = Nothing) As Task(Of UpdateResult)
+  overload: MongoDB.Entities.Update`1.ExecutePipelineAsync*
+  nameWithType.vb: Update(Of T).ExecutePipelineAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).ExecutePipelineAsync(System.Threading.CancellationToken)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Update`1.MatchID*
+  commentId: Overload:MongoDB.Entities.Update`1.MatchID
+  name: MatchID
+  nameWithType: Update<T>.MatchID
+  fullName: MongoDB.Entities.Update<T>.MatchID
+  nameWithType.vb: Update(Of T).MatchID
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchID
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.Update`1
+  commentId: T:MongoDB.Entities.Update`1
+  parent: MongoDB.Entities
+  name: Update<T>
+  nameWithType: Update<T>
+  fullName: MongoDB.Entities.Update<T>
+  nameWithType.vb: Update(Of T)
+  fullName.vb: MongoDB.Entities.Update(Of T)
+  name.vb: Update(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Update`1.Match*
+  commentId: Overload:MongoDB.Entities.Update`1.Match
+  name: Match
+  nameWithType: Update<T>.Match
+  fullName: MongoDB.Entities.Update<T>.Match
+  nameWithType.vb: Update(Of T).Match
+  fullName.vb: MongoDB.Entities.Update(Of T).Match
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Boolean>>
+  nameWithType: Expression<Func<T, Boolean>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
+  nameWithType.vb: Expression(Of Func(Of T, Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
+  name.vb: Expression(Of Func(Of T, Boolean))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+- uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
+  nameWithType.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Template
+  commentId: T:MongoDB.Entities.Template
+  parent: MongoDB.Entities
+  name: Template
+  nameWithType: Template
+  fullName: MongoDB.Entities.Template
+- uid: MongoDB.Entities.Update`1.Modify*
+  commentId: Overload:MongoDB.Entities.Update`1.Modify
+  name: Modify
+  nameWithType: Update<T>.Modify
+  fullName: MongoDB.Entities.Update<T>.Modify
+  nameWithType.vb: Update(Of T).Modify
+  fullName.vb: MongoDB.Entities.Update(Of T).Modify
+- uid: System.Linq.Expressions.Expression{System.Func{{T},{TProp}}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,``0}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, TProp>>
+  nameWithType: Expression<Func<T, TProp>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, TProp>>
+  nameWithType.vb: Expression(Of Func(Of T, TProp))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, TProp))
+  name.vb: Expression(Of Func(Of T, TProp))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: '{TProp}'
+  commentId: '!:TProp'
+  definition: TProp
+  name: TProp
+  nameWithType: TProp
+  fullName: TProp
+- uid: TProp
+  name: TProp
+  nameWithType: TProp
+  fullName: TProp
+- uid: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>
+  nameWithType: Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>
+  nameWithType.vb: Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T))
+  name.vb: Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Update`1.WithPipeline*
+  commentId: Overload:MongoDB.Entities.Update`1.WithPipeline
+  name: WithPipeline
+  nameWithType: Update<T>.WithPipeline
+  fullName: MongoDB.Entities.Update<T>.WithPipeline
+  nameWithType.vb: Update(Of T).WithPipeline
+  fullName.vb: MongoDB.Entities.Update(Of T).WithPipeline
+- uid: MongoDB.Entities.Update`1.WithPipelineStage*
+  commentId: Overload:MongoDB.Entities.Update`1.WithPipelineStage
+  name: WithPipelineStage
+  nameWithType: Update<T>.WithPipelineStage
+  fullName: MongoDB.Entities.Update<T>.WithPipelineStage
+  nameWithType.vb: Update(Of T).WithPipelineStage
+  fullName.vb: MongoDB.Entities.Update(Of T).WithPipelineStage
+- uid: MongoDB.Entities.Update`1.WithArrayFilter*
+  commentId: Overload:MongoDB.Entities.Update`1.WithArrayFilter
+  name: WithArrayFilter
+  nameWithType: Update<T>.WithArrayFilter
+  fullName: MongoDB.Entities.Update<T>.WithArrayFilter
+  nameWithType.vb: Update(Of T).WithArrayFilter
+  fullName.vb: MongoDB.Entities.Update(Of T).WithArrayFilter
+- uid: MongoDB.Entities.Update`1.WithArrayFilters*
+  commentId: Overload:MongoDB.Entities.Update`1.WithArrayFilters
+  name: WithArrayFilters
+  nameWithType: Update<T>.WithArrayFilters
+  fullName: MongoDB.Entities.Update<T>.WithArrayFilters
+  nameWithType.vb: Update(Of T).WithArrayFilters
+  fullName.vb: MongoDB.Entities.Update(Of T).WithArrayFilters
+- uid: MongoDB.Entities.Update`1.Option*
+  commentId: Overload:MongoDB.Entities.Update`1.Option
+  name: Option
+  nameWithType: Update<T>.Option
+  fullName: MongoDB.Entities.Update<T>.Option
+  nameWithType.vb: Update(Of T).Option
+  fullName.vb: MongoDB.Entities.Update(Of T).Option
+- uid: System.Action{MongoDB.Driver.UpdateOptions}
+  commentId: T:System.Action{MongoDB.Driver.UpdateOptions}
+  parent: System
+  definition: System.Action`1
+  name: Action<UpdateOptions>
+  nameWithType: Action<UpdateOptions>
+  fullName: System.Action<MongoDB.Driver.UpdateOptions>
+  nameWithType.vb: Action(Of UpdateOptions)
+  fullName.vb: System.Action(Of MongoDB.Driver.UpdateOptions)
+  name.vb: Action(Of UpdateOptions)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateOptions
+    name: UpdateOptions
+    nameWithType: UpdateOptions
+    fullName: MongoDB.Driver.UpdateOptions
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateOptions
+    name: UpdateOptions
+    nameWithType: UpdateOptions
+    fullName: MongoDB.Driver.UpdateOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Update`1.AddToQueue*
+  commentId: Overload:MongoDB.Entities.Update`1.AddToQueue
+  name: AddToQueue
+  nameWithType: Update<T>.AddToQueue
+  fullName: MongoDB.Entities.Update<T>.AddToQueue
+  nameWithType.vb: Update(Of T).AddToQueue
+  fullName.vb: MongoDB.Entities.Update(Of T).AddToQueue
+- uid: MongoDB.Entities.Update`1.ExecuteAsync*
+  commentId: Overload:MongoDB.Entities.Update`1.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: Update<T>.ExecuteAsync
+  fullName: MongoDB.Entities.Update<T>.ExecuteAsync
+  nameWithType.vb: Update(Of T).ExecuteAsync
+  fullName.vb: MongoDB.Entities.Update(Of T).ExecuteAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<UpdateResult>
+  nameWithType: Task<UpdateResult>
+  fullName: System.Threading.Tasks.Task<MongoDB.Driver.UpdateResult>
+  nameWithType.vb: Task(Of UpdateResult)
+  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.UpdateResult)
+  name.vb: Task(Of UpdateResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateResult
+    name: UpdateResult
+    nameWithType: UpdateResult
+    fullName: MongoDB.Driver.UpdateResult
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateResult
+    name: UpdateResult
+    nameWithType: UpdateResult
+    fullName: MongoDB.Driver.UpdateResult
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: MongoDB.Entities.Update`1.ExecutePipelineAsync*
+  commentId: Overload:MongoDB.Entities.Update`1.ExecutePipelineAsync
+  name: ExecutePipelineAsync
+  nameWithType: Update<T>.ExecutePipelineAsync
+  fullName: MongoDB.Entities.Update<T>.ExecutePipelineAsync
+  nameWithType.vb: Update(Of T).ExecutePipelineAsync
+  fullName.vb: MongoDB.Entities.Update(Of T).ExecutePipelineAsync

@@ -1,0 +1,87 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.IModifiedOn
+  commentId: T:MongoDB.Entities.IModifiedOn
+  id: IModifiedOn
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.IModifiedOn.ModifiedOn
+  langs:
+  - csharp
+  - vb
+  name: IModifiedOn
+  nameWithType: IModifiedOn
+  fullName: MongoDB.Entities.IModifiedOn
+  type: Interface
+  source:
+    id: IModifiedOn
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\IModifiedOn.cs
+    startLine: 7
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nImplement this interface on entities you want the library to automatically store the modified date with\n"
+  example: []
+  syntax:
+    content: public interface IModifiedOn
+    content.vb: Public Interface IModifiedOn
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: MongoDB.Entities.IModifiedOn.ModifiedOn
+  commentId: P:MongoDB.Entities.IModifiedOn.ModifiedOn
+  id: ModifiedOn
+  parent: MongoDB.Entities.IModifiedOn
+  langs:
+  - csharp
+  - vb
+  name: ModifiedOn
+  nameWithType: IModifiedOn.ModifiedOn
+  fullName: MongoDB.Entities.IModifiedOn.ModifiedOn
+  type: Property
+  source:
+    id: ModifiedOn
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\IModifiedOn.cs
+    startLine: 13
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThis property will be automatically set by the library when an entity is updated.\n<p>TIP: This property is useful when sorting by update date.</p>\n"
+  example: []
+  syntax:
+    content: DateTime ModifiedOn { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Property ModifiedOn As Date
+  overload: MongoDB.Entities.IModifiedOn.ModifiedOn*
+  modifiers.csharp:
+  - get
+  - set
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.IModifiedOn.ModifiedOn*
+  commentId: Overload:MongoDB.Entities.IModifiedOn.ModifiedOn
+  name: ModifiedOn
+  nameWithType: IModifiedOn.ModifiedOn
+  fullName: MongoDB.Entities.IModifiedOn.ModifiedOn
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System

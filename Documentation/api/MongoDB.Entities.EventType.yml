@@ -1,0 +1,139 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.EventType
+  commentId: T:MongoDB.Entities.EventType
+  id: EventType
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.EventType.Created
+  - MongoDB.Entities.EventType.Deleted
+  - MongoDB.Entities.EventType.Updated
+  langs:
+  - csharp
+  - vb
+  name: EventType
+  nameWithType: EventType
+  fullName: MongoDB.Entities.EventType
+  type: Enum
+  source:
+    id: EventType
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    startLine: 270
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: >-
+      [Flags]
+
+      public enum EventType
+    content.vb: >-
+      <Flags>
+
+      Public Enum EventType
+  attributes:
+  - type: System.FlagsAttribute
+    ctor: System.FlagsAttribute.#ctor
+    arguments: []
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: MongoDB.Entities.EventType.Created
+  commentId: F:MongoDB.Entities.EventType.Created
+  id: Created
+  parent: MongoDB.Entities.EventType
+  langs:
+  - csharp
+  - vb
+  name: Created
+  nameWithType: EventType.Created
+  fullName: MongoDB.Entities.EventType.Created
+  type: Field
+  source:
+    id: Created
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    startLine: 273
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Created = 2
+    return:
+      type: MongoDB.Entities.EventType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.EventType.Updated
+  commentId: F:MongoDB.Entities.EventType.Updated
+  id: Updated
+  parent: MongoDB.Entities.EventType
+  langs:
+  - csharp
+  - vb
+  name: Updated
+  nameWithType: EventType.Updated
+  fullName: MongoDB.Entities.EventType.Updated
+  type: Field
+  source:
+    id: Updated
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    startLine: 274
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Updated = 4
+    return:
+      type: MongoDB.Entities.EventType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.EventType.Deleted
+  commentId: F:MongoDB.Entities.EventType.Deleted
+  id: Deleted
+  parent: MongoDB.Entities.EventType
+  langs:
+  - csharp
+  - vb
+  name: Deleted
+  nameWithType: EventType.Deleted
+  fullName: MongoDB.Entities.EventType.Deleted
+  type: Field
+  source:
+    id: Deleted
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    startLine: 275
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Deleted = 8
+    return:
+      type: MongoDB.Entities.EventType
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.EventType
+  commentId: T:MongoDB.Entities.EventType
+  parent: MongoDB.Entities
+  name: EventType
+  nameWithType: EventType
+  fullName: MongoDB.Entities.EventType

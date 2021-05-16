@@ -1,0 +1,2087 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.UpdateAndGet`2
+  commentId: T:MongoDB.Entities.UpdateAndGet`2
+  id: UpdateAndGet`2
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+  - MongoDB.Entities.UpdateAndGet`2.MatchID(System.String)
+  - MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - MongoDB.Entities.UpdateAndGet`2.Modify(System.String)
+  - MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  - MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  - MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  - MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(System.String)
+  - MongoDB.Entities.UpdateAndGet`2.WithArrayFilters(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(MongoDB.Entities.Template)
+  - MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(System.String)
+  langs:
+  - csharp
+  - vb
+  name: UpdateAndGet<T, TProjection>
+  nameWithType: UpdateAndGet<T, TProjection>
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
+  type: Class
+  source:
+    id: UpdateAndGet
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 28
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nUpdate and retrieve the first document that was updated.\n<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public class UpdateAndGet<T, TProjection>
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    - id: TProjection
+      description: The type to project to
+    content.vb: Public Class UpdateAndGet(Of T As IEntity, TProjection)
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - MongoDB.Entities.UpdateAndGet`1
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  nameWithType.vb: UpdateAndGet(Of T, TProjection)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
+  name.vb: UpdateAndGet(Of T, TProjection)
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchID(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchID(System.String)
+  id: MatchID(System.String)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: MatchID(String)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchID(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchID(System.String)
+  type: Method
+  source:
+    id: MatchID
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 45
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an IEntity ID as the matching criteria\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> MatchID(string ID)
+    parameters:
+    - id: ID
+      type: System.String
+      description: A unique IEntity ID
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function MatchID(ID As String) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.MatchID*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchID(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchID(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Match(Expression<Func<T, Boolean>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Boolean>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 54
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the IEntity matching criteria with a lambda expression\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Match(Expression<Func<T, bool>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+      description: A lambda expression to select the Entities to update
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Match*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  name.vb: Match(Expression(Of Func(Of T, Boolean)))
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  id: Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 63
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a filter expression\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+    parameters:
+    - id: filter
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Match*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
+  id: Match(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Match(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 73
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a Template\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Match(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: The filter Template
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Match(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Match*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+  id: Match(System.String)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Match(String)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.String)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 83
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the Entity matching criteria with a JSON string\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Match(string jsonString)
+    parameters:
+    - id: jsonString
+      type: System.String
+      description: '{ Title : &apos;The Power Of Now&apos; }'
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Match(jsonString As String) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Match*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  id: Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Modify<TProp>(Expression<Func<T, TProp>>, TProp)
+  nameWithType: UpdateAndGet<T, TProjection>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 94
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the property and it&apos;s value to modify (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
+    parameters:
+    - id: property
+      type: System.Linq.Expressions.Expression{System.Func{{T},{TProp}}}
+      description: x => x.Property
+    - id: value
+      type: '{TProp}'
+      description: The value to set on the property
+    typeParameters:
+    - id: TProp
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Modify(Of TProp)(property As Expression(Of Func(Of T, TProp)), value As TProp) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Modify*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  name.vb: Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  id: Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 104
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the update definition builder operation to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+    parameters:
+    - id: operation
+      type: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
+      description: b => b.Inc(x => x.PropName, Value)
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Modify(operation As Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Modify*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  name.vb: Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify(System.String)
+  id: Modify(System.String)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Modify(String)
+  nameWithType: UpdateAndGet<T, TProjection>.Modify(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify(System.String)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 114
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update (json string) to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Modify(string update)
+    parameters:
+    - id: update
+      type: System.String
+      description: '{ $set: { &apos;RootProp.$[x].SubProp&apos; : 321 } }'
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Modify(update As String) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Modify*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)
+  id: Modify(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Modify(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.Modify(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: Modify
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 124
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update with a Template to modify the Entities (use multiple times if needed)\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Modify(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template with a single update
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Modify(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Modify*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)
+  id: WithPipeline(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithPipeline(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.WithPipeline(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithPipeline(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithPipeline
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 135
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline with multiple stages using a Template to modify the Entities.\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithPipeline(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object containing multiple pipeline stages
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithPipeline(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithPipeline*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipeline(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithPipeline(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(System.String)
+  id: WithPipelineStage(System.String)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithPipelineStage(String)
+  nameWithType: UpdateAndGet<T, TProjection>.WithPipelineStage(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithPipelineStage(System.String)
+  type: Method
+  source:
+    id: WithPipelineStage
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 150
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline stage to modify the Entities (use multiple times if needed)\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithPipelineStage(string stage)
+    parameters:
+    - id: stage
+      type: System.String
+      description: '{ $set: { FullName: { $concat: [&apos;$Name&apos;, &apos; &apos;, &apos;$Surname&apos;] } } }'
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithPipelineStage(stage As String) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipelineStage(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithPipelineStage(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(MongoDB.Entities.Template)
+  id: WithPipelineStage(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithPipelineStage(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.WithPipelineStage(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithPipelineStage(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithPipelineStage
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 161
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)\n<p>NOTE: pipeline updates and regular updates cannot be used together.</p>\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithPipelineStage(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object containing a pipeline stage
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithPipelineStage(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipelineStage(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithPipelineStage(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(System.String)
+  id: WithArrayFilter(System.String)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilter(String)
+  nameWithType: UpdateAndGet<T, TProjection>.WithArrayFilter(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithArrayFilter(System.String)
+  type: Method
+  source:
+    id: WithArrayFilter
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 170
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an array filter to target nested entities for updates (use multiple times if needed).\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithArrayFilter(string filter)
+    parameters:
+    - id: filter
+      type: System.String
+      description: '{ &apos;x.SubProp&apos;: { $gte: 123 } }'
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithArrayFilter(filter As String) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilter(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithArrayFilter(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(MongoDB.Entities.Template)
+  id: WithArrayFilter(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilter(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.WithArrayFilter(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithArrayFilter(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithArrayFilter
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 186
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify a single array filter using a Template to target nested entities for updates\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithArrayFilter(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: ''
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithArrayFilter(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilter(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithArrayFilter(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.WithArrayFilters(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.WithArrayFilters(MongoDB.Entities.Template)
+  id: WithArrayFilters(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: WithArrayFilters(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.WithArrayFilters(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithArrayFilters(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: WithArrayFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 196
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify multiple array filters with a Template to target nested entities for updates.\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> WithArrayFilters(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: The template with an array [...] of filters
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function WithArrayFilters(template As Template) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilters*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilters(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithArrayFilters(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  id: Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Option(System.Action<MongoDB.Driver.FindOneAndUpdateOptions<T, TProjection>>)
+  type: Method
+  source:
+    id: Option
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 213
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an option for this update command (use multiple times if needed)\n<p>TIP: Setting options is not required</p>\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Option(Action<FindOneAndUpdateOptions<T, TProjection>> option)
+    parameters:
+    - id: option
+      type: System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{TProjection}}}
+      description: x => x.OptionName = OptionValue
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Option(option As Action(Of FindOneAndUpdateOptions(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Option*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Option(System.Action(Of MongoDB.Driver.FindOneAndUpdateOptions(Of T, TProjection)))
+  name.vb: Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
+- uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  id: Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Project(Expression<Func<T, TProjection>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Project(Expression<Func<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(System.Linq.Expressions.Expression<System.Func<T, TProjection>>)
+  type: Method
+  source:
+    id: Project
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 223
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify how to project the results using a lambda expression\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
+      description: x => new Test { PropName = x.Prop }
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Project*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Linq.Expressions.Expression(Of System.Func(Of T, TProjection)))
+  name.vb: Project(Expression(Of Func(Of T, TProjection)))
+- uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  id: Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
+  nameWithType: UpdateAndGet<T, TProjection>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>)
+  type: Method
+  source:
+    id: Project
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 232
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify how to project the results using a projection expression\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
+    parameters:
+    - id: projection
+      type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
+      description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.Project*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
+  name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  id: ExecuteAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(CancellationToken)
+  nameWithType: UpdateAndGet<T, TProjection>.ExecuteAsync(CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecuteAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecuteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 242
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the update command in MongoDB and retrieve the first document modified\n"
+  example: []
+  syntax:
+    content: public Task<TProjection> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{{TProjection}}
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecuteAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecuteAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  id: ExecutePipelineAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: ExecutePipelineAsync(CancellationToken)
+  nameWithType: UpdateAndGet<T, TProjection>.ExecutePipelineAsync(CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecutePipelineAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecutePipelineAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 256
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the update command with pipeline stages and retrieve the first document modified\n"
+  example: []
+  syntax:
+    content: public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{{TProjection}}
+    content.vb: Public Function ExecutePipelineAsync(cancellation As CancellationToken = Nothing) As Task(Of TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecutePipelineAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync(System.Threading.CancellationToken)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchID*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.MatchID
+  name: MatchID
+  nameWithType: UpdateAndGet<T, TProjection>.MatchID
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchID
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchID
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchID
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.UpdateAndGet`2
+  commentId: T:MongoDB.Entities.UpdateAndGet`2
+  parent: MongoDB.Entities
+  name: UpdateAndGet<T, TProjection>
+  nameWithType: UpdateAndGet<T, TProjection>
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
+  nameWithType.vb: UpdateAndGet(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
+  name.vb: UpdateAndGet(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.Match*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.Match
+  name: Match
+  nameWithType: UpdateAndGet<T, TProjection>.Match
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Boolean>>
+  nameWithType: Expression<Func<T, Boolean>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
+  nameWithType.vb: Expression(Of Func(Of T, Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
+  name.vb: Expression(Of Func(Of T, Boolean))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+- uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
+  nameWithType.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Template
+  commentId: T:MongoDB.Entities.Template
+  parent: MongoDB.Entities
+  name: Template
+  nameWithType: Template
+  fullName: MongoDB.Entities.Template
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.Modify
+  name: Modify
+  nameWithType: UpdateAndGet<T, TProjection>.Modify
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify
+- uid: System.Linq.Expressions.Expression{System.Func{{T},{TProp}}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,``0}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, TProp>>
+  nameWithType: Expression<Func<T, TProp>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, TProp>>
+  nameWithType.vb: Expression(Of Func(Of T, TProp))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, TProp))
+  name.vb: Expression(Of Func(Of T, TProp))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: '{TProp}'
+  commentId: '!:TProp'
+  definition: TProp
+  name: TProp
+  nameWithType: TProp
+  fullName: TProp
+- uid: TProp
+  name: TProp
+  nameWithType: TProp
+  fullName: TProp
+- uid: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>
+  nameWithType: Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>
+  nameWithType.vb: Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T))
+  name.vb: Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.WithPipeline*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.WithPipeline
+  name: WithPipeline
+  nameWithType: UpdateAndGet<T, TProjection>.WithPipeline
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithPipeline
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipeline
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithPipeline
+- uid: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.WithPipelineStage
+  name: WithPipelineStage
+  nameWithType: UpdateAndGet<T, TProjection>.WithPipelineStage
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithPipelineStage
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipelineStage
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithPipelineStage
+- uid: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.WithArrayFilter
+  name: WithArrayFilter
+  nameWithType: UpdateAndGet<T, TProjection>.WithArrayFilter
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithArrayFilter
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilter
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithArrayFilter
+- uid: MongoDB.Entities.UpdateAndGet`2.WithArrayFilters*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.WithArrayFilters
+  name: WithArrayFilters
+  nameWithType: UpdateAndGet<T, TProjection>.WithArrayFilters
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.WithArrayFilters
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilters
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).WithArrayFilters
+- uid: MongoDB.Entities.UpdateAndGet`2.Option*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.Option
+  name: Option
+  nameWithType: UpdateAndGet<T, TProjection>.Option
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Option
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Option
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Option
+- uid: System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{TProjection}}}
+  commentId: T:System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}}
+  parent: System
+  definition: System.Action`1
+  name: Action<FindOneAndUpdateOptions<T, TProjection>>
+  nameWithType: Action<FindOneAndUpdateOptions<T, TProjection>>
+  fullName: System.Action<MongoDB.Driver.FindOneAndUpdateOptions<T, TProjection>>
+  nameWithType.vb: Action(Of FindOneAndUpdateOptions(Of T, TProjection))
+  fullName.vb: System.Action(Of MongoDB.Driver.FindOneAndUpdateOptions(Of T, TProjection))
+  name.vb: Action(Of FindOneAndUpdateOptions(Of T, TProjection))
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+    name: FindOneAndUpdateOptions
+    nameWithType: FindOneAndUpdateOptions
+    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+    name: FindOneAndUpdateOptions
+    nameWithType: FindOneAndUpdateOptions
+    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.Project*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.Project
+  name: Project
+  nameWithType: UpdateAndGet<T, TProjection>.Project
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Project
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project
+- uid: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,`1}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, TProjection>>
+  nameWithType: Expression<Func<T, TProjection>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, TProjection>>
+  nameWithType.vb: Expression(Of Func(Of T, TProjection))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, TProjection))
+  name.vb: Expression(Of Func(Of T, TProjection))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
+  commentId: T:System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}}
+  parent: System
+  definition: System.Func`2
+  name: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
+  nameWithType: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>
+  fullName: System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>
+  nameWithType.vb: Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))
+  fullName.vb: System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection))
+  name.vb: Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+    name: ProjectionDefinitionBuilder
+    nameWithType: ProjectionDefinitionBuilder
+    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.ProjectionDefinition`2
+    name: ProjectionDefinition
+    nameWithType: ProjectionDefinition
+    fullName: MongoDB.Driver.ProjectionDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+    name: ProjectionDefinitionBuilder
+    nameWithType: ProjectionDefinitionBuilder
+    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.ProjectionDefinition`2
+    name: ProjectionDefinition
+    nameWithType: ProjectionDefinition
+    fullName: MongoDB.Driver.ProjectionDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: UpdateAndGet<T, TProjection>.ExecuteAsync
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecuteAsync
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecuteAsync
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecuteAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{{TProjection}}
+  commentId: T:System.Threading.Tasks.Task{`1}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<TProjection>
+  nameWithType: Task<TProjection>
+  fullName: System.Threading.Tasks.Task<TProjection>
+  nameWithType.vb: Task(Of TProjection)
+  fullName.vb: System.Threading.Tasks.Task(Of TProjection)
+  name.vb: Task(Of TProjection)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync
+  name: ExecutePipelineAsync
+  nameWithType: UpdateAndGet<T, TProjection>.ExecutePipelineAsync
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecutePipelineAsync
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecutePipelineAsync
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync

@@ -1,0 +1,100 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Order
+  commentId: T:MongoDB.Entities.Order
+  id: Order
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Order.Ascending
+  - MongoDB.Entities.Order.Descending
+  langs:
+  - csharp
+  - vb
+  name: Order
+  nameWithType: Order
+  fullName: MongoDB.Entities.Order
+  type: Enum
+  source:
+    id: Order
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 390
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public enum Order
+    content.vb: Public Enum Order
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: MongoDB.Entities.Order.Ascending
+  commentId: F:MongoDB.Entities.Order.Ascending
+  id: Ascending
+  parent: MongoDB.Entities.Order
+  langs:
+  - csharp
+  - vb
+  name: Ascending
+  nameWithType: Order.Ascending
+  fullName: MongoDB.Entities.Order.Ascending
+  type: Field
+  source:
+    id: Ascending
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 392
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Ascending = 0
+    return:
+      type: MongoDB.Entities.Order
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.Order.Descending
+  commentId: F:MongoDB.Entities.Order.Descending
+  id: Descending
+  parent: MongoDB.Entities.Order
+  langs:
+  - csharp
+  - vb
+  name: Descending
+  nameWithType: Order.Descending
+  fullName: MongoDB.Entities.Order.Descending
+  type: Field
+  source:
+    id: Descending
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 393
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Descending = 1
+    return:
+      type: MongoDB.Entities.Order
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.Order
+  commentId: T:MongoDB.Entities.Order
+  parent: MongoDB.Entities
+  name: Order
+  nameWithType: Order
+  fullName: MongoDB.Entities.Order

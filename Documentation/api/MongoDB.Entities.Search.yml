@@ -1,0 +1,100 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Search
+  commentId: T:MongoDB.Entities.Search
+  id: Search
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Search.Full
+  - MongoDB.Entities.Search.Fuzzy
+  langs:
+  - csharp
+  - vb
+  name: Search
+  nameWithType: Search
+  fullName: MongoDB.Entities.Search
+  type: Enum
+  source:
+    id: Search
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 396
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public enum Search
+    content.vb: Public Enum Search
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: MongoDB.Entities.Search.Fuzzy
+  commentId: F:MongoDB.Entities.Search.Fuzzy
+  id: Fuzzy
+  parent: MongoDB.Entities.Search
+  langs:
+  - csharp
+  - vb
+  name: Fuzzy
+  nameWithType: Search.Fuzzy
+  fullName: MongoDB.Entities.Search.Fuzzy
+  type: Field
+  source:
+    id: Fuzzy
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 398
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Fuzzy = 0
+    return:
+      type: MongoDB.Entities.Search
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: MongoDB.Entities.Search.Full
+  commentId: F:MongoDB.Entities.Search.Full
+  id: Full
+  parent: MongoDB.Entities.Search
+  langs:
+  - csharp
+  - vb
+  name: Full
+  nameWithType: Search.Full
+  fullName: MongoDB.Entities.Search.Full
+  type: Field
+  source:
+    id: Full
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 399
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Full = 1
+    return:
+      type: MongoDB.Entities.Search
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.Search
+  commentId: T:MongoDB.Entities.Search
+  parent: MongoDB.Entities
+  name: Search
+  nameWithType: Search
+  fullName: MongoDB.Entities.Search

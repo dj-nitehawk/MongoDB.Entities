@@ -1,0 +1,961 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Index`1
+  commentId: T:MongoDB.Entities.Index`1
+  id: Index`1
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
+  - MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
+  - MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
+  langs:
+  - csharp
+  - vb
+  name: Index<T>
+  nameWithType: Index<T>
+  fullName: MongoDB.Entities.Index<T>
+  type: Class
+  source:
+    id: Index
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 15
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents an index creation command\n<p>TIP: Define the keys first with .Key() method and finally call the .Create() method.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public class Index<T>
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    content.vb: Public Class Index(Of T As IEntity)
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  nameWithType.vb: Index(Of T)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+  fullName.vb: MongoDB.Entities.Index(Of T)
+  name.vb: Index(Of T)
+- uid: MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Index`1.CreateAsync(System.Threading.CancellationToken)
+  id: CreateAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: CreateAsync(CancellationToken)
+  nameWithType: Index<T>.CreateAsync(CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.CreateAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: CreateAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 25
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCall this method to finalize defining the index after setting the index keys and options.\n"
+  example: []
+  syntax:
+    content: public Task<string> CreateAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{System.String}
+      description: The name of the created index
+    content.vb: Public Function CreateAsync(cancellation As CancellationToken = Nothing) As Task(Of String)
+  overload: MongoDB.Entities.Index`1.CreateAsync*
+  nameWithType.vb: Index(Of T).CreateAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Index(Of T).CreateAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
+  commentId: M:MongoDB.Entities.Index`1.Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
+  id: Option(System.Action{MongoDB.Driver.CreateIndexOptions{`0}})
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: Option(Action<CreateIndexOptions<T>>)
+  nameWithType: Index<T>.Option(Action<CreateIndexOptions<T>>)
+  fullName: MongoDB.Entities.Index<T>.Option(System.Action<MongoDB.Driver.CreateIndexOptions<T>>)
+  type: Method
+  source:
+    id: Option
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 101
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSet the options for this index definition\n<p>TIP: Setting options is not required.</p>\n"
+  example: []
+  syntax:
+    content: public Index<T> Option(Action<CreateIndexOptions<T>> option)
+    parameters:
+    - id: option
+      type: System.Action{MongoDB.Driver.CreateIndexOptions{{T}}}
+      description: x => x.OptionName = OptionValue
+    return:
+      type: MongoDB.Entities.Index`1
+    content.vb: Public Function Option(option As Action(Of CreateIndexOptions(Of T))) As Index(Of T)
+  overload: MongoDB.Entities.Index`1.Option*
+  nameWithType.vb: Index(Of T).Option(Action(Of CreateIndexOptions(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Index(Of T).Option(System.Action(Of MongoDB.Driver.CreateIndexOptions(Of T)))
+  name.vb: Option(Action(Of CreateIndexOptions(Of T)))
+- uid: MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
+  commentId: M:MongoDB.Entities.Index`1.Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
+  id: Key(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.KeyType)
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: Key(Expression<Func<T, Object>>, KeyType)
+  nameWithType: Index<T>.Key(Expression<Func<T, Object>>, KeyType)
+  fullName: MongoDB.Entities.Index<T>.Key(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.KeyType)
+  type: Method
+  source:
+    id: Key
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 113
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAdds a key definition to the index\n<p>TIP: At least one key definition is required</p>\n"
+  example: []
+  syntax:
+    content: public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
+    parameters:
+    - id: propertyToIndex
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => x.PropertyName
+    - id: type
+      type: MongoDB.Entities.KeyType
+      description: The type of the key
+    return:
+      type: MongoDB.Entities.Index`1
+    content.vb: Public Function Key(propertyToIndex As Expression(Of Func(Of T, Object)), type As KeyType) As Index(Of T)
+  overload: MongoDB.Entities.Index`1.Key*
+  nameWithType.vb: Index(Of T).Key(Expression(Of Func(Of T, Object)), KeyType)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Index(Of T).Key(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.KeyType)
+  name.vb: Key(Expression(Of Func(Of T, Object)), KeyType)
+- uid: MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Index`1.DropAsync(System.String,System.Threading.CancellationToken)
+  id: DropAsync(System.String,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: DropAsync(String, CancellationToken)
+  nameWithType: Index<T>.DropAsync(String, CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.DropAsync(System.String, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: DropAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 124
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDrops an index by name for this entity type\n"
+  example: []
+  syntax:
+    content: public Task DropAsync(string name, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: name
+      type: System.String
+      description: The name of the index to drop
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function DropAsync(name As String, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Index`1.DropAsync*
+  nameWithType.vb: Index(Of T).DropAsync(String, CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync(System.String, System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Index`1.DropAllAsync(System.Threading.CancellationToken)
+  id: DropAllAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Index`1
+  langs:
+  - csharp
+  - vb
+  name: DropAllAsync(CancellationToken)
+  nameWithType: Index<T>.DropAllAsync(CancellationToken)
+  fullName: MongoDB.Entities.Index<T>.DropAllAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: DropAllAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    startLine: 133
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDrops all indexes for this entity type\n"
+  example: []
+  syntax:
+    content: public Task DropAllAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function DropAllAsync(cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Index`1.DropAllAsync*
+  nameWithType.vb: Index(Of T).DropAllAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAllAsync(System.Threading.CancellationToken)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Index`1.CreateAsync*
+  commentId: Overload:MongoDB.Entities.Index`1.CreateAsync
+  name: CreateAsync
+  nameWithType: Index<T>.CreateAsync
+  fullName: MongoDB.Entities.Index<T>.CreateAsync
+  nameWithType.vb: Index(Of T).CreateAsync
+  fullName.vb: MongoDB.Entities.Index(Of T).CreateAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{System.String}
+  commentId: T:System.Threading.Tasks.Task{System.String}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<String>
+  nameWithType: Task<String>
+  fullName: System.Threading.Tasks.Task<System.String>
+  nameWithType.vb: Task(Of String)
+  fullName.vb: System.Threading.Tasks.Task(Of System.String)
+  name.vb: Task(Of String)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: MongoDB.Entities.Index`1.Option*
+  commentId: Overload:MongoDB.Entities.Index`1.Option
+  name: Option
+  nameWithType: Index<T>.Option
+  fullName: MongoDB.Entities.Index<T>.Option
+  nameWithType.vb: Index(Of T).Option
+  fullName.vb: MongoDB.Entities.Index(Of T).Option
+- uid: System.Action{MongoDB.Driver.CreateIndexOptions{{T}}}
+  commentId: T:System.Action{MongoDB.Driver.CreateIndexOptions{`0}}
+  parent: System
+  definition: System.Action`1
+  name: Action<CreateIndexOptions<T>>
+  nameWithType: Action<CreateIndexOptions<T>>
+  fullName: System.Action<MongoDB.Driver.CreateIndexOptions<T>>
+  nameWithType.vb: Action(Of CreateIndexOptions(Of T))
+  fullName.vb: System.Action(Of MongoDB.Driver.CreateIndexOptions(Of T))
+  name.vb: Action(Of CreateIndexOptions(Of T))
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.CreateIndexOptions`1
+    name: CreateIndexOptions
+    nameWithType: CreateIndexOptions
+    fullName: MongoDB.Driver.CreateIndexOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.CreateIndexOptions`1
+    name: CreateIndexOptions
+    nameWithType: CreateIndexOptions
+    fullName: MongoDB.Driver.CreateIndexOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Index`1
+  commentId: T:MongoDB.Entities.Index`1
+  parent: MongoDB.Entities
+  name: Index<T>
+  nameWithType: Index<T>
+  fullName: MongoDB.Entities.Index<T>
+  nameWithType.vb: Index(Of T)
+  fullName.vb: MongoDB.Entities.Index(Of T)
+  name.vb: Index(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Index`1
+    name: Index
+    nameWithType: Index
+    fullName: MongoDB.Entities.Index
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Index`1
+    name: Index
+    nameWithType: Index
+    fullName: MongoDB.Entities.Index
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Index`1.Key*
+  commentId: Overload:MongoDB.Entities.Index`1.Key
+  name: Key
+  nameWithType: Index<T>.Key
+  fullName: MongoDB.Entities.Index<T>.Key
+  nameWithType.vb: Index(Of T).Key
+  fullName.vb: MongoDB.Entities.Index(Of T).Key
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Object>>
+  nameWithType: Expression<Func<T, Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  nameWithType.vb: Expression(Of Func(Of T, Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  name.vb: Expression(Of Func(Of T, Object))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.KeyType
+  commentId: T:MongoDB.Entities.KeyType
+  parent: MongoDB.Entities
+  name: KeyType
+  nameWithType: KeyType
+  fullName: MongoDB.Entities.KeyType
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+- uid: MongoDB.Entities.Index`1.DropAsync*
+  commentId: Overload:MongoDB.Entities.Index`1.DropAsync
+  name: DropAsync
+  nameWithType: Index<T>.DropAsync
+  fullName: MongoDB.Entities.Index<T>.DropAsync
+  nameWithType.vb: Index(Of T).DropAsync
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: MongoDB.Entities.Index`1.DropAllAsync*
+  commentId: Overload:MongoDB.Entities.Index`1.DropAllAsync
+  name: DropAllAsync
+  nameWithType: Index<T>.DropAllAsync
+  fullName: MongoDB.Entities.Index<T>.DropAllAsync
+  nameWithType.vb: Index(Of T).DropAllAsync
+  fullName.vb: MongoDB.Entities.Index(Of T).DropAllAsync

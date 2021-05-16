@@ -1,0 +1,81 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.IMigration
+  commentId: T:MongoDB.Entities.IMigration
+  id: IMigration
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.IMigration.UpgradeAsync
+  langs:
+  - csharp
+  - vb
+  name: IMigration
+  nameWithType: IMigration
+  fullName: MongoDB.Entities.IMigration
+  type: Interface
+  source:
+    id: IMigration
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Migrations\IMigration.cs
+    startLine: 7
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThe contract for writing user data migration classes\n"
+  example: []
+  syntax:
+    content: public interface IMigration
+    content.vb: Public Interface IMigration
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: MongoDB.Entities.IMigration.UpgradeAsync
+  commentId: M:MongoDB.Entities.IMigration.UpgradeAsync
+  id: UpgradeAsync
+  parent: MongoDB.Entities.IMigration
+  langs:
+  - csharp
+  - vb
+  name: UpgradeAsync()
+  nameWithType: IMigration.UpgradeAsync()
+  fullName: MongoDB.Entities.IMigration.UpgradeAsync()
+  type: Method
+  source:
+    id: UpgradeAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Migrations\IMigration.cs
+    startLine: 9
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: Task UpgradeAsync()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Function UpgradeAsync As Task
+  overload: MongoDB.Entities.IMigration.UpgradeAsync*
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.IMigration.UpgradeAsync*
+  commentId: Overload:MongoDB.Entities.IMigration.UpgradeAsync
+  name: UpgradeAsync
+  nameWithType: IMigration.UpgradeAsync
+  fullName: MongoDB.Entities.IMigration.UpgradeAsync
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

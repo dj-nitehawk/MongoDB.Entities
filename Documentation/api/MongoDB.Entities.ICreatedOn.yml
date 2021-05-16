@@ -1,0 +1,87 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.ICreatedOn
+  commentId: T:MongoDB.Entities.ICreatedOn
+  id: ICreatedOn
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.ICreatedOn.CreatedOn
+  langs:
+  - csharp
+  - vb
+  name: ICreatedOn
+  nameWithType: ICreatedOn
+  fullName: MongoDB.Entities.ICreatedOn
+  type: Interface
+  source:
+    id: ICreatedOn
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\ICreatedOn.cs
+    startLine: 7
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nImplement this interface on entities you want the library to automatically store the creation date with\n"
+  example: []
+  syntax:
+    content: public interface ICreatedOn
+    content.vb: Public Interface ICreatedOn
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: MongoDB.Entities.ICreatedOn.CreatedOn
+  commentId: P:MongoDB.Entities.ICreatedOn.CreatedOn
+  id: CreatedOn
+  parent: MongoDB.Entities.ICreatedOn
+  langs:
+  - csharp
+  - vb
+  name: CreatedOn
+  nameWithType: ICreatedOn.CreatedOn
+  fullName: MongoDB.Entities.ICreatedOn.CreatedOn
+  type: Property
+  source:
+    id: CreatedOn
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\ICreatedOn.cs
+    startLine: 13
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThis property will be automatically set by the library when an entity is created.\n<p>TIP: This property is useful when sorting by creation date.</p>\n"
+  example: []
+  syntax:
+    content: DateTime CreatedOn { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Property CreatedOn As Date
+  overload: MongoDB.Entities.ICreatedOn.CreatedOn*
+  modifiers.csharp:
+  - get
+  - set
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: MongoDB.Entities.ICreatedOn.CreatedOn*
+  commentId: Overload:MongoDB.Entities.ICreatedOn.CreatedOn
+  name: CreatedOn
+  nameWithType: ICreatedOn.CreatedOn
+  fullName: MongoDB.Entities.ICreatedOn.CreatedOn
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System

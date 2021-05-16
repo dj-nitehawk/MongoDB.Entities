@@ -1,0 +1,685 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Coordinates2D
+  commentId: T:MongoDB.Entities.Coordinates2D
+  id: Coordinates2D
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
+  - MongoDB.Entities.Coordinates2D.Coordinates
+  - MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double,System.Double)
+  - MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
+  - MongoDB.Entities.Coordinates2D.Type
+  langs:
+  - csharp
+  - vb
+  name: Coordinates2D
+  nameWithType: Coordinates2D
+  fullName: MongoDB.Entities.Coordinates2D
+  type: Class
+  source:
+    id: Coordinates2D
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 10
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents a 2D geographical coordinate consisting of longitude and latitude\n"
+  example: []
+  syntax:
+    content: public class Coordinates2D
+    content.vb: Public Class Coordinates2D
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: MongoDB.Entities.Coordinates2D.Type
+  commentId: P:MongoDB.Entities.Coordinates2D.Type
+  id: Type
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: Type
+  nameWithType: Coordinates2D.Type
+  fullName: MongoDB.Entities.Coordinates2D.Type
+  type: Property
+  source:
+    id: Type
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 12
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: >-
+      [BsonElement("type")]
+
+      public string Type { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: >-
+      <BsonElement("type")>
+
+      Public Property Type As String
+  overload: MongoDB.Entities.Coordinates2D.Type*
+  attributes:
+  - type: MongoDB.Bson.Serialization.Attributes.BsonElementAttribute
+    ctor: MongoDB.Bson.Serialization.Attributes.BsonElementAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: type
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Coordinates2D.Coordinates
+  commentId: P:MongoDB.Entities.Coordinates2D.Coordinates
+  id: Coordinates
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: Coordinates
+  nameWithType: Coordinates2D.Coordinates
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates
+  type: Property
+  source:
+    id: Coordinates
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 15
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: >-
+      [BsonElement("coordinates")]
+
+      public double[] Coordinates { get; set; }
+    parameters: []
+    return:
+      type: System.Double[]
+    content.vb: >-
+      <BsonElement("coordinates")>
+
+      Public Property Coordinates As Double()
+  overload: MongoDB.Entities.Coordinates2D.Coordinates*
+  attributes:
+  - type: MongoDB.Bson.Serialization.Attributes.BsonElementAttribute
+    ctor: MongoDB.Bson.Serialization.Attributes.BsonElementAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: coordinates
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
+  commentId: M:MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
+  id: '#ctor(System.Double,System.Double)'
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: Coordinates2D(Double, Double)
+  nameWithType: Coordinates2D.Coordinates2D(Double, Double)
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates2D(System.Double, System.Double)
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 21
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInstantiate a new Coordinates2D instance with the supplied longtitude and latitude\n"
+  example: []
+  syntax:
+    content: public Coordinates2D(double longitude, double latitude)
+    parameters:
+    - id: longitude
+      type: System.Double
+    - id: latitude
+      type: System.Double
+    content.vb: Public Sub New(longitude As Double, latitude As Double)
+  overload: MongoDB.Entities.Coordinates2D.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
+  commentId: M:MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
+  id: ToGeoJsonPoint
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: ToGeoJsonPoint()
+  nameWithType: Coordinates2D.ToGeoJsonPoint()
+  fullName: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint()
+  type: Method
+  source:
+    id: ToGeoJsonPoint
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 30
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nConverts a Coordinates2D instance to a GeoJsonPoint of GeoJson2DGeographicCoordinates \n"
+  example: []
+  syntax:
+    content: public GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint()
+    return:
+      type: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint{MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates}
+    content.vb: Public Function ToGeoJsonPoint As GeoJsonPoint(Of GeoJson2DGeographicCoordinates)
+  overload: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double,System.Double)
+  commentId: M:MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double,System.Double)
+  id: GeoJsonPoint(System.Double,System.Double)
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: GeoJsonPoint(Double, Double)
+  nameWithType: Coordinates2D.GeoJsonPoint(Double, Double)
+  fullName: MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double, System.Double)
+  type: Method
+  source:
+    id: GeoJsonPoint
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 38
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCreate a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude\n"
+  example: []
+  syntax:
+    content: public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
+    parameters:
+    - id: longitude
+      type: System.Double
+    - id: latitude
+      type: System.Double
+    return:
+      type: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint{MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates}
+    content.vb: Public Shared Function GeoJsonPoint(longitude As Double, latitude As Double) As GeoJsonPoint(Of GeoJson2DGeographicCoordinates)
+  overload: MongoDB.Entities.Coordinates2D.GeoJsonPoint*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Coordinates2D.Type*
+  commentId: Overload:MongoDB.Entities.Coordinates2D.Type
+  name: Type
+  nameWithType: Coordinates2D.Type
+  fullName: MongoDB.Entities.Coordinates2D.Type
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.Coordinates2D.Coordinates*
+  commentId: Overload:MongoDB.Entities.Coordinates2D.Coordinates
+  name: Coordinates
+  nameWithType: Coordinates2D.Coordinates
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates
+- uid: System.Double[]
+  isExternal: true
+  name: Double[]
+  nameWithType: Double[]
+  fullName: System.Double[]
+  nameWithType.vb: Double()
+  fullName.vb: System.Double()
+  name.vb: Double()
+  spec.csharp:
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: MongoDB.Entities.Coordinates2D.#ctor*
+  commentId: Overload:MongoDB.Entities.Coordinates2D.#ctor
+  name: Coordinates2D
+  nameWithType: Coordinates2D.Coordinates2D
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates2D
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  name: Double
+  nameWithType: Double
+  fullName: System.Double
+- uid: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint*
+  commentId: Overload:MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
+  name: ToGeoJsonPoint
+  nameWithType: Coordinates2D.ToGeoJsonPoint
+  fullName: MongoDB.Entities.Coordinates2D.ToGeoJsonPoint
+- uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint{MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates}
+  commentId: T:MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint{MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates}
+  parent: MongoDB.Driver.GeoJsonObjectModel
+  definition: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+  name: GeoJsonPoint<GeoJson2DGeographicCoordinates>
+  nameWithType: GeoJsonPoint<GeoJson2DGeographicCoordinates>
+  fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint<MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates>
+  nameWithType.vb: GeoJsonPoint(Of GeoJson2DGeographicCoordinates)
+  fullName.vb: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint(Of MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates)
+  name.vb: GeoJsonPoint(Of GeoJson2DGeographicCoordinates)
+  spec.csharp:
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+    name: GeoJsonPoint
+    nameWithType: GeoJsonPoint
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates
+    name: GeoJson2DGeographicCoordinates
+    nameWithType: GeoJson2DGeographicCoordinates
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+    name: GeoJsonPoint
+    nameWithType: GeoJsonPoint
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates
+    name: GeoJson2DGeographicCoordinates
+    nameWithType: GeoJson2DGeographicCoordinates
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJson2DGeographicCoordinates
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+  commentId: T:MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+  isExternal: true
+  name: GeoJsonPoint<TCoordinates>
+  nameWithType: GeoJsonPoint<TCoordinates>
+  fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint<TCoordinates>
+  nameWithType.vb: GeoJsonPoint(Of TCoordinates)
+  fullName.vb: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint(Of TCoordinates)
+  name.vb: GeoJsonPoint(Of TCoordinates)
+  spec.csharp:
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+    name: GeoJsonPoint
+    nameWithType: GeoJsonPoint
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCoordinates
+    nameWithType: TCoordinates
+    fullName: TCoordinates
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint`1
+    name: GeoJsonPoint
+    nameWithType: GeoJsonPoint
+    fullName: MongoDB.Driver.GeoJsonObjectModel.GeoJsonPoint
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCoordinates
+    nameWithType: TCoordinates
+    fullName: TCoordinates
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.GeoJsonObjectModel
+  commentId: N:MongoDB.Driver.GeoJsonObjectModel
+  isExternal: true
+  name: MongoDB.Driver.GeoJsonObjectModel
+  nameWithType: MongoDB.Driver.GeoJsonObjectModel
+  fullName: MongoDB.Driver.GeoJsonObjectModel
+- uid: MongoDB.Entities.Coordinates2D.GeoJsonPoint*
+  commentId: Overload:MongoDB.Entities.Coordinates2D.GeoJsonPoint
+  name: GeoJsonPoint
+  nameWithType: Coordinates2D.GeoJsonPoint
+  fullName: MongoDB.Entities.Coordinates2D.GeoJsonPoint

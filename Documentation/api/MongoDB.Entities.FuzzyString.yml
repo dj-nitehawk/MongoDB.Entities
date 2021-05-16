@@ -1,0 +1,518 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.FuzzyString
+  commentId: T:MongoDB.Entities.FuzzyString
+  id: FuzzyString
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.FuzzyString.CharacterLimit
+  - MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
+  - MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
+  - MongoDB.Entities.FuzzyString.Value
+  langs:
+  - csharp
+  - vb
+  name: FuzzyString
+  nameWithType: FuzzyString
+  fullName: MongoDB.Entities.FuzzyString
+  type: Class
+  source:
+    id: FuzzyString
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
+    startLine: 85
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nUse this type to store strings if you need fuzzy text searching with MongoDB\n<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance. \nIf you exceed the default limit, an exception will be thrown. \nYou can increase the limit by sacrificing performance/resource utilization by setting the static property \n<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>\n"
+  example: []
+  syntax:
+    content: public class FuzzyString
+    content.vb: Public Class FuzzyString
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: MongoDB.Entities.FuzzyString.CharacterLimit
+  commentId: P:MongoDB.Entities.FuzzyString.CharacterLimit
+  id: CharacterLimit
+  parent: MongoDB.Entities.FuzzyString
+  langs:
+  - csharp
+  - vb
+  name: CharacterLimit
+  nameWithType: FuzzyString.CharacterLimit
+  fullName: MongoDB.Entities.FuzzyString.CharacterLimit
+  type: Property
+  source:
+    id: CharacterLimit
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
+    startLine: 87
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public static int CharacterLimit { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Shared Property CharacterLimit As Integer
+  overload: MongoDB.Entities.FuzzyString.CharacterLimit*
+  modifiers.csharp:
+  - public
+  - static
+  - get
+  - set
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: MongoDB.Entities.FuzzyString.Value
+  commentId: P:MongoDB.Entities.FuzzyString.Value
+  id: Value
+  parent: MongoDB.Entities.FuzzyString
+  langs:
+  - csharp
+  - vb
+  name: Value
+  nameWithType: FuzzyString.Value
+  fullName: MongoDB.Entities.FuzzyString.Value
+  type: Property
+  source:
+    id: Value
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
+    startLine: 89
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public string Value { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Value As String
+  overload: MongoDB.Entities.FuzzyString.Value*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
+  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
+  id: op_Implicit(System.String)~MongoDB.Entities.FuzzyString
+  parent: MongoDB.Entities.FuzzyString
+  langs:
+  - csharp
+  - vb
+  name: Implicit(String to FuzzyString)
+  nameWithType: FuzzyString.Implicit(String to FuzzyString)
+  fullName: MongoDB.Entities.FuzzyString.Implicit(System.String to MongoDB.Entities.FuzzyString)
+  type: Operator
+  source:
+    id: op_Implicit
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
+    startLine: 91
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public static implicit operator FuzzyString(string value)
+    parameters:
+    - id: value
+      type: System.String
+    return:
+      type: MongoDB.Entities.FuzzyString
+    content.vb: Public Shared Widening Operator CType(value As String) As FuzzyString
+  overload: MongoDB.Entities.FuzzyString.op_Implicit*
+  nameWithType.vb: FuzzyString.Widening(String to FuzzyString)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.FuzzyString.Widening(System.String to MongoDB.Entities.FuzzyString)
+  name.vb: Widening(String to FuzzyString)
+- uid: MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
+  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
+  id: op_Implicit(MongoDB.Entities.FuzzyString)~System.String
+  parent: MongoDB.Entities.FuzzyString
+  langs:
+  - csharp
+  - vb
+  name: Implicit(FuzzyString to String)
+  nameWithType: FuzzyString.Implicit(FuzzyString to String)
+  fullName: MongoDB.Entities.FuzzyString.Implicit(MongoDB.Entities.FuzzyString to System.String)
+  type: Operator
+  source:
+    id: op_Implicit
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
+    startLine: 96
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public static implicit operator string (FuzzyString fuzzyString)
+    parameters:
+    - id: fuzzyString
+      type: MongoDB.Entities.FuzzyString
+    return:
+      type: System.String
+    content.vb: Public Shared Widening Operator CType(fuzzyString As FuzzyString) As String
+  overload: MongoDB.Entities.FuzzyString.op_Implicit*
+  nameWithType.vb: FuzzyString.Widening(FuzzyString to String)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.FuzzyString.Widening(MongoDB.Entities.FuzzyString to System.String)
+  name.vb: Widening(FuzzyString to String)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.FuzzyString.CharacterLimit*
+  commentId: Overload:MongoDB.Entities.FuzzyString.CharacterLimit
+  name: CharacterLimit
+  nameWithType: FuzzyString.CharacterLimit
+  fullName: MongoDB.Entities.FuzzyString.CharacterLimit
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: MongoDB.Entities.FuzzyString.Value*
+  commentId: Overload:MongoDB.Entities.FuzzyString.Value
+  name: Value
+  nameWithType: FuzzyString.Value
+  fullName: MongoDB.Entities.FuzzyString.Value
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.FuzzyString.op_Implicit*
+  commentId: Overload:MongoDB.Entities.FuzzyString.op_Implicit
+  name: Implicit
+  nameWithType: FuzzyString.Implicit
+  fullName: MongoDB.Entities.FuzzyString.Implicit
+  nameWithType.vb: FuzzyString.Widening
+  fullName.vb: MongoDB.Entities.FuzzyString.Widening
+  name.vb: Widening
+- uid: MongoDB.Entities.FuzzyString
+  commentId: T:MongoDB.Entities.FuzzyString
+  parent: MongoDB.Entities
+  name: FuzzyString
+  nameWithType: FuzzyString
+  fullName: MongoDB.Entities.FuzzyString
