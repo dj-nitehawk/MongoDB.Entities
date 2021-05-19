@@ -44,7 +44,6 @@ items:
   syntax:
     content: >-
       public class UpdateAndGet<T, TProjection>
-
           where T : IEntity
     typeParameters:
     - id: T

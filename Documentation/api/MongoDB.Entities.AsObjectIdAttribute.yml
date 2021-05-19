@@ -31,9 +31,7 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class AsObjectIdAttribute
-
           Inherits BsonSerializerAttribute
-
           Implements IBsonMemberMapAttribute
   inheritance:
   - System.Object

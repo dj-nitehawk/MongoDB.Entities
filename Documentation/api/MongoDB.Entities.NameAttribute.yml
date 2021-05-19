@@ -32,7 +32,6 @@ items:
       <AttributeUsage(AttributeTargets.Class, AllowMultiple:=False)>
 
       Public Class NameAttribute
-
           Inherits Attribute
   inheritance:
   - System.Object
