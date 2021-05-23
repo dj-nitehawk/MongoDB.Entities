@@ -406,7 +406,7 @@ namespace MongoDB.Entities
         /// Pings the mongodb server to check if it's still connectable
         /// </summary>
         /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
-        public async static Task<bool> IsAccessibleAsync(this IMongoDatabase db, int timeoutSeconds = 5)
+        public static async Task<bool> IsAccessibleAsync(this IMongoDatabase db, int timeoutSeconds = 5)
         {
             using (var cts = new CancellationTokenSource(timeoutSeconds * 1000))
             {
@@ -426,7 +426,7 @@ namespace MongoDB.Entities
         /// Checks to see if the database already exists on the mongodb server
         /// </summary>
         /// <param name="timeoutSeconds">The number of seconds to keep trying</param>
-        public async static Task<bool> ExistsAsync(this IMongoDatabase db, int timeoutSeconds = 5)
+        public static async Task<bool> ExistsAsync(this IMongoDatabase db, int timeoutSeconds = 5)
         {
             using (var cts = new CancellationTokenSource(timeoutSeconds * 1000))
             {

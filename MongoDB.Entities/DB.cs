@@ -90,6 +90,28 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Gets a list of all database names from the server
+        /// </summary>
+        /// <param name="host">Address of the MongoDB server</param>
+        /// <param name="port">Port number of the server</param>
+        public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
+        {
+            return AllDatabaseNamesAsync(new MongoClientSettings { Server = new MongoServerAddress(host, port) });
+        }
+
+        /// <summary>
+        /// Gets a list of all database names from the server
+        /// </summary>
+        /// <param name="settings">A MongoClientSettings object</param>
+        public static async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
+        {
+            return await (await
+                new MongoClient(settings)
+                .ListDatabaseNamesAsync().ConfigureAwait(false))
+                .ToListAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Specifies the database that a given entity type should be stored in. 
         /// Only needed for entity types you want stored in a db other than the default db.
         /// </summary>
