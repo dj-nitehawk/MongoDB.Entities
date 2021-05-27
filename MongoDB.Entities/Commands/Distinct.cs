@@ -1,6 +1,9 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -46,7 +49,7 @@ namespace MongoDB.Entities
         /// Specify the matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public Distinct<T,TProperty> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        public Distinct<T, TProperty> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
         {
             this.filter &= filter(Builders<T>.Filter);
             return this;
@@ -80,7 +83,7 @@ namespace MongoDB.Entities
         /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
         /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
         /// <param name="language">The language for the search (optional)</param>
-        public Distinct<T,TProperty> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+        public Distinct<T, TProperty> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
         {
             if (searchType == Search.Fuzzy)
             {
@@ -143,6 +146,40 @@ namespace MongoDB.Entities
         {
             filter &= "{$expr:" + template.ToString() + "}";
             return this;
+        }
+
+        /// <summary>
+        /// Specify an option for this find command (use multiple times if needed)
+        /// </summary>
+        /// <param name="option">x => x.OptionName = OptionValue</param>
+        public Distinct<T, TProperty> Option(Action<DistinctOptions> option)
+        {
+            option(options);
+            return this;
+        }
+
+        /// <summary>
+        /// Run the Distinct command in MongoDB server and get a cursor instead of materialized results
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task<IAsyncCursor<TProperty>> ExecuteCursorAsync(CancellationToken cancellation = default)
+        {
+            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+
+            return session == null
+                   ? DB.Collection<T>().DistinctAsync(field, filter, options, cancellation)
+                   : DB.Collection<T>().DistinctAsync(session, field, filter, options, cancellation);
+        }
+
+        /// <summary>
+        /// Run the Distinct command in MongoDB server and get a list of unique property values
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public async Task<List<TProperty>> ExecuteAsync(CancellationToken cancellation = default)
+        {
+            return await
+                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+                     .ToListAsync().ConfigureAwait(false);
         }
     }
 }
