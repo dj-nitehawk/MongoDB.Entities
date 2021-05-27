@@ -26,12 +26,13 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for getting the count for a subset of the data</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="options">An optional CountOptions object</param>
+        public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
             return
                  session == null
-                 ? Collection<T>().CountDocumentsAsync(expression, null, cancellation)
-                 : Collection<T>().CountDocumentsAsync(session, expression, null, cancellation);
+                 ? Collection<T>().CountDocumentsAsync(expression, options, cancellation)
+                 : Collection<T>().CountDocumentsAsync(session, expression, options, cancellation);
         }
 
         /// <summary>
@@ -41,12 +42,13 @@ namespace MongoDB.Entities
         /// <param name="filter">A filter definition</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="options">An optional CountOptions object</param>
+        public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
             return
                  session == null
-                 ? Collection<T>().CountDocumentsAsync(filter, null, cancellation)
-                 : Collection<T>().CountDocumentsAsync(session, filter, null, cancellation);
+                 ? Collection<T>().CountDocumentsAsync(filter, options, cancellation)
+                 : Collection<T>().CountDocumentsAsync(session, filter, options, cancellation);
         }
 
         /// <summary>
@@ -56,12 +58,13 @@ namespace MongoDB.Entities
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="options">An optional CountOptions object</param>
+        public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
             return
                  session == null
-                 ? Collection<T>().CountDocumentsAsync(filter(Builders<T>.Filter), null, cancellation)
-                 : Collection<T>().CountDocumentsAsync(session, filter(Builders<T>.Filter), null, cancellation);
+                 ? Collection<T>().CountDocumentsAsync(filter(Builders<T>.Filter), options, cancellation)
+                 : Collection<T>().CountDocumentsAsync(session, filter(Builders<T>.Filter), options, cancellation);
         }
 
         /// <summary>
