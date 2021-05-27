@@ -82,7 +82,8 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collation">An optional collation object</param>
+        public static async Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -92,6 +93,7 @@ namespace MongoDB.Entities
                                .Match(expression)
                                .Project(e => e.ID)
                                .Option(o => o.BatchSize = deleteBatchSize)
+                               .Option(o => o.Collation = collation)
                                .ExecuteCursorAsync(cancellation)
                                .ConfigureAwait(false);
 

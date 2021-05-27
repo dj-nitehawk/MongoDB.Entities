@@ -360,9 +360,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collation">An optional collation object</param>
+        public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
-            return DB.DeleteAsync(expression, session, cancellation);
+            return DB.DeleteAsync(expression, session, cancellation, collation);
         }
 
         /// <summary>
