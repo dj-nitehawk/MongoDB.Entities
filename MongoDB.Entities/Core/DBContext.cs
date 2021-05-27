@@ -145,6 +145,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity in the transaction scope.
+        /// </summary>
+        /// <typeparam name="T">Any Entity that implements IEntity interface</typeparam>
+        /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
+        public virtual Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
+        {
+            return new Distinct<T, TProperty>(session);
+        }
+
+        /// <summary>
         /// Exposes the MongoDB collection for the given entity type as IAggregateFluent in order to facilitate Fluent queries in the transaction sope.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>

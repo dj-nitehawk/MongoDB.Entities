@@ -9,10 +9,9 @@ namespace MongoDB.Entities
 {
     /// <summary>
     /// Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.
-    /// <para>TIP: </para>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TProperty"></typeparam>
+    /// <typeparam name="T">Any Entity that implements IEntity interface</typeparam>
+    /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
     public class Distinct<T, TProperty> where T : IEntity
     {
         private FieldDefinition<T, TProperty> field;
