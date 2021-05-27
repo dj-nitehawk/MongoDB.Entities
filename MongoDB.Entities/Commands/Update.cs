@@ -39,16 +39,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the IEntity matching criteria with a lambda expression
+        /// Specify the matching criteria with a lambda expression
         /// </summary>
-        /// <param name="expression">A lambda expression to select the Entities to update</param>
+        /// <param name="expression">x => x.Property == Value</param>
         public Update<T> Match(Expression<Func<T, bool>> expression)
         {
             return Match(f => f.Where(expression));
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a filter expression
+        /// Specify the matching criteria with a filter expression
         /// </summary>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
@@ -58,9 +58,9 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a Template
+        /// Specify the matching criteria with a template
         /// </summary>
-        /// <param name="template">The filter Template</param>
+        /// <param name="template">A Template with a find query</param>
         public Update<T> Match(Template template)
         {
             filter &= template.ToString();
@@ -68,12 +68,76 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify the Entity matching criteria with a JSON string
+        /// Specify a search term to find results from the text index of this particular collection.
+        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
+        /// </summary>
+        /// <param name="searchType">The type of text matching to do</param>
+        /// <param name="searchTerm">The search term</param>
+        /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
+        /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
+        /// <param name="language">The language for the search (optional)</param>
+        public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+        {
+            if (searchType == Search.Fuzzy)
+            {
+                searchTerm = searchTerm.ToDoubleMetaphoneHash();
+                caseSensitive = false;
+                diacriticSensitive = false;
+                language = null;
+            }
+
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+        }
+
+        /// <summary>
+        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
+        /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
+        /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
+        /// </summary>
+        /// <param name="coordinatesProperty">The property where 2DCoordinates are stored</param>
+        /// <param name="nearCoordinates">The search point</param>
+        /// <param name="maxDistance">Maximum distance in meters from the search point</param>
+        /// <param name="minDistance">Minimum distance in meters from the search point</param>
+        public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+        {
+            return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
+        }
+
+        /// <summary>
+        /// Specify the matching criteria with a JSON string
         /// </summary>
         /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
-        public Update<T> Match(string jsonString)
+        public Update<T> MatchString(string jsonString)
         {
             filter &= jsonString;
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the matching criteria with an aggregation expression (i.e. $expr)
+        /// </summary>
+        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
+        public Update<T> MatchExpression(string expression)
+        {
+            filter &= "{$expr:" + expression + "}";
+            return this;
+        }
+
+        /// <summary>
+        /// Specify the matching criteria with a Template
+        /// </summary>
+        /// <param name="template">A Template object</param>
+        public Update<T> MatchExpression(Template template)
+        {
+            filter &= "{$expr:" + template.ToString() + "}";
             return this;
         }
 
