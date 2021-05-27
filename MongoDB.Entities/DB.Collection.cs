@@ -30,6 +30,8 @@ namespace MongoDB.Entities
             return Cache<T>.CollectionName;
         }
 
+        //todo: create collection for given type
+
         /// <summary>
         /// Deletes the collection of a given entity type as well as the join collections for that entity.
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
