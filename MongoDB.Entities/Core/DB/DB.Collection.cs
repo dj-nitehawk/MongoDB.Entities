@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -31,7 +32,21 @@ namespace MongoDB.Entities
         }
 
         //todo: tests for disctinct
-        //todo: create collection for given type
+        //todo: tests for create collection
+
+        /// <summary>
+        /// Creates a collection for an Entity type explicitly using the given options
+        /// </summary>
+        /// <typeparam name="T">The type of entity that will be stored in the created collection</typeparam>
+        /// <param name="options">The options to use for collection creation</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        public static Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
+        {
+            return session == null
+                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, options, cancellation)
+                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, options, cancellation);
+        }
 
         /// <summary>
         /// Deletes the collection of a given entity type as well as the join collections for that entity.

@@ -15,7 +15,10 @@
 - added ability to get a list of database names from the server
 - added support for collation with deletions
 - added more Match() overloads for DB.Update() &amp; DB.UpdateAndGet()
-- added support for Distinct queries via DB.Distinct()</PackageReleaseNotes>
+- added support for Distinct queries via DB.Distinct()
+- added ability to create collections explicitly with options
+- improved DBContext class
+- improved test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
