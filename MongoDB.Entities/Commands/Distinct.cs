@@ -163,7 +163,8 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<IAsyncCursor<TProperty>> ExecuteCursorAsync(CancellationToken cancellation = default)
         {
-            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            if (field == null)
+                throw new InvalidOperationException("Please use the .Property() method to specify the field to use for obtaining unique values for!");
 
             return session == null
                    ? DB.Collection<T>().DistinctAsync(field, filter, options, cancellation)
