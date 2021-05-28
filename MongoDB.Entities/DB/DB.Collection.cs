@@ -31,9 +31,6 @@ namespace MongoDB.Entities
             return Cache<T>.CollectionName;
         }
 
-        //todo: tests for disctinct
-        //todo: tests for create collection
-
         /// <summary>
         /// Creates a collection for an Entity type explicitly using the given options
         /// </summary>
