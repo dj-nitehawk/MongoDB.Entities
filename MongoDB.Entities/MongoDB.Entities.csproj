@@ -18,7 +18,8 @@
 - added support for Distinct queries via DB.Distinct()
 - added ability to create collections explicitly with options
 - improved DBContext class
-- improved test coverage</PackageReleaseNotes>
+- improved test coverage
+- upgraded dependencies</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
