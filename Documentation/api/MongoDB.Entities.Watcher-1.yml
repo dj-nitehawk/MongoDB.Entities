@@ -35,6 +35,7 @@ items:
   syntax:
     content: >-
       public class Watcher<T>
+
           where T : IEntity
     typeParameters:
     - id: T

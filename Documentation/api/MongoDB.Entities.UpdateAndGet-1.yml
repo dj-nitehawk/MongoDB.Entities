@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class UpdateAndGet(Of T As IEntity)
+
           Inherits UpdateAndGet(Of T, T)
   inheritance:
   - System.Object
@@ -37,7 +38,11 @@ items:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Template)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.String)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchString(System.String)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(System.String)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(System.String)
@@ -426,20 +431,311 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.String)
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(System.String)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-  name: Match(String)
-  nameWithType: UpdateAndGet<T, T>.Match(String)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(System.String)
-  nameWithType.vb: UpdateAndGet(Of T, T).Match(String)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(System.String)
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  nameWithType: UpdateAndGet<T, T>.Match(Search, String, Boolean, Boolean, String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType.vb: UpdateAndGet(Of T, T).Match(Search, String, Boolean, Boolean, String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
     name: Match
     nameWithType: UpdateAndGet<T, T>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Search
+    name: Search
+    nameWithType: Search
+    fullName: MongoDB.Entities.Search
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+    name: Match
+    nameWithType: UpdateAndGet(Of T, T).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Search
+    name: Search
+    nameWithType: Search
+    fullName: MongoDB.Entities.Search
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType: UpdateAndGet<T, T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  nameWithType.vb: UpdateAndGet(Of T, T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+    name: Match
+    nameWithType: UpdateAndGet<T, T>.Match
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Entities.Coordinates2D
+    name: Coordinates2D
+    nameWithType: Coordinates2D
+    fullName: MongoDB.Entities.Coordinates2D
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+    name: Match
+    nameWithType: UpdateAndGet(Of T, T).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Entities.Coordinates2D
+    name: Coordinates2D
+    nameWithType: Coordinates2D
+    fullName: MongoDB.Entities.Coordinates2D
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchString(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.MatchString(System.String)
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+  name: MatchString(String)
+  nameWithType: UpdateAndGet<T, T>.MatchString(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchString(System.String)
+  nameWithType.vb: UpdateAndGet(Of T, T).MatchString(String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).MatchString(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+    name: MatchString
+    nameWithType: UpdateAndGet<T, T>.MatchString
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchString
   - name: (
     nameWithType: (
     fullName: (
@@ -452,10 +748,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-    name: Match
-    nameWithType: UpdateAndGet(Of T, T).Match
-    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+    name: MatchString
+    nameWithType: UpdateAndGet(Of T, T).MatchString
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).MatchString
   - name: (
     nameWithType: (
     fullName: (
@@ -464,6 +760,86 @@ references:
     nameWithType: String
     fullName: System.String
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.MatchExpression(System.String)
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+  name: MatchExpression(String)
+  nameWithType: UpdateAndGet<T, T>.MatchExpression(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchExpression(System.String)
+  nameWithType.vb: UpdateAndGet(Of T, T).MatchExpression(String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).MatchExpression(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+    name: MatchExpression
+    nameWithType: UpdateAndGet<T, T>.MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+    name: MatchExpression
+    nameWithType: UpdateAndGet(Of T, T).MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.MatchExpression(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  nameWithType: UpdateAndGet<T, T>.MatchExpression(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchExpression(MongoDB.Entities.Template)
+  nameWithType.vb: UpdateAndGet(Of T, T).MatchExpression(Template)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).MatchExpression(MongoDB.Entities.Template)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+    name: MatchExpression
+    nameWithType: UpdateAndGet<T, T>.MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+    name: MatchExpression
+    nameWithType: UpdateAndGet(Of T, T).MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
   - name: )
     nameWithType: )
     fullName: )
@@ -2028,19 +2404,308 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   isExternal: true
-  name: Match(String)
-  nameWithType: UpdateAndGet<T, TProjection>.Match(String)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.String)
-  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(String)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Search, String, Boolean, Boolean, String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
     name: Match
     nameWithType: UpdateAndGet<T, TProjection>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Search
+    name: Search
+    nameWithType: Search
+    fullName: MongoDB.Entities.Search
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+    name: Match
+    nameWithType: UpdateAndGet(Of T, TProjection).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Search
+    name: Search
+    nameWithType: Search
+    fullName: MongoDB.Entities.Search
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  isExternal: true
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+    name: Match
+    nameWithType: UpdateAndGet<T, TProjection>.Match
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Entities.Coordinates2D
+    name: Coordinates2D
+    nameWithType: Coordinates2D
+    fullName: MongoDB.Entities.Coordinates2D
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+    name: Match
+    nameWithType: UpdateAndGet(Of T, TProjection).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Entities.Coordinates2D
+    name: Coordinates2D
+    nameWithType: Coordinates2D
+    fullName: MongoDB.Entities.Coordinates2D
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+  isExternal: true
+  name: MatchString(String)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchString(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchString(System.String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchString(String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchString(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+    name: MatchString
+    nameWithType: UpdateAndGet<T, TProjection>.MatchString
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchString
   - name: (
     nameWithType: (
     fullName: (
@@ -2053,10 +2718,10 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-    name: Match
-    nameWithType: UpdateAndGet(Of T, TProjection).Match
-    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+    name: MatchString
+    nameWithType: UpdateAndGet(Of T, TProjection).MatchString
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchString
   - name: (
     nameWithType: (
     fullName: (
@@ -2065,6 +2730,83 @@ references:
     nameWithType: String
     fullName: System.String
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+  isExternal: true
+  name: MatchExpression(String)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchExpression(String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression(System.String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+    name: MatchExpression
+    nameWithType: UpdateAndGet<T, TProjection>.MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+    name: MatchExpression
+    nameWithType: UpdateAndGet(Of T, TProjection).MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchExpression(Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression(MongoDB.Entities.Template)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(Template)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression(MongoDB.Entities.Template)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+    name: MatchExpression
+    nameWithType: UpdateAndGet<T, TProjection>.MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+    name: MatchExpression
+    nameWithType: UpdateAndGet(Of T, TProjection).MatchExpression
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
   - name: )
     nameWithType: )
     fullName: )

@@ -149,9 +149,10 @@ var currentUser = dbContext.ModifiedBy;
 </code></pre>
 <h2 id="transaction-support">Transaction Support</h2>
 <p>you can use auto audit fields in a similar manner inside of transactions. the only difference is you use the transaction context instead of <code>DBContext</code> like follows:</p>
-<pre><code class="lang-csharp">using var TN = DB.Transaction(modifiedBy: currentUser);
-
-await TN.SaveAsync(book);
+<pre><code class="lang-csharp">using (var TN = DB.Transaction(modifiedBy: currentUser))
+{
+    await TN.SaveAsync(book);
+}
 </code></pre>
 </article>
           </div>

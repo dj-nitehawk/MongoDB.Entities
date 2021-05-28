@@ -22,7 +22,7 @@ items:
   type: Class
   source:
     id: Prop
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 9
   assemblies:
   - MongoDB.Entities
@@ -62,7 +62,7 @@ items:
   type: Method
   source:
     id: Collection
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 62
   assemblies:
   - MongoDB.Entities
@@ -72,6 +72,7 @@ items:
   syntax:
     content: >-
       public static string Collection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -102,7 +103,7 @@ items:
   type: Method
   source:
     id: Property
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 72
   assemblies:
   - MongoDB.Entities
@@ -143,7 +144,7 @@ items:
   type: Method
   source:
     id: Path
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 83
   assemblies:
   - MongoDB.Entities
@@ -184,7 +185,7 @@ items:
   type: Method
   source:
     id: PosFiltered
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 96
   assemblies:
   - MongoDB.Entities
@@ -225,7 +226,7 @@ items:
   type: Method
   source:
     id: PosAll
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 108
   assemblies:
   - MongoDB.Entities
@@ -266,7 +267,7 @@ items:
   type: Method
   source:
     id: PosFirst
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 118
   assemblies:
   - MongoDB.Entities
@@ -307,7 +308,7 @@ items:
   type: Method
   source:
     id: Elements
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 128
   assemblies:
   - MongoDB.Entities
@@ -348,7 +349,7 @@ items:
   type: Method
   source:
     id: Elements
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Utilities\Prop.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
     startLine: 141
   assemblies:
   - MongoDB.Entities

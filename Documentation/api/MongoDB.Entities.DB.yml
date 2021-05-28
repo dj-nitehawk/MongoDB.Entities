@@ -5,21 +5,25 @@ items:
   id: DB
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  - MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)
   - MongoDB.Entities.DB.ChangeDefaultDatabase(System.String)
   - MongoDB.Entities.DB.Collection``1
   - MongoDB.Entities.DB.CollectionName``1
-  - MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DB.CountEstimatedAsync``1(System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
   - MongoDB.Entities.DB.Database(System.String)
   - MongoDB.Entities.DB.Database``1
   - MongoDB.Entities.DB.DatabaseFor``1(System.String)
   - MongoDB.Entities.DB.DatabaseName``1
   - MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DB.DeleteAsync``1(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
   - MongoDB.Entities.DB.DropCollectionAsync``1(MongoDB.Driver.IClientSessionHandle)
   - MongoDB.Entities.DB.Entity``1
   - MongoDB.Entities.DB.Entity``1(System.String)
@@ -67,7 +71,7 @@ items:
   type: Class
   source:
     id: DB
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Watcher.cs
     startLine: 4
   assemblies:
   - MongoDB.Entities
@@ -107,8 +111,8 @@ items:
   type: Method
   source:
     id: Collection
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Collection.cs
-    startLine: 18
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Collection.cs
+    startLine: 19
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -117,6 +121,7 @@ items:
   syntax:
     content: >-
       public static IMongoCollection<T> Collection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -147,8 +152,8 @@ items:
   type: Method
   source:
     id: CollectionName
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Collection.cs
-    startLine: 27
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Collection.cs
+    startLine: 28
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -157,6 +162,7 @@ items:
   syntax:
     content: >-
       public static string CollectionName<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -174,6 +180,57 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.CollectionName(Of T)()
   name.vb: CollectionName(Of T)()
+- uid: MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  commentId: M:MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  id: CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
+  nameWithType: DB.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  type: Method
+  source:
+    id: CreateCollection
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Collection.cs
+    startLine: 40
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCreates a collection for an Entity type explicitly using the given options\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)
+
+          where T : IEntity
+    parameters:
+    - id: options
+      type: MongoDB.Driver.CreateCollectionOptions{{T}}
+      description: The options to use for collection creation
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    typeParameters:
+    - id: T
+      description: The type of entity that will be stored in the created collection
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function CreateCollection(Of T As IEntity)(options As CreateCollectionOptions(Of T), cancellation As CancellationToken = Nothing, session As IClientSessionHandle = Nothing) As Task
+  overload: MongoDB.Entities.DB.CreateCollection*
+  nameWithType.vb: DB.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
 - uid: MongoDB.Entities.DB.DropCollectionAsync``1(MongoDB.Driver.IClientSessionHandle)
   commentId: M:MongoDB.Entities.DB.DropCollectionAsync``1(MongoDB.Driver.IClientSessionHandle)
   id: DropCollectionAsync``1(MongoDB.Driver.IClientSessionHandle)
@@ -187,8 +244,8 @@ items:
   type: Method
   source:
     id: DropCollectionAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Collection.cs
-    startLine: 38
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Collection.cs
+    startLine: 53
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -197,6 +254,7 @@ items:
   syntax:
     content: >-
       public static Task DropCollectionAsync<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -231,7 +289,7 @@ items:
   type: Method
   source:
     id: CountEstimatedAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Count.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Count.cs
     startLine: 16
   assemblies:
   - MongoDB.Entities
@@ -241,6 +299,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: cancellation
@@ -262,21 +321,21 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.CountEstimatedAsync(Of T)(System.Threading.CancellationToken)
   name.vb: CountEstimatedAsync(Of T)(CancellationToken)
-- uid: MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   parent: MongoDB.Entities.DB
   langs:
   - csharp
   - vb
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  nameWithType: DB.CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType: DB.CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
   type: Method
   source:
     id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Count.cs
-    startLine: 28
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Count.cs
+    startLine: 29
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -284,7 +343,8 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+      public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: expression
@@ -296,37 +356,40 @@ items:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
     typeParameters:
     - id: T
       description: The entity type to get the count for
     return:
       type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Shared Function CountAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of Long)
+    content.vb: Public Shared Function CountAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
   overload: MongoDB.Entities.DB.CountAsync*
-  nameWithType.vb: DB.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, CountOptions)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   parent: MongoDB.Entities.DB
   langs:
   - csharp
   - vb
-  name: CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
-  nameWithType: DB.CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType: DB.CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
   type: Method
   source:
     id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Count.cs
-    startLine: 43
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Count.cs
+    startLine: 45
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -334,7 +397,8 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+      public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -346,37 +410,40 @@ items:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
     typeParameters:
     - id: T
       description: The entity type to get the count for
     return:
       type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Shared Function CountAsync(Of T As IEntity)(filter As FilterDefinition(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of Long)
+    content.vb: Public Shared Function CountAsync(Of T As IEntity)(filter As FilterDefinition(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
   overload: MongoDB.Entities.DB.CountAsync*
-  nameWithType.vb: DB.CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, CountOptions)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   parent: MongoDB.Entities.DB
   langs:
   - csharp
   - vb
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
-  nameWithType: DB.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType: DB.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
   type: Method
   source:
     id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Count.cs
-    startLine: 58
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Count.cs
+    startLine: 61
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -384,7 +451,8 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+      public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -396,22 +464,25 @@ items:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
     typeParameters:
     - id: T
       description: The entity type to get the count for
     return:
       type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Shared Function CountAsync(Of T As IEntity)(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of Long)
+    content.vb: Public Shared Function CountAsync(Of T As IEntity)(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
   overload: MongoDB.Entities.DB.CountAsync*
-  nameWithType.vb: DB.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, CountOptions)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, CountOptions)
 - uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -425,8 +496,8 @@ items:
   type: Method
   source:
     id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Count.cs
-    startLine: 72
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Count.cs
+    startLine: 75
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -435,6 +506,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountAsync<T>(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: session
@@ -472,7 +544,7 @@ items:
   type: Method
   source:
     id: InitAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
     startLine: 49
   assemblies:
   - MongoDB.Entities
@@ -514,7 +586,7 @@ items:
   type: Method
   source:
     id: InitAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
     startLine: 61
   assemblies:
   - MongoDB.Entities
@@ -540,6 +612,81 @@ items:
   modifiers.vb:
   - Public
   - Shared
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)
+  commentId: M:MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)
+  id: AllDatabaseNamesAsync(System.String,System.Int32)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: AllDatabaseNamesAsync(String, Int32)
+  nameWithType: DB.AllDatabaseNamesAsync(String, Int32)
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String, System.Int32)
+  type: Method
+  source:
+    id: AllDatabaseNamesAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 96
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets a list of all database names from the server\n"
+  example: []
+  syntax:
+    content: public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
+    parameters:
+    - id: host
+      type: System.String
+      description: Address of the MongoDB server
+    - id: port
+      type: System.Int32
+      description: Port number of the server
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{System.String}}
+    content.vb: Public Shared Function AllDatabaseNamesAsync(host As String = "127.0.0.1", port As Integer = 27017) As Task(Of IEnumerable(Of String))
+  overload: MongoDB.Entities.DB.AllDatabaseNamesAsync*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  commentId: M:MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  id: AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: AllDatabaseNamesAsync(MongoClientSettings)
+  nameWithType: DB.AllDatabaseNamesAsync(MongoClientSettings)
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  type: Method
+  source:
+    id: AllDatabaseNamesAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 105
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets a list of all database names from the server\n"
+  example: []
+  syntax:
+    content: public static Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
+    parameters:
+    - id: settings
+      type: MongoDB.Driver.MongoClientSettings
+      description: A MongoClientSettings object
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{System.String}}
+    content.vb: Public Shared Function AllDatabaseNamesAsync(settings As MongoClientSettings) As Task(Of IEnumerable(Of String))
+  overload: MongoDB.Entities.DB.AllDatabaseNamesAsync*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
 - uid: MongoDB.Entities.DB.DatabaseFor``1(System.String)
   commentId: M:MongoDB.Entities.DB.DatabaseFor``1(System.String)
   id: DatabaseFor``1(System.String)
@@ -553,8 +700,8 @@ items:
   type: Method
   source:
     id: DatabaseFor
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 97
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 119
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -563,6 +710,7 @@ items:
   syntax:
     content: >-
       public static void DatabaseFor<T>(string database)
+
           where T : IEntity
     parameters:
     - id: database
@@ -595,8 +743,8 @@ items:
   type: Method
   source:
     id: Database
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 104
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 126
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -605,6 +753,7 @@ items:
   syntax:
     content: >-
       public static IMongoDatabase Database<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -635,8 +784,8 @@ items:
   type: Method
   source:
     id: Database
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 114
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 136
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -671,8 +820,8 @@ items:
   type: Method
   source:
     id: DatabaseName
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 136
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 158
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -681,6 +830,7 @@ items:
   syntax:
     content: >-
       public static string DatabaseName<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -711,8 +861,8 @@ items:
   type: Method
   source:
     id: ChangeDefaultDatabase
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 147
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 169
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -745,8 +895,8 @@ items:
   type: Method
   source:
     id: Filter
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 163
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 185
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -755,6 +905,7 @@ items:
   syntax:
     content: >-
       public static FilterDefinitionBuilder<T> Filter<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -785,8 +936,8 @@ items:
   type: Method
   source:
     id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 172
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 194
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -795,6 +946,7 @@ items:
   syntax:
     content: >-
       public static SortDefinitionBuilder<T> Sort<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -825,8 +977,8 @@ items:
   type: Method
   source:
     id: Projection
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 181
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 203
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -835,6 +987,7 @@ items:
   syntax:
     content: >-
       public static ProjectionDefinitionBuilder<T> Projection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -865,8 +1018,8 @@ items:
   type: Method
   source:
     id: Entity
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 190
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 212
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -875,6 +1028,7 @@ items:
   syntax:
     content: >-
       public static T Entity<T>()
+
           where T : IEntity, new()
     typeParameters:
     - id: T
@@ -905,8 +1059,8 @@ items:
   type: Method
   source:
     id: Entity
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.cs
-    startLine: 200
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
+    startLine: 222
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -915,6 +1069,7 @@ items:
   syntax:
     content: >-
       public static T Entity<T>(string ID)
+
           where T : IEntity, new()
     parameters:
     - id: ID
@@ -949,7 +1104,7 @@ items:
   type: Method
   source:
     id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Delete.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
     startLine: 69
   assemblies:
   - MongoDB.Entities
@@ -959,6 +1114,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: ID
@@ -986,21 +1142,21 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: DeleteAsync(Of T)(String, IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  id: DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   parent: MongoDB.Entities.DB
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  nameWithType: DB.DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, Collation)
+  nameWithType: DB.DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
   type: Method
   source:
     id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Delete.cs
-    startLine: 84
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
+    startLine: 85
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1008,7 +1164,8 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+      public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
           where T : IEntity
     parameters:
     - id: expression
@@ -1020,22 +1177,25 @@ items:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
+    - id: collation
+      type: MongoDB.Driver.Collation
+      description: An optional collation object
     typeParameters:
     - id: T
       description: Any class that implements IEntity
     return:
       type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
+    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, collation As Collation = Nothing) As Task(Of DeleteResult)
   overload: MongoDB.Entities.DB.DeleteAsync*
-  nameWithType.vb: DB.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, Collation)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, Collation)
 - uid: MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1049,8 +1209,8 @@ items:
   type: Method
   source:
     id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Delete.cs
-    startLine: 118
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
+    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1059,6 +1219,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: IDs
@@ -1086,6 +1247,53 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
+  commentId: M:MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
+  id: Distinct``2(MongoDB.Driver.IClientSessionHandle)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: Distinct<T, TProperty>(IClientSessionHandle)
+  nameWithType: DB.Distinct<T, TProperty>(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Distinct<T, TProperty>(MongoDB.Driver.IClientSessionHandle)
+  type: Method
+  source:
+    id: Distinct
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Distinct.cs
+    startLine: 12
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.\n"
+  example: []
+  syntax:
+    content: >-
+      public static Distinct<T, TProperty> Distinct<T, TProperty>(IClientSessionHandle session = null)
+
+          where T : IEntity
+    parameters:
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    typeParameters:
+    - id: T
+      description: Any Entity that implements IEntity interface
+    - id: TProperty
+      description: The type of the property of the entity you&apos;d like to get unique values for
+    return:
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
+    content.vb: Public Shared Function Distinct(Of T As IEntity, TProperty)(session As IClientSessionHandle = Nothing) As Distinct(Of T, TProperty)
+  overload: MongoDB.Entities.DB.Distinct*
+  nameWithType.vb: DB.Distinct(Of T, TProperty)(IClientSessionHandle)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.Distinct(Of T, TProperty)(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Distinct(Of T, TProperty)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.File``1(System.String)
   commentId: M:MongoDB.Entities.DB.File``1(System.String)
   id: File``1(System.String)
@@ -1099,7 +1307,7 @@ items:
   type: Method
   source:
     id: File
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.File.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.File.cs
     startLine: 12
   assemblies:
   - MongoDB.Entities
@@ -1109,6 +1317,7 @@ items:
   syntax:
     content: >-
       public static DataStreamer File<T>(string ID)
+
           where T : FileEntity, new()
     parameters:
     - id: ID
@@ -1143,7 +1352,7 @@ items:
   type: Method
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Find.cs
     startLine: 12
   assemblies:
   - MongoDB.Entities
@@ -1153,6 +1362,7 @@ items:
   syntax:
     content: >-
       public static Find<T> Find<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -1187,7 +1397,7 @@ items:
   type: Method
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Find.cs
     startLine: 22
   assemblies:
   - MongoDB.Entities
@@ -1197,6 +1407,7 @@ items:
   syntax:
     content: >-
       public static Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -1233,7 +1444,7 @@ items:
   type: Method
   source:
     id: Fluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Fluent.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Fluent.cs
     startLine: 12
   assemblies:
   - MongoDB.Entities
@@ -1243,6 +1454,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -1280,7 +1492,7 @@ items:
   type: Method
   source:
     id: FluentTextSearch
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Fluent.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Fluent.cs
     startLine: 30
   assemblies:
   - MongoDB.Entities
@@ -1290,6 +1502,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: searchType
@@ -1341,7 +1554,7 @@ items:
   type: Method
   source:
     id: FluentGeoNear
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.GeoNear.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.GeoNear.cs
     startLine: 24
   assemblies:
   - MongoDB.Entities
@@ -1351,6 +1564,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = default(double? ), double? MinDistance = default(double? ), int? Limit = default(int? ), BsonDocument Query = null, double? DistanceMultiplier = default(double? ), Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: NearCoordinates
@@ -1417,7 +1631,7 @@ items:
   type: Method
   source:
     id: Index
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Index.cs
     startLine: 9
   assemblies:
   - MongoDB.Entities
@@ -1427,6 +1641,7 @@ items:
   syntax:
     content: >-
       public static Index<T> Index<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -1457,7 +1672,7 @@ items:
   type: Method
   source:
     id: MigrateAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Migrate.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Migrate.cs
     startLine: 15
   assemblies:
   - MongoDB.Entities
@@ -1467,6 +1682,7 @@ items:
   syntax:
     content: >-
       public static Task MigrateAsync<T>()
+
           where T : class
     typeParameters:
     - id: T
@@ -1497,7 +1713,7 @@ items:
   type: Method
   source:
     id: MigrateAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Migrate.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Migrate.cs
     startLine: 24
   assemblies:
   - MongoDB.Entities
@@ -1529,7 +1745,7 @@ items:
   type: Method
   source:
     id: PipelineCursorAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Pipeline.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Pipeline.cs
     startLine: 18
   assemblies:
   - MongoDB.Entities
@@ -1539,6 +1755,7 @@ items:
   syntax:
     content: >-
       public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -1584,7 +1801,7 @@ items:
   type: Method
   source:
     id: PipelineAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Pipeline.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Pipeline.cs
     startLine: 34
   assemblies:
   - MongoDB.Entities
@@ -1594,6 +1811,7 @@ items:
   syntax:
     content: >-
       public static Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -1639,7 +1857,7 @@ items:
   type: Method
   source:
     id: PipelineSingleAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Pipeline.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Pipeline.cs
     startLine: 50
   assemblies:
   - MongoDB.Entities
@@ -1649,6 +1867,7 @@ items:
   syntax:
     content: >-
       public static Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -1694,7 +1913,7 @@ items:
   type: Method
   source:
     id: PipelineFirstAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Pipeline.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Pipeline.cs
     startLine: 66
   assemblies:
   - MongoDB.Entities
@@ -1704,6 +1923,7 @@ items:
   syntax:
     content: >-
       public static Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -1749,7 +1969,7 @@ items:
   type: Method
   source:
     id: Queryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Queryable.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Queryable.cs
     startLine: 13
   assemblies:
   - MongoDB.Entities
@@ -1759,6 +1979,7 @@ items:
   syntax:
     content: >-
       public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -1796,7 +2017,7 @@ items:
   type: Method
   source:
     id: SaveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 23
   assemblies:
   - MongoDB.Entities
@@ -1806,6 +2027,7 @@ items:
   syntax:
     content: >-
       public static Task SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1846,7 +2068,7 @@ items:
   type: Method
   source:
     id: SaveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 45
   assemblies:
   - MongoDB.Entities
@@ -1856,6 +2078,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1896,7 +2119,7 @@ items:
   type: Method
   source:
     id: SaveOnlyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 80
   assemblies:
   - MongoDB.Entities
@@ -1906,6 +2129,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1949,7 +2173,7 @@ items:
   type: Method
   source:
     id: SaveOnlyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 96
   assemblies:
   - MongoDB.Entities
@@ -1959,6 +2183,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -2002,7 +2227,7 @@ items:
   type: Method
   source:
     id: SaveExceptAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 112
   assemblies:
   - MongoDB.Entities
@@ -2012,6 +2237,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2055,7 +2281,7 @@ items:
   type: Method
   source:
     id: SaveExceptAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 128
   assemblies:
   - MongoDB.Entities
@@ -2065,6 +2291,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -2108,7 +2335,7 @@ items:
   type: Method
   source:
     id: SavePreservingAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Save.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Save.cs
     startLine: 141
   assemblies:
   - MongoDB.Entities
@@ -2118,6 +2345,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2158,7 +2386,7 @@ items:
   type: Method
   source:
     id: NextSequentialNumberAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Sequence.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Sequence.cs
     startLine: 14
   assemblies:
   - MongoDB.Entities
@@ -2168,6 +2396,7 @@ items:
   syntax:
     content: >-
       public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: cancellation
@@ -2202,7 +2431,7 @@ items:
   type: Method
   source:
     id: NextSequentialNumberAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Sequence.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Sequence.cs
     startLine: 24
   assemblies:
   - MongoDB.Entities
@@ -2241,7 +2470,7 @@ items:
   type: Method
   source:
     id: Transaction
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Transaction.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Transaction.cs
     startLine: 11
   assemblies:
   - MongoDB.Entities
@@ -2282,7 +2511,7 @@ items:
   type: Method
   source:
     id: Transaction
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Transaction.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Transaction.cs
     startLine: 21
   assemblies:
   - MongoDB.Entities
@@ -2292,6 +2521,7 @@ items:
   syntax:
     content: >-
       public static Transaction Transaction<T>(ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -2328,7 +2558,7 @@ items:
   type: Method
   source:
     id: Update
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Update.cs
     startLine: 12
   assemblies:
   - MongoDB.Entities
@@ -2338,6 +2568,7 @@ items:
   syntax:
     content: >-
       public static Update<T> Update<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2372,7 +2603,7 @@ items:
   type: Method
   source:
     id: UpdateAndGet
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Update.cs
     startLine: 22
   assemblies:
   - MongoDB.Entities
@@ -2382,6 +2613,7 @@ items:
   syntax:
     content: >-
       public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2418,7 +2650,7 @@ items:
   type: Method
   source:
     id: UpdateAndGet
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Update.cs
     startLine: 31
   assemblies:
   - MongoDB.Entities
@@ -2428,6 +2660,7 @@ items:
   syntax:
     content: >-
       public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2462,7 +2695,7 @@ items:
   type: Method
   source:
     id: Watcher
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Watcher.cs
     startLine: 13
   assemblies:
   - MongoDB.Entities
@@ -2472,6 +2705,7 @@ items:
   syntax:
     content: >-
       public static Watcher<T> Watcher<T>(string name)
+
           where T : IEntity
     parameters:
     - id: name
@@ -2506,7 +2740,7 @@ items:
   type: Method
   source:
     id: Watchers
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB.Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Watcher.cs
     startLine: 27
   assemblies:
   - MongoDB.Entities
@@ -2516,6 +2750,7 @@ items:
   syntax:
     content: >-
       public static IEnumerable<Watcher<T>> Watchers<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -2933,11 +3168,58 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: MongoDB.Entities.DB.DropCollectionAsync*
-  commentId: Overload:MongoDB.Entities.DB.DropCollectionAsync
-  name: DropCollectionAsync
-  nameWithType: DB.DropCollectionAsync
-  fullName: MongoDB.Entities.DB.DropCollectionAsync
+- uid: MongoDB.Entities.DB.CreateCollection*
+  commentId: Overload:MongoDB.Entities.DB.CreateCollection
+  name: CreateCollection
+  nameWithType: DB.CreateCollection
+  fullName: MongoDB.Entities.DB.CreateCollection
+- uid: MongoDB.Driver.CreateCollectionOptions{{T}}
+  commentId: T:MongoDB.Driver.CreateCollectionOptions{``0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.CreateCollectionOptions`1
+  name: CreateCollectionOptions<T>
+  nameWithType: CreateCollectionOptions<T>
+  fullName: MongoDB.Driver.CreateCollectionOptions<T>
+  nameWithType.vb: CreateCollectionOptions(Of T)
+  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of T)
+  name.vb: CreateCollectionOptions(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
 - uid: MongoDB.Driver.IClientSessionHandle
   commentId: T:MongoDB.Driver.IClientSessionHandle
   parent: MongoDB.Driver
@@ -2952,24 +3234,67 @@ references:
   name: Task
   nameWithType: Task
   fullName: System.Threading.Tasks.Task
+- uid: MongoDB.Driver.CreateCollectionOptions`1
+  commentId: T:MongoDB.Driver.CreateCollectionOptions`1
+  isExternal: true
+  name: CreateCollectionOptions<TDocument>
+  nameWithType: CreateCollectionOptions<TDocument>
+  fullName: MongoDB.Driver.CreateCollectionOptions<TDocument>
+  nameWithType.vb: CreateCollectionOptions(Of TDocument)
+  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of TDocument)
+  name.vb: CreateCollectionOptions(Of TDocument)
+  spec.csharp:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
 - uid: System.Threading.Tasks
   commentId: N:System.Threading.Tasks
   isExternal: true
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+- uid: MongoDB.Entities.DB.DropCollectionAsync*
+  commentId: Overload:MongoDB.Entities.DB.DropCollectionAsync
+  name: DropCollectionAsync
+  nameWithType: DB.DropCollectionAsync
+  fullName: MongoDB.Entities.DB.DropCollectionAsync
 - uid: MongoDB.Entities.DB.CountEstimatedAsync*
   commentId: Overload:MongoDB.Entities.DB.CountEstimatedAsync
   name: CountEstimatedAsync
   nameWithType: DB.CountEstimatedAsync
   fullName: MongoDB.Entities.DB.CountEstimatedAsync
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
-  isExternal: true
-  name: CancellationToken
-  nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
 - uid: System.Threading.Tasks.Task{System.Int64}
   commentId: T:System.Threading.Tasks.Task{System.Int64}
   parent: System.Threading.Tasks
@@ -3014,12 +3339,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
@@ -3142,6 +3461,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Driver.CountOptions
+  commentId: T:MongoDB.Driver.CountOptions
+  parent: MongoDB.Driver
+  isExternal: true
+  name: CountOptions
+  nameWithType: CountOptions
+  fullName: MongoDB.Driver.CountOptions
 - uid: System.Linq.Expressions.Expression`1
   commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
@@ -3432,6 +3758,77 @@ references:
   name: MongoClientSettings
   nameWithType: MongoClientSettings
   fullName: MongoDB.Driver.MongoClientSettings
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync*
+  commentId: Overload:MongoDB.Entities.DB.AllDatabaseNamesAsync
+  name: AllDatabaseNamesAsync
+  nameWithType: DB.AllDatabaseNamesAsync
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{System.String}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.IEnumerable{System.String}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<IEnumerable<String>>
+  nameWithType: Task<IEnumerable<String>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<System.String>>
+  nameWithType.vb: Task(Of IEnumerable(Of String))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.IEnumerable(Of System.String))
+  name.vb: Task(Of IEnumerable(Of String))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DB.DatabaseFor*
   commentId: Overload:MongoDB.Entities.DB.DatabaseFor
   name: DatabaseFor
@@ -3775,6 +4172,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Driver.Collation
+  commentId: T:MongoDB.Driver.Collation
+  parent: MongoDB.Driver
+  isExternal: true
+  name: Collation
+  nameWithType: Collation
+  fullName: MongoDB.Driver.Collation
 - uid: System.Collections.Generic.IEnumerable{System.String}
   commentId: T:System.Collections.Generic.IEnumerable{System.String}
   parent: System.Collections.Generic
@@ -3864,6 +4268,110 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
+- uid: MongoDB.Entities.DB.Distinct*
+  commentId: Overload:MongoDB.Entities.DB.Distinct
+  name: Distinct
+  nameWithType: DB.Distinct
+  fullName: MongoDB.Entities.DB.Distinct
+- uid: MongoDB.Entities.Distinct{{T},{TProperty}}
+  commentId: T:MongoDB.Entities.Distinct{``0,``1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Distinct`2
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
+  spec.csharp:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Distinct`2
+  commentId: T:MongoDB.Entities.Distinct`2
+  parent: MongoDB.Entities
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
+  spec.csharp:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DB.File*
   commentId: Overload:MongoDB.Entities.DB.File
   name: File

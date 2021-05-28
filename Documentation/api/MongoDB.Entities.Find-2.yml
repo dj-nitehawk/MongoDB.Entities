@@ -51,6 +51,7 @@ items:
   syntax:
     content: >-
       public class Find<T, TProjection>
+
           where T : IEntity
     typeParameters:
     - id: T

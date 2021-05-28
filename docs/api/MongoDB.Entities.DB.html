@@ -140,6 +140,100 @@
   </h3>
   
   
+  <a id="MongoDB_Entities_DB_AllDatabaseNamesAsync_" data-uid="MongoDB.Entities.DB.AllDatabaseNamesAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_AllDatabaseNamesAsync_MongoDB_Driver_MongoClientSettings_" data-uid="MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)">AllDatabaseNamesAsync(MongoClientSettings)</h4>
+  <div class="markdown level1 summary"><p>Gets a list of all database names from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;string&gt;&gt; AllDatabaseNamesAsync(MongoClientSettings settings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.MongoClientSettings</span></td>
+        <td><span class="parametername">settings</span></td>
+        <td><p>A MongoClientSettings object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_AllDatabaseNamesAsync_" data-uid="MongoDB.Entities.DB.AllDatabaseNamesAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_AllDatabaseNamesAsync_System_String_System_Int32_" data-uid="MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)">AllDatabaseNamesAsync(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Gets a list of all database names from the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;string&gt;&gt; AllDatabaseNamesAsync(string host = &quot;127.0.0.1&quot;, int port = 27017)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">host</span></td>
+        <td><p>Address of the MongoDB server</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>Port number of the server</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DB_ChangeDefaultDatabase_" data-uid="MongoDB.Entities.DB.ChangeDefaultDatabase*"></a>
   <h4 id="MongoDB_Entities_DB_ChangeDefaultDatabase_System_String_" data-uid="MongoDB.Entities.DB.ChangeDefaultDatabase(System.String)">ChangeDefaultDatabase(String)</h4>
   <div class="markdown level1 summary"><p>Switches the default database at runtime</p>
@@ -180,6 +274,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoCollection&lt;T&gt; Collection&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -223,6 +318,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string CollectionName&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -259,13 +355,14 @@
   
   
   <a id="MongoDB_Entities_DB_CountAsync_" data-uid="MongoDB.Entities.DB.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, IClientSessionHandle, CancellationToken, CountOptions)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -294,6 +391,12 @@
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An optional CountOptions object</p>
 </td>
       </tr>
     </tbody>
@@ -339,6 +442,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -399,13 +503,14 @@
   
   
   <a id="MongoDB_Entities_DB_CountAsync_" data-uid="MongoDB.Entities.DB.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DB_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, IClientSessionHandle, CancellationToken, CountOptions)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -436,6 +541,12 @@
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An optional CountOptions object</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -472,13 +583,14 @@
   
   
   <a id="MongoDB_Entities_DB_CountAsync_" data-uid="MongoDB.Entities.DB.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken, CountOptions)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many entities are matched for a given expression/filter</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -507,6 +619,12 @@
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>An optional CountOptions object</p>
 </td>
       </tr>
     </tbody>
@@ -553,6 +671,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;long&gt; CountEstimatedAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -600,6 +719,80 @@
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The entity type to get the count for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_CreateCollection_" data-uid="MongoDB.Entities.DB.CreateCollection*"></a>
+  <h4 id="MongoDB_Entities_DB_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)">CreateCollection&lt;T&gt;(CreateCollectionOptions&lt;T&gt;, CancellationToken, IClientSessionHandle)</h4>
+  <div class="markdown level1 summary"><p>Creates a collection for an Entity type explicitly using the given options</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task CreateCollection&lt;T&gt;(CreateCollectionOptions&lt;T&gt; options, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.CreateCollectionOptions</span>&lt;T&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options to use for collection creation</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of entity that will be stored in the created collection</p>
 </td>
       </tr>
     </tbody>
@@ -659,6 +852,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoDatabase Database&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -703,6 +897,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void DatabaseFor&lt;T&gt;(string database)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -749,6 +944,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string DatabaseName&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -794,6 +990,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -860,7 +1057,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, IClientSessionHandle, CancellationToken, Collation)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities with an expression</p>
 <p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
@@ -868,7 +1065,8 @@ Only needed for entity types you want stored in a db other than the default db.<
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -897,6 +1095,12 @@ Only needed for entity types you want stored in a db other than the default db.<
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
+        <td><span class="parametername">collation</span></td>
+        <td><p>An optional collation object</p>
 </td>
       </tr>
     </tbody>
@@ -943,6 +1147,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1008,6 +1213,73 @@ Only needed for entity types you want stored in a db other than the default db.<
   </table>
   
   
+  <a id="MongoDB_Entities_DB_Distinct_" data-uid="MongoDB.Entities.DB.Distinct*"></a>
+  <h4 id="MongoDB_Entities_DB_Distinct__2_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)">Distinct&lt;T, TProperty&gt;(IClientSessionHandle)</h4>
+  <div class="markdown level1 summary"><p>Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Distinct&lt;T, TProperty&gt; Distinct&lt;T, TProperty&gt;(IClientSessionHandle session = null)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any Entity that implements IEntity interface</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TProperty</span></td>
+        <td><p>The type of the property of the entity you'd like to get unique values for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DB_DropCollectionAsync_" data-uid="MongoDB.Entities.DB.DropCollectionAsync*"></a>
   <h4 id="MongoDB_Entities_DB_DropCollectionAsync__1_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.DropCollectionAsync``1(MongoDB.Driver.IClientSessionHandle)">DropCollectionAsync&lt;T&gt;(IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Deletes the collection of a given entity type as well as the join collections for that entity.</p>
@@ -1017,6 +1289,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task DropCollectionAsync&lt;T&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1078,6 +1351,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static T Entity&lt;T&gt;()
+
     where T : IEntity, new()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1121,6 +1395,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static T Entity&lt;T&gt;(string ID)
+
     where T : IEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1182,6 +1457,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static DataStreamer File&lt;T&gt;(string ID)
+
     where T : FileEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1243,6 +1519,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static FilterDefinitionBuilder&lt;T&gt; Filter&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1287,6 +1564,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Find&lt;T&gt; Find&lt;T&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1349,6 +1627,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Find&lt;T, TProjection&gt; Find&lt;T, TProjection&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1415,6 +1694,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1482,6 +1762,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; FluentGeoNear&lt;T&gt;(Coordinates2D NearCoordinates, Expression&lt;Func&lt;T, object&gt;&gt; DistanceField, bool Spherical = true, double? MaxDistance = default(double? ), double? MinDistance = default(double? ), int? Limit = default(int? ), BsonDocument Query = null, double? DistanceMultiplier = default(double? ), Expression&lt;Func&lt;T, object&gt;&gt; IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1608,6 +1889,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; FluentTextSearch&lt;T&gt;(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1705,6 +1987,7 @@ Only needed for entity types you want stored in a db other than the default db.<
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Index&lt;T&gt; Index&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1883,6 +2166,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task MigrateAsync&lt;T&gt;()
+
     where T : class</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1976,6 +2260,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;ulong&gt; NextSequentialNumberAsync&lt;T&gt;(CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2037,6 +2322,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;List&lt;TResult&gt;&gt; PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2121,6 +2407,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;IAsyncCursor&lt;TResult&gt;&gt; PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2205,6 +2492,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2289,6 +2577,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2373,6 +2662,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static ProjectionDefinitionBuilder&lt;T&gt; Projection&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -2416,6 +2706,7 @@ You can call this method as many times as you want (such as in serverless functi
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(AggregateOptions options = null, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2484,6 +2775,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task SaveAsync&lt;T&gt;(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2558,6 +2850,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2634,6 +2927,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SaveExceptAsync&lt;T&gt;(T entity, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2716,6 +3010,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveExceptAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2798,6 +3093,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SaveOnlyAsync&lt;T&gt;(T entity, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2880,6 +3176,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveOnlyAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2960,6 +3257,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SavePreservingAsync&lt;T&gt;(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3033,6 +3331,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static SortDefinitionBuilder&lt;T&gt; Sort&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -3131,6 +3430,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Transaction Transaction&lt;T&gt;(ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3198,6 +3498,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Update&lt;T&gt; Update&lt;T&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3260,6 +3561,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T&gt; UpdateAndGet&lt;T&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3322,6 +3624,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static UpdateAndGet&lt;T, TProjection&gt; UpdateAndGet&lt;T, TProjection&gt;(IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3390,6 +3693,7 @@ If an instance already exists, that instance will be returned.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Watcher&lt;T&gt; Watcher&lt;T&gt;(string name)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3451,6 +3755,7 @@ If an instance already exists, that instance will be returned.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Watcher&lt;T&gt;&gt; Watchers&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>

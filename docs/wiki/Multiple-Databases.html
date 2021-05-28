@@ -135,22 +135,34 @@ var result = await DB.Find&lt;Picture&gt;().OneAsync(pic.ID);
     static Picture() =&gt; DB.DatabaseFor&lt;Picture&gt;(&quot;BookShopFILES&quot;);
 }
 </code></pre>
-<h3 id="get-database-name-from-an-entity-instance-or-type">Get database name from an entity instance or type</h3>
-<pre><code class="lang-csharp">    var dbName = pic.DatabaseName();
-    var dbName = DB.DatabaseName&lt;Book&gt;();
-</code></pre>
-<p>the above methods will return the name of the database that the entity is stored in. if not specifically attached to seperate db, it will return the name of the default database.</p>
 <h3 id="limitations">Limitations</h3>
 <ul>
 <li>cross-database relationships with <code>Many&lt;T&gt;</code> is not supported.</li>
 <li>no cross-database joins/ look-ups as the driver doesn't support it.</li>
 <li>storing a single entity type in multiple datbases is not supported.</li>
 </ul>
-<h3 id="removal-of-db-instances-in-v20">Removal of DB instances in v20</h3>
+<h2 id="utility-methods">Utility methods</h2>
+<h3 id="get-database-name-from-an-entity-instance-or-type">Get database name from an entity instance or type</h3>
+<pre><code class="lang-csharp">var dbName = pic.DatabaseName();
+var dbName = DB.DatabaseName&lt;Book&gt;();
+</code></pre>
+<p>the above methods will return the name of the database that the entity is stored in. if not specifically attached to seperate db, it will return the name of the default database.</p>
+<h3 id="check-if-a-database-already-exists-on-the-server">Check if a database already exists on the server</h3>
+<pre><code class="lang-csharp">bool dbExists = await DB.Database(&quot;BookShopFILES&quot;).ExistsAsync();
+bool dbExists = await DB.Database&lt;Picture&gt;().ExistsAsync();
+</code></pre>
+<h3 id="check-if-a-database-is-still-accessible">Check if a database is still accessible</h3>
+<pre><code class="lang-csharp">bool isAlive = await DB.Database(&quot;BookShopFILES&quot;).IsAccessibleAsync();
+bool isAlive = await DB.Database&lt;Picture&gt;().IsAccessibleAsync();
+</code></pre>
+<h3 id="get-a-list-of-all-databases-on-the-server">Get a list of all databases on the server</h3>
+<pre><code class="lang-csharp">var dbNames = await DB.AllDatabaseNamesAsync(&quot;localhost&quot;);
+</code></pre>
+<h2 id="removal-of-db-instances-in-v20">Removal of DB instances in v20</h2>
 <p>if you've used an earlier verion than v20 of this library, you may have used DB instances for performing operations rather than using the static DB class as the entrypoint. In v20, the DB instance support was removed in order to simplify the codebase and optimize performance as that release was a major jump in version with breaking changes to the API.</p>
 <p>DB instances were a neccessity before v13 in order to support multiple database access. that requirement was removed in v13 after re-architecting the library internals and it was optional to use DB instances up until v20.</p>
 <p>it can be argued that DB instances are useful for dependency injection but, ideally you should be injecting your repositories (that wrap up the DB methods) into your controllers/ services, not the DB instances directly. if you don't need to unit test or plan to swap persistance technology at a future date, then there's no need to use dependency injection and you are free to do everything via the DB static methods.</p>
-<p>it is however, recommended that you encapsulate all data access logic in repository or manager classes in order to isolate data persistance logic from your application logic.</p>
+<p>it is however, recommended that you encapsulate all data access logic in repository/service/manager classes in order to isolate data access logic from your application logic.</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>as an alternative, have a look at <strong>vertical slice architecture</strong> as done <a href="https://github.com/dj-nitehawk/MongoWebApiStarter"><em>here</em></a> for a far superior developer experience compared to the commonly used layerd+di+repositories mess.</p>

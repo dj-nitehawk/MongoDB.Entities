@@ -6,13 +6,16 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.DBContext.#ctor(MongoDB.Entities.ModifiedBy)
-  - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.Distinct``2
+  - MongoDB.Entities.DBContext.DropCollectionAsync``1
   - MongoDB.Entities.DBContext.Find``1
   - MongoDB.Entities.DBContext.Find``2
   - MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
@@ -44,8 +47,8 @@ items:
   type: Class
   source:
     id: DBContext
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 16
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Update.cs
+    startLine: 2
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -72,6 +75,289 @@ items:
   modifiers.vb:
   - Public
   - Class
+- uid: MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  id: CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
+  nameWithType: DBContext.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: CreateCollection
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Collection.cs
+    startLine: 14
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCreates a collection for an Entity type explicitly using the given options\n"
+  example: []
+  syntax:
+    content: >-
+      public Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: options
+      type: MongoDB.Driver.CreateCollectionOptions{{T}}
+      description: The options to use for collection creation
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity that will be stored in the created collection
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function CreateCollection(Of T As IEntity)(options As CreateCollectionOptions(Of T), cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DBContext.CreateCollection*
+  nameWithType.vb: DBContext.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.DBContext.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken)
+  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+- uid: MongoDB.Entities.DBContext.DropCollectionAsync``1
+  commentId: M:MongoDB.Entities.DBContext.DropCollectionAsync``1
+  id: DropCollectionAsync``1
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: DropCollectionAsync<T>()
+  nameWithType: DBContext.DropCollectionAsync<T>()
+  fullName: MongoDB.Entities.DBContext.DropCollectionAsync<T>()
+  type: Method
+  source:
+    id: DropCollectionAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Collection.cs
+    startLine: 24
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDeletes the collection of a given entity type as well as the join collections for that entity.\n<p>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public Task DropCollectionAsync<T>()
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: The entity type to drop the collection of
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function DropCollectionAsync(Of T As IEntity) As Task
+  overload: MongoDB.Entities.DBContext.DropCollectionAsync*
+  nameWithType.vb: DBContext.DropCollectionAsync(Of T)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.DBContext.DropCollectionAsync(Of T)()
+  name.vb: DropCollectionAsync(Of T)()
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
+  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  type: Method
+  source:
+    id: CountAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Count.cs
+    startLine: 17
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets an accurate count of how many entities are matched for a given expression/filter\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
+          where T : IEntity
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+      description: A lambda expression for getting the count for a subset of the data
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
+    typeParameters:
+    - id: T
+      description: The entity type to get the count for
+    return:
+      type: System.Threading.Tasks.Task{System.Int64}
+    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
+  overload: MongoDB.Entities.DBContext.CountAsync*
+  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
+  id: CountAsync``1(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CountAsync<T>(CancellationToken)
+  nameWithType: DBContext.CountAsync<T>(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: CountAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Count.cs
+    startLine: 27
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<long> CountAsync<T>(CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The entity type to get the count for
+    return:
+      type: System.Threading.Tasks.Task{System.Int64}
+    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(cancellation As CancellationToken = Nothing) As Task(Of Long)
+  overload: MongoDB.Entities.DBContext.CountAsync*
+  nameWithType.vb: DBContext.CountAsync(Of T)(CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Threading.CancellationToken)
+  name.vb: CountAsync(Of T)(CancellationToken)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
+  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  type: Method
+  source:
+    id: CountAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Count.cs
+    startLine: 39
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
+          where T : IEntity
+    parameters:
+    - id: filter
+      type: MongoDB.Driver.FilterDefinition{{T}}
+      description: A filter definition
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
+    typeParameters:
+    - id: T
+      description: The entity type to get the count for
+    return:
+      type: System.Threading.Tasks.Task{System.Int64}
+    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(filter As FilterDefinition(Of T), cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
+  overload: MongoDB.Entities.DBContext.CountAsync*
+  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  id: CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
+  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  type: Method
+  source:
+    id: CountAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Count.cs
+    startLine: 51
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
+          where T : IEntity
+    parameters:
+    - id: filter
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.CountOptions
+      description: An optional CountOptions object
+    typeParameters:
+    - id: T
+      description: The entity type to get the count for
+    return:
+      type: System.Threading.Tasks.Task{System.Int64}
+    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), cancellation As CancellationToken = Nothing, options As CountOptions = Nothing) As Task(Of Long)
+  overload: MongoDB.Entities.DBContext.CountAsync*
+  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
 - uid: MongoDB.Entities.DBContext.session
   commentId: F:MongoDB.Entities.DBContext.session
   id: session
@@ -85,8 +371,8 @@ items:
   type: Field
   source:
     id: session
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 18
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 11
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -112,8 +398,8 @@ items:
   type: Field
   source:
     id: ModifiedBy
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 23
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -141,8 +427,8 @@ items:
   type: Constructor
   source:
     id: .ctor
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 32
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 25
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -160,313 +446,196 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  id: CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  id: DeleteAsync``1(System.String,System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
+  name: DeleteAsync<T>(String, CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.String, System.Threading.CancellationToken)
   type: Method
   source:
-    id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 41
+    id: DeleteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Delete.cs
+    startLine: 18
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nGets an accurate count of how many entities are matched for a given expression/filter in the transaction scope.\n"
+  summary: "\nDeletes a single entity from MongoDB\n<p>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
   example: []
   syntax:
     content: >-
-      public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken))
+      public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: ID
+      type: System.String
+      description: The Id of the entity to delete
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(ID As String, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
+  overload: MongoDB.Entities.DBContext.DeleteAsync*
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(String, CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  id: DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
+  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  type: Method
+  source:
+    id: DeleteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Delete.cs
+    startLine: 32
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDeletes matching entities from MongoDB\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
           where T : IEntity
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: A lambda expression for getting the count for a subset of the data
+      description: A lambda expression for matching entities to delete.
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The entity type to get the count for
-    return:
-      type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), cancellation As CancellationToken = Nothing) As Task(Of Long)
-  overload: MongoDB.Entities.DBContext.CountAsync*
-  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
-  id: CountAsync``1(System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: CountAsync<T>(CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 51
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<long> CountAsync<T>(CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The entity type to get the count for
-    return:
-      type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(cancellation As CancellationToken = Nothing) As Task(Of Long)
-  overload: MongoDB.Entities.DBContext.CountAsync*
-  nameWithType.vb: DBContext.CountAsync(Of T)(CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(CancellationToken)
-- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  id: CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 62
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: filter
-      type: MongoDB.Driver.FilterDefinition{{T}}
-      description: A filter definition
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The entity type to get the count for
-    return:
-      type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(filter As FilterDefinition(Of T), cancellation As CancellationToken = Nothing) As Task(Of Long)
-  overload: MongoDB.Entities.DBContext.CountAsync*
-  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  id: CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: CountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 73
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGets an accurate count of how many total entities are in the collection for a given entity type in the transaction scope.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: filter
-      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
-      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The entity type to get the count for
-    return:
-      type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Overridable Function CountAsync(Of T As IEntity)(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), cancellation As CancellationToken = Nothing) As Task(Of Long)
-  overload: MongoDB.Entities.DBContext.CountAsync*
-  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-- uid: MongoDB.Entities.DBContext.Update``1
-  commentId: M:MongoDB.Entities.DBContext.Update``1
-  id: Update``1
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: Update<T>()
-  nameWithType: DBContext.Update<T>()
-  fullName: MongoDB.Entities.DBContext.Update<T>()
-  type: Method
-  source:
-    id: Update
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 82
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nStarts an update command for the given entity type in the transaction scope.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Update<T> Update<T>()
-          where T : IEntity
+    - id: collation
+      type: MongoDB.Driver.Collation
+      description: An optional collation object
     typeParameters:
     - id: T
       description: The type of entity
     return:
-      type: MongoDB.Entities.Update{{T}}
-    content.vb: Public Overridable Function Update(Of T As IEntity) As Update(Of T)
-  overload: MongoDB.Entities.DBContext.Update*
-  nameWithType.vb: DBContext.Update(Of T)()
+      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), cancellation As CancellationToken = Nothing, collation As Collation = Nothing) As Task(Of DeleteResult)
+  overload: MongoDB.Entities.DBContext.DeleteAsync*
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.Update(Of T)()
-  name.vb: Update(Of T)()
-- uid: MongoDB.Entities.DBContext.UpdateAndGet``1
-  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``1
-  id: UpdateAndGet``1
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  id: DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: UpdateAndGet<T>()
-  nameWithType: DBContext.UpdateAndGet<T>()
-  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T>()
+  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
   type: Method
   source:
-    id: UpdateAndGet
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 97
+    id: DeleteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Delete.cs
+    startLine: 45
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStarts an update-and-get command for the given entity type in the transaction scope.\n"
+  summary: "\nDeletes matching entities from MongoDB\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>\n"
   example: []
   syntax:
     content: >-
-      public virtual UpdateAndGet<T> UpdateAndGet<T>()
+      public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
+    parameters:
+    - id: IDs
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: An IEnumerable of entity IDs
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     typeParameters:
     - id: T
       description: The type of entity
     return:
-      type: MongoDB.Entities.UpdateAndGet{{T}}
-    content.vb: Public Overridable Function UpdateAndGet(Of T As IEntity) As UpdateAndGet(Of T)
-  overload: MongoDB.Entities.DBContext.UpdateAndGet*
-  nameWithType.vb: DBContext.UpdateAndGet(Of T)()
+      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(IDs As IEnumerable(Of String), cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
+  overload: MongoDB.Entities.DBContext.DeleteAsync*
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T)()
-  name.vb: UpdateAndGet(Of T)()
-- uid: MongoDB.Entities.DBContext.UpdateAndGet``2
-  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``2
-  id: UpdateAndGet``2
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+- uid: MongoDB.Entities.DBContext.Distinct``2
+  commentId: M:MongoDB.Entities.DBContext.Distinct``2
+  id: Distinct``2
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: UpdateAndGet<T, TProjection>()
-  nameWithType: DBContext.UpdateAndGet<T, TProjection>()
-  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T, TProjection>()
+  name: Distinct<T, TProperty>()
+  nameWithType: DBContext.Distinct<T, TProperty>()
+  fullName: MongoDB.Entities.DBContext.Distinct<T, TProperty>()
   type: Method
   source:
-    id: UpdateAndGet
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 113
+    id: Distinct
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Distinct.cs
+    startLine: 9
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStarts an update-and-get command with projection support for the given entity type in the transaction scope.\n"
+  summary: "\nRepresents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity\n"
   example: []
   syntax:
     content: >-
-      public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>()
+      public virtual Distinct<T, TProperty> Distinct<T, TProperty>()
+
           where T : IEntity
     typeParameters:
     - id: T
-      description: The type of entity
-    - id: TProjection
-      description: The type of the end result
+      description: Any Entity that implements IEntity interface
+    - id: TProperty
+      description: The type of the property of the entity you&apos;d like to get unique values for
     return:
-      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
-    content.vb: Public Overridable Function UpdateAndGet(Of T As IEntity, TProjection) As UpdateAndGet(Of T, TProjection)
-  overload: MongoDB.Entities.DBContext.UpdateAndGet*
-  nameWithType.vb: DBContext.UpdateAndGet(Of T, TProjection)()
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
+    content.vb: Public Overridable Function Distinct(Of T As IEntity, TProperty) As Distinct(Of T, TProperty)
+  overload: MongoDB.Entities.DBContext.Distinct*
+  nameWithType.vb: DBContext.Distinct(Of T, TProperty)()
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T, TProjection)()
-  name.vb: UpdateAndGet(Of T, TProjection)()
+  fullName.vb: MongoDB.Entities.DBContext.Distinct(Of T, TProperty)()
+  name.vb: Distinct(Of T, TProperty)()
 - uid: MongoDB.Entities.DBContext.Find``1
   commentId: M:MongoDB.Entities.DBContext.Find``1
   id: Find``1
@@ -480,16 +649,17 @@ items:
   type: Method
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 128
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Find.cs
+    startLine: 8
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStarts a find command for the given entity type in the transaction scope.\n"
+  summary: "\nStarts a find command for the given entity type\n"
   example: []
   syntax:
     content: >-
       public virtual Find<T> Find<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -520,16 +690,17 @@ items:
   type: Method
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 138
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Find.cs
+    startLine: 18
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStarts a find command with projection support for the given entity type in the transaction scope.\n"
+  summary: "\nStarts a find command with projection support for the given entity type\n"
   example: []
   syntax:
     content: >-
       public virtual Find<T, TProjection> Find<T, TProjection>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -562,16 +733,17 @@ items:
   type: Method
   source:
     id: Fluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 148
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Fluent.cs
+    startLine: 11
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nExposes the MongoDB collection for the given entity type as IAggregateFluent in order to facilitate Fluent queries in the transaction sope.\n"
+  summary: "\nExposes the MongoDB collection for the given entity type as IAggregateFluent in order to facilitate Fluent queries\n"
   example: []
   syntax:
     content: >-
       public virtual IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -593,258 +765,65 @@ items:
   - Overridable
   fullName.vb: MongoDB.Entities.DBContext.Fluent(Of T)(MongoDB.Driver.AggregateOptions)
   name.vb: Fluent(Of T)(AggregateOptions)
-- uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
-  id: Queryable``1(MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  id: FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: Queryable<T>(AggregateOptions)
-  nameWithType: DBContext.Queryable<T>(AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.Queryable<T>(MongoDB.Driver.AggregateOptions)
+  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
+  nameWithType: DBContext.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
   type: Method
   source:
-    id: Queryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 158
+    id: FluentTextSearch
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Fluent.cs
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nExposes the MongoDB collection for the given entity type as IQueryable in order to facilitate LINQ queries in the transaction scope.\n"
+  summary: "\nStart a fluent aggregation pipeline with a $text stage with the supplied parameters\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
   example: []
   syntax:
     content: >-
-      public virtual IMongoQueryable<T> Queryable<T>(AggregateOptions options = null)
+      public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
+    - id: searchType
+      type: MongoDB.Entities.Search
+      description: The type of text matching to do
+    - id: searchTerm
+      type: System.String
+      description: The search term
+    - id: caseSensitive
+      type: System.Boolean
+      description: Case sensitivity of the search (optional)
+    - id: diacriticSensitive
+      type: System.Boolean
+      description: Diacritic sensitivity of the search (optional)
+    - id: language
+      type: System.String
+      description: The language for the search (optional)
     - id: options
       type: MongoDB.Driver.AggregateOptions
-      description: The aggregate options
+      description: Options for finding documents (not required)
     typeParameters:
     - id: T
-      description: The type of entity
     return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{{T}}
-    content.vb: Public Overridable Function Queryable(Of T As IEntity)(options As AggregateOptions = Nothing) As IMongoQueryable(Of T)
-  overload: MongoDB.Entities.DBContext.Queryable*
-  nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions)
+      type: MongoDB.Driver.IAggregateFluent{{T}}
+    content.vb: Public Overridable Function FluentTextSearch(Of T As IEntity)(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing, options As AggregateOptions = Nothing) As IAggregateFluent(Of T)
+  overload: MongoDB.Entities.DBContext.FluentTextSearch*
+  nameWithType.vb: DBContext.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
-  name.vb: Queryable(Of T)(AggregateOptions)
-- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  id: PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: PipelineCursorAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 172
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nExecutes an aggregation pipeline in the transaction scope by supplying a &apos;Template&apos; object.\nGets a cursor back as the result.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: template
-      type: MongoDB.Entities.Template{{T},{TResult}}
-      description: A &apos;Template&apos; object with tags replaced
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: The options for the aggregation. This is not required.
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The type of entity
-    - id: TResult
-      description: The type of the resulting objects
-    return:
-      type: System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{{TResult}}}
-    content.vb: Public Overridable Function PipelineCursorAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of IAsyncCursor(Of TResult))
-  overload: MongoDB.Entities.DBContext.PipelineCursorAsync*
-  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  id: PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: PipelineAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 186
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nExecutes an aggregation pipeline in the transaction scope by supplying a &apos;Template&apos; object.\nGets a list back as the result.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: template
-      type: MongoDB.Entities.Template{{T},{TResult}}
-      description: A &apos;Template&apos; object with tags replaced
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: The options for the aggregation. This is not required.
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The type of entity
-    - id: TResult
-      description: The type of the resulting objects
-    return:
-      type: System.Threading.Tasks.Task{System.Collections.Generic.List{{TResult}}}
-    content.vb: Public Overridable Function PipelineAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of List(Of TResult))
-  overload: MongoDB.Entities.DBContext.PipelineAsync*
-  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  id: PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: PipelineSingleAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 200
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nExecutes an aggregation pipeline in the transaction scope by supplying a &apos;Template&apos; object.\nGets a single or default value as the result.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: template
-      type: MongoDB.Entities.Template{{T},{TResult}}
-      description: A &apos;Template&apos; object with tags replaced
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: The options for the aggregation. This is not required.
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The type of entity
-    - id: TResult
-      description: The type of the resulting objects
-    return:
-      type: System.Threading.Tasks.Task{{TResult}}
-    content.vb: Public Overridable Function PipelineSingleAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TResult)
-  overload: MongoDB.Entities.DBContext.PipelineSingleAsync*
-  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  id: PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: PipelineFirstAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 214
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nExecutes an aggregation pipeline in the transaction scope by supplying a &apos;Template&apos; object.\nGets the first or default value as the result.\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-          where T : IEntity
-    parameters:
-    - id: template
-      type: MongoDB.Entities.Template{{T},{TResult}}
-      description: A &apos;Template&apos; object with tags replaced
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: The options for the aggregation. This is not required.
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    typeParameters:
-    - id: T
-      description: The type of entity
-    - id: TResult
-      description: The type of the resulting objects
-    return:
-      type: System.Threading.Tasks.Task{{TResult}}
-    content.vb: Public Overridable Function PipelineFirstAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TResult)
-  overload: MongoDB.Entities.DBContext.PipelineFirstAsync*
-  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
+  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
 - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
   commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
   id: GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
@@ -858,16 +837,17 @@ items:
   type: Method
   source:
     id: GeoNear
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 234
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.GeoNear.cs
+    startLine: 24
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStart a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters in the transaction scope.\n"
+  summary: "\nStart a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters\n"
   example: []
   syntax:
     content: >-
       public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = default(int? ), int? MinDistance = default(int? ), int? Limit = default(int? ), BsonDocument Query = null, int? DistanceMultiplier = default(int? ), Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: NearCoordinates
@@ -919,6 +899,263 @@ items:
   - Overridable
   fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
   name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  id: PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: PipelineCursorAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Pipeline.cs
+    startLine: 18
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes an aggregation pipeline by supplying a &apos;Template&apos; object.\nGets a cursor back as the result.\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template{{T},{TResult}}
+      description: A &apos;Template&apos; object with tags replaced
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: The options for the aggregation. This is not required.
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity
+    - id: TResult
+      description: The type of the resulting objects
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{{TResult}}}
+    content.vb: Public Overridable Function PipelineCursorAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of IAsyncCursor(Of TResult))
+  overload: MongoDB.Entities.DBContext.PipelineCursorAsync*
+  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  id: PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: PipelineAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Pipeline.cs
+    startLine: 32
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes an aggregation pipeline by supplying a &apos;Template&apos; object.\nGets a list back as the result.\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template{{T},{TResult}}
+      description: A &apos;Template&apos; object with tags replaced
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: The options for the aggregation. This is not required.
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity
+    - id: TResult
+      description: The type of the resulting objects
+    return:
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{{TResult}}}
+    content.vb: Public Overridable Function PipelineAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of List(Of TResult))
+  overload: MongoDB.Entities.DBContext.PipelineAsync*
+  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  id: PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: PipelineSingleAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Pipeline.cs
+    startLine: 46
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes an aggregation pipeline by supplying a &apos;Template&apos; object.\nGets a single or default value as the result.\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template{{T},{TResult}}
+      description: A &apos;Template&apos; object with tags replaced
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: The options for the aggregation. This is not required.
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity
+    - id: TResult
+      description: The type of the resulting objects
+    return:
+      type: System.Threading.Tasks.Task{{TResult}}
+    content.vb: Public Overridable Function PipelineSingleAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TResult)
+  overload: MongoDB.Entities.DBContext.PipelineSingleAsync*
+  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  id: PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: PipelineFirstAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Pipeline.cs
+    startLine: 60
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes an aggregation pipeline by supplying a &apos;Template&apos; object.\nGets the first or default value as the result.\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template{{T},{TResult}}
+      description: A &apos;Template&apos; object with tags replaced
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: The options for the aggregation. This is not required.
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: The type of entity
+    - id: TResult
+      description: The type of the resulting objects
+    return:
+      type: System.Threading.Tasks.Task{{TResult}}
+    content.vb: Public Overridable Function PipelineFirstAsync(Of T As IEntity, TResult)(template As Template(Of T, TResult), options As AggregateOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of TResult)
+  overload: MongoDB.Entities.DBContext.PipelineFirstAsync*
+  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
+  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+- uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  id: Queryable``1(MongoDB.Driver.AggregateOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: Queryable<T>(AggregateOptions)
+  nameWithType: DBContext.Queryable<T>(AggregateOptions)
+  fullName: MongoDB.Entities.DBContext.Queryable<T>(MongoDB.Driver.AggregateOptions)
+  type: Method
+  source:
+    id: Queryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Queryable.cs
+    startLine: 12
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExposes the MongoDB collection for the given entity type as IQueryable in order to facilitate LINQ queries\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual IMongoQueryable<T> Queryable<T>(AggregateOptions options = null)
+
+          where T : IEntity
+    parameters:
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: The aggregate options
+    typeParameters:
+    - id: T
+      description: The type of entity
+    return:
+      type: MongoDB.Driver.Linq.IMongoQueryable{{T}}
+    content.vb: Public Overridable Function Queryable(Of T As IEntity)(options As AggregateOptions = Nothing) As IMongoQueryable(Of T)
+  overload: MongoDB.Entities.DBContext.Queryable*
+  nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
+  name.vb: Queryable(Of T)(AggregateOptions)
 - uid: MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
   id: SaveAsync``1(``0,System.Threading.CancellationToken)
@@ -932,8 +1169,8 @@ items:
   type: Method
   source:
     id: SaveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 246
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 20
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -942,6 +1179,7 @@ items:
   syntax:
     content: >-
       public virtual Task SaveAsync<T>(T entity, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -979,8 +1217,8 @@ items:
   type: Method
   source:
     id: SaveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 259
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 33
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -989,6 +1227,7 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1026,8 +1265,8 @@ items:
   type: Method
   source:
     id: SaveOnlyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 275
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 49
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1036,6 +1275,7 @@ items:
   syntax:
     content: >-
       public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1076,8 +1316,8 @@ items:
   type: Method
   source:
     id: SaveOnlyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 291
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 65
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1086,6 +1326,7 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1126,8 +1367,8 @@ items:
   type: Method
   source:
     id: SaveExceptAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 307
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 81
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1136,6 +1377,7 @@ items:
   syntax:
     content: >-
       public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1176,8 +1418,8 @@ items:
   type: Method
   source:
     id: SaveExceptAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 323
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1186,6 +1428,7 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1226,16 +1469,17 @@ items:
   type: Method
   source:
     id: SavePreservingAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 336
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Save.cs
+    startLine: 110
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSaves an entity partially while excluding some properties in the transaction scope.\nThe properties to be excluded can be specified using the [Preserve] or [DontPreserve] attributes.\n"
+  summary: "\nSaves an entity partially while excluding some properties\nThe properties to be excluded can be specified using the [Preserve] or [DontPreserve] attributes.\n"
   example: []
   syntax:
     content: >-
       public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1260,205 +1504,131 @@ items:
   - Overridable
   fullName.vb: MongoDB.Entities.DBContext.SavePreservingAsync(Of T)(T, System.Threading.CancellationToken)
   name.vb: SavePreservingAsync(Of T)(T, CancellationToken)
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  id: DeleteAsync``1(System.String,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.Update``1
+  commentId: M:MongoDB.Entities.DBContext.Update``1
+  id: Update``1
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(String, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.String, System.Threading.CancellationToken)
+  name: Update<T>()
+  nameWithType: DBContext.Update<T>()
+  fullName: MongoDB.Entities.DBContext.Update<T>()
   type: Method
   source:
-    id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 349
+    id: Update
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Update.cs
+    startLine: 8
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDeletes a single entity from MongoDB in the transaction scope.\n<p>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
+  summary: "\nStarts an update command for the given entity type\n"
   example: []
   syntax:
     content: >-
-      public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default(CancellationToken))
+      public virtual Update<T> Update<T>()
+
           where T : IEntity
-    parameters:
-    - id: ID
-      type: System.String
-      description: The Id of the entity to delete
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
     typeParameters:
     - id: T
       description: The type of entity
     return:
-      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(ID As String, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
-  overload: MongoDB.Entities.DBContext.DeleteAsync*
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken)
+      type: MongoDB.Entities.Update{{T}}
+    content.vb: Public Overridable Function Update(Of T As IEntity) As Update(Of T)
+  overload: MongoDB.Entities.DBContext.Update*
+  nameWithType.vb: DBContext.Update(Of T)()
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(String, CancellationToken)
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  id: DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.Update(Of T)()
+  name.vb: Update(Of T)()
+- uid: MongoDB.Entities.DBContext.UpdateAndGet``1
+  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``1
+  id: UpdateAndGet``1
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
+  name: UpdateAndGet<T>()
+  nameWithType: DBContext.UpdateAndGet<T>()
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T>()
   type: Method
   source:
-    id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 362
+    id: UpdateAndGet
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Update.cs
+    startLine: 23
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDeletes matching entities from MongoDB in the transaction scope\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>\n"
+  summary: "\nStarts an update-and-get command for the given entity type\n"
   example: []
   syntax:
     content: >-
-      public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken))
+      public virtual UpdateAndGet<T> UpdateAndGet<T>()
+
           where T : IEntity
-    parameters:
-    - id: expression
-      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: A lambda expression for matching entities to delete.
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
     typeParameters:
     - id: T
       description: The type of entity
     return:
-      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(expression As Expression(Of Func(Of T, Boolean)), cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
-  overload: MongoDB.Entities.DBContext.DeleteAsync*
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+      type: MongoDB.Entities.UpdateAndGet{{T}}
+    content.vb: Public Overridable Function UpdateAndGet(Of T As IEntity) As UpdateAndGet(Of T)
+  overload: MongoDB.Entities.DBContext.UpdateAndGet*
+  nameWithType.vb: DBContext.UpdateAndGet(Of T)()
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  id: DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T)()
+  name.vb: UpdateAndGet(Of T)()
+- uid: MongoDB.Entities.DBContext.UpdateAndGet``2
+  commentId: M:MongoDB.Entities.DBContext.UpdateAndGet``2
+  id: UpdateAndGet``2
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  name: UpdateAndGet<T, TProjection>()
+  nameWithType: DBContext.UpdateAndGet<T, TProjection>()
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet<T, TProjection>()
   type: Method
   source:
-    id: DeleteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 375
+    id: UpdateAndGet
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Update.cs
+    startLine: 39
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDeletes matching entities from MongoDB in the transaction scope\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n<p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>\n"
+  summary: "\nStarts an update-and-get command with projection support for the given entity type\n"
   example: []
   syntax:
     content: >-
-      public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default(CancellationToken))
+      public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>()
+
           where T : IEntity
-    parameters:
-    - id: IDs
-      type: System.Collections.Generic.IEnumerable{System.String}
-      description: An IEnumerable of entity IDs
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
     typeParameters:
     - id: T
       description: The type of entity
+    - id: TProjection
+      description: The type of the end result
     return:
-      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-    content.vb: Public Overridable Function DeleteAsync(Of T As IEntity)(IDs As IEnumerable(Of String), cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
-  overload: MongoDB.Entities.DBContext.DeleteAsync*
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
+    content.vb: Public Overridable Function UpdateAndGet(Of T As IEntity, TProjection) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.DBContext.UpdateAndGet*
+  nameWithType.vb: DBContext.UpdateAndGet(Of T, TProjection)()
   modifiers.csharp:
   - public
   - virtual
   modifiers.vb:
   - Public
   - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-- uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  id: FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  nameWithType: DBContext.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  type: Method
-  source:
-    id: FluentTextSearch
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\DBContext.cs
-    startLine: 390
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nStart a fluent aggregation pipeline with a $text stage with the supplied parameters in the transaction scope.\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
-  example: []
-  syntax:
-    content: >-
-      public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
-          where T : IEntity
-    parameters:
-    - id: searchType
-      type: MongoDB.Entities.Search
-      description: The type of text matching to do
-    - id: searchTerm
-      type: System.String
-      description: The search term
-    - id: caseSensitive
-      type: System.Boolean
-      description: Case sensitivity of the search (optional)
-    - id: diacriticSensitive
-      type: System.Boolean
-      description: Diacritic sensitivity of the search (optional)
-    - id: language
-      type: System.String
-      description: The language for the search (optional)
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: Options for finding documents (not required)
-    typeParameters:
-    - id: T
-    return:
-      type: MongoDB.Driver.IAggregateFluent{{T}}
-    content.vb: Public Overridable Function FluentTextSearch(Of T As IEntity)(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing, options As AggregateOptions = Nothing) As IAggregateFluent(Of T)
-  overload: MongoDB.Entities.DBContext.FluentTextSearch*
-  nameWithType.vb: DBContext.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
-  modifiers.csharp:
-  - public
-  - virtual
-  modifiers.vb:
-  - Public
-  - Overridable
-  fullName.vb: MongoDB.Entities.DBContext.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
+  fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T, TProjection)()
+  name.vb: UpdateAndGet(Of T, TProjection)()
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
@@ -1757,30 +1927,127 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: MongoDB.Driver.IClientSessionHandle
-  commentId: T:MongoDB.Driver.IClientSessionHandle
+- uid: MongoDB.Entities.DBContext.CreateCollection*
+  commentId: Overload:MongoDB.Entities.DBContext.CreateCollection
+  name: CreateCollection
+  nameWithType: DBContext.CreateCollection
+  fullName: MongoDB.Entities.DBContext.CreateCollection
+- uid: MongoDB.Driver.CreateCollectionOptions{{T}}
+  commentId: T:MongoDB.Driver.CreateCollectionOptions{``0}
   parent: MongoDB.Driver
+  definition: MongoDB.Driver.CreateCollectionOptions`1
+  name: CreateCollectionOptions<T>
+  nameWithType: CreateCollectionOptions<T>
+  fullName: MongoDB.Driver.CreateCollectionOptions<T>
+  nameWithType.vb: CreateCollectionOptions(Of T)
+  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of T)
+  name.vb: CreateCollectionOptions(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
   isExternal: true
-  name: IClientSessionHandle
-  nameWithType: IClientSessionHandle
-  fullName: MongoDB.Driver.IClientSessionHandle
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: MongoDB.Driver.CreateCollectionOptions`1
+  commentId: T:MongoDB.Driver.CreateCollectionOptions`1
+  isExternal: true
+  name: CreateCollectionOptions<TDocument>
+  nameWithType: CreateCollectionOptions<TDocument>
+  fullName: MongoDB.Driver.CreateCollectionOptions<TDocument>
+  nameWithType.vb: CreateCollectionOptions(Of TDocument)
+  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of TDocument)
+  name.vb: CreateCollectionOptions(Of TDocument)
+  spec.csharp:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.CreateCollectionOptions`1
+    name: CreateCollectionOptions
+    nameWithType: CreateCollectionOptions
+    fullName: MongoDB.Driver.CreateCollectionOptions
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Driver
   commentId: N:MongoDB.Driver
   isExternal: true
   name: MongoDB.Driver
   nameWithType: MongoDB.Driver
   fullName: MongoDB.Driver
-- uid: MongoDB.Entities.ModifiedBy
-  commentId: T:MongoDB.Entities.ModifiedBy
-  parent: MongoDB.Entities
-  name: ModifiedBy
-  nameWithType: ModifiedBy
-  fullName: MongoDB.Entities.ModifiedBy
-- uid: MongoDB.Entities.DBContext.#ctor*
-  commentId: Overload:MongoDB.Entities.DBContext.#ctor
-  name: DBContext
-  nameWithType: DBContext.DBContext
-  fullName: MongoDB.Entities.DBContext.DBContext
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: MongoDB.Entities.DBContext.DropCollectionAsync*
+  commentId: Overload:MongoDB.Entities.DBContext.DropCollectionAsync
+  name: DropCollectionAsync
+  nameWithType: DBContext.DropCollectionAsync
+  fullName: MongoDB.Entities.DBContext.DropCollectionAsync
 - uid: MongoDB.Entities.DBContext.CountAsync*
   commentId: Overload:MongoDB.Entities.DBContext.CountAsync
   name: CountAsync
@@ -1864,13 +2131,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
+- uid: MongoDB.Driver.CountOptions
+  commentId: T:MongoDB.Driver.CountOptions
+  parent: MongoDB.Driver
   isExternal: true
-  name: CancellationToken
-  nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
+  name: CountOptions
+  nameWithType: CountOptions
+  fullName: MongoDB.Driver.CountOptions
 - uid: System.Threading.Tasks.Task{System.Int64}
   commentId: T:System.Threading.Tasks.Task{System.Int64}
   parent: System.Threading.Tasks
@@ -1960,12 +2227,6 @@ references:
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
@@ -2005,12 +2266,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
 - uid: MongoDB.Driver.FilterDefinition{{T}}
   commentId: T:MongoDB.Driver.FilterDefinition{``0}
   parent: MongoDB.Driver
@@ -2237,26 +2492,146 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.Update*
-  commentId: Overload:MongoDB.Entities.DBContext.Update
-  name: Update
-  nameWithType: DBContext.Update
-  fullName: MongoDB.Entities.DBContext.Update
-- uid: MongoDB.Entities.Update{{T}}
-  commentId: T:MongoDB.Entities.Update{``0}
+- uid: MongoDB.Driver.IClientSessionHandle
+  commentId: T:MongoDB.Driver.IClientSessionHandle
+  parent: MongoDB.Driver
+  isExternal: true
+  name: IClientSessionHandle
+  nameWithType: IClientSessionHandle
+  fullName: MongoDB.Driver.IClientSessionHandle
+- uid: MongoDB.Entities.ModifiedBy
+  commentId: T:MongoDB.Entities.ModifiedBy
   parent: MongoDB.Entities
-  definition: MongoDB.Entities.Update`1
-  name: Update<T>
-  nameWithType: Update<T>
-  fullName: MongoDB.Entities.Update<T>
-  nameWithType.vb: Update(Of T)
-  fullName.vb: MongoDB.Entities.Update(Of T)
-  name.vb: Update(Of T)
+  name: ModifiedBy
+  nameWithType: ModifiedBy
+  fullName: MongoDB.Entities.ModifiedBy
+- uid: MongoDB.Entities.DBContext.#ctor*
+  commentId: Overload:MongoDB.Entities.DBContext.#ctor
+  name: DBContext
+  nameWithType: DBContext.DBContext
+  fullName: MongoDB.Entities.DBContext.DBContext
+- uid: MongoDB.Entities.DBContext.DeleteAsync*
+  commentId: Overload:MongoDB.Entities.DBContext.DeleteAsync
+  name: DeleteAsync
+  nameWithType: DBContext.DeleteAsync
+  fullName: MongoDB.Entities.DBContext.DeleteAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<DeleteResult>
+  nameWithType: Task<DeleteResult>
+  fullName: System.Threading.Tasks.Task<MongoDB.Driver.DeleteResult>
+  nameWithType.vb: Task(Of DeleteResult)
+  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.DeleteResult)
+  name.vb: Task(Of DeleteResult)
   spec.csharp:
-  - uid: MongoDB.Entities.Update`1
-    name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.DeleteResult
+    name: DeleteResult
+    nameWithType: DeleteResult
+    fullName: MongoDB.Driver.DeleteResult
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.DeleteResult
+    name: DeleteResult
+    nameWithType: DeleteResult
+    fullName: MongoDB.Driver.DeleteResult
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.Collation
+  commentId: T:MongoDB.Driver.Collation
+  parent: MongoDB.Driver
+  isExternal: true
+  name: Collation
+  nameWithType: Collation
+  fullName: MongoDB.Driver.Collation
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<String>
+  nameWithType: IEnumerable<String>
+  fullName: System.Collections.Generic.IEnumerable<System.String>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.String)
+  name.vb: IEnumerable(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
   - name: <
     nameWithType: <
     fullName: <
@@ -2267,10 +2642,11 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: MongoDB.Entities.Update`1
-    name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
@@ -2280,137 +2656,32 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Update`1
-  commentId: T:MongoDB.Entities.Update`1
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: MongoDB.Entities.DBContext.Distinct*
+  commentId: Overload:MongoDB.Entities.DBContext.Distinct
+  name: Distinct
+  nameWithType: DBContext.Distinct
+  fullName: MongoDB.Entities.DBContext.Distinct
+- uid: MongoDB.Entities.Distinct{{T},{TProperty}}
+  commentId: T:MongoDB.Entities.Distinct{``0,``1}
   parent: MongoDB.Entities
-  name: Update<T>
-  nameWithType: Update<T>
-  fullName: MongoDB.Entities.Update<T>
-  nameWithType.vb: Update(Of T)
-  fullName.vb: MongoDB.Entities.Update(Of T)
-  name.vb: Update(Of T)
+  definition: MongoDB.Entities.Distinct`2
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
   spec.csharp:
-  - uid: MongoDB.Entities.Update`1
-    name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.Update`1
-    name: Update
-    nameWithType: Update
-    fullName: MongoDB.Entities.Update
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.DBContext.UpdateAndGet*
-  commentId: Overload:MongoDB.Entities.DBContext.UpdateAndGet
-  name: UpdateAndGet
-  nameWithType: DBContext.UpdateAndGet
-  fullName: MongoDB.Entities.DBContext.UpdateAndGet
-- uid: MongoDB.Entities.UpdateAndGet{{T}}
-  commentId: T:MongoDB.Entities.UpdateAndGet{``0}
-  parent: MongoDB.Entities
-  definition: MongoDB.Entities.UpdateAndGet`1
-  name: UpdateAndGet<T>
-  nameWithType: UpdateAndGet<T>
-  fullName: MongoDB.Entities.UpdateAndGet<T>
-  nameWithType.vb: UpdateAndGet(Of T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T)
-  name.vb: UpdateAndGet(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`1
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`1
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`1
-  commentId: T:MongoDB.Entities.UpdateAndGet`1
-  name: UpdateAndGet<T>
-  nameWithType: UpdateAndGet<T>
-  fullName: MongoDB.Entities.UpdateAndGet<T>
-  nameWithType.vb: UpdateAndGet(Of T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T)
-  name.vb: UpdateAndGet(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`1
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`1
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.UpdateAndGet{``0,``1}
-  parent: MongoDB.Entities
-  definition: MongoDB.Entities.UpdateAndGet`2
-  name: UpdateAndGet<T, TProjection>
-  nameWithType: UpdateAndGet<T, TProjection>
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
-  nameWithType.vb: UpdateAndGet(Of T, TProjection)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
-  name.vb: UpdateAndGet(Of T, TProjection)
-  spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
   - name: <
     nameWithType: <
     fullName: <
@@ -2420,17 +2691,17 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
@@ -2440,26 +2711,26 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2
-  commentId: T:MongoDB.Entities.UpdateAndGet`2
+- uid: MongoDB.Entities.Distinct`2
+  commentId: T:MongoDB.Entities.Distinct`2
   parent: MongoDB.Entities
-  name: UpdateAndGet<T, TProjection>
-  nameWithType: UpdateAndGet<T, TProjection>
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
-  nameWithType.vb: UpdateAndGet(Of T, TProjection)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
-  name.vb: UpdateAndGet(Of T, TProjection)
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
   - name: <
     nameWithType: <
     fullName: <
@@ -2469,17 +2740,17 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2
-    name: UpdateAndGet
-    nameWithType: UpdateAndGet
-    fullName: MongoDB.Entities.UpdateAndGet
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
@@ -2489,9 +2760,9 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
   - name: )
     nameWithType: )
     fullName: )
@@ -2764,26 +3035,178 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.Queryable*
-  commentId: Overload:MongoDB.Entities.DBContext.Queryable
-  name: Queryable
-  nameWithType: DBContext.Queryable
-  fullName: MongoDB.Entities.DBContext.Queryable
-- uid: MongoDB.Driver.Linq.IMongoQueryable{{T}}
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{``0}
-  parent: MongoDB.Driver.Linq
-  definition: MongoDB.Driver.Linq.IMongoQueryable`1
-  name: IMongoQueryable<T>
-  nameWithType: IMongoQueryable<T>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
-  nameWithType.vb: IMongoQueryable(Of T)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
-  name.vb: IMongoQueryable(Of T)
+- uid: MongoDB.Entities.DBContext.FluentTextSearch*
+  commentId: Overload:MongoDB.Entities.DBContext.FluentTextSearch
+  name: FluentTextSearch
+  nameWithType: DBContext.FluentTextSearch
+  fullName: MongoDB.Entities.DBContext.FluentTextSearch
+- uid: MongoDB.Entities.Search
+  commentId: T:MongoDB.Entities.Search
+  parent: MongoDB.Entities
+  name: Search
+  nameWithType: Search
+  fullName: MongoDB.Entities.Search
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: MongoDB.Entities.DBContext.GeoNear*
+  commentId: Overload:MongoDB.Entities.DBContext.GeoNear
+  name: GeoNear
+  nameWithType: DBContext.GeoNear
+  fullName: MongoDB.Entities.DBContext.GeoNear
+- uid: MongoDB.Entities.Coordinates2D
+  commentId: T:MongoDB.Entities.Coordinates2D
+  parent: MongoDB.Entities
+  name: Coordinates2D
+  nameWithType: Coordinates2D
+  fullName: MongoDB.Entities.Coordinates2D
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Object>>
+  nameWithType: Expression<Func<T, Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  nameWithType.vb: Expression(Of Func(Of T, Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable{System.Int32}
+  commentId: T:System.Nullable{System.Int32}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<Int32>
+  nameWithType: Nullable<Int32>
+  fullName: System.Nullable<System.Int32>
+  nameWithType.vb: Nullable(Of Int32)
+  fullName.vb: System.Nullable(Of System.Int32)
+  name.vb: Nullable(Of Int32)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Bson.BsonDocument
+  commentId: T:MongoDB.Bson.BsonDocument
+  parent: MongoDB.Bson
+  isExternal: true
+  name: BsonDocument
+  nameWithType: BsonDocument
+  fullName: MongoDB.Bson.BsonDocument
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
     isExternal: true
   - name: <
     nameWithType: <
@@ -2795,10 +3218,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2809,51 +3232,12 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver.Linq.IMongoQueryable`1
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable`1
+- uid: MongoDB.Bson
+  commentId: N:MongoDB.Bson
   isExternal: true
-  name: IMongoQueryable<T>
-  nameWithType: IMongoQueryable<T>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
-  nameWithType.vb: IMongoQueryable(Of T)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
-  name.vb: IMongoQueryable(Of T)
-  spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.Linq
-  commentId: N:MongoDB.Driver.Linq
-  isExternal: true
-  name: MongoDB.Driver.Linq
-  nameWithType: MongoDB.Driver.Linq
-  fullName: MongoDB.Driver.Linq
+  name: MongoDB.Bson
+  nameWithType: MongoDB.Bson
+  fullName: MongoDB.Bson
 - uid: MongoDB.Entities.DBContext.PipelineCursorAsync*
   commentId: Overload:MongoDB.Entities.DBContext.PipelineCursorAsync
   name: PipelineCursorAsync
@@ -3137,174 +3521,26 @@ references:
   name: PipelineFirstAsync
   nameWithType: DBContext.PipelineFirstAsync
   fullName: MongoDB.Entities.DBContext.PipelineFirstAsync
-- uid: MongoDB.Entities.DBContext.GeoNear*
-  commentId: Overload:MongoDB.Entities.DBContext.GeoNear
-  name: GeoNear
-  nameWithType: DBContext.GeoNear
-  fullName: MongoDB.Entities.DBContext.GeoNear
-- uid: MongoDB.Entities.Coordinates2D
-  commentId: T:MongoDB.Entities.Coordinates2D
-  parent: MongoDB.Entities
-  name: Coordinates2D
-  nameWithType: Coordinates2D
-  fullName: MongoDB.Entities.Coordinates2D
-- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
-  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
-  parent: System.Linq.Expressions
-  definition: System.Linq.Expressions.Expression`1
-  name: Expression<Func<T, Object>>
-  nameWithType: Expression<Func<T, Object>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
-  nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
-  name.vb: Expression(Of Func(Of T, Object))
+- uid: MongoDB.Entities.DBContext.Queryable*
+  commentId: Overload:MongoDB.Entities.DBContext.Queryable
+  name: Queryable
+  nameWithType: DBContext.Queryable
+  fullName: MongoDB.Entities.DBContext.Queryable
+- uid: MongoDB.Driver.Linq.IMongoQueryable{{T}}
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{``0}
+  parent: MongoDB.Driver.Linq
+  definition: MongoDB.Driver.Linq.IMongoQueryable`1
+  name: IMongoQueryable<T>
+  nameWithType: IMongoQueryable<T>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
+  nameWithType.vb: IMongoQueryable(Of T)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
+  name.vb: IMongoQueryable(Of T)
   spec.csharp:
-  - uid: System.Linq.Expressions.Expression`1
-    name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Linq.Expressions.Expression`1
-    name: Expression
-    nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  name: Boolean
-  nameWithType: Boolean
-  fullName: System.Boolean
-- uid: System.Nullable{System.Int32}
-  commentId: T:System.Nullable{System.Int32}
-  parent: System
-  definition: System.Nullable`1
-  name: Nullable<Int32>
-  nameWithType: Nullable<Int32>
-  fullName: System.Nullable<System.Int32>
-  nameWithType.vb: Nullable(Of Int32)
-  fullName.vb: System.Nullable(Of System.Int32)
-  name.vb: Nullable(Of Int32)
-  spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Bson.BsonDocument
-  commentId: T:MongoDB.Bson.BsonDocument
-  parent: MongoDB.Bson
-  isExternal: true
-  name: BsonDocument
-  nameWithType: BsonDocument
-  fullName: MongoDB.Bson.BsonDocument
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
-- uid: System.Nullable`1
-  commentId: T:System.Nullable`1
-  isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
-  spec.csharp:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
     isExternal: true
   - name: <
     nameWithType: <
@@ -3316,10 +3552,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3330,12 +3566,51 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Bson
-  commentId: N:MongoDB.Bson
+- uid: MongoDB.Driver.Linq.IMongoQueryable`1
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable`1
   isExternal: true
-  name: MongoDB.Bson
-  nameWithType: MongoDB.Bson
-  fullName: MongoDB.Bson
+  name: IMongoQueryable<T>
+  nameWithType: IMongoQueryable<T>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
+  nameWithType.vb: IMongoQueryable(Of T)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
+  name.vb: IMongoQueryable(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.Linq
+  commentId: N:MongoDB.Driver.Linq
+  isExternal: true
+  name: MongoDB.Driver.Linq
+  nameWithType: MongoDB.Driver.Linq
+  fullName: MongoDB.Driver.Linq
 - uid: MongoDB.Entities.DBContext.SaveAsync*
   commentId: Overload:MongoDB.Entities.DBContext.SaveAsync
   name: SaveAsync
@@ -3347,13 +3622,6 @@ references:
   name: T
   nameWithType: T
   fullName: T
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
-  isExternal: true
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
 - uid: T
   name: T
   nameWithType: T
@@ -3460,51 +3728,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.IEnumerable`1
-  commentId: T:System.Collections.Generic.IEnumerable`1
-  isExternal: true
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
 - uid: MongoDB.Entities.DBContext.SaveOnlyAsync*
   commentId: Overload:MongoDB.Entities.DBContext.SaveOnlyAsync
   name: SaveOnlyAsync
@@ -3564,107 +3787,261 @@ references:
   name: SavePreservingAsync
   nameWithType: DBContext.SavePreservingAsync
   fullName: MongoDB.Entities.DBContext.SavePreservingAsync
-- uid: MongoDB.Entities.DBContext.DeleteAsync*
-  commentId: Overload:MongoDB.Entities.DBContext.DeleteAsync
-  name: DeleteAsync
-  nameWithType: DBContext.DeleteAsync
-  fullName: MongoDB.Entities.DBContext.DeleteAsync
-- uid: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-  parent: System.Threading.Tasks
-  definition: System.Threading.Tasks.Task`1
-  name: Task<DeleteResult>
-  nameWithType: Task<DeleteResult>
-  fullName: System.Threading.Tasks.Task<MongoDB.Driver.DeleteResult>
-  nameWithType.vb: Task(Of DeleteResult)
-  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.DeleteResult)
-  name.vb: Task(Of DeleteResult)
-  spec.csharp:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: MongoDB.Driver.DeleteResult
-    name: DeleteResult
-    nameWithType: DeleteResult
-    fullName: MongoDB.Driver.DeleteResult
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: MongoDB.Driver.DeleteResult
-    name: DeleteResult
-    nameWithType: DeleteResult
-    fullName: MongoDB.Driver.DeleteResult
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerable{System.String}
-  commentId: T:System.Collections.Generic.IEnumerable{System.String}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  name: IEnumerable<String>
-  nameWithType: IEnumerable<String>
-  fullName: System.Collections.Generic.IEnumerable<System.String>
-  nameWithType.vb: IEnumerable(Of String)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of System.String)
-  name.vb: IEnumerable(Of String)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.DBContext.FluentTextSearch*
-  commentId: Overload:MongoDB.Entities.DBContext.FluentTextSearch
-  name: FluentTextSearch
-  nameWithType: DBContext.FluentTextSearch
-  fullName: MongoDB.Entities.DBContext.FluentTextSearch
-- uid: MongoDB.Entities.Search
-  commentId: T:MongoDB.Entities.Search
+- uid: MongoDB.Entities.DBContext.Update*
+  commentId: Overload:MongoDB.Entities.DBContext.Update
+  name: Update
+  nameWithType: DBContext.Update
+  fullName: MongoDB.Entities.DBContext.Update
+- uid: MongoDB.Entities.Update{{T}}
+  commentId: T:MongoDB.Entities.Update{``0}
   parent: MongoDB.Entities
-  name: Search
-  nameWithType: Search
-  fullName: MongoDB.Entities.Search
+  definition: MongoDB.Entities.Update`1
+  name: Update<T>
+  nameWithType: Update<T>
+  fullName: MongoDB.Entities.Update<T>
+  nameWithType.vb: Update(Of T)
+  fullName.vb: MongoDB.Entities.Update(Of T)
+  name.vb: Update(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Update`1
+  commentId: T:MongoDB.Entities.Update`1
+  parent: MongoDB.Entities
+  name: Update<T>
+  nameWithType: Update<T>
+  fullName: MongoDB.Entities.Update<T>
+  nameWithType.vb: Update(Of T)
+  fullName.vb: MongoDB.Entities.Update(Of T)
+  name.vb: Update(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.UpdateAndGet*
+  commentId: Overload:MongoDB.Entities.DBContext.UpdateAndGet
+  name: UpdateAndGet
+  nameWithType: DBContext.UpdateAndGet
+  fullName: MongoDB.Entities.DBContext.UpdateAndGet
+- uid: MongoDB.Entities.UpdateAndGet{{T}}
+  commentId: T:MongoDB.Entities.UpdateAndGet{``0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.UpdateAndGet`1
+  name: UpdateAndGet<T>
+  nameWithType: UpdateAndGet<T>
+  fullName: MongoDB.Entities.UpdateAndGet<T>
+  nameWithType.vb: UpdateAndGet(Of T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T)
+  name.vb: UpdateAndGet(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`1
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`1
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`1
+  commentId: T:MongoDB.Entities.UpdateAndGet`1
+  name: UpdateAndGet<T>
+  nameWithType: UpdateAndGet<T>
+  fullName: MongoDB.Entities.UpdateAndGet<T>
+  nameWithType.vb: UpdateAndGet(Of T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T)
+  name.vb: UpdateAndGet(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`1
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`1
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
+  commentId: T:MongoDB.Entities.UpdateAndGet{``0,``1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.UpdateAndGet`2
+  name: UpdateAndGet<T, TProjection>
+  nameWithType: UpdateAndGet<T, TProjection>
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
+  nameWithType.vb: UpdateAndGet(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
+  name.vb: UpdateAndGet(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2
+  commentId: T:MongoDB.Entities.UpdateAndGet`2
+  parent: MongoDB.Entities
+  name: UpdateAndGet<T, TProjection>
+  nameWithType: UpdateAndGet<T, TProjection>
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
+  nameWithType.vb: UpdateAndGet(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
+  name.vb: UpdateAndGet(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )

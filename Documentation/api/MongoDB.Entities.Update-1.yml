@@ -8,11 +8,15 @@ items:
   - MongoDB.Entities.Update`1.AddToQueue
   - MongoDB.Entities.Update`1.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Update`1.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.Update`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
   - MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
-  - MongoDB.Entities.Update`1.Match(System.String)
+  - MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - MongoDB.Entities.Update`1.MatchExpression(MongoDB.Entities.Template)
+  - MongoDB.Entities.Update`1.MatchExpression(System.String)
   - MongoDB.Entities.Update`1.MatchID(System.String)
+  - MongoDB.Entities.Update`1.MatchString(System.String)
   - MongoDB.Entities.Update`1.Modify(MongoDB.Entities.Template)
   - MongoDB.Entities.Update`1.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
   - MongoDB.Entities.Update`1.Modify(System.String)
@@ -43,6 +47,7 @@ items:
   syntax:
     content: >-
       public class Update<T>
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -121,14 +126,14 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the IEntity matching criteria with a lambda expression\n"
+  summary: "\nSpecify the matching criteria with a lambda expression\n"
   example: []
   syntax:
     content: public Update<T> Match(Expression<Func<T, bool>> expression)
     parameters:
     - id: expression
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
-      description: A lambda expression to select the Entities to update
+      description: x => x.Property == Value
     return:
       type: MongoDB.Entities.Update`1
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Update(Of T)
@@ -158,7 +163,7 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the Entity matching criteria with a filter expression\n"
+  summary: "\nSpecify the matching criteria with a filter expression\n"
   example: []
   syntax:
     content: public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
@@ -195,14 +200,14 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the Entity matching criteria with a Template\n"
+  summary: "\nSpecify the matching criteria with a template\n"
   example: []
   syntax:
     content: public Update<T> Match(Template template)
     parameters:
     - id: template
       type: MongoDB.Entities.Template
-      description: The filter Template
+      description: A Template with a find query
     return:
       type: MongoDB.Entities.Update`1
     content.vb: Public Function Match(template As Template) As Update(Of T)
@@ -213,42 +218,208 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Update(Of T).Match(MongoDB.Entities.Template)
-- uid: MongoDB.Entities.Update`1.Match(System.String)
-  commentId: M:MongoDB.Entities.Update`1.Match(System.String)
-  id: Match(System.String)
+- uid: MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  commentId: M:MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  id: Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   parent: MongoDB.Entities.Update`1
   langs:
   - csharp
   - vb
-  name: Match(String)
-  nameWithType: Update<T>.Match(String)
-  fullName: MongoDB.Entities.Update<T>.Match(System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  nameWithType: Update<T>.Match(Search, String, Boolean, Boolean, String)
+  fullName: MongoDB.Entities.Update<T>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
   type: Method
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 73
+    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nSpecify the Entity matching criteria with a JSON string\n"
+  summary: "\nSpecify a search term to find results from the text index of this particular collection.\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
   example: []
   syntax:
-    content: public Update<T> Match(string jsonString)
+    content: public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    parameters:
+    - id: searchType
+      type: MongoDB.Entities.Search
+      description: The type of text matching to do
+    - id: searchTerm
+      type: System.String
+      description: The search term
+    - id: caseSensitive
+      type: System.Boolean
+      description: Case sensitivity of the search (optional)
+    - id: diacriticSensitive
+      type: System.Boolean
+      description: Diacritic sensitivity of the search (optional)
+    - id: language
+      type: System.String
+      description: The language for the search (optional)
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(Search, String, Boolean, Boolean, String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+- uid: MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType: Update<T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  fullName: MongoDB.Entities.Update<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 108
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
+  example: []
+  syntax:
+    content: public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
+    parameters:
+    - id: coordinatesProperty
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: The property where 2DCoordinates are stored
+    - id: nearCoordinates
+      type: MongoDB.Entities.Coordinates2D
+      description: The search point
+    - id: maxDistance
+      type: System.Nullable{System.Double}
+      description: Maximum distance in meters from the search point
+    - id: minDistance
+      type: System.Nullable{System.Double}
+      description: Minimum distance in meters from the search point
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.Match*
+  nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+- uid: MongoDB.Entities.Update`1.MatchString(System.String)
+  commentId: M:MongoDB.Entities.Update`1.MatchString(System.String)
+  id: MatchString(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: MatchString(String)
+  nameWithType: Update<T>.MatchString(String)
+  fullName: MongoDB.Entities.Update<T>.MatchString(System.String)
+  type: Method
+  source:
+    id: MatchString
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 117
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a JSON string\n"
+  example: []
+  syntax:
+    content: public Update<T> MatchString(string jsonString)
     parameters:
     - id: jsonString
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
       type: MongoDB.Entities.Update`1
-    content.vb: Public Function Match(jsonString As String) As Update(Of T)
-  overload: MongoDB.Entities.Update`1.Match*
-  nameWithType.vb: Update(Of T).Match(String)
+    content.vb: Public Function MatchString(jsonString As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.MatchString*
+  nameWithType.vb: Update(Of T).MatchString(String)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.String)
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchString(System.String)
+- uid: MongoDB.Entities.Update`1.MatchExpression(System.String)
+  commentId: M:MongoDB.Entities.Update`1.MatchExpression(System.String)
+  id: MatchExpression(System.String)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: MatchExpression(String)
+  nameWithType: Update<T>.MatchExpression(String)
+  fullName: MongoDB.Entities.Update<T>.MatchExpression(System.String)
+  type: Method
+  source:
+    id: MatchExpression
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 127
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with an aggregation expression (i.e. $expr)\n"
+  example: []
+  syntax:
+    content: public Update<T> MatchExpression(string expression)
+    parameters:
+    - id: expression
+      type: System.String
+      description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function MatchExpression(expression As String) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.MatchExpression*
+  nameWithType.vb: Update(Of T).MatchExpression(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression(System.String)
+- uid: MongoDB.Entities.Update`1.MatchExpression(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Update`1.MatchExpression(MongoDB.Entities.Template)
+  id: MatchExpression(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: MatchExpression(Template)
+  nameWithType: Update<T>.MatchExpression(Template)
+  fullName: MongoDB.Entities.Update<T>.MatchExpression(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: MatchExpression
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 137
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a Template\n"
+  example: []
+  syntax:
+    content: public Update<T> MatchExpression(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function MatchExpression(template As Template) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.MatchExpression*
+  nameWithType.vb: Update(Of T).MatchExpression(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression(MongoDB.Entities.Template)
 - uid: MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
   commentId: M:MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
   id: Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
@@ -263,7 +434,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 85
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -306,7 +477,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 96
+    startLine: 160
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -344,7 +515,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 106
+    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -380,7 +551,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 116
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -416,7 +587,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 127
+    startLine: 191
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -452,7 +623,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 142
+    startLine: 206
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -488,7 +659,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 153
+    startLine: 217
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -524,7 +695,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 162
+    startLine: 226
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -560,7 +731,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 178
+    startLine: 242
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -596,7 +767,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 188
+    startLine: 252
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -632,7 +803,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 205
+    startLine: 269
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -669,7 +840,7 @@ items:
   source:
     id: AddToQueue
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 214
+    startLine: 278
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -701,7 +872,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 236
+    startLine: 300
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -737,7 +908,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 268
+    startLine: 332
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1391,6 +1562,200 @@ references:
   name: Template
   nameWithType: Template
   fullName: MongoDB.Entities.Template
+- uid: MongoDB.Entities.Search
+  commentId: T:MongoDB.Entities.Search
+  parent: MongoDB.Entities
+  name: Search
+  nameWithType: Search
+  fullName: MongoDB.Entities.Search
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Object>>
+  nameWithType: Expression<Func<T, Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  nameWithType.vb: Expression(Of Func(Of T, Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  name.vb: Expression(Of Func(Of T, Object))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Coordinates2D
+  commentId: T:MongoDB.Entities.Coordinates2D
+  parent: MongoDB.Entities
+  name: Coordinates2D
+  nameWithType: Coordinates2D
+  fullName: MongoDB.Entities.Coordinates2D
+- uid: System.Nullable{System.Double}
+  commentId: T:System.Nullable{System.Double}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<Double>
+  nameWithType: Nullable<Double>
+  fullName: System.Nullable<System.Double>
+  nameWithType.vb: Nullable(Of Double)
+  fullName.vb: System.Nullable(Of System.Double)
+  name.vb: Nullable(Of Double)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Update`1.MatchString*
+  commentId: Overload:MongoDB.Entities.Update`1.MatchString
+  name: MatchString
+  nameWithType: Update<T>.MatchString
+  fullName: MongoDB.Entities.Update<T>.MatchString
+  nameWithType.vb: Update(Of T).MatchString
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchString
+- uid: MongoDB.Entities.Update`1.MatchExpression*
+  commentId: Overload:MongoDB.Entities.Update`1.MatchExpression
+  name: MatchExpression
+  nameWithType: Update<T>.MatchExpression
+  fullName: MongoDB.Entities.Update<T>.MatchExpression
+  nameWithType.vb: Update(Of T).MatchExpression
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression
 - uid: MongoDB.Entities.Update`1.Modify*
   commentId: Overload:MongoDB.Entities.Update`1.Modify
   name: Modify

@@ -10,6 +10,7 @@ items:
   - MongoDB.Entities.Date
   - MongoDB.Entities.DB
   - MongoDB.Entities.DBContext
+  - MongoDB.Entities.Distinct`2
   - MongoDB.Entities.DontPreserveAttribute
   - MongoDB.Entities.Entity
   - MongoDB.Entities.EventType
@@ -59,6 +60,55 @@ items:
   assemblies:
   - MongoDB.Entities
 references:
+- uid: MongoDB.Entities.Distinct`2
+  commentId: T:MongoDB.Entities.Distinct`2
+  parent: MongoDB.Entities
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
+  spec.csharp:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Find`1
   commentId: T:MongoDB.Entities.Find`1
   name: Find<T>
@@ -411,18 +461,18 @@ references:
   name: Date
   nameWithType: Date
   fullName: MongoDB.Entities.Date
-- uid: MongoDB.Entities.DBContext
-  commentId: T:MongoDB.Entities.DBContext
-  parent: MongoDB.Entities
-  name: DBContext
-  nameWithType: DBContext
-  fullName: MongoDB.Entities.DBContext
 - uid: MongoDB.Entities.Entity
   commentId: T:MongoDB.Entities.Entity
   parent: MongoDB.Entities
   name: Entity
   nameWithType: Entity
   fullName: MongoDB.Entities.Entity
+- uid: MongoDB.Entities.Extensions
+  commentId: T:MongoDB.Entities.Extensions
+  parent: MongoDB.Entities
+  name: Extensions
+  nameWithType: Extensions
+  fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.FileEntity
   commentId: T:MongoDB.Entities.FileEntity
   parent: MongoDB.Entities
@@ -505,6 +555,11 @@ references:
   name: ModifiedBy
   nameWithType: ModifiedBy
   fullName: MongoDB.Entities.ModifiedBy
+- uid: MongoDB.Entities.Prop
+  commentId: T:MongoDB.Entities.Prop
+  name: Prop
+  nameWithType: Prop
+  fullName: MongoDB.Entities.Prop
 - uid: MongoDB.Entities.Template`1
   commentId: T:MongoDB.Entities.Template`1
   name: Template<T>
@@ -602,6 +657,12 @@ references:
   name: Transaction
   nameWithType: Transaction
   fullName: MongoDB.Entities.Transaction
+- uid: MongoDB.Entities.DBContext
+  commentId: T:MongoDB.Entities.DBContext
+  parent: MongoDB.Entities
+  name: DBContext
+  nameWithType: DBContext
+  fullName: MongoDB.Entities.DBContext
 - uid: MongoDB.Entities.DB
   commentId: T:MongoDB.Entities.DB
   name: DB
@@ -738,17 +799,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions
-  commentId: T:MongoDB.Entities.Extensions
-  parent: MongoDB.Entities
-  name: Extensions
-  nameWithType: Extensions
-  fullName: MongoDB.Entities.Extensions
-- uid: MongoDB.Entities.Prop
-  commentId: T:MongoDB.Entities.Prop
-  name: Prop
-  nameWithType: Prop
-  fullName: MongoDB.Entities.Prop
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
   name: MongoDB.Entities

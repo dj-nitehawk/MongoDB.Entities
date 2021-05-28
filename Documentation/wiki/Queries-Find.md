@@ -78,4 +78,4 @@ var name = await DB.Find<Author,string>()
 an `.Execute*()` method is called finally to get back the result of the find command. you can also get a cursor back instead of materialized results by calling `.ExecuteCursorAsync()` at the end.
 
 > [!tip]
-> there are 3 variations of **Execute*()** you can use. **ExecuteAsync()** which will return a list of matched entities. **ExecuteSingleAsync()** which will return only 1 matched entity and will throw an exception if more than 1 entity is matched. **ExecuteFirstAsync()** which will return the first matched entity. all variations will return a **null/default** value if nothing was matched.
+> there are 3 variations of **Execute\*()** you can use. **ExecuteAsync()** which will return a list of matched entities. **ExecuteSingleAsync()** which will return only 1 matched entity and will throw an exception if more than 1 entity is matched. **ExecuteFirstAsync()** which will return the first matched entity. all variations will return a **null/default** value if nothing was matched.

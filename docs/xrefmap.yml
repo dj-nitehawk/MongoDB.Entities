@@ -234,6 +234,25 @@ references:
   commentId: T:MongoDB.Entities.DB
   fullName: MongoDB.Entities.DB
   nameWithType: DB
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  name: AllDatabaseNamesAsync(MongoClientSettings)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_AllDatabaseNamesAsync_MongoDB_Driver_MongoClientSettings_
+  commentId: M:MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync(MongoDB.Driver.MongoClientSettings)
+  nameWithType: DB.AllDatabaseNamesAsync(MongoClientSettings)
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)
+  name: AllDatabaseNamesAsync(String, Int32)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_AllDatabaseNamesAsync_System_String_System_Int32_
+  commentId: M:MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String,System.Int32)
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync(System.String, System.Int32)
+  nameWithType: DB.AllDatabaseNamesAsync(String, Int32)
+- uid: MongoDB.Entities.DB.AllDatabaseNamesAsync*
+  name: AllDatabaseNamesAsync
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_AllDatabaseNamesAsync_
+  commentId: Overload:MongoDB.Entities.DB.AllDatabaseNamesAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.AllDatabaseNamesAsync
+  nameWithType: DB.AllDatabaseNamesAsync
 - uid: MongoDB.Entities.DB.ChangeDefaultDatabase(System.String)
   name: ChangeDefaultDatabase(String)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_ChangeDefaultDatabase_System_String_
@@ -286,15 +305,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DB.CountAsync
   nameWithType: DB.CountAsync
-- uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: DB.CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: DB.CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DB.CountAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType.vb: DB.CountAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, CountOptions)
 - uid: MongoDB.Entities.DB.CountAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: CountAsync<T>(IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
@@ -304,24 +323,24 @@ references:
   fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: DB.CountAsync<T>(IClientSessionHandle, CancellationToken)
   nameWithType.vb: DB.CountAsync(Of T)(IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: DB.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: DB.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: DB.CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: DB.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DB.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType.vb: DB.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DB.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DB.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DB.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DB.CountAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, CountOptions)
+  nameWithType.vb: DB.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, CountOptions)
 - uid: MongoDB.Entities.DB.CountEstimatedAsync*
   name: CountEstimatedAsync
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CountEstimatedAsync_
@@ -338,6 +357,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.CountEstimatedAsync(Of T)(System.Threading.CancellationToken)
   nameWithType: DB.CountEstimatedAsync<T>(CancellationToken)
   nameWithType.vb: DB.CountEstimatedAsync(Of T)(CancellationToken)
+- uid: MongoDB.Entities.DB.CreateCollection*
+  name: CreateCollection
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollection_
+  commentId: Overload:MongoDB.Entities.DB.CreateCollection
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.CreateCollection
+  nameWithType: DB.CreateCollection
+- uid: MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
+  nameWithType.vb: DB.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
 - uid: MongoDB.Entities.DB.Database(System.String)
   name: Database(String)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Database_System_String_
@@ -408,15 +443,15 @@ references:
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: DB.DeleteAsync<T>(IEnumerable<String>, IClientSessionHandle, CancellationToken)
   nameWithType.vb: DB.DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType: DB.DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken)
-  nameWithType.vb: DB.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, Collation)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_Collation_
+  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType: DB.DeleteAsync<T>(Expression<Func<T, Boolean>>, IClientSessionHandle, CancellationToken, Collation)
+  nameWithType.vb: DB.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, Collation)
 - uid: MongoDB.Entities.DB.DeleteAsync``1(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: DeleteAsync<T>(String, IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_DeleteAsync__1_System_String_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
@@ -426,6 +461,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   nameWithType: DB.DeleteAsync<T>(String, IClientSessionHandle, CancellationToken)
   nameWithType.vb: DB.DeleteAsync(Of T)(String, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.Distinct*
+  name: Distinct
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Distinct_
+  commentId: Overload:MongoDB.Entities.DB.Distinct
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.Distinct
+  nameWithType: DB.Distinct
+- uid: MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
+  name: Distinct<T, TProperty>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Distinct__2_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Distinct(Of T, TProperty)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Distinct<T, TProperty>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.Distinct(Of T, TProperty)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.Distinct<T, TProperty>(IClientSessionHandle)
+  nameWithType.vb: DB.Distinct(Of T, TProperty)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.DropCollectionAsync*
   name: DropCollectionAsync
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_DropCollectionAsync_
@@ -975,33 +1026,33 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DBContext.CountAsync
   nameWithType: DBContext.CountAsync
-- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  name: CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken)
-  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken)
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken)
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
+  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
+  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
 - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
   name: CountAsync<T>(CancellationToken)
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Threading_CancellationToken_
@@ -1011,6 +1062,22 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Threading.CancellationToken)
   nameWithType: DBContext.CountAsync<T>(CancellationToken)
   nameWithType.vb: DBContext.CountAsync(Of T)(CancellationToken)
+- uid: MongoDB.Entities.DBContext.CreateCollection*
+  name: CreateCollection
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollection_
+  commentId: Overload:MongoDB.Entities.DBContext.CreateCollection
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.CreateCollection
+  nameWithType: DBContext.CreateCollection
+- uid: MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken)
+  nameWithType: DBContext.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
+  nameWithType.vb: DBContext.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
 - uid: MongoDB.Entities.DBContext.DeleteAsync*
   name: DeleteAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync_
@@ -1027,15 +1094,15 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
   nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
   nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_Collation_
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
 - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
   name: DeleteAsync<T>(String, CancellationToken)
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync__1_System_String_System_Threading_CancellationToken_
@@ -1045,6 +1112,38 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
   nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken)
   nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken)
+- uid: MongoDB.Entities.DBContext.Distinct*
+  name: Distinct
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Distinct_
+  commentId: Overload:MongoDB.Entities.DBContext.Distinct
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Distinct
+  nameWithType: DBContext.Distinct
+- uid: MongoDB.Entities.DBContext.Distinct``2
+  name: Distinct<T, TProperty>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Distinct__2
+  commentId: M:MongoDB.Entities.DBContext.Distinct``2
+  name.vb: Distinct(Of T, TProperty)()
+  fullName: MongoDB.Entities.DBContext.Distinct<T, TProperty>()
+  fullName.vb: MongoDB.Entities.DBContext.Distinct(Of T, TProperty)()
+  nameWithType: DBContext.Distinct<T, TProperty>()
+  nameWithType.vb: DBContext.Distinct(Of T, TProperty)()
+- uid: MongoDB.Entities.DBContext.DropCollectionAsync*
+  name: DropCollectionAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DropCollectionAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.DropCollectionAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.DropCollectionAsync
+  nameWithType: DBContext.DropCollectionAsync
+- uid: MongoDB.Entities.DBContext.DropCollectionAsync``1
+  name: DropCollectionAsync<T>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DropCollectionAsync__1
+  commentId: M:MongoDB.Entities.DBContext.DropCollectionAsync``1
+  name.vb: DropCollectionAsync(Of T)()
+  fullName: MongoDB.Entities.DBContext.DropCollectionAsync<T>()
+  fullName.vb: MongoDB.Entities.DBContext.DropCollectionAsync(Of T)()
+  nameWithType: DBContext.DropCollectionAsync<T>()
+  nameWithType.vb: DBContext.DropCollectionAsync(Of T)()
 - uid: MongoDB.Entities.DBContext.Find*
   name: Find
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Find_
@@ -1342,6 +1441,187 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.UpdateAndGet(Of T, TProjection)()
   nameWithType: DBContext.UpdateAndGet<T, TProjection>()
   nameWithType.vb: DBContext.UpdateAndGet(Of T, TProjection)()
+- uid: MongoDB.Entities.Distinct`2
+  name: Distinct<T, TProperty>
+  href: api/MongoDB.Entities.Distinct-2.html
+  commentId: T:MongoDB.Entities.Distinct`2
+  name.vb: Distinct(Of T, TProperty)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  nameWithType: Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+- uid: MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: Distinct<T, TProperty>.ExecuteAsync(CancellationToken)
+  nameWithType.vb: Distinct(Of T, TProperty).ExecuteAsync(CancellationToken)
+- uid: MongoDB.Entities.Distinct`2.ExecuteAsync*
+  name: ExecuteAsync
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_ExecuteAsync_
+  commentId: Overload:MongoDB.Entities.Distinct`2.ExecuteAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteAsync
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteAsync
+  nameWithType: Distinct<T, TProperty>.ExecuteAsync
+  nameWithType.vb: Distinct(Of T, TProperty).ExecuteAsync
+- uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
+  name: ExecuteCursorAsync(CancellationToken)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_ExecuteCursorAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteCursorAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteCursorAsync(System.Threading.CancellationToken)
+  nameWithType: Distinct<T, TProperty>.ExecuteCursorAsync(CancellationToken)
+  nameWithType.vb: Distinct(Of T, TProperty).ExecuteCursorAsync(CancellationToken)
+- uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync*
+  name: ExecuteCursorAsync
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_ExecuteCursorAsync_
+  commentId: Overload:MongoDB.Entities.Distinct`2.ExecuteCursorAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteCursorAsync
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteCursorAsync
+  nameWithType: Distinct<T, TProperty>.ExecuteCursorAsync
+  nameWithType.vb: Distinct(Of T, TProperty).ExecuteCursorAsync
+- uid: MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
+  commentId: M:MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType: Distinct<T, TProperty>.Match(Search, String, Boolean, Boolean, String)
+  nameWithType.vb: Distinct(Of T, TProperty).Match(Search, String, Boolean, Boolean, String)
+- uid: MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
+  name: Match(Template)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(MongoDB.Entities.Template)
+  nameWithType: Distinct<T, TProperty>.Match(Template)
+  nameWithType.vb: Distinct(Of T, TProperty).Match(Template)
+- uid: MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  nameWithType: Distinct<T, TProperty>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  nameWithType.vb: Distinct(Of T, TProperty).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  name: Match(Expression<Func<T, Boolean>>)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  name.vb: Match(Expression(Of Func(Of T, Boolean)))
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  nameWithType: Distinct<T, TProperty>.Match(Expression<Func<T, Boolean>>)
+  nameWithType.vb: Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, Boolean)))
+- uid: MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: Distinct<T, TProperty>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+- uid: MongoDB.Entities.Distinct`2.Match*
+  name: Match
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Match_
+  commentId: Overload:MongoDB.Entities.Distinct`2.Match
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match
+  nameWithType: Distinct<T, TProperty>.Match
+  nameWithType.vb: Distinct(Of T, TProperty).Match
+- uid: MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_MatchExpression_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.MatchExpression(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchExpression(MongoDB.Entities.Template)
+  nameWithType: Distinct<T, TProperty>.MatchExpression(Template)
+  nameWithType.vb: Distinct(Of T, TProperty).MatchExpression(Template)
+- uid: MongoDB.Entities.Distinct`2.MatchExpression(System.String)
+  name: MatchExpression(String)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_MatchExpression_System_String_
+  commentId: M:MongoDB.Entities.Distinct`2.MatchExpression(System.String)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchExpression(System.String)
+  nameWithType: Distinct<T, TProperty>.MatchExpression(String)
+  nameWithType.vb: Distinct(Of T, TProperty).MatchExpression(String)
+- uid: MongoDB.Entities.Distinct`2.MatchExpression*
+  name: MatchExpression
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_MatchExpression_
+  commentId: Overload:MongoDB.Entities.Distinct`2.MatchExpression
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.MatchExpression
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchExpression
+  nameWithType: Distinct<T, TProperty>.MatchExpression
+  nameWithType.vb: Distinct(Of T, TProperty).MatchExpression
+- uid: MongoDB.Entities.Distinct`2.MatchString(System.String)
+  name: MatchString(String)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_MatchString_System_String_
+  commentId: M:MongoDB.Entities.Distinct`2.MatchString(System.String)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.MatchString(System.String)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchString(System.String)
+  nameWithType: Distinct<T, TProperty>.MatchString(String)
+  nameWithType.vb: Distinct(Of T, TProperty).MatchString(String)
+- uid: MongoDB.Entities.Distinct`2.MatchString*
+  name: MatchString
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_MatchString_
+  commentId: Overload:MongoDB.Entities.Distinct`2.MatchString
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.MatchString
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchString
+  nameWithType: Distinct<T, TProperty>.MatchString
+  nameWithType.vb: Distinct(Of T, TProperty).MatchString
+- uid: MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})
+  name: Option(Action<DistinctOptions>)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Option_System_Action_MongoDB_Driver_DistinctOptions__
+  commentId: M:MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})
+  name.vb: Option(Action(Of DistinctOptions))
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Option(System.Action<MongoDB.Driver.DistinctOptions>)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option(System.Action(Of MongoDB.Driver.DistinctOptions))
+  nameWithType: Distinct<T, TProperty>.Option(Action<DistinctOptions>)
+  nameWithType.vb: Distinct(Of T, TProperty).Option(Action(Of DistinctOptions))
+- uid: MongoDB.Entities.Distinct`2.Option*
+  name: Option
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Option_
+  commentId: Overload:MongoDB.Entities.Distinct`2.Option
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Option
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option
+  nameWithType: Distinct<T, TProperty>.Option
+  nameWithType.vb: Distinct(Of T, TProperty).Option
+- uid: MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  name: Property(Expression<Func<T, Object>>)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___
+  commentId: M:MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  name.vb: Property(Expression(Of Func(Of T, Object)))
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Property(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  nameWithType: Distinct<T, TProperty>.Property(Expression<Func<T, Object>>)
+  nameWithType.vb: Distinct(Of T, TProperty).Property(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Distinct`2.Property(System.String)
+  name: Property(String)
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Property_System_String_
+  commentId: M:MongoDB.Entities.Distinct`2.Property(System.String)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Property(System.String)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property(System.String)
+  nameWithType: Distinct<T, TProperty>.Property(String)
+  nameWithType.vb: Distinct(Of T, TProperty).Property(String)
+- uid: MongoDB.Entities.Distinct`2.Property*
+  name: Property
+  href: api/MongoDB.Entities.Distinct-2.html#MongoDB_Entities_Distinct_2_Property_
+  commentId: Overload:MongoDB.Entities.Distinct`2.Property
+  isSpec: "True"
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Property
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property
+  nameWithType: Distinct<T, TProperty>.Property
+  nameWithType.vb: Distinct(Of T, TProperty).Property
 - uid: MongoDB.Entities.DontPreserveAttribute
   name: DontPreserveAttribute
   href: api/MongoDB.Entities.DontPreserveAttribute.html
@@ -1522,6 +1802,19 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.Distinct(Of T)(MongoDB.Driver.IAggregateFluent(Of T))
   nameWithType: Extensions.Distinct<T>(IAggregateFluent<T>)
   nameWithType.vb: Extensions.Distinct(Of T)(IAggregateFluent(Of T))
+- uid: MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
+  name: ExistsAsync(IMongoDatabase, Int32)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ExistsAsync_MongoDB_Driver_IMongoDatabase_System_Int32_
+  commentId: M:MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
+  fullName: MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase, System.Int32)
+  nameWithType: Extensions.ExistsAsync(IMongoDatabase, Int32)
+- uid: MongoDB.Entities.Extensions.ExistsAsync*
+  name: ExistsAsync
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ExistsAsync_
+  commentId: Overload:MongoDB.Entities.Extensions.ExistsAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.ExistsAsync
+  nameWithType: Extensions.ExistsAsync
 - uid: MongoDB.Entities.Extensions.Fluent*
   name: Fluent
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Fluent_
@@ -1586,6 +1879,19 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.InitOneToMany(Of TChild)(MongoDB.Entities.IEntity, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Entities.Many(Of TChild))))
   nameWithType: Extensions.InitOneToMany<TChild>(IEntity, Expression<Func<Many<TChild>>>)
   nameWithType.vb: Extensions.InitOneToMany(Of TChild)(IEntity, Expression(Of Func(Of Many(Of TChild))))
+- uid: MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
+  name: IsAccessibleAsync(IMongoDatabase, Int32)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_IsAccessibleAsync_MongoDB_Driver_IMongoDatabase_System_Int32_
+  commentId: M:MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
+  fullName: MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase, System.Int32)
+  nameWithType: Extensions.IsAccessibleAsync(IMongoDatabase, Int32)
+- uid: MongoDB.Entities.Extensions.IsAccessibleAsync*
+  name: IsAccessibleAsync
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_IsAccessibleAsync_
+  commentId: Overload:MongoDB.Entities.Extensions.IsAccessibleAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.IsAccessibleAsync
+  nameWithType: Extensions.IsAccessibleAsync
 - uid: MongoDB.Entities.Extensions.Match*
   name: Match
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Match_
@@ -4455,6 +4761,14 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).ExecutePipelineAsync
   nameWithType: Update<T>.ExecutePipelineAsync
   nameWithType.vb: Update(Of T).ExecutePipelineAsync
+- uid: MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
+  commentId: M:MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  fullName: MongoDB.Entities.Update<T>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType: Update<T>.Match(Search, String, Boolean, Boolean, String)
+  nameWithType.vb: Update(Of T).Match(Search, String, Boolean, Boolean, String)
 - uid: MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
   name: Match(Template)
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_MongoDB_Entities_Template_
@@ -4481,14 +4795,15 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
   nameWithType: Update<T>.Match(Expression<Func<T, Boolean>>)
   nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Boolean)))
-- uid: MongoDB.Entities.Update`1.Match(System.String)
-  name: Match(String)
-  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_System_String_
-  commentId: M:MongoDB.Entities.Update`1.Match(System.String)
-  fullName: MongoDB.Entities.Update<T>.Match(System.String)
-  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.String)
-  nameWithType: Update<T>.Match(String)
-  nameWithType.vb: Update(Of T).Match(String)
+- uid: MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:MongoDB.Entities.Update`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName: MongoDB.Entities.Update<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: Update<T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
 - uid: MongoDB.Entities.Update`1.Match*
   name: Match
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_
@@ -4498,6 +4813,31 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).Match
   nameWithType: Update<T>.Match
   nameWithType.vb: Update(Of T).Match
+- uid: MongoDB.Entities.Update`1.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchExpression_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.Update`1.MatchExpression(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.Update<T>.MatchExpression(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression(MongoDB.Entities.Template)
+  nameWithType: Update<T>.MatchExpression(Template)
+  nameWithType.vb: Update(Of T).MatchExpression(Template)
+- uid: MongoDB.Entities.Update`1.MatchExpression(System.String)
+  name: MatchExpression(String)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchExpression_System_String_
+  commentId: M:MongoDB.Entities.Update`1.MatchExpression(System.String)
+  fullName: MongoDB.Entities.Update<T>.MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression(System.String)
+  nameWithType: Update<T>.MatchExpression(String)
+  nameWithType.vb: Update(Of T).MatchExpression(String)
+- uid: MongoDB.Entities.Update`1.MatchExpression*
+  name: MatchExpression
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchExpression_
+  commentId: Overload:MongoDB.Entities.Update`1.MatchExpression
+  isSpec: "True"
+  fullName: MongoDB.Entities.Update<T>.MatchExpression
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchExpression
+  nameWithType: Update<T>.MatchExpression
+  nameWithType.vb: Update(Of T).MatchExpression
 - uid: MongoDB.Entities.Update`1.MatchID(System.String)
   name: MatchID(String)
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchID_System_String_
@@ -4515,6 +4855,23 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).MatchID
   nameWithType: Update<T>.MatchID
   nameWithType.vb: Update(Of T).MatchID
+- uid: MongoDB.Entities.Update`1.MatchString(System.String)
+  name: MatchString(String)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchString_System_String_
+  commentId: M:MongoDB.Entities.Update`1.MatchString(System.String)
+  fullName: MongoDB.Entities.Update<T>.MatchString(System.String)
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchString(System.String)
+  nameWithType: Update<T>.MatchString(String)
+  nameWithType.vb: Update(Of T).MatchString(String)
+- uid: MongoDB.Entities.Update`1.MatchString*
+  name: MatchString
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_MatchString_
+  commentId: Overload:MongoDB.Entities.Update`1.MatchString
+  isSpec: "True"
+  fullName: MongoDB.Entities.Update<T>.MatchString
+  fullName.vb: MongoDB.Entities.Update(Of T).MatchString
+  nameWithType: Update<T>.MatchString
+  nameWithType.vb: Update(Of T).MatchString
 - uid: MongoDB.Entities.Update`1.Modify(MongoDB.Entities.Template)
   name: Modify(Template)
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Modify_MongoDB_Entities_Template_
@@ -4712,6 +5069,14 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync
   nameWithType: UpdateAndGet<T, TProjection>.ExecutePipelineAsync
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecutePipelineAsync
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Search, String, Boolean, Boolean, String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
 - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
   name: Match(Template)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Template_
@@ -4738,14 +5103,15 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
   nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Boolean>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
-- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-  name: Match(String)
-  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_System_String_
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.String)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.String)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.String)
-  nameWithType: UpdateAndGet<T, TProjection>.Match(String)
-  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(String)
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
 - uid: MongoDB.Entities.UpdateAndGet`2.Match*
   name: Match
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_
@@ -4755,6 +5121,31 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
   nameWithType: UpdateAndGet<T, TProjection>.Match
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchExpression_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression(MongoDB.Entities.Template)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchExpression(Template)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+  name: MatchExpression(String)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchExpression_System_String_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression(System.String)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchExpression(String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(String)
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchExpression*
+  name: MatchExpression
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchExpression_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.MatchExpression
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchExpression
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchExpression
+  nameWithType: UpdateAndGet<T, TProjection>.MatchExpression
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression
 - uid: MongoDB.Entities.UpdateAndGet`2.MatchID(System.String)
   name: MatchID(String)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchID_System_String_
@@ -4772,6 +5163,23 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchID
   nameWithType: UpdateAndGet<T, TProjection>.MatchID
   nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchID
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+  name: MatchString(String)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchString_System_String_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchString(System.String)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchString(System.String)
+  nameWithType: UpdateAndGet<T, TProjection>.MatchString(String)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchString(String)
+- uid: MongoDB.Entities.UpdateAndGet`2.MatchString*
+  name: MatchString
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_MatchString_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.MatchString
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.MatchString
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).MatchString
+  nameWithType: UpdateAndGet<T, TProjection>.MatchString
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchString
 - uid: MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)
   name: Modify(Template)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Modify_MongoDB_Entities_Template_

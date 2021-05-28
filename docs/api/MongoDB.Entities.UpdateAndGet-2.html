@@ -137,6 +137,7 @@
   <h5 id="MongoDB_Entities_UpdateAndGet_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class UpdateAndGet&lt;T, TProjection&gt;
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -253,8 +254,77 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
+  <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
+<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Search.html">Search</a></td>
+        <td><span class="parametername">searchType</span></td>
+        <td><p>The type of text matching to do</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">searchTerm</span></td>
+        <td><p>The search term</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">caseSensitive</span></td>
+        <td><p>Case sensitivity of the search (optional)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">diacriticSensitive</span></td>
+        <td><p>Diacritic sensitivity of the search (optional)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">language</span></td>
+        <td><p>The language for the search (optional)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
-  <div class="markdown level1 summary"><p>Specify the Entity matching criteria with a Template</p>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -274,7 +344,7 @@
       <tr>
         <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
         <td><span class="parametername">template</span></td>
-        <td><p>The filter Template</p>
+        <td><p>A Template with a find query</p>
 </td>
       </tr>
     </tbody>
@@ -298,7 +368,7 @@
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the Entity matching criteria with a filter expression</p>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -342,7 +412,7 @@
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the IEntity matching criteria with a lambda expression</p>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -362,7 +432,7 @@
       <tr>
         <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
-        <td><p>A lambda expression to select the Entities to update</p>
+        <td><p>x =&gt; x.Property == Value</p>
 </td>
       </tr>
     </tbody>
@@ -385,13 +455,121 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.String)">Match(String)</h4>
-  <div class="markdown level1 summary"><p>Specify the Entity matching criteria with a JSON string</p>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
+<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
+<p>Note: DB.FluentGeoNear() supports more advanced options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(string jsonString)</code></pre>
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">coordinatesProperty</span></td>
+        <td><p>The property where 2DCoordinates are stored</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></td>
+        <td><span class="parametername">nearCoordinates</span></td>
+        <td><p>The search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>Maximum distance in meters from the search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">minDistance</span></td>
+        <td><p>Minimum distance in meters from the search point</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchExpression(Template template)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
+        <td><span class="parametername">template</span></td>
+        <td><p>A Template object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)">MatchExpression(String)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchExpression(string expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -405,8 +583,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">jsonString</span></td>
-        <td><p>{ Title : 'The Power Of Now' }</p>
+        <td><span class="parametername">expression</span></td>
+        <td><p>{ $gt: ['$Property1', '$Property2'] }</p>
 </td>
       </tr>
     </tbody>
@@ -451,6 +629,50 @@
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>A unique IEntity ID</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_MatchString_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchString*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchString_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)">MatchString(String)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchString(string jsonString)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">jsonString</span></td>
+        <td><p>{ Title : 'The Power Of Now' }</p>
 </td>
       </tr>
     </tbody>

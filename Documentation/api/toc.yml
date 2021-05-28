@@ -14,6 +14,9 @@
     name: DB
   - uid: MongoDB.Entities.DBContext
     name: DBContext
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct<T, TProperty>
+    name.vb: Distinct(Of T, TProperty)
   - uid: MongoDB.Entities.DontPreserveAttribute
     name: DontPreserveAttribute
   - uid: MongoDB.Entities.Entity

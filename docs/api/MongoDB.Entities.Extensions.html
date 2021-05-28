@@ -149,6 +149,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoCollection&lt;T&gt; Collection&lt;T&gt;(this T _)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -209,6 +210,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string CollectionName&lt;T&gt;(this T _)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -268,6 +270,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoDatabase Database&lt;T&gt;(this T _)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -328,6 +331,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string DatabaseName&lt;T&gt;(this T _)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -388,6 +392,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAllAsync&lt;T&gt;(this IEnumerable&lt;T&gt; entities, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -453,6 +458,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(this T entity, IClientSessionHandle session = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -517,6 +523,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; Distinct&lt;T&gt;(this IAggregateFluent&lt;T&gt; aggregate)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -569,6 +576,55 @@
   </table>
   
   
+  <a id="MongoDB_Entities_Extensions_ExistsAsync_" data-uid="MongoDB.Entities.Extensions.ExistsAsync*"></a>
+  <h4 id="MongoDB_Entities_Extensions_ExistsAsync_MongoDB_Driver_IMongoDatabase_System_Int32_" data-uid="MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)">ExistsAsync(IMongoDatabase, Int32)</h4>
+  <div class="markdown level1 summary"><p>Checks to see if the database already exists on the mongodb server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;bool&gt; ExistsAsync(this IMongoDatabase db, int timeoutSeconds = 5)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IMongoDatabase</span></td>
+        <td><span class="parametername">db</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">timeoutSeconds</span></td>
+        <td><p>The number of seconds to keep trying</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Extensions_Fluent_" data-uid="MongoDB.Entities.Extensions.Fluent*"></a>
   <h4 id="MongoDB_Entities_Extensions_Fluent__1___0_MongoDB_Driver_IClientSessionHandle_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)">Fluent&lt;T&gt;(T, IClientSessionHandle, AggregateOptions)</h4>
   <div class="markdown level1 summary"><p>An IAggregateFluent collection of sibling Entities.</p>
@@ -577,6 +633,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(this T _, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -707,6 +764,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void InitManyToMany&lt;TChild&gt;(this IEntity parent, Expression&lt;Func&lt;Many&lt;TChild&gt;&gt;&gt; propertyToInit, Expression&lt;Func&lt;TChild, object&gt;&gt; propertyOtherSide)
+
     where TChild : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -763,6 +821,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void InitOneToMany&lt;TChild&gt;(this IEntity parent, Expression&lt;Func&lt;Many&lt;TChild&gt;&gt;&gt; propertyToInit)
+
     where TChild : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -805,6 +864,55 @@
   </table>
   
   
+  <a id="MongoDB_Entities_Extensions_IsAccessibleAsync_" data-uid="MongoDB.Entities.Extensions.IsAccessibleAsync*"></a>
+  <h4 id="MongoDB_Entities_Extensions_IsAccessibleAsync_MongoDB_Driver_IMongoDatabase_System_Int32_" data-uid="MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase,System.Int32)">IsAccessibleAsync(IMongoDatabase, Int32)</h4>
+  <div class="markdown level1 summary"><p>Pings the mongodb server to check if it's still connectable</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;bool&gt; IsAccessibleAsync(this IMongoDatabase db, int timeoutSeconds = 5)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IMongoDatabase</span></td>
+        <td><span class="parametername">db</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">timeoutSeconds</span></td>
+        <td><p>The number of seconds to keep trying</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Extensions_Match_" data-uid="MongoDB.Entities.Extensions.Match*"></a>
   <h4 id="MongoDB_Entities_Extensions_Match__1_MongoDB_Driver_IAggregateFluent___0__System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___" data-uid="MongoDB.Entities.Extensions.Match``1(MongoDB.Driver.IAggregateFluent{``0},System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}})">Match&lt;T&gt;(IAggregateFluent&lt;T&gt;, Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Appends a match stage to the pipeline with a filter expression</p>
@@ -813,6 +921,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; Match&lt;T&gt;(this IAggregateFluent&lt;T&gt; aggregate, Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -879,6 +988,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IAggregateFluent&lt;T&gt; MatchExpression&lt;T&gt;(this IAggregateFluent&lt;T&gt; aggregate, string expression)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -945,6 +1055,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;ulong&gt; NextSequentialNumberAsync&lt;T&gt;(this T _)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1005,6 +1116,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(this T _, AggregateOptions options = null)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1070,6 +1182,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task SaveAsync&lt;T&gt;(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1142,6 +1255,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveAsync&lt;T&gt;(this IEnumerable&lt;T&gt; entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1216,6 +1330,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SaveExceptAsync&lt;T&gt;(this T entity, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1298,6 +1413,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveExceptAsync&lt;T&gt;(this IEnumerable&lt;T&gt; entities, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1380,6 +1496,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SaveOnlyAsync&lt;T&gt;(this T entity, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1462,6 +1579,7 @@ You can only specify root level properties with the expression.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;BulkWriteResult&lt;T&gt;&gt; SaveOnlyAsync&lt;T&gt;(this IEnumerable&lt;T&gt; entities, Expression&lt;Func&lt;T, object&gt;&gt; members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1542,6 +1660,7 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Task&lt;UpdateResult&gt; SavePreservingAsync&lt;T&gt;(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1758,6 +1877,7 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static T ToDocument&lt;T&gt;(this T entity)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1817,6 +1937,7 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static T[] ToDocuments&lt;T&gt;(this T[] entities)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1876,6 +1997,7 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static IEnumerable&lt;T&gt; ToDocuments&lt;T&gt;(this IEnumerable&lt;T&gt; entities)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1979,6 +2101,7 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static One&lt;T&gt; ToReference&lt;T&gt;(this T entity)
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

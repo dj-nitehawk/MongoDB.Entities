@@ -27,6 +27,7 @@ items:
     content: 'public abstract class Entity : IEntity'
     content.vb: >-
       Public MustInherit Class Entity
+
           Implements IEntity
   inheritance:
   - System.Object
