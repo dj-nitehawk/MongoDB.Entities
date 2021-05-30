@@ -8,18 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.12.0</Version>
+    <Version>20.12.1-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added ability to check existence of a database
-- added ability to check connectability of a database
-- added ability to get a list of database names from the server
-- added support for collation with deletions
-- added more Match() overloads for DB.Update() &amp; DB.UpdateAndGet()
-- added support for Distinct queries via DB.Distinct()
-- added ability to create collections explicitly with options
-- improved DBContext class
-- improved test coverage
-- upgraded dependencies</PackageReleaseNotes>
+    <PackageReleaseNotes>- improved the way delete operations returns the DeleteResult
+-</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

@@ -87,8 +87,6 @@ namespace MongoDB.Entities
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 
-            long deletedCount = 0;
-
             var cursor = await new Find<T, string>(session)
                                .Match(expression)
                                .Project(e => e.ID)
@@ -97,14 +95,23 @@ namespace MongoDB.Entities
                                .ExecuteCursorAsync(cancellation)
                                .ConfigureAwait(false);
 
+            long deletedCount = 0;
+            DeleteResult res = null;
+
             using (cursor)
             {
                 while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
                 {
                     if (cursor.Current.Any())
-                        deletedCount += (await DeleteCascadingAsync<T>(cursor.Current, session, cancellation).ConfigureAwait(false)).DeletedCount;
+                    {
+                        res = await DeleteCascadingAsync<T>(cursor.Current, session, cancellation).ConfigureAwait(false);
+                        deletedCount += res.DeletedCount;
+                    }
                 }
             }
+
+            if (res?.IsAcknowledged == false)
+                return DeleteResult.Unacknowledged.Instance;
 
             return new DeleteResult.Acknowledged(deletedCount);
         }
