@@ -13,6 +13,17 @@ namespace MongoDB.Entities
     public class IgnoreAttribute : BsonIgnoreAttribute { }
 
     /// <summary>
+    /// Specifies the field name and/or the order of the persisted document.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class FieldAttribute : BsonElementAttribute
+    {
+        public FieldAttribute(int fieldOrder) { Order = fieldOrder; }
+        public FieldAttribute(string fieldName) : base(fieldName) { }
+        public FieldAttribute(string fieldName, int fieldOrder) : base(fieldName) { Order = fieldOrder; }
+    }
+
+    /// <summary>
     /// Indicates that this property is the owner side of a many-to-many relationship
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]

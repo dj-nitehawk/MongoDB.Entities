@@ -8,10 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.12.1-beta1</Version>
+    <Version>20.13.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- improved the way delete operations returns the DeleteResult
--</PackageReleaseNotes>
+    <PackageReleaseNotes>- added new [FieldAttribute] for controlling field names
+- improved the way delete operations returns the DeleteResult</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
