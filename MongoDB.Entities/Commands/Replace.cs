@@ -219,9 +219,9 @@ namespace MongoDB.Entities
         private void SetModOnAndByValues()
         {
             if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            if (Cache<T>.ModifiedByProp != null)
+            if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
             {
-                Cache<T>.ModifiedByProp?.SetValue(
+                Cache<T>.ModifiedByProp.SetValue(
                     entity,
                     BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
             }

@@ -8,9 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.13.0-beta1</Version>
+    <Version>20.13.0-beta2</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added new [FieldAttribute] for controlling field names
+- added DB.Replace() method for running ReplaceOne commands
 - improved the way delete operations returns the DeleteResult
 - improved the way update operations returns the UpdateResult</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
