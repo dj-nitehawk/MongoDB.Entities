@@ -133,11 +133,16 @@ namespace MongoDB.Entities
                 return await DeleteCascadingAsync<T>(IDs, session, cancellation).ConfigureAwait(false);
 
             long deletedCount = 0;
+            DeleteResult res = null;
 
             foreach (var batch in IDs.ToBatches(deleteBatchSize))
             {
-                deletedCount += (await DeleteCascadingAsync<T>(batch, session, cancellation).ConfigureAwait(false)).DeletedCount;
+                res = await DeleteCascadingAsync<T>(batch, session, cancellation).ConfigureAwait(false);
+                deletedCount += res.DeletedCount;
             }
+
+            if (res?.IsAcknowledged == false)
+                return DeleteResult.Unacknowledged.Instance;
 
             return new DeleteResult.Acknowledged(deletedCount);
         }

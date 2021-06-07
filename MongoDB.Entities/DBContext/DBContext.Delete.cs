@@ -47,6 +47,5 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync<T>(IDs, session, cancellation);
         }
-
     }
 }

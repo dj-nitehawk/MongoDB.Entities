@@ -11,7 +11,8 @@
     <Version>20.13.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added new [FieldAttribute] for controlling field names
-- improved the way delete operations returns the DeleteResult</PackageReleaseNotes>
+- improved the way delete operations returns the DeleteResult
+- improved the way update operations returns the UpdateResult</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

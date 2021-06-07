@@ -310,6 +310,9 @@ namespace MongoDB.Entities
 
                 models.Clear();
 
+                if (!bulkWriteResult.IsAcknowledged)
+                    return UpdateResult.Unacknowledged.Instance;
+
                 return new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
             }
             else
@@ -317,10 +320,7 @@ namespace MongoDB.Entities
                 if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                if (ShouldSetModDate())
-                {
-                    Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-                }
+                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
                 return await UpdateAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
