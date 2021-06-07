@@ -12,6 +12,10 @@
             return new Replace<T>(session, ModifiedBy);
         }
 
+        //todo: write tests for replace
+        //todo: updateandget command
+        //todo: tests for updateandget
+
         //public virtual UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
         //{
         //    var upGet = new UpdateAndGet<T>(session);
