@@ -127,7 +127,6 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(5, res.Count(b => b.Price == 100));
         }
 
-
         [TestMethod]
         public async Task update_with_pipeline_using_template()
         {
@@ -351,6 +350,62 @@ namespace MongoDB.Entities.Tests
 
             book = await DB.Find<Book>().OneAsync(book.ID);
             Assert.AreEqual(targetDate.ToShortDateString(), book.ModifiedOn.ToShortDateString());
+        }
+
+        [TestMethod]
+        public async Task update_with_modifyonly_works()
+        {
+            var book = new Book
+            {
+                Title = "book",
+                Price = 100,
+                PublishedOn = DateTime.UtcNow
+            };
+
+            await book.SaveAsync();
+
+            book.Title = "updated";
+            book.Price = 200;
+            book.PublishedOn = null;
+
+            await DB.Update<Book>()
+                .MatchID(book.ID)
+                .ModifyOnly(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
+
+            var res = await DB.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual(res.Title, "updated");
+            Assert.AreEqual(res.Price, 100);
+            Assert.AreEqual(res.PublishedOn, null);
+        }
+
+        [TestMethod]
+        public async Task update_with_modifyexcept_works()
+        {
+            var book = new Book
+            {
+                Title = "book",
+                Price = 100,
+                PublishedOn = DateTime.UtcNow
+            };
+
+            await book.SaveAsync();
+
+            book.Title = "updated";
+            book.Price = 200;
+            book.PublishedOn = null;
+
+            await DB.Update<Book>()
+                .MatchID(book.ID)
+                .ModifyExcept(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
+
+            var res = await DB.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual(res.Title, "book");
+            Assert.AreEqual(res.Price, 200);
+            Assert.IsNotNull(res.PublishedOn);
         }
     }
 }

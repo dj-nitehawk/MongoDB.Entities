@@ -11,9 +11,12 @@
     <Version>20.13.0-beta2</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added new [FieldAttribute] for controlling field names
+- added DB.Update().ModifyOnly() to include subset of props
+- added DB.Update().ModifyExcept() to exclude subset of props
 - added DB.Replace() method for running ReplaceOne commands
 - improved the way delete operations return the DeleteResult
-- improved the way update operations return the UpdateResult</PackageReleaseNotes>
+- improved the way update operations return the UpdateResult
+- improve test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
@@ -30,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.12.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -132,5 +132,43 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
             Assert.AreEqual(res.Title, "TEST().BOOK");
         }
+
+        [TestMethod]
+        public async Task mod_by_update_using_modifyonly()
+        {
+            string userID = ObjectId.GenerateNewId().ToString();
+            var db = new DBContext(
+                modifiedBy: new UpdatedBy
+                {
+                    UserID = userID,
+                    UserName = "TestUser",
+                    UserType = "TEST"
+                });
+            var book = new Book();
+            await db.SaveAsync(book);
+
+            userID = ObjectId.GenerateNewId().ToString();
+            db.ModifiedBy = new UpdatedBy
+            {
+                UserID = userID,
+                UserName = "TestUserUPDATED",
+                UserType = "TEST-UPDATED"
+            };
+
+            book.Title = "TEST().BOOK";
+
+            await db
+                .Update<Book>()
+                .MatchID(book.ID)
+                .ModifyOnly(x => new { x.Title }, book)
+                .ExecuteAsync();
+
+            var res = await db.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual(res.ModifiedBy.UserID, userID);
+            Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
+            Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
+            Assert.AreEqual(res.Title, "TEST().BOOK");
+        }
     }
 }
