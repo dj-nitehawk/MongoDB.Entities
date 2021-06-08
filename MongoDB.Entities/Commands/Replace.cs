@@ -149,7 +149,7 @@ namespace MongoDB.Entities
         public Replace<T> WithEntity(T entity)
         {
             if (string.IsNullOrEmpty(entity.ID))
-                entity.ID = entity.GenerateNewID();
+                throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
             this.entity = entity;
 
