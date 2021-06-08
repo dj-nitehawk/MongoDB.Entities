@@ -193,6 +193,17 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Modify ALL properties with the values from the supplied entity instance.
+        /// </summary>
+        /// <param name="entity">The entity instance to read the property values from</param>
+        public UpdateAndGet<T, TProjection> ModifyWith(T entity)
+        {
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            defs.AddRange(Logic.BuildUpdateDefs(entity));
+            return this;
+        }
+
+        /// <summary>
         /// Modify ONLY the specified properties with the values from a given entity instance.
         /// </summary>
         /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>

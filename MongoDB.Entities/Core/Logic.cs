@@ -8,6 +8,16 @@ namespace MongoDB.Entities
 {
     internal static class Logic
     {
+        internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity) where T : IEntity
+        {
+            if (entity == null)
+                throw new ArgumentException("The supplied entity cannot be null!");
+
+            var props = Cache<T>.UpdatableProps(entity);
+
+            return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+        }
+
         internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members, bool excludeMode = false) where T : IEntity
         {
             var propNames = (members?.Body as NewExpression)?.Arguments

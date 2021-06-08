@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -378,6 +379,30 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(res.Title, "updated");
             Assert.AreEqual(res.Price, 100);
             Assert.AreEqual(res.PublishedOn, null);
+        }
+
+        [TestMethod]
+        public async Task update_with_modifywith_works()
+        {
+            var flower = new Flower
+            {
+                Color = "red",
+                Name = "lilly"
+            };
+            await flower.SaveAsync();
+
+            flower.Color = "green";
+            flower.Name = "daisy";
+
+            await DB.Update<Flower>()
+                .MatchID(flower.ID)
+                .ModifyWith(flower)
+                .ExecuteAsync();
+
+            var res = await DB.Find<Flower>().OneAsync(flower.ID);
+
+            Assert.AreEqual("green", res.Color);
+            Assert.AreEqual("daisy", res.Name);
         }
 
         [TestMethod]
