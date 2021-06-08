@@ -1,0 +1,1602 @@
+### YamlMime:ManagedReference
+items:
+- uid: MongoDB.Entities.Replace`1
+  commentId: T:MongoDB.Entities.Replace`1
+  id: Replace`1
+  parent: MongoDB.Entities
+  children:
+  - MongoDB.Entities.Replace`1.AddToQueue
+  - MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  - MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
+  - MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)
+  - MongoDB.Entities.Replace`1.MatchExpression(System.String)
+  - MongoDB.Entities.Replace`1.MatchID(System.String)
+  - MongoDB.Entities.Replace`1.MatchString(System.String)
+  - MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  - MongoDB.Entities.Replace`1.WithEntity(`0)
+  langs:
+  - csharp
+  - vb
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  type: Class
+  source:
+    id: Replace
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 16
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents an UpdateOne command, which can replace the first matched document with a given entity\n<p>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public class Replace<T>
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    content.vb: Public Class Replace(Of T As IEntity)
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  nameWithType.vb: Replace(Of T)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+- uid: MongoDB.Entities.Replace`1.MatchID(System.String)
+  commentId: M:MongoDB.Entities.Replace`1.MatchID(System.String)
+  id: MatchID(System.String)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: MatchID(String)
+  nameWithType: Replace<T>.MatchID(String)
+  fullName: MongoDB.Entities.Replace<T>.MatchID(System.String)
+  type: Method
+  source:
+    id: MatchID
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 35
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an IEntity ID as the matching criteria\n"
+  example: []
+  syntax:
+    content: public Replace<T> MatchID(string ID)
+    parameters:
+    - id: ID
+      type: System.String
+      description: A unique IEntity ID
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function MatchID(ID As String) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.MatchID*
+  nameWithType.vb: Replace(Of T).MatchID(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchID(System.String)
+- uid: MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Expression<Func<T, Boolean>>)
+  nameWithType: Replace<T>.Match(Expression<Func<T, Boolean>>)
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 44
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a lambda expression\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(Expression<Func<T, bool>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+      description: x => x.Property == Value
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Boolean)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  name.vb: Match(Expression(Of Func(Of T, Boolean)))
+- uid: MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  id: Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  nameWithType: Replace<T>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 53
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a filter expression\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+    parameters:
+    - id: filter
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
+  id: Match(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Template)
+  nameWithType: Replace<T>.Match(Template)
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 63
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a template\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template with a find query
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(template As Template) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  id: Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Search, String, Boolean, Boolean, String)
+  nameWithType: Replace<T>.Match(Search, String, Boolean, Boolean, String)
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 78
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify a search term to find results from the text index of this particular collection.\n<p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    parameters:
+    - id: searchType
+      type: MongoDB.Entities.Search
+      description: The type of text matching to do
+    - id: searchTerm
+      type: System.String
+      description: The search term
+    - id: caseSensitive
+      type: System.Boolean
+      description: Case sensitivity of the search (optional)
+    - id: diacriticSensitive
+      type: System.Boolean
+      description: Diacritic sensitivity of the search (optional)
+    - id: language
+      type: System.String
+      description: The language for the search (optional)
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(Search, String, Boolean, Boolean, String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+- uid: MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType: Replace<T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 108
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
+    parameters:
+    - id: coordinatesProperty
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: The property where 2DCoordinates are stored
+    - id: nearCoordinates
+      type: MongoDB.Entities.Coordinates2D
+      description: The search point
+    - id: maxDistance
+      type: System.Nullable{System.Double}
+      description: Maximum distance in meters from the search point
+    - id: minDistance
+      type: System.Nullable{System.Double}
+      description: Minimum distance in meters from the search point
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+- uid: MongoDB.Entities.Replace`1.MatchString(System.String)
+  commentId: M:MongoDB.Entities.Replace`1.MatchString(System.String)
+  id: MatchString(System.String)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: MatchString(String)
+  nameWithType: Replace<T>.MatchString(String)
+  fullName: MongoDB.Entities.Replace<T>.MatchString(System.String)
+  type: Method
+  source:
+    id: MatchString
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 117
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a JSON string\n"
+  example: []
+  syntax:
+    content: public Replace<T> MatchString(string jsonString)
+    parameters:
+    - id: jsonString
+      type: System.String
+      description: '{ Title : &apos;The Power Of Now&apos; }'
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function MatchString(jsonString As String) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.MatchString*
+  nameWithType.vb: Replace(Of T).MatchString(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchString(System.String)
+- uid: MongoDB.Entities.Replace`1.MatchExpression(System.String)
+  commentId: M:MongoDB.Entities.Replace`1.MatchExpression(System.String)
+  id: MatchExpression(System.String)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: MatchExpression(String)
+  nameWithType: Replace<T>.MatchExpression(String)
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression(System.String)
+  type: Method
+  source:
+    id: MatchExpression
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 127
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with an aggregation expression (i.e. $expr)\n"
+  example: []
+  syntax:
+    content: public Replace<T> MatchExpression(string expression)
+    parameters:
+    - id: expression
+      type: System.String
+      description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function MatchExpression(expression As String) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.MatchExpression*
+  nameWithType.vb: Replace(Of T).MatchExpression(String)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression(System.String)
+- uid: MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)
+  id: MatchExpression(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: MatchExpression(Template)
+  nameWithType: Replace<T>.MatchExpression(Template)
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression(MongoDB.Entities.Template)
+  type: Method
+  source:
+    id: MatchExpression
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 137
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a Template\n"
+  example: []
+  syntax:
+    content: public Replace<T> MatchExpression(Template template)
+    parameters:
+    - id: template
+      type: MongoDB.Entities.Template
+      description: A Template object
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function MatchExpression(template As Template) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.MatchExpression*
+  nameWithType.vb: Replace(Of T).MatchExpression(Template)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Replace`1.WithEntity(`0)
+  commentId: M:MongoDB.Entities.Replace`1.WithEntity(`0)
+  id: WithEntity(`0)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: WithEntity(T)
+  nameWithType: Replace<T>.WithEntity(T)
+  fullName: MongoDB.Entities.Replace<T>.WithEntity(T)
+  type: Method
+  source:
+    id: WithEntity
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 148
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSupply the entity to replace the first matched document with\n<p>TIP: If the entity ID is empty, a new ID will be generated before being stored</p>\n"
+  example: []
+  syntax:
+    content: public Replace<T> WithEntity(T entity)
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: ''
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function WithEntity(entity As T) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.WithEntity*
+  nameWithType.vb: Replace(Of T).WithEntity(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).WithEntity(T)
+- uid: MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  commentId: M:MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  id: Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Option(Action<ReplaceOptions>)
+  nameWithType: Replace<T>.Option(Action<ReplaceOptions>)
+  fullName: MongoDB.Entities.Replace<T>.Option(System.Action<MongoDB.Driver.ReplaceOptions>)
+  type: Method
+  source:
+    id: Option
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 163
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify an option for this replace command (use multiple times if needed)\n<p>TIP: Setting options is not required</p>\n"
+  example: []
+  syntax:
+    content: public Replace<T> Option(Action<ReplaceOptions> option)
+    parameters:
+    - id: option
+      type: System.Action{MongoDB.Driver.ReplaceOptions}
+      description: x => x.OptionName = OptionValue
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Option(option As Action(Of ReplaceOptions)) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Option*
+  nameWithType.vb: Replace(Of T).Option(Action(Of ReplaceOptions))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Option(System.Action(Of MongoDB.Driver.ReplaceOptions))
+  name.vb: Option(Action(Of ReplaceOptions))
+- uid: MongoDB.Entities.Replace`1.AddToQueue
+  commentId: M:MongoDB.Entities.Replace`1.AddToQueue
+  id: AddToQueue
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: AddToQueue()
+  nameWithType: Replace<T>.AddToQueue()
+  fullName: MongoDB.Entities.Replace<T>.AddToQueue()
+  type: Method
+  source:
+    id: AddToQueue
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 172
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nQueue up a replace command for bulk execution later.\n"
+  example: []
+  syntax:
+    content: public Replace<T> AddToQueue()
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function AddToQueue As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.AddToQueue*
+  nameWithType.vb: Replace(Of T).AddToQueue()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).AddToQueue()
+- uid: MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
+  id: ExecuteAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAsync(CancellationToken)
+  nameWithType: Replace<T>.ExecuteAsync(CancellationToken)
+  fullName: MongoDB.Entities.Replace<T>.ExecuteAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecuteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
+    startLine: 194
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the replace command in MongoDB.\n"
+  example: []
+  syntax:
+    content: public Task<ReplaceOneResult> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.ReplaceOneResult}
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of ReplaceOneResult)
+  overload: MongoDB.Entities.Replace`1.ExecuteAsync*
+  nameWithType.vb: Replace(Of T).ExecuteAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).ExecuteAsync(System.Threading.CancellationToken)
+references:
+- uid: MongoDB.Entities
+  commentId: N:MongoDB.Entities
+  name: MongoDB.Entities
+  nameWithType: MongoDB.Entities
+  fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: MongoDB.Entities.Replace`1.MatchID*
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchID
+  name: MatchID
+  nameWithType: Replace<T>.MatchID
+  fullName: MongoDB.Entities.Replace<T>.MatchID
+  nameWithType.vb: Replace(Of T).MatchID
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchID
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.Replace`1
+  commentId: T:MongoDB.Entities.Replace`1
+  parent: MongoDB.Entities
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  nameWithType.vb: Replace(Of T)
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Replace`1.Match*
+  commentId: Overload:MongoDB.Entities.Replace`1.Match
+  name: Match
+  nameWithType: Replace<T>.Match
+  fullName: MongoDB.Entities.Replace<T>.Match
+  nameWithType.vb: Replace(Of T).Match
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Boolean>>
+  nameWithType: Expression<Func<T, Boolean>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
+  nameWithType.vb: Expression(Of Func(Of T, Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
+  name.vb: Expression(Of Func(Of T, Boolean))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
+  isExternal: true
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
+- uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
+  nameWithType.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Template
+  commentId: T:MongoDB.Entities.Template
+  parent: MongoDB.Entities
+  name: Template
+  nameWithType: Template
+  fullName: MongoDB.Entities.Template
+- uid: MongoDB.Entities.Search
+  commentId: T:MongoDB.Entities.Search
+  parent: MongoDB.Entities
+  name: Search
+  nameWithType: Search
+  fullName: MongoDB.Entities.Search
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
+  name: Expression<Func<T, Object>>
+  nameWithType: Expression<Func<T, Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
+  nameWithType.vb: Expression(Of Func(Of T, Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
+  name.vb: Expression(Of Func(Of T, Object))
+  spec.csharp:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Coordinates2D
+  commentId: T:MongoDB.Entities.Coordinates2D
+  parent: MongoDB.Entities
+  name: Coordinates2D
+  nameWithType: Coordinates2D
+  fullName: MongoDB.Entities.Coordinates2D
+- uid: System.Nullable{System.Double}
+  commentId: T:System.Nullable{System.Double}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<Double>
+  nameWithType: Nullable<Double>
+  fullName: System.Nullable<System.Double>
+  nameWithType.vb: Nullable(Of Double)
+  fullName.vb: System.Nullable(Of System.Double)
+  name.vb: Nullable(Of Double)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Double
+    name: Double
+    nameWithType: Double
+    fullName: System.Double
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Replace`1.MatchString*
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchString
+  name: MatchString
+  nameWithType: Replace<T>.MatchString
+  fullName: MongoDB.Entities.Replace<T>.MatchString
+  nameWithType.vb: Replace(Of T).MatchString
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchString
+- uid: MongoDB.Entities.Replace`1.MatchExpression*
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchExpression
+  name: MatchExpression
+  nameWithType: Replace<T>.MatchExpression
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression
+  nameWithType.vb: Replace(Of T).MatchExpression
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression
+- uid: MongoDB.Entities.Replace`1.WithEntity*
+  commentId: Overload:MongoDB.Entities.Replace`1.WithEntity
+  name: WithEntity
+  nameWithType: Replace<T>.WithEntity
+  fullName: MongoDB.Entities.Replace<T>.WithEntity
+  nameWithType.vb: Replace(Of T).WithEntity
+  fullName.vb: MongoDB.Entities.Replace(Of T).WithEntity
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: MongoDB.Entities.Replace`1.Option*
+  commentId: Overload:MongoDB.Entities.Replace`1.Option
+  name: Option
+  nameWithType: Replace<T>.Option
+  fullName: MongoDB.Entities.Replace<T>.Option
+  nameWithType.vb: Replace(Of T).Option
+  fullName.vb: MongoDB.Entities.Replace(Of T).Option
+- uid: System.Action{MongoDB.Driver.ReplaceOptions}
+  commentId: T:System.Action{MongoDB.Driver.ReplaceOptions}
+  parent: System
+  definition: System.Action`1
+  name: Action<ReplaceOptions>
+  nameWithType: Action<ReplaceOptions>
+  fullName: System.Action<MongoDB.Driver.ReplaceOptions>
+  nameWithType.vb: Action(Of ReplaceOptions)
+  fullName.vb: System.Action(Of MongoDB.Driver.ReplaceOptions)
+  name.vb: Action(Of ReplaceOptions)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.ReplaceOptions
+    name: ReplaceOptions
+    nameWithType: ReplaceOptions
+    fullName: MongoDB.Driver.ReplaceOptions
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.ReplaceOptions
+    name: ReplaceOptions
+    nameWithType: ReplaceOptions
+    fullName: MongoDB.Driver.ReplaceOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Replace`1.AddToQueue*
+  commentId: Overload:MongoDB.Entities.Replace`1.AddToQueue
+  name: AddToQueue
+  nameWithType: Replace<T>.AddToQueue
+  fullName: MongoDB.Entities.Replace<T>.AddToQueue
+  nameWithType.vb: Replace(Of T).AddToQueue
+  fullName.vb: MongoDB.Entities.Replace(Of T).AddToQueue
+- uid: MongoDB.Entities.Replace`1.ExecuteAsync*
+  commentId: Overload:MongoDB.Entities.Replace`1.ExecuteAsync
+  name: ExecuteAsync
+  nameWithType: Replace<T>.ExecuteAsync
+  fullName: MongoDB.Entities.Replace<T>.ExecuteAsync
+  nameWithType.vb: Replace(Of T).ExecuteAsync
+  fullName.vb: MongoDB.Entities.Replace(Of T).ExecuteAsync
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{MongoDB.Driver.ReplaceOneResult}
+  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.ReplaceOneResult}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<ReplaceOneResult>
+  nameWithType: Task<ReplaceOneResult>
+  fullName: System.Threading.Tasks.Task<MongoDB.Driver.ReplaceOneResult>
+  nameWithType.vb: Task(Of ReplaceOneResult)
+  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.ReplaceOneResult)
+  name.vb: Task(Of ReplaceOneResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.ReplaceOneResult
+    name: ReplaceOneResult
+    nameWithType: ReplaceOneResult
+    fullName: MongoDB.Driver.ReplaceOneResult
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.ReplaceOneResult
+    name: ReplaceOneResult
+    nameWithType: ReplaceOneResult
+    fullName: MongoDB.Driver.ReplaceOneResult
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

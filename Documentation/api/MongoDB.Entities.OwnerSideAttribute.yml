@@ -15,7 +15,7 @@ items:
   source:
     id: OwnerSideAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 17
+    startLine: 28
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

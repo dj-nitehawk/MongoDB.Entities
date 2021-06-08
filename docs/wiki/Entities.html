@@ -17,7 +17,7 @@
     <title>Define entities | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Define entities | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.5.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -108,6 +108,14 @@ public class Book : Entity
 {
     [Ignore]
     public string SomeProperty { get; set; }
+}
+</code></pre>
+<h1 id="customize-field-names">Customize field names</h1>
+<p>you can set the field names of the documents stored in mongodb using the <code>FieldAttribute</code> like so:</p>
+<pre><code class="lang-csharp">public class Book
+{
+    [Field(&quot;book_name&quot;)]
+    public string Title { get; set; }
 }
 </code></pre>
 <h1 id="customize-collection-names">Customize collection names</h1>

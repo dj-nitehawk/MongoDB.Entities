@@ -14,10 +14,10 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Distinct&lt;T, TProperty&gt;
+    <title>Class Replace&lt;T&gt;
    | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Distinct&lt;T, TProperty&gt;
+    <meta name="title" content="Class Replace&lt;T&gt;
    | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
@@ -93,18 +93,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Distinct`2">
+            <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Replace`1">
   
   
-  <h1 id="MongoDB_Entities_Distinct_2" data-uid="MongoDB.Entities.Distinct`2" class="text-break">Class Distinct&lt;T, TProperty&gt;
+  <h1 id="MongoDB_Entities_Replace_1" data-uid="MongoDB.Entities.Replace`1" class="text-break">Class Replace&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.</p>
+  <div class="markdown level0 summary"><p>Represents an UpdateOne command, which can replace the first matched document with a given entity</p>
+<p>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">Distinct&lt;T, TProperty&gt;</span></div>
+    <div class="level1"><span class="xref">Replace&lt;T&gt;</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -132,9 +133,9 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
-  <h5 id="MongoDB_Entities_Distinct_2_syntax">Syntax</h5>
+  <h5 id="MongoDB_Entities_Replace_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Distinct&lt;T, TProperty&gt;
+    <pre><code class="lang-csharp hljs">public class Replace&lt;T&gt;
 
     where T : IEntity</code></pre>
   </div>
@@ -149,12 +150,7 @@
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
-        <td><p>Any Entity that implements IEntity interface</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="parametername">TProperty</span></td>
-        <td><p>The type of the property of the entity you'd like to get unique values for</p>
+        <td><p>Any class that implements IEntity</p>
 </td>
       </tr>
     </tbody>
@@ -163,14 +159,40 @@
   </h3>
   
   
-  <a id="MongoDB_Entities_Distinct_2_ExecuteAsync_" data-uid="MongoDB.Entities.Distinct`2.ExecuteAsync*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Run the Distinct command in MongoDB server and get a list of unique property values</p>
+  <a id="MongoDB_Entities_Replace_1_AddToQueue_" data-uid="MongoDB.Entities.Replace`1.AddToQueue*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_AddToQueue" data-uid="MongoDB.Entities.Replace`1.AddToQueue">AddToQueue()</h4>
+  <div class="markdown level1 summary"><p>Queue up a replace command for bulk execution later.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProperty&gt;&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; AddToQueue()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Replace_1_ExecuteAsync_" data-uid="MongoDB.Entities.Replace`1.ExecuteAsync*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Run the replace command in MongoDB.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ReplaceOneResult&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -200,66 +222,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TProperty&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.ReplaceOneResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_ExecuteCursorAsync_" data-uid="MongoDB.Entities.Distinct`2.ExecuteCursorAsync*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_ExecuteCursorAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)">ExecuteCursorAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Run the Distinct command in MongoDB server and get a cursor instead of materialized results</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TProperty&gt;&gt; ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.IAsyncCursor</span>&lt;TProperty&gt;&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
+  <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -313,21 +291,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
+  <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)">Match(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Template template)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Template template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -357,21 +335,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
+  <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -401,21 +379,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
+  <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -445,15 +423,15 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Match_" data-uid="MongoDB.Entities.Distinct`2.Match*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
+  <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
 <p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
 <p>Note: DB.FluentGeoNear() supports more advanced options</p>
@@ -461,7 +439,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -509,21 +487,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_MatchExpression_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
+  <a id="MongoDB_Entities_Replace_1_MatchExpression_" data-uid="MongoDB.Entities.Replace`1.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchExpression(Template template)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchExpression(Template template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -553,21 +531,21 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_MatchExpression_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchExpression(System.String)">MatchExpression(String)</h4>
+  <a id="MongoDB_Entities_Replace_1_MatchExpression_" data-uid="MongoDB.Entities.Replace`1.MatchExpression*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_MatchExpression_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchExpression(System.String)">MatchExpression(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchExpression(string expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchExpression(string expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -597,21 +575,65 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_MatchString_" data-uid="MongoDB.Entities.Distinct`2.MatchString*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_MatchString_System_String_" data-uid="MongoDB.Entities.Distinct`2.MatchString(System.String)">MatchString(String)</h4>
+  <a id="MongoDB_Entities_Replace_1_MatchID_" data-uid="MongoDB.Entities.Replace`1.MatchID*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_MatchID_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchID(System.String)">MatchID(String)</h4>
+  <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchID(string ID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ID</span></td>
+        <td><p>A unique IEntity ID</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Replace_1_MatchString_" data-uid="MongoDB.Entities.Replace`1.MatchString*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_MatchString_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchString(System.String)">MatchString(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; MatchString(string jsonString)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchString(string jsonString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -641,21 +663,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Option_" data-uid="MongoDB.Entities.Distinct`2.Option*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Option_System_Action_MongoDB_Driver_DistinctOptions__" data-uid="MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})">Option(Action&lt;DistinctOptions&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify an option for this find command (use multiple times if needed)</p>
+  <a id="MongoDB_Entities_Replace_1_Option_" data-uid="MongoDB.Entities.Replace`1.Option*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_Option_System_Action_MongoDB_Driver_ReplaceOptions__" data-uid="MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})">Option(Action&lt;ReplaceOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify an option for this replace command (use multiple times if needed)</p>
+<p>TIP: Setting options is not required</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Option(Action&lt;DistinctOptions&gt; option)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Option(Action&lt;ReplaceOptions&gt; option)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -668,7 +691,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.DistinctOptions</span>&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.ReplaceOptions</span>&gt;</td>
         <td><span class="parametername">option</span></td>
         <td><p>x =&gt; x.OptionName = OptionValue</p>
 </td>
@@ -685,21 +708,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="MongoDB_Entities_Distinct_2_Property_" data-uid="MongoDB.Entities.Distinct`2.Property*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Property(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the property you want to get the unique values for (as a member expression)</p>
+  <a id="MongoDB_Entities_Replace_1_WithEntity_" data-uid="MongoDB.Entities.Replace`1.WithEntity*"></a>
+  <h4 id="MongoDB_Entities_Replace_1_WithEntity__0_" data-uid="MongoDB.Entities.Replace`1.WithEntity(`0)">WithEntity(T)</h4>
+  <div class="markdown level1 summary"><p>Supply the entity to replace the first matched document with</p>
+<p>TIP: If the entity ID is empty, a new ID will be generated before being stored</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Property(Expression&lt;Func&lt;T, object&gt;&gt; property)</code></pre>
+    <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; WithEntity(T entity)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -712,10 +736,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
-        <td><span class="parametername">property</span></td>
-        <td><p>x =&gt; x.Address.Street</p>
-</td>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -729,51 +752,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_Distinct_2_Property_" data-uid="MongoDB.Entities.Distinct`2.Property*"></a>
-  <h4 id="MongoDB_Entities_Distinct_2_Property_System_String_" data-uid="MongoDB.Entities.Distinct`2.Property(System.String)">Property(String)</h4>
-  <div class="markdown level1 summary"><p>Specify the property you want to get the unique values for (as a string path)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Distinct&lt;T, TProperty&gt; Property(string property)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">property</span></td>
-        <td><p>ex: &quot;Address.Street&quot;</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Distinct-2.html">Distinct</a>&lt;T, TProperty&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>

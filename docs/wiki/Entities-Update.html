@@ -17,7 +17,7 @@
     <title>Update without retrieving | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Update without retrieving | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.5.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -125,6 +125,29 @@
         .Modify(x =&gt; x.CurrentDate(a =&gt; a.ModifiedOn))
         .ExecuteAsync();
 </code></pre>
+<h2 id="update-all-properties">Update all properties</h2>
+<p>instead of specifying each and every property with <code>.Modify()</code> you can simply supply a complete entity using <code>.ModifyWith()</code>. all properties of the matched documents will be updated with the corresponding property values of the supplied entity instance.</p>
+<pre><code class="lang-csharp">await DB.Update&lt;Book&gt;()
+        .MatchID(&quot;xxxxxxxxxxxxx&quot;)
+        .ModifyWith(book)
+        .ExecuteAsync();
+</code></pre>
+<h2 id="update-only-a-few-specified-properties">Update only a few specified properties</h2>
+<p>you can specify a couple of properties to be updated with the corresponding values from a supplied entity instance like below.</p>
+<pre><code class="lang-csharp">await DB.Update&lt;Book&gt;()
+        .MatchID(&quot;xxxxxxxxxxxxx&quot;)
+        .ModifyOnly(b =&gt; new { b.Title, b.Price }, book)
+        .ExecuteAsync();  
+</code></pre>
+<p>in the above example, only the <code>Title</code> and <code>Price</code> of the matched book will be updated in the database.</p>
+<h2 id="update-all-others-except-for-the-specified-properties">Update all others except for the specified properties</h2>
+<p>you can update all other properties than the specified properties with the corresponding values from the supplied entity instance like so:</p>
+<pre><code class="lang-csharp">await DB.Update&lt;Book&gt;()
+        .MatchID(&quot;xxxxxxxxxxxxx&quot;)
+        .ModifyExcept(b =&gt; new { b.Price, b.ISBN }, book)
+        .ExecuteAsync();  
+</code></pre>
+<p>in the above example, all other properties except the <code>Price</code> and <code>ISBN</code> are updated with the values from the book instance.</p>
 <h1 id="bulk-updates">Bulk updates</h1>
 <pre><code class="lang-csharp">var bulkUpdate = DB.Update&lt;Author&gt;();
 

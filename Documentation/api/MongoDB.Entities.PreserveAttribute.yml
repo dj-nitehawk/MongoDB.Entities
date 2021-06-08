@@ -15,7 +15,7 @@ items:
   source:
     id: PreserveAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 49
+    startLine: 60
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

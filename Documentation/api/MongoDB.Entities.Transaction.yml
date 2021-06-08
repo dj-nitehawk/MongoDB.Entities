@@ -63,6 +63,7 @@ items:
   - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  - MongoDB.Entities.DBContext.Replace``1
   - MongoDB.Entities.DBContext.SaveAsync``1({T},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveOnlyAsync``1({T},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
@@ -2209,6 +2210,37 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.Replace``1
+  commentId: M:MongoDB.Entities.DBContext.Replace``1
+  parent: MongoDB.Entities.DBContext
+  name: Replace<T>()
+  nameWithType: DBContext.Replace<T>()
+  fullName: MongoDB.Entities.DBContext.Replace<T>()
+  nameWithType.vb: DBContext.Replace(Of T)()
+  fullName.vb: MongoDB.Entities.DBContext.Replace(Of T)()
+  name.vb: Replace(Of T)()
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.Replace``1
+    name: Replace<T>
+    nameWithType: DBContext.Replace<T>
+    fullName: MongoDB.Entities.DBContext.Replace<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.Replace``1
+    name: Replace(Of T)
+    nameWithType: DBContext.Replace(Of T)
+    fullName: MongoDB.Entities.DBContext.Replace(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

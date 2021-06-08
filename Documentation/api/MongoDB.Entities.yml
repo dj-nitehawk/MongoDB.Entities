@@ -15,6 +15,7 @@ items:
   - MongoDB.Entities.Entity
   - MongoDB.Entities.EventType
   - MongoDB.Entities.Extensions
+  - MongoDB.Entities.FieldAttribute
   - MongoDB.Entities.FileEntity
   - MongoDB.Entities.Find`1
   - MongoDB.Entities.Find`2
@@ -41,6 +42,7 @@ items:
   - MongoDB.Entities.OwnerSideAttribute
   - MongoDB.Entities.PreserveAttribute
   - MongoDB.Entities.Prop
+  - MongoDB.Entities.Replace`1
   - MongoDB.Entities.Search
   - MongoDB.Entities.Template
   - MongoDB.Entities.Template`1
@@ -249,6 +251,43 @@ references:
   name: KeyType
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType
+- uid: MongoDB.Entities.Replace`1
+  commentId: T:MongoDB.Entities.Replace`1
+  parent: MongoDB.Entities
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  nameWithType.vb: Replace(Of T)
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Update`1
   commentId: T:MongoDB.Entities.Update`1
   parent: MongoDB.Entities
@@ -418,6 +457,11 @@ references:
   name: IgnoreAttribute
   nameWithType: IgnoreAttribute
   fullName: MongoDB.Entities.IgnoreAttribute
+- uid: MongoDB.Entities.FieldAttribute
+  commentId: T:MongoDB.Entities.FieldAttribute
+  name: FieldAttribute
+  nameWithType: FieldAttribute
+  fullName: MongoDB.Entities.FieldAttribute
 - uid: MongoDB.Entities.OwnerSideAttribute
   commentId: T:MongoDB.Entities.OwnerSideAttribute
   name: OwnerSideAttribute

@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class UpdateAndGet&lt;T, TProjection&gt;
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.5.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -885,6 +885,150 @@
     <tbody>
       <tr>
         <td><span class="parametername">TProp</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyExcept(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Modify all EXCEPT the specified properties with the values from a given entity instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyExcept(Expression&lt;Func&lt;T, object&gt;&gt; members, T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">members</span></td>
+        <td><p>Supply a new expression with the properties to exclude. Ex: <code>x =&gt; new { x.Prop1, x.Prop2 }</code></p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity instance to read the corresponding values from</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyOnly(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
+  <div class="markdown level1 summary"><p>Modify ONLY the specified properties with the values from a given entity instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyOnly(Expression&lt;Func&lt;T, object&gt;&gt; members, T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">members</span></td>
+        <td><p>A new expression with the properties to include. Ex: <code>x =&gt; new { x.PropOne, x.PropTwo }</code></p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity instance to read the corresponding values from</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_ModifyWith_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyWith*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyWith__0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)">ModifyWith(T)</h4>
+  <div class="markdown level1 summary"><p>Modify ALL properties with the values from the supplied entity instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyWith(T entity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity instance to read the property values from</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
         <td></td>
       </tr>
     </tbody>

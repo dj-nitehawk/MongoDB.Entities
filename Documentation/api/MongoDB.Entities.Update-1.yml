@@ -21,6 +21,9 @@ items:
   - MongoDB.Entities.Update`1.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
   - MongoDB.Entities.Update`1.Modify(System.String)
   - MongoDB.Entities.Update`1.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - MongoDB.Entities.Update`1.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - MongoDB.Entities.Update`1.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - MongoDB.Entities.Update`1.ModifyWith(`0)
   - MongoDB.Entities.Update`1.Option(System.Action{MongoDB.Driver.UpdateOptions})
   - MongoDB.Entities.Update`1.WithArrayFilter(MongoDB.Entities.Template)
   - MongoDB.Entities.Update`1.WithArrayFilter(System.String)
@@ -573,6 +576,122 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Update(Of T).Modify(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.Update`1.ModifyWith(`0)
+  commentId: M:MongoDB.Entities.Update`1.ModifyWith(`0)
+  id: ModifyWith(`0)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: ModifyWith(T)
+  nameWithType: Update<T>.ModifyWith(T)
+  fullName: MongoDB.Entities.Update<T>.ModifyWith(T)
+  type: Method
+  source:
+    id: ModifyWith
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 190
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify ALL properties with the values from the supplied entity instance.\n"
+  example: []
+  syntax:
+    content: public Update<T> ModifyWith(T entity)
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the property values from
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function ModifyWith(entity As T) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.ModifyWith*
+  nameWithType.vb: Update(Of T).ModifyWith(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyWith(T)
+- uid: MongoDB.Entities.Update`1.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.Update`1.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  id: ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: ModifyOnly(Expression<Func<T, Object>>, T)
+  nameWithType: Update<T>.ModifyOnly(Expression<Func<T, Object>>, T)
+  fullName: MongoDB.Entities.Update<T>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  type: Method
+  source:
+    id: ModifyOnly
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 202
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify ONLY the specified properties with the values from a given entity instance.\n"
+  example: []
+  syntax:
+    content: public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    parameters:
+    - id: members
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: 'A new expression with the properties to include. Ex: <code>x => new { x.PropOne, x.PropTwo }</code>'
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the corresponding values from
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function ModifyOnly(members As Expression(Of Func(Of T, Object)), entity As T) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.ModifyOnly*
+  nameWithType.vb: Update(Of T).ModifyOnly(Expression(Of Func(Of T, Object)), T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.Update`1.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.Update`1.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  id: ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: ModifyExcept(Expression<Func<T, Object>>, T)
+  nameWithType: Update<T>.ModifyExcept(Expression<Func<T, Object>>, T)
+  fullName: MongoDB.Entities.Update<T>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  type: Method
+  source:
+    id: ModifyExcept
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 214
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify all EXCEPT the specified properties with the values from a given entity instance.\n"
+  example: []
+  syntax:
+    content: public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    parameters:
+    - id: members
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: 'Supply a new expression with the properties to exclude. Ex: <code>x => new { x.Prop1, x.Prop2 }</code>'
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the corresponding values from
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function ModifyExcept(members As Expression(Of Func(Of T, Object)), entity As T) As Update(Of T)
+  overload: MongoDB.Entities.Update`1.ModifyExcept*
+  nameWithType.vb: Update(Of T).ModifyExcept(Expression(Of Func(Of T, Object)), T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
 - uid: MongoDB.Entities.Update`1.WithPipeline(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.Update`1.WithPipeline(MongoDB.Entities.Template)
   id: WithPipeline(MongoDB.Entities.Template)
@@ -587,7 +706,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 191
+    startLine: 226
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -623,7 +742,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 206
+    startLine: 241
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -659,7 +778,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 217
+    startLine: 252
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -695,7 +814,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 226
+    startLine: 261
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -731,7 +850,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 242
+    startLine: 277
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -767,7 +886,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 252
+    startLine: 287
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -803,7 +922,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 269
+    startLine: 304
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -840,7 +959,7 @@ items:
   source:
     id: AddToQueue
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 278
+    startLine: 313
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -872,7 +991,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 300
+    startLine: 335
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -908,7 +1027,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 332
+    startLine: 367
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1943,6 +2062,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Update`1.ModifyWith*
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyWith
+  name: ModifyWith
+  nameWithType: Update<T>.ModifyWith
+  fullName: MongoDB.Entities.Update<T>.ModifyWith
+  nameWithType.vb: Update(Of T).ModifyWith
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyWith
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: MongoDB.Entities.Update`1.ModifyOnly*
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyOnly
+  name: ModifyOnly
+  nameWithType: Update<T>.ModifyOnly
+  fullName: MongoDB.Entities.Update<T>.ModifyOnly
+  nameWithType.vb: Update(Of T).ModifyOnly
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyOnly
+- uid: MongoDB.Entities.Update`1.ModifyExcept*
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyExcept
+  name: ModifyExcept
+  nameWithType: Update<T>.ModifyExcept
+  fullName: MongoDB.Entities.Update<T>.ModifyExcept
+  nameWithType.vb: Update(Of T).ModifyExcept
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyExcept
 - uid: MongoDB.Entities.Update`1.WithPipeline*
   commentId: Overload:MongoDB.Entities.Update`1.WithPipeline
   name: WithPipeline

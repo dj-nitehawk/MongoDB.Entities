@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace MongoDB.Entities
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.5.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -135,6 +135,9 @@ TIP: These attribute decorations are only effective if you do not specify a pres
       <h4><a class="xref" href="MongoDB.Entities.Extensions.html">Extensions</a></h4>
       <section><p>Extension methods for entities</p>
 </section>
+      <h4><a class="xref" href="MongoDB.Entities.FieldAttribute.html">FieldAttribute</a></h4>
+      <section><p>Specifies the field name and/or the order of the persisted document.</p>
+</section>
       <h4><a class="xref" href="MongoDB.Entities.FileEntity.html">FileEntity</a></h4>
       <section><p>Inherit this base class in order to create your own File Entities</p>
 </section>
@@ -207,6 +210,10 @@ TIP: These attribute decorations are only effective if you do not specify a pres
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Prop.html">Prop</a></h4>
       <section><p>This class provides methods to generate property path strings from lambda expression.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace&lt;T&gt;</a></h4>
+      <section><p>Represents an UpdateOne command, which can replace the first matched document with a given entity</p>
+<p>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Template.html">Template</a></h4>
       <section><p>A helper class to build a JSON command from a string with tag replacement</p>

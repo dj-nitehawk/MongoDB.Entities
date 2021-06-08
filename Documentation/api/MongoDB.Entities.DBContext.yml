@@ -27,6 +27,7 @@ items:
   - MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  - MongoDB.Entities.DBContext.Replace``1
   - MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
@@ -1156,6 +1157,47 @@ items:
   - Overridable
   fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
   name.vb: Queryable(Of T)(AggregateOptions)
+- uid: MongoDB.Entities.DBContext.Replace``1
+  commentId: M:MongoDB.Entities.DBContext.Replace``1
+  id: Replace``1
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: Replace<T>()
+  nameWithType: DBContext.Replace<T>()
+  fullName: MongoDB.Entities.DBContext.Replace<T>()
+  type: Method
+  source:
+    id: Replace
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Replace.cs
+    startLine: 9
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nStarts a replace command for the given entity type\n<p>TIP: Only the first matched entity will be replaced</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public virtual Replace<T> Replace<T>()
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: The type of entity
+    return:
+      type: MongoDB.Entities.Replace{{T}}
+    content.vb: Public Overridable Function Replace(Of T As IEntity) As Replace(Of T)
+  overload: MongoDB.Entities.DBContext.Replace*
+  nameWithType.vb: DBContext.Replace(Of T)()
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: MongoDB.Entities.DBContext.Replace(Of T)()
+  name.vb: Replace(Of T)()
 - uid: MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveAsync``1(``0,System.Threading.CancellationToken)
   id: SaveAsync``1(``0,System.Threading.CancellationToken)
@@ -3611,6 +3653,86 @@ references:
   name: MongoDB.Driver.Linq
   nameWithType: MongoDB.Driver.Linq
   fullName: MongoDB.Driver.Linq
+- uid: MongoDB.Entities.DBContext.Replace*
+  commentId: Overload:MongoDB.Entities.DBContext.Replace
+  name: Replace
+  nameWithType: DBContext.Replace
+  fullName: MongoDB.Entities.DBContext.Replace
+- uid: MongoDB.Entities.Replace{{T}}
+  commentId: T:MongoDB.Entities.Replace{``0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Replace`1
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  nameWithType.vb: Replace(Of T)
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Replace`1
+  commentId: T:MongoDB.Entities.Replace`1
+  parent: MongoDB.Entities
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  nameWithType.vb: Replace(Of T)
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.SaveAsync*
   commentId: Overload:MongoDB.Entities.DBContext.SaveAsync
   name: SaveAsync

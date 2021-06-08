@@ -798,6 +798,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.Queryable(Of T)(MongoDB.Driver.AggregateOptions, MongoDB.Driver.IClientSessionHandle)
   nameWithType: DB.Queryable<T>(AggregateOptions, IClientSessionHandle)
   nameWithType.vb: DB.Queryable(Of T)(AggregateOptions, IClientSessionHandle)
+- uid: MongoDB.Entities.DB.Replace*
+  name: Replace
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Replace_
+  commentId: Overload:MongoDB.Entities.DB.Replace
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.Replace
+  nameWithType: DB.Replace
+- uid: MongoDB.Entities.DB.Replace``1(MongoDB.Driver.IClientSessionHandle)
+  name: Replace<T>(IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Replace__1_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.Replace``1(MongoDB.Driver.IClientSessionHandle)
+  name.vb: Replace(Of T)(IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.Replace<T>(MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.Replace(Of T)(MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.Replace<T>(IClientSessionHandle)
+  nameWithType.vb: DB.Replace(Of T)(IClientSessionHandle)
 - uid: MongoDB.Entities.DB.SaveAsync*
   name: SaveAsync
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_SaveAsync_
@@ -1303,6 +1319,22 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
   nameWithType: DBContext.Queryable<T>(AggregateOptions)
   nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions)
+- uid: MongoDB.Entities.DBContext.Replace*
+  name: Replace
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Replace_
+  commentId: Overload:MongoDB.Entities.DBContext.Replace
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Replace
+  nameWithType: DBContext.Replace
+- uid: MongoDB.Entities.DBContext.Replace``1
+  name: Replace<T>()
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Replace__1
+  commentId: M:MongoDB.Entities.DBContext.Replace``1
+  name.vb: Replace(Of T)()
+  fullName: MongoDB.Entities.DBContext.Replace<T>()
+  fullName.vb: MongoDB.Entities.DBContext.Replace(Of T)()
+  nameWithType: DBContext.Replace<T>()
+  nameWithType.vb: DBContext.Replace(Of T)()
 - uid: MongoDB.Entities.DBContext.SaveAsync*
   name: SaveAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SaveAsync_
@@ -2149,6 +2181,37 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.ToReference(Of T)(T)
   nameWithType: Extensions.ToReference<T>(T)
   nameWithType.vb: Extensions.ToReference(Of T)(T)
+- uid: MongoDB.Entities.FieldAttribute
+  name: FieldAttribute
+  href: api/MongoDB.Entities.FieldAttribute.html
+  commentId: T:MongoDB.Entities.FieldAttribute
+  fullName: MongoDB.Entities.FieldAttribute
+  nameWithType: FieldAttribute
+- uid: MongoDB.Entities.FieldAttribute.#ctor(System.Int32)
+  name: FieldAttribute(Int32)
+  href: api/MongoDB.Entities.FieldAttribute.html#MongoDB_Entities_FieldAttribute__ctor_System_Int32_
+  commentId: M:MongoDB.Entities.FieldAttribute.#ctor(System.Int32)
+  fullName: MongoDB.Entities.FieldAttribute.FieldAttribute(System.Int32)
+  nameWithType: FieldAttribute.FieldAttribute(Int32)
+- uid: MongoDB.Entities.FieldAttribute.#ctor(System.String)
+  name: FieldAttribute(String)
+  href: api/MongoDB.Entities.FieldAttribute.html#MongoDB_Entities_FieldAttribute__ctor_System_String_
+  commentId: M:MongoDB.Entities.FieldAttribute.#ctor(System.String)
+  fullName: MongoDB.Entities.FieldAttribute.FieldAttribute(System.String)
+  nameWithType: FieldAttribute.FieldAttribute(String)
+- uid: MongoDB.Entities.FieldAttribute.#ctor(System.String,System.Int32)
+  name: FieldAttribute(String, Int32)
+  href: api/MongoDB.Entities.FieldAttribute.html#MongoDB_Entities_FieldAttribute__ctor_System_String_System_Int32_
+  commentId: M:MongoDB.Entities.FieldAttribute.#ctor(System.String,System.Int32)
+  fullName: MongoDB.Entities.FieldAttribute.FieldAttribute(System.String, System.Int32)
+  nameWithType: FieldAttribute.FieldAttribute(String, Int32)
+- uid: MongoDB.Entities.FieldAttribute.#ctor*
+  name: FieldAttribute
+  href: api/MongoDB.Entities.FieldAttribute.html#MongoDB_Entities_FieldAttribute__ctor_
+  commentId: Overload:MongoDB.Entities.FieldAttribute.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.FieldAttribute.FieldAttribute
+  nameWithType: FieldAttribute.FieldAttribute
 - uid: MongoDB.Entities.FileEntity
   name: FileEntity
   href: api/MongoDB.Entities.FileEntity.html
@@ -3903,6 +3966,195 @@ references:
   fullName.vb: MongoDB.Entities.Prop.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   nameWithType: Prop.Property<T>(Expression<Func<T, Object>>)
   nameWithType.vb: Prop.Property(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Replace`1
+  name: Replace<T>
+  href: api/MongoDB.Entities.Replace-1.html
+  commentId: T:MongoDB.Entities.Replace`1
+  name.vb: Replace(Of T)
+  fullName: MongoDB.Entities.Replace<T>
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  nameWithType: Replace<T>
+  nameWithType.vb: Replace(Of T)
+- uid: MongoDB.Entities.Replace`1.AddToQueue
+  name: AddToQueue()
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_AddToQueue
+  commentId: M:MongoDB.Entities.Replace`1.AddToQueue
+  fullName: MongoDB.Entities.Replace<T>.AddToQueue()
+  fullName.vb: MongoDB.Entities.Replace(Of T).AddToQueue()
+  nameWithType: Replace<T>.AddToQueue()
+  nameWithType.vb: Replace(Of T).AddToQueue()
+- uid: MongoDB.Entities.Replace`1.AddToQueue*
+  name: AddToQueue
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_AddToQueue_
+  commentId: Overload:MongoDB.Entities.Replace`1.AddToQueue
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.AddToQueue
+  fullName.vb: MongoDB.Entities.Replace(Of T).AddToQueue
+  nameWithType: Replace<T>.AddToQueue
+  nameWithType.vb: Replace(Of T).AddToQueue
+- uid: MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
+  name: ExecuteAsync(CancellationToken)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_ExecuteAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Replace<T>.ExecuteAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Replace(Of T).ExecuteAsync(System.Threading.CancellationToken)
+  nameWithType: Replace<T>.ExecuteAsync(CancellationToken)
+  nameWithType.vb: Replace(Of T).ExecuteAsync(CancellationToken)
+- uid: MongoDB.Entities.Replace`1.ExecuteAsync*
+  name: ExecuteAsync
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_ExecuteAsync_
+  commentId: Overload:MongoDB.Entities.Replace`1.ExecuteAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.ExecuteAsync
+  fullName.vb: MongoDB.Entities.Replace(Of T).ExecuteAsync
+  nameWithType: Replace<T>.ExecuteAsync
+  nameWithType.vb: Replace(Of T).ExecuteAsync
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  name: Match(Search, String, Boolean, Boolean, String)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
+  nameWithType: Replace<T>.Match(Search, String, Boolean, Boolean, String)
+  nameWithType.vb: Replace(Of T).Match(Search, String, Boolean, Boolean, String)
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
+  name: Match(Template)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Entities.Template)
+  nameWithType: Replace<T>.Match(Template)
+  nameWithType.vb: Replace(Of T).Match(Template)
+- uid: MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  nameWithType: Replace<T>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  nameWithType.vb: Replace(Of T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  name: Match(Expression<Func<T, Boolean>>)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  name.vb: Match(Expression(Of Func(Of T, Boolean)))
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  nameWithType: Replace<T>.Match(Expression<Func<T, Boolean>>)
+  nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Boolean)))
+- uid: MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__
+  commentId: M:MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+  fullName: MongoDB.Entities.Replace<T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  nameWithType: Replace<T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
+  nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
+- uid: MongoDB.Entities.Replace`1.Match*
+  name: Match
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_
+  commentId: Overload:MongoDB.Entities.Replace`1.Match
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.Match
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match
+  nameWithType: Replace<T>.Match
+  nameWithType.vb: Replace(Of T).Match
+- uid: MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)
+  name: MatchExpression(Template)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchExpression_MongoDB_Entities_Template_
+  commentId: M:MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression(MongoDB.Entities.Template)
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression(MongoDB.Entities.Template)
+  nameWithType: Replace<T>.MatchExpression(Template)
+  nameWithType.vb: Replace(Of T).MatchExpression(Template)
+- uid: MongoDB.Entities.Replace`1.MatchExpression(System.String)
+  name: MatchExpression(String)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchExpression_System_String_
+  commentId: M:MongoDB.Entities.Replace`1.MatchExpression(System.String)
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression(System.String)
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression(System.String)
+  nameWithType: Replace<T>.MatchExpression(String)
+  nameWithType.vb: Replace(Of T).MatchExpression(String)
+- uid: MongoDB.Entities.Replace`1.MatchExpression*
+  name: MatchExpression
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchExpression_
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchExpression
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.MatchExpression
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchExpression
+  nameWithType: Replace<T>.MatchExpression
+  nameWithType.vb: Replace(Of T).MatchExpression
+- uid: MongoDB.Entities.Replace`1.MatchID(System.String)
+  name: MatchID(String)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchID_System_String_
+  commentId: M:MongoDB.Entities.Replace`1.MatchID(System.String)
+  fullName: MongoDB.Entities.Replace<T>.MatchID(System.String)
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchID(System.String)
+  nameWithType: Replace<T>.MatchID(String)
+  nameWithType.vb: Replace(Of T).MatchID(String)
+- uid: MongoDB.Entities.Replace`1.MatchID*
+  name: MatchID
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchID_
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchID
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.MatchID
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchID
+  nameWithType: Replace<T>.MatchID
+  nameWithType.vb: Replace(Of T).MatchID
+- uid: MongoDB.Entities.Replace`1.MatchString(System.String)
+  name: MatchString(String)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchString_System_String_
+  commentId: M:MongoDB.Entities.Replace`1.MatchString(System.String)
+  fullName: MongoDB.Entities.Replace<T>.MatchString(System.String)
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchString(System.String)
+  nameWithType: Replace<T>.MatchString(String)
+  nameWithType.vb: Replace(Of T).MatchString(String)
+- uid: MongoDB.Entities.Replace`1.MatchString*
+  name: MatchString
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_MatchString_
+  commentId: Overload:MongoDB.Entities.Replace`1.MatchString
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.MatchString
+  fullName.vb: MongoDB.Entities.Replace(Of T).MatchString
+  nameWithType: Replace<T>.MatchString
+  nameWithType.vb: Replace(Of T).MatchString
+- uid: MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  name: Option(Action<ReplaceOptions>)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Option_System_Action_MongoDB_Driver_ReplaceOptions__
+  commentId: M:MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})
+  name.vb: Option(Action(Of ReplaceOptions))
+  fullName: MongoDB.Entities.Replace<T>.Option(System.Action<MongoDB.Driver.ReplaceOptions>)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Option(System.Action(Of MongoDB.Driver.ReplaceOptions))
+  nameWithType: Replace<T>.Option(Action<ReplaceOptions>)
+  nameWithType.vb: Replace(Of T).Option(Action(Of ReplaceOptions))
+- uid: MongoDB.Entities.Replace`1.Option*
+  name: Option
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Option_
+  commentId: Overload:MongoDB.Entities.Replace`1.Option
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.Option
+  fullName.vb: MongoDB.Entities.Replace(Of T).Option
+  nameWithType: Replace<T>.Option
+  nameWithType.vb: Replace(Of T).Option
+- uid: MongoDB.Entities.Replace`1.WithEntity(`0)
+  name: WithEntity(T)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_WithEntity__0_
+  commentId: M:MongoDB.Entities.Replace`1.WithEntity(`0)
+  fullName: MongoDB.Entities.Replace<T>.WithEntity(T)
+  fullName.vb: MongoDB.Entities.Replace(Of T).WithEntity(T)
+  nameWithType: Replace<T>.WithEntity(T)
+  nameWithType.vb: Replace(Of T).WithEntity(T)
+- uid: MongoDB.Entities.Replace`1.WithEntity*
+  name: WithEntity
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_WithEntity_
+  commentId: Overload:MongoDB.Entities.Replace`1.WithEntity
+  isSpec: "True"
+  fullName: MongoDB.Entities.Replace<T>.WithEntity
+  fullName.vb: MongoDB.Entities.Replace(Of T).WithEntity
+  nameWithType: Replace<T>.WithEntity
+  nameWithType.vb: Replace(Of T).WithEntity
 - uid: MongoDB.Entities.Search
   name: Search
   href: api/MongoDB.Entities.Search.html
@@ -4915,6 +5167,59 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
   nameWithType: Update<T>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: Update(Of T).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+- uid: MongoDB.Entities.Update`1.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name: ModifyExcept(Expression<Func<T, Object>>, T)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyExcept_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_
+  commentId: M:MongoDB.Entities.Update`1.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
+  fullName: MongoDB.Entities.Update<T>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  nameWithType: Update<T>.ModifyExcept(Expression<Func<T, Object>>, T)
+  nameWithType.vb: Update(Of T).ModifyExcept(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.Update`1.ModifyExcept*
+  name: ModifyExcept
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyExcept_
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyExcept
+  isSpec: "True"
+  fullName: MongoDB.Entities.Update<T>.ModifyExcept
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyExcept
+  nameWithType: Update<T>.ModifyExcept
+  nameWithType.vb: Update(Of T).ModifyExcept
+- uid: MongoDB.Entities.Update`1.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name: ModifyOnly(Expression<Func<T, Object>>, T)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyOnly_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_
+  commentId: M:MongoDB.Entities.Update`1.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
+  fullName: MongoDB.Entities.Update<T>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  nameWithType: Update<T>.ModifyOnly(Expression<Func<T, Object>>, T)
+  nameWithType.vb: Update(Of T).ModifyOnly(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.Update`1.ModifyOnly*
+  name: ModifyOnly
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyOnly_
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyOnly
+  isSpec: "True"
+  fullName: MongoDB.Entities.Update<T>.ModifyOnly
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyOnly
+  nameWithType: Update<T>.ModifyOnly
+  nameWithType.vb: Update(Of T).ModifyOnly
+- uid: MongoDB.Entities.Update`1.ModifyWith(`0)
+  name: ModifyWith(T)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyWith__0_
+  commentId: M:MongoDB.Entities.Update`1.ModifyWith(`0)
+  fullName: MongoDB.Entities.Update<T>.ModifyWith(T)
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyWith(T)
+  nameWithType: Update<T>.ModifyWith(T)
+  nameWithType.vb: Update(Of T).ModifyWith(T)
+- uid: MongoDB.Entities.Update`1.ModifyWith*
+  name: ModifyWith
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_ModifyWith_
+  commentId: Overload:MongoDB.Entities.Update`1.ModifyWith
+  isSpec: "True"
+  fullName: MongoDB.Entities.Update<T>.ModifyWith
+  fullName.vb: MongoDB.Entities.Update(Of T).ModifyWith
+  nameWithType: Update<T>.ModifyWith
+  nameWithType.vb: Update(Of T).ModifyWith
 - uid: MongoDB.Entities.Update`1.Option(System.Action{MongoDB.Driver.UpdateOptions})
   name: Option(Action<UpdateOptions>)
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Option_System_Action_MongoDB_Driver_UpdateOptions__
@@ -5223,6 +5528,59 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
   nameWithType: UpdateAndGet<T, TProjection>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name: ModifyExcept(Expression<Func<T, Object>>, T)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyExcept_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept(Expression<Func<T, Object>>, T)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept*
+  name: ModifyExcept
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyExcept_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyExcept
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name: ModifyOnly(Expression<Func<T, Object>>, T)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyOnly_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly(Expression<Func<T, Object>>, T)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly*
+  name: ModifyOnly
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyOnly_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyOnly
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)
+  name: ModifyWith(T)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyWith__0_
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyWith(T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyWith(T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyWith(T)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyWith(T)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyWith*
+  name: ModifyWith
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_ModifyWith_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyWith
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyWith
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyWith
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyWith
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyWith
 - uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
   name: Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Option_System_Action_MongoDB_Driver_FindOneAndUpdateOptions__0__1___

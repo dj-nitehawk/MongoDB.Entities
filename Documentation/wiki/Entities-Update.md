@@ -38,6 +38,35 @@ await DB.Update<Author>()
         .ExecuteAsync();
 ```
 
+## Update all properties
+instead of specifying each and every property with `.Modify()` you can simply supply a complete entity using `.ModifyWith()`. all properties of the matched documents will be updated with the corresponding property values of the supplied entity instance.
+```csharp
+await DB.Update<Book>()
+        .MatchID("xxxxxxxxxxxxx")
+        .ModifyWith(book)
+        .ExecuteAsync();
+```
+
+## Update only a few specified properties
+you can specify a couple of properties to be updated with the corresponding values from a supplied entity instance like below.
+```csharp
+await DB.Update<Book>()
+        .MatchID("xxxxxxxxxxxxx")
+        .ModifyOnly(b => new { b.Title, b.Price }, book)
+        .ExecuteAsync();  
+```
+in the above example, only the `Title` and `Price` of the matched book will be updated in the database.
+
+## Update all others except for the specified properties
+you can update all other properties than the specified properties with the corresponding values from the supplied entity instance like so:
+```csharp
+await DB.Update<Book>()
+        .MatchID("xxxxxxxxxxxxx")
+        .ModifyExcept(b => new { b.Price, b.ISBN }, book)
+        .ExecuteAsync();  
+```
+in the above example, all other properties except the `Price` and `ISBN` are updated with the values from the book instance.
+
 # Bulk updates
 ```csharp
 var bulkUpdate = DB.Update<Author>();

@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class DB
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.56.5.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -2744,6 +2744,69 @@ You can call this method as many times as you want (such as in serverless functi
     <tbody>
       <tr>
         <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_Replace_" data-uid="MongoDB.Entities.DB.Replace*"></a>
+  <h4 id="MongoDB_Entities_DB_Replace__1_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.Replace``1(MongoDB.Driver.IClientSessionHandle)">Replace&lt;T&gt;(IClientSessionHandle)</h4>
+  <div class="markdown level1 summary"><p>Represents a ReplaceOne command, which can replace the first matched document with a given entity</p>
+<p>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Replace&lt;T&gt; Replace&lt;T&gt;(IClientSessionHandle session = null)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Replace-1.html">Replace</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>

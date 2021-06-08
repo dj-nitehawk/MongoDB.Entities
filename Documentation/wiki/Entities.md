@@ -22,6 +22,16 @@ public class Book : Entity
 }
 ```
 
+# Customize field names
+you can set the field names of the documents stored in mongodb using the `FieldAttribute` like so:
+```csharp
+public class Book
+{
+    [Field("book_name")]
+    public string Title { get; set; }
+}
+```
+
 # Customize collection names
 by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `NameAttribute` as follows:
 ```csharp
@@ -80,7 +90,7 @@ public class Book : IEntity
 > [!warning]
 >it is highly recommended that you stick with `ObjectId` as it's highly unlikely it would generate duplicate IDs due to [the way it works](https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb).
 > 
->if you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.html#save-entities-partially) operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
+>if you choose something like `Guid`, there's a possibility for duplicates to be generated and data loss could occur when using the [partial entity saving](Entities-Save.md#save-entities-partially) operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.
 > 
 >the normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.
 > 

@@ -20,6 +20,9 @@ items:
   - MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
   - MongoDB.Entities.UpdateAndGet`2.Modify(System.String)
   - MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)
   - MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
   - MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
   - MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
@@ -576,6 +579,122 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(MongoDB.Entities.Template)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)
+  id: ModifyWith(`0)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: ModifyWith(T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyWith(T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyWith(T)
+  type: Method
+  source:
+    id: ModifyWith
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 198
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify ALL properties with the values from the supplied entity instance.\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> ModifyWith(T entity)
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the property values from
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function ModifyWith(entity As T) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.ModifyWith*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyWith(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyWith(T)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  id: ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: ModifyOnly(Expression<Func<T, Object>>, T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly(Expression<Func<T, Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  type: Method
+  source:
+    id: ModifyOnly
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 210
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify ONLY the specified properties with the values from a given entity instance.\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    parameters:
+    - id: members
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: 'A new expression with the properties to include. Ex: <code>x => new { x.PropOne, x.PropTwo }</code>'
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the corresponding values from
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function ModifyOnly(members As Expression(Of Func(Of T, Object)), entity As T) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.ModifyOnly*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly(Expression(Of Func(Of T, Object)), T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  id: ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: ModifyExcept(Expression<Func<T, Object>>, T)
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept(Expression<Func<T, Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  type: Method
+  source:
+    id: ModifyExcept
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 222
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nModify all EXCEPT the specified properties with the values from a given entity instance.\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    parameters:
+    - id: members
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: 'Supply a new expression with the properties to exclude. Ex: <code>x => new { x.Prop1, x.Prop2 }</code>'
+    - id: entity
+      type: '{T}'
+      description: The entity instance to read the corresponding values from
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function ModifyExcept(members As Expression(Of Func(Of T, Object)), entity As T) As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.ModifyExcept*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept(Expression(Of Func(Of T, Object)), T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
 - uid: MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)
   id: WithPipeline(MongoDB.Entities.Template)
@@ -590,7 +709,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 199
+    startLine: 234
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -626,7 +745,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 214
+    startLine: 249
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -662,7 +781,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 225
+    startLine: 260
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -698,7 +817,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 234
+    startLine: 269
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -734,7 +853,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 250
+    startLine: 285
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -770,7 +889,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 260
+    startLine: 295
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -806,7 +925,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 277
+    startLine: 312
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -843,7 +962,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 287
+    startLine: 322
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -880,7 +999,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 296
+    startLine: 331
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -917,7 +1036,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 306
+    startLine: 341
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -953,7 +1072,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 320
+    startLine: 355
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2000,6 +2119,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyWith*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyWith
+  name: ModifyWith
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyWith
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyWith
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyWith
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyWith
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyOnly
+  name: ModifyOnly
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ModifyExcept
+  name: ModifyExcept
+  nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept
 - uid: MongoDB.Entities.UpdateAndGet`2.WithPipeline*
   commentId: Overload:MongoDB.Entities.UpdateAndGet`2.WithPipeline
   name: WithPipeline

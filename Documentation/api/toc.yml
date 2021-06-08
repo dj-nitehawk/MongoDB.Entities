@@ -25,6 +25,8 @@
     name: EventType
   - uid: MongoDB.Entities.Extensions
     name: Extensions
+  - uid: MongoDB.Entities.FieldAttribute
+    name: FieldAttribute
   - uid: MongoDB.Entities.FileEntity
     name: FileEntity
   - uid: MongoDB.Entities.Find`2
@@ -84,6 +86,9 @@
     name: PreserveAttribute
   - uid: MongoDB.Entities.Prop
     name: Prop
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace<T>
+    name.vb: Replace(Of T)
   - uid: MongoDB.Entities.Search
     name: Search
   - uid: MongoDB.Entities.Template
