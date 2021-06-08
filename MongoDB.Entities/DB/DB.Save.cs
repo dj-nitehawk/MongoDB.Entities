@@ -203,31 +203,13 @@ namespace MongoDB.Entities
             return isInsert;
         }
 
-        private static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members, bool excludeMode = false) where T : IEntity
-        {
-            var propNames = (members?.Body as NewExpression)?.Arguments
-                .Select(a => a.ToString().Split('.')[1]);
-
-            if (!propNames.Any())
-                throw new ArgumentException("Unable to get any properties from the members expression!");
-
-            var props = Cache<T>.UpdatableProps(entity);
-
-            if (excludeMode)
-                props = props.Where(p => !propNames.Contains(p.Name));
-            else
-                props = props.Where(p => propNames.Contains(p.Name));
-
-            return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
-        }
-
         private static Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
         {
             PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
             return
                 session == null
-                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation);
+                ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, members, excludeMode)), updateOptions, cancellation);
         }
 
         private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
@@ -240,7 +222,7 @@ namespace MongoDB.Entities
                 models.Add(
                     new UpdateOneModel<T>(
                             filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
-                            update: Builders<T>.Update.Combine(BuildUpdateDefs(ent, members, excludeMode)))
+                            update: Builders<T>.Update.Combine(Logic.BuildUpdateDefs(ent, members, excludeMode)))
                     { IsUpsert = true });
             }
 

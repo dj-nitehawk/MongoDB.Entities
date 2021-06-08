@@ -28,7 +28,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type to project to</typeparam>
     public class UpdateAndGet<T, TProjection> where T : IEntity
     {
-        private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
+        private readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
@@ -189,6 +189,28 @@ namespace MongoDB.Entities
         public UpdateAndGet<T, TProjection> Modify(Template template)
         {
             Modify(template.ToString());
+            return this;
+        }
+
+        /// <summary>
+        /// Modify ONLY the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
+        {
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+            return this;
+        }
+
+        /// <summary>
+        /// Modify all EXCEPT the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
+        {
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
             return this;
         }
 

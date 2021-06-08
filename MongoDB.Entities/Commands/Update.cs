@@ -17,7 +17,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Update<T> where T : IEntity
     {
-        private readonly Collection<UpdateDefinition<T>> defs = new Collection<UpdateDefinition<T>>();
+        private readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private UpdateOptions options = new UpdateOptions();
@@ -185,6 +185,28 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Modify ONLY the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
+        {
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+            return this;
+        }
+
+        /// <summary>
+        /// Modify all EXCEPT the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
+        {
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
+            return this;
+        }
+
+        /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
@@ -318,7 +340,7 @@ namespace MongoDB.Entities
             else
             {
                 if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+                if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
