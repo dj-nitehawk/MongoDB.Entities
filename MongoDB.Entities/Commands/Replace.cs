@@ -143,11 +143,16 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Supply the entity to replace the first matched document with
+        /// <para>TIP: If the entity ID is empty, a new ID will be generated before being stored</para>
         /// </summary>
         /// <param name="entity"></param>
         public Replace<T> WithEntity(T entity)
         {
+            if (string.IsNullOrEmpty(entity.ID))
+                entity.ID = entity.GenerateNewID();
+
             this.entity = entity;
+
             return this;
         }
 
