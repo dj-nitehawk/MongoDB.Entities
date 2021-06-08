@@ -61,6 +61,44 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task mod_by_replace()
+        {
+            string userID = ObjectId.GenerateNewId().ToString();
+            var db = new DBContext(
+                modifiedBy: new UpdatedBy
+                {
+                    UserID = userID,
+                    UserName = "TestUser",
+                    UserType = "TEST"
+                });
+            var book = new Book();
+            await db.SaveAsync(book);
+
+            userID = ObjectId.GenerateNewId().ToString();
+            db.ModifiedBy = new UpdatedBy
+            {
+                UserID = userID,
+                UserName = "TestUserUPDATED",
+                UserType = "TEST-UPDATED"
+            };
+
+            book.Title = "TEST().BOOK";
+
+            await db
+                .Replace<Book>()
+                .MatchID(book.ID)
+                .WithEntity(book)
+                .ExecuteAsync();
+
+            var res = await db.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual(res.ModifiedBy.UserID, userID);
+            Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
+            Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
+            Assert.AreEqual(res.Title, "TEST().BOOK");
+        }
+
+        [TestMethod]
         public async Task mod_by_update()
         {
             string userID = ObjectId.GenerateNewId().ToString();
@@ -71,8 +109,8 @@ namespace MongoDB.Entities.Tests
                     UserName = "TestUser",
                     UserType = "TEST"
                 });
-            var author = new Book();
-            await db.SaveAsync(author);
+            var book = new Book();
+            await db.SaveAsync(book);
 
             userID = ObjectId.GenerateNewId().ToString();
             db.ModifiedBy = new UpdatedBy
@@ -83,11 +121,11 @@ namespace MongoDB.Entities.Tests
             };
             await db
                 .Update<Book>()
-                .MatchID(author.ID)
+                .MatchID(book.ID)
                 .Modify(b => b.Title, "TEST().BOOK")
                 .ExecuteAsync();
 
-            var res = await db.Find<Book>().OneAsync(author.ID);
+            var res = await db.Find<Book>().OneAsync(book.ID);
 
             Assert.AreEqual(res.ModifiedBy.UserID, userID);
             Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");

@@ -12,7 +12,5 @@
             ThrowIfModifiedByIsEmpty<T>();
             return new Replace<T>(session, ModifiedBy);
         }
-
-        //todo: write tests for replace
     }
 }
