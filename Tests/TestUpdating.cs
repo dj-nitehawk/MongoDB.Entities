@@ -407,5 +407,32 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(res.Price, 200);
             Assert.IsNotNull(res.PublishedOn);
         }
+
+        [TestMethod]
+        public async Task modified_on_is_being_set_with_modifyonly()
+        {
+            var book = new Book { Title = "test" };
+            await book.SaveAsync();
+
+            await DB.Update<Book>()
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, DateTime.MinValue)
+                .ExecuteAsync();
+
+            book.ModifiedOn = DateTime.MinValue;
+            book.Title = "updated";
+            book.Price = 100;
+
+            await DB.Update<Book>()
+                    .MatchID(book.ID)
+                    .ModifyOnly(x => new { x.Title, x.ModifiedOn }, book)
+                    .ExecuteAsync();
+
+            var res = await DB.Find<Book>().OneAsync(book.ID);
+
+            Assert.AreEqual(res.Title, "updated");
+            Assert.AreEqual(0, res.Price);
+            Assert.IsTrue(res.ModifiedOn > DateTime.UtcNow.AddSeconds(-10));
+        }
     }
 }

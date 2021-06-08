@@ -191,6 +191,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
         {
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members));
             return this;
         }
@@ -202,6 +203,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
         {
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
             return this;
         }
