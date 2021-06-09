@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities
 {
-    [Name("[SEQUENCE_COUNTERS]")]
+    [Collection("[SEQUENCE_COUNTERS]")]
     internal class SequenceCounter : IEntity
     {
         [BsonId]

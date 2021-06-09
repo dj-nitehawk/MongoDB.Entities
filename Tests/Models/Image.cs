@@ -1,6 +1,6 @@
 ﻿namespace MongoDB.Entities.Tests.Models
 {
-    [Name("Pictures")]
+    [Collection("Pictures")]
     public class Image : FileEntity
     {
         public int Width { get; set; }

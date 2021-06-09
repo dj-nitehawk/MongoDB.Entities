@@ -2,7 +2,7 @@
 
 namespace MongoDB.Entities.Tests
 {
-    [Name("Writer")]
+    [Collection("Writer")]
     public class Author : Entity, IModifiedOn, ICreatedOn
     {
         public string Name { get; set; }

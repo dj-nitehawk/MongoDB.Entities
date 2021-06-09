@@ -35,11 +35,19 @@ namespace MongoDB.Entities
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class InverseSideAttribute : Attribute { }
 
+    //todo: remove this attribute in the next major version jump
+    [Obsolete("Please use the [Collection(\"...\")] attribute instead")]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class NameAttribute : CollectionAttribute
+    {
+        public NameAttribute(string name) : base(name) { }
+    }
+
     /// <summary>
     /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class NameAttribute : Attribute
+    public class CollectionAttribute : Attribute
     {
         public string Name { get; }
 
@@ -47,7 +55,7 @@ namespace MongoDB.Entities
         /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
         /// </summary>
         /// <param name="name">The name you want to use for the collection</param>
-        public NameAttribute(string name)
+        public CollectionAttribute(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             Name = name;

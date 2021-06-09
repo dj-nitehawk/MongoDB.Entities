@@ -48,7 +48,7 @@ namespace MongoDB.Entities
         }
     }
 
-    [Name("[BINARY_CHUNKS]")]
+    [Collection("[BINARY_CHUNKS]")]
     internal class FileChunk : IEntity
     {
         [BsonId, ObjectId]

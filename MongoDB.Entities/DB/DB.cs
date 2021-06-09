@@ -283,7 +283,11 @@ namespace MongoDB.Entities
             Database = TypeMap.GetDatabase(type);
             DBName = Database.DatabaseNamespace.DatabaseName;
 
-            var collAttrb = type.GetCustomAttribute<NameAttribute>(false);
+            var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false) ??
+#pragma warning disable CS0618 // Type or member is obsolete
+                type.GetCustomAttribute<NameAttribute>(false);
+#pragma warning restore CS0618 // Type or member is obsolete
+
             CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
