@@ -1,40 +1,44 @@
 ### YamlMime:ManagedReference
 items:
-- uid: MongoDB.Entities.PreserveAttribute
-  commentId: T:MongoDB.Entities.PreserveAttribute
-  id: PreserveAttribute
+- uid: MongoDB.Entities.CollectionAttribute
+  commentId: T:MongoDB.Entities.CollectionAttribute
+  id: CollectionAttribute
   parent: MongoDB.Entities
-  children: []
+  children:
+  - MongoDB.Entities.CollectionAttribute.#ctor(System.String)
+  - MongoDB.Entities.CollectionAttribute.Name
   langs:
   - csharp
   - vb
-  name: PreserveAttribute
-  nameWithType: PreserveAttribute
-  fullName: MongoDB.Entities.PreserveAttribute
+  name: CollectionAttribute
+  nameWithType: CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute
   type: Class
   source:
-    id: PreserveAttribute
+    id: CollectionAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 68
+    startLine: 48
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this attribute on properties that you want to omit when using SavePreserving() instead of supplying an expression. \nTIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving() \n"
+  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
   example: []
   syntax:
     content: >-
-      [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+      [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 
-      public class PreserveAttribute : Attribute
+      public class CollectionAttribute : Attribute
     content.vb: >-
-      <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
+      <AttributeUsage(AttributeTargets.Class, AllowMultiple:=False)>
 
-      Public Class PreserveAttribute
+      Public Class CollectionAttribute
 
           Inherits Attribute
   inheritance:
   - System.Object
   - System.Attribute
+  derivedClasses:
+  - MongoDB.Entities.NameAttribute
   inheritedMembers:
   - System.Attribute.Equals(System.Object)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type)
@@ -83,7 +87,7 @@ items:
     ctor: System.AttributeUsageAttribute.#ctor(System.AttributeTargets)
     arguments:
     - type: System.AttributeTargets
-      value: 128
+      value: 4
     namedArguments:
     - name: AllowMultiple
       type: System.Boolean
@@ -94,6 +98,69 @@ items:
   modifiers.vb:
   - Public
   - Class
+- uid: MongoDB.Entities.CollectionAttribute.Name
+  commentId: P:MongoDB.Entities.CollectionAttribute.Name
+  id: Name
+  parent: MongoDB.Entities.CollectionAttribute
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: CollectionAttribute.Name
+  fullName: MongoDB.Entities.CollectionAttribute.Name
+  type: Property
+  source:
+    id: Name
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
+    startLine: 51
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property Name As String
+  overload: MongoDB.Entities.CollectionAttribute.Name*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: MongoDB.Entities.CollectionAttribute.#ctor(System.String)
+  commentId: M:MongoDB.Entities.CollectionAttribute.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: MongoDB.Entities.CollectionAttribute
+  langs:
+  - csharp
+  - vb
+  name: CollectionAttribute(String)
+  nameWithType: CollectionAttribute.CollectionAttribute(String)
+  fullName: MongoDB.Entities.CollectionAttribute.CollectionAttribute(System.String)
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
+    startLine: 57
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
+  example: []
+  syntax:
+    content: public CollectionAttribute(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: The name you want to use for the collection
+    content.vb: Public Sub New(name As String)
+  overload: MongoDB.Entities.CollectionAttribute.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
@@ -2430,3 +2497,20 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: MongoDB.Entities.CollectionAttribute.Name*
+  commentId: Overload:MongoDB.Entities.CollectionAttribute.Name
+  name: Name
+  nameWithType: CollectionAttribute.Name
+  fullName: MongoDB.Entities.CollectionAttribute.Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: MongoDB.Entities.CollectionAttribute.#ctor*
+  commentId: Overload:MongoDB.Entities.CollectionAttribute.#ctor
+  name: CollectionAttribute
+  nameWithType: CollectionAttribute.CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute.CollectionAttribute

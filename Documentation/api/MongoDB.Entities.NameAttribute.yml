@@ -6,7 +6,6 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.NameAttribute.#ctor(System.String)
-  - MongoDB.Entities.NameAttribute.Name
   langs:
   - csharp
   - vb
@@ -17,27 +16,31 @@ items:
   source:
     id: NameAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 40
+    startLine: 38
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
-  example: []
   syntax:
     content: >-
+      [Obsolete("Please use the [Collection(\"...\")] attribute instead")]
+
       [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 
-      public class NameAttribute : Attribute
+      public class NameAttribute : CollectionAttribute
     content.vb: >-
+      <Obsolete("Please use the [Collection(""..."")] attribute instead")>
+
       <AttributeUsage(AttributeTargets.Class, AllowMultiple:=False)>
 
       Public Class NameAttribute
 
-          Inherits Attribute
+          Inherits CollectionAttribute
   inheritance:
   - System.Object
   - System.Attribute
+  - MongoDB.Entities.CollectionAttribute
   inheritedMembers:
+  - MongoDB.Entities.CollectionAttribute.Name
   - System.Attribute.Equals(System.Object)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type,System.Boolean)
@@ -81,6 +84,11 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String)
+    arguments:
+    - type: System.String
+      value: Please use the [Collection("...")] attribute instead
   - type: System.AttributeUsageAttribute
     ctor: System.AttributeUsageAttribute.#ctor(System.AttributeTargets)
     arguments:
@@ -96,37 +104,6 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: MongoDB.Entities.NameAttribute.Name
-  commentId: P:MongoDB.Entities.NameAttribute.Name
-  id: Name
-  parent: MongoDB.Entities.NameAttribute
-  langs:
-  - csharp
-  - vb
-  name: Name
-  nameWithType: NameAttribute.Name
-  fullName: MongoDB.Entities.NameAttribute.Name
-  type: Property
-  source:
-    id: Name
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 43
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  syntax:
-    content: public string Name { get; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public ReadOnly Property Name As String
-  overload: MongoDB.Entities.NameAttribute.Name*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
 - uid: MongoDB.Entities.NameAttribute.#ctor(System.String)
   commentId: M:MongoDB.Entities.NameAttribute.#ctor(System.String)
   id: '#ctor(System.String)'
@@ -141,18 +118,15 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 49
+    startLine: 42
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
-  example: []
   syntax:
     content: public NameAttribute(string name)
     parameters:
     - id: name
       type: System.String
-      description: The name you want to use for the collection
     content.vb: Public Sub New(name As String)
   overload: MongoDB.Entities.NameAttribute.#ctor*
   modifiers.csharp:
@@ -179,6 +153,18 @@ references:
   name: Attribute
   nameWithType: Attribute
   fullName: System.Attribute
+- uid: MongoDB.Entities.CollectionAttribute
+  commentId: T:MongoDB.Entities.CollectionAttribute
+  parent: MongoDB.Entities
+  name: CollectionAttribute
+  nameWithType: CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute
+- uid: MongoDB.Entities.CollectionAttribute.Name
+  commentId: P:MongoDB.Entities.CollectionAttribute.Name
+  parent: MongoDB.Entities.CollectionAttribute
+  name: Name
+  nameWithType: CollectionAttribute.Name
+  fullName: MongoDB.Entities.CollectionAttribute.Name
 - uid: System.Attribute.Equals(System.Object)
   commentId: M:System.Attribute.Equals(System.Object)
   parent: System.Attribute
@@ -2495,11 +2481,11 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: MongoDB.Entities.NameAttribute.Name*
-  commentId: Overload:MongoDB.Entities.NameAttribute.Name
-  name: Name
-  nameWithType: NameAttribute.Name
-  fullName: MongoDB.Entities.NameAttribute.Name
+- uid: MongoDB.Entities.NameAttribute.#ctor*
+  commentId: Overload:MongoDB.Entities.NameAttribute.#ctor
+  name: NameAttribute
+  nameWithType: NameAttribute.NameAttribute
+  fullName: MongoDB.Entities.NameAttribute.NameAttribute
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -2507,8 +2493,3 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: MongoDB.Entities.NameAttribute.#ctor*
-  commentId: Overload:MongoDB.Entities.NameAttribute.#ctor
-  name: NameAttribute
-  nameWithType: NameAttribute.NameAttribute
-  fullName: MongoDB.Entities.NameAttribute.NameAttribute

@@ -26,6 +26,38 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.AsObjectIdAttribute.AsObjectIdAttribute
   nameWithType: AsObjectIdAttribute.AsObjectIdAttribute
+- uid: MongoDB.Entities.CollectionAttribute
+  name: CollectionAttribute
+  href: api/MongoDB.Entities.CollectionAttribute.html
+  commentId: T:MongoDB.Entities.CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute
+  nameWithType: CollectionAttribute
+- uid: MongoDB.Entities.CollectionAttribute.#ctor(System.String)
+  name: CollectionAttribute(String)
+  href: api/MongoDB.Entities.CollectionAttribute.html#MongoDB_Entities_CollectionAttribute__ctor_System_String_
+  commentId: M:MongoDB.Entities.CollectionAttribute.#ctor(System.String)
+  fullName: MongoDB.Entities.CollectionAttribute.CollectionAttribute(System.String)
+  nameWithType: CollectionAttribute.CollectionAttribute(String)
+- uid: MongoDB.Entities.CollectionAttribute.#ctor*
+  name: CollectionAttribute
+  href: api/MongoDB.Entities.CollectionAttribute.html#MongoDB_Entities_CollectionAttribute__ctor_
+  commentId: Overload:MongoDB.Entities.CollectionAttribute.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.CollectionAttribute.CollectionAttribute
+  nameWithType: CollectionAttribute.CollectionAttribute
+- uid: MongoDB.Entities.CollectionAttribute.Name
+  name: Name
+  href: api/MongoDB.Entities.CollectionAttribute.html#MongoDB_Entities_CollectionAttribute_Name
+  commentId: P:MongoDB.Entities.CollectionAttribute.Name
+  fullName: MongoDB.Entities.CollectionAttribute.Name
+  nameWithType: CollectionAttribute.Name
+- uid: MongoDB.Entities.CollectionAttribute.Name*
+  name: Name
+  href: api/MongoDB.Entities.CollectionAttribute.html#MongoDB_Entities_CollectionAttribute_Name_
+  commentId: Overload:MongoDB.Entities.CollectionAttribute.Name
+  isSpec: "True"
+  fullName: MongoDB.Entities.CollectionAttribute.Name
+  nameWithType: CollectionAttribute.Name
 - uid: MongoDB.Entities.Coordinates2D
   name: Coordinates2D
   href: api/MongoDB.Entities.Coordinates2D.html
@@ -3671,19 +3703,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.NameAttribute.NameAttribute
   nameWithType: NameAttribute.NameAttribute
-- uid: MongoDB.Entities.NameAttribute.Name
-  name: Name
-  href: api/MongoDB.Entities.NameAttribute.html#MongoDB_Entities_NameAttribute_Name
-  commentId: P:MongoDB.Entities.NameAttribute.Name
-  fullName: MongoDB.Entities.NameAttribute.Name
-  nameWithType: NameAttribute.Name
-- uid: MongoDB.Entities.NameAttribute.Name*
-  name: Name
-  href: api/MongoDB.Entities.NameAttribute.html#MongoDB_Entities_NameAttribute_Name_
-  commentId: Overload:MongoDB.Entities.NameAttribute.Name
-  isSpec: "True"
-  fullName: MongoDB.Entities.NameAttribute.Name
-  nameWithType: NameAttribute.Name
 - uid: MongoDB.Entities.ObjectIdAttribute
   name: ObjectIdAttribute
   href: api/MongoDB.Entities.ObjectIdAttribute.html

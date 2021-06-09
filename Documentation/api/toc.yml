@@ -4,6 +4,8 @@
   items:
   - uid: MongoDB.Entities.AsObjectIdAttribute
     name: AsObjectIdAttribute
+  - uid: MongoDB.Entities.CollectionAttribute
+    name: CollectionAttribute
   - uid: MongoDB.Entities.Coordinates2D
     name: Coordinates2D
   - uid: MongoDB.Entities.DataStreamer

@@ -5,6 +5,7 @@ items:
   id: MongoDB.Entities
   children:
   - MongoDB.Entities.AsObjectIdAttribute
+  - MongoDB.Entities.CollectionAttribute
   - MongoDB.Entities.Coordinates2D
   - MongoDB.Entities.DataStreamer
   - MongoDB.Entities.Date
@@ -474,10 +475,15 @@ references:
   fullName: MongoDB.Entities.InverseSideAttribute
 - uid: MongoDB.Entities.NameAttribute
   commentId: T:MongoDB.Entities.NameAttribute
-  parent: MongoDB.Entities
   name: NameAttribute
   nameWithType: NameAttribute
   fullName: MongoDB.Entities.NameAttribute
+- uid: MongoDB.Entities.CollectionAttribute
+  commentId: T:MongoDB.Entities.CollectionAttribute
+  parent: MongoDB.Entities
+  name: CollectionAttribute
+  nameWithType: CollectionAttribute
+  fullName: MongoDB.Entities.CollectionAttribute
 - uid: MongoDB.Entities.PreserveAttribute
   commentId: T:MongoDB.Entities.PreserveAttribute
   name: PreserveAttribute

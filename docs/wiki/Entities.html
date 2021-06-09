@@ -119,8 +119,8 @@ public class Book : Entity
 }
 </code></pre>
 <h1 id="customize-collection-names">Customize collection names</h1>
-<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>NameAttribute</code> as follows:</p>
-<pre><code class="lang-csharp">[Name(&quot;Writer&quot;)]
+<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>CollectionAttribute</code> as follows:</p>
+<pre><code class="lang-csharp">[Collection(&quot;Writer&quot;)]
 public class Author : Entity
 {
     ...

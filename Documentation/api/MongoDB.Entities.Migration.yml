@@ -26,11 +26,11 @@ items:
   example: []
   syntax:
     content: >-
-      [Name("_migration_history_")]
+      [Collection("_migration_history_")]
 
       public class Migration : Entity, IEntity
     content.vb: >-
-      <Name("_migration_history_")>
+      <Collection("_migration_history_")>
 
       Public Class Migration
 
@@ -70,8 +70,8 @@ items:
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitOneToMany``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild}}}})
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitManyToMany``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild}}}},System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}})
   attributes:
-  - type: MongoDB.Entities.NameAttribute
-    ctor: MongoDB.Entities.NameAttribute.#ctor(System.String)
+  - type: MongoDB.Entities.CollectionAttribute
+    ctor: MongoDB.Entities.CollectionAttribute.#ctor(System.String)
     arguments:
     - type: System.String
       value: _migration_history_

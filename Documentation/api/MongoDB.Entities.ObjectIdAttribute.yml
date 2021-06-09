@@ -16,7 +16,7 @@ items:
   source:
     id: ObjectIdAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 73
+    startLine: 81
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -120,7 +120,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 76
+    startLine: 84
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

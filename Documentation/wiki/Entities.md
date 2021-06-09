@@ -33,9 +33,9 @@ public class Book
 ```
 
 # Customize collection names
-by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `NameAttribute` as follows:
+by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the `CollectionAttribute` as follows:
 ```csharp
-[Name("Writer")]
+[Collection("Writer")]
 public class Author : Entity
 {
     ...

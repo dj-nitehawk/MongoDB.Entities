@@ -37,6 +37,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.CollectionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.CollectionAttribute.html",
+          "hash": "LoHv6Z0t3mTYjB15rXLNCuLomH31Peftf6Vc1HmEU1A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/MongoDB.Entities.Coordinates2D.yml",
       "output": {
         ".html": {
@@ -377,7 +389,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Migration.html",
-          "hash": "eQ15Onu2yJ4wpVmcVPFFbysjrA5gnj5mfjEP3fU6FJA="
+          "hash": "f3FN9urLby01Fe13O0g6c+x+JflH3TIy160rwVjQsB0="
         }
       },
       "is_incremental": false,
@@ -401,7 +413,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.NameAttribute.html",
-          "hash": "p/hnzmHTcwKeV/vaWQDiCKFjZfkdhX/N/++oRcUceQY="
+          "hash": "9RYBXm12k+Z7VriT1calJtlozG3pUHQoHPZJqqKPFbY="
         }
       },
       "is_incremental": false,
@@ -605,7 +617,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "TKYT3V2w1a7jEUAHjF57RVVWavf8jPmymcIbf2DXXPM="
+          "hash": "NTHb0CCOTJzkNxfLWY073jvhgR4ny6TJwe6K+0SU3h8="
         }
       },
       "is_incremental": false,
@@ -617,7 +629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "cu+jR/C/7/h025XGU8t9CGRoJ9e5iT3gVijlBNl5pbg="
+          "hash": "9rcUAPfny8YaHx8LH5gMIGksoldWeYpCQg0qVuSwP48="
         }
       },
       "is_incremental": false,
@@ -1008,7 +1020,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "VyZyaA9p3SqUnrHYQl80FOEio5KoJFbp4B5JpY1vg+E="
+          "hash": "0Gxhz/JGo5zpf6c8kSRbcMj1b6GcgLzAgKMSRgrLtRU="
         }
       },
       "is_incremental": false,
@@ -1261,8 +1273,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 49,
-          "skipped_file_count": 49
+          "total_file_count": 50,
+          "skipped_file_count": 15
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
