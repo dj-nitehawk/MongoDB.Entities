@@ -8,13 +8,23 @@ namespace MongoDB.Entities.Tests
     [TestClass]
     public class Counting
     {
+        private DBContext db;
+
         private Task Init(string guid)
         {
+            db = new DBContext();
+            db.SetGlobalFilter<Author>(a => a.Age == 111);
+
             var list = new List<Author>();
 
             for (int i = 1; i <= 25; i++)
             {
-                list.Add(new Author { Name = guid });
+                list.Add(new Author { Name = guid, Age = 111 });
+            }
+
+            for (int i = 1; i <= 10; i++)
+            {
+                list.Add(new Author { Name = guid, Age = 222 });
             }
 
             return list.SaveAsync();
@@ -27,7 +37,7 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid().ToString();
             await Init(guid);
 
-            var count = await DB.CountEstimatedAsync<Author>();
+            var count = await db.CountEstimatedAsync<Author>();
 
             Assert.IsTrue(count > 0);
         }
@@ -38,7 +48,7 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid().ToString();
             await Init(guid);
 
-            var count = await DB.CountAsync<Author>(a => a.Name == guid);
+            var count = await db.CountAsync<Author>(a => a.Name == guid);
 
             Assert.AreEqual(25, count);
         }
@@ -52,7 +62,7 @@ namespace MongoDB.Entities.Tests
             var filter = DB.Filter<Author>()
                             .Eq(a => a.Name, guid);
 
-            var count = await DB.CountAsync(filter);
+            var count = await db.CountAsync(filter);
 
             Assert.AreEqual(25, count);
         }
@@ -63,7 +73,7 @@ namespace MongoDB.Entities.Tests
             var guid = Guid.NewGuid().ToString();
             await Init(guid);
 
-            var count = await DB.CountAsync<Author>(b => b.Eq(a => a.Name, guid));
+            var count = await db.CountAsync<Author>(b => b.Eq(a => a.Name, guid));
 
             Assert.AreEqual(25, count);
         }

@@ -9,6 +9,17 @@ namespace MongoDB.Entities
     public partial class DBContext
     {
         /// <summary>
+        /// Gets a fast estimation of how many documents are in the collection using metadata.
+        /// <para>HINT: The estimation may not be exactly accurate.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to get the count for</typeparam>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public virtual Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
+        {
+            return DB.CountEstimatedAsync<T>(cancellation);
+        }
+
+        /// <summary>
         /// Gets an accurate count of how many entities are matched for a given expression/filter
         /// </summary>
         /// <typeparam name="T">The entity type to get the count for</typeparam>
@@ -17,7 +28,7 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(expression, session, cancellation, options);
+            return DB.CountAsync(MergeWithGlobalFilter<T>(expression), session, cancellation, options);
         }
 
         /// <summary>
@@ -27,7 +38,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountAsync<T>(_ => true, session, cancellation);
+            return DB.CountAsync<T>(session, cancellation);
         }
 
         /// <summary>
@@ -39,7 +50,7 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(filter, session, cancellation, options);
+            return DB.CountAsync(MergeWithGlobalFilter(filter), session, cancellation, options);
         }
 
         /// <summary>
@@ -51,7 +62,7 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(filter, session, cancellation, options);
+            return DB.CountAsync(MergeWithGlobalFilter(filter(Builders<T>.Filter)), session, cancellation, options);
         }
     }
 }
