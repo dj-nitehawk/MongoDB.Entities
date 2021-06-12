@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Threading;
@@ -22,11 +23,15 @@ namespace MongoDB.Entities
         private readonly Collection<ReplaceOneModel<T>> models = new Collection<ReplaceOneModel<T>>();
         private T entity;
         private readonly ModifiedBy modifiedBy;
+        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
-        internal Replace(IClientSessionHandle session = null, ModifiedBy modifiedBy = null)
+        internal Replace(
+            IClientSessionHandle session = null, ModifiedBy modifiedBy = null,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
         {
             this.session = session;
             this.modifiedBy = modifiedBy;
+            this.globalFilters = globalFilters;
         }
 
         /// <summary>
@@ -172,11 +177,12 @@ namespace MongoDB.Entities
         /// </summary>
         public Replace<T> AddToQueue()
         {
-            if (filter == null) throw new ArgumentException("Please use Match() method first!");
+            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
             SetModOnAndByValues();
 
-            models.Add(new ReplaceOneModel<T>(filter, entity)
+            models.Add(new ReplaceOneModel<T>(mergedFilter, entity)
             {
                 Collation = options.Collation,
                 Hint = options.Hint,
@@ -211,13 +217,14 @@ namespace MongoDB.Entities
             }
             else
             {
-                if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+                var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+                if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
                 SetModOnAndByValues();
 
                 return session == null
-                       ? await DB.Collection<T>().ReplaceOneAsync(filter, entity, options, cancellation).ConfigureAwait(false)
-                       : await DB.Collection<T>().ReplaceOneAsync(session, filter, entity, options, cancellation).ConfigureAwait(false);
+                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
+                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
             }
         }
 
