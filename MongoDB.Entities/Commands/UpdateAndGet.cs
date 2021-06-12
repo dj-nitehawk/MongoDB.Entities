@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
     {
-        internal UpdateAndGet(IClientSessionHandle session = null) : base(session) { }
+        internal UpdateAndGet(
+            IClientSessionHandle session = null,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            : base(session, globalFilters) { }
     }
 
     /// <summary>
@@ -33,10 +37,14 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
+        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
-        internal UpdateAndGet(IClientSessionHandle session = null)
+        internal UpdateAndGet(
+            IClientSessionHandle session = null,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
         {
             this.session = session;
+            this.globalFilters = globalFilters;
         }
 
         /// <summary>
@@ -341,12 +349,13 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
         {
-            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
             if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
 
-            return await UpdateAndGetAsync(filter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
+            return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -355,12 +364,13 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            if (filter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
-            return UpdateAndGetAsync(filter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+            return UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }
 
         private bool ShouldSetModDate()

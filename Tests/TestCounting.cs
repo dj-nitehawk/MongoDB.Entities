@@ -33,7 +33,6 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task count_estimated_works()
         {
-
             var guid = Guid.NewGuid().ToString();
             await Init(guid);
 
