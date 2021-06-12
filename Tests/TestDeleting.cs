@@ -133,5 +133,29 @@ namespace MongoDB.Entities.Tests
             await DB.DropCollectionAsync<Blank>();
             await DB.SaveAsync(new Blank());
         }
+
+        [TestMethod]
+        public async Task delete_by_ids_with_global_filter()
+        {
+            var db = new DBContext();
+            db.SetGlobalFilter<Author>(a => a.Age == 22);
+
+            var a1 = new Author { Age = 10 };
+            var a2 = new Author { Age = 22 };
+            var a3 = new Author { Age = 22 };
+
+            await new[] { a1, a2, a3 }.SaveAsync();
+
+            var IDs = new[] { a1.ID, a2.ID, a3.ID };
+
+            var res = await db.DeleteAsync<Author>(IDs);
+            var notDeletedIDs = await DB.Find<Author, string>()
+                                        .Match(a => IDs.Contains(a.ID))
+                                        .Project(a => a.ID)
+                                        .ExecuteAsync();
+
+            Assert.AreEqual(2, res.DeletedCount);
+            Assert.IsTrue(notDeletedIDs.Single() == a1.ID);
+        }
     }
 }

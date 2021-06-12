@@ -18,7 +18,10 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(ID, session, cancellation);
+            return DB.DeleteAsync(
+                MergeWithGlobalFilter(Builders<T>.Filter.Eq(e => e.ID, ID)),
+                session,
+                cancellation);
         }
 
         /// <summary>
@@ -32,7 +35,11 @@ namespace MongoDB.Entities
         /// <param name="collation">An optional collation object</param>
         public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
-            return DB.DeleteAsync(expression, session, cancellation, collation);
+            return DB.DeleteAsync(
+                MergeWithGlobalFilter(Builders<T>.Filter.Where(expression)),
+                session,
+                cancellation,
+                collation);
         }
 
         /// <summary>
@@ -45,7 +52,10 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(IDs, session, cancellation);
+            return DB.DeleteAsync(
+                MergeWithGlobalFilter(Builders<T>.Filter.In(e => e.ID, IDs)),
+                session,
+                cancellation);
         }
     }
 }

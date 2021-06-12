@@ -15,8 +15,8 @@ namespace MongoDB.Entities
     {
         protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
 
-        private readonly ConcurrentDictionary<Type, (BsonDocument filter, bool prepend)> globalFilters
-            = new ConcurrentDictionary<Type, (BsonDocument filter, bool prepend)>();
+        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
+            = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
 
         /// <summary>
         /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
@@ -41,10 +41,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         public void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
         {
-            globalFilters[typeof(T)] = (filter.Render(
-                BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-                BsonSerializer.SerializerRegistry),
-                prepend);
+            globalFilters[typeof(T)] = (filter, prepend);
         }
 
         /// <summary>
@@ -71,17 +68,14 @@ namespace MongoDB.Entities
 
         private FilterDefinition<T> MergeWithGlobalFilter<T>(FilterDefinition<T> filter) where T : IEntity
         {
-            if (globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
-                if (gFilter.prepend)
-                {
-                    FilterDefinition<T> f = gFilter.filter;
-                    return f &= filter;
-                }
+                var f = (FilterDefinition<T>)gFilter.filterDef;
 
-                return filter &= gFilter.filter;
+                if (gFilter.prepend) return f & filter;
+
+                return filter & f;
             }
-
             return filter;
         }
 
