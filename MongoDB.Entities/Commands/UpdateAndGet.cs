@@ -391,6 +391,5 @@ namespace MongoDB.Entities
                 ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
                 : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
         }
-
     }
 }

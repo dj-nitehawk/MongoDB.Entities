@@ -459,5 +459,28 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(0, res.Price);
             Assert.IsTrue(res.ModifiedOn > DateTime.UtcNow.AddSeconds(-10));
         }
+
+        [TestMethod]
+        public async Task update_with_global_filter()
+        {
+            var db = new DBContext(new Entities.ModifiedBy());
+            db.SetGlobalFilter<Author>(a => a.Age == 100);
+
+            var guid = Guid.NewGuid().ToString();
+
+            await new[] {
+                new Author { Name = guid, Age = 100},
+                new Author { Name = guid, Age = 200},
+                new Author { Name = guid, Age = 100},
+            }.SaveAsync();
+
+            var res = await db
+                .Update<Author>()
+                .Match(a => a.Name == guid)
+                .Modify(a => a.Surname, "surname")
+                .ExecuteAsync();
+
+            Assert.AreEqual(2, res.ModifiedCount);
+        }
     }
 }
