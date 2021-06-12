@@ -24,6 +24,15 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
         {
+            var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
+
+            if (globalFilter != Builders<T>.Filter.Empty)
+            {
+                return DB
+                    .FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, session)
+                    .Match(globalFilter);
+            }
+
             return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, session);
         }
     }
