@@ -11,6 +11,15 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         public virtual IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
+            var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
+
+            if (globalFilter != Builders<T>.Filter.Empty)
+            {
+                return DB
+                    .Fluent<T>(options, session)
+                    .Match(globalFilter);
+            }
+
             return DB.Fluent<T>(options, session);
         }
 
@@ -26,6 +35,15 @@ namespace MongoDB.Entities
         /// <param name="options">Options for finding documents (not required)</param>
         public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
         {
+            var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
+
+            if (globalFilter != Builders<T>.Filter.Empty)
+            {
+                return DB
+                    .FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session)
+                    .Match(globalFilter);
+            }
+
             return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, session);
         }
     }
