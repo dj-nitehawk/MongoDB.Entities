@@ -8,7 +8,7 @@
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual Find<T> Find<T>() where T : IEntity
         {
-            return new Find<T>(session);
+            return new Find<T>(session, globalFilters);
         }
 
         /// <summary>
@@ -18,7 +18,7 @@
         /// <typeparam name="TProjection">The type of the end result</typeparam>
         public virtual Find<T, TProjection> Find<T, TProjection>() where T : IEntity
         {
-            return new Find<T, TProjection>(session);
+            return new Find<T, TProjection>(session, globalFilters);
         }
     }
 }

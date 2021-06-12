@@ -9,7 +9,7 @@
         /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
         public virtual Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
         {
-            return new Distinct<T, TProperty>(session);
+            return new Distinct<T, TProperty>(session, globalFilters);
         }
     }
 }

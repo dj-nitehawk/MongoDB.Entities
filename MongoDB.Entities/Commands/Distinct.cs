@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
@@ -18,10 +19,14 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly DistinctOptions options = new DistinctOptions();
         private readonly IClientSessionHandle session;
+        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
-        internal Distinct(IClientSessionHandle session = null)
+        internal Distinct(
+            IClientSessionHandle session = null, 
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
         {
             this.session = session;
+            this.globalFilters = globalFilters;
         }
 
         /// <summary>
@@ -166,9 +171,11 @@ namespace MongoDB.Entities
             if (field == null)
                 throw new InvalidOperationException("Please use the .Property() method to specify the field to use for obtaining unique values for!");
 
+            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+
             return session == null
-                   ? DB.Collection<T>().DistinctAsync(field, filter, options, cancellation)
-                   : DB.Collection<T>().DistinctAsync(session, field, filter, options, cancellation);
+                   ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)
+                   : DB.Collection<T>().DistinctAsync(session, field, mergedFilter, options, cancellation);
         }
 
         /// <summary>

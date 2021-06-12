@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Find<T> : Find<T, T> where T : IEntity
     {
-        internal Find(IClientSessionHandle session = null) : base(session) { }
+        internal Find(
+            IClientSessionHandle session = null,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            : base(session, globalFilters) { }
     }
 
     /// <summary>
@@ -34,10 +38,14 @@ namespace MongoDB.Entities
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session;
+        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
-        internal Find(IClientSessionHandle session = null)
+        internal Find(
+            IClientSessionHandle session = null,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
         {
             this.session = session;
+            this.globalFilters = globalFilters;
         }
 
         /// <summary>
@@ -372,9 +380,11 @@ namespace MongoDB.Entities
             if (sorts.Count > 0)
                 options.Sort = Builders<T>.Sort.Combine(sorts);
 
+            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+
             return session == null
-                   ? DB.Collection<T>().FindAsync(filter, options, cancellation)
-                   : DB.Collection<T>().FindAsync(session, filter, options, cancellation);
+                   ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)
+                   : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
         }
 
         private void AddTxtScoreToProjection(string propName)

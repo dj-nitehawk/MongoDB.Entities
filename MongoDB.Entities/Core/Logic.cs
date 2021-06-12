@@ -39,7 +39,7 @@ namespace MongoDB.Entities
 
         internal static FilterDefinition<T> MergeWithGlobalFilter<T>(ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters, FilterDefinition<T> filter) where T : IEntity
         {
-            if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 var f = (FilterDefinition<T>)gFilter.filterDef;
 
