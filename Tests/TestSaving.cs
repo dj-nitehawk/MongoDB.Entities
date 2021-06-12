@@ -302,6 +302,27 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task queryable_with_global_filter()
+        {
+            var db = new DBContext();
+            db.SetGlobalFilter<Author>(a => a.Age == 100);
+
+            var guid = Guid.NewGuid().ToString();
+
+            await new[] {
+                new Author { Name = guid, Age = 200},
+                new Author { Name = guid, Age = 200},
+                new Author { Name = guid, Age = 100},
+            }.SaveAsync();
+
+            var res = await db.Queryable<Author>()
+                        .Where(a => a.Name == guid)
+                        .ToListAsync();
+
+            Assert.AreEqual(1, res.Count);
+        }
+
+        [TestMethod]
         public async Task find_by_lambda_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();

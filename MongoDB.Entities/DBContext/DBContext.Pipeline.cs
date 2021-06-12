@@ -74,7 +74,7 @@ namespace MongoDB.Entities
                 if (gFilter.prepend)
                     template.builder.Insert(1, $"{{$match:{fString}}},");
                 else
-                    template.builder.Insert(template.builder.Length-1, $",{{$match:{fString}}}");
+                    template.builder.Insert(template.builder.Length - 1, $",{{$match:{fString}}}");
             }
             return template;
         }
