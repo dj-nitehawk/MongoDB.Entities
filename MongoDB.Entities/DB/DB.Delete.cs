@@ -12,7 +12,10 @@ namespace MongoDB.Entities
     {
         private static readonly int deleteBatchSize = 100000;
 
-        private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        private static async Task<DeleteResult> DeleteCascadingAsync<T>(
+            IEnumerable<string> IDs,
+            IClientSessionHandle session = null,
+            CancellationToken cancellation = default) where T : IEntity
         {
             // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
             //       and premature cancellation could cause data inconsistencies.
@@ -71,6 +74,37 @@ namespace MongoDB.Entities
         {
             ThrowIfCancellationNotSupported(session, cancellation);
             return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
+        }
+
+        /// <summary>
+        /// Deletes entities using a collection of IDs
+        /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
+        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
+        /// </summary>
+        /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="IDs">An IEnumerable of entity IDs</param>
+        /// <param name = "session" > An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        {
+            ThrowIfCancellationNotSupported(session, cancellation);
+
+            if (IDs.Count() <= deleteBatchSize)
+                return await DeleteCascadingAsync<T>(IDs, session, cancellation).ConfigureAwait(false);
+
+            long deletedCount = 0;
+            DeleteResult res = null;
+
+            foreach (var batch in IDs.ToBatches(deleteBatchSize))
+            {
+                res = await DeleteCascadingAsync<T>(batch, session, cancellation).ConfigureAwait(false);
+                deletedCount += res.DeletedCount;
+            }
+
+            if (res?.IsAcknowledged == false)
+                return DeleteResult.Unacknowledged.Instance;
+
+            return new DeleteResult.Acknowledged(deletedCount);
         }
 
         /// <summary>
@@ -138,37 +172,6 @@ namespace MongoDB.Entities
                         deletedCount += res.DeletedCount;
                     }
                 }
-            }
-
-            if (res?.IsAcknowledged == false)
-                return DeleteResult.Unacknowledged.Instance;
-
-            return new DeleteResult.Acknowledged(deletedCount);
-        }
-
-        /// <summary>
-        /// Deletes entities using a collection of IDs
-        /// <para>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</para>
-        /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
-        /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="IDs">An IEnumerable of entity IDs</param>
-        /// <param name = "session" > An optional session if using within a transaction</param>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {
-            ThrowIfCancellationNotSupported(session, cancellation);
-
-            if (IDs.Count() <= deleteBatchSize)
-                return await DeleteCascadingAsync<T>(IDs, session, cancellation).ConfigureAwait(false);
-
-            long deletedCount = 0;
-            DeleteResult res = null;
-
-            foreach (var batch in IDs.ToBatches(deleteBatchSize))
-            {
-                res = await DeleteCascadingAsync<T>(batch, session, cancellation).ConfigureAwait(false);
-                deletedCount += res.DeletedCount;
             }
 
             if (res?.IsAcknowledged == false)

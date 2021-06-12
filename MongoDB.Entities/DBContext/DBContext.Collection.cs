@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CreateCollection<T>(options, cancellation, session);
+            return DB.CreateCollection(options, cancellation, session);
         }
 
         /// <summary>

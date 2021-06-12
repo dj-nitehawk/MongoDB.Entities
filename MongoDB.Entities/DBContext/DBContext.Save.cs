@@ -122,6 +122,8 @@ namespace MongoDB.Entities
             Cache<T>.ModifiedByProp?.SetValue(
                 entity,
                 BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+            //note: we can't use an IModifiedBy interface because the above line needs a concrete type
+            //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.
         }
 
         private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity

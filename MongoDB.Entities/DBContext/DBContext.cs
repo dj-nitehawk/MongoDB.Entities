@@ -12,7 +12,6 @@ namespace MongoDB.Entities
     public partial class DBContext
     {
         protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
-
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
             = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
 
