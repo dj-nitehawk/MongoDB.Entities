@@ -28,7 +28,11 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(MergeWithGlobalFilter<T>(expression), session, cancellation, options);
+            return DB.CountAsync(
+                Logic.MergeWithGlobalFilter<T>(globalFilters, expression),
+                session,
+                cancellation,
+                options);
         }
 
         /// <summary>
@@ -50,7 +54,11 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(MergeWithGlobalFilter(filter), session, cancellation, options);
+            return DB.CountAsync(
+                Logic.MergeWithGlobalFilter(globalFilters, filter),
+                session,
+                cancellation,
+                options);
         }
 
         /// <summary>
@@ -62,7 +70,11 @@ namespace MongoDB.Entities
         /// <param name="options">An optional CountOptions object</param>
         public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
         {
-            return DB.CountAsync(MergeWithGlobalFilter(filter(Builders<T>.Filter)), session, cancellation, options);
+            return DB.CountAsync(
+                Logic.MergeWithGlobalFilter(globalFilters, filter(Builders<T>.Filter)),
+                session,
+                cancellation,
+                options);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
@@ -64,19 +62,6 @@ namespace MongoDB.Entities
         public void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false) where T : IEntity
         {
             SetGlobalFilter(filter(Builders<T>.Filter), prepend);
-        }
-
-        private FilterDefinition<T> MergeWithGlobalFilter<T>(FilterDefinition<T> filter) where T : IEntity
-        {
-            if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
-            {
-                var f = (FilterDefinition<T>)gFilter.filterDef;
-
-                if (gFilter.prepend) return f & filter;
-
-                return filter & f;
-            }
-            return filter;
         }
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity

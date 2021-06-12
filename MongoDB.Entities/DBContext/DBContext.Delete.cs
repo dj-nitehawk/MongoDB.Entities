@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync(
-                MergeWithGlobalFilter(Builders<T>.Filter.Eq(e => e.ID, ID)),
+                Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
                 session,
                 cancellation);
         }
@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
             return DB.DeleteAsync(
-                MergeWithGlobalFilter(Builders<T>.Filter.Where(expression)),
+                Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Where(expression)),
                 session,
                 cancellation,
                 collation);
@@ -53,7 +53,7 @@ namespace MongoDB.Entities
         public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync(
-                MergeWithGlobalFilter(Builders<T>.Filter.In(e => e.ID, IDs)),
+                Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
                 session,
                 cancellation);
         }

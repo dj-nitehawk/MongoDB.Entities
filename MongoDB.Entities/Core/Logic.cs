@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -34,6 +35,19 @@ namespace MongoDB.Entities
                 props = props.Where(p => propNames.Contains(p.Name));
 
             return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+        }
+
+        internal static FilterDefinition<T> MergeWithGlobalFilter<T>(ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters, FilterDefinition<T> filter) where T : IEntity
+        {
+            if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            {
+                var f = (FilterDefinition<T>)gFilter.filterDef;
+
+                if (gFilter.prepend) return f & filter;
+
+                return filter & f;
+            }
+            return filter;
         }
     }
 }
