@@ -236,7 +236,7 @@ namespace MongoDB.Entities
     public class Template
     {
         private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
-        private readonly StringBuilder builder;
+        internal readonly StringBuilder builder;
         private readonly HashSet<string> tags, missingTags, replacedTags;
 
         /// <summary>

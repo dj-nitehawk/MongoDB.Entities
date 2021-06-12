@@ -22,7 +22,7 @@ namespace MongoDB.Entities
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
         internal Distinct(
-            IClientSessionHandle session = null, 
+            IClientSessionHandle session = null,
             ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
         {
             this.session = session;
