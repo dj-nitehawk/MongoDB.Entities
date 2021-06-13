@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    public abstract class UpdateBase
+    {
+
+    }
+
     /// <summary>
     /// Represents an update command
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>

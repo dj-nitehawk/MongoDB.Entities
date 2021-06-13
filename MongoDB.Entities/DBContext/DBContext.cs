@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace MongoDB.Entities
@@ -29,6 +30,40 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public DBContext(ModifiedBy modifiedBy = null)
             => ModifiedBy = modifiedBy;
+
+        /// <summary>
+        /// A custom hook for modifying all replace commands before they are executed.
+        /// <para>TIP: You can access the entity instance via <c>replace.Entity</c> property.</para>
+        /// </summary>
+        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
+        /// <param name="replace">The replace command that is about to be executed</param>
+        public virtual Replace<T> OnBeforeReplace<T>(Replace<T> replace) where T : IEntity
+        {
+            return replace;
+        }
+
+        /// <summary>
+        /// A custom hook for modifying entities before they are saved.
+        /// <para>TIP: check if the ID property is null to determine if the entity is being inserted</para>
+        /// </summary>
+        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
+        /// <param name="entities">A collection of entities that are about to be saved</param>
+        public virtual void OnBeforeSave<T>(IEnumerable<T> entities) where T : IEntity { }
+
+        /// <summary>
+        /// A custom hook for modifying all update commands before they are executed.
+        /// </summary>
+        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
+        /// <param name="update">The update command that is about to be executed</param>
+        public virtual Update<T> OnBeforeUpdate<T>(Update<T> update) where T : IEntity
+        {
+            return update;
+        }
+
+        public virtual void OnBeforeUpdate()
+        {
+
+        }
 
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext

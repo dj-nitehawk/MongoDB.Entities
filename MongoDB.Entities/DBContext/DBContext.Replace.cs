@@ -10,7 +10,7 @@
         public virtual Replace<T> Replace<T>() where T : IEntity
         {
             ThrowIfModifiedByIsEmpty<T>();
-            return new Replace<T>(session, ModifiedBy, globalFilters);
+            return OnBeforeReplace(new Replace<T>(session, ModifiedBy, globalFilters));
         }
     }
 }

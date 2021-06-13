@@ -21,7 +21,6 @@ namespace MongoDB.Entities
         private ReplaceOptions options = new ReplaceOptions();
         private readonly IClientSessionHandle session;
         private readonly Collection<ReplaceOneModel<T>> models = new Collection<ReplaceOneModel<T>>();
-        private T entity;
         private readonly ModifiedBy modifiedBy;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
@@ -33,6 +32,11 @@ namespace MongoDB.Entities
             this.modifiedBy = modifiedBy;
             this.globalFilters = globalFilters;
         }
+
+        /// <summary>
+        /// The entity instance that is being saved to the database
+        /// </summary>
+        public T Entity { get; private set; }
 
         /// <summary>
         /// Specify an IEntity ID as the matching criteria
@@ -156,7 +160,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID))
                 throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
-            this.entity = entity;
+            this.Entity = entity;
 
             return this;
         }
@@ -179,17 +183,17 @@ namespace MongoDB.Entities
         {
             var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+            if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
             SetModOnAndByValues();
 
-            models.Add(new ReplaceOneModel<T>(mergedFilter, entity)
+            models.Add(new ReplaceOneModel<T>(mergedFilter, Entity)
             {
                 Collation = options.Collation,
                 Hint = options.Hint,
                 IsUpsert = options.IsUpsert
             });
             filter = Builders<T>.Filter.Empty;
-            entity = default;
+            Entity = default;
             options = new ReplaceOptions();
             return this;
         }
@@ -219,22 +223,22 @@ namespace MongoDB.Entities
             {
                 var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+                if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
                 SetModOnAndByValues();
 
                 return session == null
-                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
-                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
+                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
+                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
             }
         }
 
         private void SetModOnAndByValues()
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
             if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
             {
                 Cache<T>.ModifiedByProp.SetValue(
-                    entity,
+                    Entity,
                     BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
             }
         }

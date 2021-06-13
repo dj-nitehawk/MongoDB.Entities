@@ -8,7 +8,7 @@
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual Update<T> Update<T>() where T : IEntity
         {
-            var update = new Update<T>(session, globalFilters);
+            var update = OnBeforeUpdate(new Update<T>(session, globalFilters));
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
@@ -23,13 +23,7 @@
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
         {
-            var upGet = new UpdateAndGet<T>(session, globalFilters);
-            if (Cache<T>.ModifiedByProp != null)
-            {
-                ThrowIfModifiedByIsEmpty<T>();
-                upGet.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
-            }
-            return upGet;
+            return (UpdateAndGet<T>)UpdateAndGet<T, T>();
         }
 
         /// <summary>
