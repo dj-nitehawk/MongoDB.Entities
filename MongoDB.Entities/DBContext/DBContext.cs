@@ -41,9 +41,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any entity that implements IEntity</typeparam>
         /// <param name="entities">Entities that are about to be persisted (may be null)</param>
         /// <param name="update">An update command that's about to be executed (may be null)</param>
-        public virtual void OnBeforePersist<T>(
-            IEnumerable<T> entities = null,
-            UpdateBase<T> update = null)
+        protected virtual void OnBeforePersist<T>(
+            IEnumerable<T> entities,
+            UpdateBase<T> update)
             where T : IEntity
         { }
 

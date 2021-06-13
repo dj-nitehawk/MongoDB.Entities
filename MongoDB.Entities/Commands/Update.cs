@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public abstract class UpdateBase<T> where T : IEntity
+    public abstract class UpdateBase { }//marker for extension .As<TOut>
+
+    public abstract class UpdateBase<T> : UpdateBase where T : IEntity
     {
         //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
         //      there's no other purpose for this.

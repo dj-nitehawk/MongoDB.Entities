@@ -23,7 +23,7 @@ namespace MongoDB.Entities
         public virtual Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforePersist(entities: new[] { entity });
+            OnBeforePersist(new[] { entity }, null);
             return DB.SaveAsync(entity, session, cancellation);
         }
 
@@ -37,7 +37,7 @@ namespace MongoDB.Entities
         public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            OnBeforePersist(entities: entities);
+            OnBeforePersist(entities, null);
             return DB.SaveAsync(entities, session, cancellation);
         }
 
@@ -54,7 +54,7 @@ namespace MongoDB.Entities
         public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforePersist(entities: new[] { entity });
+            OnBeforePersist(new[] { entity }, null);
             return DB.SaveOnlyAsync(entity, members, session, cancellation);
         }
 
@@ -71,7 +71,7 @@ namespace MongoDB.Entities
         public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            OnBeforePersist(entities: entities);
+            OnBeforePersist(entities, null);
             return DB.SaveOnlyAsync(entities, members, session, cancellation);
         }
 
@@ -88,7 +88,7 @@ namespace MongoDB.Entities
         public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforePersist(entities: new[] { entity });
+            OnBeforePersist(new[] { entity }, null);
             return DB.SaveExceptAsync(entity, members, session, cancellation);
         }
 
@@ -105,7 +105,7 @@ namespace MongoDB.Entities
         public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            OnBeforePersist(entities: entities);
+            OnBeforePersist(entities, null);
             return DB.SaveExceptAsync(entities, members, session, cancellation);
         }
 
@@ -119,7 +119,7 @@ namespace MongoDB.Entities
         public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforePersist(entities: new[] { entity });
+            OnBeforePersist(new[] { entity }, null);
             return DB.SavePreservingAsync(entity, session, cancellation);
         }
 

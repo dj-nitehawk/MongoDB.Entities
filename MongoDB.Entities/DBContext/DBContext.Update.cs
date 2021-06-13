@@ -1,4 +1,6 @@
-﻿namespace MongoDB.Entities
+﻿using System.Linq;
+
+namespace MongoDB.Entities
 {
     public partial class DBContext
     {
@@ -14,7 +16,7 @@
                 ThrowIfModifiedByIsEmpty<T>();
                 cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            OnBeforePersist(update: cmd);
+            OnBeforePersist(Enumerable.Empty<T>(), cmd);
             return cmd;
         }
 
@@ -40,7 +42,7 @@
                 ThrowIfModifiedByIsEmpty<T>();
                 cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            OnBeforePersist(update: cmd);
+            OnBeforePersist(Enumerable.Empty<T>(), cmd);
             return cmd;
         }
     }

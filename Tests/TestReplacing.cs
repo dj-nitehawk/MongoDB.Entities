@@ -51,5 +51,11 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(book1.ID, res1.Title);
             Assert.AreEqual(book2.ID, res2.Title);
         }
+
+        [TestMethod]
+        public async Task on_before_persist_for_replace()
+        {
+
+        }
     }
 }

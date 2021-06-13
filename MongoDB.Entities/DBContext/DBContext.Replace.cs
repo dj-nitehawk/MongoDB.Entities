@@ -11,7 +11,7 @@
         {
             ThrowIfModifiedByIsEmpty<T>();
             var cmd = new Replace<T>(session, ModifiedBy, globalFilters);
-            OnBeforePersist(entities: new[] { cmd.Entity });
+            OnBeforePersist(new[] { cmd.Entity }, null);
             return cmd;
         }
     }

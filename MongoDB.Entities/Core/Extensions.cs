@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -38,6 +39,24 @@ namespace MongoDB.Entities
         internal static void ThrowIfUnsaved(this IEntity entity)
         {
             ThrowIfUnsaved(entity.ID);
+        }
+
+        /// <summary>
+        /// Utility method for casting a collection of entities to a target type
+        /// </summary>
+        /// <typeparam name="TOut">The target type</typeparam>
+        public static IEnumerable<TOut> As<TOut>(this IEnumerable source) where TOut : IEntity
+        {
+            return (IEnumerable<TOut>)source;
+        }
+
+        /// <summary>
+        /// Utility method for casting an update to a target type
+        /// </summary>
+        /// <typeparam name="TOut">The target type</typeparam>
+        public static UpdateBase<TOut> As<TOut>(this UpdateBase source) where TOut : IEntity
+        {
+            return (UpdateBase<TOut>)source;
         }
 
         /// <summary>
