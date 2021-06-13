@@ -1,5 +1,6 @@
 ﻿using MongoDB.Entities.Tests.Models;
 using System;
+using System.Diagnostics;
 
 namespace MongoDB.Entities.Tests
 {
@@ -9,6 +10,7 @@ namespace MongoDB.Entities.Tests
         {
             Action<Flower> action = f =>
             {
+                Debug.WriteLine("ID:" + f.ID);
                 if (f.ID == null)
                 {
                     f.CreatedBy = "God";

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    //todo: add notice on doc site abous save not supporting global filters
+    //todo: add notice on doc site about save not supporting global filters
 
     public partial class DBContext
     {

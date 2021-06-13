@@ -482,5 +482,23 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(2, res.ModifiedCount);
         }
+
+        [TestMethod]
+        public async Task on_before_update_for_update()
+        {
+            var db = new MyDB();
+
+            var flower = new Flower { Name = "flower" };
+            await db.SaveAsync(flower);
+            Assert.AreEqual("God", flower.CreatedBy);
+
+            await db.Update<Flower>()
+                    .MatchID(flower.ID)
+                    .ModifyWith(flower)
+                    .ExecuteAsync();
+
+            var res = await db.Find<Flower>().OneAsync(flower.ID);
+            Assert.AreEqual("Human", res.UpdatedBy);
+        }
     }
 }

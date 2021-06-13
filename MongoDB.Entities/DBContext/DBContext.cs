@@ -30,9 +30,6 @@ namespace MongoDB.Entities
         public DBContext(ModifiedBy modifiedBy = null)
             => ModifiedBy = modifiedBy;
 
-        //todo: write tests cases for the custom hooks
-        //todo: add warning in doc site about limitations 
-
         /// <summary>
         /// This event hook will be trigged right before an entity is persisted
         /// </summary>

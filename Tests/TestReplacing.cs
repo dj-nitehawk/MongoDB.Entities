@@ -54,17 +54,24 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
-        public async Task on_before_persist_for_replace()
+        public async Task on_before_update_for_replace()
         {
             var db = new MyDB();
 
             var flower = new Flower { Name = "flower" };
-            await flower.SaveAsync();
+            await db.SaveAsync(flower);
+            Assert.AreEqual("God", flower.CreatedBy);
 
             await db.Replace<Flower>()
                     .MatchID(flower.ID)
                     .WithEntity(flower)
                     .ExecuteAsync();
+
+            Assert.AreEqual("Human", flower.UpdatedBy);
+
+            var res = await db.Find<Flower>().OneAsync(flower.ID);
+
+            Assert.AreEqual("Human", res.UpdatedBy);
         }
     }
 }

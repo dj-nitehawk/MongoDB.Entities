@@ -21,9 +21,9 @@
         /// Starts an update-and-get command for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual UpdateAndGet<T> UpdateAndGet<T>() where T : IEntity
+        public virtual UpdateAndGet<T, T> UpdateAndGet<T>() where T : IEntity
         {
-            return (UpdateAndGet<T>)UpdateAndGet<T, T>();
+            return UpdateAndGet<T, T>();
         }
 
         /// <summary>

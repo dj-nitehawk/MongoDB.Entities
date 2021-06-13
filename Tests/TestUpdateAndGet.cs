@@ -229,5 +229,23 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
         }
+
+        [TestMethod]
+        public async Task on_before_update_for_updateandget()
+        {
+            var db = new MyDB();
+
+            var flower = new Flower { Name = "flower" };
+            await db.SaveAsync(flower);
+            Assert.AreEqual("God", flower.CreatedBy);
+
+            var res = await db
+                .UpdateAndGet<Flower>()
+                .MatchID(flower.ID)
+                .ModifyWith(flower)
+                .ExecuteAsync();
+
+            Assert.AreEqual("Human", res.UpdatedBy);
+        }
     }
 }
