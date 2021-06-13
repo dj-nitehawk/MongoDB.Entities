@@ -160,7 +160,7 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID))
                 throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
-            this.Entity = entity;
+            Entity = entity;
 
             return this;
         }

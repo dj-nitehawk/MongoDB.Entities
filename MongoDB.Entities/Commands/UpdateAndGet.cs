@@ -30,9 +30,8 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type to project to</typeparam>
-    public class UpdateAndGet<T, TProjection> where T : IEntity
+    public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
-        private readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
@@ -166,7 +165,7 @@ namespace MongoDB.Entities
         /// <param name="value">The value to set on the property</param>
         public UpdateAndGet<T, TProjection> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
         {
-            defs.Add(Builders<T>.Update.Set(property, value));
+            AddModification(property, value);
             return this;
         }
 
@@ -176,7 +175,7 @@ namespace MongoDB.Entities
         /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
         public UpdateAndGet<T, TProjection> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
         {
-            defs.Add(operation(Builders<T>.Update));
+            AddModification(operation);
             return this;
         }
 
@@ -186,7 +185,7 @@ namespace MongoDB.Entities
         /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
         public UpdateAndGet<T, TProjection> Modify(string update)
         {
-            defs.Add(update);
+            AddModification(update);
             return this;
         }
 
@@ -196,7 +195,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a single update</param>
         public UpdateAndGet<T, TProjection> Modify(Template template)
         {
-            Modify(template.ToString());
+            AddModification(template.ToString());
             return this;
         }
 

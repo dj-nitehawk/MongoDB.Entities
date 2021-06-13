@@ -30,7 +30,7 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public DBContext(ModifiedBy modifiedBy = null)
             => ModifiedBy = modifiedBy;
-
+        //todo: write tests cases for the custom hooks
         /// <summary>
         /// A custom hook for modifying all replace commands before they are executed.
         /// <para>TIP: You can access the entity instance via <c>replace.Entity</c> property.</para>
@@ -52,17 +52,13 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// A custom hook for modifying all update commands before they are executed.
+        /// <para>WARNING: Batch updates (AddToQueue) and pipeline updates (WithPipelineStage) won't trigger this hook</para>
         /// </summary>
         /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
-        /// <param name="update">The update command that is about to be executed</param>
-        public virtual Update<T> OnBeforeUpdate<T>(Update<T> update) where T : IEntity
+        /// <param name="update">Use <c>update.AddModification()</c> to add modifications to the update</param>
+        public virtual UpdateBase<T> OnBeforeUpdate<T>(UpdateBase<T> update) where T : IEntity
         {
             return update;
-        }
-
-        public virtual void OnBeforeUpdate()
-        {
-
         }
 
         /// <summary>

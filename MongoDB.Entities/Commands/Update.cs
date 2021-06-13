@@ -11,9 +11,49 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public abstract class UpdateBase
+    public abstract class UpdateBase<T> where T : IEntity
     {
+        //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
+        //      there's no other purpose for this.
 
+        protected readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
+
+        /// <summary>
+        /// Specify the property and it's value to modify (use multiple times if needed)
+        /// </summary>
+        /// <param name="property">x => x.Property</param>
+        /// <param name="value">The value to set on the property</param>
+        public void AddModification<TProp>(Expression<Func<T, TProp>> property, TProp value)
+        {
+            defs.Add(Builders<T>.Update.Set(property, value));
+        }
+
+        /// <summary>
+        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
+        public void AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+        {
+            defs.Add(operation(Builders<T>.Update));
+        }
+
+        /// <summary>
+        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+        public void AddModification(string update)
+        {
+            defs.Add(update);
+        }
+
+        /// <summary>
+        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="template">A Template with a single update</param>
+        public void AddModification(Template template)
+        {
+            AddModification(template.ToString());
+        }
     }
 
     /// <summary>
@@ -21,9 +61,8 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Update<T> where T : IEntity
+    public class Update<T> : UpdateBase<T> where T : IEntity
     {
-        private readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
         private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private UpdateOptions options = new UpdateOptions();
@@ -156,10 +195,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="property">x => x.Property</param>
         /// <param name="value">The value to set on the property</param>
-        /// <returns></returns>
         public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
         {
-            defs.Add(Builders<T>.Update.Set(property, value));
+            AddModification(property, value);
             return this;
         }
 
@@ -170,7 +208,7 @@ namespace MongoDB.Entities
         /// <returns></returns>
         public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
         {
-            defs.Add(operation(Builders<T>.Update));
+            AddModification(operation);
             return this;
         }
 
@@ -180,7 +218,7 @@ namespace MongoDB.Entities
         /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
         public Update<T> Modify(string update)
         {
-            defs.Add(update);
+            AddModification(update);
             return this;
         }
 
@@ -190,7 +228,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a single update</param>
         public Update<T> Modify(Template template)
         {
-            Modify(template.ToString());
+            AddModification(template.ToString());
             return this;
         }
 
