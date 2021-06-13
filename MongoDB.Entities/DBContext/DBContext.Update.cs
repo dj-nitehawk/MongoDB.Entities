@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace MongoDB.Entities
+﻿namespace MongoDB.Entities
 {
     public partial class DBContext
     {
@@ -10,13 +8,12 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual Update<T> Update<T>() where T : IEntity
         {
-            var cmd = new Update<T>(session, globalFilters);
+            var cmd = new Update<T>(session, globalFilters, OnBeforeUpdate<T>());
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
                 cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            OnBeforePersist(Enumerable.Empty<T>(), cmd);
             return cmd;
         }
 
@@ -36,13 +33,12 @@ namespace MongoDB.Entities
         /// <typeparam name="TProjection">The type of the end result</typeparam>
         public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
-            var cmd = new UpdateAndGet<T, TProjection>(session, globalFilters);
+            var cmd = new UpdateAndGet<T, TProjection>(session, globalFilters, OnBeforeUpdate<T>());
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
                 cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            OnBeforePersist(Enumerable.Empty<T>(), cmd);
             return cmd;
         }
     }

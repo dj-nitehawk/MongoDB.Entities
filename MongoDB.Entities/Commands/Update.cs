@@ -71,13 +71,16 @@ namespace MongoDB.Entities
         private readonly IClientSessionHandle session;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Action<UpdateBase<T>> onUpdateAction;
 
         internal Update(
             IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null,
+            Action<UpdateBase<T>> onUpdateAction = null)
         {
             this.session = session;
             this.globalFilters = globalFilters;
+            this.onUpdateAction = onUpdateAction;
         }
 
         /// <summary>
@@ -367,6 +370,7 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            onUpdateAction?.Invoke(this);
             models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
             {
                 ArrayFilters = options.ArrayFilters,
@@ -408,7 +412,7 @@ namespace MongoDB.Entities
                 if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-
+                onUpdateAction?.Invoke(this);
                 return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
         }

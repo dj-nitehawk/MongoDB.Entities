@@ -1,7 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace MongoDB.Entities
@@ -35,17 +34,22 @@ namespace MongoDB.Entities
         //todo: add warning in doc site about limitations 
 
         /// <summary>
-        /// A custom hook for modifying 'entities before persistance' and 'update/replace commands before execution'.
-        /// <para>WARNING: Batch updates (AddToQueue) and pipeline updates (WithPipelineStage) won't trigger this hook</para>
+        /// This event hook will be trigged right before an entity is persisted
         /// </summary>
         /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-        /// <param name="entities">Entities that are about to be persisted (may be null)</param>
-        /// <param name="update">An update command that's about to be executed (may be null)</param>
-        protected virtual void OnBeforePersist<T>(
-            IEnumerable<T> entities,
-            UpdateBase<T> update)
-            where T : IEntity
-        { }
+        protected virtual Action<T> OnBeforeSave<T>() where T : IEntity
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// This event hook will be triggered right before an update/replace command is executed
+        /// </summary>
+        /// <typeparam name="T">Any entity that implements IEntity</typeparam>
+        protected virtual Action<UpdateBase<T>> OnBeforeUpdate<T>() where T : IEntity
+        {
+            return null;
+        }
 
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext

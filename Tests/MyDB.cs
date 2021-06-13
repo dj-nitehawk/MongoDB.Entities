@@ -1,37 +1,38 @@
 ﻿using MongoDB.Entities.Tests.Models;
 using System;
-using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests
 {
     public class MyDB : DBContext
     {
-        protected override void OnBeforePersist<T>(IEnumerable<T> entities, UpdateBase<T> update)
+        protected override Action<T> OnBeforeSave<T>()
         {
-            if (typeof(T) == typeof(Flower))//handle specific entity type
+            Action<Flower> action = f =>
             {
-                foreach (var flower in entities.As<Flower>())
+                if (f.ID == null)
                 {
-                    if (flower.ID is null) //handle entity inserts
-                    {
-                        flower.CreatedDate = DateTime.UtcNow;
-                        flower.CreatedBy = "God";
-                    }
-                    else //handle entity saves
-                    {
-                        flower.UpdateDate = DateTime.UtcNow;
-                        flower.UpdatedBy = "Human";
-                    }
+                    f.CreatedBy = "God";
+                    f.CreatedDate = DateTime.MinValue;
                 }
+                else
+                {
+                    f.UpdatedBy = "Human";
+                    f.UpdateDate = DateTime.UtcNow;
+                }
+            };
 
-                var command = update?.As<Flower>();
-                command?.AddModification(f => f.UpdateDate, DateTime.UtcNow);
-                command?.AddModification(f => f.UpdatedBy, "Human");
-            }
-            else
+            return action as Action<T>;
+        }
+
+        protected override Action<UpdateBase<T>> OnBeforeUpdate<T>()
+        {
+            Action<UpdateBase<Flower>> action = update =>
             {
+                update.AddModification(f => f.UpdatedBy, "Human");
+                update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
+            };
 
-            }
+            return action as Action<UpdateBase<T>>;
         }
     }
 }

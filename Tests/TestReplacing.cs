@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Entities.Tests.Models;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests
@@ -55,7 +56,15 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task on_before_persist_for_replace()
         {
+            var db = new MyDB();
 
+            var flower = new Flower { Name = "flower" };
+            await flower.SaveAsync();
+
+            await db.Replace<Flower>()
+                    .MatchID(flower.ID)
+                    .WithEntity(flower)
+                    .ExecuteAsync();
         }
     }
 }

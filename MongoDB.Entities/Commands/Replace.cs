@@ -23,20 +23,20 @@ namespace MongoDB.Entities
         private readonly Collection<ReplaceOneModel<T>> models = new Collection<ReplaceOneModel<T>>();
         private readonly ModifiedBy modifiedBy;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Action<T> onSaveAction;
 
         internal Replace(
             IClientSessionHandle session = null, ModifiedBy modifiedBy = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null,
+            Action<T> onSaveAction = null)
         {
             this.session = session;
             this.modifiedBy = modifiedBy;
             this.globalFilters = globalFilters;
+            this.onSaveAction = onSaveAction;
         }
 
-        /// <summary>
-        /// The entity instance that is being saved to the database
-        /// </summary>
-        public T Entity { get; private set; }
+        private T entity { get; set; }
 
         /// <summary>
         /// Specify an IEntity ID as the matching criteria
@@ -160,7 +160,9 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID))
                 throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
-            Entity = entity;
+            onSaveAction?.Invoke(entity);
+
+            this.entity = entity;
 
             return this;
         }
@@ -183,17 +185,17 @@ namespace MongoDB.Entities
         {
             var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+            if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
             SetModOnAndByValues();
 
-            models.Add(new ReplaceOneModel<T>(mergedFilter, Entity)
+            models.Add(new ReplaceOneModel<T>(mergedFilter, entity)
             {
                 Collation = options.Collation,
                 Hint = options.Hint,
                 IsUpsert = options.IsUpsert
             });
             filter = Builders<T>.Filter.Empty;
-            Entity = default;
+            entity = default;
             options = new ReplaceOptions();
             return this;
         }
@@ -223,22 +225,22 @@ namespace MongoDB.Entities
             {
                 var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+                if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
                 SetModOnAndByValues();
 
                 return session == null
-                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
-                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
+                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
+                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
             }
         }
 
         private void SetModOnAndByValues()
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
             {
                 Cache<T>.ModifiedByProp.SetValue(
-                    Entity,
+                    entity,
                     BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
             }
         }

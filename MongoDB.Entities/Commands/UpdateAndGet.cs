@@ -37,13 +37,16 @@ namespace MongoDB.Entities
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Action<UpdateBase<T>> onUpdateAction;
 
         internal UpdateAndGet(
             IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null,
+            Action<UpdateBase<T>> onUpdateAction = null)
         {
             this.session = session;
             this.globalFilters = globalFilters;
+            this.onUpdateAction = onUpdateAction;
         }
 
         /// <summary>
@@ -353,7 +356,7 @@ namespace MongoDB.Entities
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
             if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-
+            onUpdateAction?.Invoke(this);
             return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
 
