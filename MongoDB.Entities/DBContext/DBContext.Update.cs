@@ -8,13 +8,14 @@
         /// <typeparam name="T">The type of entity</typeparam>
         public virtual Update<T> Update<T>() where T : IEntity
         {
-            var update = (Update<T>)OnBeforeUpdate(new Update<T>(session, globalFilters));
+            var cmd = new Update<T>(session, globalFilters);
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
-                update.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+                cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            return update;
+            OnBeforePersist(update: cmd);
+            return cmd;
         }
 
         /// <summary>
@@ -33,13 +34,14 @@
         /// <typeparam name="TProjection">The type of the end result</typeparam>
         public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
-            var upGet = (UpdateAndGet<T, TProjection>)OnBeforeUpdate(new UpdateAndGet<T, TProjection>(session, globalFilters));
+            var cmd = new UpdateAndGet<T, TProjection>(session, globalFilters);
             if (Cache<T>.ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
-                upGet.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+                cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
             }
-            return upGet;
+            OnBeforePersist(update: cmd);
+            return cmd;
         }
     }
 }

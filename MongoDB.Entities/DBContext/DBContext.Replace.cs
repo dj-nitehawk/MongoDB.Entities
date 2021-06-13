@@ -10,7 +10,9 @@
         public virtual Replace<T> Replace<T>() where T : IEntity
         {
             ThrowIfModifiedByIsEmpty<T>();
-            return OnBeforeReplace(new Replace<T>(session, ModifiedBy, globalFilters));
+            var cmd = new Replace<T>(session, ModifiedBy, globalFilters);
+            OnBeforePersist(entities: new[] { cmd.Entity });
+            return cmd;
         }
     }
 }

@@ -30,36 +30,22 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public DBContext(ModifiedBy modifiedBy = null)
             => ModifiedBy = modifiedBy;
+
         //todo: write tests cases for the custom hooks
-        /// <summary>
-        /// A custom hook for modifying all replace commands before they are executed.
-        /// <para>TIP: You can access the entity instance via <c>replace.Entity</c> property.</para>
-        /// </summary>
-        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
-        /// <param name="replace">The replace command that is about to be executed</param>
-        public virtual Replace<T> OnBeforeReplace<T>(Replace<T> replace) where T : IEntity
-        {
-            return replace;
-        }
+        //todo: add warning in doc site about limitations 
 
         /// <summary>
-        /// A custom hook for modifying entities before they are saved.
-        /// <para>TIP: check if the ID property is null to determine if the entity is being inserted</para>
-        /// </summary>
-        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
-        /// <param name="entities">A collection of entities that are about to be saved</param>
-        public virtual void OnBeforeSave<T>(IEnumerable<T> entities) where T : IEntity { }
-
-        /// <summary>
-        /// A custom hook for modifying all update commands before they are executed.
+        /// A custom hook for modifying 'entities before persistance' and 'update/replace commands before execution'.
         /// <para>WARNING: Batch updates (AddToQueue) and pipeline updates (WithPipelineStage) won't trigger this hook</para>
         /// </summary>
-        /// <typeparam name="T">Any entity type that implement IEntity</typeparam>
-        /// <param name="update">Use <c>update.AddModification()</c> to add modifications to the update</param>
-        public virtual UpdateBase<T> OnBeforeUpdate<T>(UpdateBase<T> update) where T : IEntity
-        {
-            return update;
-        }
+        /// <typeparam name="T">Any entity that implements IEntity</typeparam>
+        /// <param name="entities">Entities that are about to be persisted (may be null)</param>
+        /// <param name="update">An update command that's about to be executed (may be null)</param>
+        public virtual void OnBeforePersist<T>(
+            IEnumerable<T> entities = null,
+            UpdateBase<T> update = null)
+            where T : IEntity
+        { }
 
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
