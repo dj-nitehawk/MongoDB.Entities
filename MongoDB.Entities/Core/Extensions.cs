@@ -42,24 +42,6 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Utility method for casting a collection of entities to a target type
-        /// </summary>
-        /// <typeparam name="TOut">The target type</typeparam>
-        public static IEnumerable<TOut> As<TOut>(this IEnumerable source) where TOut : IEntity
-        {
-            return (IEnumerable<TOut>)source;
-        }
-
-        /// <summary>
-        /// Utility method for casting an update to a target type
-        /// </summary>
-        /// <typeparam name="TOut">The target type</typeparam>
-        public static UpdateBase<TOut> As<TOut>(this UpdateBase source) where TOut : IEntity
-        {
-            return (UpdateBase<TOut>)source;
-        }
-
-        /// <summary>
         /// Extension method for processing collections in batches with streaming (yield return)
         /// </summary>
         /// <typeparam name="T">The type of the objects inside the source collection</typeparam>
