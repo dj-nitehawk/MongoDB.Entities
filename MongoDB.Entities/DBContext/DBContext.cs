@@ -12,6 +12,7 @@ namespace MongoDB.Entities
     public partial class DBContext
     {
         protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
+
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
             = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
 
@@ -19,6 +20,48 @@ namespace MongoDB.Entities
         /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
         /// </summary>
         public ModifiedBy ModifiedBy;
+
+        /// <summary>
+        /// Initializes a MongoDB connection with the given connection parameters.
+        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+        /// </summary>
+        /// <param name="database">Name of the database</param>
+        /// <param name="host">Address of the MongoDB server</param>
+        /// <param name="port">Port number of the server</param>
+        /// <param name="modifiedBy">An optional ModifiedBy instance. 
+        /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
+        /// You can even inherit from the ModifiedBy class and add your own properties to it. 
+        /// Only one ModifiedBy property is allowed on a single entity type.</param>
+        public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
+        {
+            DB.Initialize(
+                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
+                database,
+                true)
+              .GetAwaiter()
+              .GetResult();
+
+            ModifiedBy = modifiedBy;
+        }
+
+        /// <summary>
+        /// Initializes a MongoDB connection with the given connection parameters.
+        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+        /// </summary>
+        /// <param name="database">Name of the database</param>
+        /// <param name="settings">A MongoClientSettings object</param>
+        /// <param name="modifiedBy">An optional ModifiedBy instance. 
+        /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
+        /// You can even inherit from the ModifiedBy class and add your own properties to it. 
+        /// Only one ModifiedBy property is allowed on a single entity type.</param>
+        public DBContext(string database, MongoClientSettings settings, ModifiedBy modifiedBy = null)
+        {
+            DB.Initialize(settings, database, true)
+              .GetAwaiter()
+              .GetResult();
+
+            ModifiedBy = modifiedBy;
+        }
 
         /// <summary>
         /// Instantiates a DBContext

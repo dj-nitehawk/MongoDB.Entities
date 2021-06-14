@@ -133,5 +133,17 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(3, DB.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
         }
 
+        [TestMethod]
+        public async Task dbcontext_ctor_connections()
+        {
+            var db = new DBContext(dbName, "localhost", modifiedBy: new());
+
+            var author = new Author { Name = "test" };
+            await db.SaveAsync(author);
+
+            var res = await db.Find<Author>().OneAsync(author.ID);
+
+            Assert.AreEqual(author.ID, res.ID);
+        }
     }
 }

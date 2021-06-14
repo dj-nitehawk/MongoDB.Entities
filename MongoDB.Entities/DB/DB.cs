@@ -64,7 +64,7 @@ namespace MongoDB.Entities
             return Initialize(settings, database);
         }
 
-        private static async Task Initialize(MongoClientSettings settings, string dbName)
+        internal static async Task Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
         {
             if (string.IsNullOrEmpty(dbName))
                 throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
@@ -79,7 +79,7 @@ namespace MongoDB.Entities
                 if (dbs.Count == 0)
                     defaultDb = db;
 
-                if (dbs.TryAdd(dbName, db))
+                if (dbs.TryAdd(dbName, db) && !skipNetworkPing)
                     await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
             }
             catch (Exception)

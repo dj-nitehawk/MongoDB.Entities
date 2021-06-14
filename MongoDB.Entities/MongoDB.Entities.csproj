@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.14.0-beta4</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added global filter support for DBContext
+    <PackageReleaseNotes>- added ability to initialize connections from DBContext ctor
+- added global filter support for DBContext
 - added event hooks for DBContext
 - added more overloads to DB.Delete()
 - increased test coverage</PackageReleaseNotes>
