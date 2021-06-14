@@ -95,7 +95,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">x => x.Prop1 == "some value"</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param> 
         public void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
@@ -106,7 +106,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         public void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false) where T : IEntity
@@ -117,12 +117,23 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">A filter definition to be applied</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         public void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
         {
             globalFilters[typeof(T)] = (filter, prepend);
+        }
+
+        /// <summary>
+        /// Specify a global filter to be applied to all operations performed with this DBContext
+        /// </summary>
+        /// <param name="type">The type of Entity this global filter should be applied to</param>
+        /// <param name="filter">A filter definition to be applied</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        public void SetGlobalFilter(Type type, object filter, bool prepend = false)
+        {
+            globalFilters[type] = (filter, prepend);
         }
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
