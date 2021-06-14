@@ -56,7 +56,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param> 
         public void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
         {
-            SetGlobalFilter(filter, prepend);
+            SetGlobalFilter(Builders<T>.Filter.Where(filter), prepend);
         }
 
         /// <summary>
