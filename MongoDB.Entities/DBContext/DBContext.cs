@@ -129,9 +129,9 @@ namespace MongoDB.Entities
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
         /// <param name="type">The type of Entity this global filter should be applied to</param>
-        /// <param name="filter">A filter definition to be applied</param>
+        /// <param name="filter">A JSON string filter definition to be applied</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-        public void SetGlobalFilter(Type type, object filter, bool prepend = false)
+        public void SetGlobalFilter(Type type, string filter, bool prepend = false)
         {
             globalFilters[type] = (filter, prepend);
         }
