@@ -22,8 +22,8 @@ namespace MongoDB.Entities
         public ModifiedBy ModifiedBy;
 
         /// <summary>
-        /// Initializes a MongoDB connection with the given connection parameters.
-        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+        /// Initializes a DBContext instance with the given connection parameters.
+        /// <para>TIP: network connection is deferred until the first actual operation.</para>
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="host">Address of the MongoDB server</param>
@@ -45,8 +45,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Initializes a MongoDB connection with the given connection parameters.
-        /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+        /// Initializes a DBContext instance with the given connection parameters.
+        /// <para>TIP: network connection is deferred until the first actual operation.</para>
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="settings">A MongoClientSettings object</param>
@@ -64,7 +64,8 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Instantiates a DBContext
+        /// Instantiates a DBContext instance
+        /// <para>TIP: will throw an error if no connections have been initialized</para>
         /// </summary>
         /// <param name="modifiedBy">An optional ModifiedBy instance. 
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 

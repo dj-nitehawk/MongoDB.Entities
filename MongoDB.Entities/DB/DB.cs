@@ -42,6 +42,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
+        /// <para>WARNING: will throw an error if server is not reachable!</para>
         /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
         /// <param name="database">Name of the database</param>
@@ -55,6 +56,7 @@ namespace MongoDB.Entities
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
+        /// <para>WARNING: will throw an error if server is not reachable!</para>
         /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
         /// </summary>
         /// <param name="database">Name of the database</param>
