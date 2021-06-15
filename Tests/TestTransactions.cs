@@ -62,6 +62,32 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task commiting_update_transaction_modifies_docs_dbcontext()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = "uwtrcd1", Surname = guid }; await author1.SaveAsync();
+            var author2 = new Author { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
+            var author3 = new Author { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
+
+            var db = new DBContext(modifiedBy: new());
+
+            using (var session = db.Transaction())
+            {
+                await db.Update<Author>()
+                  .Match(a => a.Surname == guid)
+                  .Modify(a => a.Name, guid)
+                  .Modify(a => a.Surname, author1.Name)
+                  .ExecuteAsync();
+
+                await db.CommitAsync();
+            }
+
+            var res = await DB.Find<Author>().OneAsync(author1.ID);
+
+            Assert.AreEqual(guid, res.Name);
+        }
+
+        [TestMethod]
         public async Task create_and_find_transaction_returns_correct_docs()
         {
             var book1 = new Book { Title = "caftrcd1" };
