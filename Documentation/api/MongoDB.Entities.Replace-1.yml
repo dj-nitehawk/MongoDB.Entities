@@ -37,7 +37,6 @@ items:
   syntax:
     content: >-
       public class Replace<T>
-
           where T : IEntity
     typeParameters:
     - id: T

@@ -104,7 +104,7 @@
 <h2 id="create-an-instance">Create an instance</h2>
 <pre><code class="lang-csharp">var db = new DBContext(&quot;database-name&quot;, &quot;127.0.0.1&quot;);
 </code></pre>
-<p>you only need to supply the connection parameters to the constructor if you haven't initialized the same datbase connection before in your application.
+<p>you only need to supply the connection parameters to the constructor if you haven't initialized the same database connection before in your application.
 if for example you have done: <code>await DB.InitAsync(...)</code> in your app startup, then you can simply do <code>new DBContext()</code> without supplying any parameters.</p>
 <p><strong>Note:</strong>
 the DBContext constructor does <strong>NOT</strong> try to establish network connectivity with the server immediately. it would only establish connection during the very first operation perfomed by the DBContext instance. whereas the <code>DB.InitAsync()</code> method would establish connectivity immediately and throw an exception if unsuccessful.</p>

@@ -130,6 +130,7 @@
   "MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)": "MongoDB.Entities.DBContext.yml",
   "MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)": "MongoDB.Entities.DBContext.yml",
   "MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)": "MongoDB.Entities.DBContext.yml",
+  "MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)": "MongoDB.Entities.DBContext.yml",
   "MongoDB.Entities.DBContext.Update``1": "MongoDB.Entities.DBContext.yml",
   "MongoDB.Entities.DBContext.UpdateAndGet``1": "MongoDB.Entities.DBContext.yml",
   "MongoDB.Entities.DBContext.UpdateAndGet``2": "MongoDB.Entities.DBContext.yml",

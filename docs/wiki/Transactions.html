@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="acid-compliant-transactions">ACID compliant transactions</h1>
 
-<p>multi-document transactions are performed as shown below:</p>
+<p>multi-document transactions are performed like the following:</p>
 <pre><code class="lang-csharp">var book1 = new Book { Title = &quot;book one&quot; };
 var book2 = new Book { Title = &quot;book two&quot; };
 
@@ -163,6 +163,17 @@ var TN = DB.Transaction&lt;Book&gt;() // gets the database from the entity type
 <h5>Note</h5>
 <p>please read the page on <a href="Multiple-Databases.html">multiple databases</a> to understand how multi-db support works.</p>
 </div>
+<h2 id="transactions-with-dbcontext-instances">Transactions with DBContext instances</h2>
+<p>Transactions can be performed using DBContext instances like so:</p>
+<pre><code class="lang-csharp">var db = new DBContext();
+
+using (var session = db.Transaction())
+{
+    await db.SaveAsync(new Book { Title = &quot;test&quot; });
+    await db.CommitAsync();
+}
+</code></pre>
+<p><strong>Note:</strong> only one active transaction is allowed per DBContext instance. if you need to start another transaction for the same instance, make sure to first commit your changes -&gt; dispose the <code>session</code> object <em>(if not wrapped in a using statement)</em> -&gt; assign a <code>null</code> to the <code>session</code> before you call <code>db.Transaction()</code> again.</p>
 </article>
           </div>
           

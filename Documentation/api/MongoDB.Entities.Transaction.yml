@@ -28,9 +28,7 @@ items:
     content: 'public class Transaction : DBContext, IDisposable'
     content.vb: >-
       Public Class Transaction
-
           Inherits DBContext
-
           Implements IDisposable
   inheritance:
   - System.Object
@@ -48,6 +46,7 @@ items:
   - MongoDB.Entities.DBContext.ModifiedBy
   - MongoDB.Entities.DBContext.Session
   - MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  - MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
   - MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.OnBeforeSave``1
@@ -840,6 +839,48 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
+  - uid: MongoDB.Driver.ClientSessionOptions
+    name: ClientSessionOptions
+    nameWithType: ClientSessionOptions
+    fullName: MongoDB.Driver.ClientSessionOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  commentId: M:MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: Transaction<T>(ClientSessionOptions)
+  nameWithType: DBContext.Transaction<T>(ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction<T>(MongoDB.Driver.ClientSessionOptions)
+  nameWithType.vb: DBContext.Transaction(Of T)(ClientSessionOptions)
+  fullName.vb: MongoDB.Entities.DBContext.Transaction(Of T)(MongoDB.Driver.ClientSessionOptions)
+  name.vb: Transaction(Of T)(ClientSessionOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+    name: Transaction<T>
+    nameWithType: DBContext.Transaction<T>
+    fullName: MongoDB.Entities.DBContext.Transaction<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.ClientSessionOptions
+    name: ClientSessionOptions
+    nameWithType: ClientSessionOptions
+    fullName: MongoDB.Driver.ClientSessionOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+    name: Transaction(Of T)
+    nameWithType: DBContext.Transaction(Of T)
+    fullName: MongoDB.Entities.DBContext.Transaction(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
   - uid: MongoDB.Driver.ClientSessionOptions
     name: ClientSessionOptions
     nameWithType: ClientSessionOptions

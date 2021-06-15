@@ -1,6 +1,6 @@
 
 # ACID compliant transactions
-multi-document transactions are performed as shown below:
+multi-document transactions are performed like the following:
 
 ```csharp
 var book1 = new Book { Title = "book one" };
@@ -84,3 +84,17 @@ if you try to perform an operation on an entity type that is not connected to th
 
 > [!note]
 > please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works.
+
+## Transactions with DBContext instances
+
+Transactions can be performed using DBContext instances like so:
+```csharp
+var db = new DBContext();
+
+using (var session = db.Transaction())
+{
+    await db.SaveAsync(new Book { Title = "test" });
+    await db.CommitAsync();
+}
+```
+**Note:** only one active transaction is allowed per DBContext instance. if you need to start another transaction for the same instance, make sure to first commit your changes -> dispose the `session` object *(if not wrapped in a using statement)* -> assign a `null` to the `session` before you call `db.Transaction()` again.

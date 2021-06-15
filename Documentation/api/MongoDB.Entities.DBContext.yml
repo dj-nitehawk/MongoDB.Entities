@@ -51,6 +51,7 @@ items:
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
   - MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  - MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
   - MongoDB.Entities.DBContext.Update``1
   - MongoDB.Entities.DBContext.UpdateAndGet``1
   - MongoDB.Entities.DBContext.UpdateAndGet``2
@@ -114,7 +115,6 @@ items:
   syntax:
     content: >-
       public Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: options
@@ -160,7 +160,6 @@ items:
   syntax:
     content: >-
       public Task DropCollectionAsync<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -199,7 +198,6 @@ items:
   syntax:
     content: >-
       public virtual Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: cancellation
@@ -244,7 +242,6 @@ items:
   syntax:
     content: >-
       public virtual Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
-
           where T : IEntity
     parameters:
     - id: expression
@@ -295,7 +292,6 @@ items:
   syntax:
     content: >-
       public virtual Task<long> CountAsync<T>(CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: cancellation
@@ -340,7 +336,6 @@ items:
   syntax:
     content: >-
       public virtual Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -391,7 +386,6 @@ items:
   syntax:
     content: >-
       public virtual Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -612,11 +606,11 @@ items:
   source:
     id: Transaction
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 95
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nStarts a transaction and returns a session object\n"
+  summary: "\nStarts a transaction and returns a session object.\n<p>WARNING: Only one transaction is allowed per DBContext instance. \nCall Session.Dispose() and assign a null to it before calling this method a second time. \nTrying to start a second transaction for this DBContext instance will throw an exception.</p>\n"
   example: []
   syntax:
     content: public IClientSessionHandle Transaction(string database = null, ClientSessionOptions options = null)
@@ -635,6 +629,48 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  commentId: M:MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  id: Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: Transaction<T>(ClientSessionOptions)
+  nameWithType: DBContext.Transaction<T>(ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction<T>(MongoDB.Driver.ClientSessionOptions)
+  type: Method
+  source:
+    id: Transaction
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 119
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nStarts a transaction and returns a session object for a given entity type.\n<p>WARNING: Only one transaction is allowed per DBContext instance. \nCall Session.Dispose() and assign a null to it before calling this method a second time. \nTrying to start a second transaction for this DBContext instance will throw an exception.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public IClientSessionHandle Transaction<T>(ClientSessionOptions options = null)
+          where T : IEntity
+    parameters:
+    - id: options
+      type: MongoDB.Driver.ClientSessionOptions
+      description: Client session options (not required)
+    typeParameters:
+    - id: T
+      description: The entity type to determine the database from for the transaction
+    return:
+      type: MongoDB.Driver.IClientSessionHandle
+    content.vb: Public Function Transaction(Of T As IEntity)(options As ClientSessionOptions = Nothing) As IClientSessionHandle
+  overload: MongoDB.Entities.DBContext.Transaction*
+  nameWithType.vb: DBContext.Transaction(Of T)(ClientSessionOptions)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.DBContext.Transaction(Of T)(MongoDB.Driver.ClientSessionOptions)
+  name.vb: Transaction(Of T)(ClientSessionOptions)
 - uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
   id: CommitAsync(System.Threading.CancellationToken)
@@ -649,7 +685,7 @@ items:
   source:
     id: CommitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 106
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -683,7 +719,7 @@ items:
   source:
     id: AbortAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 112
+    startLine: 134
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -717,7 +753,7 @@ items:
   source:
     id: OnBeforeSave
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 120
+    startLine: 142
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -726,7 +762,6 @@ items:
   syntax:
     content: >-
       protected virtual Action<T> OnBeforeSave<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -758,7 +793,7 @@ items:
   source:
     id: OnBeforeUpdate
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 129
+    startLine: 151
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -767,7 +802,6 @@ items:
   syntax:
     content: >-
       protected virtual Action<UpdateBase<T>> OnBeforeUpdate<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -799,7 +833,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 142
+    startLine: 164
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -808,7 +842,6 @@ items:
   syntax:
     content: >-
       protected void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -843,7 +876,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 153
+    startLine: 175
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -852,7 +885,6 @@ items:
   syntax:
     content: >-
       protected void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -887,7 +919,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 164
+    startLine: 186
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -896,7 +928,6 @@ items:
   syntax:
     content: >-
       protected void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -931,7 +962,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 175
+    startLine: 197
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -969,7 +1000,7 @@ items:
   source:
     id: SetGlobalFilterForInterface
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 186
+    startLine: 208
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1019,7 +1050,6 @@ items:
   syntax:
     content: >-
       public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: ID
@@ -1067,7 +1097,6 @@ items:
   syntax:
     content: >-
       public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: IDs
@@ -1115,7 +1144,6 @@ items:
   syntax:
     content: >-
       public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
-
           where T : IEntity
     parameters:
     - id: expression
@@ -1166,7 +1194,6 @@ items:
   syntax:
     content: >-
       public virtual Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -1217,7 +1244,6 @@ items:
   syntax:
     content: >-
       public virtual Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
-
           where T : IEntity
     parameters:
     - id: filter
@@ -1268,7 +1294,6 @@ items:
   syntax:
     content: >-
       public virtual Distinct<T, TProperty> Distinct<T, TProperty>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -1311,7 +1336,6 @@ items:
   syntax:
     content: >-
       public virtual Find<T> Find<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -1352,7 +1376,6 @@ items:
   syntax:
     content: >-
       public virtual Find<T, TProjection> Find<T, TProjection>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -1395,7 +1418,6 @@ items:
   syntax:
     content: >-
       public virtual IAggregateFluent<T> Fluent<T>(AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: options
@@ -1440,7 +1462,6 @@ items:
   syntax:
     content: >-
       public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: searchType
@@ -1499,7 +1520,6 @@ items:
   syntax:
     content: >-
       public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = default(int? ), int? MinDistance = default(int? ), int? Limit = default(int? ), BsonDocument Query = null, int? DistanceMultiplier = default(int? ), Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: NearCoordinates
@@ -1574,7 +1594,6 @@ items:
   syntax:
     content: >-
       public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: template
@@ -1627,7 +1646,6 @@ items:
   syntax:
     content: >-
       public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: template
@@ -1680,7 +1698,6 @@ items:
   syntax:
     content: >-
       public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: template
@@ -1733,7 +1750,6 @@ items:
   syntax:
     content: >-
       public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: template
@@ -1786,7 +1802,6 @@ items:
   syntax:
     content: >-
       public virtual IMongoQueryable<T> Queryable<T>(AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: options
@@ -1831,7 +1846,6 @@ items:
   syntax:
     content: >-
       public virtual Replace<T> Replace<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -1872,7 +1886,6 @@ items:
   syntax:
     content: >-
       public virtual Task SaveAsync<T>(T entity, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -1920,7 +1933,6 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -1968,7 +1980,6 @@ items:
   syntax:
     content: >-
       public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -2019,7 +2030,6 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -2070,7 +2080,6 @@ items:
   syntax:
     content: >-
       public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -2121,7 +2130,6 @@ items:
   syntax:
     content: >-
       public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -2172,7 +2180,6 @@ items:
   syntax:
     content: >-
       public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -2220,7 +2227,6 @@ items:
   syntax:
     content: >-
       public virtual Update<T> Update<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -2261,7 +2267,6 @@ items:
   syntax:
     content: >-
       public virtual UpdateAndGet<T, T> UpdateAndGet<T>()
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -2302,7 +2307,6 @@ items:
   syntax:
     content: >-
       public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>()
-
           where T : IEntity
     typeParameters:
     - id: T

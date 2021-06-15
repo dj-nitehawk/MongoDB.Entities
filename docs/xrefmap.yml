@@ -1669,6 +1669,15 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DBContext.Transaction
   nameWithType: DBContext.Transaction
+- uid: MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  name: Transaction<T>(ClientSessionOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Transaction__1_MongoDB_Driver_ClientSessionOptions_
+  commentId: M:MongoDB.Entities.DBContext.Transaction``1(MongoDB.Driver.ClientSessionOptions)
+  name.vb: Transaction(Of T)(ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction<T>(MongoDB.Driver.ClientSessionOptions)
+  fullName.vb: MongoDB.Entities.DBContext.Transaction(Of T)(MongoDB.Driver.ClientSessionOptions)
+  nameWithType: DBContext.Transaction<T>(ClientSessionOptions)
+  nameWithType.vb: DBContext.Transaction(Of T)(ClientSessionOptions)
 - uid: MongoDB.Entities.DBContext.Update*
   name: Update
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Update_

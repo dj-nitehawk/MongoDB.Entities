@@ -33,7 +33,6 @@ items:
       <AttributeUsage(AttributeTargets.Class, AllowMultiple:=False)>
 
       Public Class NameAttribute
-
           Inherits CollectionAttribute
   inheritance:
   - System.Object

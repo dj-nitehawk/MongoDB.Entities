@@ -12,7 +12,7 @@ the *DBContext* class exists for the sole purpose of facilitating the following 
 ```csharp
 var db = new DBContext("database-name", "127.0.0.1");
 ```
-you only need to supply the connection parameters to the constructor if you haven't initialized the same datbase connection before in your application. 
+you only need to supply the connection parameters to the constructor if you haven't initialized the same database connection before in your application. 
 if for example you have done: `await DB.InitAsync(...)` in your app startup, then you can simply do `new DBContext()` without supplying any parameters.
 
 **Note:**
