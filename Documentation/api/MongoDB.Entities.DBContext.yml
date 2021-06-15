@@ -8,6 +8,8 @@ items:
   - MongoDB.Entities.DBContext.#ctor(MongoDB.Entities.ModifiedBy)
   - MongoDB.Entities.DBContext.#ctor(System.String,MongoDB.Driver.MongoClientSettings,MongoDB.Entities.ModifiedBy)
   - MongoDB.Entities.DBContext.#ctor(System.String,System.String,System.Int32,MongoDB.Entities.ModifiedBy)
+  - MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
@@ -42,12 +44,13 @@ items:
   - MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SavePreservingAsync``1(``0,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.session
+  - MongoDB.Entities.DBContext.Session
   - MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
+  - MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
   - MongoDB.Entities.DBContext.Update``1
   - MongoDB.Entities.DBContext.UpdateAndGet``1
   - MongoDB.Entities.DBContext.UpdateAndGet``2
@@ -416,35 +419,8 @@ items:
   - Overridable
   fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
   name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
-- uid: MongoDB.Entities.DBContext.session
-  commentId: F:MongoDB.Entities.DBContext.session
-  id: session
-  parent: MongoDB.Entities.DBContext
-  langs:
-  - csharp
-  - vb
-  name: session
-  nameWithType: DBContext.session
-  fullName: MongoDB.Entities.DBContext.session
-  type: Field
-  source:
-    id: session
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 14
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  syntax:
-    content: protected IClientSessionHandle session
-    return:
-      type: MongoDB.Driver.IClientSessionHandle
-    content.vb: Protected session As IClientSessionHandle
-  modifiers.csharp:
-  - protected
-  modifiers.vb:
-  - Protected
 - uid: MongoDB.Entities.DBContext.ModifiedBy
-  commentId: F:MongoDB.Entities.DBContext.ModifiedBy
+  commentId: P:MongoDB.Entities.DBContext.ModifiedBy
   id: ModifiedBy
   parent: MongoDB.Entities.DBContext
   langs:
@@ -453,23 +429,27 @@ items:
   name: ModifiedBy
   nameWithType: DBContext.ModifiedBy
   fullName: MongoDB.Entities.DBContext.ModifiedBy
-  type: Field
+  type: Property
   source:
     id: ModifiedBy
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 24
+    startLine: 19
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nThe value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property\n"
   example: []
   syntax:
-    content: public ModifiedBy ModifiedBy
+    content: public ModifiedBy ModifiedBy { get; set; }
+    parameters: []
     return:
       type: MongoDB.Entities.ModifiedBy
-    content.vb: Public ModifiedBy As ModifiedBy
+    content.vb: Public Property ModifiedBy As ModifiedBy
+  overload: MongoDB.Entities.DBContext.ModifiedBy*
   modifiers.csharp:
   - public
+  - get
+  - set
   modifiers.vb:
   - Public
 - uid: MongoDB.Entities.DBContext.#ctor(System.String,System.String,System.Int32,MongoDB.Entities.ModifiedBy)
@@ -486,7 +466,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 37
+    startLine: 41
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -527,7 +507,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 59
+    startLine: 63
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -565,7 +545,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 76
+    startLine: 80
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -579,6 +559,146 @@ items:
       description: "An optional ModifiedBy instance. \nWhen supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. \nYou can even inherit from the ModifiedBy class and add your own properties to it. \nOnly one ModifiedBy property is allowed on a single entity type."
     content.vb: Public Sub New(modifiedBy As ModifiedBy = Nothing)
   overload: MongoDB.Entities.DBContext.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.DBContext.Session
+  commentId: P:MongoDB.Entities.DBContext.Session
+  id: Session
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: Session
+  nameWithType: DBContext.Session
+  fullName: MongoDB.Entities.DBContext.Session
+  type: Property
+  source:
+    id: Session
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 88
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nReturns the session object used for transactions\n"
+  example: []
+  syntax:
+    content: public IClientSessionHandle Session { get; protected set; }
+    parameters: []
+    return:
+      type: MongoDB.Driver.IClientSessionHandle
+    content.vb: Public Property Session As IClientSessionHandle
+  overload: MongoDB.Entities.DBContext.Session*
+  modifiers.csharp:
+  - public
+  - get
+  - protected set
+  modifiers.vb:
+  - Public
+  - Get
+  - Protected Set
+- uid: MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  commentId: M:MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  id: Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: Transaction(String, ClientSessionOptions)
+  nameWithType: DBContext.Transaction(String, ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction(System.String, MongoDB.Driver.ClientSessionOptions)
+  type: Method
+  source:
+    id: Transaction
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 95
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nStarts a transaction and returns a session object\n"
+  example: []
+  syntax:
+    content: public IClientSessionHandle Transaction(string database = null, ClientSessionOptions options = null)
+    parameters:
+    - id: database
+      type: System.String
+      description: The name of the database to use for this transaction. default db is used if not specified
+    - id: options
+      type: MongoDB.Driver.ClientSessionOptions
+      description: Client session options for this transaction
+    return:
+      type: MongoDB.Driver.IClientSessionHandle
+    content.vb: Public Function Transaction(database As String = Nothing, options As ClientSessionOptions = Nothing) As IClientSessionHandle
+  overload: MongoDB.Entities.DBContext.Transaction*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  id: CommitAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: CommitAsync(CancellationToken)
+  nameWithType: DBContext.CommitAsync(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: CommitAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 106
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCommits a transaction to MongoDB\n"
+  example: []
+  syntax:
+    content: public Task CommitAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function CommitAsync(cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DBContext.CommitAsync*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  id: AbortAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: AbortAsync(CancellationToken)
+  nameWithType: DBContext.AbortAsync(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: AbortAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
+    startLine: 112
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAborts and rolls back a transaction\n"
+  example: []
+  syntax:
+    content: public Task AbortAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function AbortAsync(cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DBContext.AbortAsync*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -597,7 +717,7 @@ items:
   source:
     id: OnBeforeSave
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 83
+    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -638,7 +758,7 @@ items:
   source:
     id: OnBeforeUpdate
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 92
+    startLine: 129
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -679,7 +799,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 103
+    startLine: 142
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -723,7 +843,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 114
+    startLine: 153
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -767,7 +887,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 125
+    startLine: 164
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -811,7 +931,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 136
+    startLine: 175
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -849,7 +969,7 @@ items:
   source:
     id: SetGlobalFilterForInterface
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 147
+    startLine: 186
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -3070,13 +3190,11 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver.IClientSessionHandle
-  commentId: T:MongoDB.Driver.IClientSessionHandle
-  parent: MongoDB.Driver
-  isExternal: true
-  name: IClientSessionHandle
-  nameWithType: IClientSessionHandle
-  fullName: MongoDB.Driver.IClientSessionHandle
+- uid: MongoDB.Entities.DBContext.ModifiedBy*
+  commentId: Overload:MongoDB.Entities.DBContext.ModifiedBy
+  name: ModifiedBy
+  nameWithType: DBContext.ModifiedBy
+  fullName: MongoDB.Entities.DBContext.ModifiedBy
 - uid: MongoDB.Entities.ModifiedBy
   commentId: T:MongoDB.Entities.ModifiedBy
   parent: MongoDB.Entities
@@ -3109,6 +3227,40 @@ references:
   name: MongoClientSettings
   nameWithType: MongoClientSettings
   fullName: MongoDB.Driver.MongoClientSettings
+- uid: MongoDB.Entities.DBContext.Session*
+  commentId: Overload:MongoDB.Entities.DBContext.Session
+  name: Session
+  nameWithType: DBContext.Session
+  fullName: MongoDB.Entities.DBContext.Session
+- uid: MongoDB.Driver.IClientSessionHandle
+  commentId: T:MongoDB.Driver.IClientSessionHandle
+  parent: MongoDB.Driver
+  isExternal: true
+  name: IClientSessionHandle
+  nameWithType: IClientSessionHandle
+  fullName: MongoDB.Driver.IClientSessionHandle
+- uid: MongoDB.Entities.DBContext.Transaction*
+  commentId: Overload:MongoDB.Entities.DBContext.Transaction
+  name: Transaction
+  nameWithType: DBContext.Transaction
+  fullName: MongoDB.Entities.DBContext.Transaction
+- uid: MongoDB.Driver.ClientSessionOptions
+  commentId: T:MongoDB.Driver.ClientSessionOptions
+  parent: MongoDB.Driver
+  isExternal: true
+  name: ClientSessionOptions
+  nameWithType: ClientSessionOptions
+  fullName: MongoDB.Driver.ClientSessionOptions
+- uid: MongoDB.Entities.DBContext.CommitAsync*
+  commentId: Overload:MongoDB.Entities.DBContext.CommitAsync
+  name: CommitAsync
+  nameWithType: DBContext.CommitAsync
+  fullName: MongoDB.Entities.DBContext.CommitAsync
+- uid: MongoDB.Entities.DBContext.AbortAsync*
+  commentId: Overload:MongoDB.Entities.DBContext.AbortAsync
+  name: AbortAsync
+  nameWithType: DBContext.AbortAsync
+  fullName: MongoDB.Entities.DBContext.AbortAsync
 - uid: MongoDB.Entities.DBContext.OnBeforeSave*
   commentId: Overload:MongoDB.Entities.DBContext.OnBeforeSave
   name: OnBeforeSave

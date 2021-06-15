@@ -1097,6 +1097,32 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.DBContext.DBContext
   nameWithType: DBContext.DBContext
+- uid: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  name: AbortAsync(CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_AbortAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  nameWithType: DBContext.AbortAsync(CancellationToken)
+- uid: MongoDB.Entities.DBContext.AbortAsync*
+  name: AbortAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_AbortAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.AbortAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.AbortAsync
+  nameWithType: DBContext.AbortAsync
+- uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  name: CommitAsync(CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CommitAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  nameWithType: DBContext.CommitAsync(CancellationToken)
+- uid: MongoDB.Entities.DBContext.CommitAsync*
+  name: CommitAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CommitAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.CommitAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.CommitAsync
+  nameWithType: DBContext.CommitAsync
 - uid: MongoDB.Entities.DBContext.CountAsync*
   name: CountAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync_
@@ -1332,7 +1358,14 @@ references:
 - uid: MongoDB.Entities.DBContext.ModifiedBy
   name: ModifiedBy
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_ModifiedBy
-  commentId: F:MongoDB.Entities.DBContext.ModifiedBy
+  commentId: P:MongoDB.Entities.DBContext.ModifiedBy
+  fullName: MongoDB.Entities.DBContext.ModifiedBy
+  nameWithType: DBContext.ModifiedBy
+- uid: MongoDB.Entities.DBContext.ModifiedBy*
+  name: ModifiedBy
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_ModifiedBy_
+  commentId: Overload:MongoDB.Entities.DBContext.ModifiedBy
+  isSpec: "True"
   fullName: MongoDB.Entities.DBContext.ModifiedBy
   nameWithType: DBContext.ModifiedBy
 - uid: MongoDB.Entities.DBContext.OnBeforeSave*
@@ -1554,12 +1587,19 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.SavePreservingAsync(Of T)(T, System.Threading.CancellationToken)
   nameWithType: DBContext.SavePreservingAsync<T>(T, CancellationToken)
   nameWithType.vb: DBContext.SavePreservingAsync(Of T)(T, CancellationToken)
-- uid: MongoDB.Entities.DBContext.session
-  name: session
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_session
-  commentId: F:MongoDB.Entities.DBContext.session
-  fullName: MongoDB.Entities.DBContext.session
-  nameWithType: DBContext.session
+- uid: MongoDB.Entities.DBContext.Session
+  name: Session
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Session
+  commentId: P:MongoDB.Entities.DBContext.Session
+  fullName: MongoDB.Entities.DBContext.Session
+  nameWithType: DBContext.Session
+- uid: MongoDB.Entities.DBContext.Session*
+  name: Session
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Session_
+  commentId: Overload:MongoDB.Entities.DBContext.Session
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Session
+  nameWithType: DBContext.Session
 - uid: MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
   name: SetGlobalFilter(Type, String, Boolean)
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilter_System_Type_System_String_System_Boolean_
@@ -1616,6 +1656,19 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForInterface(Of TInterface)(System.String, System.Boolean)
   nameWithType: DBContext.SetGlobalFilterForInterface<TInterface>(String, Boolean)
   nameWithType.vb: DBContext.SetGlobalFilterForInterface(Of TInterface)(String, Boolean)
+- uid: MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  name: Transaction(String, ClientSessionOptions)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Transaction_System_String_MongoDB_Driver_ClientSessionOptions_
+  commentId: M:MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction(System.String, MongoDB.Driver.ClientSessionOptions)
+  nameWithType: DBContext.Transaction(String, ClientSessionOptions)
+- uid: MongoDB.Entities.DBContext.Transaction*
+  name: Transaction
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Transaction_
+  commentId: Overload:MongoDB.Entities.DBContext.Transaction
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.Transaction
+  nameWithType: DBContext.Transaction
 - uid: MongoDB.Entities.DBContext.Update*
   name: Update
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Update_
@@ -5066,32 +5119,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.Transaction
   nameWithType: Transaction.Transaction
-- uid: MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  name: AbortAsync(CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_AbortAsync_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  fullName: MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  nameWithType: Transaction.AbortAsync(CancellationToken)
-- uid: MongoDB.Entities.Transaction.AbortAsync*
-  name: AbortAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_AbortAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.AbortAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.AbortAsync
-  nameWithType: Transaction.AbortAsync
-- uid: MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  name: CommitAsync(CancellationToken)
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CommitAsync_System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  nameWithType: Transaction.CommitAsync(CancellationToken)
-- uid: MongoDB.Entities.Transaction.CommitAsync*
-  name: CommitAsync
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_CommitAsync_
-  commentId: Overload:MongoDB.Entities.Transaction.CommitAsync
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.CommitAsync
-  nameWithType: Transaction.CommitAsync
 - uid: MongoDB.Entities.Transaction.Dispose
   name: Dispose()
   href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Dispose
@@ -5111,19 +5138,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Transaction.Dispose
   nameWithType: Transaction.Dispose
-- uid: MongoDB.Entities.Transaction.Session
-  name: Session
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Session
-  commentId: P:MongoDB.Entities.Transaction.Session
-  fullName: MongoDB.Entities.Transaction.Session
-  nameWithType: Transaction.Session
-- uid: MongoDB.Entities.Transaction.Session*
-  name: Session
-  href: api/MongoDB.Entities.Transaction.html#MongoDB_Entities_Transaction_Session_
-  commentId: Overload:MongoDB.Entities.Transaction.Session
-  isSpec: "True"
-  fullName: MongoDB.Entities.Transaction.Session
-  nameWithType: Transaction.Session
 - uid: MongoDB.Entities.Update`1
   name: Update<T>
   href: api/MongoDB.Entities.Update-1.html

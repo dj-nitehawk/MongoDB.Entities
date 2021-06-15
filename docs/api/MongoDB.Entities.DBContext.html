@@ -269,19 +269,20 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
       </tr>
     </tbody>
   </table>
-  <h3 id="fields">Fields
+  <h3 id="properties">Properties
   </h3>
   
   
+  <a id="MongoDB_Entities_DBContext_ModifiedBy_" data-uid="MongoDB.Entities.DBContext.ModifiedBy*"></a>
   <h4 id="MongoDB_Entities_DBContext_ModifiedBy" data-uid="MongoDB.Entities.DBContext.ModifiedBy">ModifiedBy</h4>
   <div class="markdown level1 summary"><p>The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ModifiedBy ModifiedBy</code></pre>
+    <pre><code class="lang-csharp hljs">public ModifiedBy ModifiedBy { get; set; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -298,14 +299,16 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   </table>
   
   
-  <h4 id="MongoDB_Entities_DBContext_session" data-uid="MongoDB.Entities.DBContext.session">session</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="MongoDB_Entities_DBContext_Session_" data-uid="MongoDB.Entities.DBContext.Session*"></a>
+  <h4 id="MongoDB_Entities_DBContext_Session" data-uid="MongoDB.Entities.DBContext.Session">Session</h4>
+  <div class="markdown level1 summary"><p>Returns the session object used for transactions</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IClientSessionHandle session</code></pre>
+    <pre><code class="lang-csharp hljs">public IClientSessionHandle Session { get; protected set; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -322,6 +325,94 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   </table>
   <h3 id="methods">Methods
   </h3>
+  
+  
+  <a id="MongoDB_Entities_DBContext_AbortAsync_" data-uid="MongoDB.Entities.DBContext.AbortAsync*"></a>
+  <h4 id="MongoDB_Entities_DBContext_AbortAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)">AbortAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Aborts and rolls back a transaction</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task AbortAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DBContext_CommitAsync_" data-uid="MongoDB.Entities.DBContext.CommitAsync*"></a>
+  <h4 id="MongoDB_Entities_DBContext_CommitAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)">CommitAsync(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Commits a transaction to MongoDB</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task CommitAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="MongoDB_Entities_DBContext_CountAsync_" data-uid="MongoDB.Entities.DBContext.CountAsync*"></a>
@@ -2844,6 +2935,56 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
         <td><span class="parametername">TInterface</span></td>
         <td><p>The interface type to target. Will throw if supplied argument is not an interface type</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DBContext_Transaction_" data-uid="MongoDB.Entities.DBContext.Transaction*"></a>
+  <h4 id="MongoDB_Entities_DBContext_Transaction_System_String_MongoDB_Driver_ClientSessionOptions_" data-uid="MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)">Transaction(String, ClientSessionOptions)</h4>
+  <div class="markdown level1 summary"><p>Starts a transaction and returns a session object</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IClientSessionHandle Transaction(string database = null, ClientSessionOptions options = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">database</span></td>
+        <td><p>The name of the database to use for this transaction. default db is used if not specified</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Client session options for this transaction</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

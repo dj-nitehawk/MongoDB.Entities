@@ -6,11 +6,8 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
-  - MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  - MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Transaction.Dispose
   - MongoDB.Entities.Transaction.Dispose(System.Boolean)
-  - MongoDB.Entities.Transaction.Session
   langs:
   - csharp
   - vb
@@ -21,7 +18,7 @@ items:
   source:
     id: Transaction
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 12
+    startLine: 10
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -48,8 +45,11 @@ items:
   - MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  - MongoDB.Entities.DBContext.session
   - MongoDB.Entities.DBContext.ModifiedBy
+  - MongoDB.Entities.DBContext.Session
+  - MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  - MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.OnBeforeSave``1
   - MongoDB.Entities.DBContext.OnBeforeUpdate``1
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Boolean)
@@ -97,37 +97,6 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: MongoDB.Entities.Transaction.Session
-  commentId: P:MongoDB.Entities.Transaction.Session
-  id: Session
-  parent: MongoDB.Entities.Transaction
-  langs:
-  - csharp
-  - vb
-  name: Session
-  nameWithType: Transaction.Session
-  fullName: MongoDB.Entities.Transaction.Session
-  type: Property
-  source:
-    id: Session
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 14
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  syntax:
-    content: public IClientSessionHandle Session { get; }
-    parameters: []
-    return:
-      type: MongoDB.Driver.IClientSessionHandle
-    content.vb: Public ReadOnly Property Session As IClientSessionHandle
-  overload: MongoDB.Entities.Transaction.Session*
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
 - uid: MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
   commentId: M:MongoDB.Entities.Transaction.#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)
   id: '#ctor(System.String,MongoDB.Driver.ClientSessionOptions,MongoDB.Entities.ModifiedBy)'
@@ -142,7 +111,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 25
+    startLine: 21
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -166,74 +135,6 @@ items:
   - public
   modifiers.vb:
   - Public
-- uid: MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  id: CommitAsync(System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Transaction
-  langs:
-  - csharp
-  - vb
-  name: CommitAsync(CancellationToken)
-  nameWithType: Transaction.CommitAsync(CancellationToken)
-  fullName: MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: CommitAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 36
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nCommits a transaction to MongoDB\n"
-  example: []
-  syntax:
-    content: public Task CommitAsync(CancellationToken cancellation = default(CancellationToken))
-    parameters:
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function CommitAsync(cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Transaction.CommitAsync*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-- uid: MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  id: AbortAsync(System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Transaction
-  langs:
-  - csharp
-  - vb
-  name: AbortAsync(CancellationToken)
-  nameWithType: Transaction.AbortAsync(CancellationToken)
-  fullName: MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: AbortAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 42
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nAborts and rolls back a transaction\n"
-  example: []
-  syntax:
-    content: public Task AbortAsync(CancellationToken cancellation = default(CancellationToken))
-    parameters:
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function AbortAsync(cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Transaction.AbortAsync*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: MongoDB.Entities.Transaction.Dispose(System.Boolean)
   commentId: M:MongoDB.Entities.Transaction.Dispose(System.Boolean)
   id: Dispose(System.Boolean)
@@ -248,7 +149,7 @@ items:
   source:
     id: Dispose
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 48
+    startLine: 32
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -279,7 +180,7 @@ items:
   source:
     id: Dispose
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Transaction.cs
-    startLine: 61
+    startLine: 45
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -880,18 +781,151 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.session
-  commentId: F:MongoDB.Entities.DBContext.session
-  parent: MongoDB.Entities.DBContext
-  name: session
-  nameWithType: DBContext.session
-  fullName: MongoDB.Entities.DBContext.session
 - uid: MongoDB.Entities.DBContext.ModifiedBy
-  commentId: F:MongoDB.Entities.DBContext.ModifiedBy
+  commentId: P:MongoDB.Entities.DBContext.ModifiedBy
   parent: MongoDB.Entities.DBContext
   name: ModifiedBy
   nameWithType: DBContext.ModifiedBy
   fullName: MongoDB.Entities.DBContext.ModifiedBy
+- uid: MongoDB.Entities.DBContext.Session
+  commentId: P:MongoDB.Entities.DBContext.Session
+  parent: MongoDB.Entities.DBContext
+  name: Session
+  nameWithType: DBContext.Session
+  fullName: MongoDB.Entities.DBContext.Session
+- uid: MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  commentId: M:MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: Transaction(String, ClientSessionOptions)
+  nameWithType: DBContext.Transaction(String, ClientSessionOptions)
+  fullName: MongoDB.Entities.DBContext.Transaction(System.String, MongoDB.Driver.ClientSessionOptions)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+    name: Transaction
+    nameWithType: DBContext.Transaction
+    fullName: MongoDB.Entities.DBContext.Transaction
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.ClientSessionOptions
+    name: ClientSessionOptions
+    nameWithType: ClientSessionOptions
+    fullName: MongoDB.Driver.ClientSessionOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
+    name: Transaction
+    nameWithType: DBContext.Transaction
+    fullName: MongoDB.Entities.DBContext.Transaction
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.ClientSessionOptions
+    name: ClientSessionOptions
+    nameWithType: ClientSessionOptions
+    fullName: MongoDB.Driver.ClientSessionOptions
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: CommitAsync(CancellationToken)
+  nameWithType: DBContext.CommitAsync(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+    name: CommitAsync
+    nameWithType: DBContext.CommitAsync
+    fullName: MongoDB.Entities.DBContext.CommitAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.CommitAsync(System.Threading.CancellationToken)
+    name: CommitAsync
+    nameWithType: DBContext.CommitAsync
+    fullName: MongoDB.Entities.DBContext.CommitAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: AbortAsync(CancellationToken)
+  nameWithType: DBContext.AbortAsync(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+    name: AbortAsync
+    nameWithType: DBContext.AbortAsync
+    fullName: MongoDB.Entities.DBContext.AbortAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.AbortAsync(System.Threading.CancellationToken)
+    name: AbortAsync
+    nameWithType: DBContext.AbortAsync
+    fullName: MongoDB.Entities.DBContext.AbortAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.OnBeforeSave``1
   commentId: M:MongoDB.Entities.DBContext.OnBeforeSave``1
   parent: MongoDB.Entities.DBContext
@@ -6815,24 +6849,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Transaction.Session*
-  commentId: Overload:MongoDB.Entities.Transaction.Session
-  name: Session
-  nameWithType: Transaction.Session
-  fullName: MongoDB.Entities.Transaction.Session
-- uid: MongoDB.Driver.IClientSessionHandle
-  commentId: T:MongoDB.Driver.IClientSessionHandle
-  parent: MongoDB.Driver
-  isExternal: true
-  name: IClientSessionHandle
-  nameWithType: IClientSessionHandle
-  fullName: MongoDB.Driver.IClientSessionHandle
-- uid: MongoDB.Driver
-  commentId: N:MongoDB.Driver
-  isExternal: true
-  name: MongoDB.Driver
-  nameWithType: MongoDB.Driver
-  fullName: MongoDB.Driver
 - uid: MongoDB.Entities.Transaction.#ctor*
   commentId: Overload:MongoDB.Entities.Transaction.#ctor
   name: Transaction
@@ -6858,42 +6874,12 @@ references:
   name: ModifiedBy
   nameWithType: ModifiedBy
   fullName: MongoDB.Entities.ModifiedBy
-- uid: MongoDB.Entities.Transaction.CommitAsync*
-  commentId: Overload:MongoDB.Entities.Transaction.CommitAsync
-  name: CommitAsync
-  nameWithType: Transaction.CommitAsync
-  fullName: MongoDB.Entities.Transaction.CommitAsync
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
   isExternal: true
-  name: CancellationToken
-  nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
-  isExternal: true
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
-- uid: MongoDB.Entities.Transaction.AbortAsync*
-  commentId: Overload:MongoDB.Entities.Transaction.AbortAsync
-  name: AbortAsync
-  nameWithType: Transaction.AbortAsync
-  fullName: MongoDB.Entities.Transaction.AbortAsync
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
 - uid: MongoDB.Entities.Transaction.Dispose*
   commentId: Overload:MongoDB.Entities.Transaction.Dispose
   name: Dispose

@@ -137,10 +137,19 @@
       <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_">DBContext.CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken, CountOptions)</a>
     </div>
     <div>
-      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_session">DBContext.session</a>
+      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_ModifiedBy">DBContext.ModifiedBy</a>
     </div>
     <div>
-      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_ModifiedBy">DBContext.ModifiedBy</a>
+      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Session">DBContext.Session</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_Transaction_System_String_MongoDB_Driver_ClientSessionOptions_">DBContext.Transaction(String, ClientSessionOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CommitAsync_System_Threading_CancellationToken_">DBContext.CommitAsync(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_AbortAsync_System_Threading_CancellationToken_">DBContext.AbortAsync(CancellationToken)</a>
     </div>
     <div>
       <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_OnBeforeSave__1">DBContext.OnBeforeSave&lt;T&gt;()</a>
@@ -318,123 +327,8 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="MongoDB_Entities_Transaction_Session_" data-uid="MongoDB.Entities.Transaction.Session*"></a>
-  <h4 id="MongoDB_Entities_Transaction_Session" data-uid="MongoDB.Entities.Transaction.Session">Session</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IClientSessionHandle Session { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
-  
-  
-  <a id="MongoDB_Entities_Transaction_AbortAsync_" data-uid="MongoDB.Entities.Transaction.AbortAsync*"></a>
-  <h4 id="MongoDB_Entities_Transaction_AbortAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.AbortAsync(System.Threading.CancellationToken)">AbortAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Aborts and rolls back a transaction</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task AbortAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_Transaction_CommitAsync_" data-uid="MongoDB.Entities.Transaction.CommitAsync*"></a>
-  <h4 id="MongoDB_Entities_Transaction_CommitAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Transaction.CommitAsync(System.Threading.CancellationToken)">CommitAsync(CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Commits a transaction to MongoDB</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task CommitAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
-        <td><span class="parametername">cancellation</span></td>
-        <td><p>An optional cancellation token</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   
   
   <a id="MongoDB_Entities_Transaction_Dispose_" data-uid="MongoDB.Entities.Transaction.Dispose*"></a>

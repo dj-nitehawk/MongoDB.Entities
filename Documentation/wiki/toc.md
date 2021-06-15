@@ -26,8 +26,8 @@
 
 # [DB Instances](DB-Instances.md)
 ## [Audit Fields](DB-Instances-Audit-Fields.md)
-## [Global Filters](DB-Instances-Global-Filters.md)
 ## [Event Hooks](DB-Instances-Event-Hooks.md)
+## [Global Filters](DB-Instances-Global-Filters.md)
 
 # [Multiple Databases](Multiple-Databases.md)
 
