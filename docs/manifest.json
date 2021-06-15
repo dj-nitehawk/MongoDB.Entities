@@ -65,7 +65,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DB.html",
-          "hash": "HK6L11W/DhnvzwXKzxmtT3h5eSdX65dnvC0GQmd3hU4="
+          "hash": "DqKF5JHO19Paq2g0uVV+9dyPicy9KPHXlVMI0nSOd7U="
         }
       },
       "is_incremental": false,
@@ -77,7 +77,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.DBContext.html",
-          "hash": "p9XQtcZfqnKbsQ+XRhzMEur08FGs3ueCIOwBiFbOYA4="
+          "hash": "c4j9WlWG0ZkJ94GFm2NwYmKVwUEql2mC2qEcQaL440g="
         }
       },
       "is_incremental": false,
@@ -557,7 +557,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Transaction.html",
-          "hash": "5Wm+gjUqefaIbNHh35uWQ9viccPB/VHiIFuJGvxgJ9Y="
+          "hash": "ws68nBokDE8O+IlcgTohbgsGS+3swq+KNWK1kUmj8Kk="
         }
       },
       "is_incremental": false,
@@ -569,7 +569,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Update-1.html",
-          "hash": "8wn1DAwdE6EvljsseEdz3+WDSWBwu97ajzpbat0OTTk="
+          "hash": "M6Qe9QII6TqUPQhqAbFYyvopjPuQQHGwxF3q7VGBvsQ="
         }
       },
       "is_incremental": false,
@@ -581,7 +581,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-1.html",
-          "hash": "kCsp6sx45U9pR9RieBmCVliZV8DNXJp2z/lj/uDougU="
+          "hash": "gZeLrEDUE9a52vTzvh3b7bS8baCzoCDd3QLWrdpi64M="
         }
       },
       "is_incremental": false,
@@ -593,7 +593,19 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.UpdateAndGet-2.html",
-          "hash": "LaVjkftAXFMsvASFgnhs7m0zPJ4tztYFrrZwPsDCrr0="
+          "hash": "DZGjpTTG1SFON6vKNDiILgsrvQbvxazn8Fe7PQd8xek="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.UpdateBase-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.UpdateBase-1.html",
+          "hash": "uf2X7mC2MUJAhQGcsiOW7xj5iLyKpbALLCM5zQQLnHU="
         }
       },
       "is_incremental": false,
@@ -617,7 +629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "NTHb0CCOTJzkNxfLWY073jvhgR4ny6TJwe6K+0SU3h8="
+          "hash": "ql8+xtvcoCjZjQoAWuuxUFzFG7skF1wpJt/xXl07JZY="
         }
       },
       "is_incremental": false,
@@ -629,7 +641,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "9rcUAPfny8YaHx8LH5gMIGksoldWeYpCQg0qVuSwP48="
+          "hash": "5s7tgs7qdCl6+tZj04ztsVhiNmzGh0jY8WUTUiOTGTo="
         }
       },
       "is_incremental": false,
@@ -900,7 +912,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "fn5q+61T9S0vT0H9jG0VErAyTRQ/C69x5FVboqOLS4Y="
+          "hash": "iFhznk+Oosbinrc7Hq9DzZYMX81GcIJKPV6LH+X4+2E="
         }
       },
       "is_incremental": false,
@@ -1268,13 +1280,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 44,
-          "skipped_file_count": 44
+          "skipped_file_count": 43
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 50,
-          "skipped_file_count": 15
+          "total_file_count": 51,
+          "skipped_file_count": 51
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

@@ -17,7 +17,7 @@ items:
   source:
     id: Search
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 396
+    startLine: 406
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -44,7 +44,7 @@ items:
   source:
     id: Fuzzy
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 398
+    startLine: 408
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -72,7 +72,7 @@ items:
   source:
     id: Full
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 399
+    startLine: 409
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

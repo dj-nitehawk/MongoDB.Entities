@@ -981,6 +981,88 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   
   <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_MongoDB_Driver_FilterDefinition___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, IClientSessionHandle, CancellationToken, Collation)</h4>
+  <div class="markdown level1 summary"><p>Deletes matching entities with a filter definition</p>
+<p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
+<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>A filter definition for matching entities to delete.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
+        <td><span class="parametername">collation</span></td>
+        <td><p>An optional collation object</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
   <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, IClientSessionHandle, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Deletes entities using a collection of IDs</p>
 <p>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</p>
@@ -1019,6 +1101,88 @@ Only needed for entity types you want stored in a db other than the default db.<
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DB_DeleteAsync_" data-uid="MongoDB.Entities.DB.DeleteAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_DeleteAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DB.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, IClientSessionHandle, CancellationToken, Collation)</h4>
+  <div class="markdown level1 summary"><p>Deletes matching entities with a filter expression</p>
+<p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
+<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="parametername">session</span></td>
+        <td><p>An optional session if using within a transaction</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
+        <td><span class="parametername">collation</span></td>
+        <td><p>An optional collation object</p>
 </td>
       </tr>
     </tbody>
@@ -2025,8 +2189,9 @@ Only needed for entity types you want stored in a db other than the default db.<
   
   <a id="MongoDB_Entities_DB_InitAsync_" data-uid="MongoDB.Entities.DB.InitAsync*"></a>
   <h4 id="MongoDB_Entities_DB_InitAsync_System_String_MongoDB_Driver_MongoClientSettings_" data-uid="MongoDB.Entities.DB.InitAsync(System.String,MongoDB.Driver.MongoClientSettings)">InitAsync(String, MongoClientSettings)</h4>
-  <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.
-You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.</p>
+  <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.</p>
+<p>WARNING: will throw an error if server is not reachable!</p>
+You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -2076,8 +2241,9 @@ You can call this method as many times as you want (such as in serverless functi
   
   <a id="MongoDB_Entities_DB_InitAsync_" data-uid="MongoDB.Entities.DB.InitAsync*"></a>
   <h4 id="MongoDB_Entities_DB_InitAsync_System_String_System_String_System_Int32_" data-uid="MongoDB.Entities.DB.InitAsync(System.String,System.String,System.Int32)">InitAsync(String, String, Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.
-You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.</p>
+  <div class="markdown level1 summary"><p>Initializes a MongoDB connection with the given connection parameters.</p>
+<p>WARNING: will throw an error if server is not reachable!</p>
+You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

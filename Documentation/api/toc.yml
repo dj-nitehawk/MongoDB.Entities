@@ -112,6 +112,9 @@
   - uid: MongoDB.Entities.UpdateAndGet`1
     name: UpdateAndGet<T>
     name.vb: UpdateAndGet(Of T)
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase<T>
+    name.vb: UpdateBase(Of T)
   - uid: MongoDB.Entities.Watcher`1
     name: Watcher<T>
     name.vb: Watcher(Of T)

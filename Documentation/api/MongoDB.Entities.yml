@@ -52,6 +52,7 @@ items:
   - MongoDB.Entities.Update`1
   - MongoDB.Entities.UpdateAndGet`1
   - MongoDB.Entities.UpdateAndGet`2
+  - MongoDB.Entities.UpdateBase`1
   - MongoDB.Entities.Watcher`1
   langs:
   - csharp
@@ -280,6 +281,42 @@ references:
     name: Replace
     nameWithType: Replace
     fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase`1
+  commentId: T:MongoDB.Entities.UpdateBase`1
+  name: UpdateBase<T>
+  nameWithType: UpdateBase<T>
+  fullName: MongoDB.Entities.UpdateBase<T>
+  nameWithType.vb: UpdateBase(Of T)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T)
+  name.vb: UpdateBase(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '

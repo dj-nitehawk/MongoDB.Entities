@@ -42,28 +42,34 @@ items:
   source:
     id: UpdateAndGet
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 28
+    startLine: 32
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nUpdate and retrieve the first document that was updated.\n<p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>\n"
   example: []
   syntax:
-    content: >-
-      public class UpdateAndGet<T, TProjection>
-
-          where T : IEntity
+    content: 'public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity'
     typeParameters:
     - id: T
       description: Any class that implements IEntity
     - id: TProjection
       description: The type to project to
-    content.vb: Public Class UpdateAndGet(Of T As IEntity, TProjection)
+    content.vb: >-
+      Public Class UpdateAndGet(Of T As IEntity, TProjection)
+
+          Inherits UpdateBase(Of T)
   inheritance:
   - System.Object
+  - MongoDB.Entities.UpdateBase{{T}}
   derivedClasses:
   - MongoDB.Entities.UpdateAndGet`1
   inheritedMembers:
+  - MongoDB.Entities.UpdateBase{{T}}.defs
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification(System.String)
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification(MongoDB.Entities.Template)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
@@ -94,7 +100,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 45
+    startLine: 55
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -130,7 +136,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 54
+    startLine: 64
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -167,7 +173,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 63
+    startLine: 73
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -204,7 +210,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 73
+    startLine: 83
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -240,7 +246,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 88
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -288,7 +294,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 118
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -334,7 +340,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 127
+    startLine: 137
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -370,7 +376,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 137
+    startLine: 147
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -406,7 +412,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 147
+    startLine: 157
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -442,7 +448,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 158
+    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -484,7 +490,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 168
+    startLine: 178
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -521,7 +527,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 178
+    startLine: 188
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -557,7 +563,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 188
+    startLine: 198
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -593,7 +599,7 @@ items:
   source:
     id: ModifyWith
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 198
+    startLine: 208
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -629,7 +635,7 @@ items:
   source:
     id: ModifyOnly
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 210
+    startLine: 220
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -669,7 +675,7 @@ items:
   source:
     id: ModifyExcept
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 222
+    startLine: 232
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -709,7 +715,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 234
+    startLine: 244
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -745,7 +751,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 249
+    startLine: 259
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -781,7 +787,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 260
+    startLine: 270
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -817,7 +823,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 269
+    startLine: 279
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -853,7 +859,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 285
+    startLine: 295
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -889,7 +895,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 295
+    startLine: 305
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -925,7 +931,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 312
+    startLine: 322
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -962,7 +968,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 322
+    startLine: 332
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -999,7 +1005,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 331
+    startLine: 341
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1036,7 +1042,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 341
+    startLine: 351
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1072,7 +1078,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 355
+    startLine: 366
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1107,6 +1113,355 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
+- uid: MongoDB.Entities.UpdateBase{{T}}
+  commentId: T:MongoDB.Entities.UpdateBase{`0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.UpdateBase`1
+  name: UpdateBase<T>
+  nameWithType: UpdateBase<T>
+  fullName: MongoDB.Entities.UpdateBase<T>
+  nameWithType.vb: UpdateBase(Of T)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T)
+  name.vb: UpdateBase(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase{{T}}.defs
+  commentId: F:MongoDB.Entities.UpdateBase{`0}.defs
+  parent: MongoDB.Entities.UpdateBase{{T}}
+  definition: MongoDB.Entities.UpdateBase`1.defs
+  name: defs
+  nameWithType: UpdateBase<T>.defs
+  fullName: MongoDB.Entities.UpdateBase<T>.defs
+  nameWithType.vb: UpdateBase(Of T).defs
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).defs
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  parent: MongoDB.Entities.UpdateBase{{T}}
+  definition: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  name: AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
+  nameWithType: UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  name.vb: AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+    name: AddModification<TProp>
+    nameWithType: UpdateBase<T>.AddModification<TProp>
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+    name: AddModification(Of TProp)
+    nameWithType: UpdateBase(Of T).AddModification(Of TProp)
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  parent: MongoDB.Entities.UpdateBase{{T}}
+  definition: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  name: AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  nameWithType: UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  name.vb: AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification(System.String)
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification(System.String)
+  parent: MongoDB.Entities.UpdateBase{{T}}
+  definition: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+  name: AddModification(String)
+  nameWithType: UpdateBase<T>.AddModification(String)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.String)
+  nameWithType.vb: UpdateBase(Of T).AddModification(String)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification(MongoDB.Entities.Template)
+  parent: MongoDB.Entities.UpdateBase{{T}}
+  definition: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+  name: AddModification(Template)
+  nameWithType: UpdateBase<T>.AddModification(Template)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(MongoDB.Entities.Template)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Template)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(MongoDB.Entities.Template)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1392,6 +1747,346 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: MongoDB.Entities.UpdateBase`1
+  commentId: T:MongoDB.Entities.UpdateBase`1
+  name: UpdateBase<T>
+  nameWithType: UpdateBase<T>
+  fullName: MongoDB.Entities.UpdateBase<T>
+  nameWithType.vb: UpdateBase(Of T)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T)
+  name.vb: UpdateBase(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1
+    name: UpdateBase
+    nameWithType: UpdateBase
+    fullName: MongoDB.Entities.UpdateBase
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase`1.defs
+  commentId: F:MongoDB.Entities.UpdateBase`1.defs
+  name: defs
+  nameWithType: UpdateBase<T>.defs
+  fullName: MongoDB.Entities.UpdateBase<T>.defs
+  nameWithType.vb: UpdateBase(Of T).defs
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).defs
+- uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  isExternal: true
+  name: AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
+  nameWithType: UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  name.vb: AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+    name: AddModification<TProp>
+    nameWithType: UpdateBase<T>.AddModification<TProp>
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+    name: AddModification(Of TProp)
+    nameWithType: UpdateBase(Of T).AddModification(Of TProp)
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProp
+    nameWithType: TProp
+    fullName: TProp
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  isExternal: true
+  name: AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  nameWithType: UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  name.vb: AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+    name: UpdateDefinitionBuilder
+    nameWithType: UpdateDefinitionBuilder
+    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.UpdateDefinition`1
+    name: UpdateDefinition
+    nameWithType: UpdateDefinition
+    fullName: MongoDB.Driver.UpdateDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+  isExternal: true
+  name: AddModification(String)
+  nameWithType: UpdateBase<T>.AddModification(String)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.String)
+  nameWithType.vb: UpdateBase(Of T).AddModification(String)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.String)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.String)
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+  name: AddModification(Template)
+  nameWithType: UpdateBase<T>.AddModification(Template)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(MongoDB.Entities.Template)
+  nameWithType.vb: UpdateBase(Of T).AddModification(Template)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(MongoDB.Entities.Template)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+    name: AddModification
+    nameWithType: UpdateBase<T>.AddModification
+    fullName: MongoDB.Entities.UpdateBase<T>.AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(MongoDB.Entities.Template)
+    name: AddModification
+    nameWithType: UpdateBase(Of T).AddModification
+    fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Entities.Template
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2.MatchID*
   commentId: Overload:MongoDB.Entities.UpdateAndGet`2.MatchID
   name: MatchID

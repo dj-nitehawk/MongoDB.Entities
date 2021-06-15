@@ -20,7 +20,9 @@ items:
   - MongoDB.Entities.DB.Database``1
   - MongoDB.Entities.DB.DatabaseFor``1(System.String)
   - MongoDB.Entities.DB.DatabaseName``1
+  - MongoDB.Entities.DB.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DB.DeleteAsync``1(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
@@ -546,11 +548,11 @@ items:
   source:
     id: InitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 49
+    startLine: 50
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nInitializes a MongoDB connection with the given connection parameters.\nYou can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.\n"
+  summary: "\nInitializes a MongoDB connection with the given connection parameters.\n<p>WARNING: will throw an error if server is not reachable!</p>\nYou can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.\n"
   example: []
   syntax:
     content: public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
@@ -588,11 +590,11 @@ items:
   source:
     id: InitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 61
+    startLine: 63
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nInitializes a MongoDB connection with the given connection parameters.\nYou can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.\n"
+  summary: "\nInitializes a MongoDB connection with the given connection parameters.\n<p>WARNING: will throw an error if server is not reachable!</p>\nYou can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won&apos;t get duplicated.\n"
   example: []
   syntax:
     content: public static Task InitAsync(string database, MongoClientSettings settings)
@@ -627,7 +629,7 @@ items:
   source:
     id: AllDatabaseNamesAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 96
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -666,7 +668,7 @@ items:
   source:
     id: AllDatabaseNamesAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 105
+    startLine: 107
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -702,7 +704,7 @@ items:
   source:
     id: DatabaseFor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 119
+    startLine: 121
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -745,7 +747,7 @@ items:
   source:
     id: Database
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 126
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -786,7 +788,7 @@ items:
   source:
     id: Database
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 136
+    startLine: 138
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -822,7 +824,7 @@ items:
   source:
     id: DatabaseName
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 158
+    startLine: 160
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -863,7 +865,7 @@ items:
   source:
     id: ChangeDefaultDatabase
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 169
+    startLine: 171
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -897,7 +899,7 @@ items:
   source:
     id: Filter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 185
+    startLine: 187
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -938,7 +940,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 194
+    startLine: 196
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -979,7 +981,7 @@ items:
   source:
     id: Projection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 203
+    startLine: 205
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1020,7 +1022,7 @@ items:
   source:
     id: Entity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 212
+    startLine: 214
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1061,7 +1063,7 @@ items:
   source:
     id: Entity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 222
+    startLine: 224
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1106,7 +1108,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 69
+    startLine: 72
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1143,6 +1145,57 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: DeleteAsync(Of T)(String, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: DeleteAsync<T>(IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: DB.DeleteAsync<T>(IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: DeleteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
+    startLine: 87
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDeletes entities using a collection of IDs\n<p>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</p>\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: IDs
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: An IEnumerable of entity IDs
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(IDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
+  overload: MongoDB.Entities.DB.DeleteAsync*
+  nameWithType.vb: DB.DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   id: DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
@@ -1157,7 +1210,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 85
+    startLine: 119
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1197,57 +1250,114 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
   name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), IClientSessionHandle, CancellationToken, Collation)
-- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DB.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  id: DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
   parent: MongoDB.Entities.DB
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(IEnumerable<String>, IClientSessionHandle, CancellationToken)
-  nameWithType: DB.DeleteAsync<T>(IEnumerable<String>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, Collation)
+  nameWithType: DB.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, IClientSessionHandle, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DB.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
   type: Method
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 127
+    startLine: 134
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nDeletes entities using a collection of IDs\n<p>HINT: If more than 100,000 IDs are passed in, they will be processed in batches of 100k.</p>\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
+  summary: "\nDeletes matching entities with a filter expression\n<p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
   example: []
   syntax:
     content: >-
-      public static Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+      public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
 
           where T : IEntity
     parameters:
-    - id: IDs
-      type: System.Collections.Generic.IEnumerable{System.String}
-      description: An IEnumerable of entity IDs
+    - id: filter
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+      description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
+    - id: collation
+      type: MongoDB.Driver.Collation
+      description: An optional collation object
     typeParameters:
     - id: T
       description: Any class that implements IEntity
     return:
       type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
-    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(IDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
+    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, collation As Collation = Nothing) As Task(Of DeleteResult)
   overload: MongoDB.Entities.DB.DeleteAsync*
-  nameWithType.vb: DB.DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  nameWithType.vb: DB.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, Collation)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), IClientSessionHandle, CancellationToken, Collation)
+- uid: MongoDB.Entities.DB.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DB.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  id: DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: DeleteAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, Collation)
+  nameWithType: DB.DeleteAsync<T>(FilterDefinition<T>, IClientSessionHandle, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DB.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  type: Method
+  source:
+    id: DeleteAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
+    startLine: 149
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDeletes matching entities with a filter definition\n<p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>\n<p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
+          where T : IEntity
+    parameters:
+    - id: filter
+      type: MongoDB.Driver.FilterDefinition{{T}}
+      description: A filter definition for matching entities to delete.
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    - id: collation
+      type: MongoDB.Driver.Collation
+      description: An optional collation object
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.DeleteResult}
+    content.vb: Public Shared Function DeleteAsync(Of T As IEntity)(filter As FilterDefinition(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing, collation As Collation = Nothing) As Task(Of DeleteResult)
+  overload: MongoDB.Entities.DB.DeleteAsync*
+  nameWithType.vb: DB.DeleteAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, Collation)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), IClientSessionHandle, CancellationToken, Collation)
 - uid: MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
   commentId: M:MongoDB.Entities.DB.Distinct``2(MongoDB.Driver.IClientSessionHandle)
   id: Distinct``2(MongoDB.Driver.IClientSessionHandle)
@@ -4218,13 +4328,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver.Collation
-  commentId: T:MongoDB.Driver.Collation
-  parent: MongoDB.Driver
-  isExternal: true
-  name: Collation
-  nameWithType: Collation
-  fullName: MongoDB.Driver.Collation
 - uid: System.Collections.Generic.IEnumerable{System.String}
   commentId: T:System.Collections.Generic.IEnumerable{System.String}
   parent: System.Collections.Generic
@@ -4314,6 +4417,13 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
+- uid: MongoDB.Driver.Collation
+  commentId: T:MongoDB.Driver.Collation
+  parent: MongoDB.Driver
+  isExternal: true
+  name: Collation
+  nameWithType: Collation
+  fullName: MongoDB.Driver.Collation
 - uid: MongoDB.Entities.DB.Distinct*
   commentId: Overload:MongoDB.Entities.DB.Distinct
   name: Distinct

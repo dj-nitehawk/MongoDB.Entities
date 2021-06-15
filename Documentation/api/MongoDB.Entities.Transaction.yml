@@ -43,15 +43,25 @@ items:
   inheritedMembers:
   - MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{{T}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.DropCollectionAsync``1
+  - MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
   - MongoDB.Entities.DBContext.session
   - MongoDB.Entities.DBContext.ModifiedBy
+  - MongoDB.Entities.DBContext.OnBeforeSave``1
+  - MongoDB.Entities.DBContext.OnBeforeUpdate``1
+  - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{{T}},System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   - MongoDB.Entities.DBContext.Distinct``2
   - MongoDB.Entities.DBContext.Find``1
   - MongoDB.Entities.DBContext.Find``2
@@ -413,6 +423,48 @@ references:
   - name: (
     nameWithType: (
     fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: CountEstimatedAsync<T>(CancellationToken)
+  nameWithType: DBContext.CountEstimatedAsync<T>(CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CountEstimatedAsync<T>(System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.CountEstimatedAsync(Of T)(CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CountEstimatedAsync(Of T)(System.Threading.CancellationToken)
+  name.vb: CountEstimatedAsync(Of T)(CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
+    name: CountEstimatedAsync<T>
+    nameWithType: DBContext.CountEstimatedAsync<T>
+    fullName: MongoDB.Entities.DBContext.CountEstimatedAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
+    name: CountEstimatedAsync(Of T)
+    nameWithType: DBContext.CountEstimatedAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.CountEstimatedAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -840,6 +892,519 @@ references:
   name: ModifiedBy
   nameWithType: DBContext.ModifiedBy
   fullName: MongoDB.Entities.DBContext.ModifiedBy
+- uid: MongoDB.Entities.DBContext.OnBeforeSave``1
+  commentId: M:MongoDB.Entities.DBContext.OnBeforeSave``1
+  parent: MongoDB.Entities.DBContext
+  name: OnBeforeSave<T>()
+  nameWithType: DBContext.OnBeforeSave<T>()
+  fullName: MongoDB.Entities.DBContext.OnBeforeSave<T>()
+  nameWithType.vb: DBContext.OnBeforeSave(Of T)()
+  fullName.vb: MongoDB.Entities.DBContext.OnBeforeSave(Of T)()
+  name.vb: OnBeforeSave(Of T)()
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.OnBeforeSave``1
+    name: OnBeforeSave<T>
+    nameWithType: DBContext.OnBeforeSave<T>
+    fullName: MongoDB.Entities.DBContext.OnBeforeSave<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.OnBeforeSave``1
+    name: OnBeforeSave(Of T)
+    nameWithType: DBContext.OnBeforeSave(Of T)
+    fullName: MongoDB.Entities.DBContext.OnBeforeSave(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.OnBeforeUpdate``1
+  commentId: M:MongoDB.Entities.DBContext.OnBeforeUpdate``1
+  parent: MongoDB.Entities.DBContext
+  name: OnBeforeUpdate<T>()
+  nameWithType: DBContext.OnBeforeUpdate<T>()
+  fullName: MongoDB.Entities.DBContext.OnBeforeUpdate<T>()
+  nameWithType.vb: DBContext.OnBeforeUpdate(Of T)()
+  fullName.vb: MongoDB.Entities.DBContext.OnBeforeUpdate(Of T)()
+  name.vb: OnBeforeUpdate(Of T)()
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.OnBeforeUpdate``1
+    name: OnBeforeUpdate<T>
+    nameWithType: DBContext.OnBeforeUpdate<T>
+    fullName: MongoDB.Entities.DBContext.OnBeforeUpdate<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.OnBeforeUpdate``1
+    name: OnBeforeUpdate(Of T)
+    nameWithType: DBContext.OnBeforeUpdate(Of T)
+    fullName: MongoDB.Entities.DBContext.OnBeforeUpdate(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  name: SetGlobalFilter<T>(Expression<Func<T, Boolean>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(Expression<Func<T, Boolean>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(Expression(Of Func(Of T, Boolean)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(Expression(Of Func(Of T, Boolean)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  name: SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{{T}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  name: SetGlobalFilter<T>(FilterDefinition<T>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(FilterDefinition<T>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(MongoDB.Driver.FilterDefinition<T>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(FilterDefinition(Of T), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(FilterDefinition(Of T), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: SetGlobalFilter(Type, String, Boolean)
+  nameWithType: DBContext.SetGlobalFilter(Type, String, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter(System.Type, System.String, System.Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+    name: SetGlobalFilter
+    nameWithType: DBContext.SetGlobalFilter
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Type
+    name: Type
+    nameWithType: Type
+    fullName: System.Type
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+    name: SetGlobalFilter
+    nameWithType: DBContext.SetGlobalFilter
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Type
+    name: Type
+    nameWithType: Type
+    fullName: System.Type
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: SetGlobalFilterForInterface<TInterface>(String, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForInterface<TInterface>(String, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForInterface<TInterface>(System.String, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForInterface(Of TInterface)(String, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForInterface(Of TInterface)(System.String, System.Boolean)
+  name.vb: SetGlobalFilterForInterface(Of TInterface)(String, Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
+    name: SetGlobalFilterForInterface<TInterface>
+    nameWithType: DBContext.SetGlobalFilterForInterface<TInterface>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForInterface<TInterface>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
+    name: SetGlobalFilterForInterface(Of TInterface)
+    nameWithType: DBContext.SetGlobalFilterForInterface(Of TInterface)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForInterface(Of TInterface)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
@@ -887,6 +1452,86 @@ references:
     nameWithType: String
     fullName: System.String
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  isExternal: true
+  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: DeleteAsync<T>
+    nameWithType: DBContext.DeleteAsync<T>
+    fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: DeleteAsync(Of T)
+    nameWithType: DBContext.DeleteAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: ', '
     nameWithType: ', '
     fullName: ', '
@@ -1028,37 +1673,63 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   parent: MongoDB.Entities.DBContext
-  isExternal: true
-  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+  definition: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
+  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -1070,30 +1741,64 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -1104,6 +1809,106 @@ references:
     name: CancellationToken
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
+  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync<T>
+    nameWithType: DBContext.DeleteAsync<T>
+    fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync(Of T)
+    nameWithType: DBContext.DeleteAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
     isExternal: true
   - name: )
     nameWithType: )
@@ -3796,6 +4601,325 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilter<T>(Expression<Func<T, Boolean>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(Expression<Func<T, Boolean>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(Expression(Of Func(Of T, Boolean)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(Expression(Of Func(Of T, Boolean)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilter<T>(FilterDefinition<T>, Boolean)
+  nameWithType: DBContext.SetGlobalFilter<T>(FilterDefinition<T>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>(MongoDB.Driver.FilterDefinition<T>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilter(Of T)(FilterDefinition(Of T), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Boolean)
+  name.vb: SetGlobalFilter(Of T)(FilterDefinition(Of T), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilter<T>
+    nameWithType: DBContext.SetGlobalFilter<T>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilter(Of T)
+    nameWithType: DBContext.SetGlobalFilter(Of T)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
   isExternal: true
@@ -3903,6 +5027,244 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  isExternal: true
+  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
+  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync<T>
+    nameWithType: DBContext.DeleteAsync<T>
+    fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync(Of T)
+    nameWithType: DBContext.DeleteAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  isExternal: true
+  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
+  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation)
+  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync<T>
+    nameWithType: DBContext.DeleteAsync<T>
+    fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.Collation
+    name: Collation
+    nameWithType: Collation
+    fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+    name: DeleteAsync(Of T)
+    nameWithType: DBContext.DeleteAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )

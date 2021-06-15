@@ -42,7 +42,7 @@ items:
   source:
     id: Find
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 30
+    startLine: 34
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -94,7 +94,7 @@ items:
   source:
     id: OneAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 48
+    startLine: 56
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -134,7 +134,7 @@ items:
   source:
     id: ManyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 60
+    startLine: 68
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -175,7 +175,7 @@ items:
   source:
     id: ManyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 72
+    startLine: 80
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -216,7 +216,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 82
+    startLine: 90
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -252,7 +252,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 91
+    startLine: 99
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -288,7 +288,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 100
+    startLine: 108
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -325,7 +325,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 109
+    startLine: 117
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -362,7 +362,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 119
+    startLine: 127
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -398,7 +398,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 134
+    startLine: 142
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -446,7 +446,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 164
+    startLine: 172
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -492,7 +492,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 173
+    startLine: 181
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -528,7 +528,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 183
+    startLine: 191
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -564,7 +564,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 193
+    startLine: 201
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -600,7 +600,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 204
+    startLine: 212
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -640,7 +640,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 223
+    startLine: 231
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -672,7 +672,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 233
+    startLine: 241
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -709,7 +709,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 252
+    startLine: 260
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -747,7 +747,7 @@ items:
   source:
     id: Skip
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 262
+    startLine: 270
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -783,7 +783,7 @@ items:
   source:
     id: Limit
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 272
+    startLine: 280
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -819,7 +819,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 282
+    startLine: 290
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -856,7 +856,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 291
+    startLine: 299
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -893,7 +893,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 301
+    startLine: 309
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -930,7 +930,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 325
+    startLine: 333
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -967,7 +967,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 335
+    startLine: 343
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1003,7 +1003,7 @@ items:
   source:
     id: ExecuteSingleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 347
+    startLine: 355
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1039,7 +1039,7 @@ items:
   source:
     id: ExecuteFirstAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 358
+    startLine: 366
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1075,7 +1075,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 369
+    startLine: 377
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

@@ -28,7 +28,7 @@ items:
   source:
     id: Replace
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 16
+    startLine: 17
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -76,7 +76,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 35
+    startLine: 44
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -112,7 +112,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 44
+    startLine: 53
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -149,7 +149,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 53
+    startLine: 62
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -186,7 +186,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 63
+    startLine: 72
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -222,7 +222,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 78
+    startLine: 87
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -270,7 +270,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 108
+    startLine: 117
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -316,7 +316,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 117
+    startLine: 126
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -352,7 +352,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 127
+    startLine: 136
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -388,7 +388,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 137
+    startLine: 146
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -424,7 +424,7 @@ items:
   source:
     id: WithEntity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 148
+    startLine: 157
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -460,7 +460,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 163
+    startLine: 174
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -497,7 +497,7 @@ items:
   source:
     id: AddToQueue
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 172
+    startLine: 183
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -529,7 +529,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Replace.cs
-    startLine: 194
+    startLine: 206
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
