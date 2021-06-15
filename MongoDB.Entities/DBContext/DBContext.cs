@@ -3,6 +3,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -12,17 +14,19 @@ namespace MongoDB.Entities
     /// </summary>
     public partial class DBContext
     {
-        protected internal IClientSessionHandle session; //this will be set by Transaction class when inherited. otherwise null.
+        /// <summary>
+        /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
+        /// </summary>
+        public ModifiedBy ModifiedBy { get; set; }
+
+
 
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
             = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
 
         private static Type[] allEntitiyTypes;
 
-        /// <summary>
-        /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
-        /// </summary>
-        public ModifiedBy ModifiedBy;
+
 
         /// <summary>
         /// Initializes a DBContext instance with the given connection parameters.
@@ -77,6 +81,39 @@ namespace MongoDB.Entities
         public DBContext(ModifiedBy modifiedBy = null)
             => ModifiedBy = modifiedBy;
 
+
+
+        /// <summary>
+        /// Returns the session object used for transactions
+        /// </summary>
+        public IClientSessionHandle Session { get; protected set; }
+
+        /// <summary>
+        /// Starts a transaction and returns a session object
+        /// </summary>
+        /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
+        /// <param name="options">Client session options for this transaction</param>
+        public IClientSessionHandle Transaction(string database = default, ClientSessionOptions options = null)
+        {
+            Session = DB.Database(database).Client.StartSession(options);
+            Session.StartTransaction();
+            return Session;
+        }
+
+        /// <summary>
+        /// Commits a transaction to MongoDB
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task CommitAsync(CancellationToken cancellation = default) => Session.CommitTransactionAsync(cancellation);
+
+        /// <summary>
+        /// Aborts and rolls back a transaction
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
+        public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
+
+
+
         /// <summary>
         /// This event hook will be trigged right before an entity is persisted
         /// </summary>
@@ -94,6 +131,8 @@ namespace MongoDB.Entities
         {
             return null;
         }
+
+
 
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
@@ -158,6 +197,8 @@ namespace MongoDB.Entities
                 globalFilters[entType] = (jsonString, prepend);
             }
         }
+
+
 
         private static Type[] GetAllEntityTypes()
         {
