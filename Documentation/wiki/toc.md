@@ -24,9 +24,14 @@
 # [Indexes](Indexes.md)
 ## [Fuzzy Text](Indexes-Fuzzy-Text-Search.md)
 
-# [Transactions](Transactions.md)
+# [DB Instances](DB-Instances.md)
+## [Audit Fields](DB-Instances-Audit-Fields.md)
+## [Global Filters](DB-Instances-Global-Filters.md)
+## [Event Hooks](DB-Instances-Event-Hooks.md)
 
 # [Multiple Databases](Multiple-Databases.md)
+
+# [Transactions](Transactions.md)
 
 # [File Storage](File-Storage.md)
 
@@ -39,11 +44,6 @@
 # [Data Migrations](Data-Migrations.md)
 
 # [Async Support](Async-Support.md)
-
-# [DB Instances](DB-Instances.md)
-## [Audit Fields](DB-Instances-Audit-Fields.md)
-## [Global Filters](DB-Instances-Global-Filters.md)
-## [Event Hooks](DB-Instances-Event-Hooks.md)
 
 # [Extras](Extras-Date.md)
 ## [The Date Type](Extras-Date.md)

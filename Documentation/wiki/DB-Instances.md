@@ -3,8 +3,8 @@
 the *DBContext* class exists for the sole purpose of facilitating the following functionality:
 
 - [Automatic audit fields](DB-Instances-Audit-Fields.md)
-- [Global command/query filters](DB-Instances-Global-Filters.md)
 - [Custom event hooks](DB-Instances-Event-Hooks.md)
+- [Global filters](DB-Instances-Global-Filters.md)
 - [Dependancy injection](DB-Instances.md#dependancy-injection) (debatable)
 
 ## Create an instance

@@ -1,1 +1,1 @@
-# Global command/query filters
+# Global filters
