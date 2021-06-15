@@ -89,15 +89,24 @@ namespace MongoDB.Entities
         public IClientSessionHandle Session { get; protected set; }
 
         /// <summary>
-        /// Starts a transaction and returns a session object
+        /// Starts a transaction and returns a session object.
+        /// <para>WARNING: Only one transaction is allowed per DBContext instance. 
+        /// Call Session.Dispose() and assign a null to it before calling this method a second time. 
+        /// Trying to start a second transaction for this DBContext instance will throw an exception.</para>
         /// </summary>
         /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
         /// <param name="options">Client session options for this transaction</param>
         public IClientSessionHandle Transaction(string database = default, ClientSessionOptions options = null)
         {
-            Session = DB.Database(database).Client.StartSession(options);
-            Session.StartTransaction();
-            return Session;
+            if (Session is null)
+            {
+                Session = DB.Database(database).Client.StartSession(options);
+                Session.StartTransaction();
+                return Session;
+            }
+
+            throw new NotSupportedException(
+                "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
         }
 
         /// <summary>
