@@ -67,7 +67,7 @@ namespace MongoDB.Entities
 
         private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template) where T : IEntity
         {
-            if (globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 BsonDocument filter = null;
 
@@ -84,10 +84,8 @@ namespace MongoDB.Entities
                         break;
                 }
 
-                if (gFilter.prepend)
-                    template.builder.Insert(1, $"{{$match:{filter}}},");
-                else
-                    template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
+                if (gFilter.prepend) template.builder.Insert(1, $"{{$match:{filter}}},");
+                else template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
             }
             return template;
         }
