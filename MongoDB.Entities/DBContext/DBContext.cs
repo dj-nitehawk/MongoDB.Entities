@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
             = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
 
-        private static readonly Type[] allEntitiyTypes = GetAllEntityTypes();
+        private static Type[] allEntitiyTypes;
 
         /// <summary>
         /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
@@ -151,6 +151,8 @@ namespace MongoDB.Entities
 
             if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", "TInterface");
 
+            if (allEntitiyTypes is null) allEntitiyTypes = GetAllEntityTypes();
+
             foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
             {
                 globalFilters[entType] = (jsonString, prepend);
@@ -171,15 +173,13 @@ namespace MongoDB.Entities
                     "NuGet."
                 };
 
-            var target = typeof(IEntity);
-
             return AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Where(a =>
                       !a.IsDynamic &&
                       (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
                 .SelectMany(a => a.GetTypes())
-                .Where(t => target.IsAssignableFrom(t))
+                .Where(t => typeof(IEntity).IsAssignableFrom(t))
                 .ToArray();
         }
 
