@@ -110,6 +110,19 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Starts a transaction and returns a session object for a given entity type.
+        /// <para>WARNING: Only one transaction is allowed per DBContext instance. 
+        /// Call Session.Dispose() and assign a null to it before calling this method a second time. 
+        /// Trying to start a second transaction for this DBContext instance will throw an exception.</para>
+        /// </summary>
+        /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
+        /// <param name="options">Client session options (not required)</param>
+        public IClientSessionHandle Transaction<T>(ClientSessionOptions options = null) where T : IEntity
+        {
+            return Transaction(DB.DatabaseName<T>(), options);
+        }
+
+        /// <summary>
         /// Commits a transaction to MongoDB
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
