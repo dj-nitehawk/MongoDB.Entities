@@ -48,4 +48,12 @@ namespace MongoDB.Entities.Tests
             return action as Action<UpdateBase<T>>;
         }
     }
+
+    public class MyDBFlower : DBContext
+    {
+        public MyDBFlower(bool prepend)
+        {
+            SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
+        }
+    }
 }

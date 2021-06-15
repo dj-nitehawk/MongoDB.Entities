@@ -322,6 +322,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task global_filter_for_interface_prepend()
+        {
+            var db = new MyDBFlower(prepend: true);
+
+            var guid = Guid.NewGuid().ToString();
+
+            var flowers = new[] {
+                new Flower{ Name = guid, IsDeleted = true},
+                new Flower{ Name = guid },
+                new Flower{ Name = guid }
+            };
+
+            await db.SaveAsync(flowers);
+
+            var res = await db.Find<Flower>().Match(f => f.Name == guid).ExecuteAsync();
+
+            Assert.AreEqual(2, res.Count);
+        }
+
+        [TestMethod]
         public async Task find_by_lambda_returns_correct_documents()
         {
             var guid = Guid.NewGuid().ToString();
