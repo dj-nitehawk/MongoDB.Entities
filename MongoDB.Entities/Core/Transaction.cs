@@ -1,7 +1,5 @@
 ﻿using MongoDB.Driver;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
@@ -12,8 +10,6 @@ namespace MongoDB.Entities
     /// </summary>
     public class Transaction : DBContext, IDisposable
     {
-        public IClientSessionHandle Session { get => session; }
-
         /// <summary>
         /// Instantiates and begins a transaction.
         /// </summary>
@@ -25,22 +21,10 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public Transaction(string database = default, ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
         {
-            session = DB.Database(database).Client.StartSession(options);
+            Session = DB.Database(database).Client.StartSession(options);
             Session.StartTransaction();
             ModifiedBy = modifiedBy;
         }
-
-        /// <summary>
-        /// Commits a transaction to MongoDB
-        /// </summary>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task CommitAsync(CancellationToken cancellation = default) => Session.CommitTransactionAsync(cancellation);
-
-        /// <summary>
-        /// Aborts and rolls back a transaction
-        /// </summary>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
 
         #region IDisposable Support
 
@@ -52,7 +36,7 @@ namespace MongoDB.Entities
             {
                 if (disposing)
                 {
-                    session.Dispose();
+                    Session.Dispose();
                 }
 
                 disposedValue = true;

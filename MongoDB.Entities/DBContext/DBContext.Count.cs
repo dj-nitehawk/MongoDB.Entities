@@ -30,7 +30,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter<T>(globalFilters, expression),
-                session,
+                Session,
                 cancellation,
                 options);
         }
@@ -42,7 +42,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountAsync<T>(session, cancellation);
+            return DB.CountAsync<T>(Session, cancellation);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter),
-                session,
+                Session,
                 cancellation,
                 options);
         }
@@ -72,7 +72,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter(Builders<T>.Filter)),
-                session,
+                Session,
                 cancellation,
                 options);
         }

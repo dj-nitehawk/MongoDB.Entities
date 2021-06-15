@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
-                session,
+                Session,
                 cancellation);
         }
 
@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
-                session,
+                Session,
                 cancellation);
         }
 
@@ -53,7 +53,7 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Where(expression)),
-                session,
+                Session,
                 cancellation,
                 collation);
         }
@@ -71,7 +71,7 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter(Builders<T>.Filter)),
-                session,
+                Session,
                 cancellation,
                 collation);
         }
@@ -89,7 +89,7 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter),
-                session,
+                Session,
                 cancellation,
                 collation);
         }

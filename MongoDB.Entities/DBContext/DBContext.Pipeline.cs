@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.PipelineCursorAsync(MergeGlobalFilter(template), options, session, cancellation);
+            return DB.PipelineCursorAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.PipelineAsync(MergeGlobalFilter(template), options, session, cancellation);
+            return DB.PipelineAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.PipelineSingleAsync(MergeGlobalFilter(template), options, session, cancellation);
+            return DB.PipelineSingleAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.PipelineFirstAsync(MergeGlobalFilter(template), options, session, cancellation);
+            return DB.PipelineFirstAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
 
         private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template) where T : IEntity
