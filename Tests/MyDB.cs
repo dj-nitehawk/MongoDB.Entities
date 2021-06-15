@@ -3,12 +3,19 @@ using System;
 
 namespace MongoDB.Entities.Tests
 {
+    public class MyDBTemplates : DBContext
+    {
+        public MyDBTemplates(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
+        {
+            SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }", prepend);
+        }
+    }
+
     public class MyDB : DBContext
     {
-        public MyDB() : base(modifiedBy: new Entities.ModifiedBy())
+        public MyDB(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
         {
-            SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }");
-            SetGlobalFilter<Author>(a => a.Age == 111);
+            SetGlobalFilter<Author>(a => a.Age == 111, prepend);
         }
 
         protected override Action<T> OnBeforeSave<T>()

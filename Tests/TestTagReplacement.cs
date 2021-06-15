@@ -176,7 +176,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task tag_replacement_with_global_filter_prepend()
         {
-            var db = new MyDB();
+            var db = new MyDB(prepend: true);
 
             var guid = Guid.NewGuid().ToString();
             var author1 = new Author { Name = guid, Age = 111 };
@@ -206,7 +206,67 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task tag_replacement_with_global_filter_append()
         {
-            var db = new MyDB();
+            var db = new MyDB(prepend: false);
+
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid, Age = 111 };
+            var author2 = new Author { Name = guid, Age = 53 };
+            await DB.SaveAsync(new[] { author1, author2 });
+
+            var pipeline = new Template<Author>(@"
+            [
+                {
+                  $match: { <Name>: '<author_name>' }
+                },
+                {
+                  $sort: { <Age>: 1 }
+                }
+            ]")
+                .Path(a => a.Name)
+                .Tag("author_name", guid)
+                .Path(a => a.Age);
+
+            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+
+            Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results[0].Name == guid);
+            Assert.IsTrue(results.Last().Age == 111);
+        }
+
+        [TestMethod]
+        public async Task tag_replacement_with_global_filter_append_string_filter()
+        {
+            var db = new MyDBTemplates(prepend: false);
+
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid, Age = 111 };
+            var author2 = new Author { Name = guid, Age = 53 };
+            await DB.SaveAsync(new[] { author1, author2 });
+
+            var pipeline = new Template<Author>(@"
+            [
+                {
+                  $match: { <Name>: '<author_name>' }
+                },
+                {
+                  $sort: { <Age>: 1 }
+                }
+            ]")
+                .Path(a => a.Name)
+                .Tag("author_name", guid)
+                .Path(a => a.Age);
+
+            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+
+            Assert.AreEqual(1, results.Count);
+            Assert.IsTrue(results[0].Name == guid);
+            Assert.IsTrue(results.Last().Age == 111);
+        }
+
+        [TestMethod]
+        public async Task tag_replacement_with_global_filter_prepend_string_filter()
+        {
+            var db = new MyDBTemplates(prepend: true);
 
             var guid = Guid.NewGuid().ToString();
             var author1 = new Author { Name = guid, Age = 111 };
