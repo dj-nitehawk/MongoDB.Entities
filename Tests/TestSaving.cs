@@ -304,15 +304,14 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task queryable_with_global_filter()
         {
-            var db = new DBContext();
-            db.SetGlobalFilter<Author>(a => a.Age == 100);
+            var db = new MyDB();
 
             var guid = Guid.NewGuid().ToString();
 
             await new[] {
                 new Author { Name = guid, Age = 200},
                 new Author { Name = guid, Age = 200},
-                new Author { Name = guid, Age = 100},
+                new Author { Name = guid, Age = 111},
             }.SaveAsync();
 
             var res = await db.Queryable<Author>()

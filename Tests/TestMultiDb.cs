@@ -15,7 +15,6 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task save_entity_works()
         {
-
             await DB.InitAsync(dbName);
 
             DB.DatabaseFor<BookCover>(dbName);

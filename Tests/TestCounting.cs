@@ -10,17 +10,9 @@ namespace MongoDB.Entities.Tests
     {
         private DBContext db;
 
-        private Task Init(string guid, bool useJsonStringFilter = false)
+        private Task Init(string guid)
         {
-            db = new DBContext();
-            if (useJsonStringFilter)
-            {
-                db.SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }");
-            }
-            else
-            {
-                db.SetGlobalFilter<Author>(a => a.Age == 111);
-            }
+            db = new MyDB();
 
             var list = new List<Author>();
 
@@ -63,7 +55,7 @@ namespace MongoDB.Entities.Tests
         public async Task count_with_lambda_use_json_string_filter()
         {
             var guid = Guid.NewGuid().ToString();
-            await Init(guid, true);
+            await Init(guid);
 
             var count = await db.CountAsync<Author>(a => a.Name == guid);
 

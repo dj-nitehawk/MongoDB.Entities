@@ -5,6 +5,12 @@ namespace MongoDB.Entities.Tests
 {
     public class MyDB : DBContext
     {
+        public MyDB() : base(modifiedBy: new Entities.ModifiedBy())
+        {
+            SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }");
+            SetGlobalFilter<Author>(a => a.Age == 111);
+        }
+
         protected override Action<T> OnBeforeSave<T>()
         {
             Action<Flower> action = f =>

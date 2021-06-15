@@ -463,15 +463,14 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task update_with_global_filter()
         {
-            var db = new DBContext(new Entities.ModifiedBy());
-            db.SetGlobalFilter<Author>(a => a.Age == 100);
+            var db = new MyDB();
 
             var guid = Guid.NewGuid().ToString();
 
             await new[] {
-                new Author { Name = guid, Age = 100},
+                new Author { Name = guid, Age = 111},
                 new Author { Name = guid, Age = 200},
-                new Author { Name = guid, Age = 100},
+                new Author { Name = guid, Age = 111},
             }.SaveAsync();
 
             var res = await db

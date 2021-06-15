@@ -137,12 +137,11 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task delete_by_ids_with_global_filter()
         {
-            var db = new DBContext();
-            db.SetGlobalFilter<Author>(a => a.Age == 22);
+            var db = new MyDB();
 
             var a1 = new Author { Age = 10 };
-            var a2 = new Author { Age = 22 };
-            var a3 = new Author { Age = 22 };
+            var a2 = new Author { Age = 111 };
+            var a3 = new Author { Age = 111 };
 
             await new[] { a1, a2, a3 }.SaveAsync();
 

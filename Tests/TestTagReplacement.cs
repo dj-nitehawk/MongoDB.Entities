@@ -176,11 +176,10 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task tag_replacement_with_global_filter_prepend()
         {
-            var db = new DBContext();
-            db.SetGlobalFilter<Author>(a => a.Age == 54, prepend: true);
+            var db = new MyDB();
 
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 54 };
+            var author1 = new Author { Name = guid, Age = 111 };
             var author2 = new Author { Name = guid, Age = 53 };
             await DB.SaveAsync(new[] { author1, author2 });
 
@@ -201,17 +200,16 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(1, results.Count);
             Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 54);
+            Assert.IsTrue(results.Last().Age == 111);
         }
 
         [TestMethod]
         public async Task tag_replacement_with_global_filter_append()
         {
-            var db = new DBContext();
-            db.SetGlobalFilter<Author>(a => a.Age == 54, prepend: false);
+            var db = new MyDB();
 
             var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 54 };
+            var author1 = new Author { Name = guid, Age = 111 };
             var author2 = new Author { Name = guid, Age = 53 };
             await DB.SaveAsync(new[] { author1, author2 });
 
@@ -232,7 +230,7 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(1, results.Count);
             Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 54);
+            Assert.IsTrue(results.Last().Age == 111);
         }
 
         [TestMethod]
