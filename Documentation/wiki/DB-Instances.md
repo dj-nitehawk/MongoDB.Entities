@@ -36,7 +36,7 @@ await db.Update<Book>()
 
 ## Dependancy injection
 
-it may be temping to register `DBContext` instances with IOC containers. instead you should be injecting the repositories (that wrap up data access methods) into your controllers/services, not the DBContext instances directly. [click here](https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern) for a repository pattern example.
+it may be tempting to register `DBContext` instances with IOC containers. instead you should be injecting the repositories (that wrap up data access methods) into your controllers/services, not the DBContext instances directly. [click here](https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern) for a repository pattern example.
 
 if you don't plan to unit test or swap persistance technology at a future date, there's really no need to use dependency injection and/or DBcontext instances *(unless you need the features mentioned above)*, you are then free to do everything via the DB static methods for the sake of convenience.
 
