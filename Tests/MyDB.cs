@@ -3,8 +3,21 @@ using System;
 
 namespace MongoDB.Entities.Tests
 {
+    public class MyDBTemplates : DBContext
+    {
+        public MyDBTemplates(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
+        {
+            SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }", prepend);
+        }
+    }
+
     public class MyDB : DBContext
     {
+        public MyDB(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+        {
+            SetGlobalFilter<Author>(a => a.Age == 111, prepend);
+        }
+
         protected override Action<T> OnBeforeSave<T>()
         {
             Action<Flower> action = f =>
@@ -33,6 +46,14 @@ namespace MongoDB.Entities.Tests
             };
 
             return action as Action<UpdateBase<T>>;
+        }
+    }
+
+    public class MyDBFlower : DBContext
+    {
+        public MyDBFlower(bool prepend)
+        {
+            SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
         }
     }
 }

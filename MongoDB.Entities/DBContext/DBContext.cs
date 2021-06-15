@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace MongoDB.Entities
@@ -15,6 +16,8 @@ namespace MongoDB.Entities
 
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
             = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
+
+        private static readonly Type[] allEntitiyTypes = GetAllEntityTypes();
 
         /// <summary>
         /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
@@ -95,10 +98,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">x => x.Prop1 == "some value"</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param> 
-        public void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
+        protected void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
         {
             SetGlobalFilter(Builders<T>.Filter.Where(filter), prepend);
         }
@@ -106,10 +109,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-        public void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false) where T : IEntity
+        protected void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false) where T : IEntity
         {
             SetGlobalFilter(filter(Builders<T>.Filter), prepend);
         }
@@ -117,12 +120,67 @@ namespace MongoDB.Entities
         /// <summary>
         /// Specify a global filter to be applied to all operations performed with this DBContext
         /// </summary>
-        /// <typeparam name="T">The type of Entity this globa filter should be applied to</typeparam>
+        /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
         /// <param name="filter">A filter definition to be applied</param>
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-        public void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
+        protected void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
         {
             globalFilters[typeof(T)] = (filter, prepend);
+        }
+
+        /// <summary>
+        /// Specify a global filter to be applied to all operations performed with this DBContext
+        /// </summary>
+        /// <param name="type">The type of Entity this global filter should be applied to</param>
+        /// <param name="jsonString">A JSON string filter definition to be applied</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        protected void SetGlobalFilter(Type type, string jsonString, bool prepend = false)
+        {
+            globalFilters[type] = (jsonString, prepend);
+        }
+
+        /// <summary>
+        /// Specify a global filter for all entity types that implements a given interface
+        /// </summary>
+        /// <typeparam name="TInterface">The interface type to target. Will throw if supplied argument is not an interface type</typeparam>
+        /// <param name="jsonString">A JSON string filter definition to be applied</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        protected void SetGlobalFilterForInterface<TInterface>(string jsonString, bool prepend = false)
+        {
+            var targetType = typeof(TInterface);
+
+            if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", "TInterface");
+
+            foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
+            {
+                globalFilters[entType] = (jsonString, prepend);
+            }
+        }
+
+        private static Type[] GetAllEntityTypes()
+        {
+            var excludes = new[]
+                {
+                    "Microsoft.",
+                    "System.",
+                    "MongoDB.",
+                    "testhost.",
+                    "netstandard",
+                    "Newtonsoft.",
+                    "mscorlib",
+                    "NuGet."
+                };
+
+            var target = typeof(IEntity);
+
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(a =>
+                      !a.IsDynamic &&
+                      (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => target.IsAssignableFrom(t))
+                .ToArray();
         }
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity

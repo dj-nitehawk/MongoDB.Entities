@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading;
@@ -68,13 +69,25 @@ namespace MongoDB.Entities
         {
             if (globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
-                var fString = ((FilterDefinition<T>)gFilter.filterDef)
-                    .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry);
+                BsonDocument filter = null;
+
+                switch (gFilter.filterDef)
+                {
+                    case FilterDefinition<T> def:
+                        filter = def.Render(
+                            BsonSerializer.SerializerRegistry.GetSerializer<T>(),
+                            BsonSerializer.SerializerRegistry);
+                        break;
+
+                    case string jsonString:
+                        filter = BsonDocument.Parse(jsonString);
+                        break;
+                }
 
                 if (gFilter.prepend)
-                    template.builder.Insert(1, $"{{$match:{fString}}},");
+                    template.builder.Insert(1, $"{{$match:{filter}}},");
                 else
-                    template.builder.Insert(template.builder.Length - 1, $",{{$match:{fString}}}");
+                    template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
             }
             return template;
         }

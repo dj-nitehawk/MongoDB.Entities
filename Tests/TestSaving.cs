@@ -304,15 +304,14 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task queryable_with_global_filter()
         {
-            var db = new DBContext();
-            db.SetGlobalFilter<Author>(a => a.Age == 100);
+            var db = new MyDB();
 
             var guid = Guid.NewGuid().ToString();
 
             await new[] {
                 new Author { Name = guid, Age = 200},
                 new Author { Name = guid, Age = 200},
-                new Author { Name = guid, Age = 100},
+                new Author { Name = guid, Age = 111},
             }.SaveAsync();
 
             var res = await db.Queryable<Author>()
@@ -320,6 +319,26 @@ namespace MongoDB.Entities.Tests
                         .ToListAsync();
 
             Assert.AreEqual(1, res.Count);
+        }
+
+        [TestMethod]
+        public async Task global_filter_for_interface_prepend()
+        {
+            var db = new MyDBFlower(prepend: true);
+
+            var guid = Guid.NewGuid().ToString();
+
+            var flowers = new[] {
+                new Flower{ Name = guid, IsDeleted = true},
+                new Flower{ Name = guid },
+                new Flower{ Name = guid }
+            };
+
+            await db.SaveAsync(flowers);
+
+            var res = await db.Find<Flower>().Match(f => f.Name == guid).ExecuteAsync();
+
+            Assert.AreEqual(2, res.Count);
         }
 
         [TestMethod]

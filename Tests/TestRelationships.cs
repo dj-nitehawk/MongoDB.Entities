@@ -122,7 +122,7 @@ namespace MongoDB.Entities.Tests
                               .SingleAsync())
                               .Books;
 
-            List<Book> booklist = new List<Book>();
+            List<Book> booklist = new();
 
             foreach (var book in books)
             {
