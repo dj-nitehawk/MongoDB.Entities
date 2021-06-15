@@ -1008,7 +1008,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/DB-Instances.html",
-          "hash": "mPG1xdxhL6RhYNzQmNN2ZvQxbX3ZCBnuGUj3Lt8mLYk="
+          "hash": "IEFME5NZmciSUYwzkJu4U/WayAdiYrUAKd3ufflmQqY="
         }
       },
       "is_incremental": false,
@@ -1159,15 +1159,12 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "wiki/Multiple-Databases.md",
       "output": {
         ".html": {
           "relative_path": "wiki/Multiple-Databases.html",
-          "hash": "8Rm5jubnoByG+oa7G8DOcggI8Jt3jiiR5G1NUlIsx/s="
+          "hash": "suVmsZDu53UGgX2fJMEPeDPY8CqIRM4L+qj10XLsOp8="
         }
       },
       "is_incremental": false,
@@ -1319,7 +1316,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 47,
-          "skipped_file_count": 47
+          "skipped_file_count": 46
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,

@@ -76,20 +76,3 @@ bool isAlive = await DB.Database<Picture>().IsAccessibleAsync();
 ```csharp
 var dbNames = await DB.AllDatabaseNamesAsync("localhost");
 ```
-
-## Removal of DB instances in v20
-
-if you've used an earlier verion than v20 of this library, you may have used DB instances for performing operations rather than using the static DB class as the entrypoint. In v20, the DB instance support was removed in order to simplify the codebase and optimize performance as that release was a major jump in version with breaking changes to the API.
-
-DB instances were a neccessity before v13 in order to support multiple database access. that requirement was removed in v13 after re-architecting the library internals and it was optional to use DB instances up until v20.
-
-it can be argued that DB instances are useful for dependency injection but, ideally you should be injecting your repositories (that wrap up the DB methods) into your controllers/ services, not the DB instances directly. if you don't need to unit test or plan to swap persistance technology at a future date, then there's no need to use dependency injection and you are free to do everything via the DB static methods.
-
-it is however, recommended that you encapsulate all data access logic in repository/service/manager classes in order to isolate data access logic from your application logic.
-
-> [!tip]
-> as an alternative, have a look at **vertical slice architecture** as done [_here_](https://github.com/dj-nitehawk/MongoWebApiStarter) for a far superior developer experience compared to the commonly used layerd+di+repositories mess.
-
-> **UPDATE:**
-> 
-> a *[DBContext](xref:MongoDB.Entities.DBContext)* class has been added to the library due to popular demand with the v20.7 release. see the [audit fields page](Audit-Fields.md) for an example of how to use it.
