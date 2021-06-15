@@ -41,16 +41,13 @@ namespace MongoDB.Entities
         {
             if (globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
-                if (gFilter.filterDef is FilterDefinition<T> f)
+                switch (gFilter.filterDef)
                 {
-                    if (gFilter.prepend) return f & filter;
-                    return filter & f;
-                }
+                    case FilterDefinition<T> definition:
+                        return (gFilter.prepend) ? definition & filter : filter & definition;
 
-                if (gFilter.filterDef is string jsonString)
-                {
-                    if (gFilter.prepend) return jsonString & filter;
-                    return filter & jsonString;
+                    case string jsonString:
+                        return (gFilter.prepend) ? jsonString & filter : filter & jsonString;
                 }
             }
             return filter;
