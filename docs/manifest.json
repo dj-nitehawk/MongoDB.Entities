@@ -912,7 +912,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "iFhznk+Oosbinrc7Hq9DzZYMX81GcIJKPV6LH+X4+2E="
+          "hash": "edtu3RU7BRyY5zmlk1cuYyoTrzN2T8eASrXDepzyHH0="
         }
       },
       "is_incremental": false,
@@ -944,18 +944,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "wiki/Audit-Fields.md",
-      "output": {
-        ".html": {
-          "relative_path": "wiki/Audit-Fields.html",
-          "hash": "j4qka/Y8ndoNdZkIloDZerSXFNNeDvM4veF2zYqtJ9E="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "wiki/Change-Streams.md",
       "output": {
         ".html": {
@@ -973,6 +961,54 @@
         ".html": {
           "relative_path": "wiki/Code-Samples.html",
           "hash": "3wxi2YR2H27iYywBvddHGxN2W76TIWEdcrlYzMDBz6U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/DB-Instances-Audit-Fields.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/DB-Instances-Audit-Fields.html",
+          "hash": "H0KUj9fbz2sVOddLyfHf/v6vfsH+aGAk8qNeAvnVIn4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/DB-Instances-Event-Hooks.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/DB-Instances-Event-Hooks.html",
+          "hash": "lm9ol6TZ/B0ThhSxIiS8Xe3dn3dydxX+SFn8WGYBISA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/DB-Instances-Global-Filters.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/DB-Instances-Global-Filters.html",
+          "hash": "PvCFszk3NXCm6h/SaNA8UiBPmSb10CdI/z1krxJdjgM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "wiki/DB-Instances.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/DB-Instances.html",
+          "hash": "mPG1xdxhL6RhYNzQmNN2ZvQxbX3ZCBnuGUj3Lt8mLYk="
         }
       },
       "is_incremental": false,
@@ -1123,12 +1159,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "wiki/Multiple-Databases.md",
       "output": {
         ".html": {
           "relative_path": "wiki/Multiple-Databases.html",
-          "hash": "iRSk8H7AkfDHhxIauRCHpBcRifDkPQ9pGZJdTkn4ESw="
+          "hash": "8Rm5jubnoByG+oa7G8DOcggI8Jt3jiiR5G1NUlIsx/s="
         }
       },
       "is_incremental": false,
@@ -1260,7 +1299,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/toc.html",
-          "hash": "z+7z5/06CrB9lekEcvXiybyKonyvFEKlW5Ba3BxE12Q="
+          "hash": "n7andnrJeBJz8KfxAaRxqFn0mRcS4wMd3QGhh1fLwek="
         }
       },
       "is_incremental": false,
@@ -1279,8 +1318,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 44,
-          "skipped_file_count": 43
+          "total_file_count": 47,
+          "skipped_file_count": 47
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,

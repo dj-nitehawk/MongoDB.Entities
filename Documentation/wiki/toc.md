@@ -40,7 +40,10 @@
 
 # [Async Support](Async-Support.md)
 
-# [Audit Fields](Audit-Fields.md)
+# [DB Instances](DB-Instances.md)
+## [Audit Fields](DB-Instances-Audit-Fields.md)
+## [Global Filters](DB-Instances-Global-Filters.md)
+## [Event Hooks](DB-Instances-Event-Hooks.md)
 
 # [Extras](Extras-Date.md)
 ## [The Date Type](Extras-Date.md)
