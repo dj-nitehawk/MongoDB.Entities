@@ -49,7 +49,7 @@ public class MyDBContext : DBContext
     }
 }
 ```
-after that, simply create new instances of `MyDBContext` when you need the above functionality and perform operatios as usual like so:
+after that, simply create new instances of `MyDBContext` when you need the above functionality and perform operations as usual like so:
 ```csharp
 var db = new MyDBContext();
 
@@ -59,4 +59,36 @@ await db.Update<Flower>()
         .Match(f => f.Name == "Red Rose")
         .Modify(f => f.Name, "White Rose")
         .ExecuteAsync();
+```
+
+## Handling multiple entity types
+
+you can handle more than one type of entity inside the hooks like below:
+```csharp
+protected override Action<T> OnBeforeSave<T>()
+{
+    var type = typeof(T);
+
+    if (type == typeof(Book))
+    {
+        Action<Book> action = b =>
+        {
+            b.SavedBy = "Author";
+            b.SavedOn = DateTime.UtcNow;
+        };
+        return action as Action<T>;
+    }
+
+    if (type == typeof(Flower))
+    {
+        Action<Flower> action = f =>
+        {
+            f.SavedBy = "Human";
+            f.SavedOn = DateTime.MinValue;
+        };
+        return action as Action<T>;
+    }
+
+    return null;
+}
 ```

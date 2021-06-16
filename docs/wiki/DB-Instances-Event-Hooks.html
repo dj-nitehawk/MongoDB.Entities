@@ -140,7 +140,7 @@ it can also be used as an alternative to the pre-baked audit fields functionalit
     }
 }
 </code></pre>
-<p>after that, simply create new instances of <code>MyDBContext</code> when you need the above functionality and perform operatios as usual like so:</p>
+<p>after that, simply create new instances of <code>MyDBContext</code> when you need the above functionality and perform operations as usual like so:</p>
 <pre><code class="lang-csharp">var db = new MyDBContext();
 
 await db.SaveAsync(new Flower() { Name = &quot;Red Rose&quot; });
@@ -149,6 +149,35 @@ await db.Update&lt;Flower&gt;()
         .Match(f =&gt; f.Name == &quot;Red Rose&quot;)
         .Modify(f =&gt; f.Name, &quot;White Rose&quot;)
         .ExecuteAsync();
+</code></pre>
+<h2 id="handling-multiple-entity-types">Handling multiple entity types</h2>
+<p>you can handle more than one type of entity inside the hooks like below:</p>
+<pre><code class="lang-csharp">protected override Action&lt;T&gt; OnBeforeSave&lt;T&gt;()
+{
+    var type = typeof(T);
+
+    if (type == typeof(Book))
+    {
+        Action&lt;Book&gt; action = b =&gt;
+        {
+            b.SavedBy = &quot;Author&quot;;
+            b.SavedOn = DateTime.UtcNow;
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    if (type == typeof(Flower))
+    {
+        Action&lt;Flower&gt; action = f =&gt;
+        {
+            f.SavedBy = &quot;Human&quot;;
+            f.SavedOn = DateTime.MinValue;
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    return null;
+}
 </code></pre>
 </article>
           </div>
