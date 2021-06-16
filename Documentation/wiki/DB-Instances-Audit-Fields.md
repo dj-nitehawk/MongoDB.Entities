@@ -18,7 +18,7 @@ instantiate a context by providing it a `ModifiedBy` instance with the current u
 var currentUser = new ModifiedBy
 {
     UserID = "xxxxxxxxxxxx",
-    UserName = "Da Rock"
+    UserName = "Kip Jennings"
 };
 
 var dbContext = new DBContext(modifiedBy: currentUser);
@@ -41,11 +41,11 @@ await dbContext
 doing so will result in the following document in mongodb:
 ```
 {
-	"_id" : ObjectId("6045ab29180484f34bf71c48"),
+	"_id" : ObjectId("xxxxxxxxxxxx"),
 	"Title" : "updated title", //this will initially be 'test book'
 	"ModifiedBy" : {
 		"UserID" : "xxxxxxxxxxxx",
-		"UserName" : "Da Rock"
+		"UserName" : "Kip Jennings"
 	}
 }
 ```
@@ -57,7 +57,7 @@ var dbContext = new DBContext();
 
 dbContext.ModifiedBy = new ModifiedBy
 {
-    UserID = ObjectId.GenerateNewId().ToString(),
+    UserID = "xxxxxxxxxxxx",
     UserName = "Kip Jennings"
 };
 
@@ -65,10 +65,23 @@ var currentUser = dbContext.ModifiedBy;
 ```
 
 ## Transaction support
-you can use auto audit fields in a similar manner inside of transactions. the only difference is you use the transaction context instead of `DBContext` like follows:
+a transaction can be performed with the DBContext like so:
+```csharp
+var db = new DBContext(modifiedBy: currentUser);
+
+using (db.Transaction())
+{
+    await db.SaveAsync(book);
+    await db.CommitAsync();
+}
+```
+
+or it can be performed with a `Transaction` instance like so:
 ```csharp
 using (var TN = DB.Transaction(modifiedBy: currentUser))
 {
     await TN.SaveAsync(book);
 }
 ```
+> [!NOTE]
+> please refer to the [transactions page](Transactions.md) for a detailed explanation on how transactions work.
