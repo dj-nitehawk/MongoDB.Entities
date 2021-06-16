@@ -8,9 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.15.0-beta1</Version>
+    <Version>20.15.0-beta2</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added DB.Find().ExecuteAnyAsync() to check for any matching
+    <PackageReleaseNotes>- added ability to specify global filters with base classes
+- added DB.Find().ExecuteAnyAsync() to check for any matching
 - optimized distinct, find and pipeline cursor iterations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

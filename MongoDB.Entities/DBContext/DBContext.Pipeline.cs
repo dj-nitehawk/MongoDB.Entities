@@ -67,6 +67,9 @@ namespace MongoDB.Entities
 
         private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template) where T : IEntity
         {
+            //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
+            //         if the following logic changes, update the other method also
+
             if (globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 BsonDocument filter = null;
@@ -77,6 +80,10 @@ namespace MongoDB.Entities
                         filter = def.Render(
                             BsonSerializer.SerializerRegistry.GetSerializer<T>(),
                             BsonSerializer.SerializerRegistry);
+                        break;
+
+                    case BsonDocument doc:
+                        filter = doc;
                         break;
 
                     case string jsonString:

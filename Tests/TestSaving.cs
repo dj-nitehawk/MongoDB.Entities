@@ -322,6 +322,26 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task global_filter_for_base_class()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var db = new MyBaseEntityDB();
+
+            var flowers = new[] {
+                new Flower{ Name = guid, CreatedBy = "xyz"},
+                new Flower{ Name = guid },
+                new Flower{ Name = guid }
+            };
+
+            await db.SaveAsync(flowers);
+
+            var res = await db.Find<Flower>().Match(f => f.Name == guid).ExecuteAsync();
+
+            Assert.AreEqual(1, res.Count);
+        }
+
+        [TestMethod]
         public async Task global_filter_for_interface_prepend()
         {
             var db = new MyDBFlower(prepend: true);
@@ -390,7 +410,7 @@ namespace MongoDB.Entities.Tests
                 .Match(f => f.Eq(a => a.Name, guid))
                 .ExecuteFirstAsync();
 
-            Assert.AreEqual(author1.ID,res.ID);
+            Assert.AreEqual(author1.ID, res.ID);
         }
 
         [TestMethod]

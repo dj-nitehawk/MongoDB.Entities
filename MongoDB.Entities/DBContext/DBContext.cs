@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -198,6 +199,52 @@ namespace MongoDB.Entities
         {
             globalFilters[type] = (jsonString, prepend);
         }
+
+
+
+        /// <summary>
+        /// Specify a global filter to be applied to all operations performed with this DBContext
+        /// </summary>
+        /// <typeparam name="TBase">The type of the base class</typeparam>
+        /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        protected void SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, bool>> filter, bool prepend = false) where TBase : IEntity
+        {
+            SetGlobalFilterForBaseClass(Builders<TBase>.Filter.Where(filter), prepend);
+        }
+
+        /// <summary>
+        /// Specify a global filter to be applied to all operations performed with this DBContext
+        /// </summary>
+        /// <typeparam name="TBase">The type of the base class</typeparam>
+        /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        protected void SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>> filter, bool prepend = false) where TBase : IEntity
+        {
+            SetGlobalFilterForBaseClass(filter(Builders<TBase>.Filter), prepend);
+        }
+
+        /// <summary>
+        /// Specify a global filter to be applied to all operations performed with this DBContext
+        /// </summary>
+        /// <typeparam name="TBase">The type of the base class</typeparam>
+        /// <param name="filter">A filter definition to be applied</param>
+        /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
+        protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false) where TBase : IEntity
+        {
+            if (allEntitiyTypes is null) allEntitiyTypes = GetAllEntityTypes();
+
+            foreach (var entType in allEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
+            {
+                var bsonDoc = filter.Render(
+                    BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
+                    BsonSerializer.SerializerRegistry);
+
+                globalFilters[entType] = (bsonDoc, prepend);
+            }
+        }
+
+
 
         /// <summary>
         /// Specify a global filter for all entity types that implements a given interface

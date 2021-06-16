@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -40,12 +41,18 @@ namespace MongoDB.Entities
 
         internal static FilterDefinition<T> MergeWithGlobalFilter<T>(ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters, FilterDefinition<T> filter) where T : IEntity
         {
+            //WARNING: this has to do the same thing as DBContext.Pipeline.MergeWithGlobalFilter method
+            //         if the following logic changes, update the other method also
+
             if (globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 switch (gFilter.filterDef)
                 {
                     case FilterDefinition<T> definition:
                         return (gFilter.prepend) ? definition & filter : filter & definition;
+
+                    case BsonDocument bsonDoc:
+                        return (gFilter.prepend) ? bsonDoc & filter : filter & bsonDoc;
 
                     case string jsonString:
                         return (gFilter.prepend) ? jsonString & filter : filter & jsonString;

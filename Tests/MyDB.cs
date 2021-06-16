@@ -56,4 +56,12 @@ namespace MongoDB.Entities.Tests
             SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
         }
     }
+
+    public class MyBaseEntityDB : DBContext
+    {
+        public MyBaseEntityDB()
+        {
+            SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
+        }
+    }
 }
