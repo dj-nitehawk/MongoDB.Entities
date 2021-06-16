@@ -199,6 +199,7 @@
   "MongoDB.Entities.FileEntity.UploadSuccessful": "MongoDB.Entities.FileEntity.yml",
   "MongoDB.Entities.Find`1": "MongoDB.Entities.Find-1.yml",
   "MongoDB.Entities.Find`2": "MongoDB.Entities.Find-2.yml",
+  "MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)": "MongoDB.Entities.Find-2.yml",
   "MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)": "MongoDB.Entities.Find-2.yml",
   "MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)": "MongoDB.Entities.Find-2.yml",
   "MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)": "MongoDB.Entities.Find-2.yml",

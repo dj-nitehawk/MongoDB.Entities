@@ -2534,6 +2534,23 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection)
   nameWithType: Find<T, TProjection>
   nameWithType.vb: Find(Of T, TProjection)
+- uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  name: ExecuteAnyAsync(CancellationToken)
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteAnyAsync_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync(System.Threading.CancellationToken)
+  nameWithType: Find<T, TProjection>.ExecuteAnyAsync(CancellationToken)
+  nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync(CancellationToken)
+- uid: MongoDB.Entities.Find`2.ExecuteAnyAsync*
+  name: ExecuteAnyAsync
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteAnyAsync_
+  commentId: Overload:MongoDB.Entities.Find`2.ExecuteAnyAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync
+  nameWithType: Find<T, TProjection>.ExecuteAnyAsync
+  nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync
 - uid: MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
   name: ExecuteAsync(CancellationToken)
   href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_ExecuteAsync_System_Threading_CancellationToken_

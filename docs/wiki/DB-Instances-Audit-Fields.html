@@ -161,6 +161,7 @@ using (db.Transaction())
 <pre><code class="lang-csharp">using (var TN = DB.Transaction(modifiedBy: currentUser))
 {
     await TN.SaveAsync(book);
+    await TN.CommitAsync();
 }
 </code></pre>
 <div class="NOTE">

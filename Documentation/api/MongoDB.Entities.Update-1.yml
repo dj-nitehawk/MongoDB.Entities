@@ -54,6 +54,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class Update(Of T As IEntity)
+
           Inherits UpdateBase(Of T)
   inheritance:
   - System.Object

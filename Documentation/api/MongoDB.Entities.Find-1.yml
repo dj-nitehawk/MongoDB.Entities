@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class Find(Of T As IEntity)
+
           Inherits Find(Of T, T)
   inheritance:
   - System.Object
@@ -59,6 +60,7 @@ items:
   - MongoDB.Entities.Find{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find{{T},{T}}.ExecuteSingleAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find{{T},{T}}.ExecuteFirstAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Find{{T},{T}}.ExecuteAnyAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find{{T},{T}}.ExecuteCursorAsync(System.Threading.CancellationToken)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -2154,6 +2156,47 @@ references:
     name: ExecuteFirstAsync
     nameWithType: Find(Of T, T).ExecuteFirstAsync
     fullName: MongoDB.Entities.Find(Of T, T).ExecuteFirstAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find{{T},{T}}.ExecuteAnyAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Find{`0,`0}.ExecuteAnyAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Find{{T},{T}}
+  definition: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  name: ExecuteAnyAsync(CancellationToken)
+  nameWithType: Find<T, T>.ExecuteAnyAsync(CancellationToken)
+  fullName: MongoDB.Entities.Find<T, T>.ExecuteAnyAsync(System.Threading.CancellationToken)
+  nameWithType.vb: Find(Of T, T).ExecuteAnyAsync(CancellationToken)
+  fullName.vb: MongoDB.Entities.Find(Of T, T).ExecuteAnyAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+    name: ExecuteAnyAsync
+    nameWithType: Find<T, T>.ExecuteAnyAsync
+    fullName: MongoDB.Entities.Find<T, T>.ExecuteAnyAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+    name: ExecuteAnyAsync
+    nameWithType: Find(Of T, T).ExecuteAnyAsync
+    fullName: MongoDB.Entities.Find(Of T, T).ExecuteAnyAsync
   - name: (
     nameWithType: (
     fullName: (
@@ -4526,6 +4569,46 @@ references:
     name: ExecuteFirstAsync
     nameWithType: Find(Of T, TProjection).ExecuteFirstAsync
     fullName: MongoDB.Entities.Find(Of T, TProjection).ExecuteFirstAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  isExternal: true
+  name: ExecuteAnyAsync(CancellationToken)
+  nameWithType: Find<T, TProjection>.ExecuteAnyAsync(CancellationToken)
+  fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync(System.Threading.CancellationToken)
+  nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync(CancellationToken)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync(System.Threading.CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+    name: ExecuteAnyAsync
+    nameWithType: Find<T, TProjection>.ExecuteAnyAsync
+    fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+    name: ExecuteAnyAsync
+    nameWithType: Find(Of T, TProjection).ExecuteAnyAsync
+    fullName: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync
   - name: (
     nameWithType: (
     fullName: (

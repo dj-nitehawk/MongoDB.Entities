@@ -33,7 +33,9 @@ items:
       <Collection("_migration_history_")>
 
       Public Class Migration
+
           Inherits Entity
+
           Implements IEntity
   inheritance:
   - System.Object

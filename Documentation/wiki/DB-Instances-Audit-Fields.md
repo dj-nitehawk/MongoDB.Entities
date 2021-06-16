@@ -81,6 +81,7 @@ or it can be performed with a `Transaction` instance like so:
 using (var TN = DB.Transaction(modifiedBy: currentUser))
 {
     await TN.SaveAsync(book);
+    await TN.CommitAsync();
 }
 ```
 > [!NOTE]

@@ -5,6 +5,7 @@ items:
   id: Find`2
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)
@@ -51,6 +52,7 @@ items:
   syntax:
     content: >-
       public class Find<T, TProjection>
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -1002,7 +1004,7 @@ items:
   source:
     id: ExecuteSingleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 355
+    startLine: 361
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1038,7 +1040,7 @@ items:
   source:
     id: ExecuteFirstAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 366
+    startLine: 375
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1060,6 +1062,42 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteFirstAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)
+  id: ExecuteAnyAsync(System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Find`2
+  langs:
+  - csharp
+  - vb
+  name: ExecuteAnyAsync(CancellationToken)
+  nameWithType: Find<T, TProjection>.ExecuteAnyAsync(CancellationToken)
+  fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync(System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: ExecuteAnyAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 389
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRun the Find command and get back a bool indicating whether any entities matched the query\n"
+  example: []
+  syntax:
+    content: public Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+    content.vb: Public Function ExecuteAnyAsync(cancellation As CancellationToken = Nothing) As Task(Of Boolean)
+  overload: MongoDB.Entities.Find`2.ExecuteAnyAsync*
+  nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync(CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync(System.Threading.CancellationToken)
 - uid: MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   id: ExecuteCursorAsync(System.Threading.CancellationToken)
@@ -1074,7 +1112,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 377
+    startLine: 404
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2582,6 +2620,57 @@ references:
   fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteFirstAsync
   nameWithType.vb: Find(Of T, TProjection).ExecuteFirstAsync
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteFirstAsync
+- uid: MongoDB.Entities.Find`2.ExecuteAnyAsync*
+  commentId: Overload:MongoDB.Entities.Find`2.ExecuteAnyAsync
+  name: ExecuteAnyAsync
+  nameWithType: Find<T, TProjection>.ExecuteAnyAsync
+  fullName: MongoDB.Entities.Find<T, TProjection>.ExecuteAnyAsync
+  nameWithType.vb: Find(Of T, TProjection).ExecuteAnyAsync
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ExecuteAnyAsync
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Find`2.ExecuteCursorAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteCursorAsync
   name: ExecuteCursorAsync
