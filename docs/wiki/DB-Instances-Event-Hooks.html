@@ -94,6 +94,62 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="custom-event-hooks">Custom event hooks</h1>
 
+<p>there are currently two hooks you can tap into. <code>OnBeforeSave</code> and <code>OnBeforeUpdate</code> so that you can perform modifications to the operation that's about to happen.
+it can also be used as an alternative to the pre-baked audit fields functionality for more fine-grain control. make sure to override both methods in order to cover all the bases.</p>
+<p>say for example, you have a <code>Flower</code> entity like the following and you want to automatically set the creator &amp; date when new flowers are being persisted and also modify the updater &amp; date when existing entities get updated.</p>
+<pre><code class="lang-csharp">public class Flower : Entity
+{
+    public string Name { get; set; }
+
+    public string CreatedBy { get; set; }
+    public DateTime CreatedDate { get; set; }
+
+    public string UpdatedBy { get; set; }
+    public DateTime UpdateDate { get; set; }
+}
+</code></pre>
+<p>to be able to tap in to the hooks, create a derived <code>DBContext</code> class and override the two methods as follows:</p>
+<pre><code class="lang-csharp">public class MyDBContext : DBContext
+{
+    protected override Action&lt;T&gt; OnBeforeSave&lt;T&gt;()
+    {
+        Action&lt;Flower&gt; action = f =&gt;
+        {
+            if (f.ID == null)
+            {
+                f.CreatedBy = &quot;God&quot;;
+                f.CreatedDate = DateTime.MinValue;
+            }
+            else
+            {
+                f.UpdatedBy = &quot;Human&quot;;
+                f.UpdateDate = DateTime.UtcNow;
+            }
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    protected override Action&lt;UpdateBase&lt;T&gt;&gt; OnBeforeUpdate&lt;T&gt;()
+    {
+        Action&lt;UpdateBase&lt;Flower&gt;&gt; action = update =&gt;
+        {
+            update.AddModification(f =&gt; f.UpdatedBy, &quot;Human&quot;);
+            update.AddModification(f =&gt; f.UpdateDate, DateTime.UtcNow);
+        };
+        return action as Action&lt;UpdateBase&lt;T&gt;&gt;;
+    }
+}
+</code></pre>
+<p>after that, simply create new instances of <code>MyDBContext</code> when you need the above functionality and perform operatios as usual like so:</p>
+<pre><code class="lang-csharp">var db = new MyDBContext();
+
+await db.SaveAsync(new Flower() { Name = &quot;Red Rose&quot; });
+
+await db.Update&lt;Flower&gt;()
+        .Match(f =&gt; f.Name == &quot;Red Rose&quot;)
+        .Modify(f =&gt; f.Name, &quot;White Rose&quot;)
+        .ExecuteAsync();
+</code></pre>
 </article>
           </div>
           
