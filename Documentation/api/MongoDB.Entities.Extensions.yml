@@ -9,8 +9,8 @@ items:
   - MongoDB.Entities.Extensions.CollectionName``1(``0)
   - MongoDB.Entities.Extensions.Database``1(``0)
   - MongoDB.Entities.Extensions.DatabaseName``1(``0)
-  - MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
-  - MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+  - MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.Distinct``1(MongoDB.Driver.IAggregateFluent{``0})
   - MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
   - MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
@@ -20,7 +20,7 @@ items:
   - MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
   - MongoDB.Entities.Extensions.Match``1(MongoDB.Driver.IAggregateFluent{``0},System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}})
   - MongoDB.Entities.Extensions.MatchExpression``1(MongoDB.Driver.IAggregateFluent{``0},System.String)
-  - MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
+  - MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Driver.AggregateOptions)
   - MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -145,6 +145,7 @@ items:
   syntax:
     content: >-
       public static IMongoDatabase Database<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -192,6 +193,7 @@ items:
   syntax:
     content: >-
       public static string DatabaseName<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -238,6 +240,7 @@ items:
   syntax:
     content: >-
       public static IMongoCollection<T> Collection<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -285,6 +288,7 @@ items:
   syntax:
     content: >-
       public static string CollectionName<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -376,6 +380,7 @@ items:
   syntax:
     content: >-
       public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: _
@@ -424,6 +429,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: _
@@ -477,6 +483,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -524,6 +531,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -575,6 +583,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -626,6 +635,7 @@ items:
   syntax:
     content: >-
       public static One<T> ToReference<T>(this T entity)
+
           where T : IEntity
     parameters:
     - id: entity
@@ -672,6 +682,7 @@ items:
   syntax:
     content: >-
       public static T ToDocument<T>(this T entity)
+
           where T : IEntity
     parameters:
     - id: entity
@@ -718,6 +729,7 @@ items:
   syntax:
     content: >-
       public static T[] ToDocuments<T>(this T[] entities)
+
           where T : IEntity
     parameters:
     - id: entities
@@ -764,6 +776,7 @@ items:
   syntax:
     content: >-
       public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities)
+
           where T : IEntity
     parameters:
     - id: entities
@@ -810,6 +823,7 @@ items:
   syntax:
     content: >-
       public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -862,6 +876,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -914,6 +929,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -971,6 +987,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1028,6 +1045,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1085,6 +1103,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1142,6 +1161,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1171,22 +1191,22 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SavePreservingAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SavePreservingAsync(Of T)(T, IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
-  id: DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+- uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   isExtensionMethod: true
   parent: MongoDB.Entities.Extensions
   langs:
   - csharp
   - vb
-  name: DeleteAsync<T>(T, IClientSessionHandle)
-  nameWithType: Extensions.DeleteAsync<T>(T, IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAsync<T>(T, MongoDB.Driver.IClientSessionHandle)
+  name: DeleteAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAsync<T>(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   type: Method
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 311
+    startLine: 312
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1194,13 +1214,17 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null)
+      public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
       type: '{T}'
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     typeParameters:
     - id: T
     return:
@@ -1208,33 +1232,33 @@ items:
     content.vb: >-
       <ExtensionAttribute>
 
-      Public Shared Function DeleteAsync(Of T As IEntity)(entity As T, session As IClientSessionHandle = Nothing) As Task(Of DeleteResult)
+      Public Shared Function DeleteAsync(Of T As IEntity)(entity As T, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
   overload: MongoDB.Entities.Extensions.DeleteAsync*
-  nameWithType.vb: Extensions.DeleteAsync(Of T)(T, IClientSessionHandle)
+  nameWithType.vb: Extensions.DeleteAsync(Of T)(T, IClientSessionHandle, CancellationToken)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAsync(Of T)(T, IClientSessionHandle)
-- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
-  id: DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   isExtensionMethod: true
   parent: MongoDB.Entities.Extensions
   langs:
   - csharp
   - vb
-  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle)
-  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle)
+  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   type: Method
   source:
     id: DeleteAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 320
+    startLine: 322
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1242,13 +1266,17 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null)
+      public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
       type: System.Collections.Generic.IEnumerable{{T}}
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     typeParameters:
     - id: T
     return:
@@ -1256,17 +1284,17 @@ items:
     content.vb: >-
       <ExtensionAttribute>
 
-      Public Shared Function DeleteAllAsync(Of T As IEntity)(entities As IEnumerable(Of T), session As IClientSessionHandle = Nothing) As Task(Of DeleteResult)
+      Public Shared Function DeleteAllAsync(Of T As IEntity)(entities As IEnumerable(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of DeleteResult)
   overload: MongoDB.Entities.Extensions.DeleteAllAsync*
-  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle)
+  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
   commentId: M:MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
   id: SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
@@ -1282,7 +1310,7 @@ items:
   source:
     id: SortByRelevance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 333
+    startLine: 335
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1337,7 +1365,7 @@ items:
   source:
     id: ToDoubleMetaphoneHash
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 354
+    startLine: 356
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1362,22 +1390,22 @@ items:
   modifiers.vb:
   - Public
   - Shared
-- uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
-  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
-  id: NextSequentialNumberAsync``1(``0)
+- uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
+  id: NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
   isExtensionMethod: true
   parent: MongoDB.Entities.Extensions
   langs:
   - csharp
   - vb
-  name: NextSequentialNumberAsync<T>(T)
-  nameWithType: Extensions.NextSequentialNumberAsync<T>(T)
-  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>(T)
+  name: NextSequentialNumberAsync<T>(T, CancellationToken)
+  nameWithType: Extensions.NextSequentialNumberAsync<T>(T, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>(T, System.Threading.CancellationToken)
   type: Method
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 363
+    startLine: 365
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1385,30 +1413,33 @@ items:
   example: []
   syntax:
     content: >-
-      public static Task<ulong> NextSequentialNumberAsync<T>(this T _)
+      public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: _
       type: '{T}'
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     typeParameters:
     - id: T
-      description: The type of entity to get the next sequential number for
     return:
       type: System.Threading.Tasks.Task{System.UInt64}
     content.vb: >-
       <ExtensionAttribute>
 
-      Public Shared Function NextSequentialNumberAsync(Of T As IEntity)(_ As T) As Task(Of ULong)
+      Public Shared Function NextSequentialNumberAsync(Of T As IEntity)(_ As T, cancellation As CancellationToken = Nothing) As Task(Of ULong)
   overload: MongoDB.Entities.Extensions.NextSequentialNumberAsync*
-  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T)
+  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T, CancellationToken)
   modifiers.csharp:
   - public
   - static
   modifiers.vb:
   - Public
   - Shared
-  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T)
-  name.vb: NextSequentialNumberAsync(Of T)(T)
+  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T, System.Threading.CancellationToken)
+  name.vb: NextSequentialNumberAsync(Of T)(T, CancellationToken)
 - uid: MongoDB.Entities.Extensions.InitOneToMany``1(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})
   commentId: M:MongoDB.Entities.Extensions.InitOneToMany``1(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})
   id: InitOneToMany``1(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})
@@ -1424,7 +1455,7 @@ items:
   source:
     id: InitOneToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 373
+    startLine: 375
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1433,6 +1464,7 @@ items:
   syntax:
     content: >-
       public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit)
+
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1472,7 +1504,7 @@ items:
   source:
     id: InitManyToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 385
+    startLine: 387
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1481,6 +1513,7 @@ items:
   syntax:
     content: >-
       public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide)
+
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1523,7 +1556,7 @@ items:
   source:
     id: IsAccessibleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 408
+    startLine: 410
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1565,7 +1598,7 @@ items:
   source:
     id: ExistsAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 428
+    startLine: 430
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

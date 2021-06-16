@@ -29,7 +29,9 @@ items:
     content: 'public abstract class FileEntity : Entity, IEntity'
     content.vb: >-
       Public MustInherit Class FileEntity
+
           Inherits Entity
+
           Implements IEntity
   inheritance:
   - System.Object
@@ -59,8 +61,8 @@ items:
   - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.FileEntity,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.FileEntity,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle)
-  - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1
+  - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitOneToMany``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild}}}})
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InitManyToMany``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{{TChild}}}},System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}})
   modifiers.csharp:
@@ -1243,18 +1245,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+- uid: MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
-  name: DeleteAsync<FileEntity>(IClientSessionHandle)
-  nameWithType: Extensions.DeleteAsync<FileEntity>(IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAsync<MongoDB.Entities.FileEntity>(MongoDB.Driver.IClientSessionHandle)
-  nameWithType.vb: Extensions.DeleteAsync(Of FileEntity)(IClientSessionHandle)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of MongoDB.Entities.FileEntity)(MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAsync(Of FileEntity)(IClientSessionHandle)
+  definition: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: DeleteAsync<FileEntity>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAsync<FileEntity>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAsync<MongoDB.Entities.FileEntity>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAsync(Of FileEntity)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of MongoDB.Entities.FileEntity)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of FileEntity)(IClientSessionHandle, CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAsync<FileEntity>
     nameWithType: Extensions.DeleteAsync<FileEntity>
     fullName: MongoDB.Entities.Extensions.DeleteAsync<MongoDB.Entities.FileEntity>
@@ -1266,11 +1268,19 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAsync(Of FileEntity)
     nameWithType: Extensions.DeleteAsync(Of FileEntity)
     fullName: MongoDB.Entities.Extensions.DeleteAsync(Of MongoDB.Entities.FileEntity)
@@ -1282,38 +1292,56 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1
-  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
+- uid: MongoDB.Entities.FileEntity.MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
-  name: NextSequentialNumberAsync<FileEntity>()
-  nameWithType: Extensions.NextSequentialNumberAsync<FileEntity>()
-  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<MongoDB.Entities.FileEntity>()
-  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of FileEntity)()
-  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of MongoDB.Entities.FileEntity)()
-  name.vb: NextSequentialNumberAsync(Of FileEntity)()
+  definition: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
+  name: NextSequentialNumberAsync<FileEntity>(CancellationToken)
+  nameWithType: Extensions.NextSequentialNumberAsync<FileEntity>(CancellationToken)
+  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<MongoDB.Entities.FileEntity>(System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of FileEntity)(CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of MongoDB.Entities.FileEntity)(System.Threading.CancellationToken)
+  name.vb: NextSequentialNumberAsync(Of FileEntity)(CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(System.Threading.CancellationToken)
     name: NextSequentialNumberAsync<FileEntity>
     nameWithType: Extensions.NextSequentialNumberAsync<FileEntity>
     fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<MongoDB.Entities.FileEntity>
   - name: (
     nameWithType: (
     fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(System.Threading.CancellationToken)
     name: NextSequentialNumberAsync(Of FileEntity)
     nameWithType: Extensions.NextSequentialNumberAsync(Of FileEntity)
     fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of MongoDB.Entities.FileEntity)
   - name: (
     nameWithType: (
     fullName: (
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -2363,17 +2391,17 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+- uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   isExternal: true
-  name: DeleteAsync<T>(T, IClientSessionHandle)
-  nameWithType: Extensions.DeleteAsync<T>(T, IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAsync<T>(T, MongoDB.Driver.IClientSessionHandle)
-  nameWithType.vb: Extensions.DeleteAsync(Of T)(T, IClientSessionHandle)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAsync(Of T)(T, IClientSessionHandle)
+  name: DeleteAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAsync<T>(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAsync(Of T)(T, IClientSessionHandle, CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAsync<T>
     nameWithType: Extensions.DeleteAsync<T>
     fullName: MongoDB.Entities.Extensions.DeleteAsync<T>
@@ -2391,11 +2419,19 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAsync(Of T)
     nameWithType: Extensions.DeleteAsync(Of T)
     fullName: MongoDB.Entities.Extensions.DeleteAsync(Of T)
@@ -2413,19 +2449,28 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
-  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
-  name: NextSequentialNumberAsync<T>(T)
-  nameWithType: Extensions.NextSequentialNumberAsync<T>(T)
-  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>(T)
-  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T)
-  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T)
-  name.vb: NextSequentialNumberAsync(Of T)(T)
+- uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
+  isExternal: true
+  name: NextSequentialNumberAsync<T>(T, CancellationToken)
+  nameWithType: Extensions.NextSequentialNumberAsync<T>(T, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>(T, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T, System.Threading.CancellationToken)
+  name.vb: NextSequentialNumberAsync(Of T)(T, CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
     name: NextSequentialNumberAsync<T>
     nameWithType: Extensions.NextSequentialNumberAsync<T>
     fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync<T>
@@ -2435,11 +2480,19 @@ references:
   - name: T
     nameWithType: T
     fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0)
+  - uid: MongoDB.Entities.Extensions.NextSequentialNumberAsync``1(``0,System.Threading.CancellationToken)
     name: NextSequentialNumberAsync(Of T)
     nameWithType: Extensions.NextSequentialNumberAsync(Of T)
     fullName: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)
@@ -2449,6 +2502,14 @@ references:
   - name: T
     nameWithType: T
     fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

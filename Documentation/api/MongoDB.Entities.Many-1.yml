@@ -53,7 +53,9 @@ items:
       description: Type of the child IEntity.
     content.vb: >-
       Public Class Many(Of TChild As IEntity)
+
           Inherits ManyBase
+
           Implements IEnumerable(Of TChild), IEnumerable
   inheritance:
   - System.Object
@@ -75,7 +77,7 @@ items:
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle)
+  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{{TChild},System.String},System.Nullable{System.Int32})
   nameWithType.vb: Many(Of TChild)
   modifiers.csharp:
@@ -286,6 +288,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childID
@@ -334,6 +337,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -382,6 +386,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: children
@@ -430,6 +435,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children)
+
           where TParent : IEntity
     parameters:
     - id: children
@@ -472,6 +478,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childID
@@ -520,6 +527,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -718,6 +726,7 @@ items:
   syntax:
     content: >-
       public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property)
+
           where TParent : IEntity
     parameters:
     - id: parent
@@ -761,6 +770,7 @@ items:
   syntax:
     content: >-
       public void VB_InitManyToMany<TParent>(TParent parent, Expression<Func<TParent, object>> propertyParent, Expression<Func<TChild, object>> propertyChild, bool isInverse)
+
           where TParent : IEntity
     parameters:
     - id: parent
@@ -1864,18 +1874,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
+- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
-  name: DeleteAllAsync<TChild>(IClientSessionHandle)
-  nameWithType: Extensions.DeleteAllAsync<TChild>(IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>(MongoDB.Driver.IClientSessionHandle)
-  nameWithType.vb: Extensions.DeleteAllAsync(Of TChild)(IClientSessionHandle)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAllAsync(Of TChild)(IClientSessionHandle)
+  definition: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAllAsync<TChild>
     nameWithType: Extensions.DeleteAllAsync<TChild>
     fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>
@@ -1887,11 +1897,19 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAllAsync(Of TChild)
     nameWithType: Extensions.DeleteAllAsync(Of TChild)
     fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)
@@ -1902,6 +1920,14 @@ references:
     name: IClientSessionHandle
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
@@ -2650,17 +2676,17 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
+- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   isExternal: true
-  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle)
-  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle)
-  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle)
-  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle)
-  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle)
+  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAllAsync<T>
     nameWithType: Extensions.DeleteAllAsync<T>
     fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>
@@ -2689,11 +2715,19 @@ references:
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle)
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
     name: DeleteAllAsync(Of T)
     nameWithType: Extensions.DeleteAllAsync(Of T)
     fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)
@@ -2721,6 +2755,14 @@ references:
     name: IClientSessionHandle
     nameWithType: IClientSessionHandle
     fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
     isExternal: true
   - name: )
     nameWithType: )

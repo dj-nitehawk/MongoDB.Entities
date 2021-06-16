@@ -159,16 +159,10 @@ namespace MongoDB.Entities
 
             if (expression.Body.NodeType == ExpressionType.MemberAccess && type == KeyType.Text)
             {
-                var propType = ((((expression.Body as UnaryExpression)?.Operand ?? expression.Body) as MemberExpression)?.Member as PropertyInfo)?.PropertyType;
-
-                if (propType == typeof(FuzzyString))
-                {
+                if (expression.PropertyInfo().PropertyType == typeof(FuzzyString))
                     PropertyName = expression.FullPath() + ".Hash";
-                }
                 else
-                {
                     PropertyName = expression.FullPath();
-                }
                 return;
             }
 

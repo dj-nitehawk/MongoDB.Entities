@@ -73,7 +73,7 @@ namespace MongoDB.Entities
         public static string Property<T>(Expression<Func<T, object>> expression)
         {
             ThrowIfInvalid(expression);
-            return (((expression.Body as UnaryExpression)?.Operand ?? expression.Body) as MemberExpression)?.Member.Name;
+            return expression.MemberInfo().Name;
         }
 
         /// <summary>

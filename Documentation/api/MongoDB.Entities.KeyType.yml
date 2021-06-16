@@ -22,7 +22,7 @@ items:
   source:
     id: KeyType
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 178
+    startLine: 172
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -49,7 +49,7 @@ items:
   source:
     id: Ascending
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 180
+    startLine: 174
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -77,7 +77,7 @@ items:
   source:
     id: Descending
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 181
+    startLine: 175
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -105,7 +105,7 @@ items:
   source:
     id: Geo2D
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 182
+    startLine: 176
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -133,7 +133,7 @@ items:
   source:
     id: Geo2DSphere
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 183
+    startLine: 177
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -161,7 +161,7 @@ items:
   source:
     id: Hashed
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 184
+    startLine: 178
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -189,7 +189,7 @@ items:
   source:
     id: Text
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 185
+    startLine: 179
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -217,7 +217,7 @@ items:
   source:
     id: Wildcard
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 186
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

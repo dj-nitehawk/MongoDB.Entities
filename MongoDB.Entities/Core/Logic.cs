@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace MongoDB.Entities
 {
@@ -51,6 +52,24 @@ namespace MongoDB.Entities
                 }
             }
             return filter;
+        }
+
+        internal static PropertyInfo PropertyInfo<T>(this Expression<T> expression)
+        {
+            return MemberInfo(expression) as PropertyInfo;
+        }
+
+        internal static MemberInfo MemberInfo<T>(this Expression<T> expression)
+        {
+            switch (expression.Body)
+            {
+                case MemberExpression m:
+                    return m.Member;
+                case UnaryExpression u when u.Operand is MemberExpression m:
+                    return m.Member;
+                default:
+                    throw new NotImplementedException(expression.GetType().ToString());
+            }
         }
     }
 }

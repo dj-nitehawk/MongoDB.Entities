@@ -37,6 +37,7 @@ items:
   syntax:
     content: >-
       public class Distinct<T, TProperty>
+
           where T : IEntity
     typeParameters:
     - id: T

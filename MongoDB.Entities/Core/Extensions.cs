@@ -309,18 +309,20 @@ namespace MongoDB.Entities
         /// Deletes a single entity from MongoDB.
         /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entity.ID, session);
+            return DB.DeleteAsync<T>(entity.ID, session, cancellation);
         }
 
         /// <summary>
         /// Deletes multiple entities from the database
         /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
         /// </summary>
-        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entities.Select(e => e.ID), session);
+            return DB.DeleteAsync<T>(entities.Select(e => e.ID), session, cancellation);
         }
 
         /// <summary>
@@ -360,10 +362,10 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
-        /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        public static Task<ulong> NextSequentialNumberAsync<T>(this T _) where T : IEntity
+        /// <param name="cancellation">An optional cancellation token</param>
+        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>();
+            return DB.NextSequentialNumberAsync<T>(cancellation);
         }
 
         /// <summary>
@@ -373,7 +375,7 @@ namespace MongoDB.Entities
         /// <param name="propertyToInit">() => PropertyName</param>
         public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
         {
-            var property = (((propertyToInit.Body as UnaryExpression)?.Operand ?? propertyToInit.Body) as MemberExpression)?.Member as PropertyInfo;
+            var property = propertyToInit.PropertyInfo();
             property.SetValue(parent, new Many<TChild>(parent, property.Name));
         }
 
@@ -385,13 +387,13 @@ namespace MongoDB.Entities
         /// <param name="propertyOtherSide">x => x.PropertyName</param>
         public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
         {
-            var property = (((propertyToInit.Body as UnaryExpression)?.Operand ?? propertyToInit.Body) as MemberExpression)?.Member as PropertyInfo;
+            var property = propertyToInit.PropertyInfo();
             var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
             var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute), false);
             if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
             if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
-            var osProperty = (((propertyOtherSide.Body as UnaryExpression)?.Operand ?? propertyOtherSide.Body) as MemberExpression)?.Member;
+            var osProperty = propertyOtherSide.MemberInfo();
             var osHasOwnerAttrib = osProperty.IsDefined(typeof(OwnerSideAttribute), false);
             var osHasInverseAttrib = osProperty.IsDefined(typeof(InverseSideAttribute), false);
             if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
