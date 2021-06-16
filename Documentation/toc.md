@@ -1,6 +1,5 @@
 # [Documentation](wiki/)
 # [Code Samples](wiki/Code-Samples.md)
-# [Cheat-Sheet](cheat-sheet/)
 # [Api Reference](api/)
 # [GitHub](https://github.com/dj-nitehawk/MongoDB.Entities)
 # [Discord](https://discord.com/invite/CM5mw2G)

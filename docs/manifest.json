@@ -648,210 +648,6 @@
       "version": ""
     },
     {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/change-streams.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/change-streams.html",
-          "hash": "tHKDDqEsw1AUPTQKFkujEgpY3DsyJX/5swpeeDrb0zw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/connections.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/connections.html",
-          "hash": "ieRQN4jftLLUqsOt+nX+Aq6gnfGNwfbjsA+yI9I0T3U="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/create.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/create.html",
-          "hash": "DUOLJrHEpcdkvOhFJ8+Sq1v+eTly64fur6wpBeTCmCo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/data-migrations.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/data-migrations.html",
-          "hash": "rE4Jxormdgj9SXafbfB0+ztlJ+otQ70CzIL4qaGgFdg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/delete.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/delete.html",
-          "hash": "Oxm+61v+m0YlS1P3RtgwhiA4NZxarcGCTyNVxc5v89s="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/entities.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/entities.html",
-          "hash": "K/hZ5bKjTZD4YY9fk+fORbWLbvGamnY8FbMxLXwt6DQ="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/extras.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/extras.html",
-          "hash": "s27n26QoKpEfRUe362TI+hv3LimKooOWimU0gW2MKT4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/file-storage.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/file-storage.html",
-          "hash": "dhFeIaAaKfWxq1kX8hwXj/Y74r1lmswrTCcce6RnjV0="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/index.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/index.html",
-          "hash": "Rd6IT0kRCNOkBA4WQaWmv7szkfMbd6m3OTEhZeDBHcY="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/indexes.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/indexes.html",
-          "hash": "cuIeXr3JkyPju6yYrVKiii3mnolzWfp+YANdyQCEhSg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/multi-db.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/multi-db.html",
-          "hash": "/C25iuba61IcclC6hA/oqYNyrLNMgKMGhSVUo3LG+dw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/queries.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/queries.html",
-          "hash": "uwOf/E2lMGe9VLmb8kC7zmkhlgm/sCshbBpcip0LSLM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/relationships.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/relationships.html",
-          "hash": "ykRyuixArj00h3rx7+Vfh1vX9eopAdgSQL2ZSILDMvY="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/string-templates.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/string-templates.html",
-          "hash": "mQCuq2xY5bstC0aHHJkTGvTsabLQQJ+BohBapPUZ2CM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "cheat-sheet/toc.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/toc.html",
-          "hash": "EyfQOrHNONirVcZLskFzgq9cRgl7wgm8hz9dnW3JMX4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/transactions.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/transactions.html",
-          "hash": "gQdkBmDRzOKd284OkGNavnmmWn7W42Z8lcoz3vLlmjU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "cheat-sheet/update.md",
-      "output": {
-        ".html": {
-          "relative_path": "cheat-sheet/update.html",
-          "hash": "/2J8zx7Z4W2zNpaCgXq1waLt7H+wev3TL6D3n/2FyPU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
       "type": "Resource",
       "source_relative_path": "images/donate.png",
       "output": {
@@ -924,7 +720,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "LDNOglFdB7GDeWNqd2dqF450ousxwYSUuCknn3kLuJ4="
+          "hash": "dF13zH2M5xEwK4J01RTJJB56DpncLztt6Iia7bTkVcM="
         }
       },
       "is_incremental": false,
@@ -1306,23 +1102,25 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 47,
-          "skipped_file_count": 47
+          "total_file_count": 31,
+          "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 51,
-          "skipped_file_count": 15
+          "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
