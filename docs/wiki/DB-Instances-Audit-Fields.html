@@ -148,7 +148,7 @@ dbContext.ModifiedBy = new ModifiedBy
 var currentUser = dbContext.ModifiedBy;
 </code></pre>
 <h2 id="transaction-support">Transaction support</h2>
-<p>a transaction can be performed with the DBContext like so:</p>
+<p>a transaction with audit field support can be performed with the DBContext like so:</p>
 <pre><code class="lang-csharp">var db = new DBContext(modifiedBy: currentUser);
 
 using (db.Transaction())
@@ -165,7 +165,7 @@ using (db.Transaction())
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>please refer to the <a href="Transactions.html">transactions page</a> for a detailed explanation on how transactions work.</p>
+<p>please refer to the <a href="Transactions.html">transactions page</a> for a detailed explanation of how transactions work.</p>
 </div>
 </article>
           </div>

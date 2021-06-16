@@ -65,7 +65,7 @@ var currentUser = dbContext.ModifiedBy;
 ```
 
 ## Transaction support
-a transaction can be performed with the DBContext like so:
+a transaction with audit field support can be performed with the DBContext like so:
 ```csharp
 var db = new DBContext(modifiedBy: currentUser);
 
@@ -84,4 +84,4 @@ using (var TN = DB.Transaction(modifiedBy: currentUser))
 }
 ```
 > [!NOTE]
-> please refer to the [transactions page](Transactions.md) for a detailed explanation on how transactions work.
+> please refer to the [transactions page](Transactions.md) for a detailed explanation of how transactions work.
