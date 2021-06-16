@@ -184,9 +184,15 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<List<TProperty>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await
-                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-                     .ToListAsync().ConfigureAwait(false);
+            var list = new List<TProperty>();
+            using (var csr = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+            {
+                while (await csr.MoveNextAsync(cancellation).ConfigureAwait(false))
+                {
+                    list.AddRange(csr.Current);
+                }
+            }
+            return list;
         }
     }
 }

@@ -359,7 +359,7 @@ namespace MongoDB.Entities.Tests
             var book1 = new Book { Title = "fbircdb1" }; await book1.SaveAsync();
             var book2 = new Book { Title = "fbircdb2" }; await book2.SaveAsync();
 
-            var res1 = await DB.Find<Book>().OneAsync(new ObjectId().ToString());
+            var res1 = await DB.Find<Book>().OneAsync(ObjectId.GenerateNewId().ToString());
             var res2 = await DB.Find<Book>().OneAsync(book2.ID);
 
             Assert.AreEqual(null, res1);

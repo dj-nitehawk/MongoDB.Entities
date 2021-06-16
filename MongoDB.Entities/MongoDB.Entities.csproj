@@ -8,17 +8,9 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.14.0</Version>
+    <Version>20.15.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added global filter support for DBContext
-- added event hooks for DBContext
-- added ability to initialize connections from DBContext ctor
-- added ability to start transactions from DBContext
-- removed virtual keyword from DBContext methods
-- added more overloads to DB.Delete()
-- added cancellation suport for more extension methods
-- misc. optimizations
-- increased test coverage</PackageReleaseNotes>
+    <PackageReleaseNotes>- optimized distinct and find result materialization</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

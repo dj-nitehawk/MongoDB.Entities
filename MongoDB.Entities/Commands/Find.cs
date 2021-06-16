@@ -343,9 +343,15 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
         {
-            return await
-                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-                     .ToListAsync().ConfigureAwait(false);
+            var list = new List<TProjection>();
+            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+            {
+                while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
+                {
+                    list.AddRange(cursor.Current);
+                }
+            }
+            return list;
         }
 
         /// <summary>
@@ -355,9 +361,12 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default)
         {
-            return await
-                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-                    .SingleOrDefaultAsync().ConfigureAwait(false);
+            Limit(2);
+            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+            {
+                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+                return cursor.Current.SingleOrDefault();
+            }
         }
 
         /// <summary>
@@ -366,9 +375,23 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<TProjection> ExecuteFirstAsync(CancellationToken cancellation = default)
         {
-            return await
-                    (await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-                    .FirstOrDefaultAsync().ConfigureAwait(false);
+            Limit(1);
+            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+            {
+                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+                return cursor.Current.SingleOrDefault(); //because we're limiting to 1
+            }
+        }
+
+        public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
+        {
+            Project(b => b.Include(x => x.ID));
+            Limit(1);
+            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
+            {
+                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+                return cursor.Current.Any();
+            }
         }
 
         /// <summary>
