@@ -383,6 +383,10 @@ namespace MongoDB.Entities
             }
         }
 
+        /// <summary>
+        /// Run the Find command and get back a bool indicating whether any entities matched the query
+        /// </summary>
+        /// <param name="cancellation">An optional cancellation token</param>
         public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
         {
             Project(b => b.Include(x => x.ID));

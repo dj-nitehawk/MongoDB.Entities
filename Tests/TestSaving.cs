@@ -379,6 +379,36 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task find_by_filter_single()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid }; await author1.SaveAsync();
+            var author2 = new Author { Name = guid }; await author2.SaveAsync();
+
+            var res = await DB
+                .Find<Author>()
+                .Match(f => f.Eq(a => a.Name, guid))
+                .ExecuteFirstAsync();
+
+            Assert.AreEqual(author1.ID,res.ID);
+        }
+
+        [TestMethod]
+        public async Task find_by_filter_any()
+        {
+            var guid = Guid.NewGuid().ToString();
+            var author1 = new Author { Name = guid }; await author1.SaveAsync();
+            var author2 = new Author { Name = guid }; await author2.SaveAsync();
+
+            var res = await DB
+                .Find<Author>()
+                .Match(f => f.Eq(a => a.Name, guid))
+                .ExecuteAnyAsync();
+
+            Assert.IsTrue(res);
+        }
+
+        [TestMethod]
         public async Task find_by_multiple_match_methods()
         {
             var guid = Guid.NewGuid().ToString();

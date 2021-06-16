@@ -166,11 +166,17 @@ namespace MongoDB.Entities.Tests
                 .Tag("author_name", guid)
                 .Path(a => a.Age);
 
-            var results = await (await DB.PipelineCursorAsync(pipeline)).ToListAsync();
+            var results = await DB.PipelineAsync(pipeline);
 
             Assert.AreEqual(2, results.Count);
             Assert.IsTrue(results[0].Name == guid);
             Assert.IsTrue(results.Last().Age == 54);
+
+            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.PipelineSingleAsync(pipeline));
+
+            var first = await DB.PipelineFirstAsync(pipeline);
+
+            Assert.IsNotNull(first);
         }
 
         [TestMethod]

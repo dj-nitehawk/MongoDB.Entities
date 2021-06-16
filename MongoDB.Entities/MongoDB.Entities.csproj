@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.15.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- optimized distinct and find result materialization</PackageReleaseNotes>
+    <PackageReleaseNotes>- added DB.Find().ExecuteAnyAsync() to check for any matching
+- optimized distinct, find and pipeline cursor iterations</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
