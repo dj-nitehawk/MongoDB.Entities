@@ -9,7 +9,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
-        public virtual IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
 
@@ -33,7 +33,7 @@ namespace MongoDB.Entities
         /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
-        public virtual IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
 

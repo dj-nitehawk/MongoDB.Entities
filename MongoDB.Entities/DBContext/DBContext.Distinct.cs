@@ -7,7 +7,7 @@
         /// </summary>
         /// <typeparam name="T">Any Entity that implements IEntity interface</typeparam>
         /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
-        public virtual Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
+        public Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
         {
             return new Distinct<T, TProperty>(Session, globalFilters);
         }

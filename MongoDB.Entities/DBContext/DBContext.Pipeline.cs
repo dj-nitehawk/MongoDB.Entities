@@ -18,7 +18,7 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineCursorAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
@@ -46,7 +46,7 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineSingleAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }
@@ -60,7 +60,7 @@ namespace MongoDB.Entities
         /// <param name="template">A 'Template' object with tags replaced</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
+        public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.PipelineFirstAsync(MergeGlobalFilter(template), options, Session, cancellation);
         }

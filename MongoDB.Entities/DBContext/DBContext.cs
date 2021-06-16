@@ -10,7 +10,6 @@ namespace MongoDB.Entities
 {
     /// <summary>
     /// This db context class can be used as an alternative entry point instead of the DB static class. 
-    /// All methods on this class can be overriden if needed.
     /// </summary>
     public partial class DBContext
     {

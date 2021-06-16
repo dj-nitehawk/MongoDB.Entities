@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public virtual Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
@@ -34,7 +34,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
@@ -51,7 +51,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
@@ -68,7 +68,7 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
@@ -85,7 +85,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
@@ -102,7 +102,7 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
@@ -116,7 +116,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);

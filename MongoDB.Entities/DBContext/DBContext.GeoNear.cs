@@ -22,7 +22,7 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
 

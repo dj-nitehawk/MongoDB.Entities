@@ -16,7 +16,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
@@ -49,7 +49,7 @@ namespace MongoDB.Entities
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Where(expression)),
@@ -67,7 +67,7 @@ namespace MongoDB.Entities
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter(Builders<T>.Filter)),
@@ -85,7 +85,7 @@ namespace MongoDB.Entities
         /// <param name="filter">A filter definition for matching entities to delete.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public virtual Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        public Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(globalFilters, filter),

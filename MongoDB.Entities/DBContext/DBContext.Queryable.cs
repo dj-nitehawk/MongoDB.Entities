@@ -10,7 +10,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="options">The aggregate options</param>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity
+        public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(globalFilters, Builders<T>.Filter.Empty);
 

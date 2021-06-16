@@ -6,7 +6,7 @@
         /// Starts an update command for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual Update<T> Update<T>() where T : IEntity
+        public Update<T> Update<T>() where T : IEntity
         {
             var cmd = new Update<T>(Session, globalFilters, OnBeforeUpdate<T>());
             if (Cache<T>.ModifiedByProp != null)
@@ -21,7 +21,7 @@
         /// Starts an update-and-get command for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public virtual UpdateAndGet<T, T> UpdateAndGet<T>() where T : IEntity
+        public UpdateAndGet<T, T> UpdateAndGet<T>() where T : IEntity
         {
             return UpdateAndGet<T, T>();
         }
@@ -31,7 +31,7 @@
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <typeparam name="TProjection">The type of the end result</typeparam>
-        public virtual UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
+        public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
             var cmd = new UpdateAndGet<T, TProjection>(Session, globalFilters, OnBeforeUpdate<T>());
             if (Cache<T>.ModifiedByProp != null)
