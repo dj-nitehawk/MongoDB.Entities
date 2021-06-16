@@ -29,9 +29,7 @@ items:
       description: The type of the resulting objects
     content.vb: >-
       Public Class Joined(Of T)
-
           Inherits JoinRecord
-
           Implements IEntity
   inheritance:
   - System.Object

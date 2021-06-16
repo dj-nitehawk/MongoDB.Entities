@@ -46,7 +46,7 @@ items:
   source:
     id: Extensions
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 17
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -87,7 +87,7 @@ items:
   source:
     id: ToBatches
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 48
+    startLine: 47
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -136,7 +136,7 @@ items:
   source:
     id: Database
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 69
+    startLine: 68
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -145,7 +145,6 @@ items:
   syntax:
     content: >-
       public static IMongoDatabase Database<T>(this T _)
-
           where T : IEntity
     parameters:
     - id: _
@@ -184,7 +183,7 @@ items:
   source:
     id: DatabaseName
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 74
+    startLine: 73
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -193,7 +192,6 @@ items:
   syntax:
     content: >-
       public static string DatabaseName<T>(this T _)
-
           where T : IEntity
     parameters:
     - id: _
@@ -231,7 +229,7 @@ items:
   source:
     id: Collection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 81
+    startLine: 80
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -240,7 +238,6 @@ items:
   syntax:
     content: >-
       public static IMongoCollection<T> Collection<T>(this T _)
-
           where T : IEntity
     parameters:
     - id: _
@@ -279,7 +276,7 @@ items:
   source:
     id: CollectionName
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 86
+    startLine: 85
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -288,7 +285,6 @@ items:
   syntax:
     content: >-
       public static string CollectionName<T>(this T _)
-
           where T : IEntity
     parameters:
     - id: _
@@ -326,7 +322,7 @@ items:
   source:
     id: FullPath
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 95
+    startLine: 94
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -371,7 +367,7 @@ items:
   source:
     id: Queryable
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 103
+    startLine: 102
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -380,7 +376,6 @@ items:
   syntax:
     content: >-
       public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: _
@@ -420,7 +415,7 @@ items:
   source:
     id: Fluent
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 114
+    startLine: 113
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -429,7 +424,6 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where T : IEntity
     parameters:
     - id: _
@@ -474,7 +468,7 @@ items:
   source:
     id: Distinct
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 123
+    startLine: 122
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -483,7 +477,6 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate)
-
           where T : IEntity
     parameters:
     - id: aggregate
@@ -522,7 +515,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 151
+    startLine: 150
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -531,7 +524,6 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-
           where T : IEntity
     parameters:
     - id: aggregate
@@ -574,7 +566,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 162
+    startLine: 161
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -583,7 +575,6 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression)
-
           where T : IEntity
     parameters:
     - id: aggregate
@@ -626,7 +617,7 @@ items:
   source:
     id: ToReference
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 172
+    startLine: 171
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -635,7 +626,6 @@ items:
   syntax:
     content: >-
       public static One<T> ToReference<T>(this T entity)
-
           where T : IEntity
     parameters:
     - id: entity
@@ -673,7 +663,7 @@ items:
   source:
     id: ToDocument
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 180
+    startLine: 179
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -682,7 +672,6 @@ items:
   syntax:
     content: >-
       public static T ToDocument<T>(this T entity)
-
           where T : IEntity
     parameters:
     - id: entity
@@ -720,7 +709,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 190
+    startLine: 189
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -729,7 +718,6 @@ items:
   syntax:
     content: >-
       public static T[] ToDocuments<T>(this T[] entities)
-
           where T : IEntity
     parameters:
     - id: entities
@@ -767,7 +755,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 201
+    startLine: 200
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -776,7 +764,6 @@ items:
   syntax:
     content: >-
       public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities)
-
           where T : IEntity
     parameters:
     - id: entities
@@ -814,7 +801,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 215
+    startLine: 214
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -823,7 +810,6 @@ items:
   syntax:
     content: >-
       public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -867,7 +853,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 226
+    startLine: 225
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -876,7 +862,6 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -920,7 +905,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 242
+    startLine: 241
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -929,7 +914,6 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -978,7 +962,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 258
+    startLine: 257
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -987,7 +971,6 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -1036,7 +1019,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 274
+    startLine: 273
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1045,7 +1028,6 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -1094,7 +1076,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 290
+    startLine: 289
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1103,7 +1085,6 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -1152,7 +1133,7 @@ items:
   source:
     id: SavePreservingAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 302
+    startLine: 301
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1161,7 +1142,6 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -1206,7 +1186,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 312
+    startLine: 311
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1215,7 +1195,6 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entity
@@ -1258,7 +1237,7 @@ items:
   source:
     id: DeleteAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 322
+    startLine: 321
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1267,7 +1246,6 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: entities
@@ -1310,7 +1288,7 @@ items:
   source:
     id: SortByRelevance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 335
+    startLine: 334
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1365,7 +1343,7 @@ items:
   source:
     id: ToDoubleMetaphoneHash
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 356
+    startLine: 355
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1405,7 +1383,7 @@ items:
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 365
+    startLine: 364
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1414,7 +1392,6 @@ items:
   syntax:
     content: >-
       public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default(CancellationToken))
-
           where T : IEntity
     parameters:
     - id: _
@@ -1455,7 +1432,7 @@ items:
   source:
     id: InitOneToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 375
+    startLine: 374
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1464,7 +1441,6 @@ items:
   syntax:
     content: >-
       public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit)
-
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1504,7 +1480,7 @@ items:
   source:
     id: InitManyToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 387
+    startLine: 386
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1513,7 +1489,6 @@ items:
   syntax:
     content: >-
       public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide)
-
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1556,7 +1531,7 @@ items:
   source:
     id: IsAccessibleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 410
+    startLine: 409
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1598,7 +1573,7 @@ items:
   source:
     id: ExistsAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 430
+    startLine: 429
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

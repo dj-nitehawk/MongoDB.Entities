@@ -20,7 +20,7 @@ items:
   source:
     id: Index
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 15
+    startLine: 14
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -29,7 +29,6 @@ items:
   syntax:
     content: >-
       public class Index<T>
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -68,7 +67,7 @@ items:
   source:
     id: CreateAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 25
+    startLine: 24
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -105,7 +104,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 101
+    startLine: 100
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -142,7 +141,7 @@ items:
   source:
     id: Key
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 113
+    startLine: 112
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -182,7 +181,7 @@ items:
   source:
     id: DropAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 124
+    startLine: 123
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -221,7 +220,7 @@ items:
   source:
     id: DropAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
-    startLine: 133
+    startLine: 132
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
