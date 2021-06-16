@@ -10,11 +10,13 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.14.0</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added ability to initialize connections from DBContext ctor
-- added ability to start transactions from DBContext
-- added global filter support for DBContext
+    <PackageReleaseNotes>- added global filter support for DBContext
 - added event hooks for DBContext
+- added ability to initialize connections from DBContext ctor
+- added ability to start transactions from DBContext
+- removed virtual keyword from DBContext methods
 - added more overloads to DB.Delete()
+- added cancellation suport for more extension methods
 - misc. optimizations
 - increased test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
