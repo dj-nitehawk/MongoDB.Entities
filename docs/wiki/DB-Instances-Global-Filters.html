@@ -94,6 +94,52 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="global-filters">Global filters</h1>
 
+<p>with the use of global filters you can specify a set of criteria to be applied to all operations performed by a <code>DBContext</code> instance in order to save the trouble of having to specify the same criteria on each and every operation you perform. i.e. you specify common criteria in one place, and all <strong>retrieval and update</strong> operations will have the common filters automatically applied to them before execution.</p>
+<p>to be able to specify common criteria, you need to create a derived <code>DBContext</code> class just like with the event hooks.</p>
+<pre><code class="lang-csharp">public class MyDBContext : DBContext
+{
+    public MyDBContext()
+    {
+        SetGlobalFilter&lt;Book&gt;(
+            b =&gt; b.Publisher == &quot;Harper Collins&quot; &amp;&amp;
+                 b.IsDeleted == false);
+
+        SetGlobalFilter&lt;Author&gt;(
+            a =&gt; a.Status == &quot;Active&quot; &amp;&amp;
+                 a.IsDeleted == false);
+    }
+}
+</code></pre>
+<p>you can specify filters on a per entity type basis like above or you can specify filters that are common to a base class type like so:</p>
+<pre><code class="lang-csharp">SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
+</code></pre>
+<p>global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, you can use the following overload:</p>
+<pre><code class="lang-csharp">SetGlobalFilter&lt;Book&gt;(
+    filter: b =&gt; b.Publisher == &quot;Harper Collins&quot;,
+    prepend: true);
+</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ol>
+<li><p>only one filter per entity type is allowed. you can specify multiple criteria for the same entity type with the <code>&amp;&amp;</code> operator as shown above. if you call <code>SetGlobalFilter&lt;Book&gt;</code> more than once, only the last call will be registered.</p>
+</li>
+<li><p>if using a base class to specify filters, no derived entity type (of that specific base class) can be used for registering another filter. take the following for example:</p>
+</li>
+</ol>
+<pre><code class="lang-csharp">SetGlobalFilter&lt;Book&gt;(b =&gt; b.Publisher == &quot;Harper Collins&quot;);
+
+SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
+</code></pre>
+<p>only the second filter would take effect. the first one is discarded because the <code>Book</code> type is a derived type of <code>BaseEntity</code>.</p>
+<p>you can however switch the order of registration so that the base class registration occurs first. but you need to make sure to include the criteria the base class registration caters to as well, like so:</p>
+<pre><code class="lang-csharp">SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
+
+SetGlobalFilter&lt;Book&gt;(
+      b =&gt; b.Publisher == &quot;Harper Collins&quot; &amp;&amp;
+           b.IsDeleted == true);
+</code></pre>
+<ol start="3">
+<li>only update and retrieval operations will use global filters. the <code>Save*()</code> operations will ignore any registered global filters as they will only match on the <code>ID</code> field.</li>
+</ol>
 </article>
           </div>
           
