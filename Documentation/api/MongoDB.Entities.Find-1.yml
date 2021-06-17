@@ -57,6 +57,7 @@ items:
   - MongoDB.Entities.Find{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
   - MongoDB.Entities.Find{{T},{T}}.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Find{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOptions{{T},{T}}})
+  - MongoDB.Entities.Find{{T},{T}}.IgnoreGlobalFilters
   - MongoDB.Entities.Find{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find{{T},{T}}.ExecuteSingleAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find{{T},{T}}.ExecuteFirstAsync(System.Threading.CancellationToken)
@@ -2041,6 +2042,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find{{T},{T}}.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.Find{`0,`0}.IgnoreGlobalFilters
+  parent: MongoDB.Entities.Find{{T},{T}}
+  definition: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters()
+  nameWithType: Find<T, T>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.Find<T, T>.IgnoreGlobalFilters()
+  nameWithType.vb: Find(Of T, T).IgnoreGlobalFilters()
+  fullName.vb: MongoDB.Entities.Find(Of T, T).IgnoreGlobalFilters()
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: Find<T, T>.IgnoreGlobalFilters
+    fullName: MongoDB.Entities.Find<T, T>.IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: Find(Of T, T).IgnoreGlobalFilters
+    fullName: MongoDB.Entities.Find(Of T, T).IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -4457,6 +4489,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters()
+  nameWithType: Find<T, TProjection>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters()
+  nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters()
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters()
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: Find<T, TProjection>.IgnoreGlobalFilters
+    fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: Find(Of T, TProjection).IgnoreGlobalFilters
+    fullName: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

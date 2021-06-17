@@ -415,13 +415,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_CountAsync_" data-uid="MongoDB.Entities.DBContext.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, CancellationToken, CountOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_MongoDB_Driver_CountOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)">CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, CancellationToken, CountOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -453,6 +453,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><p>An optional CountOptions object</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -489,13 +495,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_CountAsync_" data-uid="MongoDB.Entities.DBContext.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken, CountOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)">CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken, CountOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many total entities are in the collection for a given entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken), CountOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -527,6 +533,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><p>An optional CountOptions object</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -563,13 +575,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_CountAsync_" data-uid="MongoDB.Entities.DBContext.CountAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken, CountOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_CountAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_CountOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)">CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken, CountOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets an accurate count of how many entities are matched for a given expression/filter</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;long&gt; CountAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken), CountOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -599,6 +611,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -830,7 +848,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_DeleteAsync_" data-uid="MongoDB.Entities.DBContext.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, CancellationToken, Collation)</h4>
+  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_MongoDB_Driver_FilterDefinition___0__System_Threading_CancellationToken_MongoDB_Driver_Collation_System_Boolean_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)">DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt;, CancellationToken, Collation, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities with a filter definition</p>
 <p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
@@ -838,7 +856,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(FilterDefinition&lt;T&gt; filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -870,6 +888,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><p>An optional collation object</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -906,7 +930,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_DeleteAsync_" data-uid="MongoDB.Entities.DBContext.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Collections_Generic_IEnumerable_System_String__System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)">DeleteAsync&lt;T&gt;(IEnumerable&lt;String&gt;, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 <p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
@@ -914,7 +938,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(IEnumerable&lt;string&gt; IDs, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -938,6 +962,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -976,7 +1006,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_DeleteAsync_" data-uid="MongoDB.Entities.DBContext.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken, Collation)</h4>
+  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Threading_CancellationToken_MongoDB_Driver_Collation_System_Boolean_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)">DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken, Collation, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities with a filter expression</p>
 <p>HINT: If the expression matches more than 100,000 entities, they will be deleted in batches of 100k.</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
@@ -984,7 +1014,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken), Collation collation = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1016,6 +1046,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><p>An optional collation object</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1052,7 +1088,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_DeleteAsync_" data-uid="MongoDB.Entities.DBContext.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_Collation_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken, Collation)</h4>
+  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_MongoDB_Driver_Collation_System_Boolean_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)">DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken, Collation, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deletes matching entities from MongoDB</p>
 <p>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 <p>TIP: Try to keep the number of entities to delete under 100 in a single call</p>
@@ -1060,7 +1096,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken), Collation collation = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1090,6 +1126,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1128,14 +1170,14 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_DeleteAsync_" data-uid="MongoDB.Entities.DBContext.DeleteAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)">DeleteAsync&lt;T&gt;(String, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_DeleteAsync__1_System_String_System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)">DeleteAsync&lt;T&gt;(String, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Deletes a single entity from MongoDB</p>
 <p>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;DeleteResult&gt; DeleteAsync&lt;T&gt;(string ID, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1159,6 +1201,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1384,13 +1432,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_Fluent_" data-uid="MongoDB.Entities.DBContext.Fluent*"></a>
-  <h4 id="MongoDB_Entities_DBContext_Fluent__1_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)">Fluent&lt;T&gt;(AggregateOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_Fluent__1_MongoDB_Driver_AggregateOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)">Fluent&lt;T&gt;(AggregateOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Exposes the MongoDB collection for the given entity type as IAggregateFluent in order to facilitate Fluent queries</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(AggregateOptions options = null)
+    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; Fluent&lt;T&gt;(AggregateOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1408,6 +1456,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1446,14 +1500,14 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_FluentTextSearch_" data-uid="MongoDB.Entities.DBContext.FluentTextSearch*"></a>
-  <h4 id="MongoDB_Entities_DBContext_FluentTextSearch__1_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)">FluentTextSearch&lt;T&gt;(Search, String, Boolean, Boolean, String, AggregateOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_FluentTextSearch__1_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_MongoDB_Driver_AggregateOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)">FluentTextSearch&lt;T&gt;(Search, String, Boolean, Boolean, String, AggregateOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Start a fluent aggregation pipeline with a $text stage with the supplied parameters</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; FluentTextSearch&lt;T&gt;(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null)
+    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; FluentTextSearch&lt;T&gt;(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1503,6 +1557,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><p>Options for finding documents (not required)</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -1538,13 +1598,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_GeoNear_" data-uid="MongoDB.Entities.DBContext.GeoNear*"></a>
-  <h4 id="MongoDB_Entities_DBContext_GeoNear__1_MongoDB_Entities_Coordinates2D_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Boolean_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__MongoDB_Bson_BsonDocument_System_Nullable_System_Int32__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_String_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)">GeoNear&lt;T&gt;(Coordinates2D, Expression&lt;Func&lt;T, Object&gt;&gt;, Boolean, Nullable&lt;Int32&gt;, Nullable&lt;Int32&gt;, Nullable&lt;Int32&gt;, BsonDocument, Nullable&lt;Int32&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, String, AggregateOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_GeoNear__1_MongoDB_Entities_Coordinates2D_System_Linq_Expressions_Expression_System_Func___0_System_Object___System_Boolean_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__MongoDB_Bson_BsonDocument_System_Nullable_System_Int32__System_Linq_Expressions_Expression_System_Func___0_System_Object___System_String_MongoDB_Driver_AggregateOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)">GeoNear&lt;T&gt;(Coordinates2D, Expression&lt;Func&lt;T, Object&gt;&gt;, Boolean, Nullable&lt;Int32&gt;, Nullable&lt;Int32&gt;, Nullable&lt;Int32&gt;, BsonDocument, Nullable&lt;Int32&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, String, AggregateOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; GeoNear&lt;T&gt;(Coordinates2D NearCoordinates, Expression&lt;Func&lt;T, object&gt;&gt; DistanceField, bool Spherical = true, int? MaxDistance = default(int? ), int? MinDistance = default(int? ), int? Limit = default(int? ), BsonDocument Query = null, int? DistanceMultiplier = default(int? ), Expression&lt;Func&lt;T, object&gt;&gt; IncludeLocations = null, string IndexKey = null, AggregateOptions options = null)
+    <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;T&gt; GeoNear&lt;T&gt;(Coordinates2D NearCoordinates, Expression&lt;Func&lt;T, object&gt;&gt; DistanceField, bool Spherical = true, int? MaxDistance = default(int? ), int? MinDistance = default(int? ), int? Limit = default(int? ), BsonDocument Query = null, int? DistanceMultiplier = default(int? ), Expression&lt;Func&lt;T, object&gt;&gt; IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1621,6 +1681,12 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
         <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1747,14 +1813,14 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   
   
   <a id="MongoDB_Entities_DBContext_PipelineAsync_" data-uid="MongoDB.Entities.DBContext.PipelineAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_PipelineAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)">PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_PipelineAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)">PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Executes an aggregation pipeline by supplying a 'Template' object.
 Gets a list back as the result.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TResult&gt;&gt; PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TResult&gt;&gt; PipelineAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1784,6 +1850,12 @@ Gets a list back as the result.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1827,14 +1899,14 @@ Gets a list back as the result.</p>
   
   
   <a id="MongoDB_Entities_DBContext_PipelineCursorAsync_" data-uid="MongoDB.Entities.DBContext.PipelineCursorAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_PipelineCursorAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)">PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_PipelineCursorAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)">PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Executes an aggregation pipeline by supplying a 'Template' object.
 Gets a cursor back as the result.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TResult&gt;&gt; PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TResult&gt;&gt; PipelineCursorAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1864,6 +1936,12 @@ Gets a cursor back as the result.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1907,14 +1985,14 @@ Gets a cursor back as the result.</p>
   
   
   <a id="MongoDB_Entities_DBContext_PipelineFirstAsync_" data-uid="MongoDB.Entities.DBContext.PipelineFirstAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_PipelineFirstAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)">PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_PipelineFirstAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)">PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Executes an aggregation pipeline by supplying a 'Template' object.
 Gets the first or default value as the result.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineFirstAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -1944,6 +2022,12 @@ Gets the first or default value as the result.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -1987,14 +2071,14 @@ Gets the first or default value as the result.</p>
   
   
   <a id="MongoDB_Entities_DBContext_PipelineSingleAsync_" data-uid="MongoDB.Entities.DBContext.PipelineSingleAsync*"></a>
-  <h4 id="MongoDB_Entities_DBContext_PipelineSingleAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)">PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_DBContext_PipelineSingleAsync__2_MongoDB_Entities_Template___0___1__MongoDB_Driver_AggregateOptions_System_Threading_CancellationToken_System_Boolean_" data-uid="MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)">PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt;, AggregateOptions, CancellationToken, Boolean)</h4>
   <div class="markdown level1 summary"><p>Executes an aggregation pipeline by supplying a 'Template' object.
 Gets a single or default value as the result.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken))
+    <pre><code class="lang-csharp hljs">public Task&lt;TResult&gt; PipelineSingleAsync&lt;T, TResult&gt;(Template&lt;T, TResult&gt; template, AggregateOptions options = null, CancellationToken cancellation = default(CancellationToken), bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -2024,6 +2108,12 @@ Gets a single or default value as the result.</p>
         <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>
@@ -2067,13 +2157,13 @@ Gets a single or default value as the result.</p>
   
   
   <a id="MongoDB_Entities_DBContext_Queryable_" data-uid="MongoDB.Entities.DBContext.Queryable*"></a>
-  <h4 id="MongoDB_Entities_DBContext_Queryable__1_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)">Queryable&lt;T&gt;(AggregateOptions)</h4>
+  <h4 id="MongoDB_Entities_DBContext_Queryable__1_MongoDB_Driver_AggregateOptions_System_Boolean_" data-uid="MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)">Queryable&lt;T&gt;(AggregateOptions, Boolean)</h4>
   <div class="markdown level1 summary"><p>Exposes the MongoDB collection for the given entity type as IQueryable in order to facilitate LINQ queries</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(AggregateOptions options = null)
+    <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;T&gt; Queryable&lt;T&gt;(AggregateOptions options = null, bool ignoreGlobalFilters = false)
 
     where T : IEntity</code></pre>
   </div>
@@ -2091,6 +2181,12 @@ Gets a single or default value as the result.</p>
         <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The aggregate options</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">ignoreGlobalFilters</span></td>
+        <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
       </tr>
     </tbody>

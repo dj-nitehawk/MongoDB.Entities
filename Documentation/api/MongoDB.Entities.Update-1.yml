@@ -8,6 +8,7 @@ items:
   - MongoDB.Entities.Update`1.AddToQueue
   - MongoDB.Entities.Update`1.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Update`1.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Update`1.IgnoreGlobalFilters
   - MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Update`1.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.Update`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -95,7 +96,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 87
+    startLine: 88
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -131,7 +132,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 96
+    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -168,7 +169,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 105
+    startLine: 106
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -205,7 +206,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 115
+    startLine: 116
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -241,7 +242,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 130
+    startLine: 131
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -289,7 +290,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 160
+    startLine: 161
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -335,7 +336,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 169
+    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -371,7 +372,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 179
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -407,7 +408,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 189
+    startLine: 190
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -443,7 +444,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 200
+    startLine: 201
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -485,7 +486,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 211
+    startLine: 212
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -523,7 +524,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 221
+    startLine: 222
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -559,7 +560,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 231
+    startLine: 232
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -595,7 +596,7 @@ items:
   source:
     id: ModifyWith
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 241
+    startLine: 242
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -631,7 +632,7 @@ items:
   source:
     id: ModifyOnly
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 253
+    startLine: 254
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -671,7 +672,7 @@ items:
   source:
     id: ModifyExcept
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 265
+    startLine: 266
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -711,7 +712,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 277
+    startLine: 278
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -747,7 +748,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 292
+    startLine: 293
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -783,7 +784,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 303
+    startLine: 304
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -819,7 +820,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 312
+    startLine: 313
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -855,7 +856,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 328
+    startLine: 329
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -891,7 +892,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 338
+    startLine: 339
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -927,7 +928,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 355
+    startLine: 356
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -950,6 +951,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Update(Of T).Option(System.Action(Of MongoDB.Driver.UpdateOptions))
   name.vb: Option(Action(Of UpdateOptions))
+- uid: MongoDB.Entities.Update`1.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.Update`1.IgnoreGlobalFilters
+  id: IgnoreGlobalFilters
+  parent: MongoDB.Entities.Update`1
+  langs:
+  - csharp
+  - vb
+  name: IgnoreGlobalFilters()
+  nameWithType: Update<T>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.Update<T>.IgnoreGlobalFilters()
+  type: Method
+  source:
+    id: IgnoreGlobalFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    startLine: 365
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify that this operation should ignore any global filters\n"
+  example: []
+  syntax:
+    content: public Update<T> IgnoreGlobalFilters()
+    return:
+      type: MongoDB.Entities.Update`1
+    content.vb: Public Function IgnoreGlobalFilters As Update(Of T)
+  overload: MongoDB.Entities.Update`1.IgnoreGlobalFilters*
+  nameWithType.vb: Update(Of T).IgnoreGlobalFilters()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Update(Of T).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.Update`1.AddToQueue
   commentId: M:MongoDB.Entities.Update`1.AddToQueue
   id: AddToQueue
@@ -964,7 +997,7 @@ items:
   source:
     id: AddToQueue
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 364
+    startLine: 374
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -996,7 +1029,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 388
+    startLine: 398
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1032,7 +1065,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 421
+    startLine: 431
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2905,6 +2938,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Update`1.IgnoreGlobalFilters*
+  commentId: Overload:MongoDB.Entities.Update`1.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters
+  nameWithType: Update<T>.IgnoreGlobalFilters
+  fullName: MongoDB.Entities.Update<T>.IgnoreGlobalFilters
+  nameWithType.vb: Update(Of T).IgnoreGlobalFilters
+  fullName.vb: MongoDB.Entities.Update(Of T).IgnoreGlobalFilters
 - uid: MongoDB.Entities.Update`1.AddToQueue*
   commentId: Overload:MongoDB.Entities.Update`1.AddToQueue
   name: AddToQueue

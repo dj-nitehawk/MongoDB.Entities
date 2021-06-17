@@ -110,13 +110,28 @@
     }
 }
 </code></pre>
+<h2 id="specify-filters-using-a-base-class">Specify filters using a base class</h2>
 <p>you can specify filters on a per entity type basis like above or you can specify filters that are common to a base class type like so:</p>
 <pre><code class="lang-csharp">SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
 </code></pre>
+<h2 id="prepending-global-filters">Prepending global filters</h2>
 <p>global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, you can use the following overload:</p>
 <pre><code class="lang-csharp">SetGlobalFilter&lt;Book&gt;(
     filter: b =&gt; b.Publisher == &quot;Harper Collins&quot;,
     prepend: true);
+</code></pre>
+<h2 id="temporarily-ignoring-global-filters">Temporarily ignoring global filters</h2>
+<p>you can skip/ignore global filters on a per operation basis as follows:</p>
+<pre><code class="lang-csharp">//with command builders:
+await db.Find&lt;Book&gt;()
+        .Match(b =&gt; b.Title == &quot;Power Of Tomorrow&quot;)
+        .IgnoreGlobalFilters()
+        .ExecuteAsync();
+
+//with direct methods:
+await db.DeleteAsync&lt;Book&gt;(
+    b =&gt; b.Title == &quot;Power Of Tomorrow&quot;,
+    ignoreGlobalFilters: true);
 </code></pre>
 <h2 id="limitations">Limitations</h2>
 <ol>

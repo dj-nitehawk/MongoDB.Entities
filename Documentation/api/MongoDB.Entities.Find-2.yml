@@ -10,6 +10,7 @@ items:
   - MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Find`2.IgnoreGlobalFilters
   - MongoDB.Entities.Find`2.Limit(System.Int32)
   - MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
@@ -95,7 +96,7 @@ items:
   source:
     id: OneAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 56
+    startLine: 57
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -135,7 +136,7 @@ items:
   source:
     id: ManyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 68
+    startLine: 69
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -176,7 +177,7 @@ items:
   source:
     id: ManyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 80
+    startLine: 81
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -217,7 +218,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 90
+    startLine: 91
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -253,7 +254,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 99
+    startLine: 100
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -289,7 +290,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 108
+    startLine: 109
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -326,7 +327,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 117
+    startLine: 118
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -363,7 +364,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 127
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -399,7 +400,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 142
+    startLine: 143
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -447,7 +448,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 172
+    startLine: 173
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -493,7 +494,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 181
+    startLine: 182
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -529,7 +530,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 191
+    startLine: 192
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -565,7 +566,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 201
+    startLine: 202
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -601,7 +602,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 212
+    startLine: 213
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -641,7 +642,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 231
+    startLine: 232
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -673,7 +674,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 241
+    startLine: 242
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -710,7 +711,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 260
+    startLine: 261
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -748,7 +749,7 @@ items:
   source:
     id: Skip
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 270
+    startLine: 271
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -784,7 +785,7 @@ items:
   source:
     id: Limit
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 280
+    startLine: 281
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -820,7 +821,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 290
+    startLine: 291
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -857,7 +858,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 299
+    startLine: 300
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -894,7 +895,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 309
+    startLine: 310
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -931,7 +932,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 333
+    startLine: 334
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -954,6 +955,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Option(System.Action(Of MongoDB.Driver.FindOptions(Of T, TProjection)))
   name.vb: Option(Action(Of FindOptions(Of T, TProjection)))
+- uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  id: IgnoreGlobalFilters
+  parent: MongoDB.Entities.Find`2
+  langs:
+  - csharp
+  - vb
+  name: IgnoreGlobalFilters()
+  nameWithType: Find<T, TProjection>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters()
+  type: Method
+  source:
+    id: IgnoreGlobalFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    startLine: 343
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify that this operation should ignore any global filters\n"
+  example: []
+  syntax:
+    content: public Find<T, TProjection> IgnoreGlobalFilters()
+    return:
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function IgnoreGlobalFilters As Find(Of T, TProjection)
+  overload: MongoDB.Entities.Find`2.IgnoreGlobalFilters*
+  nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)
   id: ExecuteAsync(System.Threading.CancellationToken)
@@ -968,7 +1001,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 343
+    startLine: 353
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1004,7 +1037,7 @@ items:
   source:
     id: ExecuteSingleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 361
+    startLine: 371
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1040,7 +1073,7 @@ items:
   source:
     id: ExecuteFirstAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 375
+    startLine: 385
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1076,7 +1109,7 @@ items:
   source:
     id: ExecuteAnyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 389
+    startLine: 399
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1112,7 +1145,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
-    startLine: 404
+    startLine: 414
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2599,6 +2632,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Find`2.IgnoreGlobalFilters*
+  commentId: Overload:MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters
+  nameWithType: Find<T, TProjection>.IgnoreGlobalFilters
+  fullName: MongoDB.Entities.Find<T, TProjection>.IgnoreGlobalFilters
+  nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters
 - uid: MongoDB.Entities.Find`2.ExecuteAsync*
   commentId: Overload:MongoDB.Entities.Find`2.ExecuteAsync
   name: ExecuteAsync

@@ -7,6 +7,7 @@ items:
   children:
   - MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
   - MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -78,7 +79,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 35
+    startLine: 36
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -114,7 +115,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 45
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -151,7 +152,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 55
+    startLine: 56
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -188,7 +189,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 65
+    startLine: 66
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -225,7 +226,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 74
+    startLine: 75
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -261,7 +262,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 89
+    startLine: 90
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -309,7 +310,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 119
+    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -355,7 +356,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 128
+    startLine: 129
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -391,7 +392,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 138
+    startLine: 139
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -427,7 +428,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 148
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -463,7 +464,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 158
+    startLine: 159
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -486,6 +487,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option(System.Action(Of MongoDB.Driver.DistinctOptions))
   name.vb: Option(Action(Of DistinctOptions))
+- uid: MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
+  id: IgnoreGlobalFilters
+  parent: MongoDB.Entities.Distinct`2
+  langs:
+  - csharp
+  - vb
+  name: IgnoreGlobalFilters()
+  nameWithType: Distinct<T, TProperty>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.IgnoreGlobalFilters()
+  type: Method
+  source:
+    id: IgnoreGlobalFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
+    startLine: 168
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify that this operation should ignore any global filters\n"
+  example: []
+  syntax:
+    content: public Distinct<T, TProperty> IgnoreGlobalFilters()
+    return:
+      type: MongoDB.Entities.Distinct`2
+    content.vb: Public Function IgnoreGlobalFilters As Distinct(Of T, TProperty)
+  overload: MongoDB.Entities.Distinct`2.IgnoreGlobalFilters*
+  nameWithType.vb: Distinct(Of T, TProperty).IgnoreGlobalFilters()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   id: ExecuteCursorAsync(System.Threading.CancellationToken)
@@ -500,7 +533,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 168
+    startLine: 178
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -536,7 +569,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Distinct.cs
-    startLine: 184
+    startLine: 194
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1486,6 +1519,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Distinct`2.IgnoreGlobalFilters*
+  commentId: Overload:MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters
+  nameWithType: Distinct<T, TProperty>.IgnoreGlobalFilters
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.IgnoreGlobalFilters
+  nameWithType.vb: Distinct(Of T, TProperty).IgnoreGlobalFilters
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).IgnoreGlobalFilters
 - uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync*
   commentId: Overload:MongoDB.Entities.Distinct`2.ExecuteCursorAsync
   name: ExecuteCursorAsync

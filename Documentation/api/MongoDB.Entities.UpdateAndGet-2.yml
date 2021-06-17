@@ -7,6 +7,7 @@ items:
   children:
   - MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
   - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -42,7 +43,7 @@ items:
   source:
     id: UpdateAndGet
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 32
+    startLine: 33
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -100,7 +101,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 55
+    startLine: 57
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -136,7 +137,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 64
+    startLine: 66
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -173,7 +174,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 73
+    startLine: 75
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -210,7 +211,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 83
+    startLine: 85
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -246,7 +247,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 98
+    startLine: 100
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -294,7 +295,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 128
+    startLine: 130
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -340,7 +341,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 137
+    startLine: 139
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -376,7 +377,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 147
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -412,7 +413,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 157
+    startLine: 159
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -448,7 +449,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 168
+    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -490,7 +491,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 178
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -527,7 +528,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 188
+    startLine: 190
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -563,7 +564,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 198
+    startLine: 200
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -599,7 +600,7 @@ items:
   source:
     id: ModifyWith
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 208
+    startLine: 210
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -635,7 +636,7 @@ items:
   source:
     id: ModifyOnly
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 220
+    startLine: 222
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -675,7 +676,7 @@ items:
   source:
     id: ModifyExcept
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 232
+    startLine: 234
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -715,7 +716,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 244
+    startLine: 246
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -751,7 +752,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 259
+    startLine: 261
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -787,7 +788,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 270
+    startLine: 272
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -823,7 +824,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 279
+    startLine: 281
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -859,7 +860,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 295
+    startLine: 297
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -895,7 +896,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 305
+    startLine: 307
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -931,7 +932,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 322
+    startLine: 324
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -968,7 +969,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 332
+    startLine: 334
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1005,7 +1006,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 341
+    startLine: 343
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1028,6 +1029,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
+- uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  id: IgnoreGlobalFilters
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: IgnoreGlobalFilters()
+  nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IgnoreGlobalFilters()
+  type: Method
+  source:
+    id: IgnoreGlobalFilters
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    startLine: 352
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify that this operation should ignore any global filters\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> IgnoreGlobalFilters()
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function IgnoreGlobalFilters As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters()
 - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
   id: ExecuteAsync(System.Threading.CancellationToken)
@@ -1042,7 +1075,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 351
+    startLine: 362
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1078,7 +1111,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 366
+    startLine: 377
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -3182,6 +3215,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters
+  nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
 - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync*
   commentId: Overload:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync
   name: ExecuteAsync

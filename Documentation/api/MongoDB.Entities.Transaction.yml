@@ -41,10 +41,10 @@ items:
   - MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{{T}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.DropCollectionAsync``1
   - MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  - MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   - MongoDB.Entities.DBContext.ModifiedBy
   - MongoDB.Entities.DBContext.Session
   - MongoDB.Entities.DBContext.Transaction(System.String,MongoDB.Driver.ClientSessionOptions)
@@ -61,22 +61,22 @@ items:
   - MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{TBase}},MongoDB.Driver.FilterDefinition{{TBase}}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{{TBase}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  - MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  - MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   - MongoDB.Entities.DBContext.Distinct``2
   - MongoDB.Entities.DBContext.Find``1
   - MongoDB.Entities.DBContext.Find``2
-  - MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
-  - MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  - MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  - MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  - MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
+  - MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  - MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  - MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  - MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)
   - MongoDB.Entities.DBContext.Replace``1
   - MongoDB.Entities.DBContext.SaveAsync``1({T},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
@@ -373,18 +373,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
+  definition: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -440,11 +440,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -499,6 +507,14 @@ references:
     name: CountOptions
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
@@ -545,18 +561,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+  definition: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -593,11 +609,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -634,21 +658,29 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
+  definition: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -713,11 +745,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -781,6 +821,14 @@ references:
     name: CountOptions
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
@@ -1807,18 +1855,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
   isExternal: true
-  name: DeleteAsync<T>(String, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.String, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(String, CancellationToken)
+  name: DeleteAsync<T>(String, CancellationToken, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(String, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.String, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(String, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.String, System.Threading.CancellationToken, System.Boolean)
+  name.vb: DeleteAsync(Of T)(String, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -1838,11 +1886,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -1862,21 +1918,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
   isExternal: true
-  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
-  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken)
+  name: DeleteAsync<T>(IEnumerable<String>, CancellationToken, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(IEnumerable<String>, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken, System.Boolean)
+  name.vb: DeleteAsync(Of T)(IEnumerable(Of String), CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -1907,11 +1971,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -1942,21 +2014,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
+  definition: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -2012,11 +2092,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -2072,21 +2160,29 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
+  definition: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -2151,11 +2247,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -2220,21 +2324,29 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{{T}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  definition: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -2271,11 +2383,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -2311,6 +2431,14 @@ references:
     name: Collation
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
@@ -2408,18 +2536,18 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
   isExternal: true
-  name: Fluent<T>(AggregateOptions)
-  nameWithType: DBContext.Fluent<T>(AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.Fluent<T>(MongoDB.Driver.AggregateOptions)
-  nameWithType.vb: DBContext.Fluent(Of T)(AggregateOptions)
-  fullName.vb: MongoDB.Entities.DBContext.Fluent(Of T)(MongoDB.Driver.AggregateOptions)
-  name.vb: Fluent(Of T)(AggregateOptions)
+  name: Fluent<T>(AggregateOptions, Boolean)
+  nameWithType: DBContext.Fluent<T>(AggregateOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.Fluent<T>(MongoDB.Driver.AggregateOptions, System.Boolean)
+  nameWithType.vb: DBContext.Fluent(Of T)(AggregateOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.Fluent(Of T)(MongoDB.Driver.AggregateOptions, System.Boolean)
+  name.vb: Fluent(Of T)(AggregateOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
     name: Fluent<T>
     nameWithType: DBContext.Fluent<T>
     fullName: MongoDB.Entities.DBContext.Fluent<T>
@@ -2431,11 +2559,19 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
     name: Fluent(Of T)
     nameWithType: DBContext.Fluent(Of T)
     fullName: MongoDB.Entities.DBContext.Fluent(Of T)
@@ -2447,21 +2583,29 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
   isExternal: true
-  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  nameWithType: DBContext.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  nameWithType.vb: DBContext.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
-  fullName.vb: MongoDB.Entities.DBContext.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions)
-  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions)
+  name: FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions, Boolean)
+  nameWithType: DBContext.FluentTextSearch<T>(Search, String, Boolean, Boolean, String, AggregateOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  nameWithType.vb: DBContext.FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.FluentTextSearch(Of T)(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  name.vb: FluentTextSearch(Of T)(Search, String, Boolean, Boolean, String, AggregateOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: FluentTextSearch<T>
     nameWithType: DBContext.FluentTextSearch<T>
     fullName: MongoDB.Entities.DBContext.FluentTextSearch<T>
@@ -2512,11 +2656,19 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: FluentTextSearch(Of T)
     nameWithType: DBContext.FluentTextSearch(Of T)
     fullName: MongoDB.Entities.DBContext.FluentTextSearch(Of T)
@@ -2567,21 +2719,29 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions)
-  nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
-  fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
-  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+  definition: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions, Boolean)
+  nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: GeoNear<T>
     nameWithType: DBContext.GeoNear<T>
     fullName: MongoDB.Entities.DBContext.GeoNear<T>
@@ -2772,11 +2932,19 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: GeoNear(Of T)
     nameWithType: DBContext.GeoNear(Of T)
     fullName: MongoDB.Entities.DBContext.GeoNear(Of T)
@@ -2967,21 +3135,29 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  definition: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineCursorAsync<T, TResult>
     nameWithType: DBContext.PipelineCursorAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>
@@ -3023,11 +3199,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineCursorAsync(Of T, TResult)
     nameWithType: DBContext.PipelineCursorAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)
@@ -3069,21 +3253,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  definition: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineAsync<T, TResult>
     nameWithType: DBContext.PipelineAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>
@@ -3125,11 +3317,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineAsync(Of T, TResult)
     nameWithType: DBContext.PipelineAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)
@@ -3171,21 +3371,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  definition: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineSingleAsync<T, TResult>
     nameWithType: DBContext.PipelineSingleAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>
@@ -3227,11 +3435,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineSingleAsync(Of T, TResult)
     nameWithType: DBContext.PipelineSingleAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)
@@ -3273,21 +3489,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   parent: MongoDB.Entities.DBContext
-  definition: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  definition: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineFirstAsync<T, TResult>
     nameWithType: DBContext.PipelineFirstAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>
@@ -3329,11 +3553,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineFirstAsync(Of T, TResult)
     nameWithType: DBContext.PipelineFirstAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)
@@ -3375,21 +3607,29 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)
   parent: MongoDB.Entities.DBContext
   isExternal: true
-  name: Queryable<T>(AggregateOptions)
-  nameWithType: DBContext.Queryable<T>(AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.Queryable<T>(MongoDB.Driver.AggregateOptions)
-  nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions)
-  fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions)
-  name.vb: Queryable(Of T)(AggregateOptions)
+  name: Queryable<T>(AggregateOptions, Boolean)
+  nameWithType: DBContext.Queryable<T>(AggregateOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.Queryable<T>(MongoDB.Driver.AggregateOptions, System.Boolean)
+  nameWithType.vb: DBContext.Queryable(Of T)(AggregateOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.Queryable(Of T)(MongoDB.Driver.AggregateOptions, System.Boolean)
+  name.vb: Queryable(Of T)(AggregateOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)
     name: Queryable<T>
     nameWithType: DBContext.Queryable<T>
     fullName: MongoDB.Entities.DBContext.Queryable<T>
@@ -3401,11 +3641,19 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.Queryable``1(MongoDB.Driver.AggregateOptions,System.Boolean)
     name: Queryable(Of T)
     nameWithType: DBContext.Queryable(Of T)
     fullName: MongoDB.Entities.DBContext.Queryable(Of T)
@@ -3416,6 +3664,14 @@ references:
     name: AggregateOptions
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
@@ -4636,17 +4892,17 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   isExternal: true
-  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions)
+  name: CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -4702,11 +4958,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -4762,20 +5026,28 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   isExternal: true
-  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions)
+  name: CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(FilterDefinition<T>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(FilterDefinition(Of T), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -4812,11 +5084,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -4853,20 +5133,28 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
-  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+- uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   isExternal: true
-  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
-  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions)
-  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
-  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions)
-  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions)
+  name: CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions, Boolean)
+  nameWithType: DBContext.CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, CountOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.CountAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  nameWithType.vb: DBContext.CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.CountAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.CountOptions, System.Boolean)
+  name.vb: CountAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, CountOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync<T>
     nameWithType: DBContext.CountAsync<T>
     fullName: MongoDB.Entities.DBContext.CountAsync<T>
@@ -4931,11 +5219,19 @@ references:
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions)
+  - uid: MongoDB.Entities.DBContext.CountAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
     name: CountAsync(Of T)
     nameWithType: DBContext.CountAsync(Of T)
     fullName: MongoDB.Entities.DBContext.CountAsync(Of T)
@@ -4999,6 +5295,14 @@ references:
     name: CountOptions
     nameWithType: CountOptions
     fullName: MongoDB.Driver.CountOptions
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )
@@ -5641,17 +5945,17 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   isExternal: true
-  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation)
+  name: DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(Expression<Func<T, Boolean>>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(Expression(Of Func(Of T, Boolean)), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -5707,11 +6011,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -5767,20 +6079,28 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   isExternal: true
-  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation)
+  name: DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -5845,11 +6165,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -5914,20 +6242,28 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
-  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+- uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   isExternal: true
-  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
-  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation)
-  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
-  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation)
-  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation)
+  name: DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation, Boolean)
+  nameWithType: DBContext.DeleteAsync<T>(FilterDefinition<T>, CancellationToken, Collation, Boolean)
+  fullName: MongoDB.Entities.DBContext.DeleteAsync<T>(MongoDB.Driver.FilterDefinition<T>, System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  nameWithType.vb: DBContext.DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.DeleteAsync(Of T)(MongoDB.Driver.FilterDefinition(Of T), System.Threading.CancellationToken, MongoDB.Driver.Collation, System.Boolean)
+  name.vb: DeleteAsync(Of T)(FilterDefinition(Of T), CancellationToken, Collation, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync<T>
     nameWithType: DBContext.DeleteAsync<T>
     fullName: MongoDB.Entities.DBContext.DeleteAsync<T>
@@ -5964,11 +6300,19 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation)
+  - uid: MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
     name: DeleteAsync(Of T)
     nameWithType: DBContext.DeleteAsync(Of T)
     fullName: MongoDB.Entities.DBContext.DeleteAsync(Of T)
@@ -6005,20 +6349,28 @@ references:
     nameWithType: Collation
     fullName: MongoDB.Driver.Collation
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
   isExternal: true
-  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions)
-  fullName: MongoDB.Entities.DBContext.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions)
-  nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
-  fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions)
-  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions)
+  name: GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions, Boolean)
+  nameWithType: DBContext.GeoNear<T>(Coordinates2D, Expression<Func<T, Object>>, Boolean, Nullable<Int32>, Nullable<Int32>, Nullable<Int32>, BsonDocument, Nullable<Int32>, Expression<Func<T, Object>>, String, AggregateOptions, Boolean)
+  fullName: MongoDB.Entities.DBContext.GeoNear<T>(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.Boolean, System.Nullable<System.Int32>, System.Nullable<System.Int32>, System.Nullable<System.Int32>, MongoDB.Bson.BsonDocument, System.Nullable<System.Int32>, System.Linq.Expressions.Expression<System.Func<T, System.Object>>, System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  nameWithType.vb: DBContext.GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.GeoNear(Of T)(MongoDB.Entities.Coordinates2D, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.Boolean, System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), System.Nullable(Of System.Int32), MongoDB.Bson.BsonDocument, System.Nullable(Of System.Int32), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), System.String, MongoDB.Driver.AggregateOptions, System.Boolean)
+  name.vb: GeoNear(Of T)(Coordinates2D, Expression(Of Func(Of T, Object)), Boolean, Nullable(Of Int32), Nullable(Of Int32), Nullable(Of Int32), BsonDocument, Nullable(Of Int32), Expression(Of Func(Of T, Object)), String, AggregateOptions, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: GeoNear<T>
     nameWithType: DBContext.GeoNear<T>
     fullName: MongoDB.Entities.DBContext.GeoNear<T>
@@ -6209,11 +6561,19 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions)
+  - uid: MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
     name: GeoNear(Of T)
     nameWithType: DBContext.GeoNear(Of T)
     fullName: MongoDB.Entities.DBContext.GeoNear(Of T)
@@ -6404,20 +6764,28 @@ references:
     nameWithType: AggregateOptions
     fullName: MongoDB.Driver.AggregateOptions
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   isExternal: true
-  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  name: PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineCursorAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineCursorAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineCursorAsync<T, TResult>
     nameWithType: DBContext.PipelineCursorAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineCursorAsync<T, TResult>
@@ -6459,11 +6827,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineCursorAsync(Of T, TResult)
     nameWithType: DBContext.PipelineCursorAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineCursorAsync(Of T, TResult)
@@ -6505,20 +6881,28 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   isExternal: true
-  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  name: PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineAsync<T, TResult>
     nameWithType: DBContext.PipelineAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineAsync<T, TResult>
@@ -6560,11 +6944,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineAsync(Of T, TResult)
     nameWithType: DBContext.PipelineAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineAsync(Of T, TResult)
@@ -6606,20 +6998,28 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   isExternal: true
-  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  name: PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineSingleAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineSingleAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineSingleAsync<T, TResult>
     nameWithType: DBContext.PipelineSingleAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineSingleAsync<T, TResult>
@@ -6661,11 +7061,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineSingleAsync(Of T, TResult)
     nameWithType: DBContext.PipelineSingleAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineSingleAsync(Of T, TResult)
@@ -6707,20 +7115,28 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   isExternal: true
-  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken)
-  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken)
+  name: PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  nameWithType: DBContext.PipelineFirstAsync<T, TResult>(Template<T, TResult>, AggregateOptions, CancellationToken, Boolean)
+  fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>(MongoDB.Entities.Template<T, TResult>, MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  nameWithType.vb: DBContext.PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)(MongoDB.Entities.Template(Of T, TResult), MongoDB.Driver.AggregateOptions, System.Threading.CancellationToken, System.Boolean)
+  name.vb: PipelineFirstAsync(Of T, TResult)(Template(Of T, TResult), AggregateOptions, CancellationToken, Boolean)
   spec.csharp:
-  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineFirstAsync<T, TResult>
     nameWithType: DBContext.PipelineFirstAsync<T, TResult>
     fullName: MongoDB.Entities.DBContext.PipelineFirstAsync<T, TResult>
@@ -6762,11 +7178,19 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
     name: PipelineFirstAsync(Of T, TResult)
     nameWithType: DBContext.PipelineFirstAsync(Of T, TResult)
     fullName: MongoDB.Entities.DBContext.PipelineFirstAsync(Of T, TResult)
@@ -6807,6 +7231,14 @@ references:
     name: CancellationToken
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
     isExternal: true
   - name: )
     nameWithType: )

@@ -19,19 +19,35 @@ public class MyDBContext : DBContext
     }
 }
 ```
-
+## Specify filters using a base class
 you can specify filters on a per entity type basis like above or you can specify filters that are common to a base class type like so:
 
 ```csharp
 SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 ```
 
+## Prepending global filters
 global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, you can use the following overload:
 
 ```csharp
 SetGlobalFilter<Book>(
     filter: b => b.Publisher == "Harper Collins",
     prepend: true);
+```
+
+## Temporarily ignoring global filters
+you can skip/ignore global filters on a per operation basis as follows:
+```csharp
+//with command builders:
+await db.Find<Book>()
+        .Match(b => b.Title == "Power Of Tomorrow")
+        .IgnoreGlobalFilters()
+        .ExecuteAsync();
+
+//with direct methods:
+await db.DeleteAsync<Book>(
+    b => b.Title == "Power Of Tomorrow",
+    ignoreGlobalFilters: true);
 ```
 
 ## Limitations

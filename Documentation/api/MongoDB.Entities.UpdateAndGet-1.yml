@@ -60,6 +60,7 @@ items:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Linq.Expressions.Expression{System.Func{{T},{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.IgnoreGlobalFilters
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateBase{{T}}.defs
@@ -2000,6 +2001,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.IgnoreGlobalFilters
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters()
+  nameWithType: UpdateAndGet<T, T>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.IgnoreGlobalFilters()
+  nameWithType.vb: UpdateAndGet(Of T, T).IgnoreGlobalFilters()
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).IgnoreGlobalFilters()
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: UpdateAndGet<T, T>.IgnoreGlobalFilters
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: UpdateAndGet(Of T, T).IgnoreGlobalFilters
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -4549,6 +4581,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  name: IgnoreGlobalFilters()
+  nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters()
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IgnoreGlobalFilters()
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters()
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters()
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+    name: IgnoreGlobalFilters
+    nameWithType: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
