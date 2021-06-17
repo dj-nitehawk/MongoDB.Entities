@@ -1640,6 +1640,40 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilter(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)), System.Boolean)
   nameWithType: DBContext.SetGlobalFilter<T>(Expression<Func<T, Boolean>>, Boolean)
   nameWithType.vb: DBContext.SetGlobalFilter(Of T)(Expression(Of Func(Of T, Boolean)), Boolean)
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass*
+  name: SetGlobalFilterForBaseClass
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass_
+  commentId: Overload:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass
+  isSpec: "True"
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass
+  nameWithType: DBContext.SetGlobalFilterForBaseClass
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_MongoDB_Driver_FilterDefinition___0__System_Boolean_
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(MongoDB.Driver.FilterDefinition<TBase>, System.Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(MongoDB.Driver.FilterDefinition(Of TBase), System.Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Boolean_
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<TBase>, MongoDB.Driver.FilterDefinition<TBase>>, System.Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of TBase), MongoDB.Driver.FilterDefinition(Of TBase)), System.Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Boolean_
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Linq.Expressions.Expression<System.Func<TBase, System.Boolean>>, System.Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Linq.Expressions.Expression(Of System.Func(Of TBase, System.Boolean)), System.Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
 - uid: MongoDB.Entities.DBContext.SetGlobalFilterForInterface*
   name: SetGlobalFilterForInterface
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_SetGlobalFilterForInterface_

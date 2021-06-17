@@ -3,7 +3,7 @@
 there are currently two hooks you can tap into. `OnBeforeSave` and `OnBeforeUpdate` so that you can perform modifications to the operation that's about to happen. 
 it can also be used as an alternative to the pre-baked audit fields functionality for more fine-grain control. make sure to override both methods in order to cover all the bases.
 
-say for example, you have a `Flower` entity like the following and you want to automatically set the creator & date when new flowers are being persisted and also modify the updater & date when existing entities get updated.
+say for example, you have a `Flower` entity like the following and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.
 ```csharp
 public class Flower : Entity
 {

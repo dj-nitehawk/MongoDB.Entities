@@ -21,7 +21,7 @@ var currentUser = new ModifiedBy
     UserName = "Kip Jennings"
 };
 
-var dbContext = new DBContext(modifiedBy: currentUser);
+var db = new DBContext(modifiedBy: currentUser);
 ```
 
 ## Perform entity operations
@@ -29,13 +29,12 @@ in order for the auto audit fields to work, you must use the db context to perfo
 ```csharp
 var book = new Book { Title = "test book" };
 
-await dbContext.SaveAsync(book);
+await db.SaveAsync(book);
 
-await dbContext
-    .Update<Book>()
-    .MatchID(book.ID)
-    .Modify(b => b.Title, "updated title")
-    .ExecuteAsync();
+await db.Update<Book>()
+        .MatchID(book.ID)
+        .Modify(b => b.Title, "updated title")
+        .ExecuteAsync();
 ```
 
 doing so will result in the following document in mongodb:
@@ -55,13 +54,13 @@ it is also possible to instantiate a `DBContext` without supplying a `ModifiedBy
 ```csharp
 var dbContext = new DBContext();
 
-dbContext.ModifiedBy = new ModifiedBy
+db.ModifiedBy = new ModifiedBy
 {
     UserID = "xxxxxxxxxxxx",
     UserName = "Kip Jennings"
 };
 
-var currentUser = dbContext.ModifiedBy;
+var currentUser = db.ModifiedBy;
 ```
 
 ## Transaction support

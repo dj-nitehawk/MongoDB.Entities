@@ -2888,6 +2888,165 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
   </table>
   
   
+  <a id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass*"></a>
+  <h4 id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_MongoDB_Driver_FilterDefinition___0__System_Boolean_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)">SetGlobalFilterForBaseClass&lt;TBase&gt;(FilterDefinition&lt;TBase&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Specify a global filter to be applied to all operations performed with this DBContext</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetGlobalFilterForBaseClass&lt;TBase&gt;(FilterDefinition&lt;TBase&gt; filter, bool prepend = false)
+
+    where TBase : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;TBase&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>A filter definition to be applied</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">prepend</span></td>
+        <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TBase</span></td>
+        <td><p>The type of the base class</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass*"></a>
+  <h4 id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_System_Func_MongoDB_Driver_FilterDefinitionBuilder___0__MongoDB_Driver_FilterDefinition___0___System_Boolean_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)">SetGlobalFilterForBaseClass&lt;TBase&gt;(Func&lt;FilterDefinitionBuilder&lt;TBase&gt;, FilterDefinition&lt;TBase&gt;&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Specify a global filter to be applied to all operations performed with this DBContext</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetGlobalFilterForBaseClass&lt;TBase&gt;(Func&lt;FilterDefinitionBuilder&lt;TBase&gt;, FilterDefinition&lt;TBase&gt;&gt; filter, bool prepend = false)
+
+    where TBase : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;TBase&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;TBase&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>b =&gt; b.Eq(x =&gt; x.Prop1, &quot;some value&quot;)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">prepend</span></td>
+        <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TBase</span></td>
+        <td><p>The type of the base class</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass*"></a>
+  <h4 id="MongoDB_Entities_DBContext_SetGlobalFilterForBaseClass__1_System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Boolean_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)">SetGlobalFilterForBaseClass&lt;TBase&gt;(Expression&lt;Func&lt;TBase, Boolean&gt;&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Specify a global filter to be applied to all operations performed with this DBContext</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetGlobalFilterForBaseClass&lt;TBase&gt;(Expression&lt;Func&lt;TBase, bool&gt;&gt; filter, bool prepend = false)
+
+    where TBase : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TBase, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>b =&gt; b.Eq(x =&gt; x.Prop1, &quot;some value&quot;)</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">prepend</span></td>
+        <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TBase</span></td>
+        <td><p>The type of the base class</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DBContext_SetGlobalFilterForInterface_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForInterface*"></a>
   <h4 id="MongoDB_Entities_DBContext_SetGlobalFilterForInterface__1_System_String_System_Boolean_" data-uid="MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)">SetGlobalFilterForInterface&lt;TInterface&gt;(String, Boolean)</h4>
   <div class="markdown level1 summary"><p>Specify a global filter for all entity types that implements a given interface</p>

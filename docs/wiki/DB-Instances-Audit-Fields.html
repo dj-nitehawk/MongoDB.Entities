@@ -111,19 +111,18 @@
     UserName = &quot;Kip Jennings&quot;
 };
 
-var dbContext = new DBContext(modifiedBy: currentUser);
+var db = new DBContext(modifiedBy: currentUser);
 </code></pre>
 <h2 id="perform-entity-operations">Perform entity operations</h2>
 <p>in order for the auto audit fields to work, you must use the db context to perform the operations instead of the <code>DB</code> static methods like you'd typically use.</p>
 <pre><code class="lang-csharp">var book = new Book { Title = &quot;test book&quot; };
 
-await dbContext.SaveAsync(book);
+await db.SaveAsync(book);
 
-await dbContext
-    .Update&lt;Book&gt;()
-    .MatchID(book.ID)
-    .Modify(b =&gt; b.Title, &quot;updated title&quot;)
-    .ExecuteAsync();
+await db.Update&lt;Book&gt;()
+        .MatchID(book.ID)
+        .Modify(b =&gt; b.Title, &quot;updated title&quot;)
+        .ExecuteAsync();
 </code></pre>
 <p>doing so will result in the following document in mongodb:</p>
 <pre><code>{
@@ -139,13 +138,13 @@ await dbContext
 <p>it is also possible to instantiate a <code>DBContext</code> without supplying a <code>ModifiedBy</code> to the constructor and set or get it like so:</p>
 <pre><code class="lang-csharp">var dbContext = new DBContext();
 
-dbContext.ModifiedBy = new ModifiedBy
+db.ModifiedBy = new ModifiedBy
 {
     UserID = &quot;xxxxxxxxxxxx&quot;,
     UserName = &quot;Kip Jennings&quot;
 };
 
-var currentUser = dbContext.ModifiedBy;
+var currentUser = db.ModifiedBy;
 </code></pre>
 <h2 id="transaction-support">Transaction support</h2>
 <p>a transaction with audit field support can be performed with the DBContext like so:</p>

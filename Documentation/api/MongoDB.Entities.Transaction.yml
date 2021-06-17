@@ -57,6 +57,9 @@ items:
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilter``1(MongoDB.Driver.FilterDefinition{{T}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilter(System.Type,System.String,System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{{TBase},System.Boolean}},System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{TBase}},MongoDB.Driver.FilterDefinition{{TBase}}},System.Boolean)
+  - MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{{TBase}},System.Boolean)
   - MongoDB.Entities.DBContext.SetGlobalFilterForInterface``1(System.String,System.Boolean)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.String,System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
@@ -1413,6 +1416,328 @@ references:
     nameWithType: String
     fullName: System.String
     isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{{TBase},System.Boolean}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Linq.Expressions.Expression<System.Func<TBase, System.Boolean>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Linq.Expressions.Expression(Of System.Func(Of TBase, System.Boolean)), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{TBase}},MongoDB.Driver.FilterDefinition{{TBase}}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<TBase>, MongoDB.Driver.FilterDefinition<TBase>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of TBase), MongoDB.Driver.FilterDefinition(Of TBase)), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{{TBase}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  name: SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(MongoDB.Driver.FilterDefinition<TBase>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(MongoDB.Driver.FilterDefinition(Of TBase), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: ', '
     nameWithType: ', '
     fullName: ', '
@@ -4983,6 +5308,325 @@ references:
   - name: T
     nameWithType: T
     fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, Boolean>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Linq.Expressions.Expression<System.Func<TBase, System.Boolean>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Linq.Expressions.Expression(Of System.Func(Of TBase, System.Boolean)), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Expression(Of Func(Of TBase, Boolean)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(System.Func<MongoDB.Driver.FilterDefinitionBuilder<TBase>, MongoDB.Driver.FilterDefinition<TBase>>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of TBase), MongoDB.Driver.FilterDefinition(Of TBase)), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(Func(Of FilterDefinitionBuilder(Of TBase), FilterDefinition(Of TBase)), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+    name: FilterDefinitionBuilder
+    nameWithType: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  commentId: M:MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+  isExternal: true
+  name: SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase>, Boolean)
+  fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>(MongoDB.Driver.FilterDefinition<TBase>, System.Boolean)
+  nameWithType.vb: DBContext.SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+  fullName.vb: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)(MongoDB.Driver.FilterDefinition(Of TBase), System.Boolean)
+  name.vb: SetGlobalFilterForBaseClass(Of TBase)(FilterDefinition(Of TBase), Boolean)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilterForBaseClass<TBase>
+    nameWithType: DBContext.SetGlobalFilterForBaseClass<TBase>
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass<TBase>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass``1(MongoDB.Driver.FilterDefinition{``0},System.Boolean)
+    name: SetGlobalFilterForBaseClass(Of TBase)
+    nameWithType: DBContext.SetGlobalFilterForBaseClass(Of TBase)
+    fullName: MongoDB.Entities.DBContext.SetGlobalFilterForBaseClass(Of TBase)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TBase
+    nameWithType: TBase
+    fullName: TBase
   - name: )
     nameWithType: )
     fullName: )
