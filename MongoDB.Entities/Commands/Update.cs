@@ -70,11 +70,12 @@ namespace MongoDB.Entities
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
+        private bool ignoreGlobalFilters;
 
         internal Update(
-            IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null,
-            Action<UpdateBase<T>> onUpdateAction = null)
+            IClientSessionHandle session,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Action<UpdateBase<T>> onUpdateAction)
         {
             this.session = session;
             this.globalFilters = globalFilters;
@@ -360,11 +361,20 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify that this operation should ignore any global filters
+        /// </summary>
+        public Update<T> IgnoreGlobalFilters()
+        {
+            ignoreGlobalFilters = true;
+            return this;
+        }
+
+        /// <summary>
         /// Queue up an update command for bulk execution later.
         /// </summary>
         public Update<T> AddToQueue()
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
@@ -405,7 +415,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+                var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
@@ -421,7 +431,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");

@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual entity</returns>
         public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return new Find<T>(session).OneAsync(ID, cancellation);
+            return new Find<T>(session, null).OneAsync(ID, cancellation);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session)
+            return (await new Find<T>(session, null)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
@@ -86,7 +86,7 @@ namespace MongoDB.Entities
         /// <returns>A Task containing the actual projected entity</returns>
         public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session)
+            return (await new Find<T>(session, null)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))

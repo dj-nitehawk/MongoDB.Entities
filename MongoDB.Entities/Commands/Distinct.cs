@@ -20,10 +20,11 @@ namespace MongoDB.Entities
         private readonly DistinctOptions options = new DistinctOptions();
         private readonly IClientSessionHandle session;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private bool ignoreGlobalFilters;
 
         internal Distinct(
-            IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            IClientSessionHandle session,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
         {
             this.session = session;
             this.globalFilters = globalFilters;
@@ -163,6 +164,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify that this operation should ignore any global filters
+        /// </summary>
+        public Distinct<T, TProperty> IgnoreGlobalFilters()
+        {
+            ignoreGlobalFilters = true;
+            return this;
+        }
+
+        /// <summary>
         /// Run the Distinct command in MongoDB server and get a cursor instead of materialized results
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -171,7 +181,7 @@ namespace MongoDB.Entities
             if (field == null)
                 throw new InvalidOperationException("Please use the .Property() method to specify the field to use for obtaining unique values for!");
 
-            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
             return session == null
                    ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)

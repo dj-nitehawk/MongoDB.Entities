@@ -21,8 +21,8 @@ namespace MongoDB.Entities
     public class Find<T> : Find<T, T> where T : IEntity
     {
         internal Find(
-            IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            IClientSessionHandle session,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
             : base(session, globalFilters) { }
     }
 
@@ -39,10 +39,11 @@ namespace MongoDB.Entities
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private bool ignoreGlobalFilters;
 
         internal Find(
-            IClientSessionHandle session = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null)
+            IClientSessionHandle session,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
         {
             this.session = session;
             this.globalFilters = globalFilters;
@@ -338,6 +339,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify that this operation should ignore any global filters
+        /// </summary>
+        public Find<T, TProjection> IgnoreGlobalFilters()
+        {
+            ignoreGlobalFilters = true;
+            return this;
+        }
+
+        /// <summary>
         /// Run the Find command in MongoDB server and get a list of results
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
@@ -407,7 +417,7 @@ namespace MongoDB.Entities
             if (sorts.Count > 0)
                 options.Sort = Builders<T>.Sort.Combine(sorts);
 
-            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
             return session == null
                    ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)

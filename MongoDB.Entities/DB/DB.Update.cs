@@ -11,7 +11,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="session">An optional session if using within a transaction</param>
         public static Update<T> Update<T>(IClientSessionHandle session = null) where T : IEntity
-            => new Update<T>(session);
+            => new Update<T>(session, null, null);
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
@@ -21,7 +21,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TProjection">The type to project to</typeparam>
         /// <param name="session">An optional session if using within a transaction</param>
         public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session = null) where T : IEntity
-            => new UpdateAndGet<T, TProjection>(session);
+            => new UpdateAndGet<T, TProjection>(session, null, null);
 
         /// <summary>
         /// Update and retrieve the first document that was updated.
@@ -30,6 +30,6 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="session">An optional session if using within a transaction</param>
         public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session = null) where T : IEntity
-            => new UpdateAndGet<T>(session);
+            => new UpdateAndGet<T>(session, null, null);
     }
 }

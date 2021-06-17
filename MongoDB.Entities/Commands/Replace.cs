@@ -24,11 +24,13 @@ namespace MongoDB.Entities
         private readonly ModifiedBy modifiedBy;
         private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<T> onSaveAction;
+        private bool ignoreGlobalFilters;
 
         internal Replace(
-            IClientSessionHandle session = null, ModifiedBy modifiedBy = null,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters = null,
-            Action<T> onSaveAction = null)
+            IClientSessionHandle session,
+            ModifiedBy modifiedBy,
+            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Action<T> onSaveAction)
         {
             this.session = session;
             this.modifiedBy = modifiedBy;
@@ -179,11 +181,20 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify that this operation should ignore any global filters
+        /// </summary>
+        public Replace<T> IgnoreGlobalFilters()
+        {
+            ignoreGlobalFilters = true;
+            return this;
+        }
+
+        /// <summary>
         /// Queue up a replace command for bulk execution later.
         /// </summary>
         public Replace<T> AddToQueue()
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
             SetModOnAndByValues();
@@ -223,7 +234,7 @@ namespace MongoDB.Entities
             }
             else
             {
-                var mergedFilter = Logic.MergeWithGlobalFilter(globalFilters, filter);
+                var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
                 SetModOnAndByValues();
