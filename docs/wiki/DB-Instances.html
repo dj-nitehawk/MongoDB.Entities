@@ -107,10 +107,10 @@ feel free to create as many instances as you please whenever needed.</p>
 <h2 id="create-an-instance">Create an instance</h2>
 <pre><code class="lang-csharp">var db = new DBContext(&quot;database-name&quot;, &quot;127.0.0.1&quot;);
 </code></pre>
-<p>you only need to supply the connection parameters to the constructor if you haven't initialized the same database connection before in your application.
-if for example you have done: <code>await DB.InitAsync(...)</code> in your app startup, then you can simply do <code>new DBContext()</code> without supplying any parameters.</p>
+<p>connection parameters only need to be supplied to the constructor if you <strong>haven't</strong> initialized the same database connection before in your application.
+if for example you have done: <code>await DB.InitAsync(...)</code> on app startup, then simply do <code>new DBContext()</code> without supplying any parameters.</p>
 <p><strong>Note:</strong>
-the DBContext constructor does <strong>NOT</strong> try to establish network connectivity with the server immediately. it would only establish connection during the very first operation perfomed by the DBContext instance. whereas the <code>DB.InitAsync()</code> method would establish connectivity immediately and throw an exception if unsuccessful.</p>
+the DBContext constructor does <strong>not</strong> try to establish network connectivity with the server immediately. it would only establish connection during the very first operation perfomed by the DBContext instance. whereas the <code>DB.InitAsync()</code> method would establish connectivity immediately and throw an exception if unsuccessful.</p>
 <h2 id="perform-operations">Perform operations</h2>
 <p>all operations supported by the static <code>DB</code> class are available via DBContext instances like so:</p>
 <pre><code class="lang-csharp">await db.SaveAsync(new Book { Title = &quot;test&quot; });
@@ -126,8 +126,8 @@ await db.Update&lt;Book&gt;()
 </code></pre>
 <h2 id="dependancy-injection">Dependancy injection</h2>
 <p>it may be tempting to register <code>DBContext</code> instances with IOC containers. instead you should be injecting the repositories (that wrap up data access methods) into your controllers/services, not the DBContext instances directly. <a href="https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern">click here</a> for a repository pattern example.</p>
-<p>if you don't plan to unit test or swap persistance technology at a future date, there's really no need to use dependency injection and/or DBcontext instances <em>(unless you need the features mentioned above)</em>, you are then free to do everything via the DB static methods for the sake of convenience.</p>
-<p>it is however recommended that you encapsulate all data access logic in repository/service/manager classes in order to isolate persistance logic from your application logic.</p>
+<p>if you don't plan on unit testing or swapping persistance technology at a future date, there's really no need to use dependency injection and/or DBcontext instances <em>(unless you need the features mentioned above)</em>. in which case feel free to do everything via the DB static methods for the sake of convenience.</p>
+<p>it is however recommended you encapsulate all data access logic in repository/service/manager classes in order to isolate persistance logic from your application logic.</p>
 <div class="TIP">
 <h5>Tip</h5>
 <p>as an alternative, have a look at <strong>vertical slice architecture</strong> as done <a href="https://github.com/dj-nitehawk/MongoWebApiStarter"><em>here</em></a> for a far superior developer experience compared to the commonly used layerd+di+repositories mess.</p>

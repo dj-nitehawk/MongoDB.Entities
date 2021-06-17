@@ -27,9 +27,7 @@ items:
     content: 'public class JoinRecord : Entity, IEntity'
     content.vb: >-
       Public Class JoinRecord
-
           Inherits Entity
-
           Implements IEntity
   inheritance:
   - System.Object

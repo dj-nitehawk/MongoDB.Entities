@@ -20,14 +20,14 @@ public class MyDBContext : DBContext
 }
 ```
 ## Specify filters using a base class
-you can specify filters on a per entity type basis like above or you can specify filters that are common to a base class type like so:
+filters can be specified on a per entity type basis like above or common filters can be specified using a base class type like so:
 
 ```csharp
 SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 ```
 
 ## Prepending global filters
-global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, you can use the following overload:
+global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, use the following overload:
 
 ```csharp
 SetGlobalFilter<Book>(
@@ -36,7 +36,7 @@ SetGlobalFilter<Book>(
 ```
 
 ## Temporarily ignoring global filters
-you can skip/ignore global filters on a per operation basis as follows:
+it's possible to skip/ignore global filters on a per operation basis as follows:
 ```csharp
 //with command builders:
 await db.Find<Book>()
@@ -52,7 +52,7 @@ await db.DeleteAsync<Book>(
 
 ## Limitations
 
-1. only one filter per entity type is allowed. you can specify multiple criteria for the same entity type with the `&&` operator as shown above. if you call `SetGlobalFilter<Book>` more than once, only the last call will be registered.
+1. only one filter per entity type is allowed. specify multiple criteria for the same entity type with the `&&` operator as shown above. if you call `SetGlobalFilter<Book>` more than once, only the last call will be registered.
 
 2. if using a base class to specify filters, no derived entity type (of that specific base class) can be used for registering another filter. take the following for example:
 ```csharp

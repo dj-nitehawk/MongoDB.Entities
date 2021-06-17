@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="custom-event-hooks">Custom event hooks</h1>
 
-<p>there are currently two hooks you can tap into. <code>OnBeforeSave</code> and <code>OnBeforeUpdate</code> so that you can perform modifications to the operation that's about to happen.
+<p>there are currently two hooks for tapping into. <code>OnBeforeSave</code> and <code>OnBeforeUpdate</code> so that you can perform modifications to the operation that's about to happen.
 it can also be used as an alternative to the pre-baked audit fields functionality for more fine-grain control. make sure to override both methods in order to cover all the bases.</p>
 <p>say for example, you have a <code>Flower</code> entity like the following and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.</p>
 <pre><code class="lang-csharp">public class Flower : Entity
@@ -151,7 +151,7 @@ await db.Update&lt;Flower&gt;()
         .ExecuteAsync();
 </code></pre>
 <h2 id="handling-multiple-entity-types">Handling multiple entity types</h2>
-<p>you can handle more than one type of entity inside the hooks like below:</p>
+<p>it's possible to handle more than one type of entity inside the hooks like below:</p>
 <pre><code class="lang-csharp">protected override Action&lt;T&gt; OnBeforeSave&lt;T&gt;()
 {
     var type = typeof(T);

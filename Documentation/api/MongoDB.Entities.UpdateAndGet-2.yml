@@ -58,7 +58,6 @@ items:
       description: The type to project to
     content.vb: >-
       Public Class UpdateAndGet(Of T As IEntity, TProjection)
-
           Inherits UpdateBase(Of T)
   inheritance:
   - System.Object
