@@ -302,6 +302,27 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task find_with_ignore_global_filter()
+        {
+            var db = new MyDB();
+
+            var guid = Guid.NewGuid().ToString();
+
+            await new[] {
+                new Author { Name = guid, Age = 200},
+                new Author { Name = guid, Age = 200},
+                new Author { Name = guid, Age = 111},
+            }.SaveAsync();
+
+            var res = await db.Find<Author>()
+                        .Match(a => a.Name == guid)
+                        .IgnoreGlobalFilters()
+                        .ExecuteAsync();
+
+            Assert.AreEqual(3, res.Count);
+        }
+
+        [TestMethod]
         public async Task queryable_with_global_filter()
         {
             var db = new MyDB();

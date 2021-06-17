@@ -39,12 +39,12 @@ namespace MongoDB.Entities
             return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
 
-        internal static FilterDefinition<T> MergeWithGlobalFilter<T>(bool skipMerging, ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters, FilterDefinition<T> filter) where T : IEntity
+        internal static FilterDefinition<T> MergeWithGlobalFilter<T>(bool ignoreGlobalFilters, ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters, FilterDefinition<T> filter) where T : IEntity
         {
             //WARNING: this has to do the same thing as DBContext.Pipeline.MergeWithGlobalFilter method
             //         if the following logic changes, update the other method also
 
-            if (!skipMerging && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (!ignoreGlobalFilters && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 switch (gFilter.filterDef)
                 {
