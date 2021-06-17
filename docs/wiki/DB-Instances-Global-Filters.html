@@ -150,7 +150,7 @@ SetGlobalFilterForBaseClass&lt;BaseEntity&gt;(x =&gt; x.IsDeleted == false);
 
 SetGlobalFilter&lt;Book&gt;(
       b =&gt; b.Publisher == &quot;Harper Collins&quot; &amp;&amp;
-           b.IsDeleted == true);
+           b.IsDeleted == false);
 </code></pre>
 <ol start="3">
 <li>only update and retrieval operations will use global filters. the <code>Save*()</code> operations will ignore any registered global filters as they will only match on the <code>ID</code> field.</li>

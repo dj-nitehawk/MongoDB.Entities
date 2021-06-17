@@ -68,7 +68,7 @@ SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 
 SetGlobalFilter<Book>(
       b => b.Publisher == "Harper Collins" &&
-           b.IsDeleted == true);
+           b.IsDeleted == false);
 ``` 
 
 3. only update and retrieval operations will use global filters. the `Save*()` operations will ignore any registered global filters as they will only match on the `ID` field.
