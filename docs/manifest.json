@@ -649,6 +649,17 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/artwork.ai",
+      "output": {
+        "resource": {
+          "relative_path": "images/artwork.ai"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/donate.png",
       "output": {
         "resource": {
@@ -664,6 +675,17 @@
       "output": {
         "resource": {
           "relative_path": "images/favicon.ico"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/header.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/header.svg"
         }
       },
       "is_incremental": false,
@@ -708,7 +730,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "seQHN/A6s0bDLy//1SSAiNSHOlfP0IpywQml9RYtLiA="
+          "hash": "C10BBDdv/XcqZw2elID3ugC7ttQkpPSB5LToA4qGDWQ="
         }
       },
       "is_incremental": false,
