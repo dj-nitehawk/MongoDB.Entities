@@ -968,6 +968,18 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "wiki/Performance-Benchmarks.md",
+      "output": {
+        ".html": {
+          "relative_path": "wiki/Performance-Benchmarks.html",
+          "hash": "rNWDyxIKi/7gQebitbXs3+i14TZemb7zMg4BjnGiuao="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "wiki/Queries-Count.md",
       "output": {
         ".html": {
@@ -1111,8 +1123,8 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 31,
-          "skipped_file_count": 30
+          "total_file_count": 32,
+          "skipped_file_count": 31
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
