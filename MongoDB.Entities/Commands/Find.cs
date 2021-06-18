@@ -22,7 +22,7 @@ namespace MongoDB.Entities
     {
         internal Find(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
             : base(session, globalFilters) { }
     }
 
@@ -38,12 +38,12 @@ namespace MongoDB.Entities
         private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session;
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
 
         internal Find(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
         {
             this.session = session;
             this.globalFilters = globalFilters;

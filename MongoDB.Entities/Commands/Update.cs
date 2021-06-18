@@ -68,13 +68,13 @@ namespace MongoDB.Entities
         private UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session;
         private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;
 
         internal Update(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
             Action<UpdateBase<T>> onUpdateAction)
         {
             this.session = session;

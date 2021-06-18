@@ -19,12 +19,12 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly DistinctOptions options = new DistinctOptions();
         private readonly IClientSessionHandle session;
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
 
         internal Distinct(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
         {
             this.session = session;
             this.globalFilters = globalFilters;

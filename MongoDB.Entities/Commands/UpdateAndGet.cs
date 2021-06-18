@@ -20,7 +20,7 @@ namespace MongoDB.Entities
     {
         internal UpdateAndGet(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
             Action<UpdateBase<T>> onUpdateAction)
             : base(session, globalFilters, onUpdateAction) { }
     }
@@ -37,13 +37,13 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;
 
         internal UpdateAndGet(
             IClientSessionHandle session,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
             Action<UpdateBase<T>> onUpdateAction)
         {
             this.session = session;

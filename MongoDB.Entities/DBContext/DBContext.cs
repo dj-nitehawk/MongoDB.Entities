@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -21,10 +22,8 @@ namespace MongoDB.Entities
 
 
 
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters
-            = new ConcurrentDictionary<Type, (object filterDef, bool prepend)>();
-
         private static Type[] allEntitiyTypes;
+        private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
 
 
 
@@ -186,7 +185,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         protected void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
         {
-            globalFilters[typeof(T)] = (filter, prepend);
+            AddFilter(typeof(T), (filter, prepend));
         }
 
         /// <summary>
@@ -197,7 +196,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         protected void SetGlobalFilter(Type type, string jsonString, bool prepend = false)
         {
-            globalFilters[type] = (jsonString, prepend);
+            AddFilter(type, (jsonString, prepend));
         }
 
 
@@ -240,7 +239,7 @@ namespace MongoDB.Entities
                     BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
                     BsonSerializer.SerializerRegistry);
 
-                globalFilters[entType] = (bsonDoc, prepend);
+                AddFilter(entType, (bsonDoc, prepend));
             }
         }
 
@@ -262,7 +261,7 @@ namespace MongoDB.Entities
 
             foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
             {
-                globalFilters[entType] = (jsonString, prepend);
+                AddFilter(entType, (jsonString, prepend));
             }
         }
 
@@ -299,6 +298,13 @@ namespace MongoDB.Entities
                 throw new InvalidOperationException(
                     $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
             }
+        }
+
+        private void AddFilter(Type type, (object filterDef, bool prepend) filter)
+        {
+            if (globalFilters is null) globalFilters = new Dictionary<Type, (object filterDef, bool prepend)>();
+
+            globalFilters[type] = filter;
         }
     }
 }

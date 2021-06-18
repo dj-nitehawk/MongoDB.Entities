@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Threading;
@@ -22,14 +23,14 @@ namespace MongoDB.Entities
         private readonly IClientSessionHandle session;
         private readonly Collection<ReplaceOneModel<T>> models = new Collection<ReplaceOneModel<T>>();
         private readonly ModifiedBy modifiedBy;
-        private readonly ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<T> onSaveAction;
         private bool ignoreGlobalFilters;
 
         internal Replace(
             IClientSessionHandle session,
             ModifiedBy modifiedBy,
-            ConcurrentDictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
             Action<T> onSaveAction)
         {
             this.session = session;

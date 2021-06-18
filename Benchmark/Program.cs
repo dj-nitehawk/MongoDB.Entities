@@ -27,11 +27,11 @@ namespace Benchmark
 
     public static class Program
     {
-        private static readonly ConcurrentBag<byte> booksCreated = new ConcurrentBag<byte>();
-        private static readonly ConcurrentBag<byte> authorsCreated = new ConcurrentBag<byte>();
+        private static readonly ConcurrentBag<byte> booksCreated = new();
+        private static readonly ConcurrentBag<byte> authorsCreated = new();
         private const int authorCount = 1000;
         private const int booksPerAuthor = 1000;
-        private const int concurrentTasks = 4;
+        private const int concurrentTasks = 16;
 
         private static async Task Main()
         {
