@@ -1,13 +1,13 @@
-# Benchmark comparison with official driver
+# Performance Benchmarks
+the code for the benchmarks can be found under the `Benchmark` project on [github](https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Benchmark/Benchmarks).
+more benchmarks will be added as time permits. in the meantime, please feel free to add your own and submit a PR on github. 
 
 ### Environment
-
-```ini
-MongoDB.Entities: v20.15.0
-BenchmarkDotNet: v0.13.0
-OS: Windows 10
-CPU: AMD Ryzen 7 3700X
-.NET SDK: 5.0.202
+```
+OS     : Windows 10
+CPU    : AMD Ryzen 7 3700X
+SDK    : .Net 5.0
+Server : MongoDB Community 4.4 hosted locally
 ```
 
 ## Create one entity

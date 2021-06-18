@@ -2,7 +2,7 @@
 
 
 # MongoDB.Entities
-A light-weight .net standard library which simplifies access to mongodb by abstracting away the official .net mongodb driver and providing some additional features on top of it. The API is clean and intuitive resulting in less lines of code that is more human friendly than driver code.
+A light-weight .net standard library with barely any overhead that aims to simplify access to mongodb by abstracting the official driver while adding useful features on top of it resulting in an elegant API surface which produces beautiful, human friendly data access code.
 
 ## More Info:
 please visit the official website for detailed documentation:

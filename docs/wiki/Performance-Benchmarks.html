@@ -14,9 +14,9 @@
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Benchmark comparison with official driver | MongoDB.Entities </title>
+    <title>Performance Benchmarks | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Benchmark comparison with official driver | MongoDB.Entities ">
+    <meta name="title" content="Performance Benchmarks | MongoDB.Entities ">
     <meta name="generator" content="docfx 2.57.2.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
     
     <meta property="docfx:rel" content="../">
     <meta property="docfx:newtab" content="true">
@@ -82,24 +82,18 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
-        </div>
-        <div class="article row grid-right">
+        <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="benchmark-comparison-with-official-driver">Benchmark comparison with official driver</h1>
+<h1 id="performance-benchmarks">Performance Benchmarks</h1>
 
+<p>the code for the benchmarks can be found under the <code>Benchmark</code> project on <a href="https://github.com/dj-nitehawk/MongoDB.Entities/tree/master/Benchmark/Benchmarks">github</a>.
+more benchmarks will be added as time permits. in the meantime, please feel free to add your own and submit a PR on github.</p>
 <h3 id="environment">Environment</h3>
-<pre><code class="lang-ini">MongoDB.Entities: v20.15.0
-BenchmarkDotNet: v0.13.0
-OS: Windows 10
-CPU: AMD Ryzen 7 3700X
-.NET SDK: 5.0.202
+<pre><code>OS     : Windows 10
+CPU    : AMD Ryzen 7 3700X
+SDK    : .Net 5.0
+Server : MongoDB Community 4.4 hosted locally
 </code></pre>
 <h2 id="create-one-entity">Create one entity</h2>
 <table>
