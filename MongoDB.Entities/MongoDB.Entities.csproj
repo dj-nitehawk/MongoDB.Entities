@@ -13,8 +13,8 @@
     <PackageReleaseNotes>- added ability to specify global filters with base classes
 - added ability to ignore global filters when needed
 - added DB.Find().ExecuteAnyAsync() to check for any matching
-- optimized DBContext to reduce allocations
-- optimized distinct, find and pipeline cursor iterations</PackageReleaseNotes>
+- optimized distinct, find and pipeline cursor iterations
+- reduced allocations for command builders and DBContext</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

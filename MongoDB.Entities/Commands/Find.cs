@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -34,7 +33,7 @@ namespace MongoDB.Entities
     public class Find<T, TProjection> where T : IEntity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly Collection<SortDefinition<T>> sorts = new Collection<SortDefinition<T>>();
+        private readonly List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
         private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;

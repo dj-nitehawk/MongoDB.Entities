@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -62,11 +61,11 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Update<T> : UpdateBase<T> where T : IEntity
     {
-        private readonly Collection<PipelineStageDefinition<T, T>> stages = new Collection<PipelineStageDefinition<T, T>>();
+        private readonly List<PipelineStageDefinition<T, T>> stages = new List<PipelineStageDefinition<T, T>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private UpdateOptions options = new UpdateOptions();
         private readonly IClientSessionHandle session;
-        private readonly Collection<UpdateManyModel<T>> models = new Collection<UpdateManyModel<T>>();
+        private readonly List<UpdateManyModel<T>> models = new List<UpdateManyModel<T>>();
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;

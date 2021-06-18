@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -745,7 +744,7 @@ namespace MongoDB.Entities
         public static IEnumerable<string> GetKeys(string phrase)
         {
             var set = new HashSet<string>();
-            var keys = new Collection<string>();
+            var keys = new List<string>();
 
             foreach (Match m in regex.Matches(phrase))
             {

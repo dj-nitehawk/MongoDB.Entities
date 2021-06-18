@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private ReplaceOptions options = new ReplaceOptions();
         private readonly IClientSessionHandle session;
-        private readonly Collection<ReplaceOneModel<T>> models = new Collection<ReplaceOneModel<T>>();
+        private readonly List<ReplaceOneModel<T>> models = new List<ReplaceOneModel<T>>();
         private readonly ModifiedBy modifiedBy;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<T> onSaveAction;

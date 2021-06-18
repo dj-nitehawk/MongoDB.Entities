@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -32,7 +31,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type to project to</typeparam>
     public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
-        private readonly Collection<PipelineStageDefinition<T, TProjection>> stages = new Collection<PipelineStageDefinition<T, TProjection>>();
+        private readonly List<PipelineStageDefinition<T, TProjection>> stages = new List<PipelineStageDefinition<T, TProjection>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
