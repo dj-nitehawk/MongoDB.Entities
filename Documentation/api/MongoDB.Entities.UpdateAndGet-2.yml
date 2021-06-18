@@ -43,7 +43,7 @@ items:
   source:
     id: UpdateAndGet
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 33
+    startLine: 31
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -100,7 +100,7 @@ items:
   source:
     id: MatchID
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 57
+    startLine: 55
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -136,7 +136,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 66
+    startLine: 64
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -173,7 +173,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 75
+    startLine: 73
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -210,7 +210,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 85
+    startLine: 83
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -246,7 +246,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 100
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -294,7 +294,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 130
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -340,7 +340,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 139
+    startLine: 137
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -376,7 +376,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 149
+    startLine: 147
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -412,7 +412,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 159
+    startLine: 157
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -448,7 +448,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 170
+    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -490,7 +490,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 180
+    startLine: 178
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -527,7 +527,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 190
+    startLine: 188
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -563,7 +563,7 @@ items:
   source:
     id: Modify
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 200
+    startLine: 198
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -599,7 +599,7 @@ items:
   source:
     id: ModifyWith
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 210
+    startLine: 208
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -635,7 +635,7 @@ items:
   source:
     id: ModifyOnly
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 222
+    startLine: 220
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -675,7 +675,7 @@ items:
   source:
     id: ModifyExcept
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 234
+    startLine: 232
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -715,7 +715,7 @@ items:
   source:
     id: WithPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 246
+    startLine: 244
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -751,7 +751,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 261
+    startLine: 259
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -787,7 +787,7 @@ items:
   source:
     id: WithPipelineStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 272
+    startLine: 270
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -823,7 +823,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 281
+    startLine: 279
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -859,7 +859,7 @@ items:
   source:
     id: WithArrayFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 297
+    startLine: 295
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -895,7 +895,7 @@ items:
   source:
     id: WithArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 307
+    startLine: 305
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -931,7 +931,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 324
+    startLine: 322
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -968,7 +968,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 334
+    startLine: 332
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1005,7 +1005,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 343
+    startLine: 341
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1042,7 +1042,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 352
+    startLine: 350
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1074,7 +1074,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 362
+    startLine: 360
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1110,7 +1110,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
-    startLine: 377
+    startLine: 375
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

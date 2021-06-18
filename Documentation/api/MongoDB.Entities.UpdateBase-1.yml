@@ -20,7 +20,7 @@ items:
   source:
     id: UpdateBase
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 13
+    startLine: 11
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -69,7 +69,7 @@ items:
   source:
     id: defs
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 18
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -100,7 +100,7 @@ items:
   source:
     id: AddModification
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 25
+    startLine: 23
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -140,7 +140,7 @@ items:
   source:
     id: AddModification
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 34
+    startLine: 32
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -175,7 +175,7 @@ items:
   source:
     id: AddModification
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 43
+    startLine: 41
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -209,7 +209,7 @@ items:
   source:
     id: AddModification
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
-    startLine: 52
+    startLine: 50
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

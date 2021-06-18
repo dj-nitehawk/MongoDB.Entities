@@ -462,7 +462,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 41
+    startLine: 39
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -503,7 +503,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 63
+    startLine: 61
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -541,7 +541,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 80
+    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -573,7 +573,7 @@ items:
   source:
     id: Session
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 88
+    startLine: 86
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -608,7 +608,7 @@ items:
   source:
     id: Transaction
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 98
+    startLine: 96
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -645,7 +645,7 @@ items:
   source:
     id: Transaction
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 119
+    startLine: 117
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -687,7 +687,7 @@ items:
   source:
     id: CommitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 128
+    startLine: 126
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -721,7 +721,7 @@ items:
   source:
     id: AbortAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 134
+    startLine: 132
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -755,7 +755,7 @@ items:
   source:
     id: OnBeforeSave
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 142
+    startLine: 140
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -795,7 +795,7 @@ items:
   source:
     id: OnBeforeUpdate
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 151
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -835,7 +835,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 164
+    startLine: 162
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -878,7 +878,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 175
+    startLine: 173
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -921,7 +921,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 186
+    startLine: 184
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -964,7 +964,7 @@ items:
   source:
     id: SetGlobalFilter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 197
+    startLine: 195
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1002,7 +1002,7 @@ items:
   source:
     id: SetGlobalFilterForBaseClass
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 210
+    startLine: 208
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1045,7 +1045,7 @@ items:
   source:
     id: SetGlobalFilterForBaseClass
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 221
+    startLine: 219
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1088,7 +1088,7 @@ items:
   source:
     id: SetGlobalFilterForBaseClass
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 232
+    startLine: 230
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1131,7 +1131,7 @@ items:
   source:
     id: SetGlobalFilterForInterface
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.cs
-    startLine: 254
+    startLine: 252
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
