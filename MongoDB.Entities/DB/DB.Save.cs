@@ -46,7 +46,7 @@ namespace MongoDB.Entities
         public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             var models = new List<WriteModel<T>>(entities.Count());
-            
+
             foreach (var ent in entities)
             {
                 if (PrepAndCheckIfInsert(ent))
@@ -186,8 +186,6 @@ namespace MongoDB.Entities
 
         private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
         {
-            //micro optimized 
-
             if (string.IsNullOrEmpty(entity.ID))
             {
                 entity.ID = entity.GenerateNewID();

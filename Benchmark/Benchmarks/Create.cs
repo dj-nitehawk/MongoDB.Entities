@@ -63,13 +63,13 @@ namespace Benchmark.Benchmarks
         public override Task MongoDB_Entities()
         {
             foreach (var author in list) author.ID = null;
-            return list.SaveAsync();
+            return DB.SaveAsync(list);
         }
 
         [Benchmark(Baseline = true)]
         public override Task Official_Driver()
         {
-            var models = new List<WriteModel<Author>>(1000);
+            var models = new List<WriteModel<Author>>(list.Count);
             foreach (var author in list)
             {
                 author.ID = author.GenerateNewID();

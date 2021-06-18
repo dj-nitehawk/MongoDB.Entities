@@ -1,6 +1,5 @@
 ﻿using Benchmark.Benchmarks;
 using BenchmarkDotNet.Running;
-using MongoDB.Entities;
 using System.Threading.Tasks;
 
 namespace Benchmark
@@ -11,6 +10,7 @@ namespace Benchmark
         {
             //BenchmarkRunner.Run<CreateOne>();
             BenchmarkRunner.Run<CreateBulk>();
+
         }
     }
 }
