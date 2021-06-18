@@ -12,7 +12,7 @@ namespace Benchmark
             //BenchmarkRunner.Run<CreateBulk>();
             //BenchmarkRunner.Run<UpdateOne>();
             //BenchmarkRunner.Run<FindOne>();
-            BenchmarkRunner.Run<>();
+            BenchmarkRunner.Run<Find100>();
         }
     }
 }
