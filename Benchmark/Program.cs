@@ -9,8 +9,10 @@ namespace Benchmark
         private static async Task Main()
         {
             //BenchmarkRunner.Run<CreateOne>();
-            BenchmarkRunner.Run<CreateBulk>();
-
+            //BenchmarkRunner.Run<CreateBulk>();
+            //BenchmarkRunner.Run<UpdateOne>();
+            //BenchmarkRunner.Run<FindOne>();
+            BenchmarkRunner.Run<>();
         }
     }
 }
