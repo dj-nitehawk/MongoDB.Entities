@@ -56,19 +56,19 @@ await db.DeleteAsync<Book>(
 
 2. if using a base class to specify filters, no derived entity type (of that specific base class) can be used for registering another filter. take the following for example:
 ```csharp
-SetGlobalFilter<Book>(b => b.Publisher == "Harper Collins");
+    SetGlobalFilter<Book>(b => b.Publisher == "Harper Collins");
 
-SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
+    SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 ```
 only the second filter would take effect. the first one is discarded because the `Book` type is a derived type of `BaseEntity`.
 
 you can however switch the order of registration so that the base class registration occurs first. but you need to make sure to include the criteria the base class registration caters to as well, like so:
 ```csharp
-SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
+    SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 
-SetGlobalFilter<Book>(
-      b => b.Publisher == "Harper Collins" &&
-           b.IsDeleted == false);
+    SetGlobalFilter<Book>(
+          b => b.Publisher == "Harper Collins" &&
+               b.IsDeleted == false);
 ``` 
 
-3. only delte, update and retrieval operations will use global filters. the `Save*()` operations will ignore any registered global filters as they will only match on the `ID` field.
+3. only delete, update and retrieval operations will use global filters. the `Save*()` operations will ignore any registered global filters as they will only match on the `ID` field.
