@@ -2,7 +2,7 @@
 using MongoDB.Entities;
 using System.Threading.Tasks;
 
-namespace Benchmark.Benchmarks
+namespace Benchmark
 {
     public abstract class BenchBase
     {

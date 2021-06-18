@@ -1,18 +1,12 @@
-﻿using Benchmark.Benchmarks;
-using BenchmarkDotNet.Running;
-using System.Threading.Tasks;
+﻿using BenchmarkDotNet.Running;
 
 namespace Benchmark
 {
     public static class Program
     {
-        private static async Task Main()
+        private static void Main()
         {
-            //BenchmarkRunner.Run<CreateOne>();
-            //BenchmarkRunner.Run<CreateBulk>();
-            //BenchmarkRunner.Run<UpdateOne>();
-            //BenchmarkRunner.Run<FindOne>();
-            BenchmarkRunner.Run<Find100>();
+            BenchmarkRunner.Run(typeof(Program).Assembly);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using BenchmarkDotNet.Attributes;
+using MongoDB.Driver;
+using MongoDB.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Benchmark.Benchmarks
+namespace Benchmark
 {
     [MemoryDiagnoser]
     public class FindOne : BenchBase
