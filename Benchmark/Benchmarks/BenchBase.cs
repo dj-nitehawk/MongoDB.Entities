@@ -1,5 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using MongoDB.Entities;
 using System.Threading.Tasks;
 

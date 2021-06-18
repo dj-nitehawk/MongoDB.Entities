@@ -46,21 +46,20 @@ namespace MongoDB.Entities
         public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             var models = new List<WriteModel<T>>(entities.Count());
+            
             foreach (var ent in entities)
             {
-                WriteModel<T> model;
                 if (PrepAndCheckIfInsert(ent))
                 {
-                    model = new InsertOneModel<T>(ent);
+                    models.Add(new InsertOneModel<T>(ent));
                 }
                 else
                 {
-                    model = new ReplaceOneModel<T>(
+                    models.Add(new ReplaceOneModel<T>(
                         filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
                         replacement: ent)
-                    { IsUpsert = true };
+                    { IsUpsert = true });
                 }
-                models.Add(model);
             }
             return session == null
                    ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
@@ -187,20 +186,18 @@ namespace MongoDB.Entities
 
         private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
         {
-            bool isInsert = false;
+            //micro optimized 
 
             if (string.IsNullOrEmpty(entity.ID))
             {
-                isInsert = true;
                 entity.ID = entity.GenerateNewID();
-                if (Cache<T>.HasCreatedOn)
-                    ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
+                if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
+                if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+                return true;
             }
 
-            if (Cache<T>.HasModifiedOn)
-                ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-
-            return isInsert;
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            return false;
         }
 
         private static Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity

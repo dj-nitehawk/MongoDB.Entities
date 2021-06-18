@@ -9,9 +9,8 @@ namespace Benchmark
     {
         private static async Task Main()
         {
-            await DB.InitAsync("benchmark-mongodb-entities");
-
-            BenchmarkRunner.Run<CreateOne>();
+            //BenchmarkRunner.Run<CreateOne>();
+            BenchmarkRunner.Run<CreateBulk>();
         }
     }
 }

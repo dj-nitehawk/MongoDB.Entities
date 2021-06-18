@@ -1,7 +1,9 @@
 ﻿using BenchmarkDotNet.Attributes;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using MongoDB.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Benchmark.Benchmarks
@@ -35,6 +37,45 @@ namespace Benchmark.Benchmarks
                 LastName = "test",
                 Birthday = DateTime.UtcNow,
             });
+        }
+    }
+
+    [MemoryDiagnoser]
+    public class CreateBulk : BenchBase
+    {
+        private readonly List<Author> list = new(1000);
+
+        public CreateBulk()
+        {
+            Initialize();
+            for (int i = 1; i <= 1000; i++)
+            {
+                list.Add(new Author
+                {
+                    FirstName = "test",
+                    LastName = "test",
+                    Birthday = DateTime.UtcNow
+                });
+            }
+        }
+
+        [Benchmark]
+        public override Task MongoDB_Entities()
+        {
+            foreach (var author in list) author.ID = null;
+            return list.SaveAsync();
+        }
+
+        [Benchmark(Baseline = true)]
+        public override Task Official_Driver()
+        {
+            var models = new List<WriteModel<Author>>(1000);
+            foreach (var author in list)
+            {
+                author.ID = author.GenerateNewID();
+                models.Add(new InsertOneModel<Author>(author));
+            }
+            return AuthorCollection.BulkWriteAsync(models);
         }
     }
 }
