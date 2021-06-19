@@ -54,4 +54,45 @@ namespace Benchmark
             throw new NotImplementedException();
         }
     }
+
+    [MemoryDiagnoser]
+    public class DBContextVsStaticSave : BenchBase
+    {
+        private readonly Author author;
+
+        public DBContextVsStaticSave()
+        {
+            Initialize();
+            author = new()
+            {
+                FirstName = "Test",
+                LastName = "Test",
+                Birthday = DateTime.UtcNow
+            };
+        }
+
+        [Benchmark]
+        public Task DB_Context()
+        {
+            author.ID = null;
+            return new DBContext().SaveAsync(author);
+        }
+
+        [Benchmark(Baseline = true)]
+        public Task DB_Static()
+        {
+            author.ID = null;
+            return DB.SaveAsync(author);
+        }
+
+        public override Task MongoDB_Entities()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task Official_Driver()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
