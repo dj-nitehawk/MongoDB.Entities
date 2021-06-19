@@ -76,3 +76,10 @@ Server : MongoDB Community 4.4 hosted locally
 |----------------- |---------:|--------:|--------:|------:|-------:|------:|------:|----------:|
 | MongoDB_Entities | 277.8 μs | 5.20 μs | 5.11 μs |  1.02 | 3.9063 |     - |     - |     33 KB |
 |  Official_Driver | 271.1 μs | 5.41 μs | 6.23 μs |  1.00 | 3.4180 |     - |     - |     32 KB |
+
+## Manual update vs. save partial
+
+|      Method |     Mean |   Error |  StdDev | Ratio |  Gen 0 |  Gen 1 | Gen 2 | Allocated |
+|------------ |---------:|--------:|--------:|------:|-------:|-------:|------:|----------:|
+|      Update | 239.5 μs | 2.43 μs | 2.28 μs |  1.00 | 3.9063 |      - |     - |     33 KB |
+| SavePartial | 423.1 μs | 3.39 μs | 3.17 μs |  1.77 | 4.8828 | 1.4648 |     - |     41 KB |
