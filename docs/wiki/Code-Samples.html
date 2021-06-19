@@ -133,11 +133,14 @@
                         .Where(a =&gt; a.Name.Contains(&quot;Eckhart&quot;))
                         .SingleOrDefaultAsync();
 
-  var powerofnow = await genre.AllBooks.ChildrenQueryable()
-                                       .Where(b =&gt; b.Title.Contains(&quot;Power&quot;))
-                                       .SingleOrDefaultAsync();
+  var powerofnow = await genre.AllBooks
+                              .ChildrenQueryable()
+                              .Where(b =&gt; b.Title.Contains(&quot;Power&quot;))
+                              .SingleOrDefaultAsync();
 
-  var selfhelp = await book.AllGenres.ChildrenQueryable().FirstAsync();
+  var selfhelp = await book.AllGenres
+                           .ChildrenQueryable()
+                           .FirstAsync();
 </code></pre>
 <h3 id="delete">Delete</h3>
 <pre><code class="lang-csharp">  await book.MainAuthor.DeleteAsync();

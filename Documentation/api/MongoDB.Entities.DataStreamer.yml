@@ -88,7 +88,7 @@ items:
   source:
     id: DownloadWithTimeoutAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 110
+    startLine: 108
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -131,7 +131,7 @@ items:
   source:
     id: DownloadAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 122
+    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -174,7 +174,7 @@ items:
   source:
     id: UploadWithTimeoutAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 165
+    startLine: 163
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -217,7 +217,7 @@ items:
   source:
     id: UploadAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 178
+    startLine: 176
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

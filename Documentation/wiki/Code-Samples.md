@@ -53,11 +53,14 @@
                         .Where(a => a.Name.Contains("Eckhart"))
                         .SingleOrDefaultAsync();
 
-  var powerofnow = await genre.AllBooks.ChildrenQueryable()
-                                       .Where(b => b.Title.Contains("Power"))
-                                       .SingleOrDefaultAsync();
+  var powerofnow = await genre.AllBooks
+                              .ChildrenQueryable()
+                              .Where(b => b.Title.Contains("Power"))
+                              .SingleOrDefaultAsync();
 
-  var selfhelp = await book.AllGenres.ChildrenQueryable().FirstAsync();
+  var selfhelp = await book.AllGenres
+                           .ChildrenQueryable()
+                           .FirstAsync();
 ```
 ### Delete
 ```csharp
