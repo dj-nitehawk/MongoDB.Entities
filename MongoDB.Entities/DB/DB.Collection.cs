@@ -53,7 +53,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
         {
-            var tasks = new HashSet<Task>();
+            var tasks = new List<Task>();
             var db = Database<T>();
             var collName = CollectionName<T>();
             var options = new ListCollectionNamesOptions

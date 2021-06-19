@@ -28,7 +28,7 @@ namespace MongoDB.Entities
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
             };
 
-            var tasks = new HashSet<Task>();
+            var tasks = new List<Task>();
 
             // note: db.listCollections() mongo command does not support transactions.
             //       so don't add session support here.

@@ -14,7 +14,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Index<T> where T : IEntity
     {
-        internal HashSet<Key<T>> Keys { get; set; } = new HashSet<Key<T>>();
+        internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
         private readonly CreateIndexOptions<T> options = new CreateIndexOptions<T> { Background = true };
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace MongoDB.Entities
         {
             if (Keys.Count == 0) throw new ArgumentException("Please define keys before calling this method.");
 
-            var propNames = new HashSet<string>();
-            var keyDefs = new HashSet<IndexKeysDefinition<T>>();
+            var propNames = new List<string>();
+            var keyDefs = new List<IndexKeysDefinition<T>>();
             var isTextIndex = false;
 
             foreach (var key in Keys)

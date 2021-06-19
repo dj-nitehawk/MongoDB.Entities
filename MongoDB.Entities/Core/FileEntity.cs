@@ -90,10 +90,8 @@ namespace MongoDB.Entities
 
             var dbName = db.DatabaseNamespace.DatabaseName;
 
-            if (!indexedDBs.Contains(dbName))
+            if (indexedDBs.Add(dbName))
             {
-                indexedDBs.Add(dbName);
-
                 _ = chunkCollection.Indexes.CreateOneAsync(
                     new CreateIndexModel<FileChunk>(
                         Builders<FileChunk>.IndexKeys.Ascending(c => c.FileID),
