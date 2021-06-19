@@ -11,11 +11,6 @@ namespace Benchmark
     [MemoryDiagnoser]
     public class CreateOne : BenchBase
     {
-        public CreateOne()
-        {
-            Initialize();
-        }
-
         [Benchmark]
         public override Task MongoDB_Entities()
         {
@@ -47,7 +42,6 @@ namespace Benchmark
 
         public CreateBulk()
         {
-            Initialize();
             for (int i = 1; i <= 1000; i++)
             {
                 list.Add(new Author

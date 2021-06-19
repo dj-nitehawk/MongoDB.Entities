@@ -15,7 +15,6 @@ namespace Benchmark
 
         public UpdateOne()
         {
-            Initialize();
             DB.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
         }
 
@@ -45,8 +44,6 @@ namespace Benchmark
 
         public Update100()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)

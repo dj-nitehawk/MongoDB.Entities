@@ -15,8 +15,6 @@ namespace Benchmark
 
         public FindOne()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)
@@ -59,8 +57,6 @@ namespace Benchmark
 
         public Find100()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)
@@ -103,8 +99,6 @@ namespace Benchmark
 
         public FindFirst()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)
@@ -147,8 +141,6 @@ namespace Benchmark
 
         public FindAny()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)
@@ -191,8 +183,6 @@ namespace Benchmark
 
         public FindSingle()
         {
-            Initialize();
-
             DB.Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)

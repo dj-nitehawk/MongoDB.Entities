@@ -13,7 +13,6 @@ namespace Benchmark
 
         public SavePartialVsUpdate()
         {
-            Initialize();
             author = new()
             {
                 ID = ObjectId.GenerateNewId().ToString(),
@@ -62,7 +61,6 @@ namespace Benchmark
 
         public DBContextVsStaticSave()
         {
-            Initialize();
             author = new()
             {
                 FirstName = "Test",
@@ -85,14 +83,7 @@ namespace Benchmark
             return DB.SaveAsync(author);
         }
 
-        public override Task MongoDB_Entities()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task Official_Driver()
-        {
-            throw new NotImplementedException();
-        }
+        public override Task MongoDB_Entities() => throw new NotImplementedException();
+        public override Task Official_Driver() => throw new NotImplementedException();
     }
 }

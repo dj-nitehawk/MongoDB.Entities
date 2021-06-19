@@ -6,21 +6,16 @@ namespace Benchmark
 {
     public abstract class BenchBase
     {
-        protected static IMongoDatabase Database { get; private set; }
+        private const string DBName = "mongodb-entities-benchmark";
+        protected static IMongoCollection<Author> AuthorCollection { get; }
+        protected static IMongoCollection<Book> BookCollection { get; }
 
-        protected static IMongoCollection<Author> AuthorCollection { get; private set; }
-
-        protected static IMongoCollection<Book> BookCollection { get; private set; }
-
-        protected static void Initialize()
+        static BenchBase()
         {
-            DB.InitAsync("mongodb-entities-benchmark").GetAwaiter().GetResult();
-            Database = new MongoClient("mongodb://localhost").GetDatabase("mongodb-entities-benchmark");
-            AuthorCollection = Database.GetCollection<Author>("Author");
-            BookCollection = Database.GetCollection<Book>("Author");
-
-            DB.DropCollectionAsync<Author>().GetAwaiter().GetResult();
-            DB.DropCollectionAsync<Book>().GetAwaiter().GetResult();
+            DB.InitAsync(DBName).GetAwaiter().GetResult();
+            DB.Database(DBName).Client.DropDatabase(DBName);
+            AuthorCollection = DB.Collection<Author>();
+            BookCollection = DB.Collection<Book>();
         }
 
         public abstract Task MongoDB_Entities();
