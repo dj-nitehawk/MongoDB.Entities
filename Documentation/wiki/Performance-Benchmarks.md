@@ -31,6 +31,31 @@ Server : MongoDB Community 4.4 hosted locally
 | MongoDB_Entities | 266.1 μs | 1.93 μs | 1.80 μs | 266.6 μs |  0.99 | 3.4180 | 0.4883 |     - |     31 KB |
 |  Official_Driver | 265.2 μs | 5.30 μs | 6.89 μs | 260.2 μs |  1.00 | 3.4180 | 0.4883 |     - |     31 KB |
 
+## Find single entity
+
+|           Method |     Mean |   Error |  StdDev | Ratio |  Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------- |---------:|--------:|--------:|------:|-------:|------:|------:|----------:|
+| MongoDB_Entities | 263.4 μs | 5.10 μs | 5.87 μs |  0.99 | 3.4180 |     - |     - |     32 KB |
+|  Official_Driver | 267.8 μs | 3.90 μs | 3.65 μs |  1.00 | 3.4180 |     - |     - |     31 KB |
+
+## Find any entity 
+
+> 3.7 times faster than driver
+
+|           Method |       Mean |   Error |  StdDev |     Median | Ratio |   Gen 0 |   Gen 1 | Gen 2 | Allocated |
+|----------------- |-----------:|--------:|--------:|-----------:|------:|--------:|--------:|------:|----------:|
+| MongoDB_Entities |   292.1 μs | 5.84 μs | 8.18 μs |   297.2 μs |  0.27 |  3.9063 |  0.4883 |     - |     33 KB |
+|  Official_Driver | 1,057.6 μs | 2.59 μs | 2.42 μs | 1,057.6 μs |  1.00 | 52.7344 | 13.6719 |     - |    446 KB |
+
+## Find first entity
+
+> 3.8 times faster than driver
+
+|           Method |       Mean |    Error |  StdDev | Ratio |   Gen 0 |   Gen 1 | Gen 2 | Allocated |
+|----------------- |-----------:|---------:|--------:|------:|--------:|--------:|------:|----------:|
+| MongoDB_Entities |   269.6 μs |  2.60 μs | 2.43 μs |  0.26 |  3.4180 |       - |     - |     32 KB |
+|  Official_Driver | 1,058.1 μs | 10.92 μs | 9.12 μs |  1.00 | 54.6875 | 13.6719 |     - |    446 KB |
+
 ## Find 100 entities
 
 |           Method |     Mean |     Error |    StdDev | Ratio |   Gen 0 |  Gen 1 | Gen 2 | Allocated |
