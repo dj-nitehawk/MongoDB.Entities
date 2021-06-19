@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using BenchmarkDotNet.Attributes;
+using MongoDB.Bson;
+using MongoDB.Entities;
 using System;
 using System.Threading.Tasks;
-using MongoDB.Entities;
-using BenchmarkDotNet.Attributes;
 
 namespace Benchmark
 {
