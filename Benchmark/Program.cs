@@ -6,7 +6,8 @@ namespace Benchmark
     {
         private static void Main()
         {
-            BenchmarkRunner.Run(typeof(Program).Assembly);
+            //BenchmarkRunner.Run(typeof(Program).Assembly);
+            BenchmarkRunner.Run<FindSingle>();
         }
     }
 }
