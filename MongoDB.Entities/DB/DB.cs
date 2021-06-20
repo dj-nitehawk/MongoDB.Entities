@@ -269,6 +269,7 @@ namespace MongoDB.Entities
         internal static bool HasModifiedOn { get; private set; }
         internal static string ModifiedOnPropName { get; private set; }
         internal static PropertyInfo ModifiedByProp { get; private set; }
+        internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
         private static PropertyInfo[] updatableProps;
 
@@ -307,10 +308,14 @@ namespace MongoDB.Entities
 
             updatableProps = type.GetProperties()
                 .Where(p =>
-                       p.PropertyType.Name != ManyBase.PropType &&
+                       p.PropertyType.Name != ManyBase.PropTypeName &&
                       !p.IsDefined(typeof(BsonIdAttribute), false) &&
                       !p.IsDefined(typeof(BsonIgnoreAttribute), false))
                 .ToArray();
+
+            HasIgnoreIfDefaultProps = updatableProps.Any(p =>
+                    p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) ||
+                    p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false));
 
             try
             {
@@ -326,9 +331,13 @@ namespace MongoDB.Entities
 
         public static IEnumerable<PropertyInfo> UpdatableProps(T entity)
         {
-            return updatableProps.Where(p =>
-                !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
-                !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
+            if (HasIgnoreIfDefaultProps)
+            {
+                return updatableProps.Where(p =>
+                    !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
+                    !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
+            }
+            return updatableProps;
         }
     }
 
@@ -336,7 +345,7 @@ namespace MongoDB.Entities
     {
         public void Apply(BsonMemberMap mMap)
         {
-            if (mMap.MemberType.Name == ManyBase.PropType)
+            if (mMap.MemberType.Name == ManyBase.PropTypeName)
             {
                 _ = mMap.SetShouldSerializeMethod(_ => false);
             }

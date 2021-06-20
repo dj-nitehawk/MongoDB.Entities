@@ -7,7 +7,7 @@ namespace Benchmark
         private static void Main()
         {
             BenchmarkRunner.Run(typeof(Program).Assembly);
-            //BenchmarkRunner.Run<DBContextVsStaticSave>();
+            //BenchmarkRunner.Run<SavePartialVsUpdate>();
         }
     }
 }
