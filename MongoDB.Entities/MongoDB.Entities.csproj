@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.16.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- optimized internal performance by using lists instead of hashsets
+    <PackageReleaseNotes>- added DB.InsertAsync() method
+- optimized internal performance by using lists instead of hashsets
 - optimized Cache&lt;T&gt; class</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>

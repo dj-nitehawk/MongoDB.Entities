@@ -184,20 +184,6 @@ namespace MongoDB.Entities
                 : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
         }
 
-        private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
-        {
-            if (string.IsNullOrEmpty(entity.ID))
-            {
-                entity.ID = entity.GenerateNewID();
-                if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
-                if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-                return true;
-            }
-
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            return false;
-        }
-
         private static Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
         {
             PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
@@ -224,6 +210,20 @@ namespace MongoDB.Entities
             return session == null
                 ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
                 : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+        }
+
+        private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
+        {
+            if (string.IsNullOrEmpty(entity.ID))
+            {
+                entity.ID = entity.GenerateNewID();
+                if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
+                if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+                return true;
+            }
+
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            return false;
         }
     }
 }

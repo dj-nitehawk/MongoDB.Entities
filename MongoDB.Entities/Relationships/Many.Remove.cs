@@ -9,11 +9,11 @@ namespace MongoDB.Entities
     public partial class Many<TChild> where TChild : IEntity
     {
         /// <summary>
-             /// Removes a child reference.
-             /// </summary>
-             /// <param name="child">The child IEntity to remove the reference of.</param>
-             /// <param name="session">An optional session if using within a transaction</param>
-             /// <param name="cancellation">An optional cancellation token</param>
+        /// Removes a child reference.
+        /// </summary>
+        /// <param name="child">The child IEntity to remove the reference of.</param>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token</param>
         public Task RemoveAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             return RemoveAsync(child.ID, session, cancellation);

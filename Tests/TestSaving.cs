@@ -32,6 +32,38 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task insert_single_entity()
+        {
+            var db = new DBContext(modifiedBy: new());
+
+            var author = new Author { Name = "test" };
+            await db.InsertAsync(author);
+
+            var res = await db.Find<Author>().MatchID(author.ID).ExecuteAnyAsync();
+
+            Assert.IsTrue(res);
+        }
+
+        [TestMethod]
+        public async Task insert_batch()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            var db = new DBContext(modifiedBy: new());
+
+            var author1 = new Author { Name = guid };
+            var author2 = new Author { Name = guid };
+
+            await db.InsertAsync(new[] { author1, author2 });
+
+            var res = await db.Find<Author>()
+                .Match(a => a.Name == guid)
+                .ExecuteAsync();
+
+            Assert.AreEqual(2, res.Count);
+        }
+
+        [TestMethod]
         public async Task created_on_property_works()
         {
             var author = new Author { Name = "test" };
