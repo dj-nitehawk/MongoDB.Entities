@@ -22,8 +22,8 @@ namespace MongoDB.Entities
     /// Represents a one-to-many/many-to-many relationship between two Entities.
     /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
     /// <para>Initialize from the constructor of the parent entity as follows:</para>
-    /// <c>this.InitOneToMany(() => Property)</c>
-    /// <c>this.InitManyToMany(() => Property, x => x.OtherProperty)</c>
+    /// <para><c>this.InitOneToMany(() => Property);</c></para>
+    /// <para><c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c></para>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
     public partial class Many<TChild> : ManyBase where TChild : IEntity
