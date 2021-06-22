@@ -108,14 +108,9 @@ namespace MongoDB.Entities
             this.parent = parent;
             this.isInverse = isInverse;
 
-            if (this.isInverse)
-            {
-                JoinCollection = DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]");
-            }
-            else
-            {
-                JoinCollection = DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
-            }
+            JoinCollection = isInverse
+                ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
+                : DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
 
             CreateIndexesAsync(JoinCollection);
         }
