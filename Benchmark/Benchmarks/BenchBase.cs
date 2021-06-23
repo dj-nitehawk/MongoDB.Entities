@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace Benchmark
@@ -16,6 +17,9 @@ namespace Benchmark
             DB.Database(DBName).Client.DropDatabase(DBName);
             AuthorCollection = DB.Collection<Author>();
             BookCollection = DB.Collection<Book>();
+
+            Console.WriteLine();
+            Console.WriteLine("SEEDING DATA...");
         }
 
         public abstract Task MongoDB_Entities();

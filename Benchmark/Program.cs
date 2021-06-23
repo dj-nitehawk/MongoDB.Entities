@@ -6,8 +6,7 @@ namespace Benchmark
     {
         private static void Main()
         {
-            //BenchmarkRunner.Run(typeof(Program).Assembly);
-            BenchmarkRunner.Run<Relationships>();
+            BenchmarkRunner.Run(typeof(Program).Assembly);
         }
     }
 }
