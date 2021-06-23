@@ -80,7 +80,7 @@ await book.Genres.RemoveAsync(genre);
 
 the original `author` in the `Authors` collection is unaffected. also the `genre` entity in the `Genres` collection is unaffected. only the relationship between entities are deleted.
 
-there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
+there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
 
 ### Entity deletion
 If you delete an entity that is referenced as above by calling `author.DeleteAsync()` all references pointing to that `author` entity are automatically deleted. as such, `book.Authors` will not have `author` as a child. the same applies to `Many-To-Many` relationships. deleting any entity that has references pointing to it from other entities results in those references getting deleted and the relationships being invalidated.
@@ -103,4 +103,4 @@ var author = await book.MainAuthor
 ```
 
 # Transaction support
-adding and removing related entities require passing in the session when used within a transaction. see [here](Transactions.md) for an example.
+adding and removing related entities require passing in the session when used within a transaction. see [here](Transactions.md#relationship-manipulation) for an example.
