@@ -31,3 +31,10 @@ var filter = DB.Filter<Author>()
 
 var count = await DB.CountAsync(filter);
 ```
+
+## Counting children of a relationship
+you can get how many entities are there in the opposite side of any relationship as shown below:
+```csharp
+var authorCount = await book.Authors.ChildrenCountAsync();
+var bookCount = await author.Books.ChildrenCountAsync();
+```
