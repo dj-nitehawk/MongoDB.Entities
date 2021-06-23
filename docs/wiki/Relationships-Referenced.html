@@ -145,7 +145,8 @@ await book.SaveAsync();
 <pre><code class="lang-csharp">await book.Authors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre); //many-to-many
 </code></pre>
-<p>there's no need to call <code>book.SaveAsync()</code> because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html">Schema Changes</a> section.</p>
+<p>there's no need to call <code>book.SaveAsync()</code> again because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html">Schema Changes</a> section.</p>
+<p>however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their <code>ID</code> values populated. otherwise, you'd get an exception instructing you to save them both before calling <code>AddAsync()</code>.</p>
 <p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_AddAsync_System_Collections_Generic_IEnumerable__0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
 <p><a href="https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714">click here</a> to see a full example of a referenced one-to-many relationship.</p>
 <h3 id="reference-removal-1">Reference removal</h3>

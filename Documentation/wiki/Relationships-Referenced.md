@@ -64,7 +64,9 @@ If you delete an entity that is referenced as above by calling `author.DeleteAsy
 await book.Authors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre); //many-to-many
 ```
-there's no need to call `book.SaveAsync()` because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
+there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
+
+however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
 
 there are other *[overloads](xref:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
 
