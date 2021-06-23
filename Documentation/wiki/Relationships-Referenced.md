@@ -68,7 +68,7 @@ there's no need to call `book.SaveAsync()` again because references are automati
 
 however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
 
-there are other *[overloads](xref:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
+there are other *[overloads](xref:MongoDB.Entities.Many`1#methods)* for adding relationships with multiple entities or just the string IDs.
 
 [click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
 
