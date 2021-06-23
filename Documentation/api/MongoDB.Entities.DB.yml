@@ -39,6 +39,8 @@ items:
   - MongoDB.Entities.DB.Index``1
   - MongoDB.Entities.DB.InitAsync(System.String,MongoDB.Driver.MongoClientSettings)
   - MongoDB.Entities.DB.InitAsync(System.String,System.String,System.Int32)
+  - MongoDB.Entities.DB.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.DB.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.DB.MigrateAsync
   - MongoDB.Entities.DB.MigrateAsync``1
   - MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)
@@ -1740,6 +1742,106 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.DB.Index(Of T)()
   name.vb: Index(Of T)()
+- uid: MongoDB.Entities.DB.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DB.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType: DB.InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.InsertAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: InsertAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Insert.cs
+    startLine: 18
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInserts a new entity into the colleciton.\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task InsertAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+          where T : IEntity
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The instance to persist
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: And optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function InsertAsync(Of T As IEntity)(entity As T, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DB.InsertAsync*
+  nameWithType.vb: DB.InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.InsertAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DB.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DB.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: DB.InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DB.InsertAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: InsertAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Insert.cs
+    startLine: 33
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInserts a batch of new entities into the collection.\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+          where T : IEntity
+    parameters:
+    - id: entities
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: The entities to persist
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: And optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
+    content.vb: Public Shared Function InsertAsync(Of T As IEntity)(entities As IEnumerable(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of BulkWriteResult(Of T))
+  overload: MongoDB.Entities.DB.InsertAsync*
+  nameWithType.vb: DB.InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.DB.MigrateAsync``1
   commentId: M:MongoDB.Entities.DB.MigrateAsync``1
   id: MigrateAsync``1
@@ -5084,6 +5186,113 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DB.InsertAsync*
+  commentId: Overload:MongoDB.Entities.DB.InsertAsync
+  name: InsertAsync
+  nameWithType: DB.InsertAsync
+  fullName: MongoDB.Entities.DB.InsertAsync
+- uid: System.Collections.Generic.IEnumerable{{T}}
+  commentId: T:System.Collections.Generic.IEnumerable{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
+  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{``0}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<BulkWriteResult<T>>
+  nameWithType: Task<BulkWriteResult<T>>
+  fullName: System.Threading.Tasks.Task<MongoDB.Driver.BulkWriteResult<T>>
+  nameWithType.vb: Task(Of BulkWriteResult(Of T))
+  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.BulkWriteResult(Of T))
+  name.vb: Task(Of BulkWriteResult(Of T))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.BulkWriteResult`1
+    name: BulkWriteResult
+    nameWithType: BulkWriteResult
+    fullName: MongoDB.Driver.BulkWriteResult
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.BulkWriteResult`1
+    name: BulkWriteResult
+    nameWithType: BulkWriteResult
+    fullName: MongoDB.Driver.BulkWriteResult
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DB.MigrateAsync*
   commentId: Overload:MongoDB.Entities.DB.MigrateAsync
   name: MigrateAsync
@@ -5547,108 +5756,6 @@ references:
   name: SaveAsync
   nameWithType: DB.SaveAsync
   fullName: MongoDB.Entities.DB.SaveAsync
-- uid: System.Collections.Generic.IEnumerable{{T}}
-  commentId: T:System.Collections.Generic.IEnumerable{``0}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
-  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{``0}}
-  parent: System.Threading.Tasks
-  definition: System.Threading.Tasks.Task`1
-  name: Task<BulkWriteResult<T>>
-  nameWithType: Task<BulkWriteResult<T>>
-  fullName: System.Threading.Tasks.Task<MongoDB.Driver.BulkWriteResult<T>>
-  nameWithType.vb: Task(Of BulkWriteResult(Of T))
-  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.BulkWriteResult(Of T))
-  name.vb: Task(Of BulkWriteResult(Of T))
-  spec.csharp:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: MongoDB.Driver.BulkWriteResult`1
-    name: BulkWriteResult
-    nameWithType: BulkWriteResult
-    fullName: MongoDB.Driver.BulkWriteResult
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Threading.Tasks.Task`1
-    name: Task
-    nameWithType: Task
-    fullName: System.Threading.Tasks.Task
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: MongoDB.Driver.BulkWriteResult`1
-    name: BulkWriteResult
-    nameWithType: BulkWriteResult
-    fullName: MongoDB.Driver.BulkWriteResult
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.DB.SaveOnlyAsync*
   commentId: Overload:MongoDB.Entities.DB.SaveOnlyAsync
   name: SaveOnlyAsync

@@ -36,6 +36,7 @@ items:
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.ToReference``1
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.ToDocument``1
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.IEntity,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.IEntity,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.SavePreservingAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -442,6 +443,64 @@ references:
     name: SaveAsync(Of IEntity)
     nameWithType: Extensions.SaveAsync(Of IEntity)
     fullName: MongoDB.Entities.Extensions.SaveAsync(Of MongoDB.Entities.IEntity)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.IEntity.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: InsertAsync<IEntity>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<IEntity>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<MongoDB.Entities.IEntity>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of IEntity)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of MongoDB.Entities.IEntity)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of IEntity)(IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync<IEntity>
+    nameWithType: Extensions.InsertAsync<IEntity>
+    fullName: MongoDB.Entities.Extensions.InsertAsync<MongoDB.Entities.IEntity>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync(Of IEntity)
+    nameWithType: Extensions.InsertAsync(Of IEntity)
+    fullName: MongoDB.Entities.Extensions.InsertAsync(Of MongoDB.Entities.IEntity)
   - name: (
     nameWithType: (
     fullName: (
@@ -1547,6 +1606,75 @@ references:
     name: SaveAsync(Of T)
     nameWithType: Extensions.SaveAsync(Of T)
     fullName: MongoDB.Entities.Extensions.SaveAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  name: InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: Extensions.InsertAsync<T>
+    fullName: MongoDB.Entities.Extensions.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: Extensions.InsertAsync(Of T)
+    fullName: MongoDB.Entities.Extensions.InsertAsync(Of T)
   - name: (
     nameWithType: (
     fullName: (

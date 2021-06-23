@@ -1706,6 +1706,142 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   </table>
   
   
+  <a id="MongoDB_Entities_DBContext_InsertAsync_" data-uid="MongoDB.Entities.DBContext.InsertAsync*"></a>
+  <h4 id="MongoDB_Entities_DBContext_InsertAsync__1___0_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)">InsertAsync&lt;T&gt;(T, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Saves a complete entity replacing an existing entity or creating a new one if it does not exist.
+If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task InsertAsync&lt;T&gt;(T entity, CancellationToken cancellation = default(CancellationToken))
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The instance to persist</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>And optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_DBContext_InsertAsync_" data-uid="MongoDB.Entities.DBContext.InsertAsync*"></a>
+  <h4 id="MongoDB_Entities_DBContext_InsertAsync__1_System_Collections_Generic_IEnumerable___0__System_Threading_CancellationToken_" data-uid="MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">InsertAsync&lt;T&gt;(IEnumerable&lt;T&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Saves a batch of complete entities replacing an existing entities or creating a new ones if they do not exist.
+If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;BulkWriteResult&lt;T&gt;&gt; InsertAsync&lt;T&gt;(IEnumerable&lt;T&gt; entities, CancellationToken cancellation = default(CancellationToken))
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">entities</span></td>
+        <td><p>The entities to persist</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="parametername">cancellation</span></td>
+        <td><p>And optional cancellation token</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of entity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_DBContext_OnBeforeSave_" data-uid="MongoDB.Entities.DBContext.OnBeforeSave*"></a>
   <h4 id="MongoDB_Entities_DBContext_OnBeforeSave__1" data-uid="MongoDB.Entities.DBContext.OnBeforeSave``1">OnBeforeSave&lt;T&gt;()</h4>
   <div class="markdown level1 summary"><p>This event hook will be trigged right before an entity is persisted</p>

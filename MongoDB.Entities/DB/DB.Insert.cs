@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
+//todo: mention insert in docs
 namespace MongoDB.Entities
 {
     public static partial class DB

@@ -59,6 +59,17 @@ you can also do the opposite with the use of \[[DontPreserve](xref:MongoDB.Entit
 > [!note]
 > both **[DontPreserve]** and **[Preserve]** cannot be used together on the same entity type due to the conflicting nature of what they do.
 
+# Inserts
+
+even though inserts can be handled with the `.SaveAsync()` methods above, you can also do inserts specifically using the `.InsertAsync()` methods like below:
+```csharp
+await author.InsertAsync();
+await authors.InsertAsync();
+
+await DB.InsertAsync(author);
+await DB.InsertAsync(authors);
+```
+
 # Embed an entity
 
 to store an unlinked copy of an entity,  call the `ToDocument()` method. doing so will store an independant duplicate (with a new ID) of the original entity that has no relationship to the original entity.

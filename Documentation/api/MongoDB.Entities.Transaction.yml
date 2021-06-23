@@ -70,6 +70,8 @@ items:
   - MongoDB.Entities.DBContext.Fluent``1(MongoDB.Driver.AggregateOptions,System.Boolean)
   - MongoDB.Entities.DBContext.FluentTextSearch``1(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
   - MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
+  - MongoDB.Entities.DBContext.InsertAsync``1({T},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
@@ -3140,6 +3142,136 @@ references:
     name: Boolean
     nameWithType: Boolean
     fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.InsertAsync``1({T},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+  name: InsertAsync<T>(T, CancellationToken)
+  nameWithType: DBContext.InsertAsync<T>(T, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.InsertAsync<T>(T, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.InsertAsync(Of T)(T, CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.InsertAsync(Of T)(T, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: DBContext.InsertAsync<T>
+    fullName: MongoDB.Entities.DBContext.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: DBContext.InsertAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  name: InsertAsync<T>(IEnumerable<T>, CancellationToken)
+  nameWithType: DBContext.InsertAsync<T>(IEnumerable<T>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.InsertAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.InsertAsync(Of T)(IEnumerable(Of T), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(IEnumerable(Of T), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: DBContext.InsertAsync<T>
+    fullName: MongoDB.Entities.DBContext.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: DBContext.InsertAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
@@ -6769,6 +6901,134 @@ references:
     name: Boolean
     nameWithType: Boolean
     fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+  isExternal: true
+  name: InsertAsync<T>(T, CancellationToken)
+  nameWithType: DBContext.InsertAsync<T>(T, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.InsertAsync<T>(T, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.InsertAsync(Of T)(T, CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.InsertAsync(Of T)(T, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: DBContext.InsertAsync<T>
+    fullName: MongoDB.Entities.DBContext.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(``0,System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: DBContext.InsertAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+  isExternal: true
+  name: InsertAsync<T>(IEnumerable<T>, CancellationToken)
+  nameWithType: DBContext.InsertAsync<T>(IEnumerable<T>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.InsertAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.InsertAsync(Of T)(IEnumerable(Of T), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(IEnumerable(Of T), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: DBContext.InsertAsync<T>
+    fullName: MongoDB.Entities.DBContext.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: DBContext.InsertAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
     isExternal: true
   - name: )
     nameWithType: )

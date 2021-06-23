@@ -140,6 +140,14 @@ await DB.SaveAsync(books);
 <h5>Note</h5>
 <p>both <strong>[DontPreserve]</strong> and <strong>[Preserve]</strong> cannot be used together on the same entity type due to the conflicting nature of what they do.</p>
 </div>
+<h1 id="inserts">Inserts</h1>
+<p>even though inserts can be handled with the <code>.SaveAsync()</code> methods above, you can also do inserts specifically using the <code>.InsertAsync()</code> methods like below:</p>
+<pre><code class="lang-csharp">await author.InsertAsync();
+await authors.InsertAsync();
+
+await DB.InsertAsync(author);
+await DB.InsertAsync(authors);
+</code></pre>
 <h1 id="embed-an-entity">Embed an entity</h1>
 <p>to store an unlinked copy of an entity,  call the <code>ToDocument()</code> method. doing so will store an independant duplicate (with a new ID) of the original entity that has no relationship to the original entity.</p>
 <pre><code class="lang-csharp">book.Author = author.ToDocument();

@@ -39,12 +39,12 @@ items:
   type: Class
   source:
     id: Many
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 31
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Remove.cs
+    startLine: 8
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRepresents a one-to-many/many-to-many relationship between two Entities.\n<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>\n<p>Initialize from the constructor of the parent entity as follows:</p>\n<code>this.InitOneToMany(() => Property)</code>\n<code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>\n"
+  summary: "\nRepresents a one-to-many/many-to-many relationship between two Entities.\n<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>\n<p>Initialize from the constructor of the parent entity as follows:</p>\n<p><code>this.InitOneToMany(() => Property);</code></p>\n<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>\n"
   example: []
   syntax:
     content: 'public class Many<TChild> : ManyBase, IEnumerable<TChild>, IEnumerable where TChild : IEntity'
@@ -73,6 +73,7 @@ items:
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.ToBatches``1(System.Int32)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.ToDocuments``1
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -86,70 +87,176 @@ items:
   - Class
   fullName.vb: MongoDB.Entities.Many(Of TChild)
   name.vb: Many(Of TChild)
-- uid: MongoDB.Entities.Many`1.GetEnumerator
-  commentId: M:MongoDB.Entities.Many`1.GetEnumerator
-  id: GetEnumerator
+- uid: MongoDB.Entities.Many`1.AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Many`1.AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: GetEnumerator()
-  nameWithType: Many<TChild>.GetEnumerator()
-  fullName: MongoDB.Entities.Many<TChild>.GetEnumerator()
+  name: AddAsync(TChild, IClientSessionHandle, CancellationToken)
+  nameWithType: Many<TChild>.AddAsync(TChild, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Many<TChild>.AddAsync(TChild, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   type: Method
   source:
-    id: GetEnumerator
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 39
+    id: AddAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Add.cs
+    startLine: 17
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
+  summary: "\nAdds a new child reference.\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
   example: []
   syntax:
-    content: public IEnumerator<TChild> GetEnumerator()
+    content: public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: child
+      type: '{TChild}'
+      description: The child Entity to add.
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     return:
-      type: System.Collections.Generic.IEnumerator{{TChild}}
-    content.vb: Public Function GetEnumerator As IEnumerator(Of TChild)
-  overload: MongoDB.Entities.Many`1.GetEnumerator*
-  implements:
-  - System.Collections.Generic.IEnumerable{{TChild}}.GetEnumerator
-  nameWithType.vb: Many(Of TChild).GetEnumerator()
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function AddAsync(child As TChild, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Many`1.AddAsync*
+  nameWithType.vb: Many(Of TChild).AddAsync(TChild, IClientSessionHandle, CancellationToken)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).GetEnumerator()
-- uid: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
-  commentId: M:MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
-  id: System#Collections#IEnumerable#GetEnumerator
-  isEii: true
+  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(TChild, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: IEnumerable.GetEnumerator()
-  nameWithType: Many<TChild>.IEnumerable.GetEnumerator()
-  fullName: MongoDB.Entities.Many<TChild>.System.Collections.IEnumerable.GetEnumerator()
+  name: AddAsync(IEnumerable<TChild>, IClientSessionHandle, CancellationToken)
+  nameWithType: Many<TChild>.AddAsync(IEnumerable<TChild>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.Collections.Generic.IEnumerable<TChild>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   type: Method
   source:
-    id: System.Collections.IEnumerable.GetEnumerator
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 42
+    id: AddAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Add.cs
+    startLine: 29
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
+  summary: "\nAdds multiple child references in a single bulk operation\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
   example: []
   syntax:
-    content: IEnumerator IEnumerable.GetEnumerator()
+    content: public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: children
+      type: System.Collections.Generic.IEnumerable{{TChild}}
+      description: The child Entities to add
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     return:
-      type: System.Collections.IEnumerator
-    content.vb: Function System.Collections.IEnumerable.GetEnumerator As IEnumerator Implements IEnumerable.GetEnumerator
-  overload: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator*
-  implements:
-  - System.Collections.IEnumerable.GetEnumerator
-  nameWithType.vb: Many(Of TChild).System.Collections.IEnumerable.GetEnumerator()
-  fullName.vb: MongoDB.Entities.Many(Of TChild).System.Collections.IEnumerable.GetEnumerator()
-  name.vb: System.Collections.IEnumerable.GetEnumerator()
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function AddAsync(children As IEnumerable(Of TChild), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Many`1.AddAsync*
+  nameWithType.vb: Many(Of TChild).AddAsync(IEnumerable(Of TChild), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.Collections.Generic.IEnumerable(Of TChild), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: AddAsync(IEnumerable(Of TChild), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Many`1.AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: AddAsync(String, IClientSessionHandle, CancellationToken)
+  nameWithType: Many<TChild>.AddAsync(String, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: AddAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Add.cs
+    startLine: 41
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAdds a new child reference.\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
+  example: []
+  syntax:
+    content: public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: childID
+      type: System.String
+      description: The ID of the child Entity to add.
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function AddAsync(childID As String, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Many`1.AddAsync*
+  nameWithType.vb: Many(Of TChild).AddAsync(String, IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: AddAsync(IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: Many<TChild>.AddAsync(IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: AddAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Add.cs
+    startLine: 53
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAdds multiple child references in a single bulk operation\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
+  example: []
+  syntax:
+    content: public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: childIDs
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: The IDs of the child Entities to add.
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function AddAsync(childIDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Many`1.AddAsync*
+  nameWithType.vb: Many(Of TChild).AddAsync(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: AddAsync(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Many`1.JoinCollection
   commentId: P:MongoDB.Entities.Many`1.JoinCollection
   id: JoinCollection
@@ -164,7 +271,7 @@ items:
   source:
     id: JoinCollection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 48
+    startLine: 38
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -185,45 +292,170 @@ items:
   - Public
   - ReadOnly
   fullName.vb: MongoDB.Entities.Many(Of TChild).JoinCollection
-- uid: MongoDB.Entities.Many`1.JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.Many`1.JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  id: JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.Many`1.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Many`1.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
+  id: ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: JoinQueryable(IClientSessionHandle, AggregateOptions)
-  nameWithType: Many<TChild>.JoinQueryable(IClientSessionHandle, AggregateOptions)
-  fullName: MongoDB.Entities.Many<TChild>.JoinQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name: ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
+  nameWithType: Many<TChild>.ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
+  fullName: MongoDB.Entities.Many<TChild>.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.CountOptions, System.Threading.CancellationToken)
   type: Method
   source:
-    id: JoinQueryable
+    id: ChildrenCountAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 55
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAn IQueryable of JoinRecords for this relationship\n"
+  summary: "\nGet the number of children for a relationship\n"
   example: []
   syntax:
-    content: public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
+    content: public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default(CancellationToken))
     parameters:
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
     - id: options
-      type: MongoDB.Driver.AggregateOptions
+      type: MongoDB.Driver.CountOptions
       description: An optional AggregateOptions object
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
     return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
-    content.vb: Public Function JoinQueryable(session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of JoinRecord)
-  overload: MongoDB.Entities.Many`1.JoinQueryable*
-  nameWithType.vb: Many(Of TChild).JoinQueryable(IClientSessionHandle, AggregateOptions)
+      type: System.Threading.Tasks.Task{System.Int64}
+    content.vb: Public Function ChildrenCountAsync(session As IClientSessionHandle = Nothing, options As CountOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of Long)
+  overload: MongoDB.Entities.Many`1.ChildrenCountAsync*
+  nameWithType.vb: Many(Of TChild).ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.CountOptions, System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Many`1.#ctor
+  commentId: M:MongoDB.Entities.Many`1.#ctor
+  id: '#ctor'
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: Many()
+  nameWithType: Many<TChild>.Many()
+  fullName: MongoDB.Entities.Many<TChild>.Many()
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
+    startLine: 68
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nCreates an instance of Many&lt;TChild> \nThis is only needed in VB.Net\n"
+  example: []
+  syntax:
+    content: public Many()
+    content.vb: Public Sub New
+  overload: MongoDB.Entities.Many`1.#ctor*
+  nameWithType.vb: Many(Of TChild).Many()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).Many()
+- uid: MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
+  nameWithType: Many<TChild>.VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitOneToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>)
+  type: Method
+  source:
+    id: VB_InitOneToMany
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
+    startLine: 93
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nUse this method to initialize the Many&lt;TChild> properties with VB.Net\n"
+  example: []
+  syntax:
+    content: >-
+      public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property)
+          where TParent : IEntity
+    parameters:
+    - id: parent
+      type: '{TParent}'
+      description: The parent entity instance
+    - id: property
+      type: System.Linq.Expressions.Expression{System.Func{{TParent},System.Object}}
+      description: Function(x) x.PropName
+    typeParameters:
+    - id: TParent
+      description: The type of the parent
+    content.vb: Public Sub VB_InitOneToMany(Of TParent As IEntity)(parent As TParent, property As Expression(Of Func(Of TParent, Object)))
+  overload: MongoDB.Entities.Many`1.VB_InitOneToMany*
+  nameWithType.vb: Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)))
+  name.vb: VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
+- uid: MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
+  commentId: M:MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
+  id: VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
+  nameWithType: Many<TChild>.VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
+  fullName: MongoDB.Entities.Many<TChild>.VB_InitManyToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>, System.Linq.Expressions.Expression<System.Func<TChild, System.Object>>, System.Boolean)
+  type: Method
+  source:
+    id: VB_InitManyToMany
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
+    startLine: 125
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nUse this method to initialize the Many&lt;TChild> properties with VB.Net\n"
+  example: []
+  syntax:
+    content: >-
+      public void VB_InitManyToMany<TParent>(TParent parent, Expression<Func<TParent, object>> propertyParent, Expression<Func<TChild, object>> propertyChild, bool isInverse)
+          where TParent : IEntity
+    parameters:
+    - id: parent
+      type: '{TParent}'
+      description: The parent entity instance
+    - id: propertyParent
+      type: System.Linq.Expressions.Expression{System.Func{{TParent},System.Object}}
+      description: Function(x) x.ParentProp
+    - id: propertyChild
+      type: System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}}
+      description: Function(x) x.ChildProp
+    - id: isInverse
+      type: System.Boolean
+      description: Specify if this is the inverse side of the relationship or not
+    typeParameters:
+    - id: TParent
+      description: The type of the parent
+    content.vb: Public Sub VB_InitManyToMany(Of TParent As IEntity)(parent As TParent, propertyParent As Expression(Of Func(Of TParent, Object)), propertyChild As Expression(Of Func(Of TChild, Object)), isInverse As Boolean)
+  overload: MongoDB.Entities.Many`1.VB_InitManyToMany*
+  nameWithType.vb: Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)), System.Linq.Expressions.Expression(Of System.Func(Of TChild, System.Object)), System.Boolean)
+  name.vb: VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
 - uid: MongoDB.Entities.Many`1.JoinFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   commentId: M:MongoDB.Entities.Many`1.JoinFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   id: JoinFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
@@ -237,8 +469,8 @@ items:
   type: Method
   source:
     id: JoinFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 67
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Fluent.cs
+    startLine: 13
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -263,150 +495,6 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Many(Of TChild).JoinFluent(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  id: ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: ParentsQueryable<TParent>(String, IClientSessionHandle, AggregateOptions)
-  nameWithType: Many<TChild>.ParentsQueryable<TParent>(String, IClientSessionHandle, AggregateOptions)
-  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(System.String, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  type: Method
-  source:
-    id: ParentsQueryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 81
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGet an IQueryable of parents matching a single child ID for this relationship.\n"
-  example: []
-  syntax:
-    content: >-
-      public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
-          where TParent : IEntity
-    parameters:
-    - id: childID
-      type: System.String
-      description: A child ID
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: An optional AggregateOptions object
-    typeParameters:
-    - id: TParent
-      description: The type of the parent IEntity
-    return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
-    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(childID As String, session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
-  overload: MongoDB.Entities.Many`1.ParentsQueryable*
-  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(String, IClientSessionHandle, AggregateOptions)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(System.String, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  name.vb: ParentsQueryable(Of TParent)(String, IClientSessionHandle, AggregateOptions)
-- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  id: ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: ParentsQueryable<TParent>(IEnumerable<String>, IClientSessionHandle, AggregateOptions)
-  nameWithType: Many<TChild>.ParentsQueryable<TParent>(IEnumerable<String>, IClientSessionHandle, AggregateOptions)
-  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  type: Method
-  source:
-    id: ParentsQueryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 93
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGet an IQueryable of parents matching multiple child IDs for this relationship.\n"
-  example: []
-  syntax:
-    content: >-
-      public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
-          where TParent : IEntity
-    parameters:
-    - id: childIDs
-      type: System.Collections.Generic.IEnumerable{System.String}
-      description: An IEnumerable of child IDs
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: An optional AggregateOptions object
-    typeParameters:
-    - id: TParent
-      description: The type of the parent IEntity
-    return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
-    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(childIDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
-  overload: MongoDB.Entities.Many`1.ParentsQueryable*
-  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(IEnumerable(Of String), IClientSessionHandle, AggregateOptions)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  name.vb: ParentsQueryable(Of TParent)(IEnumerable(Of String), IClientSessionHandle, AggregateOptions)
-- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  id: ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: ParentsQueryable<TParent>(IMongoQueryable<TChild>, IClientSessionHandle, AggregateOptions)
-  nameWithType: Many<TChild>.ParentsQueryable<TParent>(IMongoQueryable<TChild>, IClientSessionHandle, AggregateOptions)
-  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(MongoDB.Driver.Linq.IMongoQueryable<TChild>, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  type: Method
-  source:
-    id: ParentsQueryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 128
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGet an IQueryable of parents matching a supplied IQueryable of children for this relationship.\n"
-  example: []
-  syntax:
-    content: >-
-      public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null)
-          where TParent : IEntity
-    parameters:
-    - id: children
-      type: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
-      description: An IQueryable of children
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: An optional AggregateOptions object
-    typeParameters:
-    - id: TParent
-      description: The type of the parent IEntity
-    return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
-    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(children As IMongoQueryable(Of TChild), session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
-  overload: MongoDB.Entities.Many`1.ParentsQueryable*
-  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(IMongoQueryable(Of TChild), IClientSessionHandle, AggregateOptions)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(MongoDB.Driver.Linq.IMongoQueryable(Of TChild), MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  name.vb: ParentsQueryable(Of TParent)(IMongoQueryable(Of TChild), IClientSessionHandle, AggregateOptions)
 - uid: MongoDB.Entities.Many`1.ParentsFluent``1(MongoDB.Driver.IAggregateFluent{`0})
   commentId: M:MongoDB.Entities.Many`1.ParentsFluent``1(MongoDB.Driver.IAggregateFluent{`0})
   id: ParentsFluent``1(MongoDB.Driver.IAggregateFluent{`0})
@@ -420,8 +508,8 @@ items:
   type: Method
   source:
     id: ParentsFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 169
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Fluent.cs
+    startLine: 25
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -462,8 +550,8 @@ items:
   type: Method
   source:
     id: ParentsFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 216
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Fluent.cs
+    startLine: 72
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -510,8 +598,8 @@ items:
   type: Method
   source:
     id: ParentsFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 228
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Fluent.cs
+    startLine: 84
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -545,87 +633,6 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsFluent(Of TParent)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
   name.vb: ParentsFluent(Of TParent)(IEnumerable(Of String), IClientSessionHandle, AggregateOptions)
-- uid: MongoDB.Entities.Many`1.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Many`1.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
-  id: ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.CountOptions,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
-  nameWithType: Many<TChild>.ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
-  fullName: MongoDB.Entities.Many<TChild>.ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.CountOptions, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: ChildrenCountAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 264
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nGet the number of children for a relationship\n"
-  example: []
-  syntax:
-    content: public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default(CancellationToken))
-    parameters:
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: options
-      type: MongoDB.Driver.CountOptions
-      description: An optional AggregateOptions object
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    return:
-      type: System.Threading.Tasks.Task{System.Int64}
-    content.vb: Public Function ChildrenCountAsync(session As IClientSessionHandle = Nothing, options As CountOptions = Nothing, cancellation As CancellationToken = Nothing) As Task(Of Long)
-  overload: MongoDB.Entities.Many`1.ChildrenCountAsync*
-  nameWithType.vb: Many(Of TChild).ChildrenCountAsync(IClientSessionHandle, CountOptions, CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenCountAsync(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.CountOptions, System.Threading.CancellationToken)
-- uid: MongoDB.Entities.Many`1.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  commentId: M:MongoDB.Entities.Many`1.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  id: ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: ChildrenQueryable(IClientSessionHandle, AggregateOptions)
-  nameWithType: Many<TChild>.ChildrenQueryable(IClientSessionHandle, AggregateOptions)
-  fullName: MongoDB.Entities.Many<TChild>.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-  type: Method
-  source:
-    id: ChildrenQueryable
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 287
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nAn IQueryable of child Entities for the parent.\n"
-  example: []
-  syntax:
-    content: public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
-    parameters:
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: options
-      type: MongoDB.Driver.AggregateOptions
-      description: An optional AggregateOptions object
-    return:
-      type: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
-    content.vb: Public Function ChildrenQueryable(session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TChild)
-  overload: MongoDB.Entities.Many`1.ChildrenQueryable*
-  nameWithType.vb: Many(Of TChild).ChildrenQueryable(IClientSessionHandle, AggregateOptions)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
 - uid: MongoDB.Entities.Many`1.ChildrenFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   commentId: M:MongoDB.Entities.Many`1.ChildrenFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   id: ChildrenFluent(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
@@ -639,8 +646,8 @@ items:
   type: Method
   source:
     id: ChildrenFluent
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 318
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Fluent.cs
+    startLine: 119
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -665,298 +672,292 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenFluent(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
-- uid: MongoDB.Entities.Many`1.#ctor
-  commentId: M:MongoDB.Entities.Many`1.#ctor
-  id: '#ctor'
+- uid: MongoDB.Entities.Many`1.JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Many`1.JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  id: JoinQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: Many()
-  nameWithType: Many<TChild>.Many()
-  fullName: MongoDB.Entities.Many<TChild>.Many()
-  type: Constructor
-  source:
-    id: .ctor
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 350
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nCreates an instance of Many&lt;TChild> \nThis is only needed in VB.Net\n"
-  example: []
-  syntax:
-    content: public Many()
-    content.vb: Public Sub New
-  overload: MongoDB.Entities.Many`1.#ctor*
-  nameWithType.vb: Many(Of TChild).Many()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).Many()
-- uid: MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
-  commentId: M:MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
-  id: VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
-  nameWithType: Many<TChild>.VB_InitOneToMany<TParent>(TParent, Expression<Func<TParent, Object>>)
-  fullName: MongoDB.Entities.Many<TChild>.VB_InitOneToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>)
+  name: JoinQueryable(IClientSessionHandle, AggregateOptions)
+  nameWithType: Many<TChild>.JoinQueryable(IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Many<TChild>.JoinQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
   type: Method
   source:
-    id: VB_InitOneToMany
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 374
+    id: JoinQueryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this method to initialize the Many&lt;TChild> properties with VB.Net\n"
+  summary: "\nAn IQueryable of JoinRecords for this relationship\n"
   example: []
   syntax:
-    content: >-
-      public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property)
-          where TParent : IEntity
+    content: public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
     parameters:
-    - id: parent
-      type: '{TParent}'
-      description: The parent entity instance
-    - id: property
-      type: System.Linq.Expressions.Expression{System.Func{{TParent},System.Object}}
-      description: Function(x) x.PropName
-    typeParameters:
-    - id: TParent
-      description: The type of the parent
-    content.vb: Public Sub VB_InitOneToMany(Of TParent As IEntity)(parent As TParent, property As Expression(Of Func(Of TParent, Object)))
-  overload: MongoDB.Entities.Many`1.VB_InitOneToMany*
-  nameWithType.vb: Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitOneToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)))
-  name.vb: VB_InitOneToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)))
-- uid: MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
-  commentId: M:MongoDB.Entities.Many`1.VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
-  id: VB_InitManyToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Boolean)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
-  nameWithType: Many<TChild>.VB_InitManyToMany<TParent>(TParent, Expression<Func<TParent, Object>>, Expression<Func<TChild, Object>>, Boolean)
-  fullName: MongoDB.Entities.Many<TChild>.VB_InitManyToMany<TParent>(TParent, System.Linq.Expressions.Expression<System.Func<TParent, System.Object>>, System.Linq.Expressions.Expression<System.Func<TChild, System.Object>>, System.Boolean)
-  type: Method
-  source:
-    id: VB_InitManyToMany
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 409
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nUse this method to initialize the Many&lt;TChild> properties with VB.Net\n"
-  example: []
-  syntax:
-    content: >-
-      public void VB_InitManyToMany<TParent>(TParent parent, Expression<Func<TParent, object>> propertyParent, Expression<Func<TChild, object>> propertyChild, bool isInverse)
-          where TParent : IEntity
-    parameters:
-    - id: parent
-      type: '{TParent}'
-      description: The parent entity instance
-    - id: propertyParent
-      type: System.Linq.Expressions.Expression{System.Func{{TParent},System.Object}}
-      description: Function(x) x.ParentProp
-    - id: propertyChild
-      type: System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}}
-      description: Function(x) x.ChildProp
-    - id: isInverse
-      type: System.Boolean
-      description: Specify if this is the inverse side of the relationship or not
-    typeParameters:
-    - id: TParent
-      description: The type of the parent
-    content.vb: Public Sub VB_InitManyToMany(Of TParent As IEntity)(parent As TParent, propertyParent As Expression(Of Func(Of TParent, Object)), propertyChild As Expression(Of Func(Of TChild, Object)), isInverse As Boolean)
-  overload: MongoDB.Entities.Many`1.VB_InitManyToMany*
-  nameWithType.vb: Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).VB_InitManyToMany(Of TParent)(TParent, System.Linq.Expressions.Expression(Of System.Func(Of TParent, System.Object)), System.Linq.Expressions.Expression(Of System.Func(Of TChild, System.Object)), System.Boolean)
-  name.vb: VB_InitManyToMany(Of TParent)(TParent, Expression(Of Func(Of TParent, Object)), Expression(Of Func(Of TChild, Object)), Boolean)
-- uid: MongoDB.Entities.Many`1.AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Many`1.AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: AddAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: AddAsync(TChild, IClientSessionHandle, CancellationToken)
-  nameWithType: Many<TChild>.AddAsync(TChild, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Many<TChild>.AddAsync(TChild, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: AddAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 453
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nAdds a new child reference.\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
-  example: []
-  syntax:
-    content: public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-    parameters:
-    - id: child
-      type: '{TChild}'
-      description: The child Entity to add.
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: An optional AggregateOptions object
     return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function AddAsync(child As TChild, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Many`1.AddAsync*
-  nameWithType.vb: Many(Of TChild).AddAsync(TChild, IClientSessionHandle, CancellationToken)
+      type: MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
+    content.vb: Public Function JoinQueryable(session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of JoinRecord)
+  overload: MongoDB.Entities.Many`1.JoinQueryable*
+  nameWithType.vb: Many(Of TChild).JoinQueryable(IClientSessionHandle, AggregateOptions)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(TChild, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-- uid: MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: AddAsync(System.Collections.Generic.IEnumerable{`0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  id: ParentsQueryable``1(System.String,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: AddAsync(IEnumerable<TChild>, IClientSessionHandle, CancellationToken)
-  nameWithType: Many<TChild>.AddAsync(IEnumerable<TChild>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.Collections.Generic.IEnumerable<TChild>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: ParentsQueryable<TParent>(String, IClientSessionHandle, AggregateOptions)
+  nameWithType: Many<TChild>.ParentsQueryable<TParent>(String, IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(System.String, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
   type: Method
   source:
-    id: AddAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 465
+    id: ParentsQueryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 30
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAdds multiple child references in a single bulk operation\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
+  summary: "\nGet an IQueryable of parents matching a single child ID for this relationship.\n"
   example: []
   syntax:
-    content: public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
-    parameters:
-    - id: children
-      type: System.Collections.Generic.IEnumerable{{TChild}}
-      description: The child Entities to add
-    - id: session
-      type: MongoDB.Driver.IClientSessionHandle
-      description: An optional session if using within a transaction
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
-    return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function AddAsync(children As IEnumerable(Of TChild), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Many`1.AddAsync*
-  nameWithType.vb: Many(Of TChild).AddAsync(IEnumerable(Of TChild), IClientSessionHandle, CancellationToken)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.Collections.Generic.IEnumerable(Of TChild), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: AddAsync(IEnumerable(Of TChild), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.Many`1.AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: AddAsync(System.String,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Many`1
-  langs:
-  - csharp
-  - vb
-  name: AddAsync(String, IClientSessionHandle, CancellationToken)
-  nameWithType: Many<TChild>.AddAsync(String, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  type: Method
-  source:
-    id: AddAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 477
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nAdds a new child reference.\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
-  example: []
-  syntax:
-    content: public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    content: >-
+      public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+          where TParent : IEntity
     parameters:
     - id: childID
       type: System.String
-      description: The ID of the child Entity to add.
+      description: A child ID
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: An optional AggregateOptions object
+    typeParameters:
+    - id: TParent
+      description: The type of the parent IEntity
     return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function AddAsync(childID As String, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Many`1.AddAsync*
-  nameWithType.vb: Many(Of TChild).AddAsync(String, IClientSessionHandle, CancellationToken)
+      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
+    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(childID As String, session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
+  overload: MongoDB.Entities.Many`1.ParentsQueryable*
+  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(String, IClientSessionHandle, AggregateOptions)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.String, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-- uid: MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Many`1.AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: AddAsync(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(System.String, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name.vb: ParentsQueryable(Of TParent)(String, IClientSessionHandle, AggregateOptions)
+- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  id: ParentsQueryable``1(System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   parent: MongoDB.Entities.Many`1
   langs:
   - csharp
   - vb
-  name: AddAsync(IEnumerable<String>, IClientSessionHandle, CancellationToken)
-  nameWithType: Many<TChild>.AddAsync(IEnumerable<String>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Many<TChild>.AddAsync(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name: ParentsQueryable<TParent>(IEnumerable<String>, IClientSessionHandle, AggregateOptions)
+  nameWithType: Many<TChild>.ParentsQueryable<TParent>(IEnumerable<String>, IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
   type: Method
   source:
-    id: AddAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 489
+    id: ParentsQueryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 42
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAdds multiple child references in a single bulk operation\n<p>WARNING: Make sure to save the parent and child Entities before calling this method.</p>\n"
+  summary: "\nGet an IQueryable of parents matching multiple child IDs for this relationship.\n"
   example: []
   syntax:
-    content: public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    content: >-
+      public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+          where TParent : IEntity
     parameters:
     - id: childIDs
       type: System.Collections.Generic.IEnumerable{System.String}
-      description: The IDs of the child Entities to add.
+      description: An IEnumerable of child IDs
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
-    - id: cancellation
-      type: System.Threading.CancellationToken
-      description: An optional cancellation token
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: An optional AggregateOptions object
+    typeParameters:
+    - id: TParent
+      description: The type of the parent IEntity
     return:
-      type: System.Threading.Tasks.Task
-    content.vb: Public Function AddAsync(childIDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.Many`1.AddAsync*
-  nameWithType.vb: Many(Of TChild).AddAsync(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
+    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(childIDs As IEnumerable(Of String), session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
+  overload: MongoDB.Entities.Many`1.ParentsQueryable*
+  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(IEnumerable(Of String), IClientSessionHandle, AggregateOptions)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: AddAsync(IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name.vb: ParentsQueryable(Of TParent)(IEnumerable(Of String), IClientSessionHandle, AggregateOptions)
+- uid: MongoDB.Entities.Many`1.ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Many`1.ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  id: ParentsQueryable``1(MongoDB.Driver.Linq.IMongoQueryable{`0},MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: ParentsQueryable<TParent>(IMongoQueryable<TChild>, IClientSessionHandle, AggregateOptions)
+  nameWithType: Many<TChild>.ParentsQueryable<TParent>(IMongoQueryable<TChild>, IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable<TParent>(MongoDB.Driver.Linq.IMongoQueryable<TChild>, MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  type: Method
+  source:
+    id: ParentsQueryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 77
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nGet an IQueryable of parents matching a supplied IQueryable of children for this relationship.\n"
+  example: []
+  syntax:
+    content: >-
+      public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null)
+          where TParent : IEntity
+    parameters:
+    - id: children
+      type: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
+      description: An IQueryable of children
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: An optional AggregateOptions object
+    typeParameters:
+    - id: TParent
+      description: The type of the parent IEntity
+    return:
+      type: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
+    content.vb: Public Function ParentsQueryable(Of TParent As IEntity)(children As IMongoQueryable(Of TChild), session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TParent)
+  overload: MongoDB.Entities.Many`1.ParentsQueryable*
+  nameWithType.vb: Many(Of TChild).ParentsQueryable(Of TParent)(IMongoQueryable(Of TChild), IClientSessionHandle, AggregateOptions)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable(Of TParent)(MongoDB.Driver.Linq.IMongoQueryable(Of TChild), MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  name.vb: ParentsQueryable(Of TParent)(IMongoQueryable(Of TChild), IClientSessionHandle, AggregateOptions)
+- uid: MongoDB.Entities.Many`1.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  commentId: M:MongoDB.Entities.Many`1.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  id: ChildrenQueryable(MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: ChildrenQueryable(IClientSessionHandle, AggregateOptions)
+  nameWithType: Many<TChild>.ChildrenQueryable(IClientSessionHandle, AggregateOptions)
+  fullName: MongoDB.Entities.Many<TChild>.ChildrenQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+  type: Method
+  source:
+    id: ChildrenQueryable
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 118
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nAn IQueryable of child Entities for the parent.\n"
+  example: []
+  syntax:
+    content: public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
+    parameters:
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: options
+      type: MongoDB.Driver.AggregateOptions
+      description: An optional AggregateOptions object
+    return:
+      type: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
+    content.vb: Public Function ChildrenQueryable(session As IClientSessionHandle = Nothing, options As AggregateOptions = Nothing) As IMongoQueryable(Of TChild)
+  overload: MongoDB.Entities.Many`1.ChildrenQueryable*
+  nameWithType.vb: Many(Of TChild).ChildrenQueryable(IClientSessionHandle, AggregateOptions)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenQueryable(MongoDB.Driver.IClientSessionHandle, MongoDB.Driver.AggregateOptions)
+- uid: MongoDB.Entities.Many`1.GetEnumerator
+  commentId: M:MongoDB.Entities.Many`1.GetEnumerator
+  id: GetEnumerator
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: Many<TChild>.GetEnumerator()
+  fullName: MongoDB.Entities.Many<TChild>.GetEnumerator()
+  type: Method
+  source:
+    id: GetEnumerator
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 145
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  example: []
+  syntax:
+    content: public IEnumerator<TChild> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{{TChild}}
+    content.vb: Public Function GetEnumerator As IEnumerator(Of TChild)
+  overload: MongoDB.Entities.Many`1.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{{TChild}}.GetEnumerator
+  nameWithType.vb: Many(Of TChild).GetEnumerator()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Many(Of TChild).GetEnumerator()
+- uid: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
+  commentId: M:MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
+  id: System#Collections#IEnumerable#GetEnumerator
+  isEii: true
+  parent: MongoDB.Entities.Many`1
+  langs:
+  - csharp
+  - vb
+  name: IEnumerable.GetEnumerator()
+  nameWithType: Many<TChild>.IEnumerable.GetEnumerator()
+  fullName: MongoDB.Entities.Many<TChild>.System.Collections.IEnumerable.GetEnumerator()
+  type: Method
+  source:
+    id: System.Collections.IEnumerable.GetEnumerator
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Queryable.cs
+    startLine: 148
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  example: []
+  syntax:
+    content: IEnumerator IEnumerable.GetEnumerator()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Function System.Collections.IEnumerable.GetEnumerator As IEnumerator Implements IEnumerable.GetEnumerator
+  overload: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator*
+  implements:
+  - System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: Many(Of TChild).System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: MongoDB.Entities.Many(Of TChild).System.Collections.IEnumerable.GetEnumerator()
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
 - uid: MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -970,8 +971,8 @@ items:
   type: Method
   source:
     id: RemoveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 523
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Remove.cs
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1012,8 +1013,8 @@ items:
   type: Method
   source:
     id: RemoveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 534
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Remove.cs
+    startLine: 27
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1054,8 +1055,8 @@ items:
   type: Method
   source:
     id: RemoveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 545
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Remove.cs
+    startLine: 38
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1097,8 +1098,8 @@ items:
   type: Method
   source:
     id: RemoveAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 556
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.Remove.cs
+    startLine: 49
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1585,6 +1586,64 @@ references:
     name: SaveAsync(Of TChild)
     nameWithType: Extensions.SaveAsync(Of TChild)
     fullName: MongoDB.Entities.Extensions.SaveAsync(Of TChild)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: InsertAsync<TChild>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<TChild>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync<TChild>
+    nameWithType: Extensions.InsertAsync<TChild>
+    fullName: MongoDB.Entities.Extensions.InsertAsync<TChild>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync(Of TChild)
+    nameWithType: Extensions.InsertAsync(Of TChild)
+    fullName: MongoDB.Entities.Extensions.InsertAsync(Of TChild)
   - name: (
     nameWithType: (
     fullName: (
@@ -2340,6 +2399,97 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  name: InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync<T>
+    nameWithType: Extensions.InsertAsync<T>
+    fullName: MongoDB.Entities.Extensions.InsertAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: InsertAsync(Of T)
+    nameWithType: Extensions.InsertAsync(Of T)
+    fullName: MongoDB.Entities.Extensions.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   isExternal: true
@@ -2920,203 +3070,113 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Many`1.GetEnumerator*
-  commentId: Overload:MongoDB.Entities.Many`1.GetEnumerator
-  name: GetEnumerator
-  nameWithType: Many<TChild>.GetEnumerator
-  fullName: MongoDB.Entities.Many<TChild>.GetEnumerator
-  nameWithType.vb: Many(Of TChild).GetEnumerator
-  fullName.vb: MongoDB.Entities.Many(Of TChild).GetEnumerator
-- uid: System.Collections.Generic.IEnumerable{{TChild}}.GetEnumerator
-  commentId: M:System.Collections.Generic.IEnumerable{`0}.GetEnumerator
-  parent: System.Collections.Generic.IEnumerable{{TChild}}
-  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
-  name: GetEnumerator()
-  nameWithType: IEnumerable<TChild>.GetEnumerator()
-  fullName: System.Collections.Generic.IEnumerable<TChild>.GetEnumerator()
-  nameWithType.vb: IEnumerable(Of TChild).GetEnumerator()
-  fullName.vb: System.Collections.Generic.IEnumerable(Of TChild).GetEnumerator()
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable<TChild>.GetEnumerator
-    fullName: System.Collections.Generic.IEnumerable<TChild>.GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable(Of TChild).GetEnumerator
-    fullName: System.Collections.Generic.IEnumerable(Of TChild).GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerator{{TChild}}
-  commentId: T:System.Collections.Generic.IEnumerator{`0}
+- uid: MongoDB.Entities.Many`1.AddAsync*
+  commentId: Overload:MongoDB.Entities.Many`1.AddAsync
+  name: AddAsync
+  nameWithType: Many<TChild>.AddAsync
+  fullName: MongoDB.Entities.Many<TChild>.AddAsync
+  nameWithType.vb: Many(Of TChild).AddAsync
+  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync
+- uid: '{TChild}'
+  commentId: '!:TChild'
+  definition: TChild
+  name: TChild
+  nameWithType: TChild
+  fullName: TChild
+- uid: MongoDB.Driver.IClientSessionHandle
+  commentId: T:MongoDB.Driver.IClientSessionHandle
+  parent: MongoDB.Driver
+  isExternal: true
+  name: IClientSessionHandle
+  nameWithType: IClientSessionHandle
+  fullName: MongoDB.Driver.IClientSessionHandle
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: TChild
+  name: TChild
+  nameWithType: TChild
+  fullName: TChild
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
   parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerator`1
-  name: IEnumerator<TChild>
-  nameWithType: IEnumerator<TChild>
-  fullName: System.Collections.Generic.IEnumerator<TChild>
-  nameWithType.vb: IEnumerator(Of TChild)
-  fullName.vb: System.Collections.Generic.IEnumerator(Of TChild)
-  name.vb: IEnumerator(Of TChild)
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<String>
+  nameWithType: IEnumerable<String>
+  fullName: System.Collections.Generic.IEnumerable<System.String>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.String)
+  name.vb: IEnumerable(Of String)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerator`1
-    name: IEnumerator
-    nameWithType: IEnumerator
-    fullName: System.Collections.Generic.IEnumerator
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerator`1
-    name: IEnumerator
-    nameWithType: IEnumerator
-    fullName: System.Collections.Generic.IEnumerator
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
-  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
-  isExternal: true
-  name: GetEnumerator()
-  nameWithType: IEnumerable<T>.GetEnumerator()
-  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable<T>.GetEnumerator
-    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable(Of T).GetEnumerator
-    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerator`1
-  commentId: T:System.Collections.Generic.IEnumerator`1
-  isExternal: true
-  name: IEnumerator<T>
-  nameWithType: IEnumerator<T>
-  fullName: System.Collections.Generic.IEnumerator<T>
-  nameWithType.vb: IEnumerator(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
-  name.vb: IEnumerator(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerator`1
-    name: IEnumerator
-    nameWithType: IEnumerator
-    fullName: System.Collections.Generic.IEnumerator
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerator`1
-    name: IEnumerator
-    nameWithType: IEnumerator
-    fullName: System.Collections.Generic.IEnumerator
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator*
-  commentId: Overload:MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
-  name: IEnumerable.GetEnumerator
-  nameWithType: Many<TChild>.IEnumerable.GetEnumerator
-  fullName: MongoDB.Entities.Many<TChild>.System.Collections.IEnumerable.GetEnumerator
-  nameWithType.vb: Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
-  fullName.vb: MongoDB.Entities.Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
-  name.vb: System.Collections.IEnumerable.GetEnumerator
-- uid: System.Collections.IEnumerable.GetEnumerator
-  commentId: M:System.Collections.IEnumerable.GetEnumerator
-  parent: System.Collections.IEnumerable
-  isExternal: true
-  name: GetEnumerator()
-  nameWithType: IEnumerable.GetEnumerator()
-  fullName: System.Collections.IEnumerable.GetEnumerator()
-  spec.csharp:
-  - uid: System.Collections.IEnumerable.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable.GetEnumerator
-    fullName: System.Collections.IEnumerable.GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Collections.IEnumerable.GetEnumerator
-    name: GetEnumerator
-    nameWithType: IEnumerable.GetEnumerator
-    fullName: System.Collections.IEnumerable.GetEnumerator
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.IEnumerator
-  commentId: T:System.Collections.IEnumerator
-  parent: System.Collections
-  isExternal: true
-  name: IEnumerator
-  nameWithType: IEnumerator
-  fullName: System.Collections.IEnumerator
 - uid: MongoDB.Entities.Many`1.JoinCollection*
   commentId: Overload:MongoDB.Entities.Many`1.JoinCollection
   name: JoinCollection
@@ -3205,433 +3265,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver
-  commentId: N:MongoDB.Driver
-  isExternal: true
-  name: MongoDB.Driver
-  nameWithType: MongoDB.Driver
-  fullName: MongoDB.Driver
-- uid: MongoDB.Entities.Many`1.JoinQueryable*
-  commentId: Overload:MongoDB.Entities.Many`1.JoinQueryable
-  name: JoinQueryable
-  nameWithType: Many<TChild>.JoinQueryable
-  fullName: MongoDB.Entities.Many<TChild>.JoinQueryable
-  nameWithType.vb: Many(Of TChild).JoinQueryable
-  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinQueryable
-- uid: MongoDB.Driver.IClientSessionHandle
-  commentId: T:MongoDB.Driver.IClientSessionHandle
-  parent: MongoDB.Driver
-  isExternal: true
-  name: IClientSessionHandle
-  nameWithType: IClientSessionHandle
-  fullName: MongoDB.Driver.IClientSessionHandle
-- uid: MongoDB.Driver.AggregateOptions
-  commentId: T:MongoDB.Driver.AggregateOptions
-  parent: MongoDB.Driver
-  isExternal: true
-  name: AggregateOptions
-  nameWithType: AggregateOptions
-  fullName: MongoDB.Driver.AggregateOptions
-- uid: MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
-  parent: MongoDB.Driver.Linq
-  definition: MongoDB.Driver.Linq.IMongoQueryable`1
-  name: IMongoQueryable<JoinRecord>
-  nameWithType: IMongoQueryable<JoinRecord>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<MongoDB.Entities.JoinRecord>
-  nameWithType.vb: IMongoQueryable(Of JoinRecord)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of MongoDB.Entities.JoinRecord)
-  name.vb: IMongoQueryable(Of JoinRecord)
-  spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: MongoDB.Entities.JoinRecord
-    name: JoinRecord
-    nameWithType: JoinRecord
-    fullName: MongoDB.Entities.JoinRecord
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: MongoDB.Entities.JoinRecord
-    name: JoinRecord
-    nameWithType: JoinRecord
-    fullName: MongoDB.Entities.JoinRecord
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.Linq.IMongoQueryable`1
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable`1
-  isExternal: true
-  name: IMongoQueryable<T>
-  nameWithType: IMongoQueryable<T>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
-  nameWithType.vb: IMongoQueryable(Of T)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
-  name.vb: IMongoQueryable(Of T)
-  spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.Linq
-  commentId: N:MongoDB.Driver.Linq
-  isExternal: true
-  name: MongoDB.Driver.Linq
-  nameWithType: MongoDB.Driver.Linq
-  fullName: MongoDB.Driver.Linq
-- uid: MongoDB.Entities.Many`1.JoinFluent*
-  commentId: Overload:MongoDB.Entities.Many`1.JoinFluent
-  name: JoinFluent
-  nameWithType: Many<TChild>.JoinFluent
-  fullName: MongoDB.Entities.Many<TChild>.JoinFluent
-  nameWithType.vb: Many(Of TChild).JoinFluent
-  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinFluent
-- uid: MongoDB.Driver.IAggregateFluent{MongoDB.Entities.JoinRecord}
-  commentId: T:MongoDB.Driver.IAggregateFluent{MongoDB.Entities.JoinRecord}
-  parent: MongoDB.Driver
-  definition: MongoDB.Driver.IAggregateFluent`1
-  name: IAggregateFluent<JoinRecord>
-  nameWithType: IAggregateFluent<JoinRecord>
-  fullName: MongoDB.Driver.IAggregateFluent<MongoDB.Entities.JoinRecord>
-  nameWithType.vb: IAggregateFluent(Of JoinRecord)
-  fullName.vb: MongoDB.Driver.IAggregateFluent(Of MongoDB.Entities.JoinRecord)
-  name.vb: IAggregateFluent(Of JoinRecord)
-  spec.csharp:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: MongoDB.Entities.JoinRecord
-    name: JoinRecord
-    nameWithType: JoinRecord
-    fullName: MongoDB.Entities.JoinRecord
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: MongoDB.Entities.JoinRecord
-    name: JoinRecord
-    nameWithType: JoinRecord
-    fullName: MongoDB.Entities.JoinRecord
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.IAggregateFluent`1
-  commentId: T:MongoDB.Driver.IAggregateFluent`1
-  isExternal: true
-  name: IAggregateFluent<TResult>
-  nameWithType: IAggregateFluent<TResult>
-  fullName: MongoDB.Driver.IAggregateFluent<TResult>
-  nameWithType.vb: IAggregateFluent(Of TResult)
-  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TResult)
-  name.vb: IAggregateFluent(Of TResult)
-  spec.csharp:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Many`1.ParentsQueryable*
-  commentId: Overload:MongoDB.Entities.Many`1.ParentsQueryable
-  name: ParentsQueryable
-  nameWithType: Many<TChild>.ParentsQueryable
-  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable
-  nameWithType.vb: Many(Of TChild).ParentsQueryable
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable
-- uid: System.String
-  commentId: T:System.String
-  parent: System
-  isExternal: true
-  name: String
-  nameWithType: String
-  fullName: System.String
-- uid: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{``0}
-  parent: MongoDB.Driver.Linq
-  definition: MongoDB.Driver.Linq.IMongoQueryable`1
-  name: IMongoQueryable<TParent>
-  nameWithType: IMongoQueryable<TParent>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<TParent>
-  nameWithType.vb: IMongoQueryable(Of TParent)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of TParent)
-  name.vb: IMongoQueryable(Of TParent)
-  spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TParent
-    nameWithType: TParent
-    fullName: TParent
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TParent
-    nameWithType: TParent
-    fullName: TParent
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerable{System.String}
-  commentId: T:System.Collections.Generic.IEnumerable{System.String}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  name: IEnumerable<String>
-  nameWithType: IEnumerable<String>
-  fullName: System.Collections.Generic.IEnumerable<System.String>
-  nameWithType.vb: IEnumerable(Of String)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of System.String)
-  name.vb: IEnumerable(Of String)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
-  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{`0}
-  parent: MongoDB.Driver.Linq
-  definition: MongoDB.Driver.Linq.IMongoQueryable`1
-  name: IMongoQueryable<TChild>
-  nameWithType: IMongoQueryable<TChild>
-  fullName: MongoDB.Driver.Linq.IMongoQueryable<TChild>
-  nameWithType.vb: IMongoQueryable(Of TChild)
-  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of TChild)
-  name.vb: IMongoQueryable(Of TChild)
-  spec.csharp:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
-    name: IMongoQueryable
-    nameWithType: IMongoQueryable
-    fullName: MongoDB.Driver.Linq.IMongoQueryable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Many`1.ParentsFluent*
-  commentId: Overload:MongoDB.Entities.Many`1.ParentsFluent
-  name: ParentsFluent
-  nameWithType: Many<TChild>.ParentsFluent
-  fullName: MongoDB.Entities.Many<TChild>.ParentsFluent
-  nameWithType.vb: Many(Of TChild).ParentsFluent
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsFluent
-- uid: MongoDB.Driver.IAggregateFluent{{TChild}}
-  commentId: T:MongoDB.Driver.IAggregateFluent{`0}
-  parent: MongoDB.Driver
-  definition: MongoDB.Driver.IAggregateFluent`1
-  name: IAggregateFluent<TChild>
-  nameWithType: IAggregateFluent<TChild>
-  fullName: MongoDB.Driver.IAggregateFluent<TChild>
-  nameWithType.vb: IAggregateFluent(Of TChild)
-  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TChild)
-  name.vb: IAggregateFluent(Of TChild)
-  spec.csharp:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Driver.IAggregateFluent{{TParent}}
-  commentId: T:MongoDB.Driver.IAggregateFluent{``0}
-  parent: MongoDB.Driver
-  definition: MongoDB.Driver.IAggregateFluent`1
-  name: IAggregateFluent<TParent>
-  nameWithType: IAggregateFluent<TParent>
-  fullName: MongoDB.Driver.IAggregateFluent<TParent>
-  nameWithType.vb: IAggregateFluent(Of TParent)
-  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TParent)
-  name.vb: IAggregateFluent(Of TParent)
-  spec.csharp:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TParent
-    nameWithType: TParent
-    fullName: TParent
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Driver.IAggregateFluent`1
-    name: IAggregateFluent
-    nameWithType: IAggregateFluent
-    fullName: MongoDB.Driver.IAggregateFluent
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TParent
-    nameWithType: TParent
-    fullName: TParent
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: MongoDB.Entities.Many`1.ChildrenCountAsync*
   commentId: Overload:MongoDB.Entities.Many`1.ChildrenCountAsync
   name: ChildrenCountAsync
@@ -3646,13 +3279,6 @@ references:
   name: CountOptions
   nameWithType: CountOptions
   fullName: MongoDB.Driver.CountOptions
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
-  isExternal: true
-  name: CancellationToken
-  nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
 - uid: System.Threading.Tasks.Task{System.Int64}
   commentId: T:System.Threading.Tasks.Task{System.Int64}
   parent: System.Threading.Tasks
@@ -3697,12 +3323,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
@@ -3742,26 +3362,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
-- uid: MongoDB.Entities.Many`1.ChildrenQueryable*
-  commentId: Overload:MongoDB.Entities.Many`1.ChildrenQueryable
-  name: ChildrenQueryable
-  nameWithType: Many<TChild>.ChildrenQueryable
-  fullName: MongoDB.Entities.Many<TChild>.ChildrenQueryable
-  nameWithType.vb: Many(Of TChild).ChildrenQueryable
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenQueryable
-- uid: MongoDB.Entities.Many`1.ChildrenFluent*
-  commentId: Overload:MongoDB.Entities.Many`1.ChildrenFluent
-  name: ChildrenFluent
-  nameWithType: Many<TChild>.ChildrenFluent
-  fullName: MongoDB.Entities.Many<TChild>.ChildrenFluent
-  nameWithType.vb: Many(Of TChild).ChildrenFluent
-  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenFluent
 - uid: MongoDB.Entities.Many`1.#ctor*
   commentId: Overload:MongoDB.Entities.Many`1.#ctor
   name: Many
@@ -4001,30 +3601,580 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: MongoDB.Entities.Many`1.AddAsync*
-  commentId: Overload:MongoDB.Entities.Many`1.AddAsync
-  name: AddAsync
-  nameWithType: Many<TChild>.AddAsync
-  fullName: MongoDB.Entities.Many<TChild>.AddAsync
-  nameWithType.vb: Many(Of TChild).AddAsync
-  fullName.vb: MongoDB.Entities.Many(Of TChild).AddAsync
-- uid: '{TChild}'
-  commentId: '!:TChild'
-  definition: TChild
-  name: TChild
-  nameWithType: TChild
-  fullName: TChild
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
+- uid: MongoDB.Entities.Many`1.JoinFluent*
+  commentId: Overload:MongoDB.Entities.Many`1.JoinFluent
+  name: JoinFluent
+  nameWithType: Many<TChild>.JoinFluent
+  fullName: MongoDB.Entities.Many<TChild>.JoinFluent
+  nameWithType.vb: Many(Of TChild).JoinFluent
+  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinFluent
+- uid: MongoDB.Driver.AggregateOptions
+  commentId: T:MongoDB.Driver.AggregateOptions
+  parent: MongoDB.Driver
   isExternal: true
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
-- uid: TChild
-  name: TChild
-  nameWithType: TChild
-  fullName: TChild
+  name: AggregateOptions
+  nameWithType: AggregateOptions
+  fullName: MongoDB.Driver.AggregateOptions
+- uid: MongoDB.Driver.IAggregateFluent{MongoDB.Entities.JoinRecord}
+  commentId: T:MongoDB.Driver.IAggregateFluent{MongoDB.Entities.JoinRecord}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.IAggregateFluent`1
+  name: IAggregateFluent<JoinRecord>
+  nameWithType: IAggregateFluent<JoinRecord>
+  fullName: MongoDB.Driver.IAggregateFluent<MongoDB.Entities.JoinRecord>
+  nameWithType.vb: IAggregateFluent(Of JoinRecord)
+  fullName.vb: MongoDB.Driver.IAggregateFluent(Of MongoDB.Entities.JoinRecord)
+  name.vb: IAggregateFluent(Of JoinRecord)
+  spec.csharp:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.IAggregateFluent`1
+  commentId: T:MongoDB.Driver.IAggregateFluent`1
+  isExternal: true
+  name: IAggregateFluent<TResult>
+  nameWithType: IAggregateFluent<TResult>
+  fullName: MongoDB.Driver.IAggregateFluent<TResult>
+  nameWithType.vb: IAggregateFluent(Of TResult)
+  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TResult)
+  name.vb: IAggregateFluent(Of TResult)
+  spec.csharp:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Many`1.ParentsFluent*
+  commentId: Overload:MongoDB.Entities.Many`1.ParentsFluent
+  name: ParentsFluent
+  nameWithType: Many<TChild>.ParentsFluent
+  fullName: MongoDB.Entities.Many<TChild>.ParentsFluent
+  nameWithType.vb: Many(Of TChild).ParentsFluent
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsFluent
+- uid: MongoDB.Driver.IAggregateFluent{{TChild}}
+  commentId: T:MongoDB.Driver.IAggregateFluent{`0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.IAggregateFluent`1
+  name: IAggregateFluent<TChild>
+  nameWithType: IAggregateFluent<TChild>
+  fullName: MongoDB.Driver.IAggregateFluent<TChild>
+  nameWithType.vb: IAggregateFluent(Of TChild)
+  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TChild)
+  name.vb: IAggregateFluent(Of TChild)
+  spec.csharp:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.IAggregateFluent{{TParent}}
+  commentId: T:MongoDB.Driver.IAggregateFluent{``0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.IAggregateFluent`1
+  name: IAggregateFluent<TParent>
+  nameWithType: IAggregateFluent<TParent>
+  fullName: MongoDB.Driver.IAggregateFluent<TParent>
+  nameWithType.vb: IAggregateFluent(Of TParent)
+  fullName.vb: MongoDB.Driver.IAggregateFluent(Of TParent)
+  name.vb: IAggregateFluent(Of TParent)
+  spec.csharp:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TParent
+    nameWithType: TParent
+    fullName: TParent
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.IAggregateFluent`1
+    name: IAggregateFluent
+    nameWithType: IAggregateFluent
+    fullName: MongoDB.Driver.IAggregateFluent
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TParent
+    nameWithType: TParent
+    fullName: TParent
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Many`1.ChildrenFluent*
+  commentId: Overload:MongoDB.Entities.Many`1.ChildrenFluent
+  name: ChildrenFluent
+  nameWithType: Many<TChild>.ChildrenFluent
+  fullName: MongoDB.Entities.Many<TChild>.ChildrenFluent
+  nameWithType.vb: Many(Of TChild).ChildrenFluent
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenFluent
+- uid: MongoDB.Entities.Many`1.JoinQueryable*
+  commentId: Overload:MongoDB.Entities.Many`1.JoinQueryable
+  name: JoinQueryable
+  nameWithType: Many<TChild>.JoinQueryable
+  fullName: MongoDB.Entities.Many<TChild>.JoinQueryable
+  nameWithType.vb: Many(Of TChild).JoinQueryable
+  fullName.vb: MongoDB.Entities.Many(Of TChild).JoinQueryable
+- uid: MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{MongoDB.Entities.JoinRecord}
+  parent: MongoDB.Driver.Linq
+  definition: MongoDB.Driver.Linq.IMongoQueryable`1
+  name: IMongoQueryable<JoinRecord>
+  nameWithType: IMongoQueryable<JoinRecord>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<MongoDB.Entities.JoinRecord>
+  nameWithType.vb: IMongoQueryable(Of JoinRecord)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of MongoDB.Entities.JoinRecord)
+  name.vb: IMongoQueryable(Of JoinRecord)
+  spec.csharp:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.Linq.IMongoQueryable`1
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable`1
+  isExternal: true
+  name: IMongoQueryable<T>
+  nameWithType: IMongoQueryable<T>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<T>
+  nameWithType.vb: IMongoQueryable(Of T)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of T)
+  name.vb: IMongoQueryable(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.Linq
+  commentId: N:MongoDB.Driver.Linq
+  isExternal: true
+  name: MongoDB.Driver.Linq
+  nameWithType: MongoDB.Driver.Linq
+  fullName: MongoDB.Driver.Linq
+- uid: MongoDB.Entities.Many`1.ParentsQueryable*
+  commentId: Overload:MongoDB.Entities.Many`1.ParentsQueryable
+  name: ParentsQueryable
+  nameWithType: Many<TChild>.ParentsQueryable
+  fullName: MongoDB.Entities.Many<TChild>.ParentsQueryable
+  nameWithType.vb: Many(Of TChild).ParentsQueryable
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ParentsQueryable
+- uid: MongoDB.Driver.Linq.IMongoQueryable{{TParent}}
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{``0}
+  parent: MongoDB.Driver.Linq
+  definition: MongoDB.Driver.Linq.IMongoQueryable`1
+  name: IMongoQueryable<TParent>
+  nameWithType: IMongoQueryable<TParent>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<TParent>
+  nameWithType.vb: IMongoQueryable(Of TParent)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of TParent)
+  name.vb: IMongoQueryable(Of TParent)
+  spec.csharp:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TParent
+    nameWithType: TParent
+    fullName: TParent
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TParent
+    nameWithType: TParent
+    fullName: TParent
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.Linq.IMongoQueryable{{TChild}}
+  commentId: T:MongoDB.Driver.Linq.IMongoQueryable{`0}
+  parent: MongoDB.Driver.Linq
+  definition: MongoDB.Driver.Linq.IMongoQueryable`1
+  name: IMongoQueryable<TChild>
+  nameWithType: IMongoQueryable<TChild>
+  fullName: MongoDB.Driver.Linq.IMongoQueryable<TChild>
+  nameWithType.vb: IMongoQueryable(Of TChild)
+  fullName.vb: MongoDB.Driver.Linq.IMongoQueryable(Of TChild)
+  name.vb: IMongoQueryable(Of TChild)
+  spec.csharp:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.Linq.IMongoQueryable`1
+    name: IMongoQueryable
+    nameWithType: IMongoQueryable
+    fullName: MongoDB.Driver.Linq.IMongoQueryable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Many`1.ChildrenQueryable*
+  commentId: Overload:MongoDB.Entities.Many`1.ChildrenQueryable
+  name: ChildrenQueryable
+  nameWithType: Many<TChild>.ChildrenQueryable
+  fullName: MongoDB.Entities.Many<TChild>.ChildrenQueryable
+  nameWithType.vb: Many(Of TChild).ChildrenQueryable
+  fullName.vb: MongoDB.Entities.Many(Of TChild).ChildrenQueryable
+- uid: MongoDB.Entities.Many`1.GetEnumerator*
+  commentId: Overload:MongoDB.Entities.Many`1.GetEnumerator
+  name: GetEnumerator
+  nameWithType: Many<TChild>.GetEnumerator
+  fullName: MongoDB.Entities.Many<TChild>.GetEnumerator
+  nameWithType.vb: Many(Of TChild).GetEnumerator
+  fullName.vb: MongoDB.Entities.Many(Of TChild).GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{{TChild}}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{`0}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{{TChild}}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<TChild>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<TChild>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of TChild).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of TChild).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<TChild>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<TChild>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of TChild).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of TChild).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator{{TChild}}
+  commentId: T:System.Collections.Generic.IEnumerator{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<TChild>
+  nameWithType: IEnumerator<TChild>
+  fullName: System.Collections.Generic.IEnumerator<TChild>
+  nameWithType.vb: IEnumerator(Of TChild)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of TChild)
+  name.vb: IEnumerator(Of TChild)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<T>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of T).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator*
+  commentId: Overload:MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator
+  nameWithType: Many<TChild>.IEnumerable.GetEnumerator
+  fullName: MongoDB.Entities.Many<TChild>.System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: MongoDB.Entities.Many(Of TChild).System.Collections.IEnumerable.GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+- uid: System.Collections.IEnumerable.GetEnumerator
+  commentId: M:System.Collections.IEnumerable.GetEnumerator
+  parent: System.Collections.IEnumerable
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable.GetEnumerator()
+  fullName: System.Collections.IEnumerable.GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
 - uid: MongoDB.Entities.Many`1.RemoveAsync*
   commentId: Overload:MongoDB.Entities.Many`1.RemoveAsync
   name: RemoveAsync

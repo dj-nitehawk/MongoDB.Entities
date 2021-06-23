@@ -15,7 +15,7 @@ items:
   source:
     id: ManyBase
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\Many.cs
-    startLine: 16
+    startLine: 13
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

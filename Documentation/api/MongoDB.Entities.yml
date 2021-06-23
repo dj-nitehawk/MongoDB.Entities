@@ -32,7 +32,6 @@ items:
   - MongoDB.Entities.JoinRecord
   - MongoDB.Entities.KeyType
   - MongoDB.Entities.Many`1
-  - MongoDB.Entities.Many`1.Joined`1
   - MongoDB.Entities.ManyBase
   - MongoDB.Entities.Migration
   - MongoDB.Entities.ModifiedBy
@@ -767,16 +766,9 @@ references:
   fullName: MongoDB.Entities.Migration
 - uid: MongoDB.Entities.JoinRecord
   commentId: T:MongoDB.Entities.JoinRecord
-  parent: MongoDB.Entities
   name: JoinRecord
   nameWithType: JoinRecord
   fullName: MongoDB.Entities.JoinRecord
-- uid: MongoDB.Entities.ManyBase
-  commentId: T:MongoDB.Entities.ManyBase
-  parent: MongoDB.Entities
-  name: ManyBase
-  nameWithType: ManyBase
-  fullName: MongoDB.Entities.ManyBase
 - uid: MongoDB.Entities.Many`1
   commentId: T:MongoDB.Entities.Many`1
   name: Many<TChild>
@@ -813,42 +805,12 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Many`1.Joined`1
-  commentId: T:MongoDB.Entities.Many`1.Joined`1
-  name: Many.Joined<T>
-  nameWithType: Many.Joined<T>
-  fullName: MongoDB.Entities.Many.Joined<T>
-  nameWithType.vb: Many.Joined(Of T)
-  fullName.vb: MongoDB.Entities.Many.Joined(Of T)
-  name.vb: Many.Joined(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.Many`1.Joined`1
-    name: Many.Joined
-    nameWithType: Many.Joined
-    fullName: MongoDB.Entities.Many.Joined
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.Many`1.Joined`1
-    name: Many.Joined
-    nameWithType: Many.Joined
-    fullName: MongoDB.Entities.Many.Joined
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
+- uid: MongoDB.Entities.ManyBase
+  commentId: T:MongoDB.Entities.ManyBase
+  parent: MongoDB.Entities
+  name: ManyBase
+  nameWithType: ManyBase
+  fullName: MongoDB.Entities.ManyBase
 - uid: MongoDB.Entities.One`1
   commentId: T:MongoDB.Entities.One`1
   parent: MongoDB.Entities

@@ -180,11 +180,8 @@ You can increase the limit by sacrificing performance/resource utilization by se
       <section><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
 <p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
 <p>Initialize from the constructor of the parent entity as follows:</p>
-<code>this.InitOneToMany(() => Property)</code>
-<code>this.InitManyToMany(() => Property, x => x.OtherProperty)</code>
-</section>
-      <h4><a class="xref" href="MongoDB.Entities.Many-1.Joined-1.html">Many&lt;TChild&gt;.Joined&lt;T&gt;</a></h4>
-      <section><p>A class used to hold join results when joining relationships</p>
+<p><code>this.InitOneToMany(() => Property);</code></p>
+<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></h4>
       <section><p>Base class providing shared state for Many'1 classes</p>

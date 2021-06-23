@@ -14,8 +14,8 @@ Server : MongoDB Community 4.4 hosted locally
 
 |           Method |     Mean |   Error |  StdDev | Ratio | RatioSD |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |----------------- |---------:|--------:|--------:|------:|--------:|-------:|------:|------:|----------:|
-| MongoDB_Entities | 259.1 μs | 1.69 μs | 1.50 μs |  1.10 |    0.02 | 3.4180 |     - |     - |     29 KB |
 |  Official_Driver | 235.0 μs | 2.82 μs | 2.50 μs |  1.00 |    0.00 | 3.4180 |     - |     - |     29 KB |
+| MongoDB_Entities | 259.1 μs | 1.69 μs | 1.50 μs |  1.10 |    0.02 | 3.4180 |     - |     - |     29 KB |
 
 ## Bulk create 1000 entities
 
@@ -35,8 +35,8 @@ Server : MongoDB Community 4.4 hosted locally
 
 |           Method |     Mean |   Error |  StdDev | Ratio | RatioSD |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |----------------- |---------:|--------:|--------:|------:|--------:|-------:|------:|------:|----------:|
-| MongoDB_Entities | 261.1 μs | 5.14 μs | 4.81 μs |  1.03 |    0.03 | 3.4180 |     - |     - |     32 KB |
 |  Official_Driver | 254.1 μs | 4.63 μs | 4.33 μs |  1.00 |    0.00 | 3.6621 |     - |     - |     31 KB |
+| MongoDB_Entities | 261.1 μs | 5.14 μs | 4.81 μs |  1.03 |    0.03 | 3.4180 |     - |     - |     32 KB |
 
 ## Find any entity 
 
@@ -70,8 +70,8 @@ Server : MongoDB Community 4.4 hosted locally
 
 |           Method |     Mean |   Error |  StdDev | Ratio | RatioSD |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |----------------- |---------:|--------:|--------:|------:|--------:|-------:|------:|------:|----------:|
-| MongoDB_Entities | 272.9 μs | 5.01 μs | 4.68 μs |  1.04 |    0.04 | 3.9063 |     - |     - |     33 KB |
 |  Official_Driver | 262.3 μs | 5.01 μs | 5.57 μs |  1.00 |    0.00 | 3.4180 |     - |     - |     32 KB |
+| MongoDB_Entities | 272.9 μs | 5.01 μs | 4.68 μs |  1.04 |    0.04 | 3.9063 |     - |     - |     33 KB |
 
 ## Manual update vs. save partial
 
@@ -86,3 +86,12 @@ Server : MongoDB Community 4.4 hosted locally
 |----------- |---------:|--------:|--------:|------:|--------:|-------:|------:|------:|----------:|
 | DB_Context | 246.2 μs | 3.72 μs | 3.30 μs |  0.94 |    0.02 | 2.9297 |     - |     - |     26 KB |
 |  DB_Static | 262.7 μs | 5.24 μs | 8.90 μs |  1.00 |    0.00 | 2.9297 |     - |     - |     26 KB |
+
+## Relationships
+
+|             Method |       Mean |    Error |   StdDev | Ratio | RatioSD |   Gen 0 |  Gen 1 | Gen 2 | Allocated |
+|------------------- |-----------:|---------:|---------:|------:|--------:|--------:|-------:|------:|----------:|
+|             Lookup |   443.1 μs |  2.30 μs |  2.15 μs |  1.00 |    0.00 |  5.3711 |      - |     - |     44 KB |
+|    Clientside_Join |   555.2 μs |  4.10 μs |  3.63 μs |  1.25 |    0.01 |  8.7891 |      - |     - |     73 KB |
+|    Children_Fluent | 1,265.3 μs | 20.58 μs | 19.25 μs |  2.86 |    0.05 |  7.8125 |      - |     - |     76 KB |
+| Children_Queryable | 1,547.5 μs |  6.18 μs |  4.83 μs |  3.50 |    0.02 | 11.7188 | 3.9063 |     - |    107 KB |

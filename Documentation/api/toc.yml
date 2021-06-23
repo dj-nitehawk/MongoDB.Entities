@@ -64,9 +64,6 @@
   - uid: MongoDB.Entities.Many`1
     name: Many<TChild>
     name.vb: Many(Of TChild)
-  - uid: MongoDB.Entities.Many`1.Joined`1
-    name: Many<TChild>.Joined<T>
-    name.vb: Many(Of TChild).Joined(Of T)
   - uid: MongoDB.Entities.ManyBase
     name: ManyBase
   - uid: MongoDB.Entities.Migration

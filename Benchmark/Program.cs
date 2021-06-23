@@ -6,8 +6,8 @@ namespace Benchmark
     {
         private static void Main()
         {
-            BenchmarkRunner.Run(typeof(Program).Assembly);
-            //BenchmarkRunner.Run<SavePartialVsUpdate>();
+            //BenchmarkRunner.Run(typeof(Program).Assembly);
+            BenchmarkRunner.Run<Relationships>();
         }
     }
 }

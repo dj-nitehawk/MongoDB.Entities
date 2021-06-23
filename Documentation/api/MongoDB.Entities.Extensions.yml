@@ -17,6 +17,8 @@ items:
   - MongoDB.Entities.Extensions.FullPath``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Extensions.InitManyToMany``1(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}},System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Extensions.InitOneToMany``1(MongoDB.Entities.IEntity,System.Linq.Expressions.Expression{System.Func{MongoDB.Entities.Many{``0}}})
+  - MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.IsAccessibleAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
   - MongoDB.Entities.Extensions.Match``1(MongoDB.Driver.IAggregateFluent{``0},System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}})
   - MongoDB.Entities.Extensions.MatchExpression``1(MongoDB.Driver.IAggregateFluent{``0},System.String)
@@ -890,6 +892,110 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<T>(T, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<T>(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: InsertAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
+    startLine: 235
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInserts a new entity into the colleciton.\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task InsertAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+          where T : IEntity
+    parameters:
+    - id: entity
+      type: '{T}'
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function InsertAsync(Of T As IEntity)(entity As T, session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.Extensions.InsertAsync*
+  nameWithType.vb: Extensions.InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of T)(T, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(T, IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.InsertAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.InsertAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: InsertAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
+    startLine: 245
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInserts a batch of new entities into the collection.\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+          where T : IEntity
+    parameters:
+    - id: entities
+      type: System.Collections.Generic.IEnumerable{{T}}
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function InsertAsync(Of T As IEntity)(entities As IEnumerable(Of T), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of BulkWriteResult(Of T))
+  overload: MongoDB.Entities.Extensions.InsertAsync*
+  nameWithType.vb: Extensions.InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: InsertAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -905,7 +1011,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 241
+    startLine: 261
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -962,7 +1068,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 257
+    startLine: 277
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1019,7 +1125,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 273
+    startLine: 293
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1076,7 +1182,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 289
+    startLine: 309
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1133,7 +1239,7 @@ items:
   source:
     id: SavePreservingAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 301
+    startLine: 321
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1186,7 +1292,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 311
+    startLine: 331
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1237,7 +1343,7 @@ items:
   source:
     id: DeleteAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 321
+    startLine: 341
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1288,7 +1394,7 @@ items:
   source:
     id: SortByRelevance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 334
+    startLine: 354
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1343,7 +1449,7 @@ items:
   source:
     id: ToDoubleMetaphoneHash
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 355
+    startLine: 375
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1383,7 +1489,7 @@ items:
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 364
+    startLine: 384
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1432,7 +1538,7 @@ items:
   source:
     id: InitOneToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 374
+    startLine: 394
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1480,7 +1586,7 @@ items:
   source:
     id: InitManyToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 386
+    startLine: 406
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1531,7 +1637,7 @@ items:
   source:
     id: IsAccessibleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 409
+    startLine: 429
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1573,7 +1679,7 @@ items:
   source:
     id: ExistsAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 429
+    startLine: 449
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2908,6 +3014,11 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Extensions.InsertAsync*
+  commentId: Overload:MongoDB.Entities.Extensions.InsertAsync
+  name: InsertAsync
+  nameWithType: Extensions.InsertAsync
+  fullName: MongoDB.Entities.Extensions.InsertAsync
 - uid: MongoDB.Entities.Extensions.SaveOnlyAsync*
   commentId: Overload:MongoDB.Entities.Extensions.SaveOnlyAsync
   name: SaveOnlyAsync
