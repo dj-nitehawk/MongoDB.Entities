@@ -98,6 +98,15 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Drops a join collection
+        /// </summary>
+        /// <param name="collection"></param>
+        public static Task Drop(this IMongoCollection<JoinRecord> collection)
+        {
+            return collection.Database.DropCollectionAsync(collection.CollectionNamespace.CollectionName);
+        }
+
+        /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity
