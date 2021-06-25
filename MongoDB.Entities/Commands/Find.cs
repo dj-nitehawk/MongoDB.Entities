@@ -314,7 +314,7 @@ namespace MongoDB.Entities
             if (!props.Any())
                 throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
-            var defs = new List<ProjectionDefinition<T>>();
+            var defs = new List<ProjectionDefinition<T>>(props.Count());
 
             foreach (var prop in props)
             {
