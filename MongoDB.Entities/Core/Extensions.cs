@@ -101,7 +101,7 @@ namespace MongoDB.Entities
         /// Drops a join collection
         /// </summary>
         /// <param name="collection"></param>
-        public static Task Drop(this IMongoCollection<JoinRecord> collection)
+        public static Task DropAsync(this IMongoCollection<JoinRecord> collection)
         {
             return collection.Database.DropCollectionAsync(collection.CollectionNamespace.CollectionName);
         }
