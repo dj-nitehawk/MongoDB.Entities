@@ -99,7 +99,7 @@ await book.Genres.RemoveAsync(genre);
 
 the original `author` in the `Authors` collection is unaffected. also the `genre` entity in the `Genres` collection is unaffected. only the relationship between entities are deleted.
 
-there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
+there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for removing relationships with multiple entities or just the string IDs.
 
 ### Entity deletion
 when you delete an entity that's in a `one-to-many` or `many-to-many` relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.
