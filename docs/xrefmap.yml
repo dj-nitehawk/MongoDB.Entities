@@ -2181,6 +2181,22 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.Distinct(Of T)(MongoDB.Driver.IAggregateFluent(Of T))
   nameWithType: Extensions.Distinct<T>(IAggregateFluent<T>)
   nameWithType.vb: Extensions.Distinct(Of T)(IAggregateFluent(Of T))
+- uid: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
+  name: DropAsync(IMongoCollection<JoinRecord>)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DropAsync_MongoDB_Driver_IMongoCollection_MongoDB_Entities_JoinRecord__
+  commentId: M:MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
+  name.vb: DropAsync(IMongoCollection(Of JoinRecord))
+  fullName: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection<MongoDB.Entities.JoinRecord>)
+  fullName.vb: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection(Of MongoDB.Entities.JoinRecord))
+  nameWithType: Extensions.DropAsync(IMongoCollection<JoinRecord>)
+  nameWithType.vb: Extensions.DropAsync(IMongoCollection(Of JoinRecord))
+- uid: MongoDB.Entities.Extensions.DropAsync*
+  name: DropAsync
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DropAsync_
+  commentId: Overload:MongoDB.Entities.Extensions.DropAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.DropAsync
+  nameWithType: Extensions.DropAsync
 - uid: MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
   name: ExistsAsync(IMongoDatabase, Int32)
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ExistsAsync_MongoDB_Driver_IMongoDatabase_System_Int32_

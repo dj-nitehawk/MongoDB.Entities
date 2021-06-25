@@ -172,6 +172,7 @@
   "MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)": "MongoDB.Entities.Extensions.yml",
   "MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)": "MongoDB.Entities.Extensions.yml",
   "MongoDB.Entities.Extensions.Distinct``1(MongoDB.Driver.IAggregateFluent{``0})": "MongoDB.Entities.Extensions.yml",
+  "MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})": "MongoDB.Entities.Extensions.yml",
   "MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)": "MongoDB.Entities.Extensions.yml",
   "MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)": "MongoDB.Entities.Extensions.yml",
   "MongoDB.Entities.Extensions.FullPath``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})": "MongoDB.Entities.Extensions.yml",

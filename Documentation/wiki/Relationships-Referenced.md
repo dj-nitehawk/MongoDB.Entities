@@ -37,16 +37,14 @@ also note that you specify which side of the relationship a property is using th
 
 ## One-to-one
 
-call the `ToReference()` method of the entity you want to store as a reference like so:
+a reference can be assigned in any of the following three ways:
 
 ```csharp
-book.MainAuthor = author.ToReference();
-await book.SaveAsync();
-```
-alternatively you can use the implicit operator functionality by simply assigning an instance or the string ID like so:
-```csharp
-book.MainAuthor = author;
-book.MainAuthor = author.ID;
+book.MainAuthor = author.ToReference(); //call ToReference on a child
+book.MainAuthor = author;               //assign a child instance
+book.MainAuthor = "AuthorID";           //assign just the ID value of a child
+
+await book.SaveAsync();                 //call save on parent to store
 ```
 
 ### Reference removal
@@ -57,7 +55,22 @@ await book.SaveAsync();
 the original `author` in the `Authors` collection is unaffected.
 
 ### Entity deletion
-If you delete an entity that is referenced as above by calling `author.DeleteAsync()` all references pointing to that entity are automatically deleted. as such, `book.MainAuthor.ToEntityAsync()` will then return `null`. the `.ToEntityAsync()` method is described below.
+
+if you delete an entity that is referenced as above, all references pointing to that entity are now invalid. as such, `book.MainAuthor.ToEntityAsync()` will then return `null`. the `.ToEntityAsync()` method is described below.
+
+for example:
+
+```
+book A has 1-1 relationship with author A
+book B has 1-1 relationship with author A
+book C has 1-1 relationship with author A
+
+now, if you delete author A, the results would be the following:
+
+await bookA.MainAuthor.ToEntityAsync() //returns null
+await bookB.MainAuthor.ToEntityAsync() //returns null
+await bookC.MainAuthor.ToEntityAsync() //returns null
+```
 
 ## One-to-many & many-to-many
 ```csharp
@@ -67,6 +80,12 @@ await book.Genres.AddAsync(genre); //many-to-many
 there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
 
 however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
+
+alternatively when you don't have access to the parent entity and you only have the parent `ID` value, you can use the following to access the relationship:
+
+```csharp
+await DB.Entity<Book>("BookID").Authors.AddAsync(author);
+```
 
 there are other *[overloads](xref:MongoDB.Entities.Many`1#methods)* for adding relationships with multiple entities or just the string IDs.
 
@@ -83,7 +102,35 @@ the original `author` in the `Authors` collection is unaffected. also the `genre
 there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for adding relationships with multiple entities or just the string IDs.
 
 ### Entity deletion
-If you delete an entity that is referenced as above by calling `author.DeleteAsync()` all references pointing to that `author` entity are automatically deleted. as such, `book.Authors` will not have `author` as a child. the same applies to `Many-To-Many` relationships. deleting any entity that has references pointing to it from other entities results in those references getting deleted and the relationships being invalidated.
+when you delete an entity that's in a `one-to-many` or `many-to-many` relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.
+
+for example:
+
+```
+| author A has 3 referenced books:
+|-- book A
+|-- book B
+|-- book C
+
+| author B has 3 referenced book:
+|-- book A
+|-- book B
+|-- book C
+
+| book B has 2 refernced authors:
+|-- author A
+|-- author B
+
+now, if you delete book B, the children of authors A and B would look like this:
+
+| author A:
+|-- book A
+|-- book C
+
+| author B:
+|-- book A
+|-- book C
+```
 
 # ToEntityAsync() shortcut
 

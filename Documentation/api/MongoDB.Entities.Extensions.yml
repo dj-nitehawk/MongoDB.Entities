@@ -12,6 +12,7 @@ items:
   - MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.DeleteAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.Distinct``1(MongoDB.Driver.IAggregateFluent{``0})
+  - MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
   - MongoDB.Entities.Extensions.ExistsAsync(MongoDB.Driver.IMongoDatabase,System.Int32)
   - MongoDB.Entities.Extensions.Fluent``1(``0,MongoDB.Driver.IClientSessionHandle,MongoDB.Driver.AggregateOptions)
   - MongoDB.Entities.Extensions.FullPath``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -354,6 +355,49 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.FullPath(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   name.vb: FullPath(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
+  commentId: M:MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
+  id: DropAsync(MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord})
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: DropAsync(IMongoCollection<JoinRecord>)
+  nameWithType: Extensions.DropAsync(IMongoCollection<JoinRecord>)
+  fullName: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection<MongoDB.Entities.JoinRecord>)
+  type: Method
+  source:
+    id: DropAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
+    startLine: 103
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDrops a join collection\n"
+  example: []
+  syntax:
+    content: public static Task DropAsync(this IMongoCollection<JoinRecord> collection)
+    parameters:
+    - id: collection
+      type: MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord}
+      description: ''
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function DropAsync(collection As IMongoCollection(Of JoinRecord)) As Task
+  overload: MongoDB.Entities.Extensions.DropAsync*
+  nameWithType.vb: Extensions.DropAsync(IMongoCollection(Of JoinRecord))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.DropAsync(MongoDB.Driver.IMongoCollection(Of MongoDB.Entities.JoinRecord))
+  name.vb: DropAsync(IMongoCollection(Of JoinRecord))
 - uid: MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Driver.AggregateOptions)
   commentId: M:MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Driver.AggregateOptions)
   id: Queryable``1(``0,MongoDB.Driver.AggregateOptions)
@@ -369,7 +413,7 @@ items:
   source:
     id: Queryable
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 102
+    startLine: 111
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -417,7 +461,7 @@ items:
   source:
     id: Fluent
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 113
+    startLine: 122
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -470,7 +514,7 @@ items:
   source:
     id: Distinct
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 122
+    startLine: 131
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -517,7 +561,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 150
+    startLine: 159
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -568,7 +612,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 161
+    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -619,7 +663,7 @@ items:
   source:
     id: ToReference
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 171
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -665,7 +709,7 @@ items:
   source:
     id: ToDocument
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 179
+    startLine: 188
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -711,7 +755,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 189
+    startLine: 198
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -757,7 +801,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 200
+    startLine: 209
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -803,7 +847,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 214
+    startLine: 223
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -855,7 +899,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 225
+    startLine: 234
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -907,7 +951,7 @@ items:
   source:
     id: InsertAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 235
+    startLine: 244
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -959,7 +1003,7 @@ items:
   source:
     id: InsertAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 245
+    startLine: 254
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1011,7 +1055,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 261
+    startLine: 270
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1068,7 +1112,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 277
+    startLine: 286
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1125,7 +1169,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 293
+    startLine: 302
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1182,7 +1226,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 309
+    startLine: 318
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1239,7 +1283,7 @@ items:
   source:
     id: SavePreservingAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 321
+    startLine: 330
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1292,7 +1336,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 331
+    startLine: 340
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1343,7 +1387,7 @@ items:
   source:
     id: DeleteAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 341
+    startLine: 350
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1394,7 +1438,7 @@ items:
   source:
     id: SortByRelevance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 354
+    startLine: 363
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1449,7 +1493,7 @@ items:
   source:
     id: ToDoubleMetaphoneHash
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 375
+    startLine: 384
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1489,7 +1533,7 @@ items:
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 384
+    startLine: 393
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1538,7 +1582,7 @@ items:
   source:
     id: InitOneToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 394
+    startLine: 403
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1586,7 +1630,7 @@ items:
   source:
     id: InitManyToMany
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 406
+    startLine: 415
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1637,7 +1681,7 @@ items:
   source:
     id: IsAccessibleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 429
+    startLine: 438
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1679,7 +1723,7 @@ items:
   source:
     id: ExistsAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Extensions.cs
-    startLine: 449
+    startLine: 458
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2420,6 +2464,66 @@ references:
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+- uid: MongoDB.Entities.Extensions.DropAsync*
+  commentId: Overload:MongoDB.Entities.Extensions.DropAsync
+  name: DropAsync
+  nameWithType: Extensions.DropAsync
+  fullName: MongoDB.Entities.Extensions.DropAsync
+- uid: MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord}
+  commentId: T:MongoDB.Driver.IMongoCollection{MongoDB.Entities.JoinRecord}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.IMongoCollection`1
+  name: IMongoCollection<JoinRecord>
+  nameWithType: IMongoCollection<JoinRecord>
+  fullName: MongoDB.Driver.IMongoCollection<MongoDB.Entities.JoinRecord>
+  nameWithType.vb: IMongoCollection(Of JoinRecord)
+  fullName.vb: MongoDB.Driver.IMongoCollection(Of MongoDB.Entities.JoinRecord)
+  name.vb: IMongoCollection(Of JoinRecord)
+  spec.csharp:
+  - uid: MongoDB.Driver.IMongoCollection`1
+    name: IMongoCollection
+    nameWithType: IMongoCollection
+    fullName: MongoDB.Driver.IMongoCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.IMongoCollection`1
+    name: IMongoCollection
+    nameWithType: IMongoCollection
+    fullName: MongoDB.Driver.IMongoCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Entities.JoinRecord
+    name: JoinRecord
+    nameWithType: JoinRecord
+    fullName: MongoDB.Entities.JoinRecord
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
 - uid: MongoDB.Entities.Extensions.Queryable*
   commentId: Overload:MongoDB.Entities.Extensions.Queryable
   name: Queryable
@@ -2894,25 +2998,12 @@ references:
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
-- uid: System.Threading.Tasks.Task
-  commentId: T:System.Threading.Tasks.Task
-  parent: System.Threading.Tasks
-  isExternal: true
-  name: Task
-  nameWithType: Task
-  fullName: System.Threading.Tasks.Task
 - uid: System.Threading
   commentId: N:System.Threading
   isExternal: true
   name: System.Threading
   nameWithType: System.Threading
   fullName: System.Threading
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
 - uid: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
   commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{``0}}
   parent: System.Threading.Tasks
