@@ -77,7 +77,7 @@ await bookC.MainAuthor.ToEntityAsync() //returns null
 await book.Authors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre); //many-to-many
 ```
-there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md) section.
+there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md#reference-collections) section.
 
 however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
 
@@ -116,10 +116,6 @@ for example:
 |-- book A
 |-- book B
 |-- book C
-
-| book B has 2 refernced authors:
-|-- author A
-|-- author B
 
 now, if you delete book B, the children of authors A and B would look like this:
 

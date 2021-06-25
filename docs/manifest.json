@@ -1066,7 +1066,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Relationships-Referenced.html",
-          "hash": "Ajgtg4Bcix/8ZQYgyke9+A1Friy0J53Vf6FedsVh9oI="
+          "hash": "bQo4/BLvfiO7ae97R06VJ47pcATaYZ4kHSOku2nENpQ="
         }
       },
       "is_incremental": false,
@@ -1078,7 +1078,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Schema-Changes.html",
-          "hash": "iLBo2dIqjUw7V33gLLDbZWQqmixksOgka7eNnENqSFk="
+          "hash": "Pu361NGk3vNmMyPkofMVZPneurMpuCuKkOIRbxrKd1g="
         }
       },
       "is_incremental": false,
@@ -1134,7 +1134,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 32,
-          "skipped_file_count": 31
+          "skipped_file_count": 32
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,

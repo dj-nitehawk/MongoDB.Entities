@@ -31,13 +31,20 @@ Reference(Join) collections use the naming format `[Parent~Child(PropertyName)]`
 
 for ex: if you rename the `Book` entity to `AwesomeBook` and property holding it to `GoodAuthors` just rename the corresponding join collection from `[Book~Author(Authors)]` to `[AwesomeBook~Author(GoodAuthors)]` in order to get the references working again. 
 
+if you need to drop a join collection that is no longer needed, you can delete them like so:
+```csharp
+await DB.Entity<Author>().Books.JoinCollection.DropAsync();
+```
+
 ### Indexes
 some care is needed to make sure there won't be any orphaned/ redundant indexes in mongodb after changing your schema.
 
-#### Renaming entities
-if you rename an entity, simply rename the corresponding collection in mongodb before running your app as mentioned in the previous section and all indexes will continue to work because indexes are tied to the collections they're in. or simply tie down the collection name with the [\[Name\]](Entities.md#customize-collection-names) attribute.
+**Renaming entities**
 
-#### Changing entity properties or index definitions
+if you rename an entity, simply rename the corresponding collection in mongodb before running your app as mentioned in the previous section and all indexes will continue to work because indexes are tied to the collections they're in. or simply tie down the collection name with the [\[Collection\]](Entities.md#customize-collection-names) attribute.
+
+**Changing entity properties or index definitions**
+
 after running the app with changed property names or modified index definitions, new indexes will be automatically created to match the current shape of index definitions in your code. you should manually drop indexes that have old schema in order to get rid of redundant/ orphaned indexes.
 
 >[!note]

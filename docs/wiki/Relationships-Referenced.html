@@ -155,7 +155,7 @@ await bookC.MainAuthor.ToEntityAsync() //returns null
 <pre><code class="lang-csharp">await book.Authors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre); //many-to-many
 </code></pre>
-<p>there's no need to call <code>book.SaveAsync()</code> again because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html">Schema Changes</a> section.</p>
+<p>there's no need to call <code>book.SaveAsync()</code> again because references are automatically saved using special join collections. you can read more about them in the <a href="Schema-Changes.html#reference-collections">Schema Changes</a> section.</p>
 <p>however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their <code>ID</code> values populated. otherwise, you'd get an exception instructing you to save them both before calling <code>AddAsync()</code>.</p>
 <p>alternatively when you don't have access to the parent entity and you only have the parent <code>ID</code> value, you can use the following to access the relationship:</p>
 <pre><code class="lang-csharp">await DB.Entity&lt;Book&gt;(&quot;BookID&quot;).Authors.AddAsync(author);
@@ -167,7 +167,7 @@ await book.Genres.AddAsync(genre); //many-to-many
 await book.Genres.RemoveAsync(genre);
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected. also the <code>genre</code> entity in the <code>Genres</code> collection is unaffected. only the relationship between entities are deleted.</p>
-<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
+<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for removing relationships with multiple entities or just the string IDs.</p>
 <h3 id="entity-deletion-1">Entity deletion</h3>
 <p>when you delete an entity that's in a <code>one-to-many</code> or <code>many-to-many</code> relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.</p>
 <p>for example:</p>
@@ -180,10 +180,6 @@ await book.Genres.RemoveAsync(genre);
 |-- book A
 |-- book B
 |-- book C
-
-| book B has 2 refernced authors:
-|-- author A
-|-- author B
 
 now, if you delete book B, the children of authors A and B would look like this:
 
