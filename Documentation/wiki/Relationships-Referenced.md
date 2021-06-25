@@ -56,7 +56,7 @@ the original `author` in the `Authors` collection is unaffected.
 
 ### Entity deletion
 
-if you delete an entity that is referenced as above, all references pointing to that entity are now invalid. as such, `book.MainAuthor.ToEntityAsync()` will then return `null`. the `.ToEntityAsync()` method is described below.
+if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, `book.MainAuthor.ToEntityAsync()` will then return `null`. the `.ToEntityAsync()` method is described below.
 
 for example:
 
