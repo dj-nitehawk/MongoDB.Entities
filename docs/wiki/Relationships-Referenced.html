@@ -141,9 +141,9 @@ await book.SaveAsync();
 <h3 id="entity-deletion">Entity deletion</h3>
 <p>if you delete an entity that is referenced as above, all references pointing to that entity would then be invalid. as such, <code>book.MainAuthor.ToEntityAsync()</code> will then return <code>null</code>. the <code>.ToEntityAsync()</code> method is described below.</p>
 <p>for example:</p>
-<pre><code>book A has 1-1 relationship with author A
-book B has 1-1 relationship with author A
-book C has 1-1 relationship with author A
+<pre><code>book A has 1:1 relationship with author A
+book B has 1:1 relationship with author A
+book C has 1:1 relationship with author A
 
 now, if you delete author A, the results would be the following:
 

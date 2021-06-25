@@ -61,9 +61,9 @@ if you delete an entity that is referenced as above, all references pointing to 
 for example:
 
 ```
-book A has 1-1 relationship with author A
-book B has 1-1 relationship with author A
-book C has 1-1 relationship with author A
+book A has 1:1 relationship with author A
+book B has 1:1 relationship with author A
+book C has 1:1 relationship with author A
 
 now, if you delete author A, the results would be the following:
 
