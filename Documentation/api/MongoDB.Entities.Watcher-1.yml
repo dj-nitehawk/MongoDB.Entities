@@ -25,7 +25,7 @@ items:
   type: Class
   source:
     id: Watcher
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 15
   assemblies:
   - MongoDB.Entities
@@ -72,7 +72,7 @@ items:
   type: Event
   source:
     id: OnChanges
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 20
   assemblies:
   - MongoDB.Entities
@@ -103,7 +103,7 @@ items:
   type: Event
   source:
     id: OnError
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 25
   assemblies:
   - MongoDB.Entities
@@ -134,7 +134,7 @@ items:
   type: Event
   source:
     id: OnStop
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 30
   assemblies:
   - MongoDB.Entities
@@ -165,7 +165,7 @@ items:
   type: Property
   source:
     id: Name
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 35
   assemblies:
   - MongoDB.Entities
@@ -200,7 +200,7 @@ items:
   type: Property
   source:
     id: CanRestart
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 41
   assemblies:
   - MongoDB.Entities
@@ -235,7 +235,7 @@ items:
   type: Property
   source:
     id: ResumeToken
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 46
   assemblies:
   - MongoDB.Entities
@@ -270,7 +270,7 @@ items:
   type: Method
   source:
     id: Start
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 65
   assemblies:
   - MongoDB.Entities
@@ -320,7 +320,7 @@ items:
   type: Method
   source:
     id: Start
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 83
   assemblies:
   - MongoDB.Entities
@@ -370,7 +370,7 @@ items:
   type: Method
   source:
     id: StartWithToken
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 101
   assemblies:
   - MongoDB.Entities
@@ -420,7 +420,7 @@ items:
   type: Method
   source:
     id: StartWithToken
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 119
   assemblies:
   - MongoDB.Entities
@@ -470,7 +470,7 @@ items:
   type: Method
   source:
     id: ReStart
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
     startLine: 198
   assemblies:
   - MongoDB.Entities

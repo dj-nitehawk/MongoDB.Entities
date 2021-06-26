@@ -447,48 +447,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Watcher`1
-  commentId: T:MongoDB.Entities.Watcher`1
-  name: Watcher<T>
-  nameWithType: Watcher<T>
-  fullName: MongoDB.Entities.Watcher<T>
-  nameWithType.vb: Watcher(Of T)
-  fullName.vb: MongoDB.Entities.Watcher(Of T)
-  name.vb: Watcher(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.Watcher`1
-    name: Watcher
-    nameWithType: Watcher
-    fullName: MongoDB.Entities.Watcher
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.Watcher`1
-    name: Watcher
-    nameWithType: Watcher
-    fullName: MongoDB.Entities.Watcher
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.EventType
-  commentId: T:MongoDB.Entities.EventType
-  parent: MongoDB.Entities
-  name: EventType
-  nameWithType: EventType
-  fullName: MongoDB.Entities.EventType
 - uid: MongoDB.Entities.IgnoreAttribute
   commentId: T:MongoDB.Entities.IgnoreAttribute
   name: IgnoreAttribute
@@ -743,6 +701,48 @@ references:
   name: Transaction
   nameWithType: Transaction
   fullName: MongoDB.Entities.Transaction
+- uid: MongoDB.Entities.Watcher`1
+  commentId: T:MongoDB.Entities.Watcher`1
+  name: Watcher<T>
+  nameWithType: Watcher<T>
+  fullName: MongoDB.Entities.Watcher<T>
+  nameWithType.vb: Watcher(Of T)
+  fullName.vb: MongoDB.Entities.Watcher(Of T)
+  name.vb: Watcher(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Watcher`1
+    name: Watcher
+    nameWithType: Watcher
+    fullName: MongoDB.Entities.Watcher
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Watcher`1
+    name: Watcher
+    nameWithType: Watcher
+    fullName: MongoDB.Entities.Watcher
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.EventType
+  commentId: T:MongoDB.Entities.EventType
+  parent: MongoDB.Entities
+  name: EventType
+  nameWithType: EventType
+  fullName: MongoDB.Entities.EventType
 - uid: MongoDB.Entities.DBContext
   commentId: T:MongoDB.Entities.DBContext
   parent: MongoDB.Entities

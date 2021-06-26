@@ -17,8 +17,8 @@ items:
   type: Enum
   source:
     id: EventType
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
-    startLine: 270
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 278
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -54,8 +54,8 @@ items:
   type: Field
   source:
     id: Created
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
-    startLine: 273
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 281
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -82,8 +82,8 @@ items:
   type: Field
   source:
     id: Updated
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
-    startLine: 274
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 282
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -110,8 +110,8 @@ items:
   type: Field
   source:
     id: Deleted
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Watcher.cs
-    startLine: 275
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 283
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

@@ -111,7 +111,17 @@ foreach (var w in watchers)
 > there's a watcher registry per entity type and the watcher names need only be unique to each registry.
 
 ## Notes on resource usage
-each unique watcher instance you create in the registry will consume a thread from the .net thread-pool for iterating the internal change-stream cursor in the background. try to keep the number of watchers in the registry to a minimum due to this reason.
+each watcher/change-stream you create opens a long-running cursor on the database server, which also means a persistent network connection between your application and the database. if you create more than a handful of watchers in your application, you should look in to increasing the size of the mongodb driver thread-pool size as shown below:
 
-> [!note]
-> the threads are not blocked (and released back to the pool) while there are no change events being received as the change-stream cursor is iterated using async/await pattern. but if there's a constant stream of change events being received, these threads will be busy and unavailable to the system.
+```csharp
+await DB.InitAsync("DatabaseName", new MongoClientSettings()
+{
+    ...
+    MaxConnectionPoolSize = 100 + NumberOfWatchers,
+    ...
+});
+```
+
+in addition to persistent network connections/cursors, each watcher will use a small amount of memory for an async/await state machine that does the actual work of iterating the change-stream cursor and emitting events without blocking threads during IO.
+
+the bottom line is, change-streams can be a double-edged sword if not used sparingly. the beefier the machine that runs your app, the more change-streams you can create without affecting the performance of the rest of your application.
