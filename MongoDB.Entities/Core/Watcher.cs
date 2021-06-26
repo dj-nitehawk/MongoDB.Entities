@@ -214,8 +214,11 @@ namespace MongoDB.Entities
 
         private void StartWatching()
         {
-            //note: don't use Task.Factory.StartNew with long running option
+            //note  : don't use Task.Factory.StartNew with long running option
             //reason: http://blog.i3arnon.com/2015/07/02/task-run-long-running/
+            //        StartNew creates an unnecessary dedicated thread which gets released upon reaching first await.
+            //        continuations will be run on differnt threadpool threads upon re-entry.
+            //        i.e. long running thread creation is useless/wasteful for async delegates.
 
             _ = IterateCursorAsync();
 
@@ -223,9 +226,9 @@ namespace MongoDB.Entities
             {
                 try
                 {
-                    using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options).ConfigureAwait(false))
+                    using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options).ConfigureAwait(false))//note: don't pass cancellation token to WatchAsync
                     {
-                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))
+                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))//note: don't pass cancellation token to MoveNextAsync
                         {
                             if (cursor.Current.Any())
                             {
