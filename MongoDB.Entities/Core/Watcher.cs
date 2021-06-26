@@ -214,7 +214,12 @@ namespace MongoDB.Entities
 
         private void StartWatching()
         {
-            Task.Factory.StartNew(async () =>
+            //note: don't use Task.Factory.StartNew with long running option
+            //reason: http://blog.i3arnon.com/2015/07/02/task-run-long-running/
+
+            _ = IterateCursorAsync();
+
+            async Task IterateCursorAsync()
             {
                 try
                 {
@@ -264,7 +269,7 @@ namespace MongoDB.Entities
                 {
                     OnError?.Invoke(x);
                 }
-            }, TaskCreationOptions.LongRunning);
+            }
         }
     }
 
