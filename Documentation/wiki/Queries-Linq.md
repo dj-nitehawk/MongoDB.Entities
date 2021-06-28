@@ -51,6 +51,17 @@ var books = from j in book.Authors.JoinQueryable()
             select b;
 ```
 
+in cases where you don't have access to an instance of the parent entity and only have the `ID` of the parent, you can access the join records like so:
+```csharp
+DB.Entity<Book>("Book ID").Authors.JoinQueryable()
+```
+
+and when you need to access all the join records for a relationship, you can access the join collection like so:
+
+```csharp
+DB.Entity<Book>().Authors.JoinCollection
+```
+
 ## Counting children
 you can get how many entities are there in the opposite side of any relationship as shown below:
 ```csharp
