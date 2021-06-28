@@ -141,7 +141,7 @@ namespace MongoDB.Entities
             resume = autoResume;
             cancelToken = cancellation;
 
-            var ops = new List<ChangeStreamOperationType>() { ChangeStreamOperationType.Invalidate };
+            var ops = new List<ChangeStreamOperationType>(3) { ChangeStreamOperationType.Invalidate };
 
             if ((eventTypes & EventType.Created) != 0)
                 ops.Add(ChangeStreamOperationType.Insert);

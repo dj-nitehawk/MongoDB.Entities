@@ -55,7 +55,7 @@ namespace MongoDB.Entities
         {
             parent.ThrowIfUnsaved();
 
-            var models = new List<WriteModel<JoinRecord>>();
+            var models = new List<WriteModel<JoinRecord>>(childIDs.Count());
             foreach (var cid in childIDs)
             {
                 cid.ThrowIfUnsaved();

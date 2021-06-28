@@ -315,8 +315,8 @@ namespace MongoDB.Entities
 
             options.ArrayFilters =
                 options.ArrayFilters == null
-                ? new List<ArrayFilterDefinition>() { def }
-                : options.ArrayFilters.Concat(new List<ArrayFilterDefinition> { def });
+                ? new[] { def }
+                : options.ArrayFilters.Concat(new[] { def });
 
             return this;
         }
