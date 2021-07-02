@@ -16,9 +16,14 @@ namespace MongoDB.Entities
     public class Watcher<T> where T : IEntity
     {
         /// <summary>
-        /// This event is fired when the desired types of events have occured. Will have a list of entities that was received as input.
+        /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
         /// </summary>
         public event Action<IEnumerable<T>> OnChanges;
+
+        /// <summary>
+        /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
+        /// </summary>
+        public event Action<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSD;
 
         /// <summary>
         /// This event is fired when an exception is thrown in the change-stream.
@@ -236,6 +241,7 @@ namespace MongoDB.Entities
                                 {
                                     if (resume) options.StartAfter = cursor.Current.Last().ResumeToken;
                                     OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
+                                    OnChangesCSD?.Invoke(cursor.Current);
                                 }
                                 else if (resume)
                                 {
@@ -252,6 +258,14 @@ namespace MongoDB.Entities
                             {
                                 foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
                                     OnChanges -= a;
+                            }
+
+                            if (OnChangesCSD != null)
+                            {
+                                foreach (Action<IEnumerable<ChangeStreamDocument<T>>> a in OnChangesCSD.GetInvocationList())
+                                {
+                                    OnChangesCSD -= a;
+                                }
                             }
 
                             if (OnError != null)
