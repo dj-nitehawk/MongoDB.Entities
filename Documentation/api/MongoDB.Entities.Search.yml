@@ -22,8 +22,8 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: public enum Search
-    content.vb: Public Enum Search
+    content: 'public enum Search : int'
+    content.vb: Public Enum Search As Integer
   modifiers.csharp:
   - public
   - enum

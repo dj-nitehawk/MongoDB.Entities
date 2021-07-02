@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class UpdateBase&lt;T&gt;
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.58.0.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -107,36 +107,11 @@
       <div class="level2"><a class="xref" href="MongoDB.Entities.Update-1.html">Update&lt;T&gt;</a></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet&lt;T, TProjection&gt;</a></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_UpdateBase_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class UpdateBase&lt;T&gt;
-    where T : IEntity</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class UpdateBase&lt;T&gt; : object where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -174,13 +149,42 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">MongoDB.Driver.UpdateDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">List</span>&lt;<span class="xref">UpdateDefinition</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h3 id="methods">Methods
   </h3>
+  
+  
+  <a id="MongoDB_Entities_UpdateBase_1_AddModification_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification*"></a>
+  <h4 id="MongoDB_Entities_UpdateBase_1_AddModification_Func_UpdateDefinitionBuilder__0__UpdateDefinition__0___" data-uid="MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})">AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the update definition builder operation to modify the Entities (use multiple times if needed)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;<span class="xref">UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">UpdateDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">operation</span></td>
+        <td><p>b =&gt; b.Inc(x =&gt; x.PropName, Value)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="MongoDB_Entities_UpdateBase_1_AddModification_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification*"></a>
@@ -206,35 +210,6 @@
         <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
         <td><span class="parametername">template</span></td>
         <td><p>A Template with a single update</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_UpdateBase_1_AddModification_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification*"></a>
-  <h4 id="MongoDB_Entities_UpdateBase_1_AddModification_System_Func_MongoDB_Driver_UpdateDefinitionBuilder__0__MongoDB_Driver_UpdateDefinition__0___" data-uid="MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})">AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the update definition builder operation to modify the Entities (use multiple times if needed)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.UpdateDefinition</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">operation</span></td>
-        <td><p>b =&gt; b.Inc(x =&gt; x.PropName, Value)</p>
 </td>
       </tr>
     </tbody>
@@ -271,7 +246,7 @@
   
   
   <a id="MongoDB_Entities_UpdateBase_1_AddModification_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification*"></a>
-  <h4 id="MongoDB_Entities_UpdateBase_1_AddModification__1_System_Linq_Expressions_Expression_System_Func__0___0_____0_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)">AddModification&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</h4>
+  <h4 id="MongoDB_Entities_UpdateBase_1_AddModification__1_Expression_Func__0___0_____0_" data-uid="MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)">AddModification&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</h4>
   <div class="markdown level1 summary"><p>Specify the property and it's value to modify (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -290,7 +265,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProp&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, TProp&gt;&gt;</td>
         <td><span class="parametername">property</span></td>
         <td><p>x =&gt; x.Property</p>
 </td>

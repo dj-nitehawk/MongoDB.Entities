@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class UpdateAndGet(Of T As IEntity)
+
           Inherits UpdateAndGet(Of T, T)
   inheritance:
   - System.Object
@@ -35,45 +36,38 @@ items:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}
   inheritedMembers:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchID(System.String)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Expression{Func{{T},System.Boolean}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Func{FilterDefinitionBuilder{{T}},FilterDefinition{{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Expression{Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchString(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchExpression(MongoDB.Entities.Template)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify``1(Expression{Func{{T},{TProp}}},{TProp})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(Func{UpdateDefinitionBuilder{{T}},UpdateDefinition{{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyWith({T})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyOnly(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},{T})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyExcept(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},{T})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyOnly(Expression{Func{{T},System.Object}},{T})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyExcept(Expression{Func{{T},System.Object}},{T})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithPipeline(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithPipelineStage(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithPipelineStage(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithArrayFilter(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithArrayFilter(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.WithArrayFilters(MongoDB.Entities.Template)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{T}}})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Linq.Expressions.Expression{System.Func{{T},{T}}})
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(Action{FindOneAndUpdateOptions{{T},{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(Expression{Func{{T},{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(Func{ProjectionDefinitionBuilder{{T}},ProjectionDefinition{{T},{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.IgnoreGlobalFilters
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
-  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(CancellationToken)
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(CancellationToken)
   - MongoDB.Entities.UpdateBase{{T}}.defs
-  - MongoDB.Entities.UpdateBase{{T}}.AddModification``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
-  - MongoDB.Entities.UpdateBase{{T}}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification``1(Expression{Func{{T},{TProp}}},{TProp})
+  - MongoDB.Entities.UpdateBase{{T}}.AddModification(Func{UpdateDefinitionBuilder{{T}},UpdateDefinition{{T}}})
   - MongoDB.Entities.UpdateBase{{T}}.AddModification(System.String)
   - MongoDB.Entities.UpdateBase{{T}}.AddModification(MongoDB.Entities.Template)
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   nameWithType.vb: UpdateAndGet(Of T)
   modifiers.csharp:
   - public
@@ -89,13 +83,6 @@ references:
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
 - uid: MongoDB.Entities.UpdateBase{{T}}
   commentId: T:MongoDB.Entities.UpdateBase{`0}
   parent: MongoDB.Entities
@@ -225,36 +212,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Expression{Func{{T},System.Boolean}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(Expression{Func{`0,System.Boolean}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
   name: Match(Expression<Func<T, Boolean>>)
   nameWithType: UpdateAndGet<T, T>.Match(Expression<Func<T, Boolean>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(Expression<Func<T, System.Boolean>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Match(Expression(Of Func(Of T, Boolean)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(Expression(Of Func(Of T, System.Boolean)))
   name.vb: Match(Expression(Of Func(Of T, Boolean)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
     name: Match
     nameWithType: UpdateAndGet<T, T>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -280,25 +267,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
     name: Match
     nameWithType: UpdateAndGet(Of T, T).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -323,36 +310,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Func{FilterDefinitionBuilder{{T}},FilterDefinition{{T}}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
   name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   nameWithType: UpdateAndGet<T, T>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
     name: Match
     nameWithType: UpdateAndGet<T, T>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -366,10 +353,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -387,25 +374,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
     name: Match
     nameWithType: UpdateAndGet(Of T, T).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -419,10 +406,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -581,36 +568,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(Expression{Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
   nameWithType: UpdateAndGet<T, T>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(Expression<Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
   nameWithType.vb: UpdateAndGet(Of T, T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(Expression(Of Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
   name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
     name: Match
     nameWithType: UpdateAndGet<T, T>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -681,25 +668,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
     name: Match
     nameWithType: UpdateAndGet(Of T, T).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -890,36 +877,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify``1(Expression{Func{{T},{TProp}}},{TProp})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Modify``1(Expression{Func{`0,``0}},``0)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  definition: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
   name: Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType: UpdateAndGet<T, T>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: UpdateAndGet(Of T, T).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   name.vb: Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
     name: Modify<TProp>
     nameWithType: UpdateAndGet<T, T>.Modify<TProp>
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify<TProp>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -949,25 +936,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
     name: Modify(Of TProp)
     nameWithType: UpdateAndGet(Of T, T).Modify(Of TProp)
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Modify(Of TProp)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -996,36 +983,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Modify(Func{UpdateDefinitionBuilder{{T}},UpdateDefinition{{T}}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   name: Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType: UpdateAndGet<T, T>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Modify(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   name.vb: Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: Modify
     nameWithType: UpdateAndGet<T, T>.Modify
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Modify
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -1039,10 +1026,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -1060,25 +1047,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: Modify
     nameWithType: UpdateAndGet(Of T, T).Modify
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Modify
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1092,10 +1079,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1229,36 +1216,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyOnly(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},{T})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyOnly(Expression{Func{{T},System.Object}},{T})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ModifyOnly(Expression{Func{`0,System.Object}},`0)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  definition: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
   name: ModifyOnly(Expression<Func<T, Object>>, T)
   nameWithType: UpdateAndGet<T, T>.ModifyOnly(Expression<Func<T, Object>>, T)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyOnly(Expression<Func<T, System.Object>>, T)
   nameWithType.vb: UpdateAndGet(Of T, T).ModifyOnly(Expression(Of Func(Of T, Object)), T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyOnly(Expression(Of Func(Of T, System.Object)), T)
   name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
     name: ModifyOnly
     nameWithType: UpdateAndGet<T, T>.ModifyOnly
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyOnly
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -1290,25 +1277,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
     name: ModifyOnly
     nameWithType: UpdateAndGet(Of T, T).ModifyOnly
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyOnly
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1339,36 +1326,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyExcept(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},{T})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ModifyExcept(Expression{Func{{T},System.Object}},{T})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ModifyExcept(Expression{Func{`0,System.Object}},`0)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  definition: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
   name: ModifyExcept(Expression<Func<T, Object>>, T)
   nameWithType: UpdateAndGet<T, T>.ModifyExcept(Expression<Func<T, Object>>, T)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyExcept(Expression<Func<T, System.Object>>, T)
   nameWithType.vb: UpdateAndGet(Of T, T).ModifyExcept(Expression(Of Func(Of T, Object)), T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyExcept(Expression(Of Func(Of T, System.Object)), T)
   name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
     name: ModifyExcept
     nameWithType: UpdateAndGet<T, T>.ModifyExcept
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.ModifyExcept
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -1400,25 +1387,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
     name: ModifyExcept
     nameWithType: UpdateAndGet(Of T, T).ModifyExcept
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).ModifyExcept
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1687,36 +1674,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{T}}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`0}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(Action{FindOneAndUpdateOptions{{T},{T}}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Option(Action{FindOneAndUpdateOptions{`0,`0}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
   name: Option(Action<FindOneAndUpdateOptions<T, T>>)
   nameWithType: UpdateAndGet<T, T>.Option(Action<FindOneAndUpdateOptions<T, T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Option(System.Action<MongoDB.Driver.FindOneAndUpdateOptions<T, T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Option(Action<FindOneAndUpdateOptions<T, T>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Option(Action(Of FindOneAndUpdateOptions(Of T, T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Option(System.Action(Of MongoDB.Driver.FindOneAndUpdateOptions(Of T, T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Option(Action(Of FindOneAndUpdateOptions(Of T, T)))
   name.vb: Option(Action(Of FindOneAndUpdateOptions(Of T, T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
     name: Option
     nameWithType: UpdateAndGet<T, T>.Option
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Option
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+  - uid: FindOneAndUpdateOptions`2
     name: FindOneAndUpdateOptions
     nameWithType: FindOneAndUpdateOptions
-    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    fullName: FindOneAndUpdateOptions
     isExternal: true
   - name: <
     nameWithType: <
@@ -1740,25 +1727,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
     name: Option
     nameWithType: UpdateAndGet(Of T, T).Option
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Option
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+  - uid: FindOneAndUpdateOptions`2
     name: FindOneAndUpdateOptions
     nameWithType: FindOneAndUpdateOptions
-    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    fullName: FindOneAndUpdateOptions
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1781,36 +1768,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Linq.Expressions.Expression{System.Func{{T},{T}}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Project(System.Linq.Expressions.Expression{System.Func{`0,`0}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(Expression{Func{{T},{T}}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Project(Expression{Func{`0,`0}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
   name: Project(Expression<Func<T, T>>)
   nameWithType: UpdateAndGet<T, T>.Project(Expression<Func<T, T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project(System.Linq.Expressions.Expression<System.Func<T, T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project(Expression<Func<T, T>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Project(Expression(Of Func(Of T, T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Project(System.Linq.Expressions.Expression(Of System.Func(Of T, T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Project(Expression(Of Func(Of T, T)))
   name.vb: Project(Expression(Of Func(Of T, T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet<T, T>.Project
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -1834,25 +1821,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet(Of T, T).Project
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1875,36 +1862,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}})
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(Func{ProjectionDefinitionBuilder{{T}},ProjectionDefinition{{T},{T}}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}})
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  definition: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
   name: Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>)
   nameWithType: UpdateAndGet<T, T>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>)
   nameWithType.vb: UpdateAndGet(Of T, T).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet<T, T>.Project
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -1918,10 +1905,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -1945,25 +1932,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet(Of T, T).Project
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1977,10 +1964,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2034,84 +2021,84 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ExecuteAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ExecuteAsync(CancellationToken)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  definition: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
   name: ExecuteAsync(CancellationToken)
   nameWithType: UpdateAndGet<T, T>.ExecuteAsync(CancellationToken)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecuteAsync(CancellationToken)
   nameWithType.vb: UpdateAndGet(Of T, T).ExecuteAsync(CancellationToken)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ExecuteAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ExecuteAsync(CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
     name: ExecuteAsync
     nameWithType: UpdateAndGet<T, T>.ExecuteAsync
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecuteAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
     name: ExecuteAsync
     nameWithType: UpdateAndGet(Of T, T).ExecuteAsync
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).ExecuteAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ExecutePipelineAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.ExecutePipelineAsync(CancellationToken)
   parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
-  definition: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  definition: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
   name: ExecutePipelineAsync(CancellationToken)
   nameWithType: UpdateAndGet<T, T>.ExecutePipelineAsync(CancellationToken)
-  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecutePipelineAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecutePipelineAsync(CancellationToken)
   nameWithType.vb: UpdateAndGet(Of T, T).ExecutePipelineAsync(CancellationToken)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ExecutePipelineAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).ExecutePipelineAsync(CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
     name: ExecutePipelineAsync
     nameWithType: UpdateAndGet<T, T>.ExecutePipelineAsync
     fullName: MongoDB.Entities.UpdateAndGet<T, T>.ExecutePipelineAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
     name: ExecutePipelineAsync
     nameWithType: UpdateAndGet(Of T, T).ExecutePipelineAsync
     fullName: MongoDB.Entities.UpdateAndGet(Of T, T).ExecutePipelineAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
@@ -2125,36 +2112,36 @@ references:
   fullName: MongoDB.Entities.UpdateBase<T>.defs
   nameWithType.vb: UpdateBase(Of T).defs
   fullName.vb: MongoDB.Entities.UpdateBase(Of T).defs
-- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification``1(System.Linq.Expressions.Expression{System.Func{{T},{TProp}}},{TProp})
-  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification``1(Expression{Func{{T},{TProp}}},{TProp})
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification``1(Expression{Func{`0,``0}},``0)
   parent: MongoDB.Entities.UpdateBase{{T}}
-  definition: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  definition: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
   name: AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType: UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
-  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
-  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   name.vb: AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
     name: AddModification<TProp>
     nameWithType: UpdateBase<T>.AddModification<TProp>
     fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -2184,25 +2171,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
     name: AddModification(Of TProp)
     nameWithType: UpdateBase(Of T).AddModification(Of TProp)
     fullName: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2231,36 +2218,36 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}})
-  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+- uid: MongoDB.Entities.UpdateBase{{T}}.AddModification(Func{UpdateDefinitionBuilder{{T}},UpdateDefinition{{T}}})
+  commentId: M:MongoDB.Entities.UpdateBase{`0}.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   parent: MongoDB.Entities.UpdateBase{{T}}
-  definition: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  definition: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   name: AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType: UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType.vb: UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   name.vb: AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: AddModification
     nameWithType: UpdateBase<T>.AddModification
     fullName: MongoDB.Entities.UpdateBase<T>.AddModification
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -2274,10 +2261,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -2295,25 +2282,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: AddModification
     nameWithType: UpdateBase(Of T).AddModification
     fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2327,10 +2314,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2427,291 +2414,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: MongoDB.Entities.UpdateBase`1
   commentId: T:MongoDB.Entities.UpdateBase`1
   name: UpdateBase<T>
@@ -2837,35 +2539,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
   isExternal: true
   name: Match(Expression<Func<T, Boolean>>)
   nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Boolean>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(Expression<Func<T, System.Boolean>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, System.Boolean)))
   name.vb: Match(Expression(Of Func(Of T, Boolean)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
     name: Match
     nameWithType: UpdateAndGet<T, TProjection>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -2891,25 +2593,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})
     name: Match
     nameWithType: UpdateAndGet(Of T, TProjection).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2934,35 +2636,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
   isExternal: true
   name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   nameWithType: UpdateAndGet<T, TProjection>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
     name: Match
     nameWithType: UpdateAndGet<T, TProjection>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -2976,10 +2678,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -2997,25 +2699,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
     name: Match
     nameWithType: UpdateAndGet(Of T, TProjection).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3029,10 +2731,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3188,35 +2890,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   isExternal: true
   name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
   nameWithType: UpdateAndGet<T, TProjection>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(Expression<Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
   name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
     name: Match
     nameWithType: UpdateAndGet<T, TProjection>.Match
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -3287,25 +2989,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
     name: Match
     nameWithType: UpdateAndGet(Of T, TProjection).Match
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3492,35 +3194,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
   isExternal: true
   name: Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType: UpdateAndGet<T, TProjection>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   name.vb: Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
     name: Modify<TProp>
     nameWithType: UpdateAndGet<T, TProjection>.Modify<TProp>
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify<TProp>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -3550,25 +3252,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)
     name: Modify(Of TProp)
     nameWithType: UpdateAndGet(Of T, TProjection).Modify(Of TProp)
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Of TProp)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3597,35 +3299,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   isExternal: true
   name: Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType: UpdateAndGet<T, TProjection>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   name.vb: Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: Modify
     nameWithType: UpdateAndGet<T, TProjection>.Modify
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Modify
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -3639,10 +3341,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -3660,25 +3362,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: Modify
     nameWithType: UpdateAndGet(Of T, TProjection).Modify
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Modify
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3692,10 +3394,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3824,35 +3526,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
   isExternal: true
   name: ModifyOnly(Expression<Func<T, Object>>, T)
   nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly(Expression<Func<T, Object>>, T)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly(Expression<Func<T, System.Object>>, T)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly(Expression(Of Func(Of T, Object)), T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly(Expression(Of Func(Of T, System.Object)), T)
   name.vb: ModifyOnly(Expression(Of Func(Of T, Object)), T)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
     name: ModifyOnly
     nameWithType: UpdateAndGet<T, TProjection>.ModifyOnly
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyOnly
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -3884,25 +3586,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)
     name: ModifyOnly
     nameWithType: UpdateAndGet(Of T, TProjection).ModifyOnly
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyOnly
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -3933,35 +3635,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+- uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
   isExternal: true
   name: ModifyExcept(Expression<Func<T, Object>>, T)
   nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept(Expression<Func<T, Object>>, T)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, T)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept(Expression<Func<T, System.Object>>, T)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept(Expression(Of Func(Of T, Object)), T)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), T)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept(Expression(Of Func(Of T, System.Object)), T)
   name.vb: ModifyExcept(Expression(Of Func(Of T, Object)), T)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
     name: ModifyExcept
     nameWithType: UpdateAndGet<T, TProjection>.ModifyExcept
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ModifyExcept
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -3993,25 +3695,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)
     name: ModifyExcept
     nameWithType: UpdateAndGet(Of T, TProjection).ModifyExcept
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ModifyExcept
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4270,35 +3972,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
   isExternal: true
   name: Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
   nameWithType: UpdateAndGet<T, TProjection>.Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Option(System.Action<MongoDB.Driver.FindOneAndUpdateOptions<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Option(Action<FindOneAndUpdateOptions<T, TProjection>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Option(System.Action(Of MongoDB.Driver.FindOneAndUpdateOptions(Of T, TProjection)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
   name.vb: Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
     name: Option
     nameWithType: UpdateAndGet<T, TProjection>.Option
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Option
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+  - uid: FindOneAndUpdateOptions`2
     name: FindOneAndUpdateOptions
     nameWithType: FindOneAndUpdateOptions
-    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    fullName: FindOneAndUpdateOptions
     isExternal: true
   - name: <
     nameWithType: <
@@ -4322,25 +4024,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})
     name: Option
     nameWithType: UpdateAndGet(Of T, TProjection).Option
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Option
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.FindOneAndUpdateOptions`2
+  - uid: FindOneAndUpdateOptions`2
     name: FindOneAndUpdateOptions
     nameWithType: FindOneAndUpdateOptions
-    fullName: MongoDB.Driver.FindOneAndUpdateOptions
+    fullName: FindOneAndUpdateOptions
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4363,35 +4065,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
   isExternal: true
   name: Project(Expression<Func<T, TProjection>>)
   nameWithType: UpdateAndGet<T, TProjection>.Project(Expression<Func<T, TProjection>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(System.Linq.Expressions.Expression<System.Func<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(Expression<Func<T, TProjection>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Linq.Expressions.Expression(Of System.Func(Of T, TProjection)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
   name.vb: Project(Expression(Of Func(Of T, TProjection)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet<T, TProjection>.Project
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -4415,25 +4117,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet(Of T, TProjection).Project
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4456,35 +4158,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+- uid: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
   isExternal: true
   name: Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
   nameWithType: UpdateAndGet<T, TProjection>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, TProjection>>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>>)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet<T, TProjection>.Project
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -4498,10 +4200,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -4525,25 +4227,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})
+  - uid: MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})
     name: Project
     nameWithType: UpdateAndGet(Of T, TProjection).Project
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4557,10 +4259,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4612,82 +4314,82 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
   isExternal: true
   name: ExecuteAsync(CancellationToken)
   nameWithType: UpdateAndGet<T, TProjection>.ExecuteAsync(CancellationToken)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecuteAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecuteAsync(CancellationToken)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecuteAsync(CancellationToken)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecuteAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecuteAsync(CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
     name: ExecuteAsync
     nameWithType: UpdateAndGet<T, TProjection>.ExecuteAsync
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecuteAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)
     name: ExecuteAsync
     nameWithType: UpdateAndGet(Of T, TProjection).ExecuteAsync
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecuteAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
   isExternal: true
   name: ExecutePipelineAsync(CancellationToken)
   nameWithType: UpdateAndGet<T, TProjection>.ExecutePipelineAsync(CancellationToken)
-  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecutePipelineAsync(System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecutePipelineAsync(CancellationToken)
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ExecutePipelineAsync(CancellationToken)
-  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync(System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync(CancellationToken)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
     name: ExecutePipelineAsync
     nameWithType: UpdateAndGet<T, TProjection>.ExecutePipelineAsync
     fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.ExecutePipelineAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
+  - uid: MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)
     name: ExecutePipelineAsync
     nameWithType: UpdateAndGet(Of T, TProjection).ExecutePipelineAsync
     fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).ExecutePipelineAsync
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Threading.CancellationToken
+  - uid: CancellationToken
     name: CancellationToken
     nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+    fullName: CancellationToken
     isExternal: true
   - name: )
     nameWithType: )
@@ -4699,35 +4401,35 @@ references:
   fullName: MongoDB.Entities.UpdateBase<T>.defs
   nameWithType.vb: UpdateBase(Of T).defs
   fullName.vb: MongoDB.Entities.UpdateBase(Of T).defs
-- uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
-  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+- uid: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
   isExternal: true
   name: AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType: UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
-  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(System.Linq.Expressions.Expression<System.Func<T, TProp>>, TProp)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>(Expression<Func<T, TProp>>, TProp)
   nameWithType.vb: UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
-  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(System.Linq.Expressions.Expression(Of System.Func(Of T, TProp)), TProp)
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   name.vb: AddModification(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
     name: AddModification<TProp>
     nameWithType: UpdateBase<T>.AddModification<TProp>
     fullName: MongoDB.Entities.UpdateBase<T>.AddModification<TProp>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -4757,25 +4459,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification``1(Expression{Func{`0,``0}},``0)
     name: AddModification(Of TProp)
     nameWithType: UpdateBase(Of T).AddModification(Of TProp)
     fullName: MongoDB.Entities.UpdateBase(Of T).AddModification(Of TProp)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4804,35 +4506,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
-  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+- uid: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
+  commentId: M:MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
   isExternal: true
   name: AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType: UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
-  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(System.Func<MongoDB.Driver.UpdateDefinitionBuilder<T>, MongoDB.Driver.UpdateDefinition<T>>)
+  fullName: MongoDB.Entities.UpdateBase<T>.AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>>)
   nameWithType.vb: UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
-  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(System.Func(Of MongoDB.Driver.UpdateDefinitionBuilder(Of T), MongoDB.Driver.UpdateDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.UpdateBase(Of T).AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   name.vb: AddModification(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
   spec.csharp:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: AddModification
     nameWithType: UpdateBase<T>.AddModification
     fullName: MongoDB.Entities.UpdateBase<T>.AddModification
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -4846,10 +4548,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -4867,25 +4569,25 @@ references:
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.UpdateBase`1.AddModification(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})
+  - uid: MongoDB.Entities.UpdateBase`1.AddModification(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})
     name: AddModification
     nameWithType: UpdateBase(Of T).AddModification
     fullName: MongoDB.Entities.UpdateBase(Of T).AddModification
   - name: (
     nameWithType: (
     fullName: (
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.UpdateDefinitionBuilder`1
+  - uid: UpdateDefinitionBuilder`1
     name: UpdateDefinitionBuilder
     nameWithType: UpdateDefinitionBuilder
-    fullName: MongoDB.Driver.UpdateDefinitionBuilder
+    fullName: UpdateDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -4899,10 +4601,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.UpdateDefinition`1
+  - uid: UpdateDefinition`1
     name: UpdateDefinition
     nameWithType: UpdateDefinition
-    fullName: MongoDB.Driver.UpdateDefinition
+    fullName: UpdateDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '

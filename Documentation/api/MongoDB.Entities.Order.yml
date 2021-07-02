@@ -22,8 +22,8 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: public enum Order
-    content.vb: Public Enum Order
+    content: 'public enum Order : int'
+    content.vb: Public Enum Order As Integer
   modifiers.csharp:
   - public
   - enum

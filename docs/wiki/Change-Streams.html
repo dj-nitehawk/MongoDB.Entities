@@ -17,7 +17,7 @@
     <title>Change-streams | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Change-streams | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.58.0.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -122,8 +122,8 @@
 </div>
 <p><strong>batchSize:</strong> specify the maximum number of entities you'd like to receive per change notificatin/ a single event firing. the default is 25.</p>
 <p><strong>onlyGetIDs:</strong> set to true if you don't want the complete entity details. in which case all properties except the ID will be null on the received entities.</p>
-<p><strong>autoResume:</strong> change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an <a href="https://docs.mongodb.com/manual/reference/change-events/#invalidate-event">invalidate event</a>. you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occured while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.</p>
-<p><strong>cancellation:</strong> if you'd like to cancel/abort a watcher and close the change-stream permanantly at a future time, pass a cancellation token to this parameter.</p>
+<p><strong>autoResume:</strong> change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an <a href="https://docs.mongodb.com/manual/reference/change-events/#invalidate-event">invalidate event</a>. you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.</p>
+<p><strong>cancellation:</strong> if you'd like to cancel/abort a watcher and close the change-stream permanently at a future time, pass a cancellation token to this parameter.</p>
 <h3 id="3-subscribe-to-the-events">3. Subscribe to the events</h3>
 <h4 id="onchanges">OnChanges</h4>
 <pre><code class="lang-csharp">watcher.OnChanges += authors =&gt;
@@ -135,6 +135,17 @@
 };
 </code></pre>
 <p>this event is fired when desired change events have been received from mongodb. for the above example, when author entities have been either created, updated or deleted, this event/action will receive those entities in batches. you can access the received entities via the input action parameter called <code>authors</code>.</p>
+<p>if you'd like to receive the complete <code>ChangeStreamDocuments</code> instead of entities, you can subscribe to the <code>OnChangesCSD</code> method like so:</p>
+<pre><code class="lang-csharp">watcher.OnChangesCSD += changes =&gt;
+{
+    foreach (var csd in changes)
+    {
+        Console.WriteLine(
+            &quot;Removed Fields: &quot; +
+            string.Join(&quot;, &quot;, csd.UpdateDescription.RemovedFields));
+    }
+};
+</code></pre>
 <h4 id="onerror">OnError</h4>
 <pre><code class="lang-csharp">watcher.OnError += exception =&gt;
 {

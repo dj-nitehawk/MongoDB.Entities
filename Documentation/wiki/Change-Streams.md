@@ -33,9 +33,9 @@ x => x.FullDocument.Age >= 25
 
 **onlyGetIDs:** set to true if you don't want the complete entity details. in which case all properties except the ID will be null on the received entities.
 
-**autoResume:** change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an [invalidate event](https://docs.mongodb.com/manual/reference/change-events/#invalidate-event). you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occured while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.
+**autoResume:** change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an [invalidate event](https://docs.mongodb.com/manual/reference/change-events/#invalidate-event). you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.
 
-**cancellation:** if you'd like to cancel/abort a watcher and close the change-stream permanantly at a future time, pass a cancellation token to this parameter.
+**cancellation:** if you'd like to cancel/abort a watcher and close the change-stream permanently at a future time, pass a cancellation token to this parameter.
 
 ### 3. Subscribe to the events
 #### OnChanges
@@ -49,6 +49,19 @@ watcher.OnChanges += authors =>
 };
 ```
 this event is fired when desired change events have been received from mongodb. for the above example, when author entities have been either created, updated or deleted, this event/action will receive those entities in batches. you can access the received entities via the input action parameter called `authors`.
+
+if you'd like to receive the complete `ChangeStreamDocuments` instead of entities, you can subscribe to the `OnChangesCSD` method like so:
+```csharp
+watcher.OnChangesCSD += changes =>
+{
+    foreach (var csd in changes)
+    {
+        Console.WriteLine(
+            "Removed Fields: " +
+            string.Join(", ", csd.UpdateDescription.RemovedFields));
+    }
+};
+```
 
 #### OnError
 ```csharp

@@ -18,23 +18,13 @@ items:
   source:
     id: EventType
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 278
+    startLine: 292
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [Flags]
-
-      public enum EventType
-    content.vb: >-
-      <Flags>
-
-      Public Enum EventType
-  attributes:
-  - type: System.FlagsAttribute
-    ctor: System.FlagsAttribute.#ctor
-    arguments: []
+    content: 'public enum EventType : int'
+    content.vb: Public Enum EventType As Integer
   modifiers.csharp:
   - public
   - enum
@@ -55,14 +45,15 @@ items:
   source:
     id: Created
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 281
+    startLine: 295
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: Created = 2
+    content: Created = null
     return:
       type: MongoDB.Entities.EventType
+    content.vb: Created = Nothing
   modifiers.csharp:
   - public
   - const
@@ -83,14 +74,15 @@ items:
   source:
     id: Updated
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 282
+    startLine: 296
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: Updated = 4
+    content: Updated = null
     return:
       type: MongoDB.Entities.EventType
+    content.vb: Updated = Nothing
   modifiers.csharp:
   - public
   - const
@@ -111,14 +103,15 @@ items:
   source:
     id: Deleted
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 283
+    startLine: 297
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: Deleted = 8
+    content: Deleted = null
     return:
       type: MongoDB.Entities.EventType
+    content.vb: Deleted = Nothing
   modifiers.csharp:
   - public
   - const

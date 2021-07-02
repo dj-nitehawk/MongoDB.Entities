@@ -55,8 +55,8 @@ items:
     content: DateTime CreatedOn { get; set; }
     parameters: []
     return:
-      type: System.DateTime
-    content.vb: Property CreatedOn As Date
+      type: DateTime
+    content.vb: Property CreatedOn As DateTime
   overload: MongoDB.Entities.ICreatedOn.CreatedOn*
   modifiers.csharp:
   - get
@@ -72,16 +72,8 @@ references:
   name: CreatedOn
   nameWithType: ICreatedOn.CreatedOn
   fullName: MongoDB.Entities.ICreatedOn.CreatedOn
-- uid: System.DateTime
-  commentId: T:System.DateTime
-  parent: System
+- uid: DateTime
   isExternal: true
   name: DateTime
   nameWithType: DateTime
-  fullName: System.DateTime
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
+  fullName: DateTime

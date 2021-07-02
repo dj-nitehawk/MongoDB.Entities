@@ -32,23 +32,16 @@ items:
   summary: "\nFluent aggregation pipeline builder for GeoNear\n"
   example: []
   syntax:
-    content: >-
-      public class GeoNear<T>
-          where T : IEntity
+    content: 'public class GeoNear<T> : object where T : IEntity'
     typeParameters:
     - id: T
       description: The type of entity
-    content.vb: Public Class GeoNear(Of T As IEntity)
+    content.vb: >-
+      Public Class GeoNear(Of T As IEntity)
+
+          Inherits Object
   inheritance:
   - System.Object
-  inheritedMembers:
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   nameWithType.vb: GeoNear(Of T)
   modifiers.csharp:
   - public
@@ -176,22 +169,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public int? limit { get; set; }
+    content: public int? limit { get; set; }
     parameters: []
     return:
       type: System.Nullable{System.Int32}
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property limit As Integer?
+    content.vb: Public Property limit As Integer?
   overload: MongoDB.Entities.GeoNear`1.limit*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).limit
   modifiers.csharp:
   - public
@@ -219,22 +202,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public double? maxDistance { get; set; }
+    content: public double? maxDistance { get; set; }
     parameters: []
     return:
       type: System.Nullable{System.Double}
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property maxDistance As Double?
+    content.vb: Public Property maxDistance As Double?
   overload: MongoDB.Entities.GeoNear`1.maxDistance*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).maxDistance
   modifiers.csharp:
   - public
@@ -262,22 +235,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public BsonDocument query { get; set; }
+    content: public BsonDocument query { get; set; }
     parameters: []
     return:
-      type: MongoDB.Bson.BsonDocument
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property query As BsonDocument
+      type: BsonDocument
+    content.vb: Public Property query As BsonDocument
   overload: MongoDB.Entities.GeoNear`1.query*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).query
   modifiers.csharp:
   - public
@@ -305,22 +268,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public double? distanceMultiplier { get; set; }
+    content: public double? distanceMultiplier { get; set; }
     parameters: []
     return:
       type: System.Nullable{System.Double}
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property distanceMultiplier As Double?
+    content.vb: Public Property distanceMultiplier As Double?
   overload: MongoDB.Entities.GeoNear`1.distanceMultiplier*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).distanceMultiplier
   modifiers.csharp:
   - public
@@ -348,22 +301,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public string includeLocs { get; set; }
+    content: public string includeLocs { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property includeLocs As String
+    content.vb: Public Property includeLocs As String
   overload: MongoDB.Entities.GeoNear`1.includeLocs*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).includeLocs
   modifiers.csharp:
   - public
@@ -391,22 +334,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public double? minDistance { get; set; }
+    content: public double? minDistance { get; set; }
     parameters: []
     return:
       type: System.Nullable{System.Double}
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property minDistance As Double?
+    content.vb: Public Property minDistance As Double?
   overload: MongoDB.Entities.GeoNear`1.minDistance*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).minDistance
   modifiers.csharp:
   - public
@@ -434,22 +367,12 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: >-
-      [BsonIgnoreIfNull]
-
-      public string key { get; set; }
+    content: public string key { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: >-
-      <BsonIgnoreIfNull>
-
-      Public Property key As String
+    content.vb: Public Property key As String
   overload: MongoDB.Entities.GeoNear`1.key*
-  attributes:
-  - type: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute
-    ctor: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfNullAttribute.#ctor
-    arguments: []
   nameWithType.vb: GeoNear(Of T).key
   modifiers.csharp:
   - public
@@ -464,298 +387,6 @@ references:
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: MongoDB.Entities.GeoNear`1.near*
   commentId: Overload:MongoDB.Entities.GeoNear`1.near
   name: near
@@ -777,8 +408,6 @@ references:
   nameWithType.vb: GeoNear(Of T).distanceField
   fullName.vb: MongoDB.Entities.GeoNear(Of T).distanceField
 - uid: System.String
-  commentId: T:System.String
-  parent: System
   isExternal: true
   name: String
   nameWithType: String
@@ -791,8 +420,6 @@ references:
   nameWithType.vb: GeoNear(Of T).spherical
   fullName.vb: MongoDB.Entities.GeoNear(Of T).spherical
 - uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
   isExternal: true
   name: Boolean
   nameWithType: Boolean
@@ -805,8 +432,7 @@ references:
   nameWithType.vb: GeoNear(Of T).limit
   fullName.vb: MongoDB.Entities.GeoNear(Of T).limit
 - uid: System.Nullable{System.Int32}
-  commentId: T:System.Nullable{System.Int32}
-  parent: System
+  commentId: '!:System.Nullable{System.Int32}'
   definition: System.Nullable`1
   name: Nullable<Int32>
   nameWithType: Nullable<Int32>
@@ -849,14 +475,13 @@ references:
     nameWithType: )
     fullName: )
 - uid: System.Nullable`1
-  commentId: T:System.Nullable`1
   isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
+  name: Nullable<>
+  nameWithType: Nullable<>
+  fullName: System.Nullable<>
+  nameWithType.vb: Nullable(Of )
+  fullName.vb: System.Nullable(Of )
+  name.vb: Nullable(Of )
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
@@ -866,9 +491,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -881,9 +506,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
@@ -895,8 +520,7 @@ references:
   nameWithType.vb: GeoNear(Of T).maxDistance
   fullName.vb: MongoDB.Entities.GeoNear(Of T).maxDistance
 - uid: System.Nullable{System.Double}
-  commentId: T:System.Nullable{System.Double}
-  parent: System
+  commentId: '!:System.Nullable{System.Double}'
   definition: System.Nullable`1
   name: Nullable<Double>
   nameWithType: Nullable<Double>
@@ -945,19 +569,11 @@ references:
   fullName: MongoDB.Entities.GeoNear<T>.query
   nameWithType.vb: GeoNear(Of T).query
   fullName.vb: MongoDB.Entities.GeoNear(Of T).query
-- uid: MongoDB.Bson.BsonDocument
-  commentId: T:MongoDB.Bson.BsonDocument
-  parent: MongoDB.Bson
+- uid: BsonDocument
   isExternal: true
   name: BsonDocument
   nameWithType: BsonDocument
-  fullName: MongoDB.Bson.BsonDocument
-- uid: MongoDB.Bson
-  commentId: N:MongoDB.Bson
-  isExternal: true
-  name: MongoDB.Bson
-  nameWithType: MongoDB.Bson
-  fullName: MongoDB.Bson
+  fullName: BsonDocument
 - uid: MongoDB.Entities.GeoNear`1.distanceMultiplier*
   commentId: Overload:MongoDB.Entities.GeoNear`1.distanceMultiplier
   name: distanceMultiplier

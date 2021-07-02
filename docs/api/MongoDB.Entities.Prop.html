@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Prop
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.58.0.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -106,35 +106,11 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">Prop</span></div>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_Prop_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Prop</code></pre>
+    <pre><code class="lang-csharp hljs">public static class Prop : object</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -148,6 +124,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Collection&lt;T&gt;()
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -184,16 +161,14 @@
   
   
   <a id="MongoDB_Entities_Prop_Elements_" data-uid="MongoDB.Entities.Prop.Elements*"></a>
-  <h4 id="MongoDB_Entities_Prop_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Returns a path with the filtered positional identifier prepended to the property path.</p>
-<p>EX: 0, x => x.Rating > a.Rating</p>
-<p>EX: 1, x => x.Rating > b.Rating</p>
-<p>TIP: Index positions start from &apos;0&apos; which is converted to &apos;a&apos; and so on.</p>
+  <h4 id="MongoDB_Entities_Prop_Elements__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(Expression{Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns a path without any filtered positional identifier prepended to it.</p>
+<p>EX: b => b.Tags > Tags</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -206,13 +181,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>0=a 1=b 2=c 3=d and so on...</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -252,14 +221,16 @@
   
   
   <a id="MongoDB_Entities_Prop_Elements_" data-uid="MongoDB.Entities.Prop.Elements*"></a>
-  <h4 id="MongoDB_Entities_Prop_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Returns a path without any filtered positional identifier prepended to it.</p>
-<p>EX: b => b.Tags > Tags</p>
+  <h4 id="MongoDB_Entities_Prop_Elements__1_System_Int32_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(System.Int32,Expression{Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Returns a path with the filtered positional identifier prepended to the property path.</p>
+<p>EX: 0, x => x.Rating > a.Rating</p>
+<p>EX: 1, x => x.Rating > b.Rating</p>
+<p>TIP: Index positions start from &apos;0&apos; which is converted to &apos;a&apos; and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -272,7 +243,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0=a 1=b 2=c 3=d and so on...</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -312,7 +289,7 @@
   
   
   <a id="MongoDB_Entities_Prop_Path_" data-uid="MongoDB.Entities.Prop.Path*"></a>
-  <h4 id="MongoDB_Entities_Prop_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Prop_Path__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Path``1(Expression{Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns the full dotted path for a given expression.</p>
 <p>EX: Authors[0].Books[0].Title > Authors.Books.Title</p>
 </div>
@@ -332,7 +309,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -372,7 +349,7 @@
   
   
   <a id="MongoDB_Entities_Prop_PosAll_" data-uid="MongoDB.Entities.Prop.PosAll*"></a>
-  <h4 id="MongoDB_Entities_Prop_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Prop_PosAll__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosAll``1(Expression{Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with the all positional operator $[] for a given expression.</p>
 <p>EX: Authors[0].Name > Authors.$[].Name</p>
 </div>
@@ -392,7 +369,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -432,7 +409,7 @@
   
   
   <a id="MongoDB_Entities_Prop_PosFiltered_" data-uid="MongoDB.Entities.Prop.PosFiltered*"></a>
-  <h4 id="MongoDB_Entities_Prop_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Prop_PosFiltered__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFiltered``1(Expression{Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with filtered positional identifiers $[x] for a given expression.</p>
 <p>EX: Authors[0].Name > Authors.$[a].Name</p>
 <p>EX: Authors[1].Age > Authors.$[b].Age</p>
@@ -455,7 +432,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -495,7 +472,7 @@
   
   
   <a id="MongoDB_Entities_Prop_PosFirst_" data-uid="MongoDB.Entities.Prop.PosFirst*"></a>
-  <h4 id="MongoDB_Entities_Prop_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Prop_PosFirst__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFirst``1(Expression{Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with the first positional operator $ for a given expression.</p>
 <p>EX: Authors[0].Name > Authors.$.Name</p>
 </div>
@@ -515,7 +492,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -555,7 +532,7 @@
   
   
   <a id="MongoDB_Entities_Prop_Property_" data-uid="MongoDB.Entities.Prop.Property*"></a>
-  <h4 id="MongoDB_Entities_Prop_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Prop_Property__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Property``1(Expression{Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns the name of the property for a given expression.</p>
 <p>EX: Authors[0].Books[0].Title > Title</p>
 </div>
@@ -575,7 +552,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>

@@ -17,7 +17,7 @@
     <title>Referenced Relationships | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Referenced Relationships | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.57.2.0">
+    <meta name="generator" content="docfx 2.58.0.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -167,7 +167,7 @@ await book.Genres.AddAsync(genre); //many-to-many
 await book.Genres.RemoveAsync(genre);
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected. also the <code>genre</code> entity in the <code>Genres</code> collection is unaffected. only the relationship between entities are deleted.</p>
-<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for removing relationships with multiple entities or just the string IDs.</p>
+<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_IClientSessionHandle_CancellationToken_">overloads</a></em> for removing relationships with multiple entities or just the string IDs.</p>
 <h3 id="entity-deletion-1">Entity deletion</h3>
 <p>when you delete an entity that's in a <code>one-to-many</code> or <code>many-to-many</code> relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.</p>
 <p>for example:</p>

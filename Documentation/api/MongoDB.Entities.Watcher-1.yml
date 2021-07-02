@@ -8,14 +8,15 @@ items:
   - MongoDB.Entities.Watcher`1.CanRestart
   - MongoDB.Entities.Watcher`1.Name
   - MongoDB.Entities.Watcher`1.OnChanges
+  - MongoDB.Entities.Watcher`1.OnChangesCSD
   - MongoDB.Entities.Watcher`1.OnError
   - MongoDB.Entities.Watcher`1.OnStop
   - MongoDB.Entities.Watcher`1.ReStart
   - MongoDB.Entities.Watcher`1.ResumeToken
-  - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  - MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Threading.CancellationToken)
-  - MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Threading.CancellationToken)
+  - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  - MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,CancellationToken)
+  - MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,CancellationToken)
   langs:
   - csharp
   - vb
@@ -33,23 +34,16 @@ items:
   summary: "\nWatcher for subscribing to mongodb change streams.\n"
   example: []
   syntax:
-    content: >-
-      public class Watcher<T>
-          where T : IEntity
+    content: 'public class Watcher<T> : object where T : IEntity'
     typeParameters:
     - id: T
       description: The type of entity
-    content.vb: Public Class Watcher(Of T As IEntity)
+    content.vb: >-
+      Public Class Watcher(Of T As IEntity)
+
+          Inherits Object
   inheritance:
   - System.Object
-  inheritedMembers:
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   nameWithType.vb: Watcher(Of T)
   modifiers.csharp:
   - public
@@ -77,12 +71,12 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nThis event is fired when the desired types of events have occured. Will have a list of entities that was received as input.\n"
+  summary: "\nThis event is fired when the desired types of events have occured. Will have a list of &apos;entities&apos; that was received as input.\n"
   example: []
   syntax:
     content: public event Action<IEnumerable<T>> OnChanges
     return:
-      type: System.Action{System.Collections.Generic.IEnumerable{{T}}}
+      type: Action{IEnumerable{{T}}}
     content.vb: Public Event OnChanges As Action(Of IEnumerable(Of T))
   nameWithType.vb: Watcher(Of T).OnChanges
   modifiers.csharp:
@@ -90,6 +84,37 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnChanges
+- uid: MongoDB.Entities.Watcher`1.OnChangesCSD
+  commentId: E:MongoDB.Entities.Watcher`1.OnChangesCSD
+  id: OnChangesCSD
+  parent: MongoDB.Entities.Watcher`1
+  langs:
+  - csharp
+  - vb
+  name: OnChangesCSD
+  nameWithType: Watcher<T>.OnChangesCSD
+  fullName: MongoDB.Entities.Watcher<T>.OnChangesCSD
+  type: Event
+  source:
+    id: OnChangesCSD
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 25
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThis event is fired when the desired types of events have occured. Will have a list of &apos;ChangeStreamDocuments&apos; that was received as input.\n"
+  example: []
+  syntax:
+    content: public event Action<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSD
+    return:
+      type: Action{IEnumerable{ChangeStreamDocument{{T}}}}
+    content.vb: Public Event OnChangesCSD As Action(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  nameWithType.vb: Watcher(Of T).OnChangesCSD
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesCSD
 - uid: MongoDB.Entities.Watcher`1.OnError
   commentId: E:MongoDB.Entities.Watcher`1.OnError
   id: OnError
@@ -104,7 +129,7 @@ items:
   source:
     id: OnError
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 25
+    startLine: 30
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -113,7 +138,7 @@ items:
   syntax:
     content: public event Action<Exception> OnError
     return:
-      type: System.Action{System.Exception}
+      type: Action{Exception}
     content.vb: Public Event OnError As Action(Of Exception)
   nameWithType.vb: Watcher(Of T).OnError
   modifiers.csharp:
@@ -135,7 +160,7 @@ items:
   source:
     id: OnStop
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 30
+    startLine: 35
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -144,7 +169,7 @@ items:
   syntax:
     content: public event Action OnStop
     return:
-      type: System.Action
+      type: Action
     content.vb: Public Event OnStop As Action
   nameWithType.vb: Watcher(Of T).OnStop
   modifiers.csharp:
@@ -166,7 +191,7 @@ items:
   source:
     id: Name
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 35
+    startLine: 40
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -201,7 +226,7 @@ items:
   source:
     id: CanRestart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 41
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -236,7 +261,7 @@ items:
   source:
     id: ResumeToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 46
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -246,7 +271,7 @@ items:
     content: public BsonDocument ResumeToken { get; }
     parameters: []
     return:
-      type: MongoDB.Bson.BsonDocument
+      type: BsonDocument
     content.vb: Public ReadOnly Property ResumeToken As BsonDocument
   overload: MongoDB.Entities.Watcher`1.ResumeToken*
   nameWithType.vb: Watcher(Of T).ResumeToken
@@ -257,34 +282,34 @@ items:
   - Public
   - ReadOnly
   fullName.vb: MongoDB.Entities.Watcher(Of T).ResumeToken
-- uid: MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  id: Start(MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  commentId: M:MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  id: Start(MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
   parent: MongoDB.Entities.Watcher`1
   langs:
   - csharp
   - vb
   name: Start(EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, Boolean, CancellationToken)
   nameWithType: Watcher<T>.Start(EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, Boolean, CancellationToken)
-  fullName: MongoDB.Entities.Watcher<T>.Start(MongoDB.Entities.EventType, System.Linq.Expressions.Expression<System.Func<MongoDB.Driver.ChangeStreamDocument<T>, System.Boolean>>, System.Int32, System.Boolean, System.Boolean, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Watcher<T>.Start(MongoDB.Entities.EventType, Expression<Func<ChangeStreamDocument<T>, System.Boolean>>, System.Int32, System.Boolean, System.Boolean, CancellationToken)
   type: Method
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 65
+    startLine: 70
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nStarts the watcher instance with the supplied parameters\n"
   example: []
   syntax:
-    content: public void Start(EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))
+    content: public void Start(EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = null)
     parameters:
     - id: eventTypes
       type: MongoDB.Entities.EventType
       description: 'Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted'
     - id: filter
-      type: System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{{T}},System.Boolean}}
+      type: Expression{Func{ChangeStreamDocument{{T}},System.Boolean}}
       description: x => x.FullDocument.Prop1 == &quot;SomeValue&quot;
     - id: batchSize
       type: System.Int32
@@ -296,7 +321,7 @@ items:
       type: System.Boolean
       description: Set to false if you&apos;d like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: A cancellation token for ending the watching/change stream
     content.vb: Public Sub Start(eventTypes As EventType, filter As Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean)) = Nothing, batchSize As Integer = 25, onlyGetIDs As Boolean = False, autoResume As Boolean = True, cancellation As CancellationToken = Nothing)
   overload: MongoDB.Entities.Watcher`1.Start*
@@ -305,36 +330,36 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Watcher(Of T).Start(MongoDB.Entities.EventType, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Driver.ChangeStreamDocument(Of T), System.Boolean)), System.Int32, System.Boolean, System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Watcher(Of T).Start(MongoDB.Entities.EventType, Expression(Of Func(Of ChangeStreamDocument(Of T), System.Boolean)), System.Int32, System.Boolean, System.Boolean, CancellationToken)
   name.vb: Start(EventType, Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean)), Int32, Boolean, Boolean, CancellationToken)
-- uid: MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
-  id: Start(MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  commentId: M:MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
+  id: Start(MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,CancellationToken)
   parent: MongoDB.Entities.Watcher`1
   langs:
   - csharp
   - vb
   name: Start(EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, Int32, Boolean, Boolean, CancellationToken)
   nameWithType: Watcher<T>.Start(EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, Int32, Boolean, Boolean, CancellationToken)
-  fullName: MongoDB.Entities.Watcher<T>.Start(MongoDB.Entities.EventType, System.Func<MongoDB.Driver.FilterDefinitionBuilder<MongoDB.Driver.ChangeStreamDocument<T>>, MongoDB.Driver.FilterDefinition<MongoDB.Driver.ChangeStreamDocument<T>>>, System.Int32, System.Boolean, System.Boolean, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Watcher<T>.Start(MongoDB.Entities.EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, System.Int32, System.Boolean, System.Boolean, CancellationToken)
   type: Method
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 83
+    startLine: 88
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nStarts the watcher instance with the supplied parameters\n"
   example: []
   syntax:
-    content: public void Start(EventType eventTypes, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))
+    content: public void Start(EventType eventTypes, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = null)
     parameters:
     - id: eventTypes
       type: MongoDB.Entities.EventType
       description: 'Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted'
     - id: filter
-      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{{T}}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{{T}}}}
+      type: Func{FilterDefinitionBuilder{ChangeStreamDocument{{T}}},FilterDefinition{ChangeStreamDocument{{T}}}}
       description: b => b.Eq(d => d.FullDocument.Prop1, &quot;value&quot;)
     - id: batchSize
       type: System.Int32
@@ -346,7 +371,7 @@ items:
       type: System.Boolean
       description: Set to false if you&apos;d like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: A cancellation token for ending the watching/change stream
     content.vb: Public Sub Start(eventTypes As EventType, filter As Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), batchSize As Integer = 25, onlyGetIDs As Boolean = False, autoResume As Boolean = True, cancellation As CancellationToken = Nothing)
   overload: MongoDB.Entities.Watcher`1.Start*
@@ -355,39 +380,39 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Watcher(Of T).Start(MongoDB.Entities.EventType, System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of MongoDB.Driver.ChangeStreamDocument(Of T)), MongoDB.Driver.FilterDefinition(Of MongoDB.Driver.ChangeStreamDocument(Of T))), System.Int32, System.Boolean, System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Watcher(Of T).Start(MongoDB.Entities.EventType, Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), System.Int32, System.Boolean, System.Boolean, CancellationToken)
   name.vb: Start(EventType, Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), Int32, Boolean, Boolean, CancellationToken)
-- uid: MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Threading.CancellationToken)
-  id: StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,CancellationToken)
+  commentId: M:MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,CancellationToken)
+  id: StartWithToken(BsonDocument,MongoDB.Entities.EventType,Expression{Func{ChangeStreamDocument{`0},System.Boolean}},System.Int32,System.Boolean,CancellationToken)
   parent: MongoDB.Entities.Watcher`1
   langs:
   - csharp
   - vb
   name: StartWithToken(BsonDocument, EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, CancellationToken)
   nameWithType: Watcher<T>.StartWithToken(BsonDocument, EventType, Expression<Func<ChangeStreamDocument<T>, Boolean>>, Int32, Boolean, CancellationToken)
-  fullName: MongoDB.Entities.Watcher<T>.StartWithToken(MongoDB.Bson.BsonDocument, MongoDB.Entities.EventType, System.Linq.Expressions.Expression<System.Func<MongoDB.Driver.ChangeStreamDocument<T>, System.Boolean>>, System.Int32, System.Boolean, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Watcher<T>.StartWithToken(BsonDocument, MongoDB.Entities.EventType, Expression<Func<ChangeStreamDocument<T>, System.Boolean>>, System.Int32, System.Boolean, CancellationToken)
   type: Method
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 101
+    startLine: 106
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nStarts the watcher instance with the supplied configuration\n"
   example: []
   syntax:
-    content: public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken))
+    content: public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression<Func<ChangeStreamDocument<T>, bool>> filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = null)
     parameters:
     - id: resumeToken
-      type: MongoDB.Bson.BsonDocument
+      type: BsonDocument
       description: A resume token to start receiving changes after some point back in time
     - id: eventTypes
       type: MongoDB.Entities.EventType
       description: 'Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted'
     - id: filter
-      type: System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{{T}},System.Boolean}}
+      type: Expression{Func{ChangeStreamDocument{{T}},System.Boolean}}
       description: x => x.FullDocument.Prop1 == &quot;SomeValue&quot;
     - id: batchSize
       type: System.Int32
@@ -396,7 +421,7 @@ items:
       type: System.Boolean
       description: Set to true if you don&apos;t want the complete entity details. All properties except the ID will then be null.
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: A cancellation token for ending the watching/change stream
     content.vb: Public Sub StartWithToken(resumeToken As BsonDocument, eventTypes As EventType, filter As Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean)) = Nothing, batchSize As Integer = 25, onlyGetIDs As Boolean = False, cancellation As CancellationToken = Nothing)
   overload: MongoDB.Entities.Watcher`1.StartWithToken*
@@ -405,39 +430,39 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Watcher(Of T).StartWithToken(MongoDB.Bson.BsonDocument, MongoDB.Entities.EventType, System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Driver.ChangeStreamDocument(Of T), System.Boolean)), System.Int32, System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Watcher(Of T).StartWithToken(BsonDocument, MongoDB.Entities.EventType, Expression(Of Func(Of ChangeStreamDocument(Of T), System.Boolean)), System.Int32, System.Boolean, CancellationToken)
   name.vb: StartWithToken(BsonDocument, EventType, Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean)), Int32, Boolean, CancellationToken)
-- uid: MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Watcher`1.StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Threading.CancellationToken)
-  id: StartWithToken(MongoDB.Bson.BsonDocument,MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,CancellationToken)
+  commentId: M:MongoDB.Entities.Watcher`1.StartWithToken(BsonDocument,MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,CancellationToken)
+  id: StartWithToken(BsonDocument,MongoDB.Entities.EventType,Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}},System.Int32,System.Boolean,CancellationToken)
   parent: MongoDB.Entities.Watcher`1
   langs:
   - csharp
   - vb
   name: StartWithToken(BsonDocument, EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, Int32, Boolean, CancellationToken)
   nameWithType: Watcher<T>.StartWithToken(BsonDocument, EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, Int32, Boolean, CancellationToken)
-  fullName: MongoDB.Entities.Watcher<T>.StartWithToken(MongoDB.Bson.BsonDocument, MongoDB.Entities.EventType, System.Func<MongoDB.Driver.FilterDefinitionBuilder<MongoDB.Driver.ChangeStreamDocument<T>>, MongoDB.Driver.FilterDefinition<MongoDB.Driver.ChangeStreamDocument<T>>>, System.Int32, System.Boolean, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.Watcher<T>.StartWithToken(BsonDocument, MongoDB.Entities.EventType, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>, System.Int32, System.Boolean, CancellationToken)
   type: Method
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 119
+    startLine: 124
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nStarts the watcher instance with the supplied configuration\n"
   example: []
   syntax:
-    content: public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken))
+    content: public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = null)
     parameters:
     - id: resumeToken
-      type: MongoDB.Bson.BsonDocument
+      type: BsonDocument
       description: A resume token to start receiving changes after some point back in time
     - id: eventTypes
       type: MongoDB.Entities.EventType
       description: 'Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted'
     - id: filter
-      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{{T}}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{{T}}}}
+      type: Func{FilterDefinitionBuilder{ChangeStreamDocument{{T}}},FilterDefinition{ChangeStreamDocument{{T}}}}
       description: b => b.Eq(d => d.FullDocument.Prop1, &quot;value&quot;)
     - id: batchSize
       type: System.Int32
@@ -446,7 +471,7 @@ items:
       type: System.Boolean
       description: Set to true if you don&apos;t want the complete entity details. All properties except the ID will then be null.
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: A cancellation token for ending the watching/change stream
     content.vb: Public Sub StartWithToken(resumeToken As BsonDocument, eventTypes As EventType, filter As Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), batchSize As Integer = 25, onlyGetIDs As Boolean = False, cancellation As CancellationToken = Nothing)
   overload: MongoDB.Entities.Watcher`1.StartWithToken*
@@ -455,7 +480,7 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Watcher(Of T).StartWithToken(MongoDB.Bson.BsonDocument, MongoDB.Entities.EventType, System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of MongoDB.Driver.ChangeStreamDocument(Of T)), MongoDB.Driver.FilterDefinition(Of MongoDB.Driver.ChangeStreamDocument(Of T))), System.Int32, System.Boolean, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.Watcher(Of T).StartWithToken(BsonDocument, MongoDB.Entities.EventType, Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), System.Int32, System.Boolean, CancellationToken)
   name.vb: StartWithToken(BsonDocument, EventType, Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), Int32, Boolean, CancellationToken)
 - uid: MongoDB.Entities.Watcher`1.ReStart
   commentId: M:MongoDB.Entities.Watcher`1.ReStart
@@ -471,7 +496,7 @@ items:
   source:
     id: ReStart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 198
+    startLine: 203
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -493,321 +518,28 @@ references:
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
-- uid: System.Action{System.Collections.Generic.IEnumerable{{T}}}
-  commentId: T:System.Action{System.Collections.Generic.IEnumerable{`0}}
-  parent: System
-  definition: System.Action`1
+- uid: Action{IEnumerable{{T}}}
+  commentId: '!:Action{IEnumerable{`0}}'
+  definition: Action`1
   name: Action<IEnumerable<T>>
   nameWithType: Action<IEnumerable<T>>
-  fullName: System.Action<System.Collections.Generic.IEnumerable<T>>
+  fullName: Action<IEnumerable<T>>
   nameWithType.vb: Action(Of IEnumerable(Of T))
-  fullName.vb: System.Action(Of System.Collections.Generic.IEnumerable(Of T))
+  fullName.vb: Action(Of IEnumerable(Of T))
   name.vb: Action(Of IEnumerable(Of T))
   spec.csharp:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Collections.Generic.IEnumerable`1
+  - uid: IEnumerable`1
     name: IEnumerable
     nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+    fullName: IEnumerable
     isExternal: true
   - name: <
     nameWithType: <
@@ -822,18 +554,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Collections.Generic.IEnumerable`1
+  - uid: IEnumerable`1
     name: IEnumerable
     nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+    fullName: IEnumerable
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -847,20 +579,74 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Action`1
-  commentId: T:System.Action`1
+- uid: Action`1
   isExternal: true
-  name: Action<T>
-  nameWithType: Action<T>
-  fullName: System.Action<T>
-  nameWithType.vb: Action(Of T)
-  fullName.vb: System.Action(Of T)
-  name.vb: Action(Of T)
+  name: Action<>
+  nameWithType: Action<>
+  fullName: Action<>
+  nameWithType.vb: Action(Of )
+  fullName.vb: Action(Of )
+  name.vb: Action(Of )
   spec.csharp:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: ''
+    nameWithType: ''
+    fullName: ''
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Action{IEnumerable{ChangeStreamDocument{{T}}}}
+  commentId: '!:Action{IEnumerable{ChangeStreamDocument{`0}}}'
+  definition: Action`1
+  name: Action<IEnumerable<ChangeStreamDocument<T>>>
+  nameWithType: Action<IEnumerable<ChangeStreamDocument<T>>>
+  fullName: Action<IEnumerable<ChangeStreamDocument<T>>>
+  nameWithType.vb: Action(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  fullName.vb: Action(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  name.vb: Action(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  spec.csharp:
+  - uid: Action`1
+    name: Action
+    nameWithType: Action
+    fullName: Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: ChangeStreamDocument`1
+    name: ChangeStreamDocument
+    nameWithType: ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: <
     nameWithType: <
@@ -871,11 +657,33 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: ChangeStreamDocument`1
+    name: ChangeStreamDocument
+    nameWithType: ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -886,57 +694,61 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Action{System.Exception}
-  commentId: T:System.Action{System.Exception}
-  parent: System
-  definition: System.Action`1
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Action{Exception}
+  commentId: '!:Action{Exception}'
+  definition: Action`1
   name: Action<Exception>
   nameWithType: Action<Exception>
-  fullName: System.Action<System.Exception>
+  fullName: Action<Exception>
   nameWithType.vb: Action(Of Exception)
-  fullName.vb: System.Action(Of System.Exception)
+  fullName.vb: Action(Of Exception)
   name.vb: Action(Of Exception)
   spec.csharp:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Exception
+  - uid: Exception
     name: Exception
     nameWithType: Exception
-    fullName: System.Exception
+    fullName: Exception
     isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Action`1
+  - uid: Action`1
     name: Action
     nameWithType: Action
-    fullName: System.Action
+    fullName: Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Exception
+  - uid: Exception
     name: Exception
     nameWithType: Exception
-    fullName: System.Exception
+    fullName: Exception
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Action
-  commentId: T:System.Action
-  parent: System
+- uid: Action
+  commentId: '!:Action'
   isExternal: true
   name: Action
   nameWithType: Action
-  fullName: System.Action
+  fullName: Action
 - uid: MongoDB.Entities.Watcher`1.Name*
   commentId: Overload:MongoDB.Entities.Watcher`1.Name
   name: Name
@@ -945,8 +757,6 @@ references:
   nameWithType.vb: Watcher(Of T).Name
   fullName.vb: MongoDB.Entities.Watcher(Of T).Name
 - uid: System.String
-  commentId: T:System.String
-  parent: System
   isExternal: true
   name: String
   nameWithType: String
@@ -959,8 +769,6 @@ references:
   nameWithType.vb: Watcher(Of T).CanRestart
   fullName.vb: MongoDB.Entities.Watcher(Of T).CanRestart
 - uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
   isExternal: true
   name: Boolean
   nameWithType: Boolean
@@ -972,19 +780,11 @@ references:
   fullName: MongoDB.Entities.Watcher<T>.ResumeToken
   nameWithType.vb: Watcher(Of T).ResumeToken
   fullName.vb: MongoDB.Entities.Watcher(Of T).ResumeToken
-- uid: MongoDB.Bson.BsonDocument
-  commentId: T:MongoDB.Bson.BsonDocument
-  parent: MongoDB.Bson
+- uid: BsonDocument
   isExternal: true
   name: BsonDocument
   nameWithType: BsonDocument
-  fullName: MongoDB.Bson.BsonDocument
-- uid: MongoDB.Bson
-  commentId: N:MongoDB.Bson
-  isExternal: true
-  name: MongoDB.Bson
-  nameWithType: MongoDB.Bson
-  fullName: MongoDB.Bson
+  fullName: BsonDocument
 - uid: MongoDB.Entities.Watcher`1.Start*
   commentId: Overload:MongoDB.Entities.Watcher`1.Start
   name: Start
@@ -998,37 +798,36 @@ references:
   name: EventType
   nameWithType: EventType
   fullName: MongoDB.Entities.EventType
-- uid: System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{{T}},System.Boolean}}
-  commentId: T:System.Linq.Expressions.Expression{System.Func{MongoDB.Driver.ChangeStreamDocument{`0},System.Boolean}}
-  parent: System.Linq.Expressions
-  definition: System.Linq.Expressions.Expression`1
+- uid: Expression{Func{ChangeStreamDocument{{T}},System.Boolean}}
+  commentId: '!:Expression{Func{ChangeStreamDocument{`0},System.Boolean}}'
+  definition: Expression`1
   name: Expression<Func<ChangeStreamDocument<T>, Boolean>>
   nameWithType: Expression<Func<ChangeStreamDocument<T>, Boolean>>
-  fullName: System.Linq.Expressions.Expression<System.Func<MongoDB.Driver.ChangeStreamDocument<T>, System.Boolean>>
+  fullName: Expression<Func<ChangeStreamDocument<T>, System.Boolean>>
   nameWithType.vb: Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of MongoDB.Driver.ChangeStreamDocument(Of T), System.Boolean))
+  fullName.vb: Expression(Of Func(Of ChangeStreamDocument(Of T), System.Boolean))
   name.vb: Expression(Of Func(Of ChangeStreamDocument(Of T), Boolean))
   spec.csharp:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: <
     nameWithType: <
@@ -1054,26 +853,26 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1099,101 +898,83 @@ references:
     nameWithType: )
     fullName: )
 - uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
   isExternal: true
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
+- uid: CancellationToken
   isExternal: true
   name: CancellationToken
   nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
-- uid: System.Linq.Expressions.Expression`1
-  commentId: T:System.Linq.Expressions.Expression`1
+  fullName: CancellationToken
+- uid: Expression`1
   isExternal: true
-  name: Expression<TDelegate>
-  nameWithType: Expression<TDelegate>
-  fullName: System.Linq.Expressions.Expression<TDelegate>
-  nameWithType.vb: Expression(Of TDelegate)
-  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
-  name.vb: Expression(Of TDelegate)
+  name: Expression<>
+  nameWithType: Expression<>
+  fullName: Expression<>
+  nameWithType.vb: Expression(Of )
+  fullName.vb: Expression(Of )
+  name.vb: Expression(Of )
   spec.csharp:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Linq.Expressions
-  commentId: N:System.Linq.Expressions
-  isExternal: true
-  name: System.Linq.Expressions
-  nameWithType: System.Linq.Expressions
-  fullName: System.Linq.Expressions
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
-- uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{{T}}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{{T}}}}
-  commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}}
-  parent: System
-  definition: System.Func`2
+- uid: Func{FilterDefinitionBuilder{ChangeStreamDocument{{T}}},FilterDefinition{ChangeStreamDocument{{T}}}}
+  commentId: '!:Func{FilterDefinitionBuilder{ChangeStreamDocument{`0}},FilterDefinition{ChangeStreamDocument{`0}}}'
+  definition: Func`2
   name: Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>
   nameWithType: Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>
-  fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<MongoDB.Driver.ChangeStreamDocument<T>>, MongoDB.Driver.FilterDefinition<MongoDB.Driver.ChangeStreamDocument<T>>>
+  fullName: Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>>
   nameWithType.vb: Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T)))
-  fullName.vb: System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of MongoDB.Driver.ChangeStreamDocument(Of T)), MongoDB.Driver.FilterDefinition(Of MongoDB.Driver.ChangeStreamDocument(Of T)))
+  fullName.vb: Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T)))
   name.vb: Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T)))
   spec.csharp:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: <
     nameWithType: <
@@ -1210,18 +991,18 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: <
     nameWithType: <
@@ -1239,26 +1020,26 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
+  - uid: FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: MongoDB.Driver.FilterDefinitionBuilder
+    fullName: FilterDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1275,18 +1056,18 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.FilterDefinition`1
+  - uid: FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: MongoDB.Driver.FilterDefinition
+    fullName: FilterDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ChangeStreamDocument`1
+  - uid: ChangeStreamDocument`1
     name: ChangeStreamDocument
     nameWithType: ChangeStreamDocument
-    fullName: MongoDB.Driver.ChangeStreamDocument
+    fullName: ChangeStreamDocument
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1303,54 +1084,53 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Func`2
-  commentId: T:System.Func`2
+- uid: Func`2
   isExternal: true
-  name: Func<T, TResult>
-  nameWithType: Func<T, TResult>
-  fullName: System.Func<T, TResult>
-  nameWithType.vb: Func(Of T, TResult)
-  fullName.vb: System.Func(Of T, TResult)
-  name.vb: Func(Of T, TResult)
+  name: Func<, >
+  nameWithType: Func<, >
+  fullName: Func<, >
+  nameWithType.vb: Func(Of , )
+  fullName.vb: Func(Of , )
+  name.vb: Func(Of , )
   spec.csharp:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )

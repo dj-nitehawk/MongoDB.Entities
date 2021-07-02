@@ -9,9 +9,9 @@ items:
   - MongoDB.Entities.One`1.ID
   - MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
   - MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
-  - MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.One`1.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - MongoDB.Entities.One`1.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.One`1.ToEntityAsync(Expression{Func{`0,`0}},IClientSessionHandle,CancellationToken)
+  - MongoDB.Entities.One`1.ToEntityAsync(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}},IClientSessionHandle,CancellationToken)
+  - MongoDB.Entities.One`1.ToEntityAsync(IClientSessionHandle,CancellationToken)
   langs:
   - csharp
   - vb
@@ -29,23 +29,16 @@ items:
   summary: "\nRepresents a one-to-one relationship with an IEntity.\n"
   example: []
   syntax:
-    content: >-
-      public class One<T>
-          where T : IEntity
+    content: 'public class One<T> : object where T : IEntity'
     typeParameters:
     - id: T
       description: Any type that implements IEntity
-    content.vb: Public Class One(Of T As IEntity)
+    content.vb: >-
+      Public Class One(Of T As IEntity)
+
+          Inherits Object
   inheritance:
   - System.Object
-  inheritedMembers:
-  - System.Object.Equals(System.Object)
-  - System.Object.Equals(System.Object,System.Object)
-  - System.Object.GetHashCode
-  - System.Object.GetType
-  - System.Object.MemberwiseClone
-  - System.Object.ReferenceEquals(System.Object,System.Object)
-  - System.Object.ToString
   nameWithType.vb: One(Of T)
   modifiers.csharp:
   - public
@@ -76,22 +69,12 @@ items:
   summary: "\nThe Id of the entity referenced by this instance.\n"
   example: []
   syntax:
-    content: >-
-      [AsObjectId]
-
-      public string ID { get; set; }
+    content: public string ID { get; set; }
     parameters: []
     return:
       type: System.String
-    content.vb: >-
-      <AsObjectId>
-
-      Public Property ID As String
+    content.vb: Public Property ID As String
   overload: MongoDB.Entities.One`1.ID*
-  attributes:
-  - type: MongoDB.Entities.AsObjectIdAttribute
-    ctor: MongoDB.Entities.AsObjectIdAttribute.#ctor
-    arguments: []
   nameWithType.vb: One(Of T).ID
   modifiers.csharp:
   - public
@@ -206,16 +189,16 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.One(Of T).Widening(T to MongoDB.Entities.One(Of T))
   name.vb: Widening(T to One(Of T))
-- uid: MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.One`1.ToEntityAsync(IClientSessionHandle,CancellationToken)
+  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(IClientSessionHandle,CancellationToken)
+  id: ToEntityAsync(IClientSessionHandle,CancellationToken)
   parent: MongoDB.Entities.One`1
   langs:
   - csharp
   - vb
   name: ToEntityAsync(IClientSessionHandle, CancellationToken)
   nameWithType: One<T>.ToEntityAsync(IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.One<T>.ToEntityAsync(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.One<T>.ToEntityAsync(IClientSessionHandle, CancellationToken)
   type: Method
   source:
     id: ToEntityAsync
@@ -227,16 +210,16 @@ items:
   summary: "\nFetches the actual entity this reference represents from the database.\n"
   example: []
   syntax:
-    content: public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    content: public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = null)
     parameters:
     - id: session
-      type: MongoDB.Driver.IClientSessionHandle
+      type: IClientSessionHandle
       description: An optional session
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: An optional cancellation token
     return:
-      type: System.Threading.Tasks.Task{{T}}
+      type: Task{{T}}
       description: A Task containing the actual entity
     content.vb: Public Function ToEntityAsync(session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of T)
   overload: MongoDB.Entities.One`1.ToEntityAsync*
@@ -245,17 +228,17 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-- uid: MongoDB.Entities.One`1.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.One`1.ToEntityAsync(Expression{Func{`0,`0}},IClientSessionHandle,CancellationToken)
+  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(Expression{Func{`0,`0}},IClientSessionHandle,CancellationToken)
+  id: ToEntityAsync(Expression{Func{`0,`0}},IClientSessionHandle,CancellationToken)
   parent: MongoDB.Entities.One`1
   langs:
   - csharp
   - vb
   name: ToEntityAsync(Expression<Func<T, T>>, IClientSessionHandle, CancellationToken)
   nameWithType: One<T>.ToEntityAsync(Expression<Func<T, T>>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.One<T>.ToEntityAsync(System.Linq.Expressions.Expression<System.Func<T, T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.One<T>.ToEntityAsync(Expression<Func<T, T>>, IClientSessionHandle, CancellationToken)
   type: Method
   source:
     id: ToEntityAsync
@@ -267,39 +250,40 @@ items:
   summary: "\nFetches the actual entity this reference represents from the database with a projection.\n"
   example: []
   syntax:
-    content: public Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    content: public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = null)
     parameters:
     - id: projection
-      type: System.Linq.Expressions.Expression{System.Func{{T},{T}}}
+      type: Expression{Func{{T},{T}}}
       description: x => new Test { PropName = x.Prop }
     - id: session
-      type: MongoDB.Driver.IClientSessionHandle
+      type: IClientSessionHandle
       description: An optional session if using within a transaction
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: An optional cancellation token
     return:
-      type: System.Threading.Tasks.Task{{T}}
+      type: Task{{T}}
       description: A Task containing the actual projected entity
     content.vb: Public Function ToEntityAsync(projection As Expression(Of Func(Of T, T)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of T)
   overload: MongoDB.Entities.One`1.ToEntityAsync*
   nameWithType.vb: One(Of T).ToEntityAsync(Expression(Of Func(Of T, T)), IClientSessionHandle, CancellationToken)
   modifiers.csharp:
   - public
+  - async
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(System.Linq.Expressions.Expression(Of System.Func(Of T, T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(Expression(Of Func(Of T, T)), IClientSessionHandle, CancellationToken)
   name.vb: ToEntityAsync(Expression(Of Func(Of T, T)), IClientSessionHandle, CancellationToken)
-- uid: MongoDB.Entities.One`1.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  id: ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.One`1.ToEntityAsync(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}},IClientSessionHandle,CancellationToken)
+  commentId: M:MongoDB.Entities.One`1.ToEntityAsync(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}},IClientSessionHandle,CancellationToken)
+  id: ToEntityAsync(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}},IClientSessionHandle,CancellationToken)
   parent: MongoDB.Entities.One`1
   langs:
   - csharp
   - vb
   name: ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>, IClientSessionHandle, CancellationToken)
   nameWithType: One<T>.ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.One<T>.ToEntityAsync(System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, T>>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.One<T>.ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>, IClientSessionHandle, CancellationToken)
   type: Method
   source:
     id: ToEntityAsync
@@ -311,28 +295,29 @@ items:
   summary: "\nFetches the actual entity this reference represents from the database with a projection.\n"
   example: []
   syntax:
-    content: public Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    content: public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = null)
     parameters:
     - id: projection
-      type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}}
+      type: Func{ProjectionDefinitionBuilder{{T}},ProjectionDefinition{{T},{T}}}
       description: p=> p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
     - id: session
-      type: MongoDB.Driver.IClientSessionHandle
+      type: IClientSessionHandle
       description: An optional session if using within a transaction
     - id: cancellation
-      type: System.Threading.CancellationToken
+      type: CancellationToken
       description: An optional cancellation token
     return:
-      type: System.Threading.Tasks.Task{{T}}
+      type: Task{{T}}
       description: A Task containing the actual projected entity
     content.vb: Public Function ToEntityAsync(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of T)
   overload: MongoDB.Entities.One`1.ToEntityAsync*
   nameWithType.vb: One(Of T).ToEntityAsync(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)), IClientSessionHandle, CancellationToken)
   modifiers.csharp:
   - public
+  - async
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, T)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)), IClientSessionHandle, CancellationToken)
   name.vb: ToEntityAsync(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T)), IClientSessionHandle, CancellationToken)
 references:
 - uid: MongoDB.Entities
@@ -340,298 +325,6 @@ references:
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
-- uid: System.Object
-  commentId: T:System.Object
-  parent: System
-  isExternal: true
-  name: Object
-  nameWithType: Object
-  fullName: System.Object
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object)
-  nameWithType: Object.Equals(Object)
-  fullName: System.Object.Equals(System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.Equals(System.Object,System.Object)
-  commentId: M:System.Object.Equals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: Equals(Object, Object)
-  nameWithType: Object.Equals(Object, Object)
-  fullName: System.Object.Equals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.Equals(System.Object,System.Object)
-    name: Equals
-    nameWithType: Object.Equals
-    fullName: System.Object.Equals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  name: GetHashCode()
-  nameWithType: Object.GetHashCode()
-  fullName: System.Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    nameWithType: Object.GetHashCode
-    fullName: System.Object.GetHashCode
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.GetType
-  commentId: M:System.Object.GetType
-  parent: System.Object
-  isExternal: true
-  name: GetType()
-  nameWithType: Object.GetType()
-  fullName: System.Object.GetType()
-  spec.csharp:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.GetType
-    name: GetType
-    nameWithType: Object.GetType
-    fullName: System.Object.GetType
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  name: MemberwiseClone()
-  nameWithType: Object.MemberwiseClone()
-  fullName: System.Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    nameWithType: Object.MemberwiseClone
-    fullName: System.Object.MemberwiseClone
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ReferenceEquals(System.Object,System.Object)
-  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
-  parent: System.Object
-  isExternal: true
-  name: ReferenceEquals(Object, Object)
-  nameWithType: Object.ReferenceEquals(Object, Object)
-  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
-  spec.csharp:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
-    name: ReferenceEquals
-    nameWithType: Object.ReferenceEquals
-    fullName: System.Object.ReferenceEquals
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Object
-    name: Object
-    nameWithType: Object
-    fullName: System.Object
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: MongoDB.Entities.One`1.ID*
   commentId: Overload:MongoDB.Entities.One`1.ID
   name: ID
@@ -640,8 +333,6 @@ references:
   nameWithType.vb: One(Of T).ID
   fullName.vb: MongoDB.Entities.One(Of T).ID
 - uid: System.String
-  commentId: T:System.String
-  parent: System
   isExternal: true
   name: String
   nameWithType: String
@@ -715,35 +406,30 @@ references:
   fullName: MongoDB.Entities.One<T>.ToEntityAsync
   nameWithType.vb: One(Of T).ToEntityAsync
   fullName.vb: MongoDB.Entities.One(Of T).ToEntityAsync
-- uid: MongoDB.Driver.IClientSessionHandle
-  commentId: T:MongoDB.Driver.IClientSessionHandle
-  parent: MongoDB.Driver
+- uid: IClientSessionHandle
   isExternal: true
   name: IClientSessionHandle
   nameWithType: IClientSessionHandle
-  fullName: MongoDB.Driver.IClientSessionHandle
-- uid: System.Threading.CancellationToken
-  commentId: T:System.Threading.CancellationToken
-  parent: System.Threading
+  fullName: IClientSessionHandle
+- uid: CancellationToken
   isExternal: true
   name: CancellationToken
   nameWithType: CancellationToken
-  fullName: System.Threading.CancellationToken
-- uid: System.Threading.Tasks.Task{{T}}
-  commentId: T:System.Threading.Tasks.Task{`0}
-  parent: System.Threading.Tasks
-  definition: System.Threading.Tasks.Task`1
+  fullName: CancellationToken
+- uid: Task{{T}}
+  commentId: '!:Task{`0}'
+  definition: Task`1
   name: Task<T>
   nameWithType: Task<T>
-  fullName: System.Threading.Tasks.Task<T>
+  fullName: Task<T>
   nameWithType.vb: Task(Of T)
-  fullName.vb: System.Threading.Tasks.Task(Of T)
+  fullName.vb: Task(Of T)
   name.vb: Task(Of T)
   spec.csharp:
-  - uid: System.Threading.Tasks.Task`1
+  - uid: Task`1
     name: Task
     nameWithType: Task
-    fullName: System.Threading.Tasks.Task
+    fullName: Task
     isExternal: true
   - name: <
     nameWithType: <
@@ -755,10 +441,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Threading.Tasks.Task`1
+  - uid: Task`1
     name: Task
     nameWithType: Task
-    fullName: System.Threading.Tasks.Task
+    fullName: Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -769,86 +455,66 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver
-  commentId: N:MongoDB.Driver
+- uid: Task`1
   isExternal: true
-  name: MongoDB.Driver
-  nameWithType: MongoDB.Driver
-  fullName: MongoDB.Driver
-- uid: System.Threading
-  commentId: N:System.Threading
-  isExternal: true
-  name: System.Threading
-  nameWithType: System.Threading
-  fullName: System.Threading
-- uid: System.Threading.Tasks.Task`1
-  commentId: T:System.Threading.Tasks.Task`1
-  isExternal: true
-  name: Task<TResult>
-  nameWithType: Task<TResult>
-  fullName: System.Threading.Tasks.Task<TResult>
-  nameWithType.vb: Task(Of TResult)
-  fullName.vb: System.Threading.Tasks.Task(Of TResult)
-  name.vb: Task(Of TResult)
+  name: Task<>
+  nameWithType: Task<>
+  fullName: Task<>
+  nameWithType.vb: Task(Of )
+  fullName.vb: Task(Of )
+  name.vb: Task(Of )
   spec.csharp:
-  - uid: System.Threading.Tasks.Task`1
+  - uid: Task`1
     name: Task
     nameWithType: Task
-    fullName: System.Threading.Tasks.Task
+    fullName: Task
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Threading.Tasks.Task`1
+  - uid: Task`1
     name: Task
     nameWithType: Task
-    fullName: System.Threading.Tasks.Task
+    fullName: Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Threading.Tasks
-  commentId: N:System.Threading.Tasks
-  isExternal: true
-  name: System.Threading.Tasks
-  nameWithType: System.Threading.Tasks
-  fullName: System.Threading.Tasks
-- uid: System.Linq.Expressions.Expression{System.Func{{T},{T}}}
-  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,`0}}
-  parent: System.Linq.Expressions
-  definition: System.Linq.Expressions.Expression`1
+- uid: Expression{Func{{T},{T}}}
+  commentId: '!:Expression{Func{`0,`0}}'
+  definition: Expression`1
   name: Expression<Func<T, T>>
   nameWithType: Expression<Func<T, T>>
-  fullName: System.Linq.Expressions.Expression<System.Func<T, T>>
+  fullName: Expression<Func<T, T>>
   nameWithType.vb: Expression(Of Func(Of T, T))
-  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, T))
+  fullName.vb: Expression(Of Func(Of T, T))
   name.vb: Expression(Of Func(Of T, T))
   spec.csharp:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -869,18 +535,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -900,74 +566,66 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Linq.Expressions.Expression`1
-  commentId: T:System.Linq.Expressions.Expression`1
+- uid: Expression`1
   isExternal: true
-  name: Expression<TDelegate>
-  nameWithType: Expression<TDelegate>
-  fullName: System.Linq.Expressions.Expression<TDelegate>
-  nameWithType.vb: Expression(Of TDelegate)
-  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
-  name.vb: Expression(Of TDelegate)
+  name: Expression<>
+  nameWithType: Expression<>
+  fullName: Expression<>
+  nameWithType.vb: Expression(Of )
+  fullName.vb: Expression(Of )
+  name.vb: Expression(Of )
   spec.csharp:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Linq.Expressions.Expression`1
+  - uid: Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: System.Linq.Expressions.Expression
+    fullName: Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TDelegate
-    nameWithType: TDelegate
-    fullName: TDelegate
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Linq.Expressions
-  commentId: N:System.Linq.Expressions
-  isExternal: true
-  name: System.Linq.Expressions
-  nameWithType: System.Linq.Expressions
-  fullName: System.Linq.Expressions
-- uid: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}}
-  commentId: T:System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}}
-  parent: System
-  definition: System.Func`2
+- uid: Func{ProjectionDefinitionBuilder{{T}},ProjectionDefinition{{T},{T}}}
+  commentId: '!:Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`0}}'
+  definition: Func`2
   name: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>
   nameWithType: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>
-  fullName: System.Func<MongoDB.Driver.ProjectionDefinitionBuilder<T>, MongoDB.Driver.ProjectionDefinition<T, T>>
+  fullName: Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>>
   nameWithType.vb: Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T))
-  fullName.vb: System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, T))
+  fullName.vb: Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T))
   name.vb: Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, T))
   spec.csharp:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -981,10 +639,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -1005,18 +663,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: MongoDB.Driver.ProjectionDefinitionBuilder`1
+  - uid: ProjectionDefinitionBuilder`1
     name: ProjectionDefinitionBuilder
     nameWithType: ProjectionDefinitionBuilder
-    fullName: MongoDB.Driver.ProjectionDefinitionBuilder
+    fullName: ProjectionDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1030,10 +688,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.ProjectionDefinition`2
+  - uid: ProjectionDefinition`2
     name: ProjectionDefinition
     nameWithType: ProjectionDefinition
-    fullName: MongoDB.Driver.ProjectionDefinition
+    fullName: ProjectionDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1053,54 +711,53 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Func`2
-  commentId: T:System.Func`2
+- uid: Func`2
   isExternal: true
-  name: Func<T, TResult>
-  nameWithType: Func<T, TResult>
-  fullName: System.Func<T, TResult>
-  nameWithType.vb: Func(Of T, TResult)
-  fullName.vb: System.Func(Of T, TResult)
-  name.vb: Func(Of T, TResult)
+  name: Func<, >
+  nameWithType: Func<, >
+  fullName: Func<, >
+  nameWithType.vb: Func(Of , )
+  fullName.vb: Func(Of , )
+  name.vb: Func(Of , )
   spec.csharp:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: System.Func`2
+  - uid: Func`2
     name: Func
     nameWithType: Func
-    fullName: System.Func
+    fullName: Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
+  - name: ''
+    nameWithType: ''
+    fullName: ''
   - name: )
     nameWithType: )
     fullName: )

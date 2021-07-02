@@ -495,7 +495,6 @@ references:
   fullName: MongoDB.Entities.ObjectIdAttribute
 - uid: MongoDB.Entities.AsObjectIdAttribute
   commentId: T:MongoDB.Entities.AsObjectIdAttribute
-  parent: MongoDB.Entities
   name: AsObjectIdAttribute
   nameWithType: AsObjectIdAttribute
   fullName: MongoDB.Entities.AsObjectIdAttribute
