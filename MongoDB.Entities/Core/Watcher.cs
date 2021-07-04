@@ -181,7 +181,9 @@ namespace MongoDB.Entities
                 {
                     _id: 1,
                     operationType: 1,
-                    fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] }
+                    fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] },
+                    documentKey: 1,
+                    updateDescription: 1
                 }")
             };
 
