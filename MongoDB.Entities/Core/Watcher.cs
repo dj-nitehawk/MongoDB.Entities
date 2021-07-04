@@ -235,20 +235,24 @@ namespace MongoDB.Entities
                 {
                     using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options).ConfigureAwait(false))//note: don't pass cancellation token to WatchAsync
                     {
+                        var currentBatch = new List<ChangeStreamDocument<T>>(options.BatchSize.Value);
+
                         while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))//note: don't pass cancellation token to MoveNextAsync
                         {
-                            if (cursor.Current.Any())
+                            foreach (var csd in cursor.Current)
                             {
-                                if (cursor.Current.First().OperationType != ChangeStreamOperationType.Invalidate)
-                                {
-                                    if (resume) options.StartAfter = cursor.Current.Last().ResumeToken;
-                                    OnChanges?.Invoke(cursor.Current.Select(x => x.FullDocument));
-                                    OnChangesCSD?.Invoke(cursor.Current);
-                                }
-                                else if (resume)
-                                {
-                                    options.StartAfter = cursor.Current.First().ResumeToken;
-                                }
+                                if (csd.OperationType != ChangeStreamOperationType.Invalidate)
+                                    currentBatch.Add(csd);
+
+                                if (resume)
+                                    options.StartAfter = csd.ResumeToken;
+                            }
+
+                            if (currentBatch.Count > 0)
+                            {
+                                OnChanges?.Invoke(currentBatch.Select(d => d.FullDocument));
+                                OnChangesCSD?.Invoke(currentBatch);
+                                currentBatch.Clear();
                             }
                         }
 
