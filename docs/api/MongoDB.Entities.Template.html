@@ -107,11 +107,32 @@
     <div class="level1"><span class="xref">Template</span></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.Template-2.html">Template&lt;TInput, TResult&gt;</a></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_Template_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Template : object</code></pre>
+    <pre><code class="lang-csharp hljs">public class Template</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -224,13 +245,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_Elements_" data-uid="MongoDB.Entities.Template.Elements*"></a>
-  <h4 id="MongoDB_Entities_Template_Elements__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(Expression{Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression into a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
+  <h4 id="MongoDB_Entities_Template_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given index and expression into a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -243,7 +264,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>0=a 1=b 2=c 3=d and so on...</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -283,13 +310,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_Elements_" data-uid="MongoDB.Entities.Template.Elements*"></a>
-  <h4 id="MongoDB_Entities_Template_Elements__1_System_Int32_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(System.Int32,Expression{Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given index and expression into a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
+  <h4 id="MongoDB_Entities_Template_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the given expression into a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -302,13 +329,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">index</span></td>
-        <td><p>0=a 1=b 2=c 3=d and so on...</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -348,7 +369,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_Path_" data-uid="MongoDB.Entities.Template.Path*"></a>
-  <h4 id="MongoDB_Entities_Template_Path__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Path``1(Expression{Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -367,7 +388,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -407,7 +428,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_Paths_" data-uid="MongoDB.Entities.Template.Paths*"></a>
-  <h4 id="MongoDB_Entities_Template_Paths__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Paths``1(Expression{Func{``0,System.Object}})">Paths&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_Paths__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Paths&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -426,7 +447,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
 </td>
@@ -466,7 +487,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_PosAll_" data-uid="MongoDB.Entities.Template.PosAll*"></a>
-  <h4 id="MongoDB_Entities_Template_PosAll__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosAll``1(Expression{Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -485,7 +506,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -525,7 +546,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_PosFiltered_" data-uid="MongoDB.Entities.Template.PosFiltered*"></a>
-  <h4 id="MongoDB_Entities_Template_PosFiltered__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFiltered``1(Expression{Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
@@ -545,7 +566,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -585,7 +606,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_PosFirst_" data-uid="MongoDB.Entities.Template.PosFirst*"></a>
-  <h4 id="MongoDB_Entities_Template_PosFirst__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFirst``1(Expression{Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -604,7 +625,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -644,7 +665,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   
   <a id="MongoDB_Entities_Template_Property_" data-uid="MongoDB.Entities.Template.Property*"></a>
-  <h4 id="MongoDB_Entities_Template_Property__1_Expression_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Property``1(Expression{Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_Template_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given member expression into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -663,7 +684,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.RootProp.SomeProp</p>
 </td>
@@ -772,7 +793,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">ArrayFilterDefinition</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ArrayFilterDefinition</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -814,7 +835,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">PipelineDefinition</span>&lt;TInput, TOutput&gt;</td>
+        <td><span class="xref">MongoDB.Driver.PipelineDefinition</span>&lt;TInput, TOutput&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -862,7 +883,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">BsonDocument</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Bson.BsonDocument</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>

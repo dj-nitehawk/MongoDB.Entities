@@ -124,7 +124,7 @@ public class Genre : Entity
 </code></pre>
 <p>notice the parameters of the <code>InitOneToMany</code> and <code>InitManyToMany</code> methods above. the first method only takes one parameter which is just a lambda pointing to the property you want to initialize.</p>
 <p>the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.</p>
-<p>also note that you specify which side of the relationship a property is using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationsips.</p>
+<p>also note that you specify which side of the relationship a property is using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationships.</p>
 <h2 id="one-to-one">One-to-one</h2>
 <p>a reference can be assigned in any of the following three ways:</p>
 <pre><code class="lang-csharp">book.MainAuthor = author.ToReference(); //call ToReference on a child
@@ -167,7 +167,7 @@ await book.Genres.AddAsync(genre); //many-to-many
 await book.Genres.RemoveAsync(genre);
 </code></pre>
 <p>the original <code>author</code> in the <code>Authors</code> collection is unaffected. also the <code>genre</code> entity in the <code>Genres</code> collection is unaffected. only the relationship between entities are deleted.</p>
-<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_IClientSessionHandle_CancellationToken_">overloads</a></em> for removing relationships with multiple entities or just the string IDs.</p>
+<p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#MongoDB_Entities_Many_1_RemoveAsync__0_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">overloads</a></em> for removing relationships with multiple entities or just the string IDs.</p>
 <h3 id="entity-deletion-1">Entity deletion</h3>
 <p>when you delete an entity that's in a <code>one-to-many</code> or <code>many-to-many</code> relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.</p>
 <p>for example:</p>

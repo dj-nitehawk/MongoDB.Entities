@@ -95,11 +95,28 @@ watcher.OnStop += () =>
     }
 };
 ```
-this event will be fired when the internal cursor gets closed due to either you requesting cancellation or an `invalidate` event occuring such as renaming or dropping of the watched collection.
+this event will be fired when the internal cursor gets closed due to either you requesting cancellation or an `invalidate` event occurring such as renaming or dropping of the watched collection.
 
 if the cause of stopping is due to aborting via cancellation-token, the watcher has already purged all the event subscribers and no longer can be restarted.
 
 if the cause was an `invalidate` event, you can restart watching as shown above. the existing event subscribers will continue to receive change events.
+
+## Limiting properties of returned entities
+you can apply a projection in order to specify which properties of your entity type you'd like returned when the change events are triggered like so:
+```csharp
+watcher.Start(
+    eventTypes: EventType.Created | EventType.Updated,
+    projection: a => new Author
+    {
+        Name = a.Name,
+        Address = a.Address
+    });
+```
+with the above example, only the author name and address properties will have their values populated. the rest of the properties will be null.
+
+> [!note]
+> projections cannot be done if the types of change you're interested in includes deletions. because the entity data no longer exists in the database when a deletion occurs and mongodb only returns the entity ID with the change event.
+
 
 ## Resuming across app restarts
 you can retrieve a resume token from the `ResumeToken` property of the watcher like so:

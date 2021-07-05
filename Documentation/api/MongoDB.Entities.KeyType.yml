@@ -27,8 +27,8 @@ items:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: 'public enum KeyType : int'
-    content.vb: Public Enum KeyType As Integer
+    content: public enum KeyType
+    content.vb: Public Enum KeyType
   modifiers.csharp:
   - public
   - enum

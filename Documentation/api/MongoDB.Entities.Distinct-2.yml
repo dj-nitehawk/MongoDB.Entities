@@ -5,19 +5,19 @@ items:
   id: Distinct`2
   parent: MongoDB.Entities
   children:
-  - MongoDB.Entities.Distinct`2.ExecuteAsync(CancellationToken)
-  - MongoDB.Entities.Distinct`2.ExecuteCursorAsync(CancellationToken)
+  - MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
+  - MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
-  - MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Boolean}})
-  - MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  - MongoDB.Entities.Distinct`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
   - MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
+  - MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  - MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  - MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   - MongoDB.Entities.Distinct`2.MatchExpression(MongoDB.Entities.Template)
   - MongoDB.Entities.Distinct`2.MatchExpression(System.String)
   - MongoDB.Entities.Distinct`2.MatchString(System.String)
-  - MongoDB.Entities.Distinct`2.Option(Action{DistinctOptions})
-  - MongoDB.Entities.Distinct`2.Property(Expression{Func{`0,System.Object}})
+  - MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})
+  - MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   - MongoDB.Entities.Distinct`2.Property(System.String)
   langs:
   - csharp
@@ -36,18 +36,26 @@ items:
   summary: "\nRepresents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.\n"
   example: []
   syntax:
-    content: 'public class Distinct<T, TProperty> : object where T : IEntity'
+    content: >-
+      public class Distinct<T, TProperty>
+
+          where T : IEntity
     typeParameters:
     - id: T
       description: Any Entity that implements IEntity interface
     - id: TProperty
       description: The type of the property of the entity you&apos;d like to get unique values for
-    content.vb: >-
-      Public Class Distinct(Of T As IEntity, TProperty)
-
-          Inherits Object
+    content.vb: Public Class Distinct(Of T As IEntity, TProperty)
   inheritance:
   - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   nameWithType.vb: Distinct(Of T, TProperty)
   modifiers.csharp:
   - public
@@ -93,16 +101,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property(System.String)
-- uid: MongoDB.Entities.Distinct`2.Property(Expression{Func{`0,System.Object}})
-  commentId: M:MongoDB.Entities.Distinct`2.Property(Expression{Func{`0,System.Object}})
-  id: Property(Expression{Func{`0,System.Object}})
+- uid: MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  commentId: M:MongoDB.Entities.Distinct`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  id: Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: Property(Expression<Func<T, Object>>)
   nameWithType: Distinct<T, TProperty>.Property(Expression<Func<T, Object>>)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.Property(Expression<Func<T, System.Object>>)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Property(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
   type: Method
   source:
     id: Property
@@ -117,7 +125,7 @@ items:
     content: public Distinct<T, TProperty> Property(Expression<Func<T, object>> property)
     parameters:
     - id: property
-      type: Expression{Func{{T},System.Object}}
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => x.Address.Street
     return:
       type: MongoDB.Entities.Distinct`2
@@ -128,18 +136,18 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property(Expression(Of Func(Of T, System.Object)))
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   name.vb: Property(Expression(Of Func(Of T, Object)))
-- uid: MongoDB.Entities.Distinct`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
-  commentId: M:MongoDB.Entities.Distinct`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
-  id: Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})
+- uid: MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
+  id: Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
   nameWithType: Distinct<T, TProperty>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>)
   type: Method
   source:
     id: Match
@@ -154,7 +162,7 @@ items:
     content: public Distinct<T, TProperty> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     parameters:
     - id: filter
-      type: Func{FilterDefinitionBuilder{{T}},FilterDefinition{{T}}}
+      type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
       type: MongoDB.Entities.Distinct`2
@@ -165,18 +173,18 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
-- uid: MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Boolean}})
-  commentId: M:MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Boolean}})
-  id: Match(Expression{Func{`0,System.Boolean}})
+- uid: MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: Match(Expression<Func<T, Boolean>>)
   nameWithType: Distinct<T, TProperty>.Match(Expression<Func<T, Boolean>>)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(Expression<Func<T, System.Boolean>>)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>)
   type: Method
   source:
     id: Match
@@ -191,7 +199,7 @@ items:
     content: public Distinct<T, TProperty> Match(Expression<Func<T, bool>> expression)
     parameters:
     - id: expression
-      type: Expression{Func{{T},System.Boolean}}
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
       type: MongoDB.Entities.Distinct`2
@@ -202,7 +210,7 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, System.Boolean)))
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean)))
   name.vb: Match(Expression(Of Func(Of T, Boolean)))
 - uid: MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.Distinct`2.Match(MongoDB.Entities.Template)
@@ -288,16 +296,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(MongoDB.Entities.Search, System.String, System.Boolean, System.Boolean, System.String)
-- uid: MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  commentId: M:MongoDB.Entities.Distinct`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
-  id: Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+- uid: MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  commentId: M:MongoDB.Entities.Distinct`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
+  id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
   nameWithType: Distinct<T, TProperty>.Match(Expression<Func<T, Object>>, Coordinates2D, Nullable<Double>, Nullable<Double>)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(Expression<Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Match(System.Linq.Expressions.Expression<System.Func<T, System.Object>>, MongoDB.Entities.Coordinates2D, System.Nullable<System.Double>, System.Nullable<System.Double>)
   type: Method
   source:
     id: Match
@@ -309,10 +317,10 @@ items:
   summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
   example: []
   syntax:
-    content: public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    content: public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
     parameters:
     - id: coordinatesProperty
-      type: Expression{Func{{T},System.Object}}
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: The property where 2DCoordinates are stored
     - id: nearCoordinates
       type: MongoDB.Entities.Coordinates2D
@@ -332,7 +340,7 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Entities.Coordinates2D, System.Nullable(Of System.Double), System.Nullable(Of System.Double))
   name.vb: Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
 - uid: MongoDB.Entities.Distinct`2.MatchString(System.String)
   commentId: M:MongoDB.Entities.Distinct`2.MatchString(System.String)
@@ -442,16 +450,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).MatchExpression(MongoDB.Entities.Template)
-- uid: MongoDB.Entities.Distinct`2.Option(Action{DistinctOptions})
-  commentId: M:MongoDB.Entities.Distinct`2.Option(Action{DistinctOptions})
-  id: Option(Action{DistinctOptions})
+- uid: MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})
+  commentId: M:MongoDB.Entities.Distinct`2.Option(System.Action{MongoDB.Driver.DistinctOptions})
+  id: Option(System.Action{MongoDB.Driver.DistinctOptions})
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: Option(Action<DistinctOptions>)
   nameWithType: Distinct<T, TProperty>.Option(Action<DistinctOptions>)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.Option(Action<DistinctOptions>)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.Option(System.Action<MongoDB.Driver.DistinctOptions>)
   type: Method
   source:
     id: Option
@@ -466,7 +474,7 @@ items:
     content: public Distinct<T, TProperty> Option(Action<DistinctOptions> option)
     parameters:
     - id: option
-      type: Action{DistinctOptions}
+      type: System.Action{MongoDB.Driver.DistinctOptions}
       description: x => x.OptionName = OptionValue
     return:
       type: MongoDB.Entities.Distinct`2
@@ -477,7 +485,7 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option(Action(Of DistinctOptions))
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option(System.Action(Of MongoDB.Driver.DistinctOptions))
   name.vb: Option(Action(Of DistinctOptions))
 - uid: MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
   commentId: M:MongoDB.Entities.Distinct`2.IgnoreGlobalFilters
@@ -511,16 +519,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).IgnoreGlobalFilters()
-- uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync(CancellationToken)
-  commentId: M:MongoDB.Entities.Distinct`2.ExecuteCursorAsync(CancellationToken)
-  id: ExecuteCursorAsync(CancellationToken)
+- uid: MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Distinct`2.ExecuteCursorAsync(System.Threading.CancellationToken)
+  id: ExecuteCursorAsync(System.Threading.CancellationToken)
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: ExecuteCursorAsync(CancellationToken)
   nameWithType: Distinct<T, TProperty>.ExecuteCursorAsync(CancellationToken)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteCursorAsync(CancellationToken)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteCursorAsync(System.Threading.CancellationToken)
   type: Method
   source:
     id: ExecuteCursorAsync
@@ -532,13 +540,13 @@ items:
   summary: "\nRun the Distinct command in MongoDB server and get a cursor instead of materialized results\n"
   example: []
   syntax:
-    content: public Task<IAsyncCursor<TProperty>> ExecuteCursorAsync(CancellationToken cancellation = null)
+    content: public Task<IAsyncCursor<TProperty>> ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))
     parameters:
     - id: cancellation
-      type: CancellationToken
+      type: System.Threading.CancellationToken
       description: An optional cancellation token
     return:
-      type: Task{IAsyncCursor{{TProperty}}}
+      type: System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{{TProperty}}}
     content.vb: Public Function ExecuteCursorAsync(cancellation As CancellationToken = Nothing) As Task(Of IAsyncCursor(Of TProperty))
   overload: MongoDB.Entities.Distinct`2.ExecuteCursorAsync*
   nameWithType.vb: Distinct(Of T, TProperty).ExecuteCursorAsync(CancellationToken)
@@ -546,17 +554,17 @@ items:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteCursorAsync(CancellationToken)
-- uid: MongoDB.Entities.Distinct`2.ExecuteAsync(CancellationToken)
-  commentId: M:MongoDB.Entities.Distinct`2.ExecuteAsync(CancellationToken)
-  id: ExecuteAsync(CancellationToken)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteCursorAsync(System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Distinct`2.ExecuteAsync(System.Threading.CancellationToken)
+  id: ExecuteAsync(System.Threading.CancellationToken)
   parent: MongoDB.Entities.Distinct`2
   langs:
   - csharp
   - vb
   name: ExecuteAsync(CancellationToken)
   nameWithType: Distinct<T, TProperty>.ExecuteAsync(CancellationToken)
-  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteAsync(CancellationToken)
+  fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteAsync(System.Threading.CancellationToken)
   type: Method
   source:
     id: ExecuteAsync
@@ -568,13 +576,13 @@ items:
   summary: "\nRun the Distinct command in MongoDB server and get a list of unique property values\n"
   example: []
   syntax:
-    content: public async Task<List<TProperty>> ExecuteAsync(CancellationToken cancellation = null)
+    content: public async Task<List<TProperty>> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
     parameters:
     - id: cancellation
-      type: CancellationToken
+      type: System.Threading.CancellationToken
       description: An optional cancellation token
     return:
-      type: Task{List{{TProperty}}}
+      type: System.Threading.Tasks.Task{System.Collections.Generic.List{{TProperty}}}
     content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of List(Of TProperty))
   overload: MongoDB.Entities.Distinct`2.ExecuteAsync*
   nameWithType.vb: Distinct(Of T, TProperty).ExecuteAsync(CancellationToken)
@@ -583,13 +591,305 @@ items:
   - async
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteAsync(CancellationToken)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteAsync(System.Threading.CancellationToken)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
   name: MongoDB.Entities
   nameWithType: MongoDB.Entities
   fullName: MongoDB.Entities
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: MongoDB.Entities.Distinct`2.Property*
   commentId: Overload:MongoDB.Entities.Distinct`2.Property
   name: Property
@@ -598,6 +898,8 @@ references:
   nameWithType.vb: Distinct(Of T, TProperty).Property
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Property
 - uid: System.String
+  commentId: T:System.String
+  parent: System
   isExternal: true
   name: String
   nameWithType: String
@@ -651,28 +953,29 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Expression{Func{{T},System.Object}}
-  commentId: '!:Expression{Func{`0,System.Object}}'
-  definition: Expression`1
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Object}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
   name: Expression<Func<T, Object>>
   nameWithType: Expression<Func<T, Object>>
-  fullName: Expression<Func<T, System.Object>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Object>>
   nameWithType.vb: Expression(Of Func(Of T, Object))
-  fullName.vb: Expression(Of Func(Of T, System.Object))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object))
   name.vb: Expression(Of Func(Of T, Object))
   spec.csharp:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -695,18 +998,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -728,44 +1031,51 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Expression`1
+- uid: System.Linq.Expressions.Expression`1
+  commentId: T:System.Linq.Expressions.Expression`1
   isExternal: true
-  name: Expression<>
-  nameWithType: Expression<>
-  fullName: Expression<>
-  nameWithType.vb: Expression(Of )
-  fullName.vb: Expression(Of )
-  name.vb: Expression(Of )
+  name: Expression<TDelegate>
+  nameWithType: Expression<TDelegate>
+  fullName: System.Linq.Expressions.Expression<TDelegate>
+  nameWithType.vb: Expression(Of TDelegate)
+  fullName.vb: System.Linq.Expressions.Expression(Of TDelegate)
+  name.vb: Expression(Of TDelegate)
   spec.csharp:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TDelegate
+    nameWithType: TDelegate
+    fullName: TDelegate
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Linq.Expressions
+  commentId: N:System.Linq.Expressions
+  isExternal: true
+  name: System.Linq.Expressions
+  nameWithType: System.Linq.Expressions
+  fullName: System.Linq.Expressions
 - uid: MongoDB.Entities.Distinct`2.Match*
   commentId: Overload:MongoDB.Entities.Distinct`2.Match
   name: Match
@@ -773,28 +1083,29 @@ references:
   fullName: MongoDB.Entities.Distinct<T, TProperty>.Match
   nameWithType.vb: Distinct(Of T, TProperty).Match
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Match
-- uid: Func{FilterDefinitionBuilder{{T}},FilterDefinition{{T}}}
-  commentId: '!:Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}}'
-  definition: Func`2
+- uid: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
+  commentId: T:System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}}
+  parent: System
+  definition: System.Func`2
   name: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
   nameWithType: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
-  fullName: Func<FilterDefinitionBuilder<T>, FilterDefinition<T>>
+  fullName: System.Func<MongoDB.Driver.FilterDefinitionBuilder<T>, MongoDB.Driver.FilterDefinition<T>>
   nameWithType.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
-  fullName.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
+  fullName.vb: System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T))
   name.vb: Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))
   spec.csharp:
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: FilterDefinitionBuilder`1
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
   - name: <
     nameWithType: <
@@ -808,10 +1119,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: FilterDefinition`1
+  - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: <
     nameWithType: <
@@ -826,18 +1137,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: FilterDefinitionBuilder`1
+  - uid: MongoDB.Driver.FilterDefinitionBuilder`1
     name: FilterDefinitionBuilder
     nameWithType: FilterDefinitionBuilder
-    fullName: FilterDefinitionBuilder
+    fullName: MongoDB.Driver.FilterDefinitionBuilder
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -851,10 +1162,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: FilterDefinition`1
+  - uid: MongoDB.Driver.FilterDefinition`1
     name: FilterDefinition
     nameWithType: FilterDefinition
-    fullName: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -868,78 +1179,80 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Func`2
+- uid: System.Func`2
+  commentId: T:System.Func`2
   isExternal: true
-  name: Func<, >
-  nameWithType: Func<, >
-  fullName: Func<, >
-  nameWithType.vb: Func(Of , )
-  fullName.vb: Func(Of , )
-  name.vb: Func(Of , )
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
   spec.csharp:
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
   - name: )
     nameWithType: )
     fullName: )
-- uid: Expression{Func{{T},System.Boolean}}
-  commentId: '!:Expression{Func{`0,System.Boolean}}'
-  definition: Expression`1
+- uid: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
+  commentId: T:System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}}
+  parent: System.Linq.Expressions
+  definition: System.Linq.Expressions.Expression`1
   name: Expression<Func<T, Boolean>>
   nameWithType: Expression<Func<T, Boolean>>
-  fullName: Expression<Func<T, System.Boolean>>
+  fullName: System.Linq.Expressions.Expression<System.Func<T, System.Boolean>>
   nameWithType.vb: Expression(Of Func(Of T, Boolean))
-  fullName.vb: Expression(Of Func(Of T, System.Boolean))
+  fullName.vb: System.Linq.Expressions.Expression(Of System.Func(Of T, System.Boolean))
   name.vb: Expression(Of Func(Of T, Boolean))
   spec.csharp:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: <
     nameWithType: <
@@ -962,18 +1275,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Expression`1
+  - uid: System.Linq.Expressions.Expression`1
     name: Expression
     nameWithType: Expression
-    fullName: Expression
+    fullName: System.Linq.Expressions.Expression
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Func`2
+  - uid: System.Func`2
     name: Func
     nameWithType: Func
-    fullName: Func
+    fullName: System.Func
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1008,6 +1321,8 @@ references:
   nameWithType: Search
   fullName: MongoDB.Entities.Search
 - uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
   isExternal: true
   name: Boolean
   nameWithType: Boolean
@@ -1019,7 +1334,8 @@ references:
   nameWithType: Coordinates2D
   fullName: MongoDB.Entities.Coordinates2D
 - uid: System.Nullable{System.Double}
-  commentId: '!:System.Nullable{System.Double}'
+  commentId: T:System.Nullable{System.Double}
+  parent: System
   definition: System.Nullable`1
   name: Nullable<Double>
   nameWithType: Nullable<Double>
@@ -1062,13 +1378,14 @@ references:
     nameWithType: )
     fullName: )
 - uid: System.Nullable`1
+  commentId: T:System.Nullable`1
   isExternal: true
-  name: Nullable<>
-  nameWithType: Nullable<>
-  fullName: System.Nullable<>
-  nameWithType.vb: Nullable(Of )
-  fullName.vb: System.Nullable(Of )
-  name.vb: Nullable(Of )
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
@@ -1078,9 +1395,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -1093,9 +1410,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )
@@ -1120,84 +1437,86 @@ references:
   fullName: MongoDB.Entities.Distinct<T, TProperty>.Option
   nameWithType.vb: Distinct(Of T, TProperty).Option
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).Option
-- uid: Action{DistinctOptions}
-  commentId: '!:Action{DistinctOptions}'
-  definition: Action`1
+- uid: System.Action{MongoDB.Driver.DistinctOptions}
+  commentId: T:System.Action{MongoDB.Driver.DistinctOptions}
+  parent: System
+  definition: System.Action`1
   name: Action<DistinctOptions>
   nameWithType: Action<DistinctOptions>
-  fullName: Action<DistinctOptions>
+  fullName: System.Action<MongoDB.Driver.DistinctOptions>
   nameWithType.vb: Action(Of DistinctOptions)
-  fullName.vb: Action(Of DistinctOptions)
+  fullName.vb: System.Action(Of MongoDB.Driver.DistinctOptions)
   name.vb: Action(Of DistinctOptions)
   spec.csharp:
-  - uid: Action`1
+  - uid: System.Action`1
     name: Action
     nameWithType: Action
-    fullName: Action
+    fullName: System.Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: DistinctOptions
+  - uid: MongoDB.Driver.DistinctOptions
     name: DistinctOptions
     nameWithType: DistinctOptions
-    fullName: DistinctOptions
+    fullName: MongoDB.Driver.DistinctOptions
     isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Action`1
+  - uid: System.Action`1
     name: Action
     nameWithType: Action
-    fullName: Action
+    fullName: System.Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: DistinctOptions
+  - uid: MongoDB.Driver.DistinctOptions
     name: DistinctOptions
     nameWithType: DistinctOptions
-    fullName: DistinctOptions
+    fullName: MongoDB.Driver.DistinctOptions
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: Action`1
+- uid: System.Action`1
+  commentId: T:System.Action`1
   isExternal: true
-  name: Action<>
-  nameWithType: Action<>
-  fullName: Action<>
-  nameWithType.vb: Action(Of )
-  fullName.vb: Action(Of )
-  name.vb: Action(Of )
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
   spec.csharp:
-  - uid: Action`1
+  - uid: System.Action`1
     name: Action
     nameWithType: Action
-    fullName: Action
+    fullName: System.Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Action`1
+  - uid: System.Action`1
     name: Action
     nameWithType: Action
-    fullName: Action
+    fullName: System.Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )
@@ -1215,33 +1534,36 @@ references:
   fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteCursorAsync
   nameWithType.vb: Distinct(Of T, TProperty).ExecuteCursorAsync
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteCursorAsync
-- uid: CancellationToken
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
   isExternal: true
   name: CancellationToken
   nameWithType: CancellationToken
-  fullName: CancellationToken
-- uid: Task{IAsyncCursor{{TProperty}}}
-  commentId: '!:Task{IAsyncCursor{`1}}'
-  definition: Task`1
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{{TProperty}}}
+  commentId: T:System.Threading.Tasks.Task{MongoDB.Driver.IAsyncCursor{`1}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
   name: Task<IAsyncCursor<TProperty>>
   nameWithType: Task<IAsyncCursor<TProperty>>
-  fullName: Task<IAsyncCursor<TProperty>>
+  fullName: System.Threading.Tasks.Task<MongoDB.Driver.IAsyncCursor<TProperty>>
   nameWithType.vb: Task(Of IAsyncCursor(Of TProperty))
-  fullName.vb: Task(Of IAsyncCursor(Of TProperty))
+  fullName.vb: System.Threading.Tasks.Task(Of MongoDB.Driver.IAsyncCursor(Of TProperty))
   name.vb: Task(Of IAsyncCursor(Of TProperty))
   spec.csharp:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: IAsyncCursor`1
+  - uid: MongoDB.Driver.IAsyncCursor`1
     name: IAsyncCursor
     nameWithType: IAsyncCursor
-    fullName: IAsyncCursor
+    fullName: MongoDB.Driver.IAsyncCursor
     isExternal: true
   - name: <
     nameWithType: <
@@ -1256,18 +1578,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: IAsyncCursor`1
+  - uid: MongoDB.Driver.IAsyncCursor`1
     name: IAsyncCursor
     nameWithType: IAsyncCursor
-    fullName: IAsyncCursor
+    fullName: MongoDB.Driver.IAsyncCursor
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -1281,44 +1603,57 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Task`1
+- uid: System.Threading
+  commentId: N:System.Threading
   isExternal: true
-  name: Task<>
-  nameWithType: Task<>
-  fullName: Task<>
-  nameWithType.vb: Task(Of )
-  fullName.vb: Task(Of )
-  name.vb: Task(Of )
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
   spec.csharp:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: ''
-    nameWithType: ''
-    fullName: ''
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
 - uid: MongoDB.Entities.Distinct`2.ExecuteAsync*
   commentId: Overload:MongoDB.Entities.Distinct`2.ExecuteAsync
   name: ExecuteAsync
@@ -1326,28 +1661,29 @@ references:
   fullName: MongoDB.Entities.Distinct<T, TProperty>.ExecuteAsync
   nameWithType.vb: Distinct(Of T, TProperty).ExecuteAsync
   fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty).ExecuteAsync
-- uid: Task{List{{TProperty}}}
-  commentId: '!:Task{List{`1}}'
-  definition: Task`1
+- uid: System.Threading.Tasks.Task{System.Collections.Generic.List{{TProperty}}}
+  commentId: T:System.Threading.Tasks.Task{System.Collections.Generic.List{`1}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
   name: Task<List<TProperty>>
   nameWithType: Task<List<TProperty>>
-  fullName: Task<List<TProperty>>
+  fullName: System.Threading.Tasks.Task<System.Collections.Generic.List<TProperty>>
   nameWithType.vb: Task(Of List(Of TProperty))
-  fullName.vb: Task(Of List(Of TProperty))
+  fullName.vb: System.Threading.Tasks.Task(Of System.Collections.Generic.List(Of TProperty))
   name.vb: Task(Of List(Of TProperty))
   spec.csharp:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - uid: List`1
+  - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
-    fullName: List
+    fullName: System.Collections.Generic.List
     isExternal: true
   - name: <
     nameWithType: <
@@ -1362,18 +1698,18 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Task`1
+  - uid: System.Threading.Tasks.Task`1
     name: Task
     nameWithType: Task
-    fullName: Task
+    fullName: System.Threading.Tasks.Task
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: List`1
+  - uid: System.Collections.Generic.List`1
     name: List
     nameWithType: List
-    fullName: List
+    fullName: System.Collections.Generic.List
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '

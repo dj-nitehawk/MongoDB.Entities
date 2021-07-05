@@ -175,9 +175,24 @@
     }
 };
 </code></pre>
-<p>this event will be fired when the internal cursor gets closed due to either you requesting cancellation or an <code>invalidate</code> event occuring such as renaming or dropping of the watched collection.</p>
+<p>this event will be fired when the internal cursor gets closed due to either you requesting cancellation or an <code>invalidate</code> event occurring such as renaming or dropping of the watched collection.</p>
 <p>if the cause of stopping is due to aborting via cancellation-token, the watcher has already purged all the event subscribers and no longer can be restarted.</p>
 <p>if the cause was an <code>invalidate</code> event, you can restart watching as shown above. the existing event subscribers will continue to receive change events.</p>
+<h2 id="limiting-properties-of-returned-entities">Limiting properties of returned entities</h2>
+<p>you can apply a projection in order to specify which properties of your entity type you'd like returned when the change events are triggered like so:</p>
+<pre><code class="lang-csharp">watcher.Start(
+    eventTypes: EventType.Created | EventType.Updated,
+    projection: a =&gt; new Author
+    {
+        Name = a.Name,
+        Address = a.Address
+    });
+</code></pre>
+<p>with the above example, only the author name and address properties will have their values populated. the rest of the properties will be null.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>projections cannot be done if the types of change you're interested in includes deletions. because the entity data no longer exists in the database when a deletion occurs and mongodb only returns the entity ID with the change event.</p>
+</div>
 <h2 id="resuming-across-app-restarts">Resuming across app restarts</h2>
 <p>you can retrieve a resume token from the <code>ResumeToken</code> property of the watcher like so:</p>
 <pre><code class="lang-csharp">var token = watcher.ResumeToken;

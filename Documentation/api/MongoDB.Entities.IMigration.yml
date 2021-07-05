@@ -52,7 +52,7 @@ items:
   syntax:
     content: Task UpgradeAsync()
     return:
-      type: Task
+      type: System.Threading.Tasks.Task
     content.vb: Function UpgradeAsync As Task
   overload: MongoDB.Entities.IMigration.UpgradeAsync*
 references:
@@ -66,8 +66,16 @@ references:
   name: UpgradeAsync
   nameWithType: IMigration.UpgradeAsync
   fullName: MongoDB.Entities.IMigration.UpgradeAsync
-- uid: Task
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
   isExternal: true
   name: Task
   nameWithType: Task
-  fullName: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks

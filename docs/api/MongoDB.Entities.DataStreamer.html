@@ -106,11 +106,35 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">DataStreamer</span></div>
   </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
   <h6><strong>Assembly</strong>: MongoDB.Entities.dll</h6>
   <h5 id="MongoDB_Entities_DataStreamer_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class DataStreamer : object</code></pre>
+    <pre><code class="lang-csharp hljs">public class DataStreamer</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -146,13 +170,13 @@
   
   
   <a id="MongoDB_Entities_DataStreamer_DownloadAsync_" data-uid="MongoDB.Entities.DataStreamer.DownloadAsync*"></a>
-  <h4 id="MongoDB_Entities_DataStreamer_DownloadAsync_Stream_System_Int32_CancellationToken_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.DownloadAsync(Stream,System.Int32,CancellationToken,IClientSessionHandle)">DownloadAsync(Stream, Int32, CancellationToken, IClientSessionHandle)</h4>
+  <h4 id="MongoDB_Entities_DataStreamer_DownloadAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.DownloadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)">DownloadAsync(Stream, Int32, CancellationToken, IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Download binary data for this file entity from mongodb in chunks into a given stream.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancellation = null, IClientSessionHandle session = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -165,7 +189,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Stream</span></td>
+        <td><span class="xref">System.IO.Stream</span></td>
         <td><span class="parametername">stream</span></td>
         <td><p>The output stream to write the data</p>
 </td>
@@ -177,13 +201,13 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -200,7 +224,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -208,7 +232,7 @@
   
   
   <a id="MongoDB_Entities_DataStreamer_DownloadWithTimeoutAsync_" data-uid="MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync*"></a>
-  <h4 id="MongoDB_Entities_DataStreamer_DownloadWithTimeoutAsync_Stream_System_Int32_System_Int32_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(Stream,System.Int32,System.Int32,IClientSessionHandle)">DownloadWithTimeoutAsync(Stream, Int32, Int32, IClientSessionHandle)</h4>
+  <h4 id="MongoDB_Entities_DataStreamer_DownloadWithTimeoutAsync_System_IO_Stream_System_Int32_System_Int32_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)">DownloadWithTimeoutAsync(Stream, Int32, Int32, IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Download binary data for this file entity from mongodb in chunks into a given stream with a timeout period.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -227,7 +251,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Stream</span></td>
+        <td><span class="xref">System.IO.Stream</span></td>
         <td><span class="parametername">stream</span></td>
         <td><p>The output stream to write the data</p>
 </td>
@@ -244,7 +268,7 @@
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td></td>
       </tr>
@@ -260,7 +284,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -268,14 +292,14 @@
   
   
   <a id="MongoDB_Entities_DataStreamer_UploadAsync_" data-uid="MongoDB.Entities.DataStreamer.UploadAsync*"></a>
-  <h4 id="MongoDB_Entities_DataStreamer_UploadAsync_Stream_System_Int32_CancellationToken_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.UploadAsync(Stream,System.Int32,CancellationToken,IClientSessionHandle)">UploadAsync(Stream, Int32, CancellationToken, IClientSessionHandle)</h4>
+  <h4 id="MongoDB_Entities_DataStreamer_UploadAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.UploadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)">UploadAsync(Stream, Int32, CancellationToken, IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Upload binary data for this file entity into mongodb in chunks from a given stream.</p>
 <p>TIP: Make sure to save the entity before calling this method.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = null, IClientSessionHandle session = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -288,7 +312,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Stream</span></td>
+        <td><span class="xref">System.IO.Stream</span></td>
         <td><span class="parametername">stream</span></td>
         <td><p>The input stream to read the data from</p>
 </td>
@@ -300,13 +324,13 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -323,7 +347,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -331,7 +355,7 @@
   
   
   <a id="MongoDB_Entities_DataStreamer_UploadWithTimeoutAsync_" data-uid="MongoDB.Entities.DataStreamer.UploadWithTimeoutAsync*"></a>
-  <h4 id="MongoDB_Entities_DataStreamer_UploadWithTimeoutAsync_Stream_System_Int32_System_Int32_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.UploadWithTimeoutAsync(Stream,System.Int32,System.Int32,IClientSessionHandle)">UploadWithTimeoutAsync(Stream, Int32, Int32, IClientSessionHandle)</h4>
+  <h4 id="MongoDB_Entities_DataStreamer_UploadWithTimeoutAsync_System_IO_Stream_System_Int32_System_Int32_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DataStreamer.UploadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)">UploadWithTimeoutAsync(Stream, Int32, Int32, IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Upload binary data for this file entity into mongodb in chunks from a given stream with a timeout period.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -350,7 +374,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Stream</span></td>
+        <td><span class="xref">System.IO.Stream</span></td>
         <td><span class="parametername">stream</span></td>
         <td><p>The input stream to read the data from</p>
 </td>
@@ -368,7 +392,7 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -385,7 +409,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>

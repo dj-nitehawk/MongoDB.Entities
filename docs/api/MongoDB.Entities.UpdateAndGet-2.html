@@ -115,16 +115,37 @@
       <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_defs">UpdateBase&lt;T&gt;.defs</a>
     </div>
     <div>
-      <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification__1_Expression_Func__0___0_____0_">UpdateBase&lt;T&gt;.AddModification&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</a>
+      <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification__1_System_Linq_Expressions_Expression_System_Func__0___0_____0_">UpdateBase&lt;T&gt;.AddModification&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</a>
     </div>
     <div>
-      <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification_Func_UpdateDefinitionBuilder__0__UpdateDefinition__0___">UpdateBase&lt;T&gt;.AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</a>
+      <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification_System_Func_MongoDB_Driver_UpdateDefinitionBuilder__0__MongoDB_Driver_UpdateDefinition__0___">UpdateBase&lt;T&gt;.AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</a>
     </div>
     <div>
       <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification_System_String_">UpdateBase&lt;T&gt;.AddModification(String)</a>
     </div>
     <div>
       <a class="xref" href="MongoDB.Entities.UpdateBase-1.html#MongoDB_Entities_UpdateBase_1_AddModification_MongoDB_Entities_Template_">UpdateBase&lt;T&gt;.AddModification(Template)</a>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -159,13 +180,13 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_ExecuteAsync_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecuteAsync*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecuteAsync_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(CancellationToken)">ExecuteAsync(CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the update command in MongoDB and retrieve the first document modified</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;TProjection&gt; ExecuteAsync(CancellationToken cancellation = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task&lt;TProjection&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -178,7 +199,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -195,7 +216,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TProjection&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TProjection&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -203,13 +224,13 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_ExecutePipelineAsync_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecutePipelineAsync_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(CancellationToken)">ExecutePipelineAsync(CancellationToken)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecutePipelineAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)">ExecutePipelineAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the update command with pipeline stages and retrieve the first document modified</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; ExecutePipelineAsync(CancellationToken cancellation = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; ExecutePipelineAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -222,7 +243,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -239,7 +260,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TProjection&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TProjection&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -255,158 +276,6 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; IgnoreGlobalFilters()</code></pre>
   </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_Expression_Func__0_System_Boolean___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
-        <td><p>x =&gt; x.Property == Value</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_Expression_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(Expression{Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
-<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
-<p>Note: DB.FluentGeoNear() supports more advanced options</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
-        <td><span class="parametername">coordinatesProperty</span></td>
-        <td><p>The property where 2DCoordinates are stored</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></td>
-        <td><span class="parametername">nearCoordinates</span></td>
-        <td><p>The search point</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
-        <td><span class="parametername">maxDistance</span></td>
-        <td><p>Maximum distance in meters from the search point</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
-        <td><span class="parametername">minDistance</span></td>
-        <td><p>Minimum distance in meters from the search point</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_Func_FilterDefinitionBuilder__0__FilterDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(Func{FilterDefinitionBuilder{`0},FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">filter</span></td>
-        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -516,6 +385,158 @@
         <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
         <td><span class="parametername">template</span></td>
         <td><p>A Template with a find query</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; x.Property == Value</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
+<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>
+<p>Note: DB.FluentGeoNear() supports more advanced options</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">coordinatesProperty</span></td>
+        <td><p>The property where 2DCoordinates are stored</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></td>
+        <td><span class="parametername">nearCoordinates</span></td>
+        <td><p>The search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>Maximum distance in meters from the search point</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="parametername">minDistance</span></td>
+        <td><p>Minimum distance in meters from the search point</p>
 </td>
       </tr>
     </tbody>
@@ -714,50 +735,6 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_Func_UpdateDefinitionBuilder__0__UpdateDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(Func{UpdateDefinitionBuilder{`0},UpdateDefinition{`0}})">Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify the update definition builder operation to modify the Entities (use multiple times if needed)</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">UpdateDefinition</span>&lt;T&gt;&gt;</td>
-        <td><span class="parametername">operation</span></td>
-        <td><p>b =&gt; b.Inc(x =&gt; x.PropName, Value)</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)">Modify(Template)</h4>
   <div class="markdown level1 summary"><p>Specify an update with a Template to modify the Entities (use multiple times if needed)</p>
 </div>
@@ -780,6 +757,50 @@
         <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
         <td><span class="parametername">template</span></td>
         <td><p>A Template with a single update</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_System_Func_MongoDB_Driver_UpdateDefinitionBuilder__0__MongoDB_Driver_UpdateDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})">Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the update definition builder operation to modify the Entities (use multiple times if needed)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.UpdateDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">operation</span></td>
+        <td><p>b =&gt; b.Inc(x =&gt; x.PropName, Value)</p>
 </td>
       </tr>
     </tbody>
@@ -846,7 +867,7 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify__1_Expression_Func__0___0_____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify``1(Expression{Func{`0,``0}},``0)">Modify&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify__1_System_Linq_Expressions_Expression_System_Func__0___0_____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)">Modify&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</h4>
   <div class="markdown level1 summary"><p>Specify the property and it's value to modify (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -865,7 +886,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, TProp&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProp&gt;&gt;</td>
         <td><span class="parametername">property</span></td>
         <td><p>x =&gt; x.Property</p>
 </td>
@@ -911,7 +932,7 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_Expression_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept(Expression{Func{`0,System.Object}},`0)">ModifyExcept(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyExcept(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
   <div class="markdown level1 summary"><p>Modify all EXCEPT the specified properties with the values from a given entity instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -930,7 +951,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>Supply a new expression with the properties to exclude. Ex: <code>x =&gt; new { x.Prop1, x.Prop2 }</code></p>
 </td>
@@ -961,7 +982,7 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_Expression_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly(Expression{Func{`0,System.Object}},`0)">ModifyOnly(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyOnly(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
   <div class="markdown level1 summary"><p>Modify ONLY the specified properties with the values from a given entity instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -980,7 +1001,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>A new expression with the properties to include. Ex: <code>x =&gt; new { x.PropOne, x.PropTwo }</code></p>
 </td>
@@ -1055,7 +1076,7 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Option_" data-uid="MongoDB.Entities.UpdateAndGet`2.Option*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Option_Action_FindOneAndUpdateOptions__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Option(Action{FindOneAndUpdateOptions{`0,`1}})">Option(Action&lt;FindOneAndUpdateOptions&lt;T, TProjection&gt;&gt;)</h4>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Option_System_Action_MongoDB_Driver_FindOneAndUpdateOptions__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})">Option(Action&lt;FindOneAndUpdateOptions&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify an option for this update command (use multiple times if needed)</p>
 <p>TIP: Setting options is not required</p>
 </div>
@@ -1075,7 +1096,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">FindOneAndUpdateOptions</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.FindOneAndUpdateOptions</span>&lt;T, TProjection&gt;&gt;</td>
         <td><span class="parametername">option</span></td>
         <td><p>x =&gt; x.OptionName = OptionValue</p>
 </td>
@@ -1100,13 +1121,13 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Project_" data-uid="MongoDB.Entities.UpdateAndGet`2.Project*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_Expression_Func__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(Expression{Func{`0,`1}})">Project(Expression&lt;Func&lt;T, TProjection&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify how to project the results using a lambda expression</p>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})">Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to project the results using a projection expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1119,9 +1140,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, TProjection&gt;&gt;</td>
-        <td><span class="parametername">expression</span></td>
-        <td><p>x =&gt; new Test { PropName = x.Prop }</p>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.ProjectionDefinition</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="parametername">projection</span></td>
+        <td><p>p =&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
 </td>
       </tr>
     </tbody>
@@ -1144,13 +1165,13 @@
   
   
   <a id="MongoDB_Entities_UpdateAndGet_2_Project_" data-uid="MongoDB.Entities.UpdateAndGet`2.Project*"></a>
-  <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_Func_ProjectionDefinitionBuilder__0__ProjectionDefinition__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(Func{ProjectionDefinitionBuilder{`0},ProjectionDefinition{`0,`1}})">Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Specify how to project the results using a projection expression</p>
+  <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})">Project(Expression&lt;Func&lt;T, TProjection&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify how to project the results using a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
+    <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1163,9 +1184,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">ProjectionDefinition</span>&lt;T, TProjection&gt;&gt;</td>
-        <td><span class="parametername">projection</span></td>
-        <td><p>p =&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new Test { PropName = x.Prop }</p>
 </td>
       </tr>
     </tbody>
