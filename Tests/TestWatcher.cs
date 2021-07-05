@@ -20,7 +20,7 @@ namespace MongoDB.Entities.Tests
                 EventType.Created | EventType.Updated,
                 f => f.FullDocument.Name == "test");
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             watcher.OnChanges +=
                 flowers => allFlowers.AddRange(flowers);
@@ -36,9 +36,42 @@ namespace MongoDB.Entities.Tests
 
             await flower.DeleteAsync();
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             Assert.AreEqual(4, allFlowers.Count);
+        }
+
+        [TestMethod]
+        public async Task watching_with_projection_works()
+        {
+            var watcher = DB.Watcher<Flower>("test-with-projection");
+            var allFlowers = new List<Flower>();
+
+            watcher.Start(
+                EventType.Created | EventType.Updated,
+                f => new Flower { Color = f.Color },
+                f => f.FullDocument.Color == "red");
+
+            await Task.Delay(300);
+
+            watcher.OnChanges +=
+                flowers => allFlowers.AddRange(flowers);
+
+            await new[] {
+                new Flower { Name = "test", Color = "red" },
+                new Flower { Name = "test", Color = "red" },
+                new Flower { Name = "test", Color = "red" }
+            }.SaveAsync();
+
+            var flower = new Flower { Name = "test" };
+            await flower.SaveAsync();
+
+            await flower.DeleteAsync();
+
+            await Task.Delay(300);
+
+            Assert.AreEqual(3, allFlowers.Count);
+            Assert.IsTrue(allFlowers[0].Name == null && allFlowers[0].Color == "red");
         }
 
         [TestMethod]
@@ -53,7 +86,7 @@ namespace MongoDB.Entities.Tests
                 EventType.Created | EventType.Updated,
                 b => b.Eq(d => d.FullDocument.Name, guid));
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             watcher.OnChanges +=
                 flowers => allFlowers.AddRange(flowers);
@@ -69,7 +102,7 @@ namespace MongoDB.Entities.Tests
 
             await flower.DeleteAsync();
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             Assert.AreEqual(4, allFlowers.Count);
         }
@@ -86,7 +119,7 @@ namespace MongoDB.Entities.Tests
                 EventType.Created | EventType.Updated,
                 b => b.Eq(d => d.FullDocument.Name, guid));
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             watcher.OnChangesCSD +=
                 csDocs => allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
@@ -103,7 +136,7 @@ namespace MongoDB.Entities.Tests
 
             await flower.DeleteAsync();
 
-            Task.Delay(1000).Wait();
+            await Task.Delay(300);
 
             Assert.AreEqual(4, allFlowers.Count);
         }

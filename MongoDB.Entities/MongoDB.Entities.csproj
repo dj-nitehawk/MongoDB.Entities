@@ -8,9 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.17.0-beta2</Version>
+    <Version>20.17.0-beta3</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added ability to receive ChangeStreamDocuments with watchers
+- added support for projecting for watchers
 - improved handling of invalidate events in watchers
 </PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>

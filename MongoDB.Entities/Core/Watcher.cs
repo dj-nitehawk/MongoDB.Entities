@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,25 @@ namespace MongoDB.Entities
             bool onlyGetIDs = false,
             bool autoResume = true,
             CancellationToken cancellation = default)
-        => Init(null, eventTypes, filter, batchSize, onlyGetIDs, autoResume, cancellation);
+        => Init(null, eventTypes, filter, null, batchSize, onlyGetIDs, autoResume, cancellation);
+
+        /// <summary>
+        /// Starts the watcher instance with the supplied parameters. Supports projection.
+        /// </summary>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="projection">A projection expression for the entity</param>
+        /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
+        /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
+        /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
+        public void Start(
+            EventType eventTypes,
+            Expression<Func<T, T>> projection,
+            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            int batchSize = 25,
+            bool autoResume = true,
+            CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter, projection, batchSize, false, autoResume, cancellation);
 
         /// <summary>
         /// Starts the watcher instance with the supplied parameters
@@ -93,7 +112,25 @@ namespace MongoDB.Entities
             bool onlyGetIDs = false,
             bool autoResume = true,
             CancellationToken cancellation = default)
-        => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), batchSize, onlyGetIDs, autoResume, cancellation);
+        => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, autoResume, cancellation);
+
+        /// <summary>
+        /// Starts the watcher instance with the supplied parameters. Supports projection.
+        /// </summary>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="projection">A projection expression for the entity</param>
+        /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
+        /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
+        /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
+        public void Start(
+            EventType eventTypes,
+            Expression<Func<T, T>> projection,
+            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+            int batchSize = 25,
+            bool autoResume = true,
+            CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, autoResume, cancellation);
 
         /// <summary>
         /// Starts the watcher instance with the supplied configuration
@@ -111,7 +148,25 @@ namespace MongoDB.Entities
             int batchSize = 25,
             bool onlyGetIDs = false,
             CancellationToken cancellation = default)
-        => Init(resumeToken, eventTypes, filter, batchSize, onlyGetIDs, true, cancellation);
+        => Init(resumeToken, eventTypes, filter, null, batchSize, onlyGetIDs, true, cancellation);
+
+        /// <summary>
+        /// Starts the watcher instance with the supplied configuration. Supports projection.
+        /// </summary>
+        /// <param name="resumeToken">A resume token to start receiving changes after some point back in time</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="projection">A projection expression for the entity</param>
+        /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
+        /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
+        public void StartWithToken(
+            BsonDocument resumeToken,
+            EventType eventTypes,
+            Expression<Func<T, T>> projection,
+            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            int batchSize = 25,
+            CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter, projection, batchSize, false, true, cancellation);
 
         /// <summary>
         /// Starts the watcher instance with the supplied configuration
@@ -129,12 +184,31 @@ namespace MongoDB.Entities
             int batchSize = 25,
             bool onlyGetIDs = false,
             CancellationToken cancellation = default)
-        => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), batchSize, onlyGetIDs, true, cancellation);
+        => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, true, cancellation);
+
+        /// <summary>
+        /// Starts the watcher instance with the supplied configuration. Supports projection.
+        /// </summary>
+        /// <param name="resumeToken">A resume token to start receiving changes after some point back in time</param>
+        /// <param name="eventTypes">Type of event to watch for. Specify multiple like: EventType.Created | EventType.Updated | EventType.Deleted</param>
+        /// <param name="projection">A projection expression for the entity</param>
+        /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
+        /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
+        /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
+        public void StartWithToken(
+            BsonDocument resumeToken,
+            EventType eventTypes,
+            Expression<Func<T, T>> projection,
+            Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+            int batchSize = 25,
+            CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
 
         private void Init(
             BsonDocument resumeToken,
             EventType eventTypes,
             FilterDefinition<ChangeStreamDocument<T>> filter,
+            Expression<Func<T, T>> projection,
             int batchSize,
             bool onlyGetIDs,
             bool autoResume,
@@ -160,12 +234,23 @@ namespace MongoDB.Entities
             if ((eventTypes & EventType.Deleted) != 0)
                 ops.Add(ChangeStreamOperationType.Delete);
 
-            if (ops.Contains(ChangeStreamOperationType.Delete) && filter != null)
+            if (ops.Contains(ChangeStreamOperationType.Delete))
             {
-                throw new ArgumentException(
+                if (filter != null)
+                {
+                    throw new ArgumentException(
                     "Filtering is not supported when watching for deletions " +
                     "as the entity data no longer exists in the db " +
                     "at the time of receiving the event.");
+                }
+
+                if (projection != null)
+                {
+                    throw new ArgumentException(
+                    "Projecting is not supported when watching for deletions " +
+                    "as the entity data no longer exists in the db " +
+                    "at the time of receiving the event.");
+                }
             }
 
             var filters = Builders<ChangeStreamDocument<T>>.Filter.Where(x => ops.Contains(x.OperationType));
@@ -173,19 +258,22 @@ namespace MongoDB.Entities
             if (filter != null)
                 filters &= filter;
 
-            pipeline = new IPipelineStageDefinition[] {
-
+            var stages = new List<IPipelineStageDefinition>(3) {
                 PipelineStageDefinitionBuilder.Match(filters),
-
                 PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(@"
                 {
                     _id: 1,
                     operationType: 1,
-                    fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] },
                     documentKey: 1,
-                    updateDescription: 1
+                    updateDescription: 1,
+                    fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] }
                 }")
             };
+
+            if (projection != null)
+                stages.Add(PipelineStageDefinitionBuilder.Project(BuildProjection(projection)));
+
+            pipeline = stages;
 
             options = new ChangeStreamOptions
             {
@@ -198,6 +286,32 @@ namespace MongoDB.Entities
             initialized = true;
 
             StartWatching();
+        }
+
+        private static ProjectionDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> BuildProjection(Expression<Func<T, T>> projection)
+        {
+            var rendered = Builders<T>.Projection
+                .Expression(projection)
+                .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(),
+                        BsonSerializer.SerializerRegistry);
+
+            BsonDocument doc = new BsonDocument {
+                { "_id",1 },
+                { "operationType", 1},
+                { "documentKey", 1},
+                { "updateDescription", 1},
+                { "fullDocument._id", 1}
+            };
+
+            foreach (var element in rendered.Document.Elements)
+            {
+                if (element.Name != "_id")
+                {
+                    doc["fullDocument." + element.Name] = element.Value;
+                }
+            }
+
+            return doc;
         }
 
         /// <summary>
@@ -269,9 +383,7 @@ namespace MongoDB.Entities
                             if (OnChangesCSD != null)
                             {
                                 foreach (Action<IEnumerable<ChangeStreamDocument<T>>> a in OnChangesCSD.GetInvocationList())
-                                {
                                     OnChangesCSD -= a;
-                                }
                             }
 
                             if (OnError != null)
