@@ -112,6 +112,18 @@
 <h5>Tip</h5>
 <p>try not to do that except for calling the init method once at app start-up.</p>
 </div>
+<h2 id="sync-over-async-wrapper-utility">Sync-over-async wrapper utility</h2>
+<p>if for whatever reason you refuse to go the async/await route and don't really care about application performance, you can add the <a href="https://gist.github.com/dj-nitehawk/43a7de03da03ae42a3bc8a44070b1ac4">this utility class</a> to your project and use that to wrap any async methods you'd want to call like so:</p>
+<pre><code class="lang-csharp">Run.Sync(() =&gt; book.SaveAsync());
+
+var allBooks = Run.Sync(() =&gt;
+
+    DB.Find&lt;Book&gt;()
+      .Match(_ =&gt; true)
+      .ExecuteAsync()
+
+);
+</code></pre>
 <h1 id="linq-async-extensions">LINQ async extensions</h1>
 <p>in order to write async LINQ queries, make sure to import the mongodb linq extensions and write queries as follows:</p>
 <pre><code class="lang-csharp">using MongoDB.Driver;
