@@ -38,7 +38,7 @@ namespace MongoDB.Entities
                     "Microsoft.",
                     "System.",
                     "MongoDB.",
-                    "testhost.",
+                    "testhost",
                     "netstandard",
                     "Newtonsoft.",
                     "mscorlib",
