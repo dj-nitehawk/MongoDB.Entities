@@ -755,6 +755,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.MigrateAsync(Of T)()
   nameWithType: DB.MigrateAsync<T>()
   nameWithType.vb: DB.MigrateAsync(Of T)()
+- uid: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
+  name: MigrationsAsync(IEnumerable<IMigration>)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_MigrationsAsync_System_Collections_Generic_IEnumerable_MongoDB_Entities_IMigration__
+  commentId: M:MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
+  name.vb: MigrationsAsync(IEnumerable(Of IMigration))
+  fullName: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable<MongoDB.Entities.IMigration>)
+  fullName.vb: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable(Of MongoDB.Entities.IMigration))
+  nameWithType: DB.MigrationsAsync(IEnumerable<IMigration>)
+  nameWithType.vb: DB.MigrationsAsync(IEnumerable(Of IMigration))
+- uid: MongoDB.Entities.DB.MigrationsAsync*
+  name: MigrationsAsync
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_MigrationsAsync_
+  commentId: Overload:MongoDB.Entities.DB.MigrationsAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.DB.MigrationsAsync
+  nameWithType: DB.MigrationsAsync
 - uid: MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)
   name: NextSequentialNumberAsync(String, CancellationToken)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_NextSequentialNumberAsync_System_String_System_Threading_CancellationToken_

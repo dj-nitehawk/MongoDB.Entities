@@ -200,6 +200,9 @@
 <p>persist this token to a non-volatile medium and use it upon app startup to initiate a watcher to continue/resume from where the app left off last time it was running.</p>
 <pre><code class="lang-csharp">watcher.StartWithToken(token, ...);
 </code></pre>
+<blockquote>
+<p><a href="https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88">see here</a> for a full example of how to use resume tokens.</p>
+</blockquote>
 <h2 id="access-all-watchers-in-the-registry">Access all watchers in the registry</h2>
 <pre><code class="lang-csharp">var watchers = DB.Watchers&lt;Author&gt;();
 

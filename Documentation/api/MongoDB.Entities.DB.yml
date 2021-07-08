@@ -43,6 +43,7 @@ items:
   - MongoDB.Entities.DB.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.DB.MigrateAsync
   - MongoDB.Entities.DB.MigrateAsync``1
+  - MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
   - MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)
   - MongoDB.Entities.DB.NextSequentialNumberAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.DB.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1900,7 +1901,7 @@ items:
   example: []
   syntax:
     content: >-
-      public static async Task MigrateAsync<T>()
+      public static Task MigrateAsync<T>()
 
           where T : class
     typeParameters:
@@ -1914,7 +1915,6 @@ items:
   modifiers.csharp:
   - public
   - static
-  - async
   modifiers.vb:
   - Public
   - Shared
@@ -1934,14 +1934,14 @@ items:
   source:
     id: MigrateAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Migrate.cs
-    startLine: 24
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nExecutes migration classes that implement the IMigration interface in the correct order to transform the database.\n<p>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</p>\n"
+  summary: "\nExecutes migration classes that implement the IMigration interface in the correct order to transform the database.\n<p>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. \nand implement IMigration interface on them. \nCall this method at the startup of the application in order to run the migrations.</p>\n"
   example: []
   syntax:
-    content: public static async Task MigrateAsync()
+    content: public static Task MigrateAsync()
     return:
       type: System.Threading.Tasks.Task
     content.vb: Public Shared Function MigrateAsync As Task
@@ -1949,10 +1949,48 @@ items:
   modifiers.csharp:
   - public
   - static
-  - async
   modifiers.vb:
   - Public
   - Shared
+- uid: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
+  commentId: M:MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
+  id: MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})
+  parent: MongoDB.Entities.DB
+  langs:
+  - csharp
+  - vb
+  name: MigrationsAsync(IEnumerable<IMigration>)
+  nameWithType: DB.MigrationsAsync(IEnumerable<IMigration>)
+  fullName: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable<MongoDB.Entities.IMigration>)
+  type: Method
+  source:
+    id: MigrationsAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Migrate.cs
+    startLine: 35
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the given collection of IMigrations in the correct order to transform the database.\n"
+  example: []
+  syntax:
+    content: public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
+    parameters:
+    - id: migrations
+      type: System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration}
+      description: The collection of migrations to execute
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Shared Function MigrationsAsync(migrations As IEnumerable(Of IMigration)) As Task
+  overload: MongoDB.Entities.DB.MigrationsAsync*
+  nameWithType.vb: DB.MigrationsAsync(IEnumerable(Of IMigration))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable(Of MongoDB.Entities.IMigration))
+  name.vb: MigrationsAsync(IEnumerable(Of IMigration))
 - uid: MongoDB.Entities.DB.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DB.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -5360,6 +5398,53 @@ references:
   name: MigrateAsync
   nameWithType: DB.MigrateAsync
   fullName: MongoDB.Entities.DB.MigrateAsync
+- uid: MongoDB.Entities.DB.MigrationsAsync*
+  commentId: Overload:MongoDB.Entities.DB.MigrationsAsync
+  name: MigrationsAsync
+  nameWithType: DB.MigrationsAsync
+  fullName: MongoDB.Entities.DB.MigrationsAsync
+- uid: System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration}
+  commentId: T:System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<IMigration>
+  nameWithType: IEnumerable<IMigration>
+  fullName: System.Collections.Generic.IEnumerable<MongoDB.Entities.IMigration>
+  nameWithType.vb: IEnumerable(Of IMigration)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of MongoDB.Entities.IMigration)
+  name.vb: IEnumerable(Of IMigration)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Entities.IMigration
+    name: IMigration
+    nameWithType: IMigration
+    fullName: MongoDB.Entities.IMigration
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Entities.IMigration
+    name: IMigration
+    nameWithType: IMigration
+    fullName: MongoDB.Entities.IMigration
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DB.PipelineCursorAsync*
   commentId: Overload:MongoDB.Entities.DB.PipelineCursorAsync
   name: PipelineCursorAsync

@@ -128,6 +128,8 @@ persist this token to a non-volatile medium and use it upon app startup to initi
 watcher.StartWithToken(token, ...);
 ```
 
+> [see here](https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88) for a full example of how to use resume tokens.
+
 ## Access all watchers in the registry
 ```csharp
 var watchers = DB.Watchers<Author>();

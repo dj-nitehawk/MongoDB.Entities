@@ -61,6 +61,7 @@
   "MongoDB.Entities.DB.InsertAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)": "MongoDB.Entities.DB.yml",
   "MongoDB.Entities.DB.MigrateAsync": "MongoDB.Entities.DB.yml",
   "MongoDB.Entities.DB.MigrateAsync``1": "MongoDB.Entities.DB.yml",
+  "MongoDB.Entities.DB.MigrationsAsync(System.Collections.Generic.IEnumerable{MongoDB.Entities.IMigration})": "MongoDB.Entities.DB.yml",
   "MongoDB.Entities.DB.NextSequentialNumberAsync(System.String,System.Threading.CancellationToken)": "MongoDB.Entities.DB.yml",
   "MongoDB.Entities.DB.NextSequentialNumberAsync``1(System.Threading.CancellationToken)": "MongoDB.Entities.DB.yml",
   "MongoDB.Entities.DB.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)": "MongoDB.Entities.DB.yml",
