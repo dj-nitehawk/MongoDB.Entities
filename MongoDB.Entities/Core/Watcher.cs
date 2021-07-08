@@ -349,24 +349,19 @@ namespace MongoDB.Entities
                 {
                     using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options).ConfigureAwait(false))//note: don't pass cancellation token to WatchAsync
                     {
-                        var currentBatch = new List<ChangeStreamDocument<T>>(options.BatchSize.Value);
-
                         while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))//note: don't pass cancellation token to MoveNextAsync
                         {
-                            foreach (var csd in cursor.Current)
+                            if (cursor.Current.Any())
                             {
-                                if (csd.OperationType != ChangeStreamOperationType.Invalidate)
-                                    currentBatch.Add(csd);
-
                                 if (resume)
-                                    options.StartAfter = csd.ResumeToken;
-                            }
+                                    options.StartAfter = cursor.Current.Last().ResumeToken;
 
-                            if (currentBatch.Count > 0)
-                            {
-                                OnChanges?.Invoke(currentBatch.Select(d => d.FullDocument));
-                                OnChangesCSD?.Invoke(currentBatch);
-                                currentBatch.Clear();
+                                OnChanges?.Invoke(
+                                        cursor.Current
+                                              .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                              .Select(d => d.FullDocument));
+
+                                OnChangesCSD?.Invoke(cursor.Current);
                             }
                         }
 
