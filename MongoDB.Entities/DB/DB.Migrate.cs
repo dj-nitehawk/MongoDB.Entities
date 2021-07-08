@@ -63,14 +63,12 @@ namespace MongoDB.Entities
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
 
-            var lastMigNum = (
-                await Find<Migration, int>()
-                      .Sort(m => m.Number, Order.Descending)
-                      .Limit(1)
-                      .Project(m => m.Number)
-                      .ExecuteAsync()
-                      .ConfigureAwait(false))
-                .SingleOrDefault();
+            var lastMigNum = await 
+                Find<Migration, int>()
+                .Sort(m => m.Number, Order.Descending)
+                .Project(m => m.Number)
+                .ExecuteFirstAsync()
+                .ConfigureAwait(false);
 
             var migrations = new SortedDictionary<int, IMigration>();
 
