@@ -35,7 +35,7 @@ namespace MongoDB.Entities
         /// <param name="migrations">The collection of migrations to execute</param>
         public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
         {
-            return Execute(migrations.Select(m => m.GetType()));
+            return Execute(migrations);
         }
 
         private static Task Migrate(Type targetType)
@@ -74,10 +74,10 @@ namespace MongoDB.Entities
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
 
-            return Execute(types);
+            return Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
         }
 
-        private static async Task Execute(IEnumerable<Type> types)
+        private static async Task Execute(IEnumerable<IMigration> migrations)
         {
             var lastMigNum = await
                 Find<Migration, int>()
@@ -86,29 +86,34 @@ namespace MongoDB.Entities
                 .ExecuteFirstAsync()
                 .ConfigureAwait(false);
 
-            var migrations = new SortedDictionary<int, IMigration>();
+            var dic = new SortedDictionary<int, (string name, IMigration migration)>();
 
-            foreach (var t in types)
+            foreach (var m in migrations)
             {
-                var success = int.TryParse(t.Name.Split('_')[1], out int migNum);
+                var nameParts = m.GetType().Name.Split('_');
 
-                if (!success)
+                if (nameParts == null)
+                    throw new InvalidOperationException("Please use the correct naming format for migration classes!");
+
+                if (!int.TryParse(nameParts[1], out int migNumber))
                     throw new InvalidOperationException("Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");
 
-                if (migNum > lastMigNum)
-                    migrations.Add(migNum, (IMigration)Activator.CreateInstance(t));
+                var name = string.Join(" ", nameParts.Skip(2));
+
+                if (migNumber > lastMigNum)
+                    dic.Add(migNumber, (name, m));
             }
 
             var sw = new Stopwatch();
 
-            foreach (var migration in migrations)
+            foreach (var migration in dic)
             {
                 sw.Start();
-                await migration.Value.UpgradeAsync().ConfigureAwait(false);
+                await migration.Value.migration.UpgradeAsync().ConfigureAwait(false);
                 var mig = new Migration
                 {
                     Number = migration.Key,
-                    Name = migration.Value.GetType().Name,
+                    Name = migration.Value.name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
                 };
                 await SaveAsync(mig).ConfigureAwait(false);
