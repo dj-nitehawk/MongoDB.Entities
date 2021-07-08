@@ -13,18 +13,23 @@ namespace MongoDB.Entities
         /// Discover and run migrations from the same assembly as the specified type.
         /// </summary>
         /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
-        public static async Task MigrateAsync<T>() where T : class
+        public static Task MigrateAsync<T>() where T : class
         {
-            await MigrateAsync(typeof(T)).ConfigureAwait(false);
+            return MigrateAsync(typeof(T));
         }
 
         /// <summary>
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
         /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
-        public static async Task MigrateAsync()
+        public static Task MigrateAsync()
         {
-            await MigrateAsync(null).ConfigureAwait(false);
+            return MigrateAsync(null);
+        }
+
+        public static async Task MigrateCustomAsync(IEnumerable<IMigration> migrations)
+        {
+
         }
 
         private static async Task MigrateAsync(Type targetType)
