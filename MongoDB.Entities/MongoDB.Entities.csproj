@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.18.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- optimized migration execution</PackageReleaseNotes>
+    <PackageReleaseNotes>- added ability to supply a list of migrations to run
+- optimized migration execution</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

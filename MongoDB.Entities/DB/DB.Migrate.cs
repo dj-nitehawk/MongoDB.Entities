@@ -15,24 +15,30 @@ namespace MongoDB.Entities
         /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
         public static Task MigrateAsync<T>() where T : class
         {
-            return MigrateAsync(typeof(T));
+            return Migrate(typeof(T));
         }
 
         /// <summary>
         /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
-        /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. and implement IMigration interface on them. Call this method at the startup of the application in order to run the migrations.</para>
+        /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. 
+        /// and implement IMigration interface on them. 
+        /// Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
         public static Task MigrateAsync()
         {
-            return MigrateAsync(null);
+            return Migrate(null);
         }
 
-        public static async Task MigrateCustomAsync(IEnumerable<IMigration> migrations)
+        /// <summary>
+        /// Executes the given collection of IMigrations in the correct order to transform the database.
+        /// </summary>
+        /// <param name="migrations">The collection of migrations to execute</param>
+        public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
         {
-
+            return Execute(migrations.Select(m => m.GetType()));
         }
 
-        private static async Task MigrateAsync(Type targetType)
+        private static Task Migrate(Type targetType)
         {
             IEnumerable<Assembly> assemblies;
 
@@ -68,7 +74,12 @@ namespace MongoDB.Entities
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
 
-            var lastMigNum = await 
+            return Execute(types);
+        }
+
+        private static async Task Execute(IEnumerable<Type> types)
+        {
+            var lastMigNum = await
                 Find<Migration, int>()
                 .Sort(m => m.Number, Order.Descending)
                 .Project(m => m.Number)
