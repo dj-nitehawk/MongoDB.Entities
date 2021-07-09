@@ -54,8 +54,11 @@ namespace MongoDB.Entities.Tests
 
             await Task.Delay(300);
 
-            watcher.OnChanges +=
-                flowers => allFlowers.AddRange(flowers);
+            watcher.OnChangesAsync += async flowers =>
+            {
+                allFlowers.AddRange(flowers);
+                await Task.CompletedTask;
+            };
 
             await new[] {
                 new Flower { Name = "test", Color = "red" },
@@ -121,8 +124,11 @@ namespace MongoDB.Entities.Tests
 
             await Task.Delay(300);
 
-            watcher.OnChangesCSD +=
-                csDocs => allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+            watcher.OnChangesCSDAsync += async csDocs =>
+            {
+                allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+                await Task.CompletedTask;
+            };
 
             await new[] {
                 new Flower { Name = guid },

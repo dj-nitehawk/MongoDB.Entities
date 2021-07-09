@@ -10,6 +10,16 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    public delegate Task AsyncEventHandler<TEventArgs>(TEventArgs args);
+    public static class AsyncEventHandlerExtensions
+    {
+        public static IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers<TEventArgs>(this AsyncEventHandler<TEventArgs> handler)
+            => handler.GetInvocationList().Cast<AsyncEventHandler<TEventArgs>>();
+
+        public static Task InvokeAllAsync<TEventArgs>(this AsyncEventHandler<TEventArgs> handler, TEventArgs args)
+            => Task.WhenAll(handler.GetHandlers().Select(h => h(args)));
+    }
+
     /// <summary>
     /// Watcher for subscribing to mongodb change streams.
     /// </summary>
@@ -22,9 +32,19 @@ namespace MongoDB.Entities
         public event Action<IEnumerable<T>> OnChanges;
 
         /// <summary>
+        /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
+        /// </summary>
+        public event AsyncEventHandler<IEnumerable<T>> OnChangesAsync;
+
+        /// <summary>
         /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
         /// </summary>
         public event Action<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSD;
+
+        /// <summary>
+        /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
+        /// </summary>
+        public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSDAsync;
 
         /// <summary>
         /// This event is fired when an exception is thrown in the change-stream.
@@ -347,19 +367,31 @@ namespace MongoDB.Entities
             {
                 try
                 {
-                    using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options).ConfigureAwait(false))//note: don't pass cancellation token to WatchAsync
+                    using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false))
                     {
-                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync().ConfigureAwait(false))//note: don't pass cancellation token to MoveNextAsync
+                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
                         {
                             if (cursor.Current.Any())
                             {
                                 if (resume)
                                     options.StartAfter = cursor.Current.Last().ResumeToken;
 
+                                if (OnChangesAsync != null)
+                                {
+                                    await OnChangesAsync.InvokeAllAsync(
+                                        cursor.Current
+                                              .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                              .Select(d => d.FullDocument)
+                                    ).ConfigureAwait(false);
+                                }
+
                                 OnChanges?.Invoke(
                                         cursor.Current
                                               .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
                                               .Select(d => d.FullDocument));
+
+                                if (OnChangesCSDAsync != null)
+                                    await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);
 
                                 OnChangesCSD?.Invoke(cursor.Current);
                             }
@@ -369,6 +401,22 @@ namespace MongoDB.Entities
 
                         if (cancelToken.IsCancellationRequested)
                         {
+                            if (OnChangesAsync != null)
+                            {
+                                foreach (var h in OnChangesAsync.GetHandlers())
+                                {
+                                    OnChangesAsync -= h;
+                                }
+                            }
+
+                            if (OnChangesCSDAsync != null)
+                            {
+                                foreach (var h in OnChangesCSDAsync.GetHandlers())
+                                {
+                                    OnChangesCSDAsync -= h;
+                                }
+                            }
+
                             if (OnChanges != null)
                             {
                                 foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
