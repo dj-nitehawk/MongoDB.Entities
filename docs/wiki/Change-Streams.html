@@ -135,7 +135,8 @@
 };
 </code></pre>
 <p>this event is fired when desired change events have been received from mongodb. for the above example, when author entities have been either created, updated or deleted, this event/action will receive those entities in batches. you can access the received entities via the input action parameter called <code>authors</code>.</p>
-<p>if you'd like to receive the complete <code>ChangeStreamDocuments</code> instead of entities, you can subscribe to the <code>OnChangesCSD</code> method like so:</p>
+<p><strong>Receiving ChangeStreamDocuments:</strong></p>
+<p>if you'd like to receive the complete <code>ChangeStreamDocuments</code> instead of just the entities, you can subscribe to the <code>OnChangesCSD</code> method like so:</p>
 <pre><code class="lang-csharp">watcher.OnChangesCSD += changes =&gt;
 {
     foreach (var csd in changes)
@@ -146,6 +147,13 @@
     }
 };
 </code></pre>
+<p><strong>Async event handlers:</strong></p>
+<p>there's also the async variants of these events called <code>OnChangesAsync</code> and <code>OnChangesCSDAsync</code> for when you need to do IO bound work inside the handler in the correct batch order.</p>
+<p>what that means is, if you do <code>watcher.OnChanges += async authors =&gt; {...}</code> the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need precise resume token retrieval.</p>
+<p>as a rule of thumb, always do <code>watcher.OnChangesAsync += async authors =&gt; {...}</code> when you need to use the <code>await</code> keyword inside the event handler.</p>
+<blockquote>
+<p><a href="https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88">see here</a> for a full example.</p>
+</blockquote>
 <h4 id="onerror">OnError</h4>
 <pre><code class="lang-csharp">watcher.OnError += exception =&gt;
 {

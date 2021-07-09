@@ -37,6 +37,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.AsyncEventHandler-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.AsyncEventHandler-1.html",
+          "hash": "kfcF+/QzlqiP1U5o9iwzYWQiZrxWTvYapYQFHOAeFqg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.AsyncEventHandlerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.AsyncEventHandlerExtensions.html",
+          "hash": "ZxyNlodgV4HePYHhvRX71uLJk5YWMy/f2X4yPlvli6g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/MongoDB.Entities.CollectionAttribute.yml",
       "output": {
         ".html": {
@@ -605,7 +629,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.Watcher-1.html",
-          "hash": "cydD9uU+qgAczMlmYkOLjvTeXOnYeGPRjt1P4cBaVQA="
+          "hash": "yrrWaNT1D5O6vq21p6g8LvsiX1ufsPegMBq8ckVbMxA="
         }
       },
       "is_incremental": false,
@@ -617,7 +641,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "MqevKyxGBEvsrxqR2X/mHUakC1pMPO49n1iLmghnIiM="
+          "hash": "EbgTHeNa2IDH16Sg+rmwBqWg2xaCRzz9Yp8iKBMfzSo="
         }
       },
       "is_incremental": false,
@@ -629,7 +653,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "1Dpx9ci+9JsU7CC/byVuJM3+YbGMaPvmSRzDeAkI0qE="
+          "hash": "ywWoOjjBcrEyHyRWYSbO/Ghj+QIF1qvw4X2bBJXQCDs="
         }
       },
       "is_incremental": false,
@@ -754,7 +778,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Change-Streams.html",
-          "hash": "dEXsdhRVG7fEqNm4mjvXkyw2qZWCWwCu6regNomqnXU="
+          "hash": "mCtT0/796iHgIQ9gwKpvghv/cnuPoc4Z2b+DS5HrIrU="
         }
       },
       "is_incremental": false,
@@ -1139,8 +1163,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 50,
-          "skipped_file_count": 50
+          "total_file_count": 52,
+          "skipped_file_count": 52
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

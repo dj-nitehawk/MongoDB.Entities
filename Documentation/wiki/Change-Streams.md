@@ -50,7 +50,9 @@ watcher.OnChanges += authors =>
 ```
 this event is fired when desired change events have been received from mongodb. for the above example, when author entities have been either created, updated or deleted, this event/action will receive those entities in batches. you can access the received entities via the input action parameter called `authors`.
 
-if you'd like to receive the complete `ChangeStreamDocuments` instead of entities, you can subscribe to the `OnChangesCSD` method like so:
+**Receiving ChangeStreamDocuments:**
+
+if you'd like to receive the complete `ChangeStreamDocuments` instead of just the entities, you can subscribe to the `OnChangesCSD` method like so:
 ```csharp
 watcher.OnChangesCSD += changes =>
 {
@@ -62,6 +64,16 @@ watcher.OnChangesCSD += changes =>
     }
 };
 ```
+
+**Async event handlers:**
+
+there's also the async variants of these events called `OnChangesAsync` and `OnChangesCSDAsync` for when you need to do IO bound work inside the handler in the correct batch order.
+
+what that means is, if you do `watcher.OnChanges += async authors => {...}` the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need precise resume token retrieval.
+
+as a rule of thumb, always do `watcher.OnChangesAsync += async authors => {...}` when you need to use the `await` keyword inside the event handler.
+
+> [see here](https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88) for a full example.
 
 #### OnError
 ```csharp

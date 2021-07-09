@@ -5,6 +5,8 @@ items:
   id: MongoDB.Entities
   children:
   - MongoDB.Entities.AsObjectIdAttribute
+  - MongoDB.Entities.AsyncEventHandler`1
+  - MongoDB.Entities.AsyncEventHandlerExtensions
   - MongoDB.Entities.CollectionAttribute
   - MongoDB.Entities.Coordinates2D
   - MongoDB.Entities.DataStreamer
@@ -701,6 +703,48 @@ references:
   name: Transaction
   nameWithType: Transaction
   fullName: MongoDB.Entities.Transaction
+- uid: MongoDB.Entities.AsyncEventHandler`1
+  commentId: T:MongoDB.Entities.AsyncEventHandler`1
+  name: AsyncEventHandler<TEventArgs>
+  nameWithType: AsyncEventHandler<TEventArgs>
+  fullName: MongoDB.Entities.AsyncEventHandler<TEventArgs>
+  nameWithType.vb: AsyncEventHandler(Of TEventArgs)
+  fullName.vb: MongoDB.Entities.AsyncEventHandler(Of TEventArgs)
+  name.vb: AsyncEventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions
+  commentId: T:MongoDB.Entities.AsyncEventHandlerExtensions
+  parent: MongoDB.Entities
+  name: AsyncEventHandlerExtensions
+  nameWithType: AsyncEventHandlerExtensions
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions
 - uid: MongoDB.Entities.Watcher`1
   commentId: T:MongoDB.Entities.Watcher`1
   name: Watcher<T>

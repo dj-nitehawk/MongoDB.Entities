@@ -26,6 +26,53 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.AsObjectIdAttribute.AsObjectIdAttribute
   nameWithType: AsObjectIdAttribute.AsObjectIdAttribute
+- uid: MongoDB.Entities.AsyncEventHandler`1
+  name: AsyncEventHandler<TEventArgs>
+  href: api/MongoDB.Entities.AsyncEventHandler-1.html
+  commentId: T:MongoDB.Entities.AsyncEventHandler`1
+  name.vb: AsyncEventHandler(Of TEventArgs)
+  fullName: MongoDB.Entities.AsyncEventHandler<TEventArgs>
+  fullName.vb: MongoDB.Entities.AsyncEventHandler(Of TEventArgs)
+  nameWithType: AsyncEventHandler<TEventArgs>
+  nameWithType.vb: AsyncEventHandler(Of TEventArgs)
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions
+  name: AsyncEventHandlerExtensions
+  href: api/MongoDB.Entities.AsyncEventHandlerExtensions.html
+  commentId: T:MongoDB.Entities.AsyncEventHandlerExtensions
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions
+  nameWithType: AsyncEventHandlerExtensions
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers*
+  name: GetHandlers
+  href: api/MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers_
+  commentId: Overload:MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers
+  isSpec: "True"
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers
+  nameWithType: AsyncEventHandlerExtensions.GetHandlers
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
+  name: GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
+  href: api/MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_GetHandlers__1_MongoDB_Entities_AsyncEventHandler___0__
+  commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers``1(MongoDB.Entities.AsyncEventHandler{``0})
+  name.vb: GetHandlers(Of TEventArgs)(AsyncEventHandler(Of TEventArgs))
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>)
+  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)(MongoDB.Entities.AsyncEventHandler(Of TEventArgs))
+  nameWithType: AsyncEventHandlerExtensions.GetHandlers<TEventArgs>(AsyncEventHandler<TEventArgs>)
+  nameWithType.vb: AsyncEventHandlerExtensions.GetHandlers(Of TEventArgs)(AsyncEventHandler(Of TEventArgs))
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync*
+  name: InvokeAllAsync
+  href: api/MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync_
+  commentId: Overload:MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync
+  isSpec: "True"
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync
+  nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync
+- uid: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
+  name: InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
+  href: api/MongoDB.Entities.AsyncEventHandlerExtensions.html#MongoDB_Entities_AsyncEventHandlerExtensions_InvokeAllAsync__1_MongoDB_Entities_AsyncEventHandler___0____0_
+  commentId: M:MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync``1(MongoDB.Entities.AsyncEventHandler{``0},``0)
+  name.vb: InvokeAllAsync(Of TEventArgs)(AsyncEventHandler(Of TEventArgs), TEventArgs)
+  fullName: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(MongoDB.Entities.AsyncEventHandler<TEventArgs>, TEventArgs)
+  fullName.vb: MongoDB.Entities.AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(MongoDB.Entities.AsyncEventHandler(Of TEventArgs), TEventArgs)
+  nameWithType: AsyncEventHandlerExtensions.InvokeAllAsync<TEventArgs>(AsyncEventHandler<TEventArgs>, TEventArgs)
+  nameWithType.vb: AsyncEventHandlerExtensions.InvokeAllAsync(Of TEventArgs)(AsyncEventHandler(Of TEventArgs), TEventArgs)
 - uid: MongoDB.Entities.CollectionAttribute
   name: CollectionAttribute
   href: api/MongoDB.Entities.CollectionAttribute.html
@@ -6232,6 +6279,14 @@ references:
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnChanges
   nameWithType: Watcher<T>.OnChanges
   nameWithType.vb: Watcher(Of T).OnChanges
+- uid: MongoDB.Entities.Watcher`1.OnChangesAsync
+  name: OnChangesAsync
+  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_OnChangesAsync
+  commentId: E:MongoDB.Entities.Watcher`1.OnChangesAsync
+  fullName: MongoDB.Entities.Watcher<T>.OnChangesAsync
+  fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesAsync
+  nameWithType: Watcher<T>.OnChangesAsync
+  nameWithType.vb: Watcher(Of T).OnChangesAsync
 - uid: MongoDB.Entities.Watcher`1.OnChangesCSD
   name: OnChangesCSD
   href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_OnChangesCSD
@@ -6240,6 +6295,14 @@ references:
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesCSD
   nameWithType: Watcher<T>.OnChangesCSD
   nameWithType.vb: Watcher(Of T).OnChangesCSD
+- uid: MongoDB.Entities.Watcher`1.OnChangesCSDAsync
+  name: OnChangesCSDAsync
+  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_OnChangesCSDAsync
+  commentId: E:MongoDB.Entities.Watcher`1.OnChangesCSDAsync
+  fullName: MongoDB.Entities.Watcher<T>.OnChangesCSDAsync
+  fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesCSDAsync
+  nameWithType: Watcher<T>.OnChangesCSDAsync
+  nameWithType.vb: Watcher(Of T).OnChangesCSDAsync
 - uid: MongoDB.Entities.Watcher`1.OnError
   name: OnError
   href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_OnError

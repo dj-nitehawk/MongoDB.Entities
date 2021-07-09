@@ -749,6 +749,31 @@ Will always return false after cancellation is requested via the cancellation to
   </table>
   
   
+  <h4 id="MongoDB_Entities_Watcher_1_OnChangesAsync" data-uid="MongoDB.Entities.Watcher`1.OnChangesAsync">OnChangesAsync</h4>
+  <div class="markdown level1 summary"><p>This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event AsyncEventHandler&lt;IEnumerable&lt;T&gt;&gt; OnChangesAsync</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <h4 id="MongoDB_Entities_Watcher_1_OnChangesCSD" data-uid="MongoDB.Entities.Watcher`1.OnChangesCSD">OnChangesCSD</h4>
   <div class="markdown level1 summary"><p>This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.</p>
 </div>
@@ -768,6 +793,31 @@ Will always return false after cancellation is requested via the cancellation to
     <tbody>
       <tr>
         <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="MongoDB_Entities_Watcher_1_OnChangesCSDAsync" data-uid="MongoDB.Entities.Watcher`1.OnChangesCSDAsync">OnChangesCSDAsync</h4>
+  <div class="markdown level1 summary"><p>This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event AsyncEventHandler&lt;IEnumerable&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; OnChangesCSDAsync</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>

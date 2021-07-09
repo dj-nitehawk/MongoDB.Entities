@@ -8,7 +8,9 @@ items:
   - MongoDB.Entities.Watcher`1.CanRestart
   - MongoDB.Entities.Watcher`1.Name
   - MongoDB.Entities.Watcher`1.OnChanges
+  - MongoDB.Entities.Watcher`1.OnChangesAsync
   - MongoDB.Entities.Watcher`1.OnChangesCSD
+  - MongoDB.Entities.Watcher`1.OnChangesCSDAsync
   - MongoDB.Entities.Watcher`1.OnError
   - MongoDB.Entities.Watcher`1.OnStop
   - MongoDB.Entities.Watcher`1.ReStart
@@ -31,7 +33,7 @@ items:
   source:
     id: Watcher
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 16
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -79,7 +81,7 @@ items:
   source:
     id: OnChanges
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 21
+    startLine: 31
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -96,6 +98,37 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnChanges
+- uid: MongoDB.Entities.Watcher`1.OnChangesAsync
+  commentId: E:MongoDB.Entities.Watcher`1.OnChangesAsync
+  id: OnChangesAsync
+  parent: MongoDB.Entities.Watcher`1
+  langs:
+  - csharp
+  - vb
+  name: OnChangesAsync
+  nameWithType: Watcher<T>.OnChangesAsync
+  fullName: MongoDB.Entities.Watcher<T>.OnChangesAsync
+  type: Event
+  source:
+    id: OnChangesAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 36
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThis event is fired when the desired types of events have occured. Will have a list of &apos;entities&apos; that was received as input.\n"
+  example: []
+  syntax:
+    content: public event AsyncEventHandler<IEnumerable<T>> OnChangesAsync
+    return:
+      type: MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{{T}}}
+    content.vb: Public Event OnChangesAsync As AsyncEventHandler(Of IEnumerable(Of T))
+  nameWithType.vb: Watcher(Of T).OnChangesAsync
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesAsync
 - uid: MongoDB.Entities.Watcher`1.OnChangesCSD
   commentId: E:MongoDB.Entities.Watcher`1.OnChangesCSD
   id: OnChangesCSD
@@ -110,7 +143,7 @@ items:
   source:
     id: OnChangesCSD
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 26
+    startLine: 41
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -127,6 +160,37 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesCSD
+- uid: MongoDB.Entities.Watcher`1.OnChangesCSDAsync
+  commentId: E:MongoDB.Entities.Watcher`1.OnChangesCSDAsync
+  id: OnChangesCSDAsync
+  parent: MongoDB.Entities.Watcher`1
+  langs:
+  - csharp
+  - vb
+  name: OnChangesCSDAsync
+  nameWithType: Watcher<T>.OnChangesCSDAsync
+  fullName: MongoDB.Entities.Watcher<T>.OnChangesCSDAsync
+  type: Event
+  source:
+    id: OnChangesCSDAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 46
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nThis event is fired when the desired types of events have occured. Will have a list of &apos;ChangeStreamDocuments&apos; that was received as input.\n"
+  example: []
+  syntax:
+    content: public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSDAsync
+    return:
+      type: MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{MongoDB.Driver.ChangeStreamDocument{{T}}}}
+    content.vb: Public Event OnChangesCSDAsync As AsyncEventHandler(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  nameWithType.vb: Watcher(Of T).OnChangesCSDAsync
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Watcher(Of T).OnChangesCSDAsync
 - uid: MongoDB.Entities.Watcher`1.OnError
   commentId: E:MongoDB.Entities.Watcher`1.OnError
   id: OnError
@@ -141,7 +205,7 @@ items:
   source:
     id: OnError
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 31
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -172,7 +236,7 @@ items:
   source:
     id: OnStop
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 36
+    startLine: 56
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -203,7 +267,7 @@ items:
   source:
     id: Name
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 41
+    startLine: 61
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -238,7 +302,7 @@ items:
   source:
     id: CanRestart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 47
+    startLine: 67
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -273,7 +337,7 @@ items:
   source:
     id: ResumeToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 52
+    startLine: 72
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -308,7 +372,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 71
+    startLine: 91
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -358,7 +422,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 89
+    startLine: 109
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -408,7 +472,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 107
+    startLine: 127
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -458,7 +522,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 125
+    startLine: 145
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -508,7 +572,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 143
+    startLine: 163
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -558,7 +622,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 161
+    startLine: 181
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -608,7 +672,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 179
+    startLine: 199
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -658,7 +722,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 197
+    startLine: 217
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -708,7 +772,7 @@ items:
   source:
     id: ReStart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 319
+    startLine: 339
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1123,6 +1187,102 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{{T}}}
+  commentId: T:MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{`0}}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.AsyncEventHandler`1
+  name: AsyncEventHandler<IEnumerable<T>>
+  nameWithType: AsyncEventHandler<IEnumerable<T>>
+  fullName: MongoDB.Entities.AsyncEventHandler<System.Collections.Generic.IEnumerable<T>>
+  nameWithType.vb: AsyncEventHandler(Of IEnumerable(Of T))
+  fullName.vb: MongoDB.Entities.AsyncEventHandler(Of System.Collections.Generic.IEnumerable(Of T))
+  name.vb: AsyncEventHandler(Of IEnumerable(Of T))
+  spec.csharp:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.AsyncEventHandler`1
+  commentId: T:MongoDB.Entities.AsyncEventHandler`1
+  name: AsyncEventHandler<TEventArgs>
+  nameWithType: AsyncEventHandler<TEventArgs>
+  fullName: MongoDB.Entities.AsyncEventHandler<TEventArgs>
+  nameWithType.vb: AsyncEventHandler(Of TEventArgs)
+  fullName.vb: MongoDB.Entities.AsyncEventHandler(Of TEventArgs)
+  name.vb: AsyncEventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Action{System.Collections.Generic.IEnumerable{MongoDB.Driver.ChangeStreamDocument{{T}}}}
   commentId: T:System.Action{System.Collections.Generic.IEnumerable{MongoDB.Driver.ChangeStreamDocument{`0}}}
   parent: System
@@ -1176,6 +1336,88 @@ references:
     nameWithType: Action
     fullName: System.Action
     isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: MongoDB.Driver.ChangeStreamDocument`1
+    name: ChangeStreamDocument
+    nameWithType: ChangeStreamDocument
+    fullName: MongoDB.Driver.ChangeStreamDocument
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{MongoDB.Driver.ChangeStreamDocument{{T}}}}
+  commentId: T:MongoDB.Entities.AsyncEventHandler{System.Collections.Generic.IEnumerable{MongoDB.Driver.ChangeStreamDocument{`0}}}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.AsyncEventHandler`1
+  name: AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>>
+  nameWithType: AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>>
+  fullName: MongoDB.Entities.AsyncEventHandler<System.Collections.Generic.IEnumerable<MongoDB.Driver.ChangeStreamDocument<T>>>
+  nameWithType.vb: AsyncEventHandler(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  fullName.vb: MongoDB.Entities.AsyncEventHandler(Of System.Collections.Generic.IEnumerable(Of MongoDB.Driver.ChangeStreamDocument(Of T)))
+  name.vb: AsyncEventHandler(Of IEnumerable(Of ChangeStreamDocument(Of T)))
+  spec.csharp:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: MongoDB.Driver.ChangeStreamDocument`1
+    name: ChangeStreamDocument
+    nameWithType: ChangeStreamDocument
+    fullName: MongoDB.Driver.ChangeStreamDocument
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler
+    nameWithType: AsyncEventHandler
+    fullName: MongoDB.Entities.AsyncEventHandler
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '

@@ -4,6 +4,11 @@
   items:
   - uid: MongoDB.Entities.AsObjectIdAttribute
     name: AsObjectIdAttribute
+  - uid: MongoDB.Entities.AsyncEventHandler`1
+    name: AsyncEventHandler<TEventArgs>
+    name.vb: AsyncEventHandler(Of TEventArgs)
+  - uid: MongoDB.Entities.AsyncEventHandlerExtensions
+    name: AsyncEventHandlerExtensions
   - uid: MongoDB.Entities.CollectionAttribute
     name: CollectionAttribute
   - uid: MongoDB.Entities.Coordinates2D
