@@ -958,7 +958,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Get-Started.html",
-          "hash": "G57CTVd0JBaIN6HNwLRTzzXJVnkfC+Gz35vL8HxwHJ0="
+          "hash": "UCb/QsRyE49/IhwYJSdnUvgRfrW33h38tGnjA7JrH6Q="
         }
       },
       "is_incremental": false,
@@ -1158,7 +1158,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 32,
-          "skipped_file_count": 32
+          "skipped_file_count": 31
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,

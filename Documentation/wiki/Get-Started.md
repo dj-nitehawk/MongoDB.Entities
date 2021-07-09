@@ -30,5 +30,5 @@ await DB.InitAsync("DatabaseName", new MongoClientSettings()
 ```csharp
 await DB.InitAsync("DatabaseName",
     MongoClientSettings.FromConnectionString(
-        "mongodb+srv://user:password@cluster.mongodb.net/DatabaseName"));
+        "mongodb://username:password@server-address/AuthDBName"));
 ```
