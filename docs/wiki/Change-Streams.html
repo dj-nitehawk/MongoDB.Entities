@@ -120,9 +120,9 @@
 <h5>Note</h5>
 <p>filtering cannot be done if the types of change you're interested in includes deletions. because the entity data no longer exists in the database when a deletion occurs and mongodb only returns the entity ID with the change event.</p>
 </div>
-<p><strong>batchSize:</strong> specify the maximum number of entities you'd like to receive per change notificatin/ a single event firing. the default is 25.</p>
+<p><strong>batchSize:</strong> specify the maximum number of entities you'd like to receive per change notification/ a single event firing. the default is 25.</p>
 <p><strong>onlyGetIDs:</strong> set to true if you don't want the complete entity details. in which case all properties except the ID will be null on the received entities.</p>
-<p><strong>autoResume:</strong> change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an <a href="https://docs.mongodb.com/manual/reference/change-events/#invalidate-event">invalidate event</a>. you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.</p>
+<p><strong>autoResume:</strong> change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an <a href="https://docs.mongodb.com/manual/reference/change-events/#invalidate-event">invalidate event</a>. you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received. <em>the resume tokens are not automatically stored on disk by the library. <a href="Change-Streams.html#resuming-across-app-restarts">see here</a> about resuming across app restarts</em>.</p>
 <p><strong>cancellation:</strong> if you'd like to cancel/abort a watcher and close the change-stream permanently at a future time, pass a cancellation token to this parameter.</p>
 <h3 id="3-subscribe-to-the-events">3. Subscribe to the events</h3>
 <h4 id="onchanges">OnChanges</h4>
@@ -149,7 +149,7 @@
 </code></pre>
 <p><strong>Async event handlers:</strong></p>
 <p>there's also the async variants of these events called <code>OnChangesAsync</code> and <code>OnChangesCSDAsync</code> for when you need to do IO bound work inside the handler in the correct batch order.</p>
-<p>what that means is, if you do <code>watcher.OnChanges += async authors =&gt; {...}</code> the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need precise resume token retrieval.</p>
+<p>what that means is, if you do <code>watcher.OnChanges += async authors =&gt; {...}</code> the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need <a href="Change-Streams.html#precise-resume-token-retrieval">precise resume token retrieval</a>.</p>
 <p>as a rule of thumb, always do <code>watcher.OnChangesAsync += async authors =&gt; {...}</code> when you need to use the <code>await</code> keyword inside the event handler.</p>
 <blockquote>
 <p><a href="https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88">see here</a> for a full example.</p>
@@ -211,6 +211,32 @@
 <blockquote>
 <p><a href="https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88">see here</a> for a full example of how to use resume tokens.</p>
 </blockquote>
+<h3 id="precise-resume-token-retrieval">Precise resume token retrieval</h3>
+<p>the resume token returned by the <code>watcher.ResumeToken</code> property is the last token of the current batch of change events. if your app/server is prone to frequent crashes or your app tends to get shut down abruptly (without letting all the <code>OnChanges*</code> event handlers complete their work), you may lose some change events when you resume watching with the last token retrieved from <code>watcher.ResumeToken</code>.</p>
+<p>to prevent that from happening and have fine-grain control of the token storage and resumption, you must subscribe to a <code>OnChangesCSD*</code> event and retrieve + store the token from each <code>ChangeStreamDocument</code> like so:</p>
+<pre><code class="lang-csharp">watcher.OnChangesCSDAsync += async csDocs =&gt;
+{
+    foreach (var csd in csDocs)
+    {
+        if (csd.OperationType == ChangeStreamOperationType.Insert)
+        {
+            Console.WriteLine(&quot;created: &quot; + csd.FullDocument.Title);
+        }
+        await StoreResumeTokenAsync(csd.ResumeToken);
+    }
+};
+</code></pre>
+<p>if you're re-starting a stopped/errored watcher, you can provide the latest resume token you have like so:</p>
+<pre><code class="lang-csharp">watcher.OnError += exception =&gt;
+{
+    Console.WriteLine(&quot;error: &quot; + exception.Message);
+
+    if (watcher.CanRestart)
+    {
+        watcher.ReStart(lastResumeToken);
+    }
+};
+</code></pre>
 <h2 id="access-all-watchers-in-the-registry">Access all watchers in the registry</h2>
 <pre><code class="lang-csharp">var watchers = DB.Watchers&lt;Author&gt;();
 

@@ -6,6 +6,7 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.Watcher`1.CanRestart
+  - MongoDB.Entities.Watcher`1.IsInitialized
   - MongoDB.Entities.Watcher`1.Name
   - MongoDB.Entities.Watcher`1.OnChanges
   - MongoDB.Entities.Watcher`1.OnChangesAsync
@@ -13,7 +14,7 @@ items:
   - MongoDB.Entities.Watcher`1.OnChangesCSDAsync
   - MongoDB.Entities.Watcher`1.OnError
   - MongoDB.Entities.Watcher`1.OnStop
-  - MongoDB.Entities.Watcher`1.ReStart
+  - MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)
   - MongoDB.Entities.Watcher`1.ResumeToken
   - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Boolean,System.Threading.CancellationToken)
   - MongoDB.Entities.Watcher`1.Start(MongoDB.Entities.EventType,System.Linq.Expressions.Expression{System.Func{`0,`0}},System.Func{MongoDB.Driver.FilterDefinitionBuilder{MongoDB.Driver.ChangeStreamDocument{`0}},MongoDB.Driver.FilterDefinition{MongoDB.Driver.ChangeStreamDocument{`0}}},System.Int32,System.Boolean,System.Threading.CancellationToken)
@@ -288,6 +289,41 @@ items:
   - Public
   - ReadOnly
   fullName.vb: MongoDB.Entities.Watcher(Of T).Name
+- uid: MongoDB.Entities.Watcher`1.IsInitialized
+  commentId: P:MongoDB.Entities.Watcher`1.IsInitialized
+  id: IsInitialized
+  parent: MongoDB.Entities.Watcher`1
+  langs:
+  - csharp
+  - vb
+  name: IsInitialized
+  nameWithType: Watcher<T>.IsInitialized
+  fullName: MongoDB.Entities.Watcher<T>.IsInitialized
+  type: Property
+  source:
+    id: IsInitialized
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
+    startLine: 66
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nIndicates whether this watcher has already been initialized or not.\n"
+  example: []
+  syntax:
+    content: public bool IsInitialized { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsInitialized As Boolean
+  overload: MongoDB.Entities.Watcher`1.IsInitialized*
+  nameWithType.vb: Watcher(Of T).IsInitialized
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: MongoDB.Entities.Watcher(Of T).IsInitialized
 - uid: MongoDB.Entities.Watcher`1.CanRestart
   commentId: P:MongoDB.Entities.Watcher`1.CanRestart
   id: CanRestart
@@ -302,7 +338,7 @@ items:
   source:
     id: CanRestart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 67
+    startLine: 72
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -337,7 +373,7 @@ items:
   source:
     id: ResumeToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 72
+    startLine: 77
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -372,7 +408,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 91
+    startLine: 96
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -422,7 +458,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 109
+    startLine: 114
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -472,7 +508,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 127
+    startLine: 132
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -522,7 +558,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 145
+    startLine: 150
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -572,7 +608,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 163
+    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -622,7 +658,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 181
+    startLine: 186
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -672,7 +708,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 199
+    startLine: 204
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -722,7 +758,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 217
+    startLine: 222
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -758,36 +794,40 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Watcher(Of T).StartWithToken(MongoDB.Bson.BsonDocument, MongoDB.Entities.EventType, System.Linq.Expressions.Expression(Of System.Func(Of T, T)), System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of MongoDB.Driver.ChangeStreamDocument(Of T)), MongoDB.Driver.FilterDefinition(Of MongoDB.Driver.ChangeStreamDocument(Of T))), System.Int32, System.Threading.CancellationToken)
   name.vb: StartWithToken(BsonDocument, EventType, Expression(Of Func(Of T, T)), Func(Of FilterDefinitionBuilder(Of ChangeStreamDocument(Of T)), FilterDefinition(Of ChangeStreamDocument(Of T))), Int32, CancellationToken)
-- uid: MongoDB.Entities.Watcher`1.ReStart
-  commentId: M:MongoDB.Entities.Watcher`1.ReStart
-  id: ReStart
+- uid: MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)
+  commentId: M:MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)
+  id: ReStart(MongoDB.Bson.BsonDocument)
   parent: MongoDB.Entities.Watcher`1
   langs:
   - csharp
   - vb
-  name: ReStart()
-  nameWithType: Watcher<T>.ReStart()
-  fullName: MongoDB.Entities.Watcher<T>.ReStart()
+  name: ReStart(BsonDocument)
+  nameWithType: Watcher<T>.ReStart(BsonDocument)
+  fullName: MongoDB.Entities.Watcher<T>.ReStart(MongoDB.Bson.BsonDocument)
   type: Method
   source:
     id: ReStart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 339
+    startLine: 345
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nIf the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.\n"
   example: []
   syntax:
-    content: public void ReStart()
-    content.vb: Public Sub ReStart
+    content: public void ReStart(BsonDocument resumeToken = null)
+    parameters:
+    - id: resumeToken
+      type: MongoDB.Bson.BsonDocument
+      description: An optional resume token to restart watching with
+    content.vb: Public Sub ReStart(resumeToken As BsonDocument = Nothing)
   overload: MongoDB.Entities.Watcher`1.ReStart*
-  nameWithType.vb: Watcher(Of T).ReStart()
+  nameWithType.vb: Watcher(Of T).ReStart(BsonDocument)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.Watcher(Of T).ReStart()
+  fullName.vb: MongoDB.Entities.Watcher(Of T).ReStart(MongoDB.Bson.BsonDocument)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
@@ -1514,13 +1554,13 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: MongoDB.Entities.Watcher`1.CanRestart*
-  commentId: Overload:MongoDB.Entities.Watcher`1.CanRestart
-  name: CanRestart
-  nameWithType: Watcher<T>.CanRestart
-  fullName: MongoDB.Entities.Watcher<T>.CanRestart
-  nameWithType.vb: Watcher(Of T).CanRestart
-  fullName.vb: MongoDB.Entities.Watcher(Of T).CanRestart
+- uid: MongoDB.Entities.Watcher`1.IsInitialized*
+  commentId: Overload:MongoDB.Entities.Watcher`1.IsInitialized
+  name: IsInitialized
+  nameWithType: Watcher<T>.IsInitialized
+  fullName: MongoDB.Entities.Watcher<T>.IsInitialized
+  nameWithType.vb: Watcher(Of T).IsInitialized
+  fullName.vb: MongoDB.Entities.Watcher(Of T).IsInitialized
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -1528,6 +1568,13 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
+- uid: MongoDB.Entities.Watcher`1.CanRestart*
+  commentId: Overload:MongoDB.Entities.Watcher`1.CanRestart
+  name: CanRestart
+  nameWithType: Watcher<T>.CanRestart
+  fullName: MongoDB.Entities.Watcher<T>.CanRestart
+  nameWithType.vb: Watcher(Of T).CanRestart
+  fullName.vb: MongoDB.Entities.Watcher(Of T).CanRestart
 - uid: MongoDB.Entities.Watcher`1.ResumeToken*
   commentId: Overload:MongoDB.Entities.Watcher`1.ResumeToken
   name: ResumeToken

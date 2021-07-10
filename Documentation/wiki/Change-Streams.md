@@ -29,11 +29,11 @@ x => x.FullDocument.Age >= 25
 > [!note]
 > filtering cannot be done if the types of change you're interested in includes deletions. because the entity data no longer exists in the database when a deletion occurs and mongodb only returns the entity ID with the change event.
 
-**batchSize:** specify the maximum number of entities you'd like to receive per change notificatin/ a single event firing. the default is 25.
+**batchSize:** specify the maximum number of entities you'd like to receive per change notification/ a single event firing. the default is 25.
 
 **onlyGetIDs:** set to true if you don't want the complete entity details. in which case all properties except the ID will be null on the received entities.
 
-**autoResume:** change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an [invalidate event](https://docs.mongodb.com/manual/reference/change-events/#invalidate-event). you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received.
+**autoResume:** change-streams will be auto-resumed by default unless you set this parameter to false. what that means is, say for example you start a watcher and after a while the watcher stops due to an error or an [invalidate event](https://docs.mongodb.com/manual/reference/change-events/#invalidate-event). you can then re-start the watcher and it will start receiving notifications from where it left off and you won't lose any changes that occurred while the watcher was stopped. if you set this to false, then those changes are skipped and only new changes are received. *the resume tokens are not automatically stored on disk by the library. [see here](Change-Streams.md#resuming-across-app-restarts) about resuming across app restarts*.
 
 **cancellation:** if you'd like to cancel/abort a watcher and close the change-stream permanently at a future time, pass a cancellation token to this parameter.
 
@@ -69,7 +69,7 @@ watcher.OnChangesCSD += changes =>
 
 there's also the async variants of these events called `OnChangesAsync` and `OnChangesCSDAsync` for when you need to do IO bound work inside the handler in the correct batch order.
 
-what that means is, if you do `watcher.OnChanges += async authors => {...}` the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need precise resume token retrieval.
+what that means is, if you do `watcher.OnChanges += async authors => {...}` the handler function will be called in parallel for each batch of change events. it is ok to use it when the order of the batches are not important to you or when you don't need [precise resume token retrieval](Change-Streams.md#precise-resume-token-retrieval).
 
 as a rule of thumb, always do `watcher.OnChangesAsync += async authors => {...}` when you need to use the `await` keyword inside the event handler.
 
@@ -141,6 +141,39 @@ watcher.StartWithToken(token, ...);
 ```
 
 > [see here](https://gist.github.com/dj-nitehawk/dc87f368746cb8666b18cc00dd5ecf88) for a full example of how to use resume tokens.
+
+
+### Precise resume token retrieval
+the resume token returned by the `watcher.ResumeToken` property is the last token of the current batch of change events. if your app/server is prone to frequent crashes or your app tends to get shut down abruptly (without letting all the `OnChanges*` event handlers complete their work), you may lose some change events when you resume watching with the last token retrieved from `watcher.ResumeToken`.
+
+to prevent that from happening and have fine-grain control of the token storage and resumption, you must subscribe to a `OnChangesCSD*` event and retrieve + store the token from each `ChangeStreamDocument` like so:
+
+```csharp
+watcher.OnChangesCSDAsync += async csDocs =>
+{
+    foreach (var csd in csDocs)
+    {
+        if (csd.OperationType == ChangeStreamOperationType.Insert)
+        {
+            Console.WriteLine("created: " + csd.FullDocument.Title);
+        }
+        await StoreResumeTokenAsync(csd.ResumeToken);
+    }
+};
+```
+
+if you're re-starting a stopped/errored watcher, you can provide the latest resume token you have like so:
+```csharp
+watcher.OnError += exception =>
+{
+    Console.WriteLine("error: " + exception.Message);
+
+    if (watcher.CanRestart)
+    {
+        watcher.ReStart(lastResumeToken);
+    }
+};
+```
 
 ## Access all watchers in the registry
 ```csharp

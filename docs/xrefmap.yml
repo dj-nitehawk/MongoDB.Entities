@@ -6254,6 +6254,23 @@ references:
   fullName.vb: MongoDB.Entities.Watcher(Of T).CanRestart
   nameWithType: Watcher<T>.CanRestart
   nameWithType.vb: Watcher(Of T).CanRestart
+- uid: MongoDB.Entities.Watcher`1.IsInitialized
+  name: IsInitialized
+  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_IsInitialized
+  commentId: P:MongoDB.Entities.Watcher`1.IsInitialized
+  fullName: MongoDB.Entities.Watcher<T>.IsInitialized
+  fullName.vb: MongoDB.Entities.Watcher(Of T).IsInitialized
+  nameWithType: Watcher<T>.IsInitialized
+  nameWithType.vb: Watcher(Of T).IsInitialized
+- uid: MongoDB.Entities.Watcher`1.IsInitialized*
+  name: IsInitialized
+  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_IsInitialized_
+  commentId: Overload:MongoDB.Entities.Watcher`1.IsInitialized
+  isSpec: "True"
+  fullName: MongoDB.Entities.Watcher<T>.IsInitialized
+  fullName.vb: MongoDB.Entities.Watcher(Of T).IsInitialized
+  nameWithType: Watcher<T>.IsInitialized
+  nameWithType.vb: Watcher(Of T).IsInitialized
 - uid: MongoDB.Entities.Watcher`1.Name
   name: Name
   href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_Name
@@ -6319,14 +6336,14 @@ references:
   fullName.vb: MongoDB.Entities.Watcher(Of T).OnStop
   nameWithType: Watcher<T>.OnStop
   nameWithType.vb: Watcher(Of T).OnStop
-- uid: MongoDB.Entities.Watcher`1.ReStart
-  name: ReStart()
-  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_ReStart
-  commentId: M:MongoDB.Entities.Watcher`1.ReStart
-  fullName: MongoDB.Entities.Watcher<T>.ReStart()
-  fullName.vb: MongoDB.Entities.Watcher(Of T).ReStart()
-  nameWithType: Watcher<T>.ReStart()
-  nameWithType.vb: Watcher(Of T).ReStart()
+- uid: MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)
+  name: ReStart(BsonDocument)
+  href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_ReStart_MongoDB_Bson_BsonDocument_
+  commentId: M:MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)
+  fullName: MongoDB.Entities.Watcher<T>.ReStart(MongoDB.Bson.BsonDocument)
+  fullName.vb: MongoDB.Entities.Watcher(Of T).ReStart(MongoDB.Bson.BsonDocument)
+  nameWithType: Watcher<T>.ReStart(BsonDocument)
+  nameWithType.vb: Watcher(Of T).ReStart(BsonDocument)
 - uid: MongoDB.Entities.Watcher`1.ReStart*
   name: ReStart
   href: api/MongoDB.Entities.Watcher-1.html#MongoDB_Entities_Watcher_1_ReStart_

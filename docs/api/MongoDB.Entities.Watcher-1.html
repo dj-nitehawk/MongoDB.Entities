@@ -185,6 +185,32 @@ Will always return false after cancellation is requested via the cancellation to
   </table>
   
   
+  <a id="MongoDB_Entities_Watcher_1_IsInitialized_" data-uid="MongoDB.Entities.Watcher`1.IsInitialized*"></a>
+  <h4 id="MongoDB_Entities_Watcher_1_IsInitialized" data-uid="MongoDB.Entities.Watcher`1.IsInitialized">IsInitialized</h4>
+  <div class="markdown level1 summary"><p>Indicates whether this watcher has already been initialized or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInitialized { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Watcher_1_Name_" data-uid="MongoDB.Entities.Watcher`1.Name*"></a>
   <h4 id="MongoDB_Entities_Watcher_1_Name" data-uid="MongoDB.Entities.Watcher`1.Name">Name</h4>
   <div class="markdown level1 summary"><p>The name of this watcher instance</p>
@@ -240,14 +266,32 @@ Will always return false after cancellation is requested via the cancellation to
   
   
   <a id="MongoDB_Entities_Watcher_1_ReStart_" data-uid="MongoDB.Entities.Watcher`1.ReStart*"></a>
-  <h4 id="MongoDB_Entities_Watcher_1_ReStart" data-uid="MongoDB.Entities.Watcher`1.ReStart">ReStart()</h4>
+  <h4 id="MongoDB_Entities_Watcher_1_ReStart_MongoDB_Bson_BsonDocument_" data-uid="MongoDB.Entities.Watcher`1.ReStart(MongoDB.Bson.BsonDocument)">ReStart(BsonDocument)</h4>
   <div class="markdown level1 summary"><p>If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ReStart()</code></pre>
+    <pre><code class="lang-csharp hljs">public void ReStart(BsonDocument resumeToken = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="parametername">resumeToken</span></td>
+        <td><p>An optional resume token to restart watching with</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="MongoDB_Entities_Watcher_1_Start_" data-uid="MongoDB.Entities.Watcher`1.Start*"></a>
