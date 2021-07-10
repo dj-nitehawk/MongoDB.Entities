@@ -62,6 +62,11 @@ namespace MongoDB.Entities
         public string Name { get; }
 
         /// <summary>
+        /// Indicates whether this watcher has already been initialized or not.
+        /// </summary>
+        public bool IsInitialized { get => IsInitialized; }
+
+        /// <summary>
         /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
@@ -337,7 +342,8 @@ namespace MongoDB.Entities
         /// <summary>
         /// If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.
         /// </summary>
-        public void ReStart()
+        /// <param name="resumeToken">An optional resume token to restart watching with</param>
+        public void ReStart(BsonDocument resumeToken = null)
         {
             if (!CanRestart)
             {
@@ -349,6 +355,12 @@ namespace MongoDB.Entities
 
             if (!initialized)
                 throw new InvalidOperationException("This watcher was never started. Please use .Start() first!");
+
+            if (cancelToken.IsCancellationRequested)
+                throw new InvalidOperationException("This watcher cannot be restarted as it has been aborted/cancelled!");
+
+            if (resumeToken != null)
+                options.StartAfter = resumeToken;
 
             StartWatching();
         }
@@ -404,17 +416,13 @@ namespace MongoDB.Entities
                             if (OnChangesAsync != null)
                             {
                                 foreach (var h in OnChangesAsync.GetHandlers())
-                                {
                                     OnChangesAsync -= h;
-                                }
                             }
 
                             if (OnChangesCSDAsync != null)
                             {
                                 foreach (var h in OnChangesCSDAsync.GetHandlers())
-                                {
                                     OnChangesCSDAsync -= h;
-                                }
                             }
 
                             if (OnChanges != null)

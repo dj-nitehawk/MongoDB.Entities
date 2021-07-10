@@ -8,12 +8,10 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.18.0</Version>
+    <Version>20.19.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added async event handler support for watchers
-- added ability to supply a list of migrations to run
-- optimized watcher internals
-- optimized migration execution</PackageReleaseNotes>
+    <PackageReleaseNotes>- added IsInitialized property to watcher class
+- added resume token support for watcher.ReStart()</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
