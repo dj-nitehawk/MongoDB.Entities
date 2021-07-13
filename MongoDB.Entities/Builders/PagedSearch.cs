@@ -320,13 +320,9 @@ namespace MongoDB.Entities
             var pipelineStages = new List<IPipelineStageDefinition>(4);
 
             if (sorts.Count == 0)
-            {
                 throw new InvalidOperationException("Paging without sorting is a sin!");
-            }
             else
-            {
                 pipelineStages.Add(PipelineStageDefinitionBuilder.Sort(Builders<T>.Sort.Combine(sorts)));
-            }
 
             pipelineStages.Add(PipelineStageDefinitionBuilder.Skip<T>((pageNumber - 1) * pageSize));
             pipelineStages.Add(PipelineStageDefinitionBuilder.Limit<T>(pageSize));
