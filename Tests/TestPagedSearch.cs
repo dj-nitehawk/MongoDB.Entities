@@ -56,6 +56,12 @@ namespace MongoDB.Entities.Tests
             Assert.IsTrue(Results.Count > 0);
         }
 
+        private class BookResult
+        {
+            public string BookTitle { get; set; }
+            public string BookID { get; set; }
+        }
+
         [TestMethod]
         public async Task with_projection()
         {
@@ -64,10 +70,10 @@ namespace MongoDB.Entities.Tests
             await SeedData(guid);
 
             var (Results, PageCount) = await DB
-                .PagedSearch<Book, string>()
+                .PagedSearch<Book, BookResult>()
                 .Match(b => b.Title == guid)
                 .Sort(b => b.ID, Order.Ascending)
-                .Project(b=> )
+                .Project(b => new BookResult { BookID = b.ID, BookTitle = b.Title } )
                 .PageNumber(2)
                 .PageSize(5)
                 .ExecuteAsync();

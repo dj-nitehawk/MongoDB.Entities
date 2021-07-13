@@ -42,6 +42,10 @@ namespace MongoDB.Entities
             IClientSessionHandle session,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
         {
+            var type = typeof(TProjection);
+            if (type.IsPrimitive || type.IsValueType || (type == typeof(string)))
+                throw new NotSupportedException("Projecting to primitive types is not supported!");
+
             this.session = session;
             this.globalFilters = globalFilters;
         }
