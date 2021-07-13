@@ -12,7 +12,7 @@ var res = await DB.PagedSearch<Book>()
                   .ExecuteAsync();
 
 IReadOnlyList<Book> books = res.Results;
-long totalPageCount = res.PageCount;                  
+int totalPageCount = res.PageCount;                  
 ```
 
 simply specify the search criteria to the `.Match()` method as you'd typically do. specify how to order the result set using the `.Sort()` method. specify the size of a single page using `.PageSize()` method. specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
@@ -24,7 +24,7 @@ the result is a value tuple consisting of the `PageCount` and `Results`.
 
 
 ## Project results to a different type
-if you'd like to change the shape of the returned entity list, simple add a `.Project()` method to the chain like so:
+if you'd like to change the shape of the returned entity list, simply use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
 ```csharp
 var res = await DB.PagedSearch<Book, BookListing>()
                   .Sort(b => b.Title, Order.Ascending)
@@ -36,4 +36,7 @@ var res = await DB.PagedSearch<Book, BookListing>()
                   .PageSize(25)
                   .PageNumber(1)
                   .ExecuteAsync();
+
+IReadOnlyList<BookListing> listings = res.Results;
+int totalPageCount = res.PageCount;                     
 ```

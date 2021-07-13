@@ -804,14 +804,14 @@ items:
   summary: "\nRun the aggregation search command in MongoDB server and get a page of results and total count\n"
   example: []
   syntax:
-    content: public async Task<(IReadOnlyList<TProjection> Results, long PageCount)> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public async Task<(IReadOnlyList<TProjection> Results, int PageCount)> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
     return:
-      type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int64}}
-    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of(Results As IReadOnlyList(Of TProjection), PageCount As Long)(Of IReadOnlyList(Of TProjection), Long)
+      type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int32}}
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of(Results As IReadOnlyList(Of TProjection), PageCount As Integer)(Of IReadOnlyList(Of TProjection), Integer)
   overload: MongoDB.Entities.PagedSearch`2.ExecuteAsync*
   nameWithType.vb: PagedSearch(Of T, TProjection).ExecuteAsync(CancellationToken)
   modifiers.csharp:
@@ -2095,16 +2095,16 @@ references:
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
-- uid: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int64}}
-  commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64}}
+- uid: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int32}}
+  commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int32}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<(T1, T2)<IReadOnlyList<TProjection>, Int64>>
-  nameWithType: Task<(T1, T2)<IReadOnlyList<TProjection>, Int64>>
-  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int64>>
-  nameWithType.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int64))
-  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int64))
-  name.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int64))
+  name: Task<(T1, T2)<IReadOnlyList<TProjection>, Int32>>
+  nameWithType: Task<(T1, T2)<IReadOnlyList<TProjection>, Int32>>
+  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int32>>
+  nameWithType.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int32))
+  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int32))
+  name.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int32))
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
@@ -2139,10 +2139,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Int64
-    name: Int64
-    nameWithType: Int64
-    fullName: System.Int64
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -2184,10 +2184,10 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Int64
-    name: Int64
-    nameWithType: Int64
-    fullName: System.Int64
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
     isExternal: true
   - name: )
     nameWithType: )

@@ -104,7 +104,7 @@
                   .ExecuteAsync();
 
 IReadOnlyList&lt;Book&gt; books = res.Results;
-long totalPageCount = res.PageCount;                  
+int totalPageCount = res.PageCount;                  
 </code></pre>
 <p>simply specify the search criteria to the <code>.Match()</code> method as you'd typically do. specify how to order the result set using the <code>.Sort()</code> method. specify the size of a single page using <code>.PageSize()</code> method. specify which page number to retrieve using <code>PageNumber()</code> method and finally issue the command using <code>ExecuteAsync()</code> to get the result of the facetted aggregation query.</p>
 <p>the result is a value tuple consisting of the <code>PageCount</code> and <code>Results</code>.</p>
@@ -113,7 +113,7 @@ long totalPageCount = res.PageCount;
 <p>if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.</p>
 </div>
 <h2 id="project-results-to-a-different-type">Project results to a different type</h2>
-<p>if you'd like to change the shape of the returned entity list, simple add a <code>.Project()</code> method to the chain like so:</p>
+<p>if you'd like to change the shape of the returned entity list, simply use the <code>PagedSearch&lt;T, TProjection&gt;</code> generic overload and add a <code>.Project()</code> method to the chain like so:</p>
 <pre><code class="lang-csharp">var res = await DB.PagedSearch&lt;Book, BookListing&gt;()
                   .Sort(b =&gt; b.Title, Order.Ascending)
                   .Project(b =&gt; new BookListing
@@ -124,6 +124,9 @@ long totalPageCount = res.PageCount;
                   .PageSize(25)
                   .PageNumber(1)
                   .ExecuteAsync();
+
+IReadOnlyList&lt;BookListing&gt; listings = res.Results;
+int totalPageCount = res.PageCount;                     
 </code></pre>
 </article>
           </div>
