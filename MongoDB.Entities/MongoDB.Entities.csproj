@@ -8,11 +8,13 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.19.0-beta3</Version>
+    <Version>20.19.0-beta4</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageReleaseNotes>- added DB.PagedSearch() builder for easy paging
 - added IsInitialized property to watcher class
-- added resume token support for watcher.ReStart()</PackageReleaseNotes>
+- added resume token support for watcher.ReStart()
+- added more overloads to .Match() methods
+- increased test coverage</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

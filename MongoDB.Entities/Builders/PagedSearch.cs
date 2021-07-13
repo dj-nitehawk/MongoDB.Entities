@@ -70,6 +70,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify the matching criteria with a filter definition
+        /// </summary>
+        /// <param name="filterDefinition">A filter definition</param>
+        public PagedSearch<T, TProjection> Match(FilterDefinition<T> filterDefinition)
+        {
+            filter &= filterDefinition;
+            return this;
+        }
+
+        /// <summary>
         /// Specify the matching criteria with a template
         /// </summary>
         /// <param name="template">A Template with a find query</param>
