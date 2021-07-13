@@ -315,6 +315,8 @@ namespace MongoDB.Entities
 
         private static ProjectionDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> BuildProjection(Expression<Func<T, T>> projection)
         {
+            //todo: see if we can use projection solution from PagedSearch
+
             var rendered = Builders<T>.Projection
                 .Expression(projection)
                 .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(),
