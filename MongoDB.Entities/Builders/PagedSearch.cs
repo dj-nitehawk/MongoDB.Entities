@@ -307,7 +307,7 @@ namespace MongoDB.Entities
         /// Run the aggregation search command in MongoDB server and get a page of results and total count
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public async Task<(IReadOnlyList<TProjection> Results, long PageCount)> ExecuteAsync(CancellationToken cancellation = default)
+        public async Task<(IReadOnlyList<TProjection> Results, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
         {
             var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
@@ -344,7 +344,7 @@ namespace MongoDB.Entities
             var totalPages =
                 count == null
                 ? 0
-                : (long)Math.Ceiling((double)count / pageSize);
+                : (int)Math.Ceiling((double)(count / pageSize));
 
             var results = facetResult.Facets
                 .First(x => x.Name == "_results")

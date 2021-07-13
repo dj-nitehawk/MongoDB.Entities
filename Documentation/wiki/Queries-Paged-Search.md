@@ -1,0 +1,39 @@
+# Paged search
+when doing paging, it's common to retrieve a count of total matched entities or the total number of pages as well as the list of entities for the current page. that is typically achieved by running two separate db queries; one for the count and another for the actual entities. in mongodb it can also be done via a `$facet` aggregation query, which can be cumbersome to do using the official driver. this library provides a convenience wrapper for this exact use case.
+
+## Example
+
+```csharp
+var res = await DB.PagedSearch<Book>()
+                  .Match(b => b.AuthorName == "Eckhart Tolle")
+                  .Sort(b => b.Title, Order.Ascending)
+                  .PageSize(10)
+                  .PageNumber(1)
+                  .ExecuteAsync();
+
+IReadOnlyList<Book> books = res.Results;
+long totalPageCount = res.PageCount;                  
+```
+
+simply specify the search criteria to the `.Match()` method as you'd typically do. specify how to order the result set using the `.Sort()` method. specify the size of a single page using `.PageSize()` method. specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
+
+the result is a value tuple consisting of the `PageCount` and `Results`.
+
+> [!note] 
+> if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.
+
+
+## Project results to a different type
+if you'd like to change the shape of the returned entity list, simple add a `.Project()` method to the chain like so:
+```csharp
+var res = await DB.PagedSearch<Book, BookListing>()
+                  .Sort(b => b.Title, Order.Ascending)
+                  .Project(b => new BookListing
+                  {
+                      BookName = b.Title,
+                      AuthorName = b.Author
+                  })
+                  .PageSize(25)
+                  .PageNumber(1)
+                  .ExecuteAsync();
+```

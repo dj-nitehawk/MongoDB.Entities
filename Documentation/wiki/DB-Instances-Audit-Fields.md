@@ -1,5 +1,5 @@
 # Automatic audit fields
-instead of setting the audit values manually on each and every save or update operation, you can take advantage of a `DBContext` instance where you will instantiate the context by prodiving it with the details of the current user perfoming the operations once, and then use the db context to perform all subsequesnt save/update operations so that all the audit fields will be set on the entities automatically.
+instead of setting the audit values manually on each and every save or update operation, you can take advantage of a `DBContext` instance where you will instantiate the context by providing it with the details of the current user performing the operations once, and then use the db context to perform all subsequesnt save/update operations so that all the audit fields will be set on the entities automatically.
 
 ## Enable audit fields
 simply add a property of type `ModifiedBy` to the entity class where you'd like to enable audit fields. The `ModifiedBy` type is provided by the library. It can be inherited and other properties can be added to it as you please.
