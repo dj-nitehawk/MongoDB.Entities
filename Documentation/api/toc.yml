@@ -86,6 +86,12 @@
     name: Order
   - uid: MongoDB.Entities.OwnerSideAttribute
     name: OwnerSideAttribute
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch<T, TProjection>
+    name.vb: PagedSearch(Of T, TProjection)
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch<T>
+    name.vb: PagedSearch(Of T)
   - uid: MongoDB.Entities.PreserveAttribute
     name: PreserveAttribute
   - uid: MongoDB.Entities.Prop

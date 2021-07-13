@@ -43,7 +43,7 @@ items:
   type: Class
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 32
   assemblies:
   - MongoDB.Entities
@@ -95,7 +95,7 @@ items:
   type: Method
   source:
     id: OneAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 55
   assemblies:
   - MongoDB.Entities
@@ -135,7 +135,7 @@ items:
   type: Method
   source:
     id: ManyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 67
   assemblies:
   - MongoDB.Entities
@@ -176,7 +176,7 @@ items:
   type: Method
   source:
     id: ManyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 79
   assemblies:
   - MongoDB.Entities
@@ -217,7 +217,7 @@ items:
   type: Method
   source:
     id: MatchID
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 89
   assemblies:
   - MongoDB.Entities
@@ -253,7 +253,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 98
   assemblies:
   - MongoDB.Entities
@@ -289,7 +289,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 107
   assemblies:
   - MongoDB.Entities
@@ -326,7 +326,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 116
   assemblies:
   - MongoDB.Entities
@@ -363,7 +363,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 126
   assemblies:
   - MongoDB.Entities
@@ -399,7 +399,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 141
   assemblies:
   - MongoDB.Entities
@@ -447,7 +447,7 @@ items:
   type: Method
   source:
     id: Match
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 171
   assemblies:
   - MongoDB.Entities
@@ -493,7 +493,7 @@ items:
   type: Method
   source:
     id: MatchString
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 180
   assemblies:
   - MongoDB.Entities
@@ -529,7 +529,7 @@ items:
   type: Method
   source:
     id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 190
   assemblies:
   - MongoDB.Entities
@@ -565,7 +565,7 @@ items:
   type: Method
   source:
     id: MatchExpression
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 200
   assemblies:
   - MongoDB.Entities
@@ -601,7 +601,7 @@ items:
   type: Method
   source:
     id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 211
   assemblies:
   - MongoDB.Entities
@@ -641,7 +641,7 @@ items:
   type: Method
   source:
     id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 230
   assemblies:
   - MongoDB.Entities
@@ -673,7 +673,7 @@ items:
   type: Method
   source:
     id: SortByTextScore
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 240
   assemblies:
   - MongoDB.Entities
@@ -710,7 +710,7 @@ items:
   type: Method
   source:
     id: Sort
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 259
   assemblies:
   - MongoDB.Entities
@@ -748,7 +748,7 @@ items:
   type: Method
   source:
     id: Skip
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 269
   assemblies:
   - MongoDB.Entities
@@ -784,7 +784,7 @@ items:
   type: Method
   source:
     id: Limit
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 279
   assemblies:
   - MongoDB.Entities
@@ -820,7 +820,7 @@ items:
   type: Method
   source:
     id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 289
   assemblies:
   - MongoDB.Entities
@@ -857,7 +857,7 @@ items:
   type: Method
   source:
     id: Project
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 298
   assemblies:
   - MongoDB.Entities
@@ -894,7 +894,7 @@ items:
   type: Method
   source:
     id: ProjectExcluding
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 308
   assemblies:
   - MongoDB.Entities
@@ -931,7 +931,7 @@ items:
   type: Method
   source:
     id: Option
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 332
   assemblies:
   - MongoDB.Entities
@@ -968,7 +968,7 @@ items:
   type: Method
   source:
     id: IgnoreGlobalFilters
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 341
   assemblies:
   - MongoDB.Entities
@@ -1000,7 +1000,7 @@ items:
   type: Method
   source:
     id: ExecuteAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 351
   assemblies:
   - MongoDB.Entities
@@ -1037,7 +1037,7 @@ items:
   type: Method
   source:
     id: ExecuteSingleAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 369
   assemblies:
   - MongoDB.Entities
@@ -1074,7 +1074,7 @@ items:
   type: Method
   source:
     id: ExecuteFirstAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 383
   assemblies:
   - MongoDB.Entities
@@ -1111,7 +1111,7 @@ items:
   type: Method
   source:
     id: ExecuteAnyAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 397
   assemblies:
   - MongoDB.Entities
@@ -1148,7 +1148,7 @@ items:
   type: Method
   source:
     id: ExecuteCursorAsync
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 412
   assemblies:
   - MongoDB.Entities

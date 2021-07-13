@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-39155502-5');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Custom event hooks | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom event hooks | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-event-hooks">Custom event hooks</h1>
+
+<p>there are currently two hooks for tapping into. <code>OnBeforeSave</code> and <code>OnBeforeUpdate</code> so that you can perform modifications to the operation that's about to happen.
+it can also be used as an alternative to the pre-baked audit fields functionality for more fine-grain control. make sure to override both methods in order to cover all the bases.</p>
+<p>say for example, you have a <code>Flower</code> entity like the following and you want to automatically set the creator/date when new flowers are being persisted and also modify the updater/date when existing entities get updated.</p>
+<pre><code class="lang-csharp">public class Flower : Entity
+{
+    public string Name { get; set; }
+
+    public string CreatedBy { get; set; }
+    public DateTime CreatedDate { get; set; }
+
+    public string UpdatedBy { get; set; }
+    public DateTime UpdateDate { get; set; }
+}
+</code></pre>
+<p>to be able to tap in to the hooks, create a derived <code>DBContext</code> class and override the two methods as follows:</p>
+<pre><code class="lang-csharp">public class MyDBContext : DBContext
+{
+    protected override Action&lt;T&gt; OnBeforeSave&lt;T&gt;()
+    {
+        Action&lt;Flower&gt; action = f =&gt;
+        {
+            if (f.ID == null)
+            {
+                f.CreatedBy = &quot;God&quot;;
+                f.CreatedDate = DateTime.MinValue;
+            }
+            else
+            {
+                f.UpdatedBy = &quot;Human&quot;;
+                f.UpdateDate = DateTime.UtcNow;
+            }
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    protected override Action&lt;UpdateBase&lt;T&gt;&gt; OnBeforeUpdate&lt;T&gt;()
+    {
+        Action&lt;UpdateBase&lt;Flower&gt;&gt; action = update =&gt;
+        {
+            update.AddModification(f =&gt; f.UpdatedBy, &quot;Human&quot;);
+            update.AddModification(f =&gt; f.UpdateDate, DateTime.UtcNow);
+        };
+        return action as Action&lt;UpdateBase&lt;T&gt;&gt;;
+    }
+}
+</code></pre>
+<p>after that, simply create new instances of <code>MyDBContext</code> when you need the above functionality and perform operations as usual like so:</p>
+<pre><code class="lang-csharp">var db = new MyDBContext();
+
+await db.SaveAsync(new Flower() { Name = &quot;Red Rose&quot; });
+
+await db.Update&lt;Flower&gt;()
+        .Match(f =&gt; f.Name == &quot;Red Rose&quot;)
+        .Modify(f =&gt; f.Name, &quot;White Rose&quot;)
+        .ExecuteAsync();
+</code></pre>
+<h2 id="handling-multiple-entity-types">Handling multiple entity types</h2>
+<p>it's possible to handle more than one type of entity inside the hooks like below:</p>
+<pre><code class="lang-csharp">protected override Action&lt;T&gt; OnBeforeSave&lt;T&gt;()
+{
+    var type = typeof(T);
+
+    if (type == typeof(Book))
+    {
+        Action&lt;Book&gt; action = b =&gt;
+        {
+            b.SavedBy = &quot;Author&quot;;
+            b.SavedOn = DateTime.UtcNow;
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    if (type == typeof(Flower))
+    {
+        Action&lt;Flower&gt; action = f =&gt;
+        {
+            f.SavedBy = &quot;Human&quot;;
+            f.SavedOn = DateTime.MinValue;
+        };
+        return action as Action&lt;T&gt;;
+    }
+
+    return null;
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

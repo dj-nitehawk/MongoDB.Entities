@@ -16,7 +16,7 @@ items:
   type: Enum
   source:
     id: Search
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 441
   assemblies:
   - MongoDB.Entities
@@ -43,7 +43,7 @@ items:
   type: Field
   source:
     id: Fuzzy
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 443
   assemblies:
   - MongoDB.Entities
@@ -71,7 +71,7 @@ items:
   type: Field
   source:
     id: Full
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 444
   assemblies:
   - MongoDB.Entities

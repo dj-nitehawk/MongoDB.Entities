@@ -14,7 +14,7 @@ items:
   type: Class
   source:
     id: UpdateAndGet
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\UpdateAndGet.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\UpdateAndGet.cs
     startLine: 16
   assemblies:
   - MongoDB.Entities

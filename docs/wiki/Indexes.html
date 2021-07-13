@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-39155502-5');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Index creation | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Index creation | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="index-creation">Index creation</h1>
+
+<p>use the <code>Index&lt;T&gt;</code> method to define indexes as shown below. specify index keys by chaining calls to the <code>.Key()</code> method. first parameter of the method is a lambda pointing to a property on your entity. second parameter specifies the type of key. finally chain in a call to <code>.CreateAsync()</code> to finish defining the index.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes.</p>
+</div>
+<h2 id="text-indexes">Text indexes</h2>
+<pre><code class="lang-csharp">await DB.Index&lt;Author&gt;()
+        .Key(a =&gt; a.Name, KeyType.Text)
+        .Key(a =&gt; a.Surname, KeyType.Text)
+        .CreateAsync();
+</code></pre>
+<p>if the field you want to index is nested within arrays or lists, specify an expression with a <code>[-1]</code> index position like so:</p>
+<pre><code class="lang-csharp">.Key(a =&gt; a.Books[-1].Reviews[-1].Content, KeyType.Text)
+</code></pre>
+<p>in order to index all text properties of an entity, you can create a wildcard text index as follows:</p>
+<pre><code class="lang-csharp">.Key(a =&gt; a, KeyType.Text)
+</code></pre>
+<h2 id="full-text-search">Full-text search</h2>
+<p>you can do full text searches after defining a text index as described above with the following:</p>
+<pre><code class="lang-csharp">await DB.Find&lt;Book&gt;()
+        .Match(Search.Full, &quot;search term&quot;)
+        .ExecuteAsync();
+</code></pre>
+<p>you can also start a fluent aggregation pipeline with a $text stage as follows:</p>
+<pre><code class="lang-csharp">DB.FluentTextSearch&lt;Book&gt;(Search.Full, &quot;search term&quot;)
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><a href="https://docs.mongodb.com/manual/reference/operator/query/text/#search-field"><em>click here</em></a> to see more info on how to do text searches for phrases, negations, any words, etc.</p>
+</div>
+<h2 id="fuzzy-text-search">Fuzzy-text search</h2>
+<p>in order to run a fuzzy text match, simply change the first parameter to <code>Search.Fuzzy</code> as shown here:</p>
+<pre><code class="lang-csharp">await DB.Find&lt;Book&gt;()
+        .Match(Search.Fuzzy, &quot;search term&quot;)
+        .ExecuteAsync();
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>fuzzy text searching requires a bit of special handling, please see <a href="Indexes-Fuzzy-Text-Search.html"><em>here</em></a> for detailed information.</p>
+</div>
+<h2 id="other-index-types">Other index types</h2>
+<p>use the same <code>Index&lt;T&gt;</code> method as above but with the type parameters of the keys set to one of the following:</p>
+<ul>
+<li>Ascending</li>
+<li>Descending</li>
+<li>Geo2D</li>
+<li>Geo2DSphere</li>
+<li>Hashed</li>
+<li>Wildcard</li>
+</ul>
+<h2 id="indexing-options">Indexing options</h2>
+<p>To specify options for index creation, chain in calls to the <code>.Option()</code> method before calling the <code>.Create()</code> method.</p>
+<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;()
+        .Key(x =&gt; x.Title, KeyType.Descending)
+        .Option(o =&gt; o.Background = true)
+        .Option(o =&gt; o.Unique = true)
+        .CreateAsync();
+</code></pre>
+<h2 id="retrieve-the-name-of-created-index">Retrieve the name of created index</h2>
+<p>The <code>.CreateAsync()</code> method returns the name of the index that was created.</p>
+<pre><code class="lang-csharp">var name = await DB.Index&lt;Book&gt;()
+                   .Key(x =&gt; x.Title, KeyType.Ascending)
+                   .Key(x=&gt; x.Price, KeyType.Descending)
+                   .CreateAsync();              
+</code></pre>
+<h2 id="delete-an-index-by-name">Delete an index by name</h2>
+<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAsync(name);
+</code></pre>
+<h2 id="delete-all-indexes-for-an-entity-type">Delete all indexes for an entity type</h2>
+<pre><code class="lang-csharp">await DB.Index&lt;Book&gt;().DropAllAsync();
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -74,6 +74,8 @@ items:
   - MongoDB.Entities.DBContext.GeoNear``1(MongoDB.Entities.Coordinates2D,System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},MongoDB.Bson.BsonDocument,System.Nullable{System.Int32},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.String,MongoDB.Driver.AggregateOptions,System.Boolean)
   - MongoDB.Entities.DBContext.InsertAsync``1({T},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.InsertAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.PagedSearch``1
+  - MongoDB.Entities.DBContext.PagedSearch``2
   - MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineSingleAsync``2(MongoDB.Entities.Template{{T},{TResult}},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
@@ -3275,6 +3277,68 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.PagedSearch``1
+  commentId: M:MongoDB.Entities.DBContext.PagedSearch``1
+  parent: MongoDB.Entities.DBContext
+  name: PagedSearch<T>()
+  nameWithType: DBContext.PagedSearch<T>()
+  fullName: MongoDB.Entities.DBContext.PagedSearch<T>()
+  nameWithType.vb: DBContext.PagedSearch(Of T)()
+  fullName.vb: MongoDB.Entities.DBContext.PagedSearch(Of T)()
+  name.vb: PagedSearch(Of T)()
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.PagedSearch``1
+    name: PagedSearch<T>
+    nameWithType: DBContext.PagedSearch<T>
+    fullName: MongoDB.Entities.DBContext.PagedSearch<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.PagedSearch``1
+    name: PagedSearch(Of T)
+    nameWithType: DBContext.PagedSearch(Of T)
+    fullName: MongoDB.Entities.DBContext.PagedSearch(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.PagedSearch``2
+  commentId: M:MongoDB.Entities.DBContext.PagedSearch``2
+  parent: MongoDB.Entities.DBContext
+  name: PagedSearch<T, TProjection>()
+  nameWithType: DBContext.PagedSearch<T, TProjection>()
+  fullName: MongoDB.Entities.DBContext.PagedSearch<T, TProjection>()
+  nameWithType.vb: DBContext.PagedSearch(Of T, TProjection)()
+  fullName.vb: MongoDB.Entities.DBContext.PagedSearch(Of T, TProjection)()
+  name.vb: PagedSearch(Of T, TProjection)()
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.PagedSearch``2
+    name: PagedSearch<T, TProjection>
+    nameWithType: DBContext.PagedSearch<T, TProjection>
+    fullName: MongoDB.Entities.DBContext.PagedSearch<T, TProjection>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.PagedSearch``2
+    name: PagedSearch(Of T, TProjection)
+    nameWithType: DBContext.PagedSearch(Of T, TProjection)
+    fullName: MongoDB.Entities.DBContext.PagedSearch(Of T, TProjection)
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

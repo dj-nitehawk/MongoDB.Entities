@@ -42,6 +42,8 @@ items:
   - MongoDB.Entities.One`1
   - MongoDB.Entities.Order
   - MongoDB.Entities.OwnerSideAttribute
+  - MongoDB.Entities.PagedSearch`1
+  - MongoDB.Entities.PagedSearch`2
   - MongoDB.Entities.PreserveAttribute
   - MongoDB.Entities.Prop
   - MongoDB.Entities.Replace`1
@@ -254,6 +256,91 @@ references:
   name: KeyType
   nameWithType: KeyType
   fullName: MongoDB.Entities.KeyType
+- uid: MongoDB.Entities.PagedSearch`1
+  commentId: T:MongoDB.Entities.PagedSearch`1
+  name: PagedSearch<T>
+  nameWithType: PagedSearch<T>
+  fullName: MongoDB.Entities.PagedSearch<T>
+  nameWithType.vb: PagedSearch(Of T)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T)
+  name.vb: PagedSearch(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch`2
+  commentId: T:MongoDB.Entities.PagedSearch`2
+  parent: MongoDB.Entities
+  name: PagedSearch<T, TProjection>
+  nameWithType: PagedSearch<T, TProjection>
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
+  nameWithType.vb: PagedSearch(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
+  name.vb: PagedSearch(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Replace`1
   commentId: T:MongoDB.Entities.Replace`1
   parent: MongoDB.Entities

@@ -16,7 +16,7 @@ items:
   type: Enum
   source:
     id: Order
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 435
   assemblies:
   - MongoDB.Entities
@@ -43,7 +43,7 @@ items:
   type: Field
   source:
     id: Ascending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 437
   assemblies:
   - MongoDB.Entities
@@ -71,7 +71,7 @@ items:
   type: Field
   source:
     id: Descending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 438
   assemblies:
   - MongoDB.Entities

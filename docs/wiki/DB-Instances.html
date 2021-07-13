@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-39155502-5');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>The DBContext | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The DBContext | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-dbcontext">The DBContext</h1>
+
+<p>the <em>DBContext</em> class exists for the sole purpose of facilitating the below-mentioned functionality.
+it is a thin stateful wrapper around the static <code>DB</code> class methods.
+feel free to create as many instances as you please whenever needed.</p>
+<h3 id="needed-for">Needed for:</h3>
+<ul>
+<li><a href="DB-Instances-Audit-Fields.html">Automatic audit fields</a></li>
+<li><a href="DB-Instances-Event-Hooks.html">Custom event hooks</a></li>
+<li><a href="DB-Instances-Global-Filters.html">Global filters</a></li>
+<li><a href="DB-Instances.html#dependancy-injection">Dependancy injection</a> (debatable)</li>
+</ul>
+<h2 id="create-an-instance">Create an instance</h2>
+<pre><code class="lang-csharp">var db = new DBContext(&quot;database-name&quot;, &quot;127.0.0.1&quot;);
+</code></pre>
+<p>connection parameters only need to be supplied to the constructor if you <strong>haven't</strong> initialized the same database connection before in your application.
+if for example you have done: <code>await DB.InitAsync(...)</code> on app startup, then simply do <code>new DBContext()</code> without supplying any parameters.</p>
+<p><strong>Note:</strong>
+the DBContext constructor does <strong>not</strong> try to establish network connectivity with the server immediately. it would only establish connection during the very first operation perfomed by the DBContext instance. whereas the <code>DB.InitAsync()</code> method would establish connectivity immediately and throw an exception if unsuccessful.</p>
+<h2 id="perform-operations">Perform operations</h2>
+<p>all operations supported by the static <code>DB</code> class are available via DBContext instances like so:</p>
+<pre><code class="lang-csharp">await db.SaveAsync(new Book { Title = &quot;test&quot; });
+
+await db.Find&lt;Book&gt;()
+        .Match(b =&gt; b.Title == &quot;test&quot;)
+        .ExecuteAsync();
+
+await db.Update&lt;Book&gt;()
+        .MatchID(&quot;xxxxxxxxxx&quot;)
+        .Modify(b =&gt; b.Title, &quot;updated&quot;)
+        .ExecuteAsync();
+</code></pre>
+<h2 id="dependancy-injection">Dependancy injection</h2>
+<p>it may be tempting to register <code>DBContext</code> instances with IOC containers. instead you should be injecting the repositories (that wrap up data access methods) into your controllers/services, not the DBContext instances directly. <a href="https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern">click here</a> for a repository pattern example.</p>
+<p>if you don't plan on unit testing or swapping persistance technology at a future date, there's really no need to use dependency injection and/or DBcontext instances <em>(unless you need the features mentioned above)</em>. in which case feel free to do everything via the DB static methods for the sake of convenience.</p>
+<p>it is however recommended you encapsulate all data access logic in repository/service/manager classes in order to isolate persistance logic from your application logic.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>as an alternative, have a look at <strong>vertical slice architecture</strong> as done <a href="https://github.com/dj-nitehawk/MongoWebApiStarter"><em>here</em></a> for a far superior developer experience compared to the commonly used layerd+di+repositories mess.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

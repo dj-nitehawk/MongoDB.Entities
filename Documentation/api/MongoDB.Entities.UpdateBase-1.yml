@@ -19,7 +19,7 @@ items:
   type: Class
   source:
     id: UpdateBase
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 11
   assemblies:
   - MongoDB.Entities
@@ -69,7 +69,7 @@ items:
   type: Field
   source:
     id: defs
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 16
   assemblies:
   - MongoDB.Entities
@@ -100,7 +100,7 @@ items:
   type: Method
   source:
     id: AddModification
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 23
   assemblies:
   - MongoDB.Entities
@@ -140,7 +140,7 @@ items:
   type: Method
   source:
     id: AddModification
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 32
   assemblies:
   - MongoDB.Entities
@@ -175,7 +175,7 @@ items:
   type: Method
   source:
     id: AddModification
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 41
   assemblies:
   - MongoDB.Entities
@@ -209,7 +209,7 @@ items:
   type: Method
   source:
     id: AddModification
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Update.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Update.cs
     startLine: 50
   assemblies:
   - MongoDB.Entities

@@ -33,6 +33,8 @@ items:
   - MongoDB.Entities.DBContext.ModifiedBy
   - MongoDB.Entities.DBContext.OnBeforeSave``1
   - MongoDB.Entities.DBContext.OnBeforeUpdate``1
+  - MongoDB.Entities.DBContext.PagedSearch``1
+  - MongoDB.Entities.DBContext.PagedSearch``2
   - MongoDB.Entities.DBContext.PipelineAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.PipelineFirstAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
@@ -1825,6 +1827,86 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.DBContext.InsertAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Threading.CancellationToken)
   name.vb: InsertAsync(Of T)(IEnumerable(Of T), CancellationToken)
+- uid: MongoDB.Entities.DBContext.PagedSearch``1
+  commentId: M:MongoDB.Entities.DBContext.PagedSearch``1
+  id: PagedSearch``1
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PagedSearch<T>()
+  nameWithType: DBContext.PagedSearch<T>()
+  fullName: MongoDB.Entities.DBContext.PagedSearch<T>()
+  type: Method
+  source:
+    id: PagedSearch
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.PagedSearch.cs
+    startLine: 8
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents an aggregation query that retrieves results with easy paging support.\n"
+  example: []
+  syntax:
+    content: >-
+      public PagedSearch<T> PagedSearch<T>()
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: MongoDB.Entities.PagedSearch{{T}}
+    content.vb: Public Function PagedSearch(Of T As IEntity) As PagedSearch(Of T)
+  overload: MongoDB.Entities.DBContext.PagedSearch*
+  nameWithType.vb: DBContext.PagedSearch(Of T)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.DBContext.PagedSearch(Of T)()
+  name.vb: PagedSearch(Of T)()
+- uid: MongoDB.Entities.DBContext.PagedSearch``2
+  commentId: M:MongoDB.Entities.DBContext.PagedSearch``2
+  id: PagedSearch``2
+  parent: MongoDB.Entities.DBContext
+  langs:
+  - csharp
+  - vb
+  name: PagedSearch<T, TProjection>()
+  nameWithType: DBContext.PagedSearch<T, TProjection>()
+  fullName: MongoDB.Entities.DBContext.PagedSearch<T, TProjection>()
+  type: Method
+  source:
+    id: PagedSearch
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.PagedSearch.cs
+    startLine: 18
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nRepresents an aggregation query that retrieves results with easy paging support.\n"
+  example: []
+  syntax:
+    content: >-
+      public PagedSearch<T, TProjection> PagedSearch<T, TProjection>()
+
+          where T : IEntity
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    - id: TProjection
+      description: The type you&apos;d like to project the results to.
+    return:
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+    content.vb: Public Function PagedSearch(Of T As IEntity, TProjection) As PagedSearch(Of T, TProjection)
+  overload: MongoDB.Entities.DBContext.PagedSearch*
+  nameWithType.vb: DBContext.PagedSearch(Of T, TProjection)()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.DBContext.PagedSearch(Of T, TProjection)()
+  name.vb: PagedSearch(Of T, TProjection)()
 - uid: MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   commentId: M:MongoDB.Entities.DBContext.PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
   id: PipelineCursorAsync``2(MongoDB.Entities.Template{``0,``1},MongoDB.Driver.AggregateOptions,System.Threading.CancellationToken,System.Boolean)
@@ -4738,6 +4820,184 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.PagedSearch*
+  commentId: Overload:MongoDB.Entities.DBContext.PagedSearch
+  name: PagedSearch
+  nameWithType: DBContext.PagedSearch
+  fullName: MongoDB.Entities.DBContext.PagedSearch
+- uid: MongoDB.Entities.PagedSearch{{T}}
+  commentId: T:MongoDB.Entities.PagedSearch{``0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.PagedSearch`1
+  name: PagedSearch<T>
+  nameWithType: PagedSearch<T>
+  fullName: MongoDB.Entities.PagedSearch<T>
+  nameWithType.vb: PagedSearch(Of T)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T)
+  name.vb: PagedSearch(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch`1
+  commentId: T:MongoDB.Entities.PagedSearch`1
+  name: PagedSearch<T>
+  nameWithType: PagedSearch<T>
+  fullName: MongoDB.Entities.PagedSearch<T>
+  nameWithType.vb: PagedSearch(Of T)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T)
+  name.vb: PagedSearch(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`1
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+  commentId: T:MongoDB.Entities.PagedSearch{``0,``1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.PagedSearch`2
+  name: PagedSearch<T, TProjection>
+  nameWithType: PagedSearch<T, TProjection>
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
+  nameWithType.vb: PagedSearch(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
+  name.vb: PagedSearch(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch`2
+  commentId: T:MongoDB.Entities.PagedSearch`2
+  parent: MongoDB.Entities
+  name: PagedSearch<T, TProjection>
+  nameWithType: PagedSearch<T, TProjection>
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
+  nameWithType.vb: PagedSearch(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
+  name.vb: PagedSearch(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
   - name: )
     nameWithType: )
     fullName: )

@@ -14,7 +14,7 @@ items:
   type: Class
   source:
     id: Find
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Find.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
     startLine: 18
   assemblies:
   - MongoDB.Entities

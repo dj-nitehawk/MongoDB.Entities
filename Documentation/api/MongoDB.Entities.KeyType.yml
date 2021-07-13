@@ -21,7 +21,7 @@ items:
   type: Enum
   source:
     id: KeyType
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 171
   assemblies:
   - MongoDB.Entities
@@ -48,7 +48,7 @@ items:
   type: Field
   source:
     id: Ascending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 173
   assemblies:
   - MongoDB.Entities
@@ -76,7 +76,7 @@ items:
   type: Field
   source:
     id: Descending
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 174
   assemblies:
   - MongoDB.Entities
@@ -104,7 +104,7 @@ items:
   type: Field
   source:
     id: Geo2D
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 175
   assemblies:
   - MongoDB.Entities
@@ -132,7 +132,7 @@ items:
   type: Field
   source:
     id: Geo2DSphere
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 176
   assemblies:
   - MongoDB.Entities
@@ -160,7 +160,7 @@ items:
   type: Field
   source:
     id: Hashed
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 177
   assemblies:
   - MongoDB.Entities
@@ -188,7 +188,7 @@ items:
   type: Field
   source:
     id: Text
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 178
   assemblies:
   - MongoDB.Entities
@@ -216,7 +216,7 @@ items:
   type: Field
   source:
     id: Wildcard
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Commands\Index.cs
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
     startLine: 179
   assemblies:
   - MongoDB.Entities

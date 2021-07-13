@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-39155502-5');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Define entities | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Define entities | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="define-entities">Define entities</h1>
+
+<p>add the import statement shown below and create your entities by inheriting the <code>Entity</code> base class.</p>
+<pre><code class="lang-csharp">using MongoDB.Entities;
+
+public class Book : Entity
+{
+    public string Title { get; set; }
+}
+</code></pre>
+<h1 id="ignore-properties">Ignore properties</h1>
+<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code></p>
+<pre><code class="lang-csharp">public class Book : Entity
+{
+    [Ignore]
+    public string SomeProperty { get; set; }
+}
+</code></pre>
+<h1 id="customize-field-names">Customize field names</h1>
+<p>you can set the field names of the documents stored in mongodb using the <code>FieldAttribute</code> like so:</p>
+<pre><code class="lang-csharp">public class Book
+{
+    [Field(&quot;book_name&quot;)]
+    public string Title { get; set; }
+}
+</code></pre>
+<h1 id="customize-collection-names">Customize collection names</h1>
+<p>by default, mongodb collections will use the names of the entity classes. you can customize the collection names by decorating your entities with the <code>CollectionAttribute</code> as follows:</p>
+<pre><code class="lang-csharp">[Collection(&quot;Writer&quot;)]
+public class Author : Entity
+{
+    ...
+}
+</code></pre>
+<h1 id="optional-auto-managed-properties">Optional auto-managed properties</h1>
+<p>there are 2 optional interfaces <code>ICreatedOn</code> &amp; <code>IModifiedOn</code> that you can add to entity class definitions like so:</p>
+<pre><code class="lang-csharp">public class Book : Entity, ICreatedOn, IModifiedOn
+{
+    public string Title { get; set; }
+    public DateTime CreatedOn { get; set; }
+    public DateTime ModifiedOn { get; set; }
+}
+</code></pre>
+<p>if your entity classes implements these interfaces, the library will automatically set the appropriate values so you can use them for sorting operations and other queries.</p>
+<h1 id="the-ientity-interface">The IEntity interface</h1>
+<p>if for whatever reason, you're unable to inherit the <code>Entity</code> base class, you can simply implement the <code>IEntity</code> interface to make your classes compatible with the library like so:</p>
+<pre><code class="lang-csharp">public class Book : IEntity
+{
+    [BsonId, ObjectId]
+    public string ID { get; set; }
+    
+    public string GenerateNewID() 
+        =&gt; ObjectId.GenerateNewId().ToString();
+}
+</code></pre>
+<h1 id="customizing-the-id-format">Customizing the ID format</h1>
+<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply override the <code>GenerateNewID</code> method of the <code>Entity</code> class or implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>GenerateNewID</code> method.</p>
+<p>if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
+<pre><code class="lang-csharp">public class Book : IEntity
+{
+    [BsonId]
+    public string ID { get; set; }
+
+    public string GenerateNewID()
+        =&gt; $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;;
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>the type of the ID property cannot be changed to something other than <code>string</code>. PRs are welcome for removing this limitation.</p>
+</div>
+<!-- <h2 style="color:#cb0000">A word of warning about custom IDs</h2> -->
+<div class="WARNING">
+<h5>Warning</h5>
+<p>it is highly recommended that you stick with <code>ObjectId</code> as it's highly unlikely it would generate duplicate IDs due to <a href="https://www.mongodb.com/blog/post/generating-globally-unique-identifiers-for-use-with-mongodb">the way it works</a>.</p>
+<p>if you choose something like <code>Guid</code>, there's a possibility for duplicates to be generated and data loss could occur when using the <a href="Entities-Save.html#save-entities-partially">partial entity saving</a> operations. reason being, those operations use upserts under the hood and if a new entity is assigned the same ID as one that already exists in the database, the existing entity will get replaced by the new entity.</p>
+<p>the normal save operations do not have this issue because they use inserts under the hood and if you try to insert a new entity with a duplicate ID, a duplicate key exception would be thrown due to the unique index on the ID property.</p>
+<p>so you're better off sticking with <code>ObjectId</code> because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.</p>
+</div>
+<h1 id="create-a-collection-explicitly">Create a collection explicitly</h1>
+<pre><code class="lang-csharp">await DB.CreateCollection(new CreateCollectionOptions&lt;Book&gt;
+{
+    Collation = new Collation(&quot;es&quot;),
+    Capped = true,
+    MaxDocuments = 100000
+});
+</code></pre>
+<p>typically you don't need to create collections manually as they will be created automatically the first time you save an entity.
+however, you'd have to create the collection like above if you need to use a custom <em><a href="https://docs.mongodb.com/manual/reference/collation/">COLLATION</a></em> and/or setup a <em><a href="https://docs.mongodb.com/manual/core/capped-collections/">CAPPED</a></em> collection before you can save any entities.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>if a collection already exists for the specified entity type, an exception will be thrown.</p>
+</div>
+<h1 id="drop-a-collection">Drop a collection</h1>
+<pre><code class="lang-csharp">await DB.DropCollectionAsync&lt;Book&gt;();
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

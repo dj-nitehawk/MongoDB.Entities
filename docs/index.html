@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'UA-39155502-5');
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Welcome | MongoDB.Entities </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Welcome | MongoDB.Entities ">
+    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    <meta property="docfx:newtab" content="true">
+    <meta property="og:title" content="MongoDB.Entities">
+    <meta property="og:site_name" content="MongoDB.Entities">
+    <meta property="og:url" content="https://mongodb-entities.com">
+    <meta property="og:description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management,">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mongodb-entities.com/images/social-square.png">  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="images/icon.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+
+<p><img src="images/header.svg" alt=""></p>
+<p><a href="https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/README.md"><img src="https://img.shields.io/github/license/dj-nitehawk/MongoDB.Entities?color=blue&amp;label=license&amp;logo=Github&amp;style=flat-square" alt="license"></a> <a href="https://www.nuget.org/packages/MongoDB.Entities"><img src="https://img.shields.io/nuget/v/MongoDB.Entities?label=version&amp;logo=NuGet&amp;style=flat-square" alt="nuget"></a> <a href="https://www.nuget.org/packages/MongoDB.Entities"><img src="https://img.shields.io/nuget/dt/MongoDB.Entities?color=blue&amp;label=downloads&amp;logo=NuGet&amp;style=flat-square" alt="nuget"></a> <a href="https://dev.azure.com/RyanGunner/MongoDB%20Entities/_build/latest?definitionId=4"><img src="https://img.shields.io/azure-devops/tests/RyanGunner/MongoDB%20Entities/4?color=blue&amp;label=tests&amp;logo=Azure%20DevOps&amp;style=flat-square" alt="tests"></a> <a href="https://discord.com/invite/CM5mw2G"><img src="https://img.shields.io/discord/768493765995921449?color=blue&amp;label=discord&amp;logo=discord&amp;logoColor=white&amp;style=flat-square" alt="discord"></a></p>
+<h1 id="what-is-it">What is it?</h1>
+<p>A light-weight .net standard library with <a href="wiki/Performance-Benchmarks.html">barely any overhead</a> that aims to simplify access to mongodb by abstracting the official driver while adding useful features on top of it resulting in an elegant API surface which produces beautiful, human friendly data access code.</p>
+<h1 id="why-use-it">Why use it?</h1>
+<ul>
+<li>Async only API for scalable application development.</li>
+<li>Don't have to deal with <code>ObjectIds</code>, <code>BsonDocuments</code> &amp; magic strings unless you want to.</li>
+<li>Built-in support for <code>One-To-One</code>, <code>One-To-Many</code> and <code>Many-To-Many</code> relationships.</li>
+<li>Query data using LINQ, lambda expressions, filters and aggregation pipelines.</li>
+<li>Sorting, paging and projecting is made convenient.</li>
+<li>Simple data migration framework similar to EntityFramework.</li>
+<li>Programatically manage indexes.</li>
+<li>Full text search (including fuzzy matching) with text indexes.</li>
+<li>Multi-document transaction support.</li>
+<li>Multiple database support.</li>
+<li>Easy bulk operations.</li>
+<li>Easy change-stream support.</li>
+<li>Easy audit fields support.</li>
+<li>GeoSpatial search.</li>
+<li>Global filters.</li>
+<li>Stream files in chunks to and from mongodb (GridFS alternative).</li>
+<li>Project types supported: .Net Standard 2.0 (.Net Core 2.0 &amp; .Net Framework 4.6.1 or higher)</li>
+</ul>
+<hr>
+<div class="actions-container">
+  <div><a href="wiki/Get-Started.html">Get Started</a></div>
+  <div><a href="wiki/Code-Samples.html">Code Samples</a></div>
+  <div><a href="wiki/Performance-Benchmarks.html">Benchmarks</a></div>
+</div>
+<hr>
+<div class="actions-container">
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE">
+    <img src="images/donate.png" style="margin-top:20px;">
+  </a>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>
