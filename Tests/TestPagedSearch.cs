@@ -73,7 +73,7 @@ namespace MongoDB.Entities.Tests
                 .PagedSearch<Book, BookResult>()
                 .Match(b => b.Title == guid)
                 .Sort(b => b.ID, Order.Ascending)
-                .Project(b => new BookResult { BookID = b.ID, BookTitle = b.Title })
+                .Project(b => new BookResult { BookID = b.ID.ToString(), BookTitle = b.Title })
                 .PageNumber(1)
                 .PageSize(5)
                 .ExecuteAsync();

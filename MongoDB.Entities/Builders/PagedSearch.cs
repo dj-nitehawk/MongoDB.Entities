@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
         private readonly AggregateOptions options = new AggregateOptions();
-        private ProjectionDefinition<T, TProjection> projection;
+        private PipelineStageDefinition<T, TProjection> projectionStage;
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
@@ -213,10 +213,12 @@ namespace MongoDB.Entities
 
         private void AddTxtScoreToProjection(string propName)
         {
-            if (projection == null) projection = "{}";
+            //todo: write a test case for this
 
-            projection =
-                projection
+            if (projectionStage == null) projectionStage = "{}";
+
+            projectionStage =
+                projectionStage
                 .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
                 .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
         }
@@ -257,7 +259,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new Test { PropName = x.Prop }</param>
         public PagedSearch<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
-            return Project(p => p.Expression(expression));
+            projectionStage = PipelineStageDefinitionBuilder.Project(expression);
+            return this;
         }
 
         /// <summary>
@@ -266,7 +269,7 @@ namespace MongoDB.Entities
         /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
         public PagedSearch<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
         {
-            this.projection = projection(Builders<T>.Projection);
+            projectionStage = PipelineStageDefinitionBuilder.Project(projection(Builders<T>.Projection));
             return this;
         }
 
@@ -276,6 +279,8 @@ namespace MongoDB.Entities
         /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
         public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
         {
+            //todo: write test case for this
+
             var props = (exclusion.Body as NewExpression)?.Arguments
                 .Select(a => a.ToString().Split('.')[1]);
 
@@ -289,7 +294,7 @@ namespace MongoDB.Entities
                 defs.Add(Builders<T>.Projection.Exclude(prop));
             }
 
-            projection = Builders<T>.Projection.Combine(defs);
+            projectionStage = PipelineStageDefinitionBuilder.Project<T, TProjection>(Builders<T>.Projection.Combine(defs));
 
             return this;
         }
@@ -337,8 +342,8 @@ namespace MongoDB.Entities
             pipelineStages.Add(PipelineStageDefinitionBuilder.Skip<T>((pageNumber - 1) * pageSize));
             pipelineStages.Add(PipelineStageDefinitionBuilder.Limit<T>(pageSize));
 
-            if (projection != null)
-                pipelineStages.Add(PipelineStageDefinitionBuilder.Project(projection));
+            if (projectionStage != null)
+                pipelineStages.Add(projectionStage);
 
             var resultsFacet = AggregateFacet.Create<T, TProjection>("_results", pipelineStages);
 
