@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -47,6 +48,28 @@ namespace MongoDB.Entities.Tests
             var (Results, _, PageCount) = await DB
                 .PagedSearch<Book>()
                 .Match(b => b.Title == guid)
+                .Sort(b => b.ID, Order.Ascending)
+                .PageNumber(2)
+                .PageSize(5)
+                .ExecuteAsync();
+
+            Assert.AreEqual(2, PageCount);
+            Assert.IsTrue(Results.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task got_results_with_fluent()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            await SeedData(guid);
+
+            var pipeline = DB.Fluent<Book>()
+                             .Match(b => b.Title == guid);
+
+            var (Results, _, PageCount) = await DB
+                .PagedSearch<Book>()
+                .WithFluent(pipeline)
                 .Sort(b => b.ID, Order.Ascending)
                 .PageNumber(2)
                 .PageSize(5)

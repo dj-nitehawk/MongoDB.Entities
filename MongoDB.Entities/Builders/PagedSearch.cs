@@ -29,6 +29,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
     public class PagedSearch<T, TProjection> where T : IEntity
     {
+        private IAggregateFluent<T> fluentPipeline;
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private readonly List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
         private readonly AggregateOptions options = new AggregateOptions();
@@ -48,6 +49,18 @@ namespace MongoDB.Entities
 
             this.session = session;
             this.globalFilters = globalFilters;
+        }
+
+        /// <summary>
+        /// Begins the paged search aggregation pipeline with the provided fluent pipeline.
+        /// <para>TIP: This method must be first in the chain and it cannot be used with .Match()</para>
+        /// </summary>
+        /// <typeparam name="TFluent">The type of the input pipeline</typeparam>
+        /// <param name="fluentPipeline">The input IAggregateFluent pipeline</param>
+        public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline) where TFluent : IAggregateFluent<T>
+        {
+            this.fluentPipeline = fluentPipeline;
+            return this;
         }
 
         /// <summary>
@@ -327,13 +340,8 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
         {
-            var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-
-            var countFacet = AggregateFacet.Create("_count",
-                PipelineDefinition<T, AggregateCountResult>.Create(new[]
-                {
-                    PipelineStageDefinitionBuilder.Count<T>()
-                }));
+            if (filter != Builders<T>.Filter.Empty && fluentPipeline != null)
+                throw new InvalidOperationException(".Match() and .WithFluent() cannot be used together!");
 
             var pipelineStages = new List<IPipelineStageDefinition>(4);
 
@@ -350,10 +358,30 @@ namespace MongoDB.Entities
 
             var resultsFacet = AggregateFacet.Create<T, TProjection>("_results", pipelineStages);
 
-            var facetResult =
-                session == null
-                ? await DB.Collection<T>().Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
-                : await DB.Collection<T>().Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false);
+            var countFacet = AggregateFacet.Create("_count",
+                PipelineDefinition<T, AggregateCountResult>.Create(new[]
+                {
+                    PipelineStageDefinitionBuilder.Count<T>()
+                }));
+
+            AggregateFacetResults facetResult;
+
+            if (fluentPipeline == null) //.Match() used
+            {
+                var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+
+                facetResult =
+                    session == null
+                    ? await DB.Collection<T>().Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
+                    : await DB.Collection<T>().Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false);
+            }
+            else //.WithFluent() used
+            {
+                facetResult = await fluentPipeline
+                    .Facet(countFacet, resultsFacet)
+                    .SingleAsync(cancellation)
+                    .ConfigureAwait(false);
+            }
 
             long matchCount = (
                 facetResult.Facets
