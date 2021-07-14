@@ -359,11 +359,13 @@ namespace MongoDB.Entities
                 .Single(x => x.Name == "_count")
                 .Output<AggregateCountResult>().FirstOrDefault()?.Count;
 
-            var totalPages =
-                count == null
-                ? 0
-                : (int)Math.Ceiling((double)(count / pageSize));
-
+            int totalPages = 
+                count == null 
+                ? 0 
+                : count <= pageSize 
+                  ? 1 
+                  : (int)Math.Ceiling((double)(count / pageSize));
+            
             var results = facetResult.Facets
                 .First(x => x.Name == "_results")
                 .Output<TProjection>();

@@ -87,6 +87,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task sort_by_meta_text_score_dont_retun_the_score()
         {
+            await DB.DropCollectionAsync<Genre>();
+
             await DB.Index<Genre>()
               .Key(g => g.Name, KeyType.Text)
               .Option(o => o.Background = false)
@@ -120,6 +122,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task sort_by_meta_text_score_retun_the_score()
         {
+            await DB.DropCollectionAsync<Genre>();
+
             await DB.Index<Genre>()
               .Key(g => g.Name, KeyType.Text)
               .Option(o => o.Background = false)
