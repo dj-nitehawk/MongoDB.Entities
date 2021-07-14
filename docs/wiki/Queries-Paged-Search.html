@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="paged-search">Paged search</h1>
 
-<p>when doing paging, it's common to retrieve a count of total matched entities or the total number of pages as well as the list of entities for the current page. that is typically achieved by running two separate db queries; one for the count and another for the actual entities. in mongodb it can also be done via a <code>$facet</code> aggregation query, which can be cumbersome to do using the official driver. this library provides a convenience wrapper for this exact use case.</p>
+<p>paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a <code>$facet</code> aggregation query, which is quite cumbersome to do using the official driver. this library provides a convenience method for this exact use case via the <code>PagedSearch</code> builder.</p>
 <h2 id="example">Example</h2>
 <pre><code class="lang-csharp">var res = await DB.PagedSearch&lt;Book&gt;()
                   .Match(b =&gt; b.AuthorName == &quot;Eckhart Tolle&quot;)
@@ -104,10 +104,11 @@
                   .ExecuteAsync();
 
 IReadOnlyList&lt;Book&gt; books = res.Results;
+long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                  
 </code></pre>
 <p>simply specify the search criteria to the <code>.Match()</code> method as you'd typically do. specify how to order the result set using the <code>.Sort()</code> method. specify the size of a single page using <code>.PageSize()</code> method. specify which page number to retrieve using <code>PageNumber()</code> method and finally issue the command using <code>ExecuteAsync()</code> to get the result of the facetted aggregation query.</p>
-<p>the result is a value tuple consisting of the <code>PageCount</code> and <code>Results</code>.</p>
+<p>the result is a value tuple consisting of the <code>Results</code>,<code>TotalCount</code>,<code>PageCount</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.</p>
@@ -126,7 +127,18 @@ int totalPageCount = res.PageCount;
                   .ExecuteAsync();
 
 IReadOnlyList&lt;BookListing&gt; listings = res.Results;
+long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                     
+</code></pre>
+<blockquote>
+<p>when projecting to different types as above, you may encounter a deserialization error thrown by the driver saying it can't convert <code>ObjectId</code> values to <code>string</code> in which case simply add a <code>.ToString()</code> to the property being projected like so:</p>
+</blockquote>
+<pre><code class="lang-csharp">                  .Project(b =&gt; new BookListing
+                  {
+                      BookID = b.ID.ToString(),
+                      BookName = b.Title,
+                      AuthorName = b.Author
+                  })
 </code></pre>
 </article>
           </div>

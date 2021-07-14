@@ -839,17 +839,17 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nRun the aggregation search command in MongoDB server and get a page of results and total count\n"
+  summary: "\nRun the aggregation search command in MongoDB server and get a page of results and total + page count\n"
   example: []
   syntax:
-    content: public async Task<(IReadOnlyList<TProjection> Results, int PageCount)> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
+    content: public async Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default(CancellationToken))
     parameters:
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
     return:
-      type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int32}}
-    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of(Results As IReadOnlyList(Of TProjection), PageCount As Integer)(Of IReadOnlyList(Of TProjection), Integer)
+      type: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int64,System.Int32}}
+    content.vb: Public Function ExecuteAsync(cancellation As CancellationToken = Nothing) As Task(Of(Results As IReadOnlyList(Of TProjection), TotalCount As Long, PageCount As Integer)(Of IReadOnlyList(Of TProjection), Long, Integer)
   overload: MongoDB.Entities.PagedSearch`2.ExecuteAsync*
   nameWithType.vb: PagedSearch(Of T, TProjection).ExecuteAsync(CancellationToken)
   modifiers.csharp:
@@ -2218,16 +2218,16 @@ references:
   name: CancellationToken
   nameWithType: CancellationToken
   fullName: System.Threading.CancellationToken
-- uid: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int32}}
-  commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int32}}
+- uid: System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{{TProjection}},System.Int64,System.Int32}}
+  commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<(T1, T2)<IReadOnlyList<TProjection>, Int32>>
-  nameWithType: Task<(T1, T2)<IReadOnlyList<TProjection>, Int32>>
-  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int32>>
-  nameWithType.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int32))
-  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int32))
-  name.vb: Task(Of (T1, T2)(Of IReadOnlyList(Of TProjection), Int32))
+  name: Task<(T1, T2, T3)<IReadOnlyList<TProjection>, Int64, Int32>>
+  nameWithType: Task<(T1, T2, T3)<IReadOnlyList<TProjection>, Int64, Int32>>
+  fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int64, System.Int32>>
+  nameWithType.vb: Task(Of (T1, T2, T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
+  fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int64, System.Int32))
+  name.vb: Task(Of (T1, T2, T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
@@ -2237,9 +2237,9 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.ValueTuple`2
-    name: (T1, T2)
-    nameWithType: (T1, T2)
+  - uid: System.ValueTuple`3
+    name: (T1, T2, T3)
+    nameWithType: (T1, T2, T3)
     fullName: System.ValueTuple
     isExternal: true
   - name: <
@@ -2259,6 +2259,14 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
@@ -2282,9 +2290,9 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.ValueTuple`2
-    name: (T1, T2)
-    nameWithType: (T1, T2)
+  - uid: System.ValueTuple`3
+    name: (T1, T2, T3)
+    nameWithType: (T1, T2, T3)
     fullName: System.ValueTuple
     isExternal: true
   - name: '(Of '
@@ -2304,6 +2312,14 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
