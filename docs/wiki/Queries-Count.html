@@ -116,7 +116,7 @@ the above will give you a rough estimate of the total entities using collection 
 
 var count = await DB.CountAsync(filter);
 </code></pre>
-<h2 id="counting-children-of-a-relationship">Counting children of a relationship</h2>
+<h3 id="counting-children-of-a-relationship">Counting children of a relationship</h3>
 <p>you can get how many entities are there in the opposite side of any relationship as shown below:</p>
 <pre><code class="lang-csharp">var authorCount = await book.Authors.ChildrenCountAsync();
 var bookCount = await author.Books.ChildrenCountAsync();
