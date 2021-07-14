@@ -12,6 +12,8 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public async Task full_text_search_with_index_returns_correct_result()
         {
+            await DB.DropCollectionAsync<Author>();
+
             await DB.Index<Author>()
               .Option(o => o.Background = false)
               .Key(a => a.Name, KeyType.Text)

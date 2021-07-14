@@ -13,7 +13,7 @@ namespace MongoDB.Entities.Tests
         {
             var guid = Guid.NewGuid().ToString();
 
-            var (Results, PageCount) = await DB
+            var (Results, _, PageCount) = await DB
                 .PagedSearch<Book>()
                 .Match(b => b.ID == guid)
                 .Sort(b => b.ID, Order.Ascending)
@@ -44,7 +44,7 @@ namespace MongoDB.Entities.Tests
 
             await SeedData(guid);
 
-            var (Results, PageCount) = await DB
+            var (Results, _, PageCount) = await DB
                 .PagedSearch<Book>()
                 .Match(b => b.Title == guid)
                 .Sort(b => b.ID, Order.Ascending)
@@ -69,7 +69,7 @@ namespace MongoDB.Entities.Tests
 
             await SeedData(guid);
 
-            var (Results, PageCount) = await DB
+            var (Results, _, PageCount) = await DB
                 .PagedSearch<Book, BookResult>()
                 .Match(b => b.Title == guid)
                 .Sort(b => b.ID, Order.Ascending)
@@ -101,7 +101,7 @@ namespace MongoDB.Entities.Tests
 
             await list.SaveAsync();
 
-            var (Results, PageCount) = await DB
+            var (Results, _, PageCount) = await DB
                 .PagedSearch<Genre>()
                 .Match(Search.Full, "one eight nine")
                 .Project(p => new Genre { Name = p.Name, Position = p.Position })
@@ -135,7 +135,7 @@ namespace MongoDB.Entities.Tests
 
             await list.SaveAsync();
 
-            var (Results, PageCount) = await DB
+            var (Results, _, PageCount) = await DB
                 .PagedSearch<Genre>()
                 .Match(Search.Full, "one eight nine")
                 .SortByTextScore()
@@ -158,7 +158,7 @@ namespace MongoDB.Entities.Tests
             };
             await author.SaveAsync();
 
-            var (res, _) = await DB.PagedSearch<Author>()
+            var (res, _, _) = await DB.PagedSearch<Author>()
                         .Match(a => a.ID == author.ID)
                         .Sort(a => a.ID, Order.Ascending)
                         .ProjectExcluding(a => new { a.Age, a.Name })

@@ -322,10 +322,10 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Run the aggregation search command in MongoDB server and get a page of results and total count
+        /// Run the aggregation search command in MongoDB server and get a page of results and total + page count
         /// </summary>
         /// <param name="cancellation">An optional cancellation token</param>
-        public async Task<(IReadOnlyList<TProjection> Results, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
+        public async Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
         {
             var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
@@ -355,22 +355,22 @@ namespace MongoDB.Entities
                 ? await DB.Collection<T>().Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
                 : await DB.Collection<T>().Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false);
 
-            var count = facetResult.Facets
-                .Single(x => x.Name == "_count")
-                .Output<AggregateCountResult>().FirstOrDefault()?.Count;
+            long matchCount = (
+                facetResult.Facets
+                           .Single(x => x.Name == "_count")
+                           .Output<AggregateCountResult>().FirstOrDefault()?.Count
+            ) ?? 0;
 
-            int totalPages = 
-                count == null 
-                ? 0 
-                : count <= pageSize 
-                  ? 1 
-                  : (int)Math.Ceiling((double)(count / pageSize));
-            
+            int pageCount =
+                 matchCount > 0 && matchCount <= pageSize
+                 ? 1
+                 : (int)Math.Ceiling((double)(matchCount / pageSize));
+
             var results = facetResult.Facets
                 .First(x => x.Name == "_results")
                 .Output<TProjection>();
 
-            return (results, totalPages);
+            return (results, matchCount, pageCount);
         }
     }
 }
