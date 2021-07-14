@@ -211,16 +211,21 @@ namespace MongoDB.Entities
             }
         }
 
-        private void AddTxtScoreToProjection(string propName)
+        private void AddTxtScoreToProjection(string fieldName)
         {
-            //todo: write a test case for this
+            if (projectionStage == null)
+            {
+                projectionStage = $"{{ $set : {{ {fieldName} : {{ $meta : 'textScore' }}  }} }}";
+                return;
+            }
 
-            if (projectionStage == null) projectionStage = "{}";
+            var renderedStage = projectionStage.Render(
+                BsonSerializer.SerializerRegistry.GetSerializer<T>(),
+                BsonSerializer.SerializerRegistry);
 
-            projectionStage =
-                projectionStage
-                .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
-                .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
+            renderedStage.Document["$project"][fieldName] = new BsonDocument { { "$meta", "textScore" } };
+
+            projectionStage = renderedStage.Document;
         }
 
         /// <summary>
@@ -279,8 +284,6 @@ namespace MongoDB.Entities
         /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
         public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
         {
-            //todo: write test case for this
-
             var props = (exclusion.Body as NewExpression)?.Arguments
                 .Select(a => a.ToString().Split('.')[1]);
 
