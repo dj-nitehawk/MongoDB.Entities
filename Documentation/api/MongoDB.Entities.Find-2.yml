@@ -14,6 +14,7 @@ items:
   - MongoDB.Entities.Find`2.Limit(System.Int32)
   - MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
+  - MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
   - MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -350,6 +351,43 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  commentId: M:MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  id: Match(MongoDB.Driver.FilterDefinition{`0})
+  parent: MongoDB.Entities.Find`2
+  langs:
+  - csharp
+  - vb
+  name: Match(FilterDefinition<T>)
+  nameWithType: Find<T, TProjection>.Match(FilterDefinition<T>)
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
+    startLine: 126
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a filter definition\n"
+  example: []
+  syntax:
+    content: public Find<T, TProjection> Match(FilterDefinition<T> filterDefinition)
+    parameters:
+    - id: filterDefinition
+      type: MongoDB.Driver.FilterDefinition{{T}}
+      description: A filter definition
+    return:
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Find(Of T, TProjection)
+  overload: MongoDB.Entities.Find`2.Match*
+  nameWithType.vb: Find(Of T, TProjection).Match(FilterDefinition(Of T))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)
   id: Match(MongoDB.Entities.Template)
@@ -364,7 +402,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 126
+    startLine: 136
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -400,7 +438,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 141
+    startLine: 151
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -448,7 +486,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 171
+    startLine: 181
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -494,7 +532,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 180
+    startLine: 190
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -530,7 +568,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 190
+    startLine: 200
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -566,7 +604,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 200
+    startLine: 210
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -602,7 +640,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 211
+    startLine: 221
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -642,7 +680,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 230
+    startLine: 240
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -674,7 +712,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 240
+    startLine: 250
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -711,7 +749,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 259
+    startLine: 269
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -749,7 +787,7 @@ items:
   source:
     id: Skip
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 269
+    startLine: 279
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -785,7 +823,7 @@ items:
   source:
     id: Limit
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 279
+    startLine: 289
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -821,7 +859,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 289
+    startLine: 299
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -858,7 +896,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 298
+    startLine: 308
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -895,7 +933,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 308
+    startLine: 318
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -932,7 +970,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 332
+    startLine: 342
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -969,7 +1007,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 341
+    startLine: 351
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1001,7 +1039,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 351
+    startLine: 361
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1038,7 +1076,7 @@ items:
   source:
     id: ExecuteSingleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 369
+    startLine: 379
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1075,7 +1113,7 @@ items:
   source:
     id: ExecuteFirstAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 383
+    startLine: 393
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1112,7 +1150,7 @@ items:
   source:
     id: ExecuteAnyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 397
+    startLine: 407
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1149,7 +1187,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 412
+    startLine: 422
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1983,6 +2021,91 @@ references:
   fullName: MongoDB.Entities.Find<T, TProjection>.Match
   nameWithType.vb: Find(Of T, TProjection).Match
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match
+- uid: MongoDB.Driver.FilterDefinition{{T}}
+  commentId: T:MongoDB.Driver.FilterDefinition{`0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.FilterDefinition`1
+  name: FilterDefinition<T>
+  nameWithType: FilterDefinition<T>
+  fullName: MongoDB.Driver.FilterDefinition<T>
+  nameWithType.vb: FilterDefinition(Of T)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of T)
+  name.vb: FilterDefinition(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.FilterDefinition`1
+  commentId: T:MongoDB.Driver.FilterDefinition`1
+  isExternal: true
+  name: FilterDefinition<TDocument>
+  nameWithType: FilterDefinition<TDocument>
+  fullName: MongoDB.Driver.FilterDefinition<TDocument>
+  nameWithType.vb: FilterDefinition(Of TDocument)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of TDocument)
+  name.vb: FilterDefinition(Of TDocument)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities

@@ -26,8 +26,16 @@ filters can be specified on a per entity type basis like above or common filters
 SetGlobalFilterForBaseClass<BaseEntity>(x => x.IsDeleted == false);
 ```
 
+## Specify filters using an interface
+if you'd like a global filter to be applied to any entity type that implements an interface, you can specify it like below using a json string. 
+it is currently not possible to do it in a strongly typed manner due to a limitation in the driver. 
+
+```csharp
+SetGlobalFilterForInterface<ISoftDeletable>("{ IsDeleted : false }");
+```
+
 ## Prepending global filters
-global filters by deafult are appeneded to your operation filters. if you'd like to instead have the global filters prepended, use the following overload:
+global filters by deafult are appended to your operation filters. if you'd like to instead have the global filters prepended, use the following overload:
 
 ```csharp
 SetGlobalFilter<Book>(

@@ -7,6 +7,7 @@ items:
   children:
   - MongoDB.Entities.PagedSearch`2.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters
+  - MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
   - MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.PagedSearch`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -147,6 +148,43 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  commentId: M:MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  id: Match(MongoDB.Driver.FilterDefinition{`0})
+  parent: MongoDB.Entities.PagedSearch`2
+  langs:
+  - csharp
+  - vb
+  name: Match(FilterDefinition<T>)
+  nameWithType: PagedSearch<T, TProjection>.Match(FilterDefinition<T>)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
+    startLine: 75
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a filter definition\n"
+  example: []
+  syntax:
+    content: public PagedSearch<T, TProjection> Match(FilterDefinition<T> filterDefinition)
+    parameters:
+    - id: filterDefinition
+      type: MongoDB.Driver.FilterDefinition{{T}}
+      description: A filter definition
+    return:
+      type: MongoDB.Entities.PagedSearch`2
+    content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As PagedSearch(Of T, TProjection)
+  overload: MongoDB.Entities.PagedSearch`2.Match*
+  nameWithType.vb: PagedSearch(Of T, TProjection).Match(FilterDefinition(Of T))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Template)
   id: Match(MongoDB.Entities.Template)
@@ -161,7 +199,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 75
+    startLine: 85
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -197,7 +235,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 90
+    startLine: 100
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -245,7 +283,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 120
+    startLine: 130
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -291,7 +329,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 129
+    startLine: 139
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -327,7 +365,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 139
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -363,7 +401,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 149
+    startLine: 159
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -399,7 +437,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 160
+    startLine: 170
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -439,7 +477,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 179
+    startLine: 189
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -471,7 +509,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 189
+    startLine: 199
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -508,7 +546,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 217
+    startLine: 234
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -545,7 +583,7 @@ items:
   source:
     id: PageNumber
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 227
+    startLine: 244
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -581,7 +619,7 @@ items:
   source:
     id: PageSize
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 237
+    startLine: 254
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -617,7 +655,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 247
+    startLine: 264
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -654,7 +692,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 256
+    startLine: 274
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -691,7 +729,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 266
+    startLine: 284
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -728,7 +766,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 290
+    startLine: 308
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -765,7 +803,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 299
+    startLine: 317
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -797,7 +835,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 309
+    startLine: 327
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1444,6 +1482,91 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Driver.FilterDefinition{{T}}
+  commentId: T:MongoDB.Driver.FilterDefinition{`0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.FilterDefinition`1
+  name: FilterDefinition<T>
+  nameWithType: FilterDefinition<T>
+  fullName: MongoDB.Driver.FilterDefinition<T>
+  nameWithType.vb: FilterDefinition(Of T)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of T)
+  name.vb: FilterDefinition(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.FilterDefinition`1
+  commentId: T:MongoDB.Driver.FilterDefinition`1
+  isExternal: true
+  name: FilterDefinition<TDocument>
+  nameWithType: FilterDefinition<TDocument>
+  fullName: MongoDB.Driver.FilterDefinition<TDocument>
+  nameWithType.vb: FilterDefinition(Of TDocument)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of TDocument)
+  name.vb: FilterDefinition(Of TDocument)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities

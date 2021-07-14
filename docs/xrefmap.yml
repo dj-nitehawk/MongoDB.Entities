@@ -2935,6 +2935,15 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ManyAsync
   nameWithType: Find<T, TProjection>.ManyAsync
   nameWithType.vb: Find(Of T, TProjection).ManyAsync
+- uid: MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Match_MongoDB_Driver_FilterDefinition__0__
+  commentId: M:MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name.vb: Match(FilterDefinition(Of T))
+  fullName: MongoDB.Entities.Find<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  nameWithType: Find<T, TProjection>.Match(FilterDefinition<T>)
+  nameWithType.vb: Find(Of T, TProjection).Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   name: Match(Search, String, Boolean, Boolean, String)
   href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
@@ -4381,6 +4390,15 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).IgnoreGlobalFilters
   nameWithType: PagedSearch<T, TProjection>.IgnoreGlobalFilters
   nameWithType.vb: PagedSearch(Of T, TProjection).IgnoreGlobalFilters
+- uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  href: api/MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Match_MongoDB_Driver_FilterDefinition__0__
+  commentId: M:MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name.vb: Match(FilterDefinition(Of T))
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  nameWithType: PagedSearch<T, TProjection>.Match(FilterDefinition<T>)
+  nameWithType.vb: PagedSearch(Of T, TProjection).Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   name: Match(Search, String, Boolean, Boolean, String)
   href: api/MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
@@ -4818,6 +4836,15 @@ references:
   fullName.vb: MongoDB.Entities.Replace(Of T).IgnoreGlobalFilters
   nameWithType: Replace<T>.IgnoreGlobalFilters
   nameWithType.vb: Replace(Of T).IgnoreGlobalFilters
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_MongoDB_Driver_FilterDefinition__0__
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  name.vb: Match(FilterDefinition(Of T))
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Driver.FilterDefinition<T>)
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Driver.FilterDefinition(Of T))
+  nameWithType: Replace<T>.Match(FilterDefinition<T>)
+  nameWithType.vb: Replace(Of T).Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   name: Match(Search, String, Boolean, Boolean, String)
   href: api/MongoDB.Entities.Replace-1.html#MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
@@ -5800,6 +5827,15 @@ references:
   fullName.vb: MongoDB.Entities.Update(Of T).IgnoreGlobalFilters
   nameWithType: Update<T>.IgnoreGlobalFilters
   nameWithType.vb: Update(Of T).IgnoreGlobalFilters
+- uid: MongoDB.Entities.Update`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_MongoDB_Driver_FilterDefinition__0__
+  commentId: M:MongoDB.Entities.Update`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  name.vb: Match(FilterDefinition(Of T))
+  fullName: MongoDB.Entities.Update<T>.Match(MongoDB.Driver.FilterDefinition<T>)
+  fullName.vb: MongoDB.Entities.Update(Of T).Match(MongoDB.Driver.FilterDefinition(Of T))
+  nameWithType: Update<T>.Match(FilterDefinition<T>)
+  nameWithType.vb: Update(Of T).Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Update`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   name: Match(Search, String, Boolean, Boolean, String)
   href: api/MongoDB.Entities.Update-1.html#MongoDB_Entities_Update_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_
@@ -6178,6 +6214,15 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
   nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
   nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Driver_FilterDefinition__0__
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name.vb: Match(FilterDefinition(Of T))
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  nameWithType: UpdateAndGet<T, TProjection>.Match(FilterDefinition<T>)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   name: Match(Search, String, Boolean, Boolean, String)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_

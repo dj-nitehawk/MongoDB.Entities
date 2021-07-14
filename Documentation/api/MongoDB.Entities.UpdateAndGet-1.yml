@@ -38,6 +38,7 @@ items:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.MatchID(System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Driver.FilterDefinition{{T}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})
@@ -434,6 +435,66 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.Match(MongoDB.Driver.FilterDefinition{{T}})
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.Match(MongoDB.Driver.FilterDefinition{`0})
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  name: Match(FilterDefinition<T>)
+  nameWithType: UpdateAndGet<T, T>.Match(FilterDefinition<T>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match(MongoDB.Driver.FilterDefinition<T>)
+  nameWithType.vb: UpdateAndGet(Of T, T).Match(FilterDefinition(Of T))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).Match(MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Match(FilterDefinition(Of T))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+    name: Match
+    nameWithType: UpdateAndGet<T, T>.Match
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+    name: Match
+    nameWithType: UpdateAndGet(Of T, T).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )
@@ -3044,6 +3105,65 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+  isExternal: true
+  name: Match(FilterDefinition<T>)
+  nameWithType: UpdateAndGet<T, TProjection>.Match(FilterDefinition<T>)
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match(MongoDB.Driver.FilterDefinition<T>)
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(FilterDefinition(Of T))
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match(MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Match(FilterDefinition(Of T))
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+    name: Match
+    nameWithType: UpdateAndGet<T, TProjection>.Match
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
+    name: Match
+    nameWithType: UpdateAndGet(Of T, TProjection).Match
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Match
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )

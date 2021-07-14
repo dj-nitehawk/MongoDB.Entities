@@ -8,6 +8,7 @@ items:
   - MongoDB.Entities.Replace`1.AddToQueue
   - MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Replace`1.IgnoreGlobalFilters
+  - MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})
   - MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
   - MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})
@@ -173,6 +174,43 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Replace(Of T).Match(System.Func(Of MongoDB.Driver.FilterDefinitionBuilder(Of T), MongoDB.Driver.FilterDefinition(Of T)))
   name.vb: Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
+- uid: MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})
+  id: Match(MongoDB.Driver.FilterDefinition{`0})
+  parent: MongoDB.Entities.Replace`1
+  langs:
+  - csharp
+  - vb
+  name: Match(FilterDefinition<T>)
+  nameWithType: Replace<T>.Match(FilterDefinition<T>)
+  fullName: MongoDB.Entities.Replace<T>.Match(MongoDB.Driver.FilterDefinition<T>)
+  type: Method
+  source:
+    id: Match
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
+    startLine: 73
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify the matching criteria with a filter definition\n"
+  example: []
+  syntax:
+    content: public Replace<T> Match(FilterDefinition<T> filterDefinition)
+    parameters:
+    - id: filterDefinition
+      type: MongoDB.Driver.FilterDefinition{{T}}
+      description: A filter definition
+    return:
+      type: MongoDB.Entities.Replace`1
+    content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Replace(Of T)
+  overload: MongoDB.Entities.Replace`1.Match*
+  nameWithType.vb: Replace(Of T).Match(FilterDefinition(Of T))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Replace(Of T).Match(MongoDB.Driver.FilterDefinition(Of T))
+  name.vb: Match(FilterDefinition(Of T))
 - uid: MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
   commentId: M:MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)
   id: Match(MongoDB.Entities.Template)
@@ -187,7 +225,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 73
+    startLine: 83
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -223,7 +261,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 88
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -271,7 +309,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 118
+    startLine: 128
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -317,7 +355,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 127
+    startLine: 137
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -353,7 +391,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 137
+    startLine: 147
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -389,7 +427,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 147
+    startLine: 157
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -425,7 +463,7 @@ items:
   source:
     id: WithEntity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 158
+    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -461,7 +499,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 175
+    startLine: 185
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -498,7 +536,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 184
+    startLine: 194
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -530,7 +568,7 @@ items:
   source:
     id: AddToQueue
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 193
+    startLine: 203
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -562,7 +600,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Replace.cs
-    startLine: 216
+    startLine: 226
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1211,6 +1249,91 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Driver.FilterDefinition{{T}}
+  commentId: T:MongoDB.Driver.FilterDefinition{`0}
+  parent: MongoDB.Driver
+  definition: MongoDB.Driver.FilterDefinition`1
+  name: FilterDefinition<T>
+  nameWithType: FilterDefinition<T>
+  fullName: MongoDB.Driver.FilterDefinition<T>
+  nameWithType.vb: FilterDefinition(Of T)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of T)
+  name.vb: FilterDefinition(Of T)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver.FilterDefinition`1
+  commentId: T:MongoDB.Driver.FilterDefinition`1
+  isExternal: true
+  name: FilterDefinition<TDocument>
+  nameWithType: FilterDefinition<TDocument>
+  fullName: MongoDB.Driver.FilterDefinition<TDocument>
+  nameWithType.vb: FilterDefinition(Of TDocument)
+  fullName.vb: MongoDB.Driver.FilterDefinition(Of TDocument)
+  name.vb: FilterDefinition(Of TDocument)
+  spec.csharp:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Driver.FilterDefinition`1
+    name: FilterDefinition
+    nameWithType: FilterDefinition
+    fullName: MongoDB.Driver.FilterDefinition
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TDocument
+    nameWithType: TDocument
+    fullName: TDocument
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
 - uid: MongoDB.Entities.Template
   commentId: T:MongoDB.Entities.Template
   parent: MongoDB.Entities

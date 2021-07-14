@@ -235,6 +235,50 @@
   
   
   <a id="MongoDB_Entities_PagedSearch_2_Match_" data-uid="MongoDB.Entities.PagedSearch`2.Match*"></a>
+  <h4 id="MongoDB_Entities_PagedSearch_2_Match_MongoDB_Driver_FilterDefinition__0__" data-uid="MongoDB.Entities.PagedSearch`2.Match(MongoDB.Driver.FilterDefinition{`0})">Match(FilterDefinition&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Specify the matching criteria with a filter definition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(FilterDefinition&lt;T&gt; filterDefinition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="parametername">filterDefinition</span></td>
+        <td><p>A filter definition</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.PagedSearch-2.html">PagedSearch</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_PagedSearch_2_Match_" data-uid="MongoDB.Entities.PagedSearch`2.Match*"></a>
   <h4 id="MongoDB_Entities_PagedSearch_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.PagedSearch`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
