@@ -1312,6 +1312,133 @@
   </table>
   
   
+  <a id="MongoDB_Entities_Extensions_PagedSearch_" data-uid="MongoDB.Entities.Extensions.PagedSearch*"></a>
+  <h4 id="MongoDB_Entities_Extensions_PagedSearch__1_MongoDB_Driver_IAggregateFluent___0__" data-uid="MongoDB.Entities.Extensions.PagedSearch``1(MongoDB.Driver.IAggregateFluent{``0})">PagedSearch&lt;T&gt;(IAggregateFluent&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Starts a paged search pipeline for this fluent pipeline</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PagedSearch&lt;T, T&gt; PagedSearch&lt;T&gt;(this IAggregateFluent&lt;T&gt; aggregate)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="parametername">aggregate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.PagedSearch-2.html">PagedSearch</a>&lt;T, T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Extensions_PagedSearch_" data-uid="MongoDB.Entities.Extensions.PagedSearch*"></a>
+  <h4 id="MongoDB_Entities_Extensions_PagedSearch__2_MongoDB_Driver_IAggregateFluent___0__" data-uid="MongoDB.Entities.Extensions.PagedSearch``2(MongoDB.Driver.IAggregateFluent{``0})">PagedSearch&lt;T, TProjection&gt;(IAggregateFluent&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Starts a paged search pipeline for this fluent pipeline</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static PagedSearch&lt;T, TProjection&gt; PagedSearch&lt;T, TProjection&gt;(this IAggregateFluent&lt;T&gt; aggregate)
+
+    where T : IEntity</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="parametername">aggregate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.PagedSearch-2.html">PagedSearch</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>Any class that implements IEntity</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TProjection</span></td>
+        <td><p>The type of the resulting projection</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Extensions_Queryable_" data-uid="MongoDB.Entities.Extensions.Queryable*"></a>
   <h4 id="MongoDB_Entities_Extensions_Queryable__1___0_MongoDB_Driver_AggregateOptions_" data-uid="MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Driver.AggregateOptions)">Queryable&lt;T&gt;(T, AggregateOptions)</h4>
   <div class="markdown level1 summary"><p>An IQueryable collection of sibling Entities.</p>

@@ -53,3 +53,42 @@ int totalPageCount = res.PageCount;
                       AuthorName = b.Author
                   })
 ```
+
+## Paging support for any fluent pipeline
+
+you can add paged search to any [fluent pipeline](Queries-Pipelines.md). the difference is, instead of specifying the search criteria with `.Match()`, you simply start off by using the `.WithPipeline()` method like so:
+
+```csharp
+var pipeline = DB.Fluent<Author>()
+                 .Match(a => a.Name == "Author")
+                 .SortBy(a => a.Name);
+
+var res = await DB.PagedSearch<Author>()
+                  .WithFluent(pipeline)
+                  .Sort(a => a.Name, Order.Descending)
+                  .PageNumber(1)
+                  .PageSize(25)
+                  .ExecuteAsync();
+```
+
+alternatively you can simply use the extension method on any fluent pipeline like so as well:
+```csharp
+var res = await pipeline.PagedSearch()
+                        .Sort(a => a.Name, Order.Descending)
+                        .PageSize(25)
+                        .PageNumber(1)
+                        .ExecuteAsync();
+```
+
+it's specially useful when you need to page children of a relationship like so:
+```csharp
+var res = await DB.Entity<Author>("AuthorID")
+                  .Books
+                  .ChildrenFluent()
+                  .Match(b => b.Title.Contains("The"))
+                  .PagedSearch()
+                  .Sort(b => b.Title, Order.Ascending)
+                  .PageNumber(1)
+                  .PageSize(10)
+                  .ExecuteAsync();
+```

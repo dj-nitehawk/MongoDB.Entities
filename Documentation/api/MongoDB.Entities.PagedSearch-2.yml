@@ -26,6 +26,7 @@ items:
   - MongoDB.Entities.PagedSearch`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)
   - MongoDB.Entities.PagedSearch`2.SortByTextScore
   - MongoDB.Entities.PagedSearch`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  - MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
   langs:
   - csharp
   - vb
@@ -74,6 +75,49 @@ items:
   - Class
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
   name.vb: PagedSearch(Of T, TProjection)
+- uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  commentId: M:MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  id: WithFluent``1(``0)
+  parent: MongoDB.Entities.PagedSearch`2
+  langs:
+  - csharp
+  - vb
+  name: WithFluent<TFluent>(TFluent)
+  nameWithType: PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  type: Method
+  source:
+    id: WithFluent
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
+    startLine: 59
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nBegins the paged search aggregation pipeline with the provided fluent pipeline.\n<p>TIP: This method must be first in the chain and it cannot be used with .Match()</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline)
+
+          where TFluent : IAggregateFluent<T>
+    parameters:
+    - id: fluentPipeline
+      type: '{TFluent}'
+      description: The input IAggregateFluent pipeline
+    typeParameters:
+    - id: TFluent
+      description: The type of the input pipeline
+    return:
+      type: MongoDB.Entities.PagedSearch`2
+    content.vb: Public Function WithFluent(Of TFluent As IAggregateFluent(Of T))(fluentPipeline As TFluent) As PagedSearch(Of T, TProjection)
+  overload: MongoDB.Entities.PagedSearch`2.WithFluent*
+  nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
+  name.vb: WithFluent(Of TFluent)(TFluent)
 - uid: MongoDB.Entities.PagedSearch`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   commentId: M:MongoDB.Entities.PagedSearch`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
   id: Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})
@@ -88,7 +132,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 56
+    startLine: 69
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -125,7 +169,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 65
+    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -162,7 +206,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 75
+    startLine: 88
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -199,7 +243,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 85
+    startLine: 98
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -235,7 +279,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 100
+    startLine: 113
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -283,7 +327,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 130
+    startLine: 143
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -329,7 +373,7 @@ items:
   source:
     id: MatchString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 139
+    startLine: 152
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -365,7 +409,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 149
+    startLine: 162
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -401,7 +445,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 159
+    startLine: 172
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -437,7 +481,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 170
+    startLine: 183
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -477,7 +521,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 189
+    startLine: 202
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -509,7 +553,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 199
+    startLine: 212
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -546,7 +590,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 234
+    startLine: 247
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -583,7 +627,7 @@ items:
   source:
     id: PageNumber
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 244
+    startLine: 257
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -619,7 +663,7 @@ items:
   source:
     id: PageSize
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 254
+    startLine: 267
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -655,7 +699,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 264
+    startLine: 277
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -692,7 +736,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 274
+    startLine: 287
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -729,7 +773,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 284
+    startLine: 297
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -766,7 +810,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 308
+    startLine: 321
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -803,7 +847,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 317
+    startLine: 330
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -835,7 +879,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 327
+    startLine: 340
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1156,6 +1200,73 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: MongoDB.Entities.PagedSearch`2.WithFluent*
+  commentId: Overload:MongoDB.Entities.PagedSearch`2.WithFluent
+  name: WithFluent
+  nameWithType: PagedSearch<T, TProjection>.WithFluent
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent
+  nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent
+- uid: '{TFluent}'
+  commentId: '!:TFluent'
+  definition: TFluent
+  name: TFluent
+  nameWithType: TFluent
+  fullName: TFluent
+- uid: MongoDB.Entities.PagedSearch`2
+  commentId: T:MongoDB.Entities.PagedSearch`2
+  parent: MongoDB.Entities
+  name: PagedSearch<T, TProjection>
+  nameWithType: PagedSearch<T, TProjection>
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
+  nameWithType.vb: PagedSearch(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
+  name.vb: PagedSearch(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: TFluent
+  commentId: '!:TFluent'
+  name: TFluent
+  nameWithType: TFluent
+  fullName: TFluent
 - uid: MongoDB.Entities.PagedSearch`2.Match*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Match
   name: Match
@@ -1238,55 +1349,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.PagedSearch`2
-  commentId: T:MongoDB.Entities.PagedSearch`2
-  parent: MongoDB.Entities
-  name: PagedSearch<T, TProjection>
-  nameWithType: PagedSearch<T, TProjection>
-  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
-  nameWithType.vb: PagedSearch(Of T, TProjection)
-  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
-  name.vb: PagedSearch(Of T, TProjection)
-  spec.csharp:
-  - uid: MongoDB.Entities.PagedSearch`2
-    name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.PagedSearch`2
-    name: PagedSearch
-    nameWithType: PagedSearch
-    fullName: MongoDB.Entities.PagedSearch
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TProjection
-    nameWithType: TProjection
-    fullName: TProjection
   - name: )
     nameWithType: )
     fullName: )

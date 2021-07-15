@@ -1103,6 +1103,69 @@
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="MongoDB_Entities_PagedSearch_2_WithFluent_" data-uid="MongoDB.Entities.PagedSearch`2.WithFluent*"></a>
+  <h4 id="MongoDB_Entities_PagedSearch_2_WithFluent__1___0_" data-uid="MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)">WithFluent&lt;TFluent&gt;(TFluent)</h4>
+  <div class="markdown level1 summary"><p>Begins the paged search aggregation pipeline with the provided fluent pipeline.</p>
+<p>TIP: This method must be first in the chain and it cannot be used with .Match()</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; WithFluent&lt;TFluent&gt;(TFluent fluentPipeline)
+
+    where TFluent : IAggregateFluent&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TFluent</span></td>
+        <td><span class="parametername">fluentPipeline</span></td>
+        <td><p>The input IAggregateFluent pipeline</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.PagedSearch-2.html">PagedSearch</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TFluent</span></td>
+        <td><p>The type of the input pipeline</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

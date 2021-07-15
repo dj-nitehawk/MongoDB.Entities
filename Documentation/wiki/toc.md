@@ -17,8 +17,8 @@
 # [Queries](Queries-Find.md)
 ## [Find](Queries-Find.md)
 ## [LINQ](Queries-Linq.md)
-## [Paged Search](Queries-Paged-Search.md)
 ## [Fluent Pipelines](Queries-Pipelines.md)
+## [Paged Search](Queries-Paged-Search.md)
 ## [Count](Queries-Count.md)
 ## [Distinct](Queries-Distinct.md)
 

@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="fluent-aggregation-pipelines">Fluent aggregation pipelines</h1>
 
-<p>99% of querying requirements can be catered to with the <a href="Queries-Find.html"><em>Find</em></a> &amp; <a href="Queries-Linq.html"><em>Queryable</em></a> APIs. in case you need to build fluent aggregation pipelines, use the <code>Fluent</code> method for getting access to the <code>IAggregateFluent&lt;T&gt;</code> interface for a given entity type like so:</p>
+<p>most querying requirements can be catered to with the <a href="Queries-Find.html"><em>Find</em></a> &amp; <a href="Queries-Linq.html"><em>Queryable</em></a> APIs. in case you need to build fluent aggregation pipelines, use the <code>Fluent</code> method for getting access to the <code>IAggregateFluent&lt;T&gt;</code> interface for a given entity type like so:</p>
 <pre><code class="lang-csharp">var author = await DB.Fluent&lt;Author&gt;()
                      .Match(a =&gt; a.Surname == &quot;Stark&quot; &amp;&amp; a.Age &gt; 10)
                      .SortByDescending(a =&gt; a.Age)

@@ -1,5 +1,5 @@
 # Fluent aggregation pipelines
-99% of querying requirements can be catered to with the [_Find_](Queries-Find.md) & [_Queryable_](Queries-Linq.md) APIs. in case you need to build fluent aggregation pipelines, use the `Fluent` method for getting access to the `IAggregateFluent<T>` interface for a given entity type like so:
+most querying requirements can be catered to with the [_Find_](Queries-Find.md) & [_Queryable_](Queries-Linq.md) APIs. in case you need to build fluent aggregation pipelines, use the `Fluent` method for getting access to the `IAggregateFluent<T>` interface for a given entity type like so:
 ```csharp
 var author = await DB.Fluent<Author>()
                      .Match(a => a.Surname == "Stark" && a.Age > 10)

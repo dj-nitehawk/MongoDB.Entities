@@ -2473,6 +2473,31 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.NextSequentialNumberAsync(Of T)(T, System.Threading.CancellationToken)
   nameWithType: Extensions.NextSequentialNumberAsync<T>(T, CancellationToken)
   nameWithType.vb: Extensions.NextSequentialNumberAsync(Of T)(T, CancellationToken)
+- uid: MongoDB.Entities.Extensions.PagedSearch*
+  name: PagedSearch
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_PagedSearch_
+  commentId: Overload:MongoDB.Entities.Extensions.PagedSearch
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.PagedSearch
+  nameWithType: Extensions.PagedSearch
+- uid: MongoDB.Entities.Extensions.PagedSearch``1(MongoDB.Driver.IAggregateFluent{``0})
+  name: PagedSearch<T>(IAggregateFluent<T>)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_PagedSearch__1_MongoDB_Driver_IAggregateFluent___0__
+  commentId: M:MongoDB.Entities.Extensions.PagedSearch``1(MongoDB.Driver.IAggregateFluent{``0})
+  name.vb: PagedSearch(Of T)(IAggregateFluent(Of T))
+  fullName: MongoDB.Entities.Extensions.PagedSearch<T>(MongoDB.Driver.IAggregateFluent<T>)
+  fullName.vb: MongoDB.Entities.Extensions.PagedSearch(Of T)(MongoDB.Driver.IAggregateFluent(Of T))
+  nameWithType: Extensions.PagedSearch<T>(IAggregateFluent<T>)
+  nameWithType.vb: Extensions.PagedSearch(Of T)(IAggregateFluent(Of T))
+- uid: MongoDB.Entities.Extensions.PagedSearch``2(MongoDB.Driver.IAggregateFluent{``0})
+  name: PagedSearch<T, TProjection>(IAggregateFluent<T>)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_PagedSearch__2_MongoDB_Driver_IAggregateFluent___0__
+  commentId: M:MongoDB.Entities.Extensions.PagedSearch``2(MongoDB.Driver.IAggregateFluent{``0})
+  name.vb: PagedSearch(Of T, TProjection)(IAggregateFluent(Of T))
+  fullName: MongoDB.Entities.Extensions.PagedSearch<T, TProjection>(MongoDB.Driver.IAggregateFluent<T>)
+  fullName.vb: MongoDB.Entities.Extensions.PagedSearch(Of T, TProjection)(MongoDB.Driver.IAggregateFluent(Of T))
+  nameWithType: Extensions.PagedSearch<T, TProjection>(IAggregateFluent<T>)
+  nameWithType.vb: Extensions.PagedSearch(Of T, TProjection)(IAggregateFluent(Of T))
 - uid: MongoDB.Entities.Extensions.Queryable*
   name: Queryable
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_Queryable_
@@ -4643,6 +4668,24 @@ references:
   fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).SortByTextScore
   nameWithType: PagedSearch<T, TProjection>.SortByTextScore
   nameWithType.vb: PagedSearch(Of T, TProjection).SortByTextScore
+- uid: MongoDB.Entities.PagedSearch`2.WithFluent*
+  name: WithFluent
+  href: api/MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_WithFluent_
+  commentId: Overload:MongoDB.Entities.PagedSearch`2.WithFluent
+  isSpec: "True"
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent
+  nameWithType: PagedSearch<T, TProjection>.WithFluent
+  nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent
+- uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  name: WithFluent<TFluent>(TFluent)
+  href: api/MongoDB.Entities.PagedSearch-2.html#MongoDB_Entities_PagedSearch_2_WithFluent__1___0_
+  commentId: M:MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  name.vb: WithFluent(Of TFluent)(TFluent)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
+  nameWithType: PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
 - uid: MongoDB.Entities.PreserveAttribute
   name: PreserveAttribute
   href: api/MongoDB.Entities.PreserveAttribute.html

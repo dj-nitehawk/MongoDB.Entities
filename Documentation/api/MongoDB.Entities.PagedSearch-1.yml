@@ -34,6 +34,7 @@ items:
   - System.Object
   - MongoDB.Entities.PagedSearch{{T},{T}}
   inheritedMembers:
+  - MongoDB.Entities.PagedSearch{{T},{T}}.WithFluent``1({TFluent})
   - MongoDB.Entities.PagedSearch{{T},{T}}.Match(System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}})
   - MongoDB.Entities.PagedSearch{{T},{T}}.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}})
   - MongoDB.Entities.PagedSearch{{T},{T}}.Match(MongoDB.Driver.FilterDefinition{{T}})
@@ -131,6 +132,44 @@ references:
   - name: T
     nameWithType: T
     fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch{{T},{T}}.WithFluent``1({TFluent})
+  commentId: M:MongoDB.Entities.PagedSearch{`0,`0}.WithFluent``1(``0)
+  parent: MongoDB.Entities.PagedSearch{{T},{T}}
+  definition: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  name: WithFluent<TFluent>(TFluent)
+  nameWithType: PagedSearch<T, T>.WithFluent<TFluent>(TFluent)
+  fullName: MongoDB.Entities.PagedSearch<T, T>.WithFluent<TFluent>(TFluent)
+  nameWithType.vb: PagedSearch(Of T, T).WithFluent(Of TFluent)(TFluent)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, T).WithFluent(Of TFluent)(TFluent)
+  name.vb: WithFluent(Of TFluent)(TFluent)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+    name: WithFluent<TFluent>
+    nameWithType: PagedSearch<T, T>.WithFluent<TFluent>
+    fullName: MongoDB.Entities.PagedSearch<T, T>.WithFluent<TFluent>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TFluent
+    nameWithType: TFluent
+    fullName: TFluent
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+    name: WithFluent(Of TFluent)
+    nameWithType: PagedSearch(Of T, T).WithFluent(Of TFluent)
+    fullName: MongoDB.Entities.PagedSearch(Of T, T).WithFluent(Of TFluent)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TFluent
+    nameWithType: TFluent
+    fullName: TFluent
   - name: )
     nameWithType: )
     fullName: )
@@ -2085,6 +2124,42 @@ references:
   - name: TProjection
     nameWithType: TProjection
     fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  commentId: M:MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+  name: WithFluent<TFluent>(TFluent)
+  nameWithType: PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent<TFluent>(TFluent)
+  nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
+  name.vb: WithFluent(Of TFluent)(TFluent)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+    name: WithFluent<TFluent>
+    nameWithType: PagedSearch<T, TProjection>.WithFluent<TFluent>
+    fullName: MongoDB.Entities.PagedSearch<T, TProjection>.WithFluent<TFluent>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TFluent
+    nameWithType: TFluent
+    fullName: TFluent
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2.WithFluent``1(``0)
+    name: WithFluent(Of TFluent)
+    nameWithType: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)
+    fullName: MongoDB.Entities.PagedSearch(Of T, TProjection).WithFluent(Of TFluent)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: TFluent
+    nameWithType: TFluent
+    fullName: TFluent
   - name: )
     nameWithType: )
     fullName: )
