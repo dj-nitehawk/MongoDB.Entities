@@ -107,14 +107,14 @@ IReadOnlyList&lt;Book&gt; books = res.Results;
 long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                  
 </code></pre>
-<p>simply specify the search criteria to the <code>.Match()</code> method as you'd typically do. specify how to order the result set using the <code>.Sort()</code> method. specify the size of a single page using <code>.PageSize()</code> method. specify which page number to retrieve using <code>PageNumber()</code> method and finally issue the command using <code>ExecuteAsync()</code> to get the result of the facetted aggregation query.</p>
+<p>specify the search criteria with the <code>.Match()</code> method as you'd typically do. specify how to order the result set using the <code>.Sort()</code> method. specify the size of a single page using <code>.PageSize()</code> method. specify which page number to retrieve using <code>PageNumber()</code> method and finally issue the command using <code>ExecuteAsync()</code> to get the result of the facetted aggregation query.</p>
 <p>the result is a value tuple consisting of the <code>Results</code>,<code>TotalCount</code>,<code>PageCount</code>.</p>
 <div class="NOTE">
 <h5>Note</h5>
 <p>if you do not specify a matching criteria, all entities will match. the default page size is 100 if not specified and the 1st page is always returned if you omit it.</p>
 </div>
 <h2 id="project-results-to-a-different-type">Project results to a different type</h2>
-<p>if you'd like to change the shape of the returned entity list, simply use the <code>PagedSearch&lt;T, TProjection&gt;</code> generic overload and add a <code>.Project()</code> method to the chain like so:</p>
+<p>if you'd like to change the shape of the returned entity list, use the <code>PagedSearch&lt;T, TProjection&gt;</code> generic overload and add a <code>.Project()</code> method to the chain like so:</p>
 <pre><code class="lang-csharp">var res = await DB.PagedSearch&lt;Book, BookListing&gt;()
                   .Sort(b =&gt; b.Title, Order.Ascending)
                   .Project(b =&gt; new BookListing
@@ -141,7 +141,7 @@ int totalPageCount = res.PageCount;
                   })
 </code></pre>
 <h2 id="paging-support-for-any-fluent-pipeline">Paging support for any fluent pipeline</h2>
-<p>you can add paged search to any <a href="Queries-Pipelines.html">fluent pipeline</a>. the difference is, instead of specifying the search criteria with <code>.Match()</code>, you simply start off by using the <code>.WithPipeline()</code> method like so:</p>
+<p>you can add paged search to any <a href="Queries-Pipelines.html">fluent pipeline</a>. the difference is, instead of specifying the search criteria with <code>.Match()</code>, you start off by using the <code>.WithFluent()</code> method like so:</p>
 <pre><code class="lang-csharp">var pipeline = DB.Fluent&lt;Author&gt;()
                  .Match(a =&gt; a.Name == &quot;Author&quot;)
                  .SortBy(a =&gt; a.Name);
@@ -153,7 +153,7 @@ var res = await DB.PagedSearch&lt;Author&gt;()
                   .PageSize(25)
                   .ExecuteAsync();
 </code></pre>
-<p>alternatively you can simply use the extension method on any fluent pipeline like so as well:</p>
+<p>alternatively you can use the extension method on any fluent pipeline as well.</p>
 <pre><code class="lang-csharp">var res = await pipeline.PagedSearch()
                         .Sort(a =&gt; a.Name, Order.Descending)
                         .PageSize(25)

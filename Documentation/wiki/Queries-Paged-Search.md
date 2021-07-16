@@ -16,7 +16,7 @@ long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                  
 ```
 
-simply specify the search criteria to the `.Match()` method as you'd typically do. specify how to order the result set using the `.Sort()` method. specify the size of a single page using `.PageSize()` method. specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
+specify the search criteria with the `.Match()` method as you'd typically do. specify how to order the result set using the `.Sort()` method. specify the size of a single page using `.PageSize()` method. specify which page number to retrieve using `PageNumber()` method and finally issue the command using `ExecuteAsync()` to get the result of the facetted aggregation query.
 
 the result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`.
 
@@ -25,7 +25,7 @@ the result is a value tuple consisting of the `Results`,`TotalCount`,`PageCount`
 
 
 ## Project results to a different type
-if you'd like to change the shape of the returned entity list, simply use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
+if you'd like to change the shape of the returned entity list, use the `PagedSearch<T, TProjection>` generic overload and add a `.Project()` method to the chain like so:
 ```csharp
 var res = await DB.PagedSearch<Book, BookListing>()
                   .Sort(b => b.Title, Order.Ascending)
@@ -56,7 +56,7 @@ int totalPageCount = res.PageCount;
 
 ## Paging support for any fluent pipeline
 
-you can add paged search to any [fluent pipeline](Queries-Pipelines.md). the difference is, instead of specifying the search criteria with `.Match()`, you simply start off by using the `.WithPipeline()` method like so:
+you can add paged search to any [fluent pipeline](Queries-Pipelines.md). the difference is, instead of specifying the search criteria with `.Match()`, you start off by using the `.WithFluent()` method like so:
 
 ```csharp
 var pipeline = DB.Fluent<Author>()
@@ -71,7 +71,7 @@ var res = await DB.PagedSearch<Author>()
                   .ExecuteAsync();
 ```
 
-alternatively you can simply use the extension method on any fluent pipeline like so as well:
+alternatively you can use the extension method on any fluent pipeline as well.
 ```csharp
 var res = await pipeline.PagedSearch()
                         .Sort(a => a.Name, Order.Descending)
