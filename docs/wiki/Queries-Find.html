@@ -114,10 +114,9 @@
                     .Match(c =&gt; c.Location, new Coordinates2D(48.857908, 2.295243), 1000)
                     .ExecuteAsync()
 </code></pre>
-<div class="TIP">
-<h5>Tip</h5>
+<blockquote>
 <p>see <a href="https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd"><em>this tutorial</em></a> for a detailed walkthrough.</p>
-</div>
+</blockquote>
 <h2 id="find-by-aggregation-expression-expr">Find by aggregation expression ($expr)</h2>
 <pre><code class="lang-csharp">var authors = await DB.Find&lt;Author&gt;()
                       .MatchExpression(&quot;{$gt:['$TotalSales','$SalesGoal']}&quot;)
@@ -125,7 +124,7 @@
 </code></pre>
 <div class="TIP">
 <h5>Tip</h5>
-<p>aggregation <a href="https://docs.mongodb.com/manual/reference/operator/query/expr/"><em>expressions</em></a> lets you refer to properties of the same entity using the $ notation as shown above.</p>
+<p>aggregation <a href="https://docs.mongodb.com/manual/reference/operator/query/expr/"><em>expressions</em></a> lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.</p>
 </div>
 <h1 id="advanced-find">Advanced find</h1>
 <h2 id="sorting-paging-and-projecting">Sorting, paging and projecting</h2>

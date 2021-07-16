@@ -106,7 +106,7 @@ await DB.CreateCollection(new CreateCollectionOptions<Book>
 });
 ```
 typically you don't need to create collections manually as they will be created automatically the first time you save an entity. 
-however, you'd have to create the collection like above if you need to use a custom *[COLLATION](https://docs.mongodb.com/manual/reference/collation/)* and/or setup a *[CAPPED](https://docs.mongodb.com/manual/core/capped-collections/)* collection before you can save any entities.
+however, you'd have to create the collection like above if you need to use a custom *[COLLATION](https://docs.mongodb.com/manual/reference/collation/)*, create a *[CAPPED](https://docs.mongodb.com/manual/core/capped-collections/)*, or *[TIME SERIES](https://docs.mongodb.com/manual/core/timeseries-collections/)* collection before you can save any entities.
 
 > [!note]
 > if a collection already exists for the specified entity type, an exception will be thrown.

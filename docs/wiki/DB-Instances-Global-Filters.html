@@ -94,7 +94,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="global-filters">Global filters</h1>
 
-<p>with the use of global filters you can specify a set of criteria to be applied to all operations performed by a <code>DBContext</code> instance in order to save the trouble of having to specify the same criteria on each and every operation you perform. i.e. you specify common criteria in one place, and all <strong>retrieval, update and delete</strong> operations will have the common filters automatically applied to them before execution.</p>
+<p>with the use of global filters you can specify a set of criteria to be applied to all operations performed by a <code>DBContext</code> instance in order to save the trouble of having to specify the same criteria in each and every operation you perform. i.e. you specify common criteria in one place, and all <strong>retrieval, update and delete</strong> operations will have the common filters automatically applied to them before execution.</p>
 <p>to be able to specify common criteria, you need to create a derived <code>DBContext</code> class just like with the event hooks.</p>
 <pre><code class="lang-csharp">public class MyDBContext : DBContext
 {

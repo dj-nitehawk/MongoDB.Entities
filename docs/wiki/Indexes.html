@@ -94,10 +94,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="index-creation">Index creation</h1>
 
-<p>use the <code>Index&lt;T&gt;</code> method to define indexes as shown below. specify index keys by chaining calls to the <code>.Key()</code> method. first parameter of the method is a lambda pointing to a property on your entity. second parameter specifies the type of key. finally chain in a call to <code>.CreateAsync()</code> to finish defining the index.</p>
+<p>use the <code>Index&lt;T&gt;()</code> method to define indexes as shown below. specify index keys by chaining calls to the <code>.Key()</code> method. compound indexes are created by calling the <code>.Key()</code> method multiple times.</p>
+<p>first parameter of the method is a lambda pointing to the property on your entity. second parameter specifies the type of key. finally chain in a call to <code>.CreateAsync()</code> to finish defining the index.</p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes.</p>
+<p>you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes. if an index exists for the specified config, your commands will just be ignored by the server.</p>
 </div>
 <h2 id="text-indexes">Text indexes</h2>
 <pre><code class="lang-csharp">await DB.Index&lt;Author&gt;()
@@ -135,7 +136,7 @@
 <p>fuzzy text searching requires a bit of special handling, please see <a href="Indexes-Fuzzy-Text-Search.html"><em>here</em></a> for detailed information.</p>
 </div>
 <h2 id="other-index-types">Other index types</h2>
-<p>use the same <code>Index&lt;T&gt;</code> method as above but with the type parameters of the keys set to one of the following:</p>
+<p>use the same <code>Index&lt;T&gt;()</code> method as above but with the type parameters of the keys set to one of the following enum values:</p>
 <ul>
 <li>Ascending</li>
 <li>Descending</li>
@@ -145,11 +146,14 @@
 <li>Wildcard</li>
 </ul>
 <h2 id="indexing-options">Indexing options</h2>
-<p>To specify options for index creation, chain in calls to the <code>.Option()</code> method before calling the <code>.Create()</code> method.</p>
+<p>To specify options for index creation, specify an action using the <code>.Option()</code> method before calling the <code>.CreateAsync()</code> method.</p>
 <pre><code class="lang-csharp">await DB.Index&lt;Book&gt;()
         .Key(x =&gt; x.Title, KeyType.Descending)
-        .Option(o =&gt; o.Background = true)
-        .Option(o =&gt; o.Unique = true)
+        .Option(o =&gt;
+        {
+            o.Background = false;
+            o.Unique = true;
+        })
         .CreateAsync();
 </code></pre>
 <h2 id="retrieve-the-name-of-created-index">Retrieve the name of created index</h2>

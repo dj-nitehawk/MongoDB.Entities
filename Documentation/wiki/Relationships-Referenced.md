@@ -89,7 +89,7 @@ await DB.Entity<Book>("BookID").Authors.AddAsync(author);
 
 there are other *[overloads](xref:MongoDB.Entities.Many`1#methods)* for adding relationships with multiple entities or just the string IDs.
 
-[click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
+> [click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
 
 ### Reference removal
 ```csharp

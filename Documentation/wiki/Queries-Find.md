@@ -21,7 +21,6 @@ var cafes = await DB.Find<Cafe>()
                     .Match(c => c.Location, new Coordinates2D(48.857908, 2.295243), 1000)
                     .ExecuteAsync()
 ```
-> [!tip]
 > see [_this tutorial_](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd) for a detailed walkthrough.
 ## Find by aggregation expression ($expr)
 ```csharp
@@ -30,7 +29,7 @@ var authors = await DB.Find<Author>()
                       .ExecuteAsync();
 ```
 > [!tip]
-> aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as shown above.
+> aggregation [_expressions_](https://docs.mongodb.com/manual/reference/operator/query/expr/) lets you refer to properties of the same entity using the $ notation as well as enable you to use aggregation framework operators in find queries.
 
 # Advanced find
 ## Sorting, paging and projecting

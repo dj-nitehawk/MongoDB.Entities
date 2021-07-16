@@ -1,6 +1,6 @@
 # Global filters
 
-with the use of global filters you can specify a set of criteria to be applied to all operations performed by a `DBContext` instance in order to save the trouble of having to specify the same criteria on each and every operation you perform. i.e. you specify common criteria in one place, and all **retrieval, update and delete** operations will have the common filters automatically applied to them before execution.
+with the use of global filters you can specify a set of criteria to be applied to all operations performed by a `DBContext` instance in order to save the trouble of having to specify the same criteria in each and every operation you perform. i.e. you specify common criteria in one place, and all **retrieval, update and delete** operations will have the common filters automatically applied to them before execution.
 
 to be able to specify common criteria, you need to create a derived `DBContext` class just like with the event hooks.
 

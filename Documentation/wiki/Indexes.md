@@ -1,8 +1,10 @@
 # Index creation
-use the `Index<T>` method to define indexes as shown below. specify index keys by chaining calls to the `.Key()` method. first parameter of the method is a lambda pointing to a property on your entity. second parameter specifies the type of key. finally chain in a call to `.CreateAsync()` to finish defining the index.
+use the `Index<T>()` method to define indexes as shown below. specify index keys by chaining calls to the `.Key()` method. compound indexes are created by calling the `.Key()` method multiple times.
+
+ first parameter of the method is a lambda pointing to the property on your entity. second parameter specifies the type of key. finally chain in a call to `.CreateAsync()` to finish defining the index.
 
 > [!tip]
-> you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes.
+> you should define your indexes at the startup of your application so they only run once at launch. alternatively you can define indexes in the static constructor of your entity classes. if an index exists for the specified config, your commands will just be ignored by the server.
 
 ## Text indexes
 ```csharp
@@ -44,7 +46,7 @@ await DB.Find<Book>()
 > fuzzy text searching requires a bit of special handling, please see [_here_](Indexes-Fuzzy-Text-Search.md) for detailed information.
 
 ## Other index types
-use the same `Index<T>` method as above but with the type parameters of the keys set to one of the following:
+use the same `Index<T>()` method as above but with the type parameters of the keys set to one of the following enum values:
 - Ascending
 - Descending
 - Geo2D
@@ -53,12 +55,15 @@ use the same `Index<T>` method as above but with the type parameters of the keys
 - Wildcard
 
 ## Indexing options
-To specify options for index creation, chain in calls to the `.Option()` method before calling the `.Create()` method.
+To specify options for index creation, specify an action using the `.Option()` method before calling the `.CreateAsync()` method.
 ```csharp
 await DB.Index<Book>()
         .Key(x => x.Title, KeyType.Descending)
-        .Option(o => o.Background = true)
-        .Option(o => o.Unique = true)
+        .Option(o =>
+        {
+            o.Background = false;
+            o.Unique = true;
+        })
         .CreateAsync();
 ```
 

@@ -43,15 +43,15 @@ long totalMatchCount = res.TotalCount;
 int totalPageCount = res.PageCount;                     
 ```
 
-> when projecting to different types as above, you may encounter a deserialization error thrown by the driver saying it can't convert `ObjectId` values to `string` in which case simply add a `.ToString()` to the property being projected like so:
+*when projecting to different types as above, you may encounter a deserialization error thrown by the driver saying it can't convert `ObjectId` values to `string` in which case simply add a `.ToString()` to the property being projected like so:*
 
 ```csharp
-                  .Project(b => new BookListing
-                  {
-                      BookID = b.ID.ToString(),
-                      BookName = b.Title,
-                      AuthorName = b.Author
-                  })
+.Project(b => new BookListing
+{
+    ...
+    BookID = b.ID.ToString(),
+    ...
+})
 ```
 
 ## Paging support for any fluent pipeline

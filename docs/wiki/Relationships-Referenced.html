@@ -161,7 +161,9 @@ await book.Genres.AddAsync(genre); //many-to-many
 <pre><code class="lang-csharp">await DB.Entity&lt;Book&gt;(&quot;BookID&quot;).Authors.AddAsync(author);
 </code></pre>
 <p>there are other <em><a class="xref" href="../api/MongoDB.Entities.Many-1.html#methods">overloads</a></em> for adding relationships with multiple entities or just the string IDs.</p>
+<blockquote>
 <p><a href="https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714">click here</a> to see a full example of a referenced one-to-many relationship.</p>
+</blockquote>
 <h3 id="reference-removal-1">Reference removal</h3>
 <pre><code class="lang-csharp">await book.Authors.RemoveAsync(author);
 await book.Genres.RemoveAsync(genre);

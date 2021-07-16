@@ -12,12 +12,6 @@ var author = await (from a in DB.Queryable<Author>()
                     where a.Name.Contains("Eckhart")
                     select a).FirstOrDefaultAsync();
 ```
-### Collection shortcut
-```csharp
-var authors = from a in author.Queryable()
-              select a;
-```
-this `.Queryable()` is an `IQueryable` for the whole collection of `Authors` which you can write queries against.
 
 ## Forward relationship access
 every `Many<T>` property gives you access to an `IQueryable` of child entities.
@@ -33,7 +27,7 @@ for example, if you'd like to get all the books belonging to a genre, you can do
 var books = book.Genres
                 .ParentsQueryable<Book>("GenreID");
 ```
-you can also pass in an `IQueryable` of genres and get back an `IQueryable` of books like shown below:
+you can also pass in an `IQueryable` of genres and get an `IQueryable` of books like shown below:
 ```csharp
 var query = genre.Queryable()
                  .Where(g => g.Name.Contains("Music"));
@@ -44,11 +38,26 @@ var books = book.Genres
 it is basically a convenience method instead of having to do a manual join like the one shown below in order to access parents of one-to-many or many-to-many relationships.
 
 ## Relationship joins
-`Many<T>.JoinQueryable()` gives you access to all the join records of that particular relationship. A join record has two properties `ParentID` and `ChildID` that you can use to gain access to parent Entities like so:
+`Many<T>.JoinQueryable()` gives you access to all the join records of that particular entity relationship. A join record has two properties `ParentID` and `ChildID` that you can use to gain access to parent Entities like so:
 ```csharp
-var books = from j in book.Authors.JoinQueryable()
-            join b in book.Queryable() on j.ParentID equals b.ID
-            select b;
+//LINQ syntax
+var allBooksOfAnAuthor = await (
+        from j in book.Authors.JoinQueryable()
+        where j.ChildID == "AuthorID"
+        join b in DB.Collection<Book>() on j.ParentID equals b.ID
+        select b
+).ToListAsync();
+
+//Lambda syntax
+var allBooksOfAnAuthor = await book.Authors
+        .JoinQueryable()
+        .Where(j => j.ChildID == "AuthorID")
+        .Join(
+            DB.Collection<Book>(), //foreign collection
+            j => j.ParentID,       //local ID
+            b => b.ID,             //foreign ID
+            (j, b) => b)           //result selector expression
+        .ToListAsync();
 ```
 
 in cases where you don't have access to an instance of the parent entity and only have the `ID` of the parent, you can access the join records like so:
@@ -56,10 +65,10 @@ in cases where you don't have access to an instance of the parent entity and onl
 DB.Entity<Book>("Book ID").Authors.JoinQueryable()
 ```
 
-and when you need to access all the join records for a relationship, you can access the join collection like so:
+and when you need to access all of the join records for a given entity relationship, you can access the join records like so:
 
 ```csharp
-DB.Entity<Book>().Authors.JoinCollection
+DB.Entity<Book>().Authors.JoinQueryable()
 ```
 
 ## Counting children
