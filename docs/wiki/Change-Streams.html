@@ -250,7 +250,7 @@ foreach (var w in watchers)
 <p>there's a watcher registry per entity type and the watcher names need only be unique to each registry.</p>
 </div>
 <h2 id="notes-on-resource-usage">Notes on resource usage</h2>
-<p>each watcher/change-stream you create opens a long-running cursor on the database server, which also means a persistent network connection between your application and the database. if you create more than a handful of watchers in your application, you should look in to increasing the size of the mongodb driver thread-pool size as shown below:</p>
+<p>each watcher/change-stream you create opens a long-running cursor on the database server, which also means a persistent network connection between your application and the database. if you create more than a handful of watchers in your application, you should consider increasing the size of the mongodb driver thread-pool size as shown below:</p>
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;, new MongoClientSettings()
 {
     ...
