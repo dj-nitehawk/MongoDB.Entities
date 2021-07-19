@@ -79,7 +79,7 @@ namespace MongoDB.Entities
         private byte[] buffer;
         private List<byte> dataChunk;
 
-        public DataStreamer(FileEntity parent)
+        internal DataStreamer(FileEntity parent)
         {
             this.parent = parent;
             parentType = parent.GetType();
@@ -220,14 +220,29 @@ namespace MongoDB.Entities
             }
         }
 
-        private Task CleanUpAsync(IClientSessionHandle session)
+        /// <summary>
+        /// Deletes only the binary chunks stored in the database for this file entity.
+        /// </summary>
+        /// <param name="session">An optional session if using within a transaction</param>
+        /// <param name="cancellation">An optional cancellation token.</param>
+        public Task DeleteBinaryChunks(IClientSessionHandle session = null, CancellationToken cancellation = default)
+        {
+            parent.ThrowIfUnsaved();
+
+            if (cancellation != default && session == null)
+                throw new NotSupportedException("Cancellation is only supported within transactions for deleting binary chunks!");
+
+            return CleanUpAsync(session, cancellation);
+        }
+
+        private Task CleanUpAsync(IClientSessionHandle session, CancellationToken cancellation = default)
         {
             parent.FileSize = 0;
             parent.ChunkCount = 0;
             parent.UploadSuccessful = false;
             return session == null
-                   ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID)
-                   : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID);
+                   ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID, cancellation)
+                   : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID, null, cancellation);
         }
 
         private Task FlushToDBAsync(IClientSessionHandle session, bool isLastChunk = false, CancellationToken cancellation = default)

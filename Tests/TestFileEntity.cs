@@ -108,6 +108,37 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task deleting_only_chunks()
+        {
+            await DB.InitAsync(dbName);
+            DB.DatabaseFor<Image>(dbName);
+
+            var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
+            await img.SaveAsync().ConfigureAwait(false);
+
+            using var stream = File.Open("Models/test.jpg", FileMode.Open);
+            await img.Data.UploadAsync(stream).ConfigureAwait(false);
+
+            var countBefore =
+                await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
+                  .Where(c => c.FileID == img.ID)
+                  .CountAsync();
+
+            Assert.AreEqual(img.ChunkCount, countBefore);
+
+            //await img.DeleteAsync();
+
+            await DB.File<Image>(img.ID).DeleteBinaryChunks();
+
+            var countAfter =
+                await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
+                  .Where(c => c.FileID == img.ID)
+                  .CountAsync();
+
+            Assert.AreEqual(0, countAfter);
+        }
+
+        [TestMethod]
         public async Task downloading_file_chunks_works()
         {
             await DB.InitAsync(dbName);
