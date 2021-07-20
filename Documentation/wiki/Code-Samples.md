@@ -84,7 +84,6 @@
 - [GeoSpatial Search](https://dev.to/djnitehawk/tutorial-geospatial-search-in-mongodb-the-easy-way-kbd)
 ---
 # More Examples
-- [.Net core console project](https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/Examples)
 - [Asp.net core web-api project](https://github.com/dj-nitehawk/MongoWebApiStarter)
 - [Repository pattern project](https://github.com/dj-nitehawk/MongoDB-Entities-Repository-Pattern)
 - [A collection of gists](https://gist.github.com/dj-nitehawk)

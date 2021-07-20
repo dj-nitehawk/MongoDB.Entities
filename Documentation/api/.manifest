@@ -16,7 +16,7 @@
   "MongoDB.Entities.Coordinates2D.ToGeoJsonPoint": "MongoDB.Entities.Coordinates2D.yml",
   "MongoDB.Entities.Coordinates2D.Type": "MongoDB.Entities.Coordinates2D.yml",
   "MongoDB.Entities.DataStreamer": "MongoDB.Entities.DataStreamer.yml",
-  "MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)": "MongoDB.Entities.DataStreamer.yml",
+  "MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)": "MongoDB.Entities.DataStreamer.yml",
   "MongoDB.Entities.DataStreamer.DownloadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)": "MongoDB.Entities.DataStreamer.yml",
   "MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)": "MongoDB.Entities.DataStreamer.yml",
   "MongoDB.Entities.DataStreamer.UploadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)": "MongoDB.Entities.DataStreamer.yml",

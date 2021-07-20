@@ -5,7 +5,7 @@ items:
   id: DataStreamer
   parent: MongoDB.Entities
   children:
-  - MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)
+  - MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.DataStreamer.DownloadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
   - MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)
   - MongoDB.Entities.DataStreamer.UploadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
@@ -45,35 +45,6 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)
-  commentId: M:MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)
-  id: '#ctor(MongoDB.Entities.FileEntity)'
-  parent: MongoDB.Entities.DataStreamer
-  langs:
-  - csharp
-  - vb
-  name: DataStreamer(FileEntity)
-  nameWithType: DataStreamer.DataStreamer(FileEntity)
-  fullName: MongoDB.Entities.DataStreamer.DataStreamer(MongoDB.Entities.FileEntity)
-  type: Constructor
-  source:
-    id: .ctor
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 81
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  syntax:
-    content: public DataStreamer(FileEntity parent)
-    parameters:
-    - id: parent
-      type: MongoDB.Entities.FileEntity
-    content.vb: Public Sub New(parent As FileEntity)
-  overload: MongoDB.Entities.DataStreamer.#ctor*
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
 - uid: MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)
   commentId: M:MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)
   id: DownloadWithTimeoutAsync(System.IO.Stream,System.Int32,System.Int32,MongoDB.Driver.IClientSessionHandle)
@@ -246,6 +217,43 @@ items:
   modifiers.csharp:
   - public
   - async
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DataStreamer
+  langs:
+  - csharp
+  - vb
+  name: DeleteBinaryChunks(IClientSessionHandle, CancellationToken)
+  nameWithType: DataStreamer.DeleteBinaryChunks(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: DeleteBinaryChunks
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
+    startLine: 227
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nDeletes only the binary chunks stored in the database for this file entity.\n"
+  example: []
+  syntax:
+    content: public Task DeleteBinaryChunks(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+    parameters:
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token.
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Function DeleteBinaryChunks(session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DataStreamer.DeleteBinaryChunks*
+  modifiers.csharp:
+  - public
   modifiers.vb:
   - Public
 references:
@@ -546,17 +554,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: MongoDB.Entities.DataStreamer.#ctor*
-  commentId: Overload:MongoDB.Entities.DataStreamer.#ctor
-  name: DataStreamer
-  nameWithType: DataStreamer.DataStreamer
-  fullName: MongoDB.Entities.DataStreamer.DataStreamer
-- uid: MongoDB.Entities.FileEntity
-  commentId: T:MongoDB.Entities.FileEntity
-  parent: MongoDB.Entities
-  name: FileEntity
-  nameWithType: FileEntity
-  fullName: MongoDB.Entities.FileEntity
 - uid: MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync*
   commentId: Overload:MongoDB.Entities.DataStreamer.DownloadWithTimeoutAsync
   name: DownloadWithTimeoutAsync
@@ -636,3 +633,8 @@ references:
   name: UploadAsync
   nameWithType: DataStreamer.UploadAsync
   fullName: MongoDB.Entities.DataStreamer.UploadAsync
+- uid: MongoDB.Entities.DataStreamer.DeleteBinaryChunks*
+  commentId: Overload:MongoDB.Entities.DataStreamer.DeleteBinaryChunks
+  name: DeleteBinaryChunks
+  nameWithType: DataStreamer.DeleteBinaryChunks
+  fullName: MongoDB.Entities.DataStreamer.DeleteBinaryChunks

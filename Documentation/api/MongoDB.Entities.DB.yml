@@ -1432,7 +1432,7 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nReturns a DataStreamer object to enable downloading file data directly by supplying the ID of the file entity\n"
+  summary: "\nReturns a DataStreamer object to enable uploading/downloading file data directly by supplying the ID of the file entity\n"
   example: []
   syntax:
     content: >-

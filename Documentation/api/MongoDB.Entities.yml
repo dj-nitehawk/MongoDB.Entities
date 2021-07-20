@@ -608,7 +608,6 @@ references:
   fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.FileEntity
   commentId: T:MongoDB.Entities.FileEntity
-  parent: MongoDB.Entities
   name: FileEntity
   nameWithType: FileEntity
   fullName: MongoDB.Entities.FileEntity

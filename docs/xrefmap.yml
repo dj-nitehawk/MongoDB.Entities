@@ -182,19 +182,19 @@ references:
   commentId: T:MongoDB.Entities.DataStreamer
   fullName: MongoDB.Entities.DataStreamer
   nameWithType: DataStreamer
-- uid: MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)
-  name: DataStreamer(FileEntity)
-  href: api/MongoDB.Entities.DataStreamer.html#MongoDB_Entities_DataStreamer__ctor_MongoDB_Entities_FileEntity_
-  commentId: M:MongoDB.Entities.DataStreamer.#ctor(MongoDB.Entities.FileEntity)
-  fullName: MongoDB.Entities.DataStreamer.DataStreamer(MongoDB.Entities.FileEntity)
-  nameWithType: DataStreamer.DataStreamer(FileEntity)
-- uid: MongoDB.Entities.DataStreamer.#ctor*
-  name: DataStreamer
-  href: api/MongoDB.Entities.DataStreamer.html#MongoDB_Entities_DataStreamer__ctor_
-  commentId: Overload:MongoDB.Entities.DataStreamer.#ctor
+- uid: MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: DeleteBinaryChunks(IClientSessionHandle, CancellationToken)
+  href: api/MongoDB.Entities.DataStreamer.html#MongoDB_Entities_DataStreamer_DeleteBinaryChunks_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  fullName: MongoDB.Entities.DataStreamer.DeleteBinaryChunks(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType: DataStreamer.DeleteBinaryChunks(IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.DataStreamer.DeleteBinaryChunks*
+  name: DeleteBinaryChunks
+  href: api/MongoDB.Entities.DataStreamer.html#MongoDB_Entities_DataStreamer_DeleteBinaryChunks_
+  commentId: Overload:MongoDB.Entities.DataStreamer.DeleteBinaryChunks
   isSpec: "True"
-  fullName: MongoDB.Entities.DataStreamer.DataStreamer
-  nameWithType: DataStreamer.DataStreamer
+  fullName: MongoDB.Entities.DataStreamer.DeleteBinaryChunks
+  nameWithType: DataStreamer.DeleteBinaryChunks
 - uid: MongoDB.Entities.DataStreamer.DownloadAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
   name: DownloadAsync(Stream, Int32, CancellationToken, IClientSessionHandle)
   href: api/MongoDB.Entities.DataStreamer.html#MongoDB_Entities_DataStreamer_DownloadAsync_System_IO_Stream_System_Int32_System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_
