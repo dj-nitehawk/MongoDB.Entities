@@ -1006,7 +1006,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Indexes.html",
-          "hash": "S3DMKNbEGau7RGg30VVw+BUQQCK6/l9Yzl72YeoaV5I="
+          "hash": "hOma9tGtpamertnFelhuqoQDiNpN3T9J/Qkx6/VOHa4="
         }
       },
       "is_incremental": false,
@@ -1194,13 +1194,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 33,
-          "skipped_file_count": 33
+          "skipped_file_count": 32
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 54,
-          "skipped_file_count": 17
+          "skipped_file_count": 54
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

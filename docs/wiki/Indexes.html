@@ -106,8 +106,8 @@
         .Key(a =&gt; a.Surname, KeyType.Text)
         .CreateAsync();
 </code></pre>
-<p>if the field you want to index is nested within arrays or lists, specify an expression with a <code>[-1]</code> index position like so:</p>
-<pre><code class="lang-csharp">.Key(a =&gt; a.Books[-1].Reviews[-1].Content, KeyType.Text)
+<p>if the field you want to index is nested within arrays or lists, specify an expression with a <code>[0]</code> index position like so:</p>
+<pre><code class="lang-csharp">.Key(a =&gt; a.Books[0].Reviews[0].Content, KeyType.Text)
 </code></pre>
 <p>in order to index all text properties of an entity, you can create a wildcard text index as follows:</p>
 <pre><code class="lang-csharp">.Key(a =&gt; a, KeyType.Text)
