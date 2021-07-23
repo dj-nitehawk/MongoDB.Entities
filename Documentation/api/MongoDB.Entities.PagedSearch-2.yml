@@ -46,7 +46,6 @@ items:
   syntax:
     content: >-
       public class PagedSearch<T, TProjection>
-
           where T : IEntity
     typeParameters:
     - id: T
@@ -98,7 +97,6 @@ items:
   syntax:
     content: >-
       public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline)
-
           where TFluent : IAggregateFluent<T>
     parameters:
     - id: fluentPipeline

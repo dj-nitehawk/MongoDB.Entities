@@ -64,7 +64,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Indicates whether this watcher has already been initialized or not.
         /// </summary>
-        public bool IsInitialized { get => IsInitialized; }
+        public bool IsInitialized { get => _initialized; }
 
         /// <summary>
         /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
@@ -81,7 +81,7 @@ namespace MongoDB.Entities
         private ChangeStreamOptions options;
         private bool resume;
         private CancellationToken cancelToken;
-        private bool initialized;
+        private bool _initialized;
 
         internal Watcher(string name) => Name = name;
 
@@ -239,7 +239,7 @@ namespace MongoDB.Entities
             bool autoResume,
             CancellationToken cancellation)
         {
-            if (initialized)
+            if (_initialized)
                 throw new InvalidOperationException("This watcher has already been initialized!");
 
             resume = autoResume;
@@ -308,7 +308,7 @@ namespace MongoDB.Entities
                 MaxAwaitTime = TimeSpan.FromSeconds(10)
             };
 
-            initialized = true;
+            _initialized = true;
 
             StartWatching();
         }
@@ -353,7 +353,7 @@ namespace MongoDB.Entities
                                     "Please instantiate a new watcher and subscribe to the events again.");
             }
 
-            if (!initialized)
+            if (!_initialized)
                 throw new InvalidOperationException("This watcher was never started. Please use .Start() first!");
 
             if (cancelToken.IsCancellationRequested)

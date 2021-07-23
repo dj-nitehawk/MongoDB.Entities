@@ -27,7 +27,6 @@ items:
   syntax:
     content: >-
       public abstract class UpdateBase<T>
-
           where T : IEntity
     typeParameters:
     - id: T

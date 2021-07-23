@@ -7,7 +7,7 @@ more benchmarks will be added as time permits. please feel free to add your own 
 OS     : Windows 10
 CPU    : AMD Ryzen 7 3700X
 SDK    : .Net 5.0
-Server : MongoDB Community 4.4 hosted locally
+Server : MongoDB Community 5.0 hosted locally
 ```
 
 ## Create one entity
@@ -72,6 +72,13 @@ Server : MongoDB Community 4.4 hosted locally
 |----------------- |---------:|--------:|--------:|------:|--------:|-------:|------:|------:|----------:|
 |  Official_Driver | 262.3 μs | 5.01 μs | 5.57 μs |  1.00 |    0.00 | 3.4180 |     - |     - |     32 KB |
 | MongoDB_Entities | 272.9 μs | 5.01 μs | 4.68 μs |  1.04 |    0.04 | 3.9063 |     - |     - |     33 KB |
+
+## Watcher vs. change-stream
+
+|           Method |     Mean |    Error |   StdDev | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|----------------- |---------:|---------:|---------:|------:|--------:|------:|------:|------:|----------:|
+| MongoDB_Entities | 99.98 ms | 1.894 ms | 1.772 ms |  1.00 |    0.03 |     - |     - |     - |    108 KB |
+|  Official_Driver | 99.74 ms | 1.947 ms | 2.000 ms |  1.00 |    0.00 |     - |     - |     - |    124 KB |
 
 ## Manual update vs. save partial
 

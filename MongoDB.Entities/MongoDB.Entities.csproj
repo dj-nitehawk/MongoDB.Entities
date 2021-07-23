@@ -8,13 +8,9 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.20.0</Version>
+    <Version>20.21.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added DB.PagedSearch().WithFluent() method
-- added extension methods to attach a PagedSearch to any fluent pipeline
-- added ability to delete only the binary chunks of file entities
-- increased test coverage
-- upgraded mongo driver to latest</PackageReleaseNotes>
+    <PackageReleaseNotes>- fixed issue with Watcher&lt;T&gt;.IsInitialized property</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

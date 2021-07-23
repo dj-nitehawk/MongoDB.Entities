@@ -29,7 +29,6 @@ items:
   syntax:
     content: >-
       public class Index<T>
-
           where T : IEntity
     typeParameters:
     - id: T
