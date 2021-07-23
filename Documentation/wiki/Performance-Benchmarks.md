@@ -73,7 +73,7 @@ Server : MongoDB Community 5.0 hosted locally
 |  Official_Driver | 262.3 μs | 5.01 μs | 5.57 μs |  1.00 |    0.00 | 3.4180 |     - |     - |     32 KB |
 | MongoDB_Entities | 272.9 μs | 5.01 μs | 4.68 μs |  1.04 |    0.04 | 3.9063 |     - |     - |     33 KB |
 
-## Watcher vs. change-stream
+## Change-streams
 
 |           Method |     Mean |    Error |   StdDev | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 | Allocated |
 |----------------- |---------:|---------:|---------:|------:|--------:|------:|------:|------:|----------:|
