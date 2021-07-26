@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Running;
-using System;
 
 namespace Benchmark
 {
@@ -7,12 +6,9 @@ namespace Benchmark
     {
         private static void Main()
         {
-            //BenchmarkRunner.Run(typeof(Program).Assembly);
-
-            BenchmarkRunner.Run<FileStorage>();
-
-            //new FileStorage().MongoDB_Entities().GetAwaiter().GetResult();
-            //Console.ReadLine();
+            BenchmarkRunner.Run(typeof(Program).Assembly);
         }
     }
 }
+
+//dotnet run -p Benchmark.csproj -c Release
