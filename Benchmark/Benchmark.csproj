@@ -7,7 +7,8 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
-  </ItemGroup>  
+    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.13.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MongoDB.Entities\MongoDB.Entities.csproj" />
