@@ -136,6 +136,7 @@
   <h5 id="MongoDB_Entities_PagedSearch_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class PagedSearch&lt;T, TProjection&gt;
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -1113,6 +1114,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; WithFluent&lt;TFluent&gt;(TFluent fluentPipeline)
+
     where TFluent : IAggregateFluent&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

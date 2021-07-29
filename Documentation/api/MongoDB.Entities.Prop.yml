@@ -72,6 +72,7 @@ items:
   syntax:
     content: >-
       public static string Collection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T

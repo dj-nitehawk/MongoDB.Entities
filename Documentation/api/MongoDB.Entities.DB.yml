@@ -129,6 +129,7 @@ items:
   syntax:
     content: >-
       public static IMongoCollection<T> Collection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -169,6 +170,7 @@ items:
   syntax:
     content: >-
       public static string CollectionName<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -209,6 +211,7 @@ items:
   syntax:
     content: >-
       public static Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -259,6 +262,7 @@ items:
   syntax:
     content: >-
       public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -304,6 +308,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: cancellation
@@ -348,6 +353,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: expression
@@ -401,6 +407,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -454,6 +461,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), CountOptions options = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -507,6 +515,7 @@ items:
   syntax:
     content: >-
       public static Task<long> CountAsync<T>(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: session
@@ -711,6 +720,7 @@ items:
   syntax:
     content: >-
       public static void DatabaseFor<T>(string database)
+
           where T : IEntity
     parameters:
     - id: database
@@ -753,6 +763,7 @@ items:
   syntax:
     content: >-
       public static IMongoDatabase Database<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -829,6 +840,7 @@ items:
   syntax:
     content: >-
       public static string DatabaseName<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -903,6 +915,7 @@ items:
   syntax:
     content: >-
       public static FilterDefinitionBuilder<T> Filter<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -943,6 +956,7 @@ items:
   syntax:
     content: >-
       public static SortDefinitionBuilder<T> Sort<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -983,6 +997,7 @@ items:
   syntax:
     content: >-
       public static ProjectionDefinitionBuilder<T> Projection<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -1023,6 +1038,7 @@ items:
   syntax:
     content: >-
       public static T Entity<T>()
+
           where T : IEntity, new()
     typeParameters:
     - id: T
@@ -1063,6 +1079,7 @@ items:
   syntax:
     content: >-
       public static T Entity<T>(string ID)
+
           where T : IEntity, new()
     parameters:
     - id: ID
@@ -1107,6 +1124,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: ID
@@ -1157,6 +1175,7 @@ items:
   syntax:
     content: >-
       public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: IDs
@@ -1208,6 +1227,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
           where T : IEntity
     parameters:
     - id: expression
@@ -1261,6 +1281,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -1314,6 +1335,7 @@ items:
   syntax:
     content: >-
       public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken), Collation collation = null)
+
           where T : IEntity
     parameters:
     - id: filter
@@ -1368,6 +1390,7 @@ items:
   syntax:
     content: >-
       public static Distinct<T, TProperty> Distinct<T, TProperty>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -1414,6 +1437,7 @@ items:
   syntax:
     content: >-
       public static DataStreamer File<T>(string ID)
+
           where T : FileEntity, new()
     parameters:
     - id: ID
@@ -1458,6 +1482,7 @@ items:
   syntax:
     content: >-
       public static Find<T> Find<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -1502,6 +1527,7 @@ items:
   syntax:
     content: >-
       public static Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -1548,6 +1574,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -1595,6 +1622,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: searchType
@@ -1656,6 +1684,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = default(double? ), double? MinDistance = default(double? ), int? Limit = default(int? ), BsonDocument Query = null, double? DistanceMultiplier = default(double? ), Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: NearCoordinates
@@ -1732,6 +1761,7 @@ items:
   syntax:
     content: >-
       public static Index<T> Index<T>()
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -1772,6 +1802,7 @@ items:
   syntax:
     content: >-
       public static Task InsertAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1822,6 +1853,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1872,6 +1904,7 @@ items:
   syntax:
     content: >-
       public static Task MigrateAsync<T>()
+
           where T : class
     typeParameters:
     - id: T
@@ -1983,6 +2016,7 @@ items:
   syntax:
     content: >-
       public static PagedSearch<T> PagedSearch<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2027,6 +2061,7 @@ items:
   syntax:
     content: >-
       public static PagedSearch<T, TProjection> PagedSearch<T, TProjection>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2073,6 +2108,7 @@ items:
   syntax:
     content: >-
       public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -2128,6 +2164,7 @@ items:
   syntax:
     content: >-
       public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -2184,6 +2221,7 @@ items:
   syntax:
     content: >-
       public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -2240,6 +2278,7 @@ items:
   syntax:
     content: >-
       public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: template
@@ -2296,6 +2335,7 @@ items:
   syntax:
     content: >-
       public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -2343,6 +2383,7 @@ items:
   syntax:
     content: >-
       public static Replace<T> Replace<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2387,6 +2428,7 @@ items:
   syntax:
     content: >-
       public static Task SaveAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2437,6 +2479,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -2487,6 +2530,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2540,6 +2584,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -2593,6 +2638,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2646,6 +2692,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -2699,6 +2746,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -2749,6 +2797,7 @@ items:
   syntax:
     content: >-
       public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: cancellation
@@ -2873,6 +2922,7 @@ items:
   syntax:
     content: >-
       public static Transaction Transaction<T>(ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
+
           where T : IEntity
     parameters:
     - id: options
@@ -2919,6 +2969,7 @@ items:
   syntax:
     content: >-
       public static Update<T> Update<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -2963,6 +3014,7 @@ items:
   syntax:
     content: >-
       public static UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -3009,6 +3061,7 @@ items:
   syntax:
     content: >-
       public static UpdateAndGet<T> UpdateAndGet<T>(IClientSessionHandle session = null)
+
           where T : IEntity
     parameters:
     - id: session
@@ -3053,6 +3106,7 @@ items:
   syntax:
     content: >-
       public static Watcher<T> Watcher<T>(string name)
+
           where T : IEntity
     parameters:
     - id: name
@@ -3097,6 +3151,7 @@ items:
   syntax:
     content: >-
       public static IEnumerable<Watcher<T>> Watchers<T>()
+
           where T : IEntity
     typeParameters:
     - id: T

@@ -1,5 +1,5 @@
 # Paged search
-paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a `$facet` aggregation query, which is quite cumbersome to do using the official driver. this library provides a convenience method for this exact use case via the `PagedSearch` builder.
+paging in mongodb driver is typically achieved by running two separate db queries; one for the count and another for the actual entities. it can also be done via a `$facet` aggregation query, which is cumbersome to do using the driver. this library provides a convenient method for this exact use case via the `PagedSearch` builder.
 
 ## Example
 
