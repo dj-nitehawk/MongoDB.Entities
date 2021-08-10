@@ -110,6 +110,13 @@ public class _003_i_will_be_run_third : IMigration { }
 <p>the above will try to discover all migrations from all assemblies of the application if it's a multi-project solution. you can speed things up a bit by specifying a type so that migrations will only be discovered from the same assembly/project as the specified type, like so:</p>
 <pre><code class="lang-csharp">await DB.MigrateAsync&lt;SomeType&gt;();
 </code></pre>
+<p>it's also possible to have more control by supplying a collection of migration class instances, which comes in handy if your migrations require other dependencies.</p>
+<pre><code class="lang-csharp">await DB.MigrationsAsync(new IMigration[]
+{
+    new _001_seed_data(someDependancy),
+    new _002_transform_data(someDependancy)
+});
+</code></pre>
 <h3 id="examples">Examples</h3>
 <h4 id="merge-two-properties">Merge two properties</h4>
 <p>let's take the scenario of having the first and last names of an Author entity stored in two separate properties and later on deciding to merge them into a single property called &quot;FullName&quot;.</p>

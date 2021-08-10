@@ -16,7 +16,7 @@ A light-weight .net standard library with [barely any overhead](wiki/Performance
 - Query data using LINQ, lambda expressions, filters and aggregation pipelines.
 - Sorting, paging and projecting is made convenient.
 - Simple data migration framework similar to EntityFramework.
-- Programatically manage indexes.
+- Programmatically manage indexes.
 - Full text search (including fuzzy matching) with text indexes.
 - Multi-document transaction support.
 - Multiple database support.

@@ -23,6 +23,15 @@ the above will try to discover all migrations from all assemblies of the applica
 ```csharp
 await DB.MigrateAsync<SomeType>();
 ```
+it's also possible to have more control by supplying a collection of migration class instances, which comes in handy if your migrations require other dependencies.
+```csharp
+await DB.MigrationsAsync(new IMigration[]
+{
+    new _001_seed_data(someDependancy),
+    new _002_transform_data(someDependancy)
+});
+```
+
 
 ### Examples
 #### Merge two properties
