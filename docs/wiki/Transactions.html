@@ -153,16 +153,18 @@ using (var TN = DB.Transaction())
     await TN.CommitAsync();
 }
 </code></pre>
-<h2 id="multiple-databases">Multiple Databases</h2>
-<p>a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.</p>
-<pre><code class="lang-csharp">var TN = DB.Transaction(&quot;DatabaseName&quot;) // manually specify the database name
-var TN = DB.Transaction&lt;Book&gt;() // gets the database from the entity type
-</code></pre>
-<p>if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.</p>
-<div class="NOTE">
-<h5>Note</h5>
-<p>please read the page on <a href="Multiple-Databases.html">multiple databases</a> to understand how multi-db support works.</p>
-</div>
+<!-- ## Multiple Databases
+
+a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.
+```csharp
+var TN = DB.Transaction("DatabaseName") // manually specify the database name
+var TN = DB.Transaction<Book>() // gets the database from the entity type
+```
+
+if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.
+
+> [!note]
+> please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works. -->
 <h2 id="transactions-with-dbcontext-instances">Transactions with DBContext instances</h2>
 <p>Transactions can be performed using DBContext instances like so:</p>
 <pre><code class="lang-csharp">var db = new DBContext();

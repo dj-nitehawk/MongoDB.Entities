@@ -72,7 +72,7 @@ using (var TN = DB.Transaction())
 }
 ```
 
-## Multiple Databases
+<!-- ## Multiple Databases
 
 a transaction is always tied to a single database. you can specify which database to use for a transaction in a couple of ways.
 ```csharp
@@ -83,7 +83,7 @@ var TN = DB.Transaction<Book>() // gets the database from the entity type
 if you try to perform an operation on an entity type that is not connected to the same database as the transaction, mongodb server will throw an exception.
 
 > [!note]
-> please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works.
+> please read the page on [multiple databases](Multiple-Databases.md) to understand how multi-db support works. -->
 
 ## Transactions with DBContext instances
 
