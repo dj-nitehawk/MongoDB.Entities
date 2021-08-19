@@ -554,7 +554,7 @@ items:
   source:
     id: InitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 50
+    startLine: 47
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -596,7 +596,7 @@ items:
   source:
     id: InitAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 63
+    startLine: 60
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -635,7 +635,7 @@ items:
   source:
     id: AllDatabaseNamesAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 98
+    startLine: 95
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -674,7 +674,7 @@ items:
   source:
     id: AllDatabaseNamesAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 107
+    startLine: 104
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -711,7 +711,7 @@ items:
   source:
     id: DatabaseFor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 121
+    startLine: 118
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -754,7 +754,7 @@ items:
   source:
     id: Database
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 128
+    startLine: 125
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -795,7 +795,7 @@ items:
   source:
     id: Database
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 138
+    startLine: 135
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -831,7 +831,7 @@ items:
   source:
     id: DatabaseName
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 160
+    startLine: 157
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -872,7 +872,7 @@ items:
   source:
     id: ChangeDefaultDatabase
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 171
+    startLine: 168
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -906,7 +906,7 @@ items:
   source:
     id: Filter
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 187
+    startLine: 184
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -947,7 +947,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 196
+    startLine: 193
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -988,7 +988,7 @@ items:
   source:
     id: Projection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 205
+    startLine: 202
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1029,7 +1029,7 @@ items:
   source:
     id: Entity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 214
+    startLine: 211
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1070,7 +1070,7 @@ items:
   source:
     id: Entity
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.cs
-    startLine: 224
+    startLine: 221
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

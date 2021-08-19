@@ -1,41 +1,48 @@
 ### YamlMime:ManagedReference
 items:
-- uid: MongoDB.Entities.DontPreserveAttribute
-  commentId: T:MongoDB.Entities.DontPreserveAttribute
-  id: DontPreserveAttribute
+- uid: MongoDB.Entities.IgnoreDefaultAttribute
+  commentId: T:MongoDB.Entities.IgnoreDefaultAttribute
+  id: IgnoreDefaultAttribute
   parent: MongoDB.Entities
   children: []
   langs:
   - csharp
   - vb
-  name: DontPreserveAttribute
-  nameWithType: DontPreserveAttribute
-  fullName: MongoDB.Entities.DontPreserveAttribute
+  name: IgnoreDefaultAttribute
+  nameWithType: IgnoreDefaultAttribute
+  fullName: MongoDB.Entities.IgnoreDefaultAttribute
   type: Class
   source:
-    id: DontPreserveAttribute
+    id: IgnoreDefaultAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 77
+    startLine: 17
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nProperties that don&apos;t have this attribute will be omitted when using SavePreserving()\nTIP: These attribute decorations are only effective if you do not specify a preservation expression when calling SavePreserving()\n"
+  summary: "\nUse this attribute to ignore a property when persisting an entity to the database if the value is null/default.\n"
   example: []
   syntax:
     content: >-
       [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
 
-      public class DontPreserveAttribute : Attribute
+      public class IgnoreDefaultAttribute : BsonIgnoreIfDefaultAttribute, IBsonMemberMapAttribute
     content.vb: >-
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
-      Public Class DontPreserveAttribute
+      Public Class IgnoreDefaultAttribute
 
-          Inherits Attribute
+          Inherits BsonIgnoreIfDefaultAttribute
+
+          Implements IBsonMemberMapAttribute
   inheritance:
   - System.Object
   - System.Attribute
+  - MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+  implements:
+  - MongoDB.Bson.Serialization.IBsonMemberMapAttribute
   inheritedMembers:
+  - MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+  - MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Value
   - System.Attribute.Equals(System.Object)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type,System.Boolean)
@@ -114,6 +121,68 @@ references:
   name: Attribute
   nameWithType: Attribute
   fullName: System.Attribute
+- uid: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+  commentId: T:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+  parent: MongoDB.Bson.Serialization.Attributes
+  isExternal: true
+  name: BsonIgnoreIfDefaultAttribute
+  nameWithType: BsonIgnoreIfDefaultAttribute
+  fullName: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+- uid: MongoDB.Bson.Serialization.IBsonMemberMapAttribute
+  commentId: T:MongoDB.Bson.Serialization.IBsonMemberMapAttribute
+  parent: MongoDB.Bson.Serialization
+  isExternal: true
+  name: IBsonMemberMapAttribute
+  nameWithType: IBsonMemberMapAttribute
+  fullName: MongoDB.Bson.Serialization.IBsonMemberMapAttribute
+- uid: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+  commentId: M:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+  parent: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+  isExternal: true
+  name: Apply(BsonMemberMap)
+  nameWithType: BsonIgnoreIfDefaultAttribute.Apply(BsonMemberMap)
+  fullName: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+  spec.csharp:
+  - uid: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+    name: Apply
+    nameWithType: BsonIgnoreIfDefaultAttribute.Apply
+    fullName: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Bson.Serialization.BsonMemberMap
+    name: BsonMemberMap
+    nameWithType: BsonMemberMap
+    fullName: MongoDB.Bson.Serialization.BsonMemberMap
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply(MongoDB.Bson.Serialization.BsonMemberMap)
+    name: Apply
+    nameWithType: BsonIgnoreIfDefaultAttribute.Apply
+    fullName: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Apply
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Bson.Serialization.BsonMemberMap
+    name: BsonMemberMap
+    nameWithType: BsonMemberMap
+    fullName: MongoDB.Bson.Serialization.BsonMemberMap
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Value
+  commentId: P:MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Value
+  parent: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute
+  isExternal: true
+  name: Value
+  nameWithType: BsonIgnoreIfDefaultAttribute.Value
+  fullName: MongoDB.Bson.Serialization.Attributes.BsonIgnoreIfDefaultAttribute.Value
 - uid: System.Attribute.Equals(System.Object)
   commentId: M:System.Attribute.Equals(System.Object)
   parent: System.Attribute
@@ -2430,3 +2499,15 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: MongoDB.Bson.Serialization.Attributes
+  commentId: N:MongoDB.Bson.Serialization.Attributes
+  isExternal: true
+  name: MongoDB.Bson.Serialization.Attributes
+  nameWithType: MongoDB.Bson.Serialization.Attributes
+  fullName: MongoDB.Bson.Serialization.Attributes
+- uid: MongoDB.Bson.Serialization
+  commentId: N:MongoDB.Bson.Serialization
+  isExternal: true
+  name: MongoDB.Bson.Serialization
+  nameWithType: MongoDB.Bson.Serialization
+  fullName: MongoDB.Bson.Serialization

@@ -19,7 +19,7 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nIndicates that this property should be ignored when this class is persisted to MongoDB.\n"
+  summary: "\nUse this attribute to ignore a property when persisting an entity to the database.\n"
   example: []
   syntax:
     content: >-

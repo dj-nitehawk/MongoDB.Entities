@@ -53,6 +53,8 @@
     name: IEntity
   - uid: MongoDB.Entities.IgnoreAttribute
     name: IgnoreAttribute
+  - uid: MongoDB.Entities.IgnoreDefaultAttribute
+    name: IgnoreDefaultAttribute
   - uid: MongoDB.Entities.IMigration
     name: IMigration
   - uid: MongoDB.Entities.IModifiedOn

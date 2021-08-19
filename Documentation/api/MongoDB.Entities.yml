@@ -27,6 +27,7 @@ items:
   - MongoDB.Entities.ICreatedOn
   - MongoDB.Entities.IEntity
   - MongoDB.Entities.IgnoreAttribute
+  - MongoDB.Entities.IgnoreDefaultAttribute
   - MongoDB.Entities.IMigration
   - MongoDB.Entities.IModifiedOn
   - MongoDB.Entities.Index`1
@@ -541,6 +542,11 @@ references:
   name: IgnoreAttribute
   nameWithType: IgnoreAttribute
   fullName: MongoDB.Entities.IgnoreAttribute
+- uid: MongoDB.Entities.IgnoreDefaultAttribute
+  commentId: T:MongoDB.Entities.IgnoreDefaultAttribute
+  name: IgnoreDefaultAttribute
+  nameWithType: IgnoreDefaultAttribute
+  fullName: MongoDB.Entities.IgnoreDefaultAttribute
 - uid: MongoDB.Entities.FieldAttribute
   commentId: T:MongoDB.Entities.FieldAttribute
   name: FieldAttribute

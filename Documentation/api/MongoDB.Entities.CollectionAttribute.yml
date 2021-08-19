@@ -17,11 +17,11 @@ items:
   source:
     id: CollectionAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 48
+    startLine: 54
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
+  summary: "\nSpecifies a custom MongoDB collection name for an entity type.\n"
   example: []
   syntax:
     content: >-
@@ -112,7 +112,7 @@ items:
   source:
     id: Name
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 51
+    startLine: 57
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -143,18 +143,15 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 57
+    startLine: 59
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this attribute to specify a custom MongoDB collection name for an IEntity.\n"
-  example: []
   syntax:
     content: public CollectionAttribute(string name)
     parameters:
     - id: name
       type: System.String
-      description: The name you want to use for the collection
     content.vb: Public Sub New(name As String)
   overload: MongoDB.Entities.CollectionAttribute.#ctor*
   modifiers.csharp:

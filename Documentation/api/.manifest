@@ -273,6 +273,7 @@
   "MongoDB.Entities.IEntity.GenerateNewID": "MongoDB.Entities.IEntity.yml",
   "MongoDB.Entities.IEntity.ID": "MongoDB.Entities.IEntity.yml",
   "MongoDB.Entities.IgnoreAttribute": "MongoDB.Entities.IgnoreAttribute.yml",
+  "MongoDB.Entities.IgnoreDefaultAttribute": "MongoDB.Entities.IgnoreDefaultAttribute.yml",
   "MongoDB.Entities.IMigration": "MongoDB.Entities.IMigration.yml",
   "MongoDB.Entities.IMigration.UpgradeAsync": "MongoDB.Entities.IMigration.yml",
   "MongoDB.Entities.IModifiedOn": "MongoDB.Entities.IModifiedOn.yml",

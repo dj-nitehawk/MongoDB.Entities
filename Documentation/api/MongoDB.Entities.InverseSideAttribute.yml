@@ -15,7 +15,7 @@ items:
   source:
     id: InverseSideAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 34
+    startLine: 40
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

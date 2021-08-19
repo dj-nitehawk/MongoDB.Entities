@@ -65,7 +65,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.CollectionAttribute.html",
-          "hash": "t0Xi9y4hLzhp2bbZuJWzbQi+I5Ycb78MPGR5FXkEcyM="
+          "hash": "nSUiy8XzMBvM+itkQW8/zuJE58DFuD2BqnlODsEYYxE="
         }
       },
       "is_incremental": false,
@@ -317,7 +317,19 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.IgnoreAttribute.html",
-          "hash": "F/7cK60u3uCHcwp7/GbKyfKG+zIIb+tdrRBJZ8J0Y3I="
+          "hash": "c6Y0AZqISKv+s5fOCkCq9Nqf+6Z/NKOoJiLN0eSG8yM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MongoDB.Entities.IgnoreDefaultAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MongoDB.Entities.IgnoreDefaultAttribute.html",
+          "hash": "PHsuI0mByevzldB7Jp14C1m/7fNk5Zxl1riSgyrQ2AE="
         }
       },
       "is_incremental": false,
@@ -665,7 +677,7 @@
       "output": {
         ".html": {
           "relative_path": "api/MongoDB.Entities.html",
-          "hash": "UG898MP7CFb65gEsU/Q3Wejv7Xy/j28UrcbPYu1ni4g="
+          "hash": "ATaEL1w3dIA7bZPefiSHnqP7bqLOgJLMgBMRWygdSJI="
         }
       },
       "is_incremental": false,
@@ -677,7 +689,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "81nNPUW2Z+Ux3rQUHNPDUAAPMydpkhIKTI+q+laBJUU="
+          "hash": "47d9TL4zBNbpiGmgAn/7BMIWwX34q6RLtzPIVJbRXX8="
         }
       },
       "is_incremental": false,
@@ -922,7 +934,7 @@
       "output": {
         ".html": {
           "relative_path": "wiki/Entities.html",
-          "hash": "NS5vgf+8m+POpns7NYCG7RqDvL+aJorTIUkgBCkmYXQ="
+          "hash": "8ryM23fBJTNhTIluiyZm4W/mWP+nbVi+YmO0ox4Mia4="
         }
       },
       "is_incremental": false,
@@ -1194,13 +1206,13 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 33,
-          "skipped_file_count": 32
+          "skipped_file_count": 33
         },
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 54,
-          "skipped_file_count": 54
+          "total_file_count": 55,
+          "skipped_file_count": 55
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

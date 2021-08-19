@@ -18,7 +18,7 @@ items:
   source:
     id: FieldAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 17
+    startLine: 23
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -119,7 +119,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 20
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -148,7 +148,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 21
+    startLine: 27
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -177,7 +177,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 22
+    startLine: 28
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

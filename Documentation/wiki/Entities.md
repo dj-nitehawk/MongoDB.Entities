@@ -13,12 +13,16 @@ public class Book : Entity
 
 # Ignore properties
 
-if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute` 
+if there are some properties on entities you don't want persisted to mongodb, simply use the `IgnoreAttribute`.
+you can prevent null/default values from being stored with the use of `IgnoreDefaultAttribute`.
 ```csharp
 public class Book : Entity
 {
-    [Ignore]
-    public string SomeProperty { get; set; }
+    [Ignore] 
+    public string DontSaveMe { get; set; }
+
+    [IgnoreDefault] 
+    public int SomeNumber { get; set; }
 }
 ```
 

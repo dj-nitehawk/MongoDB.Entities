@@ -3534,6 +3534,12 @@ references:
   commentId: T:MongoDB.Entities.IgnoreAttribute
   fullName: MongoDB.Entities.IgnoreAttribute
   nameWithType: IgnoreAttribute
+- uid: MongoDB.Entities.IgnoreDefaultAttribute
+  name: IgnoreDefaultAttribute
+  href: api/MongoDB.Entities.IgnoreDefaultAttribute.html
+  commentId: T:MongoDB.Entities.IgnoreDefaultAttribute
+  fullName: MongoDB.Entities.IgnoreDefaultAttribute
+  nameWithType: IgnoreDefaultAttribute
 - uid: MongoDB.Entities.IMigration
   name: IMigration
   href: api/MongoDB.Entities.IMigration.html

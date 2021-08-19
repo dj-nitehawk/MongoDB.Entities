@@ -103,11 +103,15 @@ public class Book : Entity
 }
 </code></pre>
 <h1 id="ignore-properties">Ignore properties</h1>
-<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code></p>
+<p>if there are some properties on entities you don't want persisted to mongodb, simply use the <code>IgnoreAttribute</code>.
+you can prevent null/default values from being stored with the use of <code>IgnoreDefaultAttribute</code>.</p>
 <pre><code class="lang-csharp">public class Book : Entity
 {
-    [Ignore]
-    public string SomeProperty { get; set; }
+    [Ignore] 
+    public string DontSaveMe { get; set; }
+
+    [IgnoreDefault] 
+    public int SomeNumber { get; set; }
 }
 </code></pre>
 <h1 id="customize-field-names">Customize field names</h1>

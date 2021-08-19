@@ -109,7 +109,7 @@ If it is not a valid ObjectId string, it will be stored as string. This is usefu
       <h4><a class="xref" href="MongoDB.Entities.AsyncEventHandlerExtensions.html">AsyncEventHandlerExtensions</a></h4>
       <section></section>
       <h4><a class="xref" href="MongoDB.Entities.CollectionAttribute.html">CollectionAttribute</a></h4>
-      <section><p>Use this attribute to specify a custom MongoDB collection name for an IEntity.</p>
+      <section><p>Specifies a custom MongoDB collection name for an entity type.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Coordinates2D.html">Coordinates2D</a></h4>
       <section><p>Represents a 2D geographical coordinate consisting of longitude and latitude</p>
@@ -165,7 +165,10 @@ You can increase the limit by sacrificing performance/resource utilization by se
       <section><p>Fluent aggregation pipeline builder for GeoNear</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.IgnoreAttribute.html">IgnoreAttribute</a></h4>
-      <section><p>Indicates that this property should be ignored when this class is persisted to MongoDB.</p>
+      <section><p>Use this attribute to ignore a property when persisting an entity to the database.</p>
+</section>
+      <h4><a class="xref" href="MongoDB.Entities.IgnoreDefaultAttribute.html">IgnoreDefaultAttribute</a></h4>
+      <section><p>Use this attribute to ignore a property when persisting an entity to the database if the value is null/default.</p>
 </section>
       <h4><a class="xref" href="MongoDB.Entities.Index-1.html">Index&lt;T&gt;</a></h4>
       <section><p>Represents an index creation command</p>
