@@ -7,10 +7,16 @@ using System;
 namespace MongoDB.Entities
 {
     /// <summary>
-    /// Indicates that this property should be ignored when this class is persisted to MongoDB.
+    /// Use this attribute to ignore a property when persisting an entity to the database.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class IgnoreAttribute : BsonIgnoreAttribute { }
+
+    /// <summary>
+    /// Use this attribute to ignore a property when persisting an entity to the database if the value is null/default.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class IgnoreDefaultAttribute : BsonIgnoreIfDefaultAttribute { }
 
     /// <summary>
     /// Specifies the field name and/or the order of the persisted document.
@@ -44,17 +50,13 @@ namespace MongoDB.Entities
     }
 
     /// <summary>
-    /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
+    /// Specifies a custom MongoDB collection name for an entity type.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class CollectionAttribute : Attribute
     {
         public string Name { get; }
 
-        /// <summary>
-        /// Use this attribute to specify a custom MongoDB collection name for an IEntity.
-        /// </summary>
-        /// <param name="name">The name you want to use for the collection</param>
         public CollectionAttribute(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
