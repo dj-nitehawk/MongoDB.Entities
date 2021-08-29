@@ -436,22 +436,22 @@ references:
   fullName.vb: MongoDB.Entities.DB.CountEstimatedAsync(Of T)(System.Threading.CancellationToken)
   nameWithType: DB.CountEstimatedAsync<T>(CancellationToken)
   nameWithType.vb: DB.CountEstimatedAsync(Of T)(CancellationToken)
-- uid: MongoDB.Entities.DB.CreateCollection*
-  name: CreateCollection
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollection_
-  commentId: Overload:MongoDB.Entities.DB.CreateCollection
+- uid: MongoDB.Entities.DB.CreateCollectionAsync*
+  name: CreateCollectionAsync
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollectionAsync_
+  commentId: Overload:MongoDB.Entities.DB.CreateCollectionAsync
   isSpec: "True"
-  fullName: MongoDB.Entities.DB.CreateCollection
-  nameWithType: DB.CreateCollection
-- uid: MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
-  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
-  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_
-  commentId: M:MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
-  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
-  fullName: MongoDB.Entities.DB.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
-  fullName.vb: MongoDB.Entities.DB.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
-  nameWithType: DB.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken, IClientSessionHandle)
-  nameWithType.vb: DB.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken, IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.CreateCollectionAsync
+  nameWithType: DB.CreateCollectionAsync
+- uid: MongoDB.Entities.DB.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  name: CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken, IClientSessionHandle)
+  href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_CreateCollectionAsync__1_System_Action_MongoDB_Driver_CreateCollectionOptions___0___System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_
+  commentId: M:MongoDB.Entities.DB.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)
+  name.vb: CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken, IClientSessionHandle)
+  fullName: MongoDB.Entities.DB.CreateCollectionAsync<T>(System.Action<MongoDB.Driver.CreateCollectionOptions<T>>, System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  fullName.vb: MongoDB.Entities.DB.CreateCollectionAsync(Of T)(System.Action(Of MongoDB.Driver.CreateCollectionOptions(Of T)), System.Threading.CancellationToken, MongoDB.Driver.IClientSessionHandle)
+  nameWithType: DB.CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken, IClientSessionHandle)
+  nameWithType.vb: DB.CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken, IClientSessionHandle)
 - uid: MongoDB.Entities.DB.Database(System.String)
   name: Database(String)
   href: api/MongoDB.Entities.DB.html#MongoDB_Entities_DB_Database_System_String_
@@ -1295,22 +1295,22 @@ references:
   fullName.vb: MongoDB.Entities.DBContext.CountEstimatedAsync(Of T)(System.Threading.CancellationToken)
   nameWithType: DBContext.CountEstimatedAsync<T>(CancellationToken)
   nameWithType.vb: DBContext.CountEstimatedAsync(Of T)(CancellationToken)
-- uid: MongoDB.Entities.DBContext.CreateCollection*
-  name: CreateCollection
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollection_
-  commentId: Overload:MongoDB.Entities.DBContext.CreateCollection
+- uid: MongoDB.Entities.DBContext.CreateCollectionAsync*
+  name: CreateCollectionAsync
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollectionAsync_
+  commentId: Overload:MongoDB.Entities.DBContext.CreateCollectionAsync
   isSpec: "True"
-  fullName: MongoDB.Entities.DBContext.CreateCollection
-  nameWithType: DBContext.CreateCollection
-- uid: MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
-  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
-  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_
-  commentId: M:MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
-  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken)
-  fullName.vb: MongoDB.Entities.DBContext.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken)
-  nameWithType: DBContext.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
-  nameWithType.vb: DBContext.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CreateCollectionAsync
+  nameWithType: DBContext.CreateCollectionAsync
+- uid: MongoDB.Entities.DBContext.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
+  name: CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken)
+  href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_CreateCollectionAsync__1_System_Action_MongoDB_Driver_CreateCollectionOptions___0___System_Threading_CancellationToken_
+  commentId: M:MongoDB.Entities.DBContext.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
+  name.vb: CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CreateCollectionAsync<T>(System.Action<MongoDB.Driver.CreateCollectionOptions<T>>, System.Threading.CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CreateCollectionAsync(Of T)(System.Action(Of MongoDB.Driver.CreateCollectionOptions(Of T)), System.Threading.CancellationToken)
+  nameWithType: DBContext.CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken)
+  nameWithType.vb: DBContext.CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken)
 - uid: MongoDB.Entities.DBContext.DeleteAsync*
   name: DeleteAsync
   href: api/MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_DeleteAsync_

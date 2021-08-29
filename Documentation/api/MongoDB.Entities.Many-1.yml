@@ -47,12 +47,12 @@ items:
   summary: "\nRepresents a one-to-many/many-to-many relationship between two Entities.\n<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>\n<p>Initialize from the constructor of the parent entity as follows:</p>\n<p><code>this.InitOneToMany(() => Property);</code></p>\n<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>\n"
   example: []
   syntax:
-    content: 'public class Many<TChild> : ManyBase, IEnumerable<TChild>, IEnumerable where TChild : IEntity'
+    content: 'public sealed class Many<TChild> : ManyBase, IEnumerable<TChild>, IEnumerable where TChild : IEntity'
     typeParameters:
     - id: TChild
       description: Type of the child IEntity.
     content.vb: >-
-      Public Class Many(Of TChild As IEntity)
+      Public NotInheritable Class Many(Of TChild As IEntity)
 
           Inherits ManyBase
 
@@ -83,9 +83,11 @@ items:
   nameWithType.vb: Many(Of TChild)
   modifiers.csharp:
   - public
+  - sealed
   - class
   modifiers.vb:
   - Public
+  - NotInheritable
   - Class
   fullName.vb: MongoDB.Entities.Many(Of TChild)
   name.vb: Many(Of TChild)

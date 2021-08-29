@@ -176,11 +176,11 @@ public class Author : Entity
 <p>so you're better off sticking with <code>ObjectId</code> because the only way it could ever generate a duplicate ID is if more than 16 million entities are created at the exact moment on the exact computer with the exact same process.</p>
 </div>
 <h1 id="create-a-collection-explicitly">Create a collection explicitly</h1>
-<pre><code class="lang-csharp">await DB.CreateCollection(new CreateCollectionOptions&lt;Book&gt;
+<pre><code class="lang-csharp">await DB.CreateCollectionAsync&lt;Book&gt;(o =&gt;
 {
-    Collation = new Collation(&quot;es&quot;),
-    Capped = true,
-    MaxDocuments = 100000
+    o.Collation = new Collation(&quot;es&quot;);
+    o.Capped = true;
+    o.MaxDocuments = 10000;
 });
 </code></pre>
 <p>typically you don't need to create collections manually as they will be created automatically the first time you save an entity.

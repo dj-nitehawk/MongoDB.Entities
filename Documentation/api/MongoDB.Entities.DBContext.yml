@@ -15,7 +15,7 @@ items:
   - MongoDB.Entities.DBContext.CountAsync``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Threading.CancellationToken,MongoDB.Driver.CountOptions,System.Boolean)
   - MongoDB.Entities.DBContext.CountAsync``1(System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.CountEstimatedAsync``1(System.Threading.CancellationToken)
-  - MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.DeleteAsync``1(MongoDB.Driver.FilterDefinition{``0},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken,System.Boolean)
   - MongoDB.Entities.DBContext.DeleteAsync``1(System.Func{MongoDB.Driver.FilterDefinitionBuilder{``0},MongoDB.Driver.FilterDefinition{``0}},System.Threading.CancellationToken,MongoDB.Driver.Collation,System.Boolean)
@@ -99,21 +99,21 @@ items:
   modifiers.vb:
   - Public
   - Class
-- uid: MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.DBContext.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
-  id: CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken)
+- uid: MongoDB.Entities.DBContext.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
+  id: CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
   langs:
   - csharp
   - vb
-  name: CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
-  nameWithType: DBContext.CreateCollection<T>(CreateCollectionOptions<T>, CancellationToken)
-  fullName: MongoDB.Entities.DBContext.CreateCollection<T>(MongoDB.Driver.CreateCollectionOptions<T>, System.Threading.CancellationToken)
+  name: CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken)
+  nameWithType: DBContext.CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.CreateCollectionAsync<T>(System.Action<MongoDB.Driver.CreateCollectionOptions<T>>, System.Threading.CancellationToken)
   type: Method
   source:
-    id: CreateCollection
+    id: CreateCollectionAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Collection.cs
-    startLine: 14
+    startLine: 15
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -121,12 +121,12 @@ items:
   example: []
   syntax:
     content: >-
-      public Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default(CancellationToken))
+      public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default(CancellationToken))
 
           where T : IEntity
     parameters:
     - id: options
-      type: MongoDB.Driver.CreateCollectionOptions{{T}}
+      type: System.Action{MongoDB.Driver.CreateCollectionOptions{{T}}}
       description: The options to use for collection creation
     - id: cancellation
       type: System.Threading.CancellationToken
@@ -136,15 +136,15 @@ items:
       description: The type of entity that will be stored in the created collection
     return:
       type: System.Threading.Tasks.Task
-    content.vb: Public Function CreateCollection(Of T As IEntity)(options As CreateCollectionOptions(Of T), cancellation As CancellationToken = Nothing) As Task
-  overload: MongoDB.Entities.DBContext.CreateCollection*
-  nameWithType.vb: DBContext.CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+    content.vb: Public Function CreateCollectionAsync(Of T As IEntity)(options As Action(Of CreateCollectionOptions(Of T)), cancellation As CancellationToken = Nothing) As Task
+  overload: MongoDB.Entities.DBContext.CreateCollectionAsync*
+  nameWithType.vb: DBContext.CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: MongoDB.Entities.DBContext.CreateCollection(Of T)(MongoDB.Driver.CreateCollectionOptions(Of T), System.Threading.CancellationToken)
-  name.vb: CreateCollection(Of T)(CreateCollectionOptions(Of T), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.CreateCollectionAsync(Of T)(System.Action(Of MongoDB.Driver.CreateCollectionOptions(Of T)), System.Threading.CancellationToken)
+  name.vb: CreateCollectionAsync(Of T)(Action(Of CreateCollectionOptions(Of T)), CancellationToken)
 - uid: MongoDB.Entities.DBContext.DropCollectionAsync``1
   commentId: M:MongoDB.Entities.DBContext.DropCollectionAsync``1
   id: DropCollectionAsync``1
@@ -159,7 +159,7 @@ items:
   source:
     id: DropCollectionAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DBContext\DBContext.Collection.cs
-    startLine: 24
+    startLine: 25
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2959,22 +2959,30 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: MongoDB.Entities.DBContext.CreateCollection*
-  commentId: Overload:MongoDB.Entities.DBContext.CreateCollection
-  name: CreateCollection
-  nameWithType: DBContext.CreateCollection
-  fullName: MongoDB.Entities.DBContext.CreateCollection
-- uid: MongoDB.Driver.CreateCollectionOptions{{T}}
-  commentId: T:MongoDB.Driver.CreateCollectionOptions{``0}
-  parent: MongoDB.Driver
-  definition: MongoDB.Driver.CreateCollectionOptions`1
-  name: CreateCollectionOptions<T>
-  nameWithType: CreateCollectionOptions<T>
-  fullName: MongoDB.Driver.CreateCollectionOptions<T>
-  nameWithType.vb: CreateCollectionOptions(Of T)
-  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of T)
-  name.vb: CreateCollectionOptions(Of T)
+- uid: MongoDB.Entities.DBContext.CreateCollectionAsync*
+  commentId: Overload:MongoDB.Entities.DBContext.CreateCollectionAsync
+  name: CreateCollectionAsync
+  nameWithType: DBContext.CreateCollectionAsync
+  fullName: MongoDB.Entities.DBContext.CreateCollectionAsync
+- uid: System.Action{MongoDB.Driver.CreateCollectionOptions{{T}}}
+  commentId: T:System.Action{MongoDB.Driver.CreateCollectionOptions{``0}}
+  parent: System
+  definition: System.Action`1
+  name: Action<CreateCollectionOptions<T>>
+  nameWithType: Action<CreateCollectionOptions<T>>
+  fullName: System.Action<MongoDB.Driver.CreateCollectionOptions<T>>
+  nameWithType.vb: Action(Of CreateCollectionOptions(Of T))
+  fullName.vb: System.Action(Of MongoDB.Driver.CreateCollectionOptions(Of T))
+  name.vb: Action(Of CreateCollectionOptions(Of T))
   spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
   - uid: MongoDB.Driver.CreateCollectionOptions`1
     name: CreateCollectionOptions
     nameWithType: CreateCollectionOptions
@@ -2989,7 +2997,18 @@ references:
   - name: '>'
     nameWithType: '>'
     fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - uid: MongoDB.Driver.CreateCollectionOptions`1
     name: CreateCollectionOptions
     nameWithType: CreateCollectionOptions
@@ -3001,6 +3020,9 @@ references:
   - name: T
     nameWithType: T
     fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -3018,51 +3040,45 @@ references:
   name: Task
   nameWithType: Task
   fullName: System.Threading.Tasks.Task
-- uid: MongoDB.Driver.CreateCollectionOptions`1
-  commentId: T:MongoDB.Driver.CreateCollectionOptions`1
+- uid: System.Action`1
+  commentId: T:System.Action`1
   isExternal: true
-  name: CreateCollectionOptions<TDocument>
-  nameWithType: CreateCollectionOptions<TDocument>
-  fullName: MongoDB.Driver.CreateCollectionOptions<TDocument>
-  nameWithType.vb: CreateCollectionOptions(Of TDocument)
-  fullName.vb: MongoDB.Driver.CreateCollectionOptions(Of TDocument)
-  name.vb: CreateCollectionOptions(Of TDocument)
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
   spec.csharp:
-  - uid: MongoDB.Driver.CreateCollectionOptions`1
-    name: CreateCollectionOptions
-    nameWithType: CreateCollectionOptions
-    fullName: MongoDB.Driver.CreateCollectionOptions
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
     isExternal: true
   - name: <
     nameWithType: <
     fullName: <
-  - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: '>'
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: MongoDB.Driver.CreateCollectionOptions`1
-    name: CreateCollectionOptions
-    nameWithType: CreateCollectionOptions
-    fullName: MongoDB.Driver.CreateCollectionOptions
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: TDocument
-    nameWithType: TDocument
-    fullName: TDocument
+  - name: T
+    nameWithType: T
+    fullName: T
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Driver
-  commentId: N:MongoDB.Driver
-  isExternal: true
-  name: MongoDB.Driver
-  nameWithType: MongoDB.Driver
-  fullName: MongoDB.Driver
 - uid: System.Threading
   commentId: N:System.Threading
   isExternal: true
@@ -3310,6 +3326,12 @@ references:
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+- uid: MongoDB.Driver
+  commentId: N:MongoDB.Driver
+  isExternal: true
+  name: MongoDB.Driver
+  nameWithType: MongoDB.Driver
+  fullName: MongoDB.Driver
 - uid: MongoDB.Driver.FilterDefinition{{T}}
   commentId: T:MongoDB.Driver.FilterDefinition{`0}
   parent: MongoDB.Driver
@@ -3616,45 +3638,6 @@ references:
   commentId: T:System.Action{``0}
   parent: System
   definition: System.Action`1
-  name: Action<T>
-  nameWithType: Action<T>
-  fullName: System.Action<T>
-  nameWithType.vb: Action(Of T)
-  fullName.vb: System.Action(Of T)
-  name.vb: Action(Of T)
-  spec.csharp:
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Action`1
-    name: Action
-    nameWithType: Action
-    fullName: System.Action
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Action`1
-  commentId: T:System.Action`1
-  isExternal: true
   name: Action<T>
   nameWithType: Action<T>
   fullName: System.Action<T>

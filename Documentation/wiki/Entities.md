@@ -102,11 +102,11 @@ public class Book : IEntity
 
 # Create a collection explicitly
 ```csharp
-await DB.CreateCollection(new CreateCollectionOptions<Book>
+await DB.CreateCollectionAsync<Book>(o =>
 {
-    Collation = new Collation("es"),
-    Capped = true,
-    MaxDocuments = 100000
+    o.Collation = new Collation("es");
+    o.Capped = true;
+    o.MaxDocuments = 10000;
 });
 ```
 typically you don't need to create collections manually as they will be created automatically the first time you save an entity. 

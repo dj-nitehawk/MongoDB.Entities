@@ -725,14 +725,14 @@
   </table>
   
   
-  <a id="MongoDB_Entities_DB_CreateCollection_" data-uid="MongoDB.Entities.DB.CreateCollection*"></a>
-  <h4 id="MongoDB_Entities_DB_CreateCollection__1_MongoDB_Driver_CreateCollectionOptions___0__System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.CreateCollection``1(MongoDB.Driver.CreateCollectionOptions{``0},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)">CreateCollection&lt;T&gt;(CreateCollectionOptions&lt;T&gt;, CancellationToken, IClientSessionHandle)</h4>
+  <a id="MongoDB_Entities_DB_CreateCollectionAsync_" data-uid="MongoDB.Entities.DB.CreateCollectionAsync*"></a>
+  <h4 id="MongoDB_Entities_DB_CreateCollectionAsync__1_System_Action_MongoDB_Driver_CreateCollectionOptions___0___System_Threading_CancellationToken_MongoDB_Driver_IClientSessionHandle_" data-uid="MongoDB.Entities.DB.CreateCollectionAsync``1(System.Action{MongoDB.Driver.CreateCollectionOptions{``0}},System.Threading.CancellationToken,MongoDB.Driver.IClientSessionHandle)">CreateCollectionAsync&lt;T&gt;(Action&lt;CreateCollectionOptions&lt;T&gt;&gt;, CancellationToken, IClientSessionHandle)</h4>
   <div class="markdown level1 summary"><p>Creates a collection for an Entity type explicitly using the given options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Task CreateCollection&lt;T&gt;(CreateCollectionOptions&lt;T&gt; options, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)
+    <pre><code class="lang-csharp hljs">public static Task CreateCollectionAsync&lt;T&gt;(Action&lt;CreateCollectionOptions&lt;T&gt;&gt; options, CancellationToken cancellation = default(CancellationToken), IClientSessionHandle session = null)
 
     where T : IEntity</code></pre>
   </div>
@@ -747,7 +747,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.CreateCollectionOptions</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.CreateCollectionOptions</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">options</span></td>
         <td><p>The options to use for collection creation</p>
 </td>
