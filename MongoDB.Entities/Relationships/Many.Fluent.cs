@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MongoDB.Entities
 {
-    public partial class Many<TChild> where TChild : IEntity
+    public sealed partial class Many<TChild> where TChild : IEntity
     {
         /// <summary>
         /// An IAggregateFluent of JoinRecords for this relationship

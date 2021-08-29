@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MongoDB.Entities
 {
-    public partial class Many<TChild> : IEnumerable<TChild> where TChild : IEntity
+    public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IEntity
     {
         /// <summary>
         /// An IQueryable of JoinRecords for this relationship

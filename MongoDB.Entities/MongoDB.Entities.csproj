@@ -8,12 +8,11 @@
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Version>20.21.0</Version>
+    <Version>20.22.0</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- added [IgnoreDefault] attribute
-- fixed issue with Watcher&lt;T&gt;.IsInitialized property
-- upgrade dependancies
-- misc. code changes</PackageReleaseNotes>
+    <PackageReleaseNotes>- rename DB.CreateCollection() to CreateCollectionAsync()
+- change method signature of CreateCollectionAsync() to use an action
+- upgrade dependancies</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

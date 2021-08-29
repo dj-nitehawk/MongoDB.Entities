@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public partial class Many<TChild> where TChild : IEntity
+    public sealed partial class Many<TChild> where TChild : IEntity
     {
         /// <summary>
         /// Adds a new child reference.

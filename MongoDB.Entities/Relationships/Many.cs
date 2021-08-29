@@ -26,7 +26,7 @@ namespace MongoDB.Entities
     /// <para><c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c></para>
     /// </summary>
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-    public partial class Many<TChild> : ManyBase where TChild : IEntity
+    public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     {
         private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
         private bool isInverse;

@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,9 +13,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity that will be stored in the created collection</typeparam>
         /// <param name="options">The options to use for collection creation</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default) where T : IEntity
+        public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CreateCollection(options, cancellation, Session);
+            return DB.CreateCollectionAsync(options, cancellation, Session);
         }
 
         /// <summary>

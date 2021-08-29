@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,11 +39,13 @@ namespace MongoDB.Entities
         /// <param name="options">The options to use for collection creation</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task CreateCollection<T>(CreateCollectionOptions<T> options, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
+        public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
         {
+            var opts = new CreateCollectionOptions<T>();
+            options(opts);
             return session == null
-                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, options, cancellation)
-                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, options, cancellation);
+                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
         }
 
         /// <summary>
