@@ -116,7 +116,7 @@
 <h2 id="using-a-connection-string">Using a connection string</h2>
 <pre><code class="lang-csharp">await DB.InitAsync(&quot;DatabaseName&quot;,
     MongoClientSettings.FromConnectionString(
-        &quot;mongodb://username:password@server-address/AuthDBName&quot;));
+        &quot;mongodb://{username}:{password}@{hostname}:{port}/?authSource=admin&quot;));
 </code></pre>
 </article>
           </div>
