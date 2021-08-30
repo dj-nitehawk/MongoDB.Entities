@@ -80,12 +80,19 @@ Server : MongoDB Community 5.0 hosted locally
 | MongoDB_Entities | 99.98 ms | 1.894 ms | 1.772 ms |  1.00 |    0.03 |     - |     - |     - |    108 KB |
 |  Official_Driver | 99.74 ms | 1.947 ms | 2.000 ms |  1.00 |    0.00 |     - |     - |     - |    124 KB |
 
-## File storage
+## File storage (write)
 
 |           Method |      Mean |    Error |   StdDev | Ratio |    Gen 0 |    Gen 1 |    Gen 2 | Allocated |
 |----------------- |----------:|---------:|---------:|------:|---------:|---------:|---------:|----------:|
 | MongoDB_Entities |  78.31 ms | 0.871 ms | 0.772 ms |  0.60 | 285.7143 | 285.7143 | 285.7143 |     37 MB |
 |  Official_Driver | 130.83 ms | 2.335 ms | 2.184 ms |  1.00 | 500.0000 | 500.0000 | 500.0000 |     36 MB |
+
+## File storage (read)
+
+|           Method |      Mean |    Error |   StdDev | Ratio |    Gen 0 |    Gen 1 |    Gen 2 | Allocated |
+|----------------- |----------:|---------:|---------:|------:|---------:|---------:|---------:|----------:|
+| MongoDB_Entities |  96.34 ms | 1.695 ms | 1.585 ms |  0.75 | 333.3333 | 333.3333 | 333.3333 |     37 MB |
+|  Official_Driver | 128.49 ms | 1.332 ms | 1.181 ms |  1.00 | 500.0000 | 500.0000 | 500.0000 |     36 MB |
 
 ## Manual update vs. save partial
 

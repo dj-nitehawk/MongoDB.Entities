@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Benchmark
 {
     [MemoryDiagnoser]
-    public class FileStorage : BenchBase
+    public class FileStorageWrite : BenchBase
     {
         private static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
 
@@ -33,11 +33,6 @@ namespace Benchmark
             });
 
             await bucket.UploadFromStreamAsync("file name here", memStream);
-        }
-
-        private class File : FileEntity
-        {
-            public string Name { get; set; }
         }
     }
 }
