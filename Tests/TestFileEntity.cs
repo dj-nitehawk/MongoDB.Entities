@@ -84,7 +84,7 @@ namespace MongoDB.Entities.Tests
             await DB.InitAsync(dbName);
             DB.DatabaseFor<Image>(dbName);
 
-            var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
+            var img = new Image { ID = Guid.NewGuid().ToString(), Height = 400, Width = 400, Name = "Test-Delete.Png" };
             await img.SaveAsync().ConfigureAwait(false);
 
             using var stream = File.Open("Models/test.jpg", FileMode.Open);
