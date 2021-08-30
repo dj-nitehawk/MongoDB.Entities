@@ -4,10 +4,11 @@ more benchmarks will be added as time permits. please feel free to add your own 
 
 ### Environment
 ```
-OS     : Windows 10
+OS     : Windows 11
 CPU    : AMD Ryzen 7 3700X
 SDK    : .Net 5.0
-Server : MongoDB Community 5.0 hosted locally
+Server : MongoDB Community 5 (localhost)
+Driver : v2.13
 ```
 
 ## Create one entity
@@ -54,10 +55,10 @@ Server : MongoDB Community 5.0 hosted locally
 
 ## Find 100 entities
 
-|           Method |     Mean |     Error |    StdDev | Ratio |   Gen 0 |   Gen 1 | Gen 2 | Allocated |
-|----------------- |---------:|----------:|----------:|------:|--------:|--------:|------:|----------:|
-| MongoDB_Entities | 1.028 ms | 0.0025 ms | 0.0024 ms |  1.00 | 54.6875 | 13.6719 |     - |    448 KB |
-|  Official_Driver | 1.032 ms | 0.0087 ms | 0.0077 ms |  1.00 | 54.6875 | 13.6719 |     - |    447 KB |
+|           Method |     Mean |     Error |    StdDev | Ratio | RatioSD |   Gen 0 |   Gen 1 | Allocated |
+|----------------- |---------:|----------:|----------:|------:|--------:|--------:|--------:|----------:|
+| MongoDB_Entities | 1.075 ms | 0.0026 ms | 0.0023 ms |  0.98 |    0.02 | 54.6875 | 13.6719 |    449 KB |
+|  Official_Driver | 1.098 ms | 0.0217 ms | 0.0319 ms |  1.00 |    0.00 | 54.6875 | 13.6719 |    448 KB |
 
 ## Update one entity
 
@@ -75,10 +76,10 @@ Server : MongoDB Community 5.0 hosted locally
 
 ## Change-streams
 
-|           Method |     Mean |    Error |   StdDev | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 | Allocated |
-|----------------- |---------:|---------:|---------:|------:|--------:|------:|------:|------:|----------:|
-| MongoDB_Entities | 99.98 ms | 1.894 ms | 1.772 ms |  1.00 |    0.03 |     - |     - |     - |    108 KB |
-|  Official_Driver | 99.74 ms | 1.947 ms | 2.000 ms |  1.00 |    0.00 |     - |     - |     - |    124 KB |
+|           Method |     Mean |    Error |   StdDev | Ratio | RatioSD | Allocated |
+|----------------- |---------:|---------:|---------:|------:|--------:|----------:|
+| MongoDB_Entities | 15.68 ms | 0.215 ms | 0.279 ms |  1.00 |    0.02 |    107 KB |
+|  Official_Driver | 15.71 ms | 0.186 ms | 0.155 ms |  1.00 |    0.00 |    122 KB |
 
 ## File storage (write)
 
@@ -89,10 +90,10 @@ Server : MongoDB Community 5.0 hosted locally
 
 ## File storage (read)
 
-|           Method |      Mean |    Error |   StdDev | Ratio |    Gen 0 |    Gen 1 |    Gen 2 | Allocated |
-|----------------- |----------:|---------:|---------:|------:|---------:|---------:|---------:|----------:|
-| MongoDB_Entities |  96.34 ms | 1.695 ms | 1.585 ms |  0.75 | 333.3333 | 333.3333 | 333.3333 |     37 MB |
-|  Official_Driver | 128.49 ms | 1.332 ms | 1.181 ms |  1.00 | 500.0000 | 500.0000 | 500.0000 |     36 MB |
+|           Method |     Mean |    Error |   StdDev | Ratio | RatioSD |    Gen 0 |    Gen 1 |    Gen 2 | Allocated |
+|----------------- |---------:|---------:|---------:|------:|--------:|---------:|---------:|---------:|----------:|
+| MongoDB_Entities | 33.26 ms | 0.646 ms | 0.884 ms |  0.92 |    0.02 | 812.5000 | 812.5000 | 750.0000 |     33 MB |
+|  Official_Driver | 35.55 ms | 0.082 ms | 0.073 ms |  1.00 |    0.00 | 266.6667 | 266.6667 | 266.6667 |     37 MB |
 
 ## Manual update vs. save partial
 
