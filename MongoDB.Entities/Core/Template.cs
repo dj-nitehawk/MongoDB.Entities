@@ -65,6 +65,26 @@ namespace MongoDB.Entities
 
 
         /// <summary>
+        /// Turns the property paths in the given `new` expression (of input type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
+        public Template<TInput, TResult> Properties(Expression<Func<TInput, object>> expression) => base.Properties(expression) as Template<TInput, TResult>;
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression (of output type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
+        public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object>> expression) => base.Properties(expression) as Template<TInput, TResult>;
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression (of any type) into paths like "PropX &amp; PropY" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
+        public new Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object>> expression) => base.Properties(expression) as Template<TInput, TResult>;
+
+
+
+        /// <summary>
         /// Turns the given expression (of input type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
         /// </summary>
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
@@ -333,6 +353,27 @@ namespace MongoDB.Entities
         public Template Property<T>(Expression<Func<T, object>> expression)
         {
             return ReplacePath(Prop.Property(expression));
+        }
+
+        /// <summary>
+        /// Turns the property paths in the given `new` expression into property names like "PropX &amp; PropY" and replaces matching tags in the template.
+        /// </summary>
+        /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
+        public Template Properties<T>(Expression<Func<T, object>> expression)
+        {
+            var props =
+                (expression.Body as NewExpression)?
+                .Arguments
+                .Cast<MemberExpression>()
+                .Select(e => e.Member.Name);
+
+            if (!props.Any())
+                throw new ArgumentException("Unable to parse any property names from the supplied `new` expression!");
+
+            foreach (var p in props)
+                ReplacePath(p);
+
+            return this;
         }
 
         /// <summary>
