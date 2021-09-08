@@ -383,7 +383,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void throws_when_added_stage_not_json_object()
         {
-            var pipeline = new Template<Book>("[{<Title>:'test'}]");
+            var pipeline = new Template<Book>("[]");
 
             Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
         }

@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Version>20.24.0-beta1</Version>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageReleaseNotes>- refactor extensions</PackageReleaseNotes>
+    <PackageReleaseNotes>- caching mechanism for Templates
+- refactor extensions</PackageReleaseNotes>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
     <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>

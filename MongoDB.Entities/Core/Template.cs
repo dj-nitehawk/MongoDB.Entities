@@ -258,9 +258,10 @@ namespace MongoDB.Entities
     {
         private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
         private static readonly ConcurrentDictionary<int, string> cache = new ConcurrentDictionary<int, string>();
-        private bool cacheHit;
-        private readonly int cacheKey;
+
         internal readonly StringBuilder builder;
+        private bool cacheHit, hasAppendedStages;
+        private readonly int cacheKey;
         private readonly HashSet<string> goalTags = new HashSet<string>();
         private readonly HashSet<string> missingTags = new HashSet<string>();
         private readonly HashSet<string> replacedTags = new HashSet<string>();
@@ -320,11 +321,12 @@ namespace MongoDB.Entities
         /// Appends a pipeline stage json string to the current pipeline. 
         /// This method can only be used if the template was initialized with an array of pipeline stages. 
         /// If this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <c>new Template("[]")</c>
+        /// <para>WARNING: Appending stages prevents this template from being cached!!!</para>
         /// </summary>
         /// <param name="pipelineStageString">The pipeline stage json string to append</param>
         public void AppendStage(string pipelineStageString)
         {
-            if (cacheHit) return;
+            hasAppendedStages = true;
 
             int pipelineEndPos = 0;
             int lastCharPos = builder.Length - 1;
@@ -517,7 +519,7 @@ namespace MongoDB.Entities
         /// </summary>
         public string RenderToString()
         {
-            if (!cacheHit)
+            if (!cacheHit && !hasAppendedStages)
             {
                 cache[cacheKey] = builder.ToString();
                 cacheHit = true; //in case this method is called multiple times
