@@ -74,7 +74,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a find query</param>
         public Distinct<T, TProperty> Match(Template template)
         {
-            filter &= template.ToString();
+            filter &= template.RenderToString();
             return this;
         }
 
@@ -148,7 +148,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object</param>
         public Distinct<T, TProperty> MatchExpression(Template template)
         {
-            filter &= "{$expr:" + template.ToString() + "}";
+            filter &= "{$expr:" + template.RenderToString() + "}";
             return this;
         }
 

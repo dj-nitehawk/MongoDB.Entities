@@ -50,7 +50,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a single update</param>
         public void AddModification(Template template)
         {
-            AddModification(template.ToString());
+            AddModification(template.RenderToString());
         }
     }
 
@@ -124,7 +124,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a find query</param>
         public Update<T> Match(Template template)
         {
-            filter &= template.ToString();
+            filter &= template.RenderToString();
             return this;
         }
 
@@ -198,7 +198,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object</param>
         public Update<T> MatchExpression(Template template)
         {
-            filter &= "{$expr:" + template.ToString() + "}";
+            filter &= "{$expr:" + template.RenderToString() + "}";
             return this;
         }
 
@@ -240,7 +240,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a single update</param>
         public Update<T> Modify(Template template)
         {
-            AddModification(template.ToString());
+            AddModification(template.RenderToString());
             return this;
         }
 
@@ -312,7 +312,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object containing a pipeline stage</param>
         public Update<T> WithPipelineStage(Template template)
         {
-            return WithPipelineStage(template.ToString());
+            return WithPipelineStage(template.RenderToString());
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace MongoDB.Entities
         /// <param name="template"></param>
         public Update<T> WithArrayFilter(Template template)
         {
-            WithArrayFilter(template.ToString());
+            WithArrayFilter(template.RenderToString());
             return this;
         }
 

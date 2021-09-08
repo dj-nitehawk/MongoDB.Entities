@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -256,8 +257,14 @@ namespace MongoDB.Entities
     public class Template
     {
         private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
+        private static readonly ConcurrentDictionary<int, string> cache = new ConcurrentDictionary<int, string>();
+        private bool cacheHit;
+        private readonly int cacheKey;
         internal readonly StringBuilder builder;
-        private readonly HashSet<string> tags, missingTags, replacedTags;
+        private readonly HashSet<string> goalTags = new HashSet<string>();
+        private readonly HashSet<string> missingTags = new HashSet<string>();
+        private readonly HashSet<string> replacedTags = new HashSet<string>();
+        private readonly Dictionary<string, string> valueTags = new Dictionary<string, string>();
 
         /// <summary>
         /// Initialize a command builder with the supplied template string.
@@ -268,17 +275,26 @@ namespace MongoDB.Entities
             if (string.IsNullOrWhiteSpace(template))
                 throw new ArgumentException("Unable to instantiate a template from an empty string!");
 
-            builder = new StringBuilder(template.Trim(), template.Length);
-            tags = new HashSet<string>();
-            missingTags = new HashSet<string>();
-            replacedTags = new HashSet<string>();
+            cacheKey = template.GetHashCode();
+
+            cache.TryGetValue(cacheKey, out var cachedTemplate);
+
+            if (cachedTemplate != null)
+            {
+                cacheHit = true;
+                builder = new StringBuilder(cachedTemplate);
+            }
+            else
+            {
+                builder = new StringBuilder(template.Trim());
+            }
 
             if (!(builder[0] == '[' && builder[1] == ']')) //not an empty array
             {
-                foreach (Match match in regex.Matches(template))
-                    tags.Add(match.Value);
+                foreach (Match match in regex.Matches(cacheHit ? cachedTemplate : template))
+                    goalTags.Add(match.Value);
 
-                if (tags.Count == 0)
+                if (!cacheHit && goalTags.Count == 0)
                     throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
             }
         }
@@ -287,7 +303,7 @@ namespace MongoDB.Entities
         {
             var tag = $"<{path}>";
 
-            if (!tags.Contains(tag))
+            if (!goalTags.Contains(tag))
             {
                 missingTags.Add(tag);
             }
@@ -308,6 +324,8 @@ namespace MongoDB.Entities
         /// <param name="pipelineStageString">The pipeline stage json string to append</param>
         public void AppendStage(string pipelineStageString)
         {
+            if (cacheHit) return;
+
             int pipelineEndPos = 0;
             int lastCharPos = builder.Length - 1;
 
@@ -325,7 +343,7 @@ namespace MongoDB.Entities
                 throw new ArgumentException("A pipeline stage string must begin with a { and end with a }");
 
             foreach (Match match in regex.Matches(pipelineStageString))
-                tags.Add(match.Value);
+                goalTags.Add(match.Value);
 
             if (builder[0] == '[' && builder[1] == ']')//empty array
                 builder.Remove(lastCharPos, 1);
@@ -343,6 +361,8 @@ namespace MongoDB.Entities
         /// <typeparam name="TEntity">The type of entity to get the collection name of</typeparam>
         public Template Collection<TEntity>() where TEntity : IEntity
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.Collection<TEntity>());
         }
 
@@ -352,6 +372,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.RootProp.SomeProp</param>
         public Template Property<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.Property(expression));
         }
 
@@ -361,6 +383,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
         public Template Properties<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             var props =
                 (expression.Body as NewExpression)?
                 .Arguments
@@ -382,6 +406,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template Path<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.Path(expression));
         }
 
@@ -391,6 +417,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
         public Template Paths<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             var paths =
                 (expression.Body as NewExpression)?
                 .Arguments
@@ -412,6 +440,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFiltered<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.PosFiltered(expression));
         }
 
@@ -421,6 +451,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosAll<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.PosAll(expression));
         }
 
@@ -430,6 +462,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeList[0].SomeProp</param>
         public Template PosFirst<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.PosFirst(expression));
         }
 
@@ -439,6 +473,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.Elements(expression));
         }
 
@@ -449,6 +485,8 @@ namespace MongoDB.Entities
         /// <param name="expression">x => x.SomeProp</param>
         public Template Elements<T>(int index, Expression<Func<T, object>> expression)
         {
+            if (cacheHit) return this;
+
             return ReplacePath(Prop.Elements(index, expression));
         }
 
@@ -461,14 +499,13 @@ namespace MongoDB.Entities
         {
             var tag = $"<{tagName}>";
 
-            if (!tags.Contains(tag))
+            if (!goalTags.Contains(tag))
             {
                 missingTags.Add(tag);
             }
             else
             {
-                builder.Replace(tag, replacementValue);
-                replacedTags.Add(tag);
+                valueTags[tag] = replacementValue;
             }
 
             return this;
@@ -478,17 +515,35 @@ namespace MongoDB.Entities
         /// Executes the tag replacement and returns a string.
         /// <para>TIP: if all the tags don't match, an exception will be thrown.</para>
         /// </summary>
-        public new string ToString()
+        public string RenderToString()
         {
+            if (!cacheHit)
+            {
+                cache[cacheKey] = builder.ToString();
+                cacheHit = true; //in case this method is called multiple times
+            }
+
+            foreach (var t in valueTags.ToArray())
+            {
+                builder.Replace(t.Key, t.Value);
+                replacedTags.Add(t.Key);
+            }
+
             if (missingTags.Count > 0)
                 throw new InvalidOperationException($"The following tags were missing from the template: [{string.Join(",", missingTags)}]");
 
-            var unReplacedTags = tags.Except(replacedTags);
+            var unReplacedTags = goalTags.Except(replacedTags);
 
             if (unReplacedTags.Any())
                 throw new InvalidOperationException($"Replacements for the following tags are required: [{string.Join(",", unReplacedTags)}]");
 
             return builder.ToString();
+        }
+
+        [Obsolete("Please use the `RenderToString` method instead of `ToString`", true)]
+        public override string ToString()
+        {
+            throw new InvalidOperationException("Please use the `RenderToString` method instead of `ToString`");
         }
 
         /// <summary>
@@ -498,7 +553,7 @@ namespace MongoDB.Entities
         public IEnumerable<BsonDocument> ToStages()
         {
             return BsonSerializer
-                .Deserialize<BsonArray>(ToString())
+                .Deserialize<BsonArray>(RenderToString())
                 .Select(v => v.AsBsonDocument);
         }
 
@@ -520,7 +575,7 @@ namespace MongoDB.Entities
         public IEnumerable<ArrayFilterDefinition> ToArrayFilters<T>()
         {
             return BsonSerializer
-                .Deserialize<BsonArray>(ToString())
+                .Deserialize<BsonArray>(RenderToString())
                 .Select(v => (ArrayFilterDefinition<T>)v.AsBsonDocument);
         }
     }

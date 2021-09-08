@@ -169,7 +169,7 @@ namespace MongoDB.Entities.Tests
                 .Path(a => a.FullName)
                 .Path(a => a.Name)
                 .Path(a => a.Surname)
-                .ToString();
+                .RenderToString();
 
             await DB.Update<Author>()
               .Match(a => a.ID == author.ID)
@@ -306,7 +306,7 @@ namespace MongoDB.Entities.Tests
             var prop1 = new Template<Book>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
                                 .PosFiltered(b => b.OtherAuthors[0].Age)
                                 .Tag("age", "321")
-                                .ToString();
+                                .RenderToString();
 
             var filt2 = Prop.Elements<Author>(1, a => a.Name);
             var prop2 = Prop.PosFiltered<Book>(b => b.OtherAuthors[1].Name);

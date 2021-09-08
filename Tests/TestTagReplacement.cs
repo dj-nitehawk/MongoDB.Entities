@@ -33,7 +33,7 @@ namespace MongoDB.Entities.Tests
                 .Tag("user", "$user")
                 .Tag("missing", "blah");
 
-            Assert.ThrowsException<InvalidOperationException>(() => template.ToString());
+            Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace MongoDB.Entities.Tests
             }]").Tag("size", "$size")
                 .Tag("user", "$user");
 
-            Assert.ThrowsException<InvalidOperationException>(() => template.ToString());
+            Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
         }
 
         [TestMethod]
@@ -78,7 +78,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'OtherAuthors.Name': /Eckhart Tolle/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.RenderToString());
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'Book': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.RenderToString());
         }
 
         [TestMethod]
@@ -112,7 +112,7 @@ namespace MongoDB.Entities.Tests
                $match: { 'Name': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.RenderToString());
         }
 
         [TestMethod]
@@ -139,7 +139,7 @@ namespace MongoDB.Entities.Tests
                 }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.RenderToString());
         }
 
         [TestMethod]
@@ -169,7 +169,7 @@ namespace MongoDB.Entities.Tests
                 }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.ToString());
+            Assert.AreEqual(expectation.Trim(), template.RenderToString());
         }
 
         [TestMethod]
@@ -189,9 +189,9 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Path(a => a.Name)
-                .Tag("author_name", guid)
-                .Path(a => a.Age);
+              .Path(a => a.Name)
+              .Tag("author_name", guid)
+              .Path(a => a.Age);
 
             var results = await DB.PipelineAsync(pipeline);
 
@@ -383,7 +383,7 @@ namespace MongoDB.Entities.Tests
         [TestMethod]
         public void throws_when_added_stage_not_json_object()
         {
-            var pipeline = new Template<Book>("[]");
+            var pipeline = new Template<Book>("[{<Title>:'test'}]");
 
             Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
         }
@@ -394,7 +394,7 @@ namespace MongoDB.Entities.Tests
             var pipeline = new Template<Book>("[{$match:{<Title>:'test'}}]");
             pipeline.AppendStage("{$match:{<Title>:'test'}}");
             pipeline.Property(b => b.Title);
-            var res = pipeline.ToString();
+            var res = pipeline.RenderToString();
 
             Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
         }
@@ -406,7 +406,7 @@ namespace MongoDB.Entities.Tests
             pipeline.AppendStage("{$match:{<Title>:'test'}}");
             pipeline.AppendStage("{$match:{<Title>:'test'}}");
             pipeline.Property(b => b.Title);
-            var res = pipeline.ToString();
+            var res = pipeline.RenderToString();
 
             Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
         }

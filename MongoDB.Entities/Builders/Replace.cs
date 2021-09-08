@@ -83,7 +83,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a find query</param>
         public Replace<T> Match(Template template)
         {
-            filter &= template.ToString();
+            filter &= template.RenderToString();
             return this;
         }
 
@@ -157,7 +157,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object</param>
         public Replace<T> MatchExpression(Template template)
         {
-            filter &= "{$expr:" + template.ToString() + "}";
+            filter &= "{$expr:" + template.RenderToString() + "}";
             return this;
         }
 

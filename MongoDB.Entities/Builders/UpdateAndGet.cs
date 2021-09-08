@@ -93,7 +93,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a find query</param>
         public UpdateAndGet<T, TProjection> Match(Template template)
         {
-            filter &= template.ToString();
+            filter &= template.RenderToString();
             return this;
         }
 
@@ -167,7 +167,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object</param>
         public UpdateAndGet<T, TProjection> MatchExpression(Template template)
         {
-            filter &= "{$expr:" + template.ToString() + "}";
+            filter &= "{$expr:" + template.RenderToString() + "}";
             return this;
         }
 
@@ -208,7 +208,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template with a single update</param>
         public UpdateAndGet<T, TProjection> Modify(Template template)
         {
-            AddModification(template.ToString());
+            AddModification(template.RenderToString());
             return this;
         }
 
@@ -280,7 +280,7 @@ namespace MongoDB.Entities
         /// <param name="template">A Template object containing a pipeline stage</param>
         public UpdateAndGet<T, TProjection> WithPipelineStage(Template template)
         {
-            return WithPipelineStage(template.ToString());
+            return WithPipelineStage(template.RenderToString());
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace MongoDB.Entities
         /// <param name="template"></param>
         public UpdateAndGet<T, TProjection> WithArrayFilter(Template template)
         {
-            WithArrayFilter(template.ToString());
+            WithArrayFilter(template.RenderToString());
             return this;
         }
 
