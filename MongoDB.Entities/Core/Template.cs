@@ -543,7 +543,7 @@ namespace MongoDB.Entities
         }
 
         [Obsolete("Please use the `RenderToString` method instead of `ToString`", true)]
-        public override string ToString()
+        public new string ToString()
         {
             throw new InvalidOperationException("Please use the `RenderToString` method instead of `ToString`");
         }
