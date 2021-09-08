@@ -606,12 +606,6 @@ references:
   name: Entity
   nameWithType: Entity
   fullName: MongoDB.Entities.Entity
-- uid: MongoDB.Entities.Extensions
-  commentId: T:MongoDB.Entities.Extensions
-  parent: MongoDB.Entities
-  name: Extensions
-  nameWithType: Extensions
-  fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.FileEntity
   commentId: T:MongoDB.Entities.FileEntity
   name: FileEntity
@@ -890,6 +884,12 @@ references:
   name: DB
   nameWithType: DB
   fullName: MongoDB.Entities.DB
+- uid: MongoDB.Entities.Extensions
+  commentId: T:MongoDB.Entities.Extensions
+  parent: MongoDB.Entities
+  name: Extensions
+  nameWithType: Extensions
+  fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.IMigration
   commentId: T:MongoDB.Entities.IMigration
   name: IMigration

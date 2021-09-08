@@ -8,6 +8,7 @@ namespace Benchmark
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Birthday { get; set; }
+        public int Age { get; set; }
         public Many<Book> Books { get; set; }
 
         public Author() => this.InitOneToMany(() => Books);

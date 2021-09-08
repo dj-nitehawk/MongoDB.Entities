@@ -726,7 +726,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(IAggregateFluent&lt;TChild&gt; children)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -788,7 +787,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -862,7 +860,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -936,7 +933,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQueryable&lt;TChild&gt; children, IClientSessionHandle session = null, AggregateOptions options = null)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1010,7 +1006,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1084,7 +1079,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1382,7 +1376,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void VB_InitManyToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; propertyParent, Expression&lt;Func&lt;TChild, object&gt;&gt; propertyChild, bool isInverse)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1447,7 +1440,6 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void VB_InitOneToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; property)
-
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1526,28 +1518,28 @@ This is only needed in VB.Net</p>
   </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAllAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.DeleteAllAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+  </div>
+  <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToBatches__1_System_Collections_Generic_IEnumerable___0__System_Int32_">Extensions.ToBatches&lt;T&gt;(IEnumerable&lt;T&gt;, Int32)</a>
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocuments__1_System_Collections_Generic_IEnumerable___0__">Extensions.ToDocuments&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
   </div>
   <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SortByRelevance__1_System_Collections_Generic_IEnumerable___0__System_String_System_Func___0_System_String__System_Nullable_System_Int32__">Extensions.SortByRelevance&lt;T&gt;(IEnumerable&lt;T&gt;, String, Func&lt;T, String&gt;, Nullable&lt;Int32&gt;)</a>
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_InsertAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.InsertAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
+  </div>
+  <div>
+      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveOnlyAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveOnlyAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
   </div>
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SaveExceptAsync__1_System_Collections_Generic_IEnumerable___0__System_Linq_Expressions_Expression_System_Func___0_System_Object___MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.SaveExceptAsync&lt;T&gt;(IEnumerable&lt;T&gt;, Expression&lt;Func&lt;T, Object&gt;&gt;, IClientSessionHandle, CancellationToken)</a>
-  </div>
-  <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_DeleteAllAsync__1_System_Collections_Generic_IEnumerable___0__MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_">Extensions.DeleteAllAsync&lt;T&gt;(IEnumerable&lt;T&gt;, IClientSessionHandle, CancellationToken)</a>
-  </div>
-  <div>
-      <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_SortByRelevance__1_System_Collections_Generic_IEnumerable___0__System_String_System_Func___0_System_String__System_Nullable_System_Int32__">Extensions.SortByRelevance&lt;T&gt;(IEnumerable&lt;T&gt;, String, Func&lt;T, String&gt;, Nullable&lt;Int32&gt;)</a>
   </div>
 </article>
           </div>

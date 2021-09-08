@@ -31,9 +31,7 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class ObjectIdAttribute
-
           Inherits BsonRepresentationAttribute
-
           Implements IBsonMemberMapAttribute
   inheritance:
   - System.Object

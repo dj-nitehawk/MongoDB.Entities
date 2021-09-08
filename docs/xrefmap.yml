@@ -5211,6 +5211,22 @@ references:
   fullName.vb: MongoDB.Entities.Template.PosFirst(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   nameWithType: Template.PosFirst<T>(Expression<Func<T, Object>>)
   nameWithType.vb: Template.PosFirst(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Properties*
+  name: Properties
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_Properties_
+  commentId: Overload:MongoDB.Entities.Template.Properties
+  isSpec: "True"
+  fullName: MongoDB.Entities.Template.Properties
+  nameWithType: Template.Properties
+- uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name: Properties<T>(Expression<Func<T, Object>>)
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
+  commentId: M:MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name.vb: Properties(Of T)(Expression(Of Func(Of T, Object)))
+  fullName: MongoDB.Entities.Template.Properties<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  fullName.vb: MongoDB.Entities.Template.Properties(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  nameWithType: Template.Properties<T>(Expression<Func<T, Object>>)
+  nameWithType.vb: Template.Properties(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Template.Property*
   name: Property
   href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_Property_
@@ -5227,6 +5243,19 @@ references:
   fullName.vb: MongoDB.Entities.Template.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   nameWithType: Template.Property<T>(Expression<Func<T, Object>>)
   nameWithType.vb: Template.Property(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.RenderToString
+  name: RenderToString()
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_RenderToString
+  commentId: M:MongoDB.Entities.Template.RenderToString
+  fullName: MongoDB.Entities.Template.RenderToString()
+  nameWithType: Template.RenderToString()
+- uid: MongoDB.Entities.Template.RenderToString*
+  name: RenderToString
+  href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_RenderToString_
+  commentId: Overload:MongoDB.Entities.Template.RenderToString
+  isSpec: "True"
+  fullName: MongoDB.Entities.Template.RenderToString
+  nameWithType: Template.RenderToString
 - uid: MongoDB.Entities.Template.Tag(System.String,System.String)
   name: Tag(String, String)
   href: api/MongoDB.Entities.Template.html#MongoDB_Entities_Template_Tag_System_String_System_String_
@@ -5665,6 +5694,51 @@ references:
   fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).PosFirstOfResult
   nameWithType: Template<TInput, TResult>.PosFirstOfResult
   nameWithType.vb: Template(Of TInput, TResult).PosFirstOfResult
+- uid: MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  name: Properties(Expression<Func<TInput, Object>>)
+  href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_Properties_System_Linq_Expressions_Expression_System_Func__0_System_Object___
+  commentId: M:MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  name.vb: Properties(Expression(Of Func(Of TInput, Object)))
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties(System.Linq.Expressions.Expression<System.Func<TInput, System.Object>>)
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties(System.Linq.Expressions.Expression(Of System.Func(Of TInput, System.Object)))
+  nameWithType: Template<TInput, TResult>.Properties(Expression<Func<TInput, Object>>)
+  nameWithType.vb: Template(Of TInput, TResult).Properties(Expression(Of Func(Of TInput, Object)))
+- uid: MongoDB.Entities.Template`2.Properties*
+  name: Properties
+  href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_Properties_
+  commentId: Overload:MongoDB.Entities.Template`2.Properties
+  isSpec: "True"
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties
+  nameWithType: Template<TInput, TResult>.Properties
+  nameWithType.vb: Template(Of TInput, TResult).Properties
+- uid: MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name: Properties<TOther>(Expression<Func<TOther, Object>>)
+  href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___
+  commentId: M:MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name.vb: Properties(Of TOther)(Expression(Of Func(Of TOther, Object)))
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties<TOther>(System.Linq.Expressions.Expression<System.Func<TOther, System.Object>>)
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties(Of TOther)(System.Linq.Expressions.Expression(Of System.Func(Of TOther, System.Object)))
+  nameWithType: Template<TInput, TResult>.Properties<TOther>(Expression<Func<TOther, Object>>)
+  nameWithType.vb: Template(Of TInput, TResult).Properties(Of TOther)(Expression(Of Func(Of TOther, Object)))
+- uid: MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  name: PropertiesOfResult(Expression<Func<TResult, Object>>)
+  href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_PropertiesOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___
+  commentId: M:MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  name.vb: PropertiesOfResult(Expression(Of Func(Of TResult, Object)))
+  fullName: MongoDB.Entities.Template<TInput, TResult>.PropertiesOfResult(System.Linq.Expressions.Expression<System.Func<TResult, System.Object>>)
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).PropertiesOfResult(System.Linq.Expressions.Expression(Of System.Func(Of TResult, System.Object)))
+  nameWithType: Template<TInput, TResult>.PropertiesOfResult(Expression<Func<TResult, Object>>)
+  nameWithType.vb: Template(Of TInput, TResult).PropertiesOfResult(Expression(Of Func(Of TResult, Object)))
+- uid: MongoDB.Entities.Template`2.PropertiesOfResult*
+  name: PropertiesOfResult
+  href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_PropertiesOfResult_
+  commentId: Overload:MongoDB.Entities.Template`2.PropertiesOfResult
+  isSpec: "True"
+  fullName: MongoDB.Entities.Template<TInput, TResult>.PropertiesOfResult
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).PropertiesOfResult
+  nameWithType: Template<TInput, TResult>.PropertiesOfResult
+  nameWithType.vb: Template(Of TInput, TResult).PropertiesOfResult
 - uid: MongoDB.Entities.Template`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   name: Property(Expression<Func<TInput, Object>>)
   href: api/MongoDB.Entities.Template-2.html#MongoDB_Entities_Template_2_Property_System_Linq_Expressions_Expression_System_Func__0_System_Object___

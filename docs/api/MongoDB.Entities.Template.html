@@ -174,6 +174,7 @@
   <div class="markdown level1 summary"><p>Appends a pipeline stage json string to the current pipeline.
 This method can only be used if the template was initialized with an array of pipeline stages.
 If this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code></p>
+<p>WARNING: Appending stages prevents this template from being cached!!!</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -208,7 +209,6 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Collection&lt;TEntity&gt;()
-
     where TEntity : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -664,6 +664,65 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   </table>
   
   
+  <a id="MongoDB_Entities_Template_Properties_" data-uid="MongoDB.Entities.Template.Properties*"></a>
+  <h4 id="MongoDB_Entities_Template_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Properties&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression into property names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template Properties&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template.html">Template</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="MongoDB_Entities_Template_Property_" data-uid="MongoDB.Entities.Template.Property*"></a>
   <h4 id="MongoDB_Entities_Template_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given member expression into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
@@ -717,6 +776,33 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <tbody>
       <tr>
         <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Template_RenderToString_" data-uid="MongoDB.Entities.Template.RenderToString*"></a>
+  <h4 id="MongoDB_Entities_Template_RenderToString" data-uid="MongoDB.Entities.Template.RenderToString">RenderToString()</h4>
+  <div class="markdown level1 summary"><p>Executes the tag replacement and returns a string.</p>
+<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RenderToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -892,13 +978,12 @@ If this is going to be the first stage of your pipeline, you must instantiate th
   
   <a id="MongoDB_Entities_Template_ToString_" data-uid="MongoDB.Entities.Template.ToString*"></a>
   <h4 id="MongoDB_Entities_Template_ToString" data-uid="MongoDB.Entities.Template.ToString">ToString()</h4>
-  <div class="markdown level1 summary"><p>Executes the tag replacement and returns a string.</p>
-<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string ToString()</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use the `RenderToString` method instead of `ToString`&quot;, true)]
+public string ToString()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">

@@ -95,6 +95,14 @@ Driver : v2.13
 | MongoDB_Entities | 33.26 ms | 0.646 ms | 0.884 ms |  0.92 |    0.02 | 812.5000 | 812.5000 | 750.0000 |     33 MB |
 |  Official_Driver | 35.55 ms | 0.082 ms | 0.073 ms |  1.00 |    0.00 | 266.6667 | 266.6667 | 266.6667 |     37 MB |
 
+## String templates
+
+|                    Method |     Mean |   Error |  StdDev | Ratio |  Gen 0 | Allocated |
+|-------------------------- |---------:|--------:|--------:|------:|-------:|----------:|
+|          MongoDB_Entities | 273.5 μs | 1.36 μs | 1.20 μs |  0.92 | 4.3945 |     38 KB |
+|           Official_Driver | 298.5 μs | 2.58 μs | 2.42 μs |  1.00 | 4.8828 |     41 KB |
+| MongoDB_Entities_No_Cache | 313.0 μs | 4.88 μs | 4.07 μs |  1.05 | 5.3711 |     44 KB |
+
 ## Manual update vs. save partial
 
 |      Method |     Mean |   Error |  StdDev | Ratio |  Gen 0 |  Gen 1 | Gen 2 | Allocated |

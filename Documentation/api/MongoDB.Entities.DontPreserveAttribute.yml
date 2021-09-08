@@ -30,7 +30,6 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class DontPreserveAttribute
-
           Inherits Attribute
   inheritance:
   - System.Object

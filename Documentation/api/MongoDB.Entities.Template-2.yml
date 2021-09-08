@@ -28,6 +28,9 @@ items:
   - MongoDB.Entities.Template`2.PosFirst(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   - MongoDB.Entities.Template`2.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Template`2.PosFirstOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  - MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  - MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
   - MongoDB.Entities.Template`2.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   - MongoDB.Entities.Template`2.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Template`2.PropertyOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
@@ -44,7 +47,7 @@ items:
   source:
     id: Template
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 30
+    startLine: 31
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -59,7 +62,6 @@ items:
       description: The output type
     content.vb: >-
       Public Class Template(Of TInput As IEntity, TResult)
-
           Inherits Template
   inheritance:
   - System.Object
@@ -69,6 +71,7 @@ items:
   inheritedMembers:
   - MongoDB.Entities.Template.AppendStage(System.String)
   - MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
+  - MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
@@ -76,6 +79,7 @@ items:
   - MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
   - MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
+  - MongoDB.Entities.Template.RenderToString
   - MongoDB.Entities.Template.ToString
   - MongoDB.Entities.Template.ToStages
   - MongoDB.Entities.Template.ToPipeline``2
@@ -109,7 +113,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 36
+    startLine: 37
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -143,7 +147,7 @@ items:
   source:
     id: Collection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 42
+    startLine: 43
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -152,7 +156,6 @@ items:
   syntax:
     content: >-
       public Template<TInput, TResult> Collection<TEntity>()
-
           where TEntity : IEntity
     typeParameters:
     - id: TEntity
@@ -182,7 +185,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 50
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -219,7 +222,7 @@ items:
   source:
     id: PropertyOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 56
+    startLine: 57
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -256,7 +259,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 62
+    startLine: 63
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -281,6 +284,119 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Property(Of TOther)(System.Linq.Expressions.Expression(Of System.Func(Of TOther, System.Object)))
   name.vb: Property(Of TOther)(Expression(Of Func(Of TOther, Object)))
+- uid: MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  commentId: M:MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  id: Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
+  parent: MongoDB.Entities.Template`2
+  langs:
+  - csharp
+  - vb
+  name: Properties(Expression<Func<TInput, Object>>)
+  nameWithType: Template<TInput, TResult>.Properties(Expression<Func<TInput, Object>>)
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties(System.Linq.Expressions.Expression<System.Func<TInput, System.Object>>)
+  type: Method
+  source:
+    id: Properties
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 71
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the property paths in the given `new` expression (of input type) into names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.\n"
+  example: []
+  syntax:
+    content: public Template<TInput, TResult> Properties(Expression<Func<TInput, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
+      description: x => new { x.Prop1.PropX, x.Prop2.PropY }
+    return:
+      type: MongoDB.Entities.Template`2
+    content.vb: Public Function Properties(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
+  overload: MongoDB.Entities.Template`2.Properties*
+  nameWithType.vb: Template(Of TInput, TResult).Properties(Expression(Of Func(Of TInput, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties(System.Linq.Expressions.Expression(Of System.Func(Of TInput, System.Object)))
+  name.vb: Properties(Expression(Of Func(Of TInput, Object)))
+- uid: MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  commentId: M:MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  id: PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})
+  parent: MongoDB.Entities.Template`2
+  langs:
+  - csharp
+  - vb
+  name: PropertiesOfResult(Expression<Func<TResult, Object>>)
+  nameWithType: Template<TInput, TResult>.PropertiesOfResult(Expression<Func<TResult, Object>>)
+  fullName: MongoDB.Entities.Template<TInput, TResult>.PropertiesOfResult(System.Linq.Expressions.Expression<System.Func<TResult, System.Object>>)
+  type: Method
+  source:
+    id: PropertiesOfResult
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 77
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the property paths in the given `new` expression (of output type) into names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.\n"
+  example: []
+  syntax:
+    content: public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
+      description: x => new { x.Prop1.PropX, x.Prop2.PropY }
+    return:
+      type: MongoDB.Entities.Template`2
+    content.vb: Public Function PropertiesOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
+  overload: MongoDB.Entities.Template`2.PropertiesOfResult*
+  nameWithType.vb: Template(Of TInput, TResult).PropertiesOfResult(Expression(Of Func(Of TResult, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).PropertiesOfResult(System.Linq.Expressions.Expression(Of System.Func(Of TResult, System.Object)))
+  name.vb: PropertiesOfResult(Expression(Of Func(Of TResult, Object)))
+- uid: MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template`2
+  langs:
+  - csharp
+  - vb
+  name: Properties<TOther>(Expression<Func<TOther, Object>>)
+  nameWithType: Template<TInput, TResult>.Properties<TOther>(Expression<Func<TOther, Object>>)
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties<TOther>(System.Linq.Expressions.Expression<System.Func<TOther, System.Object>>)
+  type: Method
+  source:
+    id: Properties
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 83
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the property paths in the given `new` expression (of any type) into paths like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.\n"
+  example: []
+  syntax:
+    content: public Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{TOther},System.Object}}
+      description: x => new { x.Prop1.PropX, x.Prop2.PropY }
+    typeParameters:
+    - id: TOther
+    return:
+      type: MongoDB.Entities.Template`2
+    content.vb: Public Function Properties(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
+  overload: MongoDB.Entities.Template`2.Properties*
+  nameWithType.vb: Template(Of TInput, TResult).Properties(Of TOther)(Expression(Of Func(Of TOther, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties(Of TOther)(System.Linq.Expressions.Expression(Of System.Func(Of TOther, System.Object)))
+  name.vb: Properties(Of TOther)(Expression(Of Func(Of TOther, Object)))
 - uid: MongoDB.Entities.Template`2.Path(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   commentId: M:MongoDB.Entities.Template`2.Path(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
   id: Path(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})
@@ -295,7 +411,7 @@ items:
   source:
     id: Path
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 70
+    startLine: 91
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -332,7 +448,7 @@ items:
   source:
     id: PathOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 76
+    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -369,7 +485,7 @@ items:
   source:
     id: Path
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 82
+    startLine: 103
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -408,7 +524,7 @@ items:
   source:
     id: Paths
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 90
+    startLine: 111
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -445,7 +561,7 @@ items:
   source:
     id: PathsOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 96
+    startLine: 117
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -482,7 +598,7 @@ items:
   source:
     id: Paths
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 102
+    startLine: 123
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -521,7 +637,7 @@ items:
   source:
     id: PosFiltered
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 111
+    startLine: 132
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -558,7 +674,7 @@ items:
   source:
     id: PosFilteredOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 118
+    startLine: 139
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -595,7 +711,7 @@ items:
   source:
     id: PosFiltered
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 125
+    startLine: 146
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -634,7 +750,7 @@ items:
   source:
     id: PosAll
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 133
+    startLine: 154
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -671,7 +787,7 @@ items:
   source:
     id: PosAllOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 139
+    startLine: 160
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -708,7 +824,7 @@ items:
   source:
     id: PosAll
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 145
+    startLine: 166
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -747,7 +863,7 @@ items:
   source:
     id: PosFirst
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 153
+    startLine: 174
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -784,7 +900,7 @@ items:
   source:
     id: PosFirstOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 159
+    startLine: 180
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -821,7 +937,7 @@ items:
   source:
     id: PosFirst
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 165
+    startLine: 186
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -860,7 +976,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 173
+    startLine: 194
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -897,7 +1013,7 @@ items:
   source:
     id: ElementsOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 179
+    startLine: 200
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -934,7 +1050,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 185
+    startLine: 206
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -973,7 +1089,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 194
+    startLine: 215
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1013,7 +1129,7 @@ items:
   source:
     id: ElementsOfResult
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 201
+    startLine: 222
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1053,7 +1169,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 208
+    startLine: 229
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1095,7 +1211,7 @@ items:
   source:
     id: Tag
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 217
+    startLine: 238
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1134,7 +1250,7 @@ items:
   source:
     id: ToPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 223
+    startLine: 244
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1166,7 +1282,7 @@ items:
   source:
     id: ToArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 229
+    startLine: 250
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1301,6 +1417,104 @@ references:
     name: Property(Of T)
     nameWithType: Template.Property(Of T)
     fullName: MongoDB.Entities.Template.Property(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
+  commentId: M:MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  definition: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  name: Properties<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Properties<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Properties<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  nameWithType.vb: Template.Properties(Of T)(Expression(Of Func(Of T, Object)))
+  fullName.vb: MongoDB.Entities.Template.Properties(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Properties(Of T)(Expression(Of Func(Of T, Object)))
+  spec.csharp:
+  - uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+    name: Properties<T>
+    nameWithType: Template.Properties<T>
+    fullName: MongoDB.Entities.Template.Properties<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+    name: Properties(Of T)
+    nameWithType: Template.Properties(Of T)
+    fullName: MongoDB.Entities.Template.Properties(Of T)
   - name: (
     nameWithType: (
     fullName: (
@@ -2042,6 +2256,34 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Template.RenderToString
+  commentId: M:MongoDB.Entities.Template.RenderToString
+  parent: MongoDB.Entities.Template
+  name: RenderToString()
+  nameWithType: Template.RenderToString()
+  fullName: MongoDB.Entities.Template.RenderToString()
+  spec.csharp:
+  - uid: MongoDB.Entities.Template.RenderToString
+    name: RenderToString
+    nameWithType: Template.RenderToString
+    fullName: MongoDB.Entities.Template.RenderToString
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Template.RenderToString
+    name: RenderToString
+    nameWithType: Template.RenderToString
+    fullName: MongoDB.Entities.Template.RenderToString
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Template.ToString
   commentId: M:MongoDB.Entities.Template.ToString
   parent: MongoDB.Entities.Template
@@ -2472,6 +2714,103 @@ references:
     name: Property(Of T)
     nameWithType: Template.Property(Of T)
     fullName: MongoDB.Entities.Template.Property(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  isExternal: true
+  name: Properties<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Properties<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Properties<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  nameWithType.vb: Template.Properties(Of T)(Expression(Of Func(Of T, Object)))
+  fullName.vb: MongoDB.Entities.Template.Properties(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Properties(Of T)(Expression(Of Func(Of T, Object)))
+  spec.csharp:
+  - uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+    name: Properties<T>
+    nameWithType: Template.Properties<T>
+    fullName: MongoDB.Entities.Template.Properties<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Linq.Expressions.Expression`1
+    name: Expression
+    nameWithType: Expression
+    fullName: System.Linq.Expressions.Expression
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+    name: Properties(Of T)
+    nameWithType: Template.Properties(Of T)
+    fullName: MongoDB.Entities.Template.Properties(Of T)
   - name: (
     nameWithType: (
     fullName: (
@@ -3569,6 +3908,20 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.Template`2.Properties*
+  commentId: Overload:MongoDB.Entities.Template`2.Properties
+  name: Properties
+  nameWithType: Template<TInput, TResult>.Properties
+  fullName: MongoDB.Entities.Template<TInput, TResult>.Properties
+  nameWithType.vb: Template(Of TInput, TResult).Properties
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Properties
+- uid: MongoDB.Entities.Template`2.PropertiesOfResult*
+  commentId: Overload:MongoDB.Entities.Template`2.PropertiesOfResult
+  name: PropertiesOfResult
+  nameWithType: Template<TInput, TResult>.PropertiesOfResult
+  fullName: MongoDB.Entities.Template<TInput, TResult>.PropertiesOfResult
+  nameWithType.vb: Template(Of TInput, TResult).PropertiesOfResult
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).PropertiesOfResult
 - uid: MongoDB.Entities.Template`2.Path*
   commentId: Overload:MongoDB.Entities.Template`2.Path
   name: Path

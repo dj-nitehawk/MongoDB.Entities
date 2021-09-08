@@ -53,9 +53,7 @@ items:
       description: Type of the child IEntity.
     content.vb: >-
       Public NotInheritable Class Many(Of TChild As IEntity)
-
           Inherits ManyBase
-
           Implements IEnumerable(Of TChild), IEnumerable
   inheritance:
   - System.Object
@@ -72,14 +70,14 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   extensionMethods:
+  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.ToBatches``1(System.Int32)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.ToDocuments``1
-  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{{TChild},System.String},System.Nullable{System.Int32})
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.InsertAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Linq.Expressions.Expression{System.Func{{TChild},System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  - System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{{TChild},System.String},System.Nullable{System.Int32})
   nameWithType.vb: Many(Of TChild)
   modifiers.csharp:
   - public
@@ -391,7 +389,6 @@ items:
   syntax:
     content: >-
       public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property)
-
           where TParent : IEntity
     parameters:
     - id: parent
@@ -435,7 +432,6 @@ items:
   syntax:
     content: >-
       public void VB_InitManyToMany<TParent>(TParent parent, Expression<Func<TParent, object>> propertyParent, Expression<Func<TChild, object>> propertyChild, bool isInverse)
-
           where TParent : IEntity
     parameters:
     - id: parent
@@ -524,7 +520,6 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children)
-
           where TParent : IEntity
     parameters:
     - id: children
@@ -567,7 +562,6 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where TParent : IEntity
     parameters:
     - id: childID
@@ -616,7 +610,6 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -743,7 +736,6 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where TParent : IEntity
     parameters:
     - id: childID
@@ -792,7 +784,6 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -841,7 +832,6 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null)
-
           where TParent : IEntity
     parameters:
     - id: children
@@ -1485,6 +1475,64 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAllAsync<TChild>
+    nameWithType: Extensions.DeleteAllAsync<TChild>
+    fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAllAsync(Of TChild)
+    nameWithType: Extensions.DeleteAllAsync(Of TChild)
+    fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.ToBatches``1(System.Int32)
   commentId: M:MongoDB.Entities.Extensions.ToBatches``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
   parent: MongoDB.Entities.Extensions
@@ -1559,61 +1607,133 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{{TChild},System.String},System.Nullable{System.Int32})
+  commentId: M:MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
   parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: SaveAsync<TChild>(IClientSessionHandle, CancellationToken)
-  nameWithType: Extensions.SaveAsync<TChild>(IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Extensions.SaveAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType.vb: Extensions.SaveAsync(Of TChild)(IClientSessionHandle, CancellationToken)
-  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: SaveAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  definition: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+  name: SortByRelevance<TChild>(String, Func<TChild, String>, Nullable<Int32>)
+  nameWithType: Extensions.SortByRelevance<TChild>(String, Func<TChild, String>, Nullable<Int32>)
+  fullName: MongoDB.Entities.Extensions.SortByRelevance<TChild>(System.String, System.Func<TChild, System.String>, System.Nullable<System.Int32>)
+  nameWithType.vb: Extensions.SortByRelevance(Of TChild)(String, Func(Of TChild, String), Nullable(Of Int32))
+  fullName.vb: MongoDB.Entities.Extensions.SortByRelevance(Of TChild)(System.String, System.Func(Of TChild, System.String), System.Nullable(Of System.Int32))
+  name.vb: SortByRelevance(Of TChild)(String, Func(Of TChild, String), Nullable(Of Int32))
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: SaveAsync<TChild>
-    nameWithType: Extensions.SaveAsync<TChild>
-    fullName: MongoDB.Entities.Extensions.SaveAsync<TChild>
+  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+    name: SortByRelevance<TChild>
+    nameWithType: Extensions.SortByRelevance<TChild>
+    fullName: MongoDB.Entities.Extensions.SortByRelevance<TChild>
   - name: (
     nameWithType: (
     fullName: (
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: SaveAsync(Of TChild)
-    nameWithType: Extensions.SaveAsync(Of TChild)
-    fullName: MongoDB.Entities.Extensions.SaveAsync(Of TChild)
+  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+    name: SortByRelevance(Of TChild)
+    nameWithType: Extensions.SortByRelevance(Of TChild)
+    fullName: MongoDB.Entities.Extensions.SortByRelevance(Of TChild)
   - name: (
     nameWithType: (
     fullName: (
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TChild
+    nameWithType: TChild
+    fullName: TChild
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -1656,6 +1776,64 @@ references:
     name: InsertAsync(Of TChild)
     nameWithType: Extensions.InsertAsync(Of TChild)
     fullName: MongoDB.Entities.Extensions.InsertAsync(Of TChild)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  parent: MongoDB.Entities.Extensions
+  definition: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  name: SaveAsync<TChild>(IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveAsync<TChild>(IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of TChild)(IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync<TChild>
+    nameWithType: Extensions.SaveAsync<TChild>
+    fullName: MongoDB.Entities.Extensions.SaveAsync<TChild>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync(Of TChild)
+    nameWithType: Extensions.SaveAsync(Of TChild)
+    fullName: MongoDB.Entities.Extensions.SaveAsync(Of TChild)
   - name: (
     nameWithType: (
     fullName: (
@@ -1935,194 +2113,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  name: DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
-  nameWithType: Extensions.DeleteAllAsync<TChild>(IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType.vb: Extensions.DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)(MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: DeleteAllAsync(Of TChild)(IClientSessionHandle, CancellationToken)
-  spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: DeleteAllAsync<TChild>
-    nameWithType: Extensions.DeleteAllAsync<TChild>
-    fullName: MongoDB.Entities.Extensions.DeleteAllAsync<TChild>
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: DeleteAllAsync(Of TChild)
-    nameWithType: Extensions.DeleteAllAsync(Of TChild)
-    fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of TChild)
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerable{`0}.MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{{TChild},System.String},System.Nullable{System.Int32})
-  commentId: M:MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-  parent: MongoDB.Entities.Extensions
-  definition: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-  name: SortByRelevance<TChild>(String, Func<TChild, String>, Nullable<Int32>)
-  nameWithType: Extensions.SortByRelevance<TChild>(String, Func<TChild, String>, Nullable<Int32>)
-  fullName: MongoDB.Entities.Extensions.SortByRelevance<TChild>(System.String, System.Func<TChild, System.String>, System.Nullable<System.Int32>)
-  nameWithType.vb: Extensions.SortByRelevance(Of TChild)(String, Func(Of TChild, String), Nullable(Of Int32))
-  fullName.vb: MongoDB.Entities.Extensions.SortByRelevance(Of TChild)(System.String, System.Func(Of TChild, System.String), System.Nullable(Of System.Int32))
-  name.vb: SortByRelevance(Of TChild)(String, Func(Of TChild, String), Nullable(Of Int32))
-  spec.csharp:
-  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-    name: SortByRelevance<TChild>
-    nameWithType: Extensions.SortByRelevance<TChild>
-    fullName: MongoDB.Entities.Extensions.SortByRelevance<TChild>
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-    name: SortByRelevance(Of TChild)
-    nameWithType: Extensions.SortByRelevance(Of TChild)
-    fullName: MongoDB.Entities.Extensions.SortByRelevance(Of TChild)
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TChild
-    nameWithType: TChild
-    fullName: TChild
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -2180,6 +2170,103 @@ references:
   name: System.Collections
   nameWithType: System.Collections
   fullName: System.Collections
+- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAllAsync<T>
+    nameWithType: Extensions.DeleteAllAsync<T>
+    fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: DeleteAllAsync(Of T)
+    nameWithType: Extensions.DeleteAllAsync(Of T)
+    fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Extensions
+  commentId: T:MongoDB.Entities.Extensions
+  parent: MongoDB.Entities
+  name: Extensions
+  nameWithType: Extensions
+  fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.Extensions.ToBatches``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
   commentId: M:MongoDB.Entities.Extensions.ToBatches``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
   isExternal: true
@@ -2255,12 +2342,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions
-  commentId: T:MongoDB.Entities.Extensions
-  parent: MongoDB.Entities
-  name: Extensions
-  nameWithType: Extensions
-  fullName: MongoDB.Entities.Extensions
 - uid: MongoDB.Entities.Extensions.ToDocuments``1(System.Collections.Generic.IEnumerable{``0})
   commentId: M:MongoDB.Entities.Extensions.ToDocuments``1(System.Collections.Generic.IEnumerable{``0})
   isExternal: true
@@ -2320,20 +2401,20 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+- uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+  commentId: M:MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
   isExternal: true
-  name: SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
-  nameWithType: Extensions.SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Extensions.SaveAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType.vb: Extensions.SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
-  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  name: SortByRelevance<T>(IEnumerable<T>, String, Func<T, String>, Nullable<Int32>)
+  nameWithType: Extensions.SortByRelevance<T>(IEnumerable<T>, String, Func<T, String>, Nullable<Int32>)
+  fullName: MongoDB.Entities.Extensions.SortByRelevance<T>(System.Collections.Generic.IEnumerable<T>, System.String, System.Func<T, System.String>, System.Nullable<System.Int32>)
+  nameWithType.vb: Extensions.SortByRelevance(Of T)(IEnumerable(Of T), String, Func(Of T, String), Nullable(Of Int32))
+  fullName.vb: MongoDB.Entities.Extensions.SortByRelevance(Of T)(System.Collections.Generic.IEnumerable(Of T), System.String, System.Func(Of T, System.String), System.Nullable(Of System.Int32))
+  name.vb: SortByRelevance(Of T)(IEnumerable(Of T), String, Func(Of T, String), Nullable(Of Int32))
   spec.csharp:
-  - uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: SaveAsync<T>
-    nameWithType: Extensions.SaveAsync<T>
-    fullName: MongoDB.Entities.Extensions.SaveAsync<T>
+  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+    name: SortByRelevance<T>
+    nameWithType: Extensions.SortByRelevance<T>
+    fullName: MongoDB.Entities.Extensions.SortByRelevance<T>
   - name: (
     nameWithType: (
     fullName: (
@@ -2354,27 +2435,63 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
   - name: )
     nameWithType: )
     fullName: )
   spec.vb:
-  - uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: SaveAsync(Of T)
-    nameWithType: Extensions.SaveAsync(Of T)
-    fullName: MongoDB.Entities.Extensions.SaveAsync(Of T)
+  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
+    name: SortByRelevance(Of T)
+    nameWithType: Extensions.SortByRelevance(Of T)
+    fullName: MongoDB.Entities.Extensions.SortByRelevance(Of T)
   - name: (
     nameWithType: (
     fullName: (
@@ -2395,19 +2512,55 @@ references:
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: ', '
     nameWithType: ', '
     fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
     isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
   - name: )
     nameWithType: )
     fullName: )
@@ -2466,6 +2619,97 @@ references:
     name: InsertAsync(Of T)
     nameWithType: Extensions.InsertAsync(Of T)
     fullName: MongoDB.Entities.Extensions.InsertAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExternal: true
+  name: SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  nameWithType.vb: Extensions.SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  fullName.vb: MongoDB.Entities.Extensions.SaveAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync<T>
+    nameWithType: Extensions.SaveAsync<T>
+    fullName: MongoDB.Entities.Extensions.SaveAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: MongoDB.Driver.IClientSessionHandle
+    name: IClientSessionHandle
+    nameWithType: IClientSessionHandle
+    fullName: MongoDB.Driver.IClientSessionHandle
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+    name: SaveAsync(Of T)
+    nameWithType: Extensions.SaveAsync(Of T)
+    fullName: MongoDB.Entities.Extensions.SaveAsync(Of T)
   - name: (
     nameWithType: (
     fullName: (
@@ -2825,260 +3069,6 @@ references:
     nameWithType: CancellationToken
     fullName: System.Threading.CancellationToken
     isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  commentId: M:MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-  isExternal: true
-  name: DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
-  nameWithType: Extensions.DeleteAllAsync<T>(IEnumerable<T>, IClientSessionHandle, CancellationToken)
-  fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>(System.Collections.Generic.IEnumerable<T>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  nameWithType.vb: Extensions.DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
-  fullName.vb: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
-  name.vb: DeleteAllAsync(Of T)(IEnumerable(Of T), IClientSessionHandle, CancellationToken)
-  spec.csharp:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: DeleteAllAsync<T>
-    nameWithType: Extensions.DeleteAllAsync<T>
-    fullName: MongoDB.Entities.Extensions.DeleteAllAsync<T>
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: MongoDB.Entities.Extensions.DeleteAllAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
-    name: DeleteAllAsync(Of T)
-    nameWithType: Extensions.DeleteAllAsync(Of T)
-    fullName: MongoDB.Entities.Extensions.DeleteAllAsync(Of T)
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: MongoDB.Driver.IClientSessionHandle
-    name: IClientSessionHandle
-    nameWithType: IClientSessionHandle
-    fullName: MongoDB.Driver.IClientSessionHandle
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Threading.CancellationToken
-    name: CancellationToken
-    nameWithType: CancellationToken
-    fullName: System.Threading.CancellationToken
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-  commentId: M:MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-  isExternal: true
-  name: SortByRelevance<T>(IEnumerable<T>, String, Func<T, String>, Nullable<Int32>)
-  nameWithType: Extensions.SortByRelevance<T>(IEnumerable<T>, String, Func<T, String>, Nullable<Int32>)
-  fullName: MongoDB.Entities.Extensions.SortByRelevance<T>(System.Collections.Generic.IEnumerable<T>, System.String, System.Func<T, System.String>, System.Nullable<System.Int32>)
-  nameWithType.vb: Extensions.SortByRelevance(Of T)(IEnumerable(Of T), String, Func(Of T, String), Nullable(Of Int32))
-  fullName.vb: MongoDB.Entities.Extensions.SortByRelevance(Of T)(System.Collections.Generic.IEnumerable(Of T), System.String, System.Func(Of T, System.String), System.Nullable(Of System.Int32))
-  name.vb: SortByRelevance(Of T)(IEnumerable(Of T), String, Func(Of T, String), Nullable(Of Int32))
-  spec.csharp:
-  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-    name: SortByRelevance<T>
-    nameWithType: Extensions.SortByRelevance<T>
-    fullName: MongoDB.Entities.Extensions.SortByRelevance<T>
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
-    name: SortByRelevance(Of T)
-    nameWithType: Extensions.SortByRelevance(Of T)
-    fullName: MongoDB.Entities.Extensions.SortByRelevance(Of T)
-  - name: (
-    nameWithType: (
-    fullName: (
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.String
-    name: String
-    nameWithType: String
-    fullName: System.String
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Nullable`1
-    name: Nullable
-    nameWithType: Nullable
-    fullName: System.Nullable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Int32
-    name: Int32
-    nameWithType: Int32
-    fullName: System.Int32
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
   - name: )
     nameWithType: )
     fullName: )

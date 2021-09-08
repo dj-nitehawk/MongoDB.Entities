@@ -30,7 +30,6 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class IgnoreAttribute
-
           Inherits BsonIgnoreAttribute
   inheritance:
   - System.Object

@@ -15,7 +15,9 @@ items:
   - MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   - MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  - MongoDB.Entities.Template.RenderToString
   - MongoDB.Entities.Template.Tag(System.String,System.String)
   - MongoDB.Entities.Template.ToArrayFilters``1
   - MongoDB.Entities.Template.ToPipeline``2
@@ -31,7 +33,7 @@ items:
   source:
     id: Template
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 235
+    startLine: 256
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -71,7 +73,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 245
+    startLine: 273
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -103,11 +105,11 @@ items:
   source:
     id: AppendStage
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 288
+    startLine: 326
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAppends a pipeline stage json string to the current pipeline. \nThis method can only be used if the template was initialized with an array of pipeline stages. \nIf this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code>\n"
+  summary: "\nAppends a pipeline stage json string to the current pipeline. \nThis method can only be used if the template was initialized with an array of pipeline stages. \nIf this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code>\n<p>WARNING: Appending stages prevents this template from being cached!!!</p>\n"
   example: []
   syntax:
     content: public void AppendStage(string pipelineStageString)
@@ -135,7 +137,7 @@ items:
   source:
     id: Collection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 323
+    startLine: 363
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -144,7 +146,6 @@ items:
   syntax:
     content: >-
       public Template Collection<TEntity>()
-
           where TEntity : IEntity
     typeParameters:
     - id: TEntity
@@ -174,7 +175,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 332
+    startLine: 374
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -199,6 +200,45 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Template.Property(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   name.vb: Property(Of T)(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  commentId: M:MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  id: Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: Properties<T>(Expression<Func<T, Object>>)
+  nameWithType: Template.Properties<T>(Expression<Func<T, Object>>)
+  fullName: MongoDB.Entities.Template.Properties<T>(System.Linq.Expressions.Expression<System.Func<T, System.Object>>)
+  type: Method
+  source:
+    id: Properties
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 385
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nTurns the property paths in the given `new` expression into property names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.\n"
+  example: []
+  syntax:
+    content: public Template Properties<T>(Expression<Func<T, object>> expression)
+    parameters:
+    - id: expression
+      type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
+      description: x => new { x.Prop1.PropX, x.Prop2.PropY }
+    typeParameters:
+    - id: T
+    return:
+      type: MongoDB.Entities.Template
+    content.vb: Public Function Properties(Of T)(expression As Expression(Of Func(Of T, Object))) As Template
+  overload: MongoDB.Entities.Template.Properties*
+  nameWithType.vb: Template.Properties(Of T)(Expression(Of Func(Of T, Object)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Template.Properties(Of T)(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
+  name.vb: Properties(Of T)(Expression(Of Func(Of T, Object)))
 - uid: MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   commentId: M:MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
   id: Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})
@@ -213,7 +253,7 @@ items:
   source:
     id: Path
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 341
+    startLine: 408
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -252,7 +292,7 @@ items:
   source:
     id: Paths
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 350
+    startLine: 419
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -291,7 +331,7 @@ items:
   source:
     id: PosFiltered
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 371
+    startLine: 442
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -330,7 +370,7 @@ items:
   source:
     id: PosAll
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 380
+    startLine: 453
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -369,7 +409,7 @@ items:
   source:
     id: PosFirst
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 389
+    startLine: 464
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -408,7 +448,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 398
+    startLine: 475
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -447,7 +487,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 408
+    startLine: 487
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -489,7 +529,7 @@ items:
   source:
     id: Tag
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 418
+    startLine: 499
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -512,6 +552,36 @@ items:
   - public
   modifiers.vb:
   - Public
+- uid: MongoDB.Entities.Template.RenderToString
+  commentId: M:MongoDB.Entities.Template.RenderToString
+  id: RenderToString
+  parent: MongoDB.Entities.Template
+  langs:
+  - csharp
+  - vb
+  name: RenderToString()
+  nameWithType: Template.RenderToString()
+  fullName: MongoDB.Entities.Template.RenderToString()
+  type: Method
+  source:
+    id: RenderToString
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
+    startLine: 519
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nExecutes the tag replacement and returns a string.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
+  example: []
+  syntax:
+    content: public string RenderToString()
+    return:
+      type: System.String
+    content.vb: Public Function RenderToString As String
+  overload: MongoDB.Entities.Template.RenderToString*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: MongoDB.Entities.Template.ToString
   commentId: M:MongoDB.Entities.Template.ToString
   id: ToString
@@ -526,18 +596,30 @@ items:
   source:
     id: ToString
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 439
+    startLine: 544
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nExecutes the tag replacement and returns a string.\n<p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>\n"
-  example: []
   syntax:
-    content: public string ToString()
+    content: >-
+      [Obsolete("Please use the `RenderToString` method instead of `ToString`", true)]
+
+      public string ToString()
     return:
       type: System.String
-    content.vb: Public Function ToString As String
+    content.vb: >-
+      <Obsolete("Please use the `RenderToString` method instead of `ToString`", True)>
+
+      Public Function ToString As String
   overload: MongoDB.Entities.Template.ToString*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String,System.Boolean)
+    arguments:
+    - type: System.String
+      value: Please use the `RenderToString` method instead of `ToString`
+    - type: System.Boolean
+      value: true
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -556,7 +638,7 @@ items:
   source:
     id: ToStages
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 456
+    startLine: 554
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -586,7 +668,7 @@ items:
   source:
     id: ToPipeline
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 469
+    startLine: 567
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -624,7 +706,7 @@ items:
   source:
     id: ToArrayFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Template.cs
-    startLine: 478
+    startLine: 576
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1068,6 +1150,11 @@ references:
   name: System.Linq.Expressions
   nameWithType: System.Linq.Expressions
   fullName: System.Linq.Expressions
+- uid: MongoDB.Entities.Template.Properties*
+  commentId: Overload:MongoDB.Entities.Template.Properties
+  name: Properties
+  nameWithType: Template.Properties
+  fullName: MongoDB.Entities.Template.Properties
 - uid: MongoDB.Entities.Template.Path*
   commentId: Overload:MongoDB.Entities.Template.Path
   name: Path
@@ -1110,6 +1197,11 @@ references:
   name: Tag
   nameWithType: Template.Tag
   fullName: MongoDB.Entities.Template.Tag
+- uid: MongoDB.Entities.Template.RenderToString*
+  commentId: Overload:MongoDB.Entities.Template.RenderToString
+  name: RenderToString
+  nameWithType: Template.RenderToString
+  fullName: MongoDB.Entities.Template.RenderToString
 - uid: MongoDB.Entities.Template.ToString*
   commentId: Overload:MongoDB.Entities.Template.ToString
   name: ToString

@@ -34,7 +34,6 @@ items:
   syntax:
     content: >-
       public class GeoNear<T>
-
           where T : IEntity
     typeParameters:
     - id: T

@@ -117,6 +117,9 @@
       <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
     </div>
     <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Properties&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
       <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
     </div>
     <div>
@@ -136,6 +139,9 @@
     </div>
     <div>
       <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___">Template.Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_RenderToString">Template.RenderToString()</a>
     </div>
     <div>
       <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToString">Template.ToString()</a>
@@ -238,7 +244,6 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Collection&lt;TEntity&gt;()
-
     where TEntity : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -1303,6 +1308,153 @@
         <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Template_2_Properties_" data-uid="MongoDB.Entities.Template`2.Properties*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Properties_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.Properties(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">Properties(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of input type) into names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Properties(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Template_2_Properties_" data-uid="MongoDB.Entities.Template`2.Properties*"></a>
+  <h4 id="MongoDB_Entities_Template_2_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Properties&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of any type) into paths like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Properties&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Template-2.html">Template</a>&lt;TInput, TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TOther</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Template_2_PropertiesOfResult_" data-uid="MongoDB.Entities.Template`2.PropertiesOfResult*"></a>
+  <h4 id="MongoDB_Entities_Template_2_PropertiesOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PropertiesOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PropertiesOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression (of output type) into names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PropertiesOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="parametername">expression</span></td>
+        <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
 </td>
       </tr>
     </tbody>
