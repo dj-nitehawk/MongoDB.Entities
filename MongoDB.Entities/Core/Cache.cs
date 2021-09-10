@@ -52,8 +52,8 @@ namespace MongoDB.Entities
             Watchers = new ConcurrentDictionary<string, Watcher<T>>();
 
             var interfaces = type.GetInterfaces();
-            HasCreatedOn = interfaces.Any(it => it == typeof(ICreatedOn));
-            HasModifiedOn = interfaces.Any(it => it == typeof(IModifiedOn));
+            HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
+            HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
 
             updatableProps = type.GetProperties()
