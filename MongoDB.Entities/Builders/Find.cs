@@ -342,6 +342,9 @@ namespace MongoDB.Entities
         /// </summary>
         public Find<T, TProjection> IncludeRequiredProps()
         {
+            if (typeof(T) != typeof(TProjection))
+                throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
+
             options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
             return this;
         }
