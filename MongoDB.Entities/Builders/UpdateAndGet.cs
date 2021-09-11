@@ -33,7 +33,7 @@ namespace MongoDB.Entities
     {
         private readonly List<PipelineStageDefinition<T, TProjection>> stages = new List<PipelineStageDefinition<T, TProjection>>();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
+        private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
@@ -352,6 +352,16 @@ namespace MongoDB.Entities
         public UpdateAndGet<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
         {
             options.Projection = projection(Builders<T>.Projection);
+            return this;
+        }
+
+        /// <summary>
+        /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. 
+        /// <para>HINT: this method should only be called after the .Project() method.</para>
+        /// </summary>
+        public UpdateAndGet<T, TProjection> IncludeRequiredProps()
+        {
+            options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
             return this;
         }
 

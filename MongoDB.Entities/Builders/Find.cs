@@ -337,6 +337,16 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. 
+        /// <para>HINT: this method should only be called after the .Project() method.</para>
+        /// </summary>
+        public Find<T, TProjection> IncludeRequiredProps()
+        {
+            options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
+            return this;
+        }
+
+        /// <summary>
         /// Specify an option for this find command (use multiple times if needed)
         /// </summary>
         /// <param name="option">x => x.OptionName = OptionValue</param>

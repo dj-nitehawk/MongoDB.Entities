@@ -639,6 +639,51 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task find_with_include_required_props()
+        {
+            var review = new Review
+            {
+                Stars = 5, //req
+                Reviewer = "test", //req
+                Rating = 1
+            };
+            await review.SaveAsync();
+
+            var res = await DB.Find<Review>()
+                        .MatchID(review.ID)
+                        .Project(r => new Review { Rating = r.Rating })
+                        .IncludeRequiredProps()
+                        .ExecuteSingleAsync();
+
+            Assert.AreEqual(5, res.Stars);
+            Assert.AreEqual("test", res.Reviewer);
+            Assert.AreEqual(1, res.Rating);
+        }
+
+        [TestMethod]
+        public async Task update_and_get_with_include_required_props()
+        {
+            var review = new Review
+            {
+                Stars = 5, //req
+                Reviewer = "test", //req
+                Rating = 1
+            };
+            await review.SaveAsync();
+
+            var res = await DB.UpdateAndGet<Review>()
+                        .MatchID(review.ID)
+                        .Modify(r => r.Rating, 10)
+                        .Project(r => new Review { Rating = r.Rating })
+                        .IncludeRequiredProps()
+                        .ExecuteAsync();
+
+            Assert.AreEqual(5, res.Stars);
+            Assert.AreEqual("test", res.Reviewer);
+            Assert.AreEqual(10, res.Rating);
+        }
+
+        [TestMethod]
         public async Task decimal_properties_work_correctly()
         {
             var guid = Guid.NewGuid().ToString();

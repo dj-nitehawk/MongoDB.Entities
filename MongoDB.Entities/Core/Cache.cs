@@ -1,5 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace MongoDB.Entities
         internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
         private static PropertyInfo[] updatableProps;
+        private static ProjectionDefinition<T> requiredPropsProjection;
 
         static Cache()
         {
@@ -79,7 +82,7 @@ namespace MongoDB.Entities
             }
         }
 
-        public static IEnumerable<PropertyInfo> UpdatableProps(T entity)
+        internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
         {
             if (HasIgnoreIfDefaultProps)
             {
@@ -88,6 +91,45 @@ namespace MongoDB.Entities
                     !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
             }
             return updatableProps;
+        }
+
+        internal static ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
+        {
+            if (userProjection == null)
+                throw new InvalidOperationException("Please use .Project() method before .IncludeRequiredProps()");
+
+            if (requiredPropsProjection is null)
+            {
+                requiredPropsProjection = "{_id:1}";
+
+                var props = typeof(T)
+                    .GetProperties()
+                    .Where(p => p.IsDefined(typeof(BsonRequiredAttribute), false));
+
+                if (!props.Any())
+                    throw new InvalidOperationException("Unable to find any entity properties marked with [BsonRequired] attribute!");
+
+                FieldAttribute attr;
+                foreach (var p in props)
+                {
+                    attr = p.GetCustomAttribute<FieldAttribute>();
+
+                    if (attr is null)
+                        requiredPropsProjection = requiredPropsProjection.Include(p.Name);
+                    else
+                        requiredPropsProjection = requiredPropsProjection.Include(attr.ElementName);
+                }
+            }
+
+            ProjectionDefinition<T> userProj = userProjection.Render(
+                BsonSerializer.LookupSerializer<T>(),
+                BsonSerializer.SerializerRegistry).Document;
+
+            return Builders<T>.Projection.Combine(new[]
+            {
+                requiredPropsProjection,
+                userProj
+            });
         }
     }
 }
