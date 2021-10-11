@@ -2,13 +2,10 @@
 
   <PropertyGroup>
     
-    <Version>20.25.0</Version>
+    <Version>20.26.0-beta1</Version>
 
     <PackageReleaseNotes>
-      - add guard clause for IncludeRequiredProps() method
-      - fix page count rounding issue in PagedSearch
-      - upgrade mongo driver to latest
-      - increase test coverage
+      - 
     </PackageReleaseNotes>
     
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -21,8 +18,11 @@
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageId>MongoDB.Entities</PackageId>
     <Product>MongoDB.Entities</Product>
-    <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities</RepositoryUrl>
+    <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>7.3</LangVersion>
@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
     <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
