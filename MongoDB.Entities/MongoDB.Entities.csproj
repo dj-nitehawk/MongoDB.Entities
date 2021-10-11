@@ -13,7 +13,6 @@
     <AssemblyName>MongoDB.Entities</AssemblyName>
     <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
     <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
     <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
     <PackageId>MongoDB.Entities</PackageId>
@@ -26,11 +25,6 @@
     <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>7.3</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>1701;1702;1591</NoWarn>
-    <DocumentationFile />
   </PropertyGroup>
 
   <ItemGroup>
