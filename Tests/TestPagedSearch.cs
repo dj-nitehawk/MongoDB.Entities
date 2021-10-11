@@ -58,6 +58,25 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task correctly_rounded_page_count()
+        {
+            var guid = Guid.NewGuid().ToString();
+
+            await SeedData(guid);
+
+            var (Results, _, PageCount) = await DB
+                .PagedSearch<Book>()
+                .Match(b => b.Title == guid)
+                .Sort(b => b.ID, Order.Ascending)
+                .PageNumber(3)
+                .PageSize(3)
+                .ExecuteAsync();
+
+            Assert.AreEqual(3, PageCount);
+            Assert.IsTrue(Results.Count > 0);
+        }
+
+        [TestMethod]
         public async Task got_results_with_fluent()
         {
             var guid = Guid.NewGuid().ToString();
