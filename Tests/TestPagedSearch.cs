@@ -68,11 +68,11 @@ namespace MongoDB.Entities.Tests
                 .PagedSearch<Book>()
                 .Match(b => b.Title == guid)
                 .Sort(b => b.ID, Order.Ascending)
-                .PageNumber(3)
+                .PageNumber(1)
                 .PageSize(3)
                 .ExecuteAsync();
 
-            Assert.AreEqual(3, PageCount);
+            Assert.AreEqual(4, PageCount);
             Assert.IsTrue(Results.Count > 0);
         }
 

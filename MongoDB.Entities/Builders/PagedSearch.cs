@@ -392,7 +392,7 @@ namespace MongoDB.Entities
             int pageCount =
                  matchCount > 0 && matchCount <= pageSize
                  ? 1
-                 : (int)Math.Round((double)matchCount / pageSize, MidpointRounding.AwayFromZero);
+                 : (int)Math.Ceiling((double)matchCount / pageSize);
 
             var results = facetResult.Facets
                 .First(x => x.Name == "_results")
