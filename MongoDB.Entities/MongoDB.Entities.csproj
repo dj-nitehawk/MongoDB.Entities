@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     
-    <Version>20.25.1</Version>
+    <Version>20.26.0-beta1</Version>
 
     <PackageReleaseNotes>
+      - add diacritic support for fuzzy text search
+      - change project lang version to 9.0
     </PackageReleaseNotes>
     
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -23,7 +25,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

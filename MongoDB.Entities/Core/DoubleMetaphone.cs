@@ -95,7 +95,7 @@ namespace MongoDB.Entities
         private static readonly string[] EmptyKeys = new string[0];
         private const int MaxLength = 4;
 
-        private static readonly Regex regex = new Regex(@"\w(?<!\d)[\w'-]*", RegexOptions.Compiled);
+        private static readonly Regex regex = new(@"\w(?<!\d)[\w'-]*", RegexOptions.Compiled);
 
         private static void Add(string main, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary)
         {
@@ -158,8 +158,8 @@ namespace MongoDB.Entities
 
             word = word.ToUpper();
 
-            StringBuilder sbPrimary = new StringBuilder(word.Length);
-            StringBuilder sbSecondary = new StringBuilder(word.Length);
+            var sbPrimary = new StringBuilder(word.Length);
+            var sbSecondary = new StringBuilder(word.Length);
             bool hasAlternate = false;
             int length = word.Length;
             int last = length - 1;
@@ -179,7 +179,6 @@ namespace MongoDB.Entities
             {
                 switch (word[n])
                 {
-
                     case 'A':
                     case 'E':
                     case 'I':
@@ -738,7 +737,6 @@ namespace MongoDB.Entities
                 return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0), sbSecondary.ToString().Substring(0, secondaryLength - 0) };
             }
             return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0) };
-
         }
 
         public static IEnumerable<string> GetKeys(string phrase)

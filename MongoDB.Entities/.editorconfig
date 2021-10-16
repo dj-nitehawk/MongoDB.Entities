@@ -1,9 +1,0 @@
-[ *.cs ] dotnet_diagnostic.CS1573.severity = none dotnet_diagnostic.IDE1006.severity = none dotnet_diagnostic.CS1591.severity = none dotnet_diagnostic.RCS1036.severity = none dotnet_diagnostic.RCS1135.severity = none dotnet_diagnostic.RCS1037.severity = none dotnet_diagnostic.RCS1079.severity = none # RCS1140: Add exception to documentation comment. dotnet_diagnostic.RCS1140.severity = none [ * ] indent_style = space [ *.xml ] indent_size = 2
-
-[*.cs]
-
-# HAA0502: Explicit new reference type allocation
-dotnet_diagnostic.HAA0502.severity = silent
-
-# HAA0401: Possible allocation of reference type enumerator
-dotnet_diagnostic.HAA0401.severity = none

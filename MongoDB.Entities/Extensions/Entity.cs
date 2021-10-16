@@ -4,8 +4,10 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -142,7 +144,20 @@ namespace MongoDB.Entities
         /// <param name="term">A single or multiple word search term</param>
         public static string ToDoubleMetaphoneHash(this string term)
         {
-            return string.Join(" ", DoubleMetaphone.GetKeys(term));
+            return string.Join(" ", DoubleMetaphone.GetKeys(RemoveDiacritics(term)));
+
+            string RemoveDiacritics(string text)
+            {
+                var sb = new StringBuilder();
+                string str = text.Normalize(NormalizationForm.FormD);
+                for (int i = 0; i < str.Length; i++)
+                {
+                    char c = str[i];
+                    if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                        sb.Append(c);
+                }
+                return sb.ToString().Normalize(NormalizationForm.FormC);
+            }
         }
 
         /// <summary>

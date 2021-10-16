@@ -33,8 +33,8 @@ namespace MongoDB.Entities
     public class Find<T, TProjection> where T : IEntity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
-        private readonly FindOptions<T, TProjection> options = new FindOptions<T, TProjection>();
+        private readonly List<SortDefinition<T>> sorts = new();
+        private readonly FindOptions<T, TProjection> options = new();
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
@@ -221,17 +221,12 @@ namespace MongoDB.Entities
         /// <param name="sortOrder">The sort order</param>
         public Find<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
         {
-            switch (sortOrder)
+            return sortOrder switch
             {
-                case Order.Ascending:
-                    return Sort(s => s.Ascending(propertyToSortBy));
-
-                case Order.Descending:
-                    return Sort(s => s.Descending(propertyToSortBy));
-
-                default:
-                    return this;
-            }
+                Order.Ascending => Sort(s => s.Ascending(propertyToSortBy)),
+                Order.Descending => Sort(s => s.Descending(propertyToSortBy)),
+                _ => this,
+            };
         }
 
         /// <summary>
@@ -337,7 +332,7 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
-        /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. 
+        /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.
         /// <para>HINT: this method should only be called after the .Project() method.</para>
         /// </summary>
         public Find<T, TProjection> IncludeRequiredProps()
@@ -393,11 +388,9 @@ namespace MongoDB.Entities
         public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default)
         {
             Limit(2);
-            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-            {
-                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
-                return cursor.Current.SingleOrDefault();
-            }
+            using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
+            await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+            return cursor.Current.SingleOrDefault();
         }
 
         /// <summary>
@@ -407,11 +400,9 @@ namespace MongoDB.Entities
         public async Task<TProjection> ExecuteFirstAsync(CancellationToken cancellation = default)
         {
             Limit(1);
-            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-            {
-                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
-                return cursor.Current.SingleOrDefault(); //because we're limiting to 1
-            }
+            using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
+            await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+            return cursor.Current.SingleOrDefault(); //because we're limiting to 1
         }
 
         /// <summary>
@@ -422,11 +413,9 @@ namespace MongoDB.Entities
         {
             Project(b => b.Include(x => x.ID));
             Limit(1);
-            using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-            {
-                await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
-                return cursor.Current.Any();
-            }
+            using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
+            await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+            return cursor.Current.Any();
         }
 
         /// <summary>

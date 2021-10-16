@@ -35,5 +35,15 @@ namespace MongoDB.Entities.Tests
 
             Assert.AreEqual(null, res.Review.Fuzzy?.Value);
         }
+
+        [TestMethod]
+        public void double_metaphone_removes_diacritics()
+        {
+            var istanbul = "İstanbul".ToDoubleMetaphoneHash();
+            Assert.AreEqual("ASTN", istanbul);
+
+            var cremeBrulee = "Crème Brûlée".ToDoubleMetaphoneHash();
+            Assert.AreEqual("KRM PRL", cremeBrulee);
+        }
     }
 }
