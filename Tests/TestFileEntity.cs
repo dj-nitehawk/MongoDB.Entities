@@ -59,6 +59,41 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task uploading_with_wrong_hash()
+        {
+            await DB.InitAsync(dbName);
+            DB.DatabaseFor<Image>(dbName);
+
+            var img = new Image { Height = 800, Width = 600, Name = "Test-bad-hash.png", MD5 = "wrong-hash" };
+            await img.SaveAsync().ConfigureAwait(false);
+
+            using var stream = File.OpenRead("Models/test.jpg");
+
+            await Assert.ThrowsExceptionAsync<InvalidDataException>(async ()
+                => await img.Data.UploadAsync(stream).ConfigureAwait(false));
+        }
+
+        [TestMethod]
+        public async Task uploading_with_correct_hash()
+        {
+            await DB.InitAsync(dbName);
+            DB.DatabaseFor<Image>(dbName);
+
+            var img = new Image { Height = 800, Width = 600, Name = "Test-correct-hash.png", MD5 = "cccfa116f0acf41a217cbefbe34cd599" };
+            await img.SaveAsync().ConfigureAwait(false);
+
+            using var stream = File.OpenRead("Models/test.jpg");
+            await img.Data.UploadAsync(stream).ConfigureAwait(false);
+
+            var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
+                          .Where(c => c.FileID == img.ID)
+                          .CountAsync();
+
+            Assert.AreEqual(2047524, img.FileSize);
+            Assert.AreEqual(img.ChunkCount, count);
+        }
+
+        [TestMethod]
         public async Task file_smaller_than_chunk_size()
         {
             await DB.InitAsync(dbName);

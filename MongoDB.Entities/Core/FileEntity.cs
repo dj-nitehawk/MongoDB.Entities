@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,15 +38,15 @@ namespace MongoDB.Entities
         public bool UploadSuccessful { get; internal set; }
 
         /// <summary>
+        /// If this value is set, the uploaded data will be hashed and matched against this value. If the hash is not equal, an exception will be thrown by the UploadAsync() method.
+        /// </summary>
+        [IgnoreDefault]
+        public string MD5 { get; set; }
+
+        /// <summary>
         /// Access the DataStreamer class for uploading and downloading data
         /// </summary>
-        public DataStreamer Data
-        {
-            get
-            {
-                return streamer ?? (streamer = new DataStreamer(this));
-            }
-        }
+        public DataStreamer Data => streamer ??= new DataStreamer(this);
     }
 
     [Collection("[BINARY_CHUNKS]")]
@@ -68,7 +69,7 @@ namespace MongoDB.Entities
     /// </summary>
     public class DataStreamer
     {
-        private static readonly HashSet<string> indexedDBs = new HashSet<string>();
+        private static readonly HashSet<string> indexedDBs = new();
 
         private readonly FileEntity parent;
         private readonly Type parentType;
@@ -78,6 +79,7 @@ namespace MongoDB.Entities
         private int chunkSize, readCount;
         private byte[] buffer;
         private List<byte> dataChunk;
+        private MD5 md5;
 
         internal DataStreamer(FileEntity parent)
         {
@@ -137,21 +139,19 @@ namespace MongoDB.Entities
                 ? chunkCollection.FindAsync(filter, options, cancellation)
                 : chunkCollection.FindAsync(session, filter, options, cancellation);
 
-            using (var cursor = await findTask.ConfigureAwait(false))
+            using var cursor = await findTask.ConfigureAwait(false);
+            var hasChunks = false;
+
+            while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
             {
-                var hasChunks = false;
-
-                while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
+                foreach (var chunk in cursor.Current)
                 {
-                    foreach (var chunk in cursor.Current)
-                    {
-                        await stream.WriteAsync(chunk, 0, chunk.Length, cancellation).ConfigureAwait(false);
-                        hasChunks = true;
-                    }
+                    await stream.WriteAsync(chunk, 0, chunk.Length, cancellation).ConfigureAwait(false);
+                    hasChunks = true;
                 }
-
-                if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
             }
+
+            if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
         }
 
         /// <summary>
@@ -187,17 +187,26 @@ namespace MongoDB.Entities
             buffer = new byte[64 * 1024]; // 64kb read buffer
             readCount = 0;
 
+            if (!string.IsNullOrEmpty(parent.MD5))
+                md5 = MD5.Create();
+
             try
             {
                 if (stream.CanSeek && stream.Position > 0) stream.Position = 0;
 
                 while ((readCount = await stream.ReadAsync(buffer, 0, buffer.Length, cancellation).ConfigureAwait(false)) > 0)
                 {
+                    md5?.TransformBlock(buffer, 0, readCount, null, 0);
                     await FlushToDBAsync(session, isLastChunk: false, cancellation).ConfigureAwait(false);
                 }
 
                 if (parent.FileSize > 0)
                 {
+                    md5?.TransformFinalBlock(buffer, 0, readCount);
+                    if (md5 != null && !BitConverter.ToString(md5.Hash).Replace("-", "").Equals(parent.MD5, StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException("MD5 of uploaded data doesn't match with file entity MD5.");
+                    }
                     await FlushToDBAsync(session, isLastChunk: true, cancellation).ConfigureAwait(false);
                     parent.UploadSuccessful = true;
                 }
@@ -217,6 +226,8 @@ namespace MongoDB.Entities
                 doc = null;
                 buffer = null;
                 dataChunk = null;
+                md5?.Dispose();
+                md5 = null;
             }
         }
 

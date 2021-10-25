@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     
-    <Version>20.26.0-beta1</Version>
+    <Version>20.26.0</Version>
 
     <PackageReleaseNotes>
+      - add MD5 verification support for file uploads
       - add diacritic support for fuzzy text search
       - change project lang version to 9.0
     </PackageReleaseNotes>
-    
+
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>MongoDB.Entities</RootNamespace>
     <AssemblyName>MongoDB.Entities</AssemblyName>
