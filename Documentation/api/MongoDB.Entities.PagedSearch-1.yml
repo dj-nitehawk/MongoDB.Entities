@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class PagedSearch(Of T As IEntity)
+
           Inherits PagedSearch(Of T, T)
   inheritance:
   - System.Object

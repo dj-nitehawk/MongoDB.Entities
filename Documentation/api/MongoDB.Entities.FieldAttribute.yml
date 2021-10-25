@@ -33,7 +33,9 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class FieldAttribute
+
           Inherits BsonElementAttribute
+
           Implements IBsonMemberMapAttribute
   inheritance:
   - System.Object

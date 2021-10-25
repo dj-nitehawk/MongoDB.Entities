@@ -11,6 +11,7 @@ items:
   - MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.IgnoreGlobalFilters
+  - MongoDB.Entities.Find`2.IncludeRequiredProps
   - MongoDB.Entities.Find`2.Limit(System.Int32)
   - MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)
   - MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)
@@ -54,6 +55,7 @@ items:
   syntax:
     content: >-
       public class Find<T, TProjection>
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -492,7 +494,7 @@ items:
   summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
   example: []
   syntax:
-    content: public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
+    content: public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     parameters:
     - id: coordinatesProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
@@ -679,7 +681,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 240
+    startLine: 235
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -711,7 +713,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 250
+    startLine: 245
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -748,7 +750,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 269
+    startLine: 264
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -786,7 +788,7 @@ items:
   source:
     id: Skip
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 279
+    startLine: 274
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -822,7 +824,7 @@ items:
   source:
     id: Limit
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 289
+    startLine: 284
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -858,7 +860,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 299
+    startLine: 294
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -895,7 +897,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 308
+    startLine: 303
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -932,7 +934,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 318
+    startLine: 313
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -955,6 +957,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ProjectExcluding(System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)))
   name.vb: ProjectExcluding(Expression(Of Func(Of T, Object)))
+- uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.Find`2.IncludeRequiredProps
+  id: IncludeRequiredProps
+  parent: MongoDB.Entities.Find`2
+  langs:
+  - csharp
+  - vb
+  name: IncludeRequiredProps()
+  nameWithType: Find<T, TProjection>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps()
+  type: Method
+  source:
+    id: IncludeRequiredProps
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
+    startLine: 337
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.\n<p>HINT: this method should only be called after the .Project() method.</p>\n"
+  example: []
+  syntax:
+    content: public Find<T, TProjection> IncludeRequiredProps()
+    return:
+      type: MongoDB.Entities.Find`2
+    content.vb: Public Function IncludeRequiredProps As Find(Of T, TProjection)
+  overload: MongoDB.Entities.Find`2.IncludeRequiredProps*
+  nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps()
 - uid: MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
   commentId: M:MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
   id: Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})
@@ -969,7 +1003,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 342
+    startLine: 350
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1006,7 +1040,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 351
+    startLine: 359
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1038,7 +1072,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 361
+    startLine: 369
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1075,7 +1109,7 @@ items:
   source:
     id: ExecuteSingleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 379
+    startLine: 387
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1112,7 +1146,7 @@ items:
   source:
     id: ExecuteFirstAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 393
+    startLine: 399
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1149,7 +1183,7 @@ items:
   source:
     id: ExecuteAnyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 407
+    startLine: 411
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1186,7 +1220,7 @@ items:
   source:
     id: ExecuteCursorAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Find.cs
-    startLine: 422
+    startLine: 424
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2638,6 +2672,13 @@ references:
   fullName: MongoDB.Entities.Find<T, TProjection>.ProjectExcluding
   nameWithType.vb: Find(Of T, TProjection).ProjectExcluding
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).ProjectExcluding
+- uid: MongoDB.Entities.Find`2.IncludeRequiredProps*
+  commentId: Overload:MongoDB.Entities.Find`2.IncludeRequiredProps
+  name: IncludeRequiredProps
+  nameWithType: Find<T, TProjection>.IncludeRequiredProps
+  fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps
+  nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps
 - uid: MongoDB.Entities.Find`2.Option*
   commentId: Overload:MongoDB.Entities.Find`2.Option
   name: Option

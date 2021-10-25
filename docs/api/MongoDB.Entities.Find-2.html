@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Find&lt;T, TProjection&gt;
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.4.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -137,6 +137,7 @@
   <h5 id="MongoDB_Entities_Find_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Find&lt;T, TProjection&gt;
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -393,6 +394,33 @@ If more than one entity is found, it will throw an exception.</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; IgnoreGlobalFilters()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Find-2.html">Find</a>&lt;T, TProjection&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="MongoDB_Entities_Find_2_IncludeRequiredProps_" data-uid="MongoDB.Entities.Find`2.IncludeRequiredProps*"></a>
+  <h4 id="MongoDB_Entities_Find_2_IncludeRequiredProps" data-uid="MongoDB.Entities.Find`2.IncludeRequiredProps">IncludeRequiredProps()</h4>
+  <div class="markdown level1 summary"><p>Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.</p>
+<p>HINT: this method should only be called after the .Project() method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; IncludeRequiredProps()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -811,7 +839,7 @@ If more than one entity is found, it will throw an exception.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+    <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">

@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class Find(Of T As IEntity)
+
           Inherits Find(Of T, T)
   inheritance:
   - System.Object
@@ -56,6 +57,7 @@ items:
   - MongoDB.Entities.Find{{T},{T}}.Project(System.Linq.Expressions.Expression{System.Func{{T},{T}}})
   - MongoDB.Entities.Find{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
   - MongoDB.Entities.Find{{T},{T}}.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{{T},System.Object}})
+  - MongoDB.Entities.Find{{T},{T}}.IncludeRequiredProps
   - MongoDB.Entities.Find{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOptions{{T},{T}}})
   - MongoDB.Entities.Find{{T},{T}}.IgnoreGlobalFilters
   - MongoDB.Entities.Find{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
@@ -2008,6 +2010,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find{{T},{T}}.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.Find{`0,`0}.IncludeRequiredProps
+  parent: MongoDB.Entities.Find{{T},{T}}
+  definition: MongoDB.Entities.Find`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  nameWithType: Find<T, T>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.Find<T, T>.IncludeRequiredProps()
+  nameWithType.vb: Find(Of T, T).IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.Find(Of T, T).IncludeRequiredProps()
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: Find<T, T>.IncludeRequiredProps
+    fullName: MongoDB.Entities.Find<T, T>.IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: Find(Of T, T).IncludeRequiredProps
+    fullName: MongoDB.Entities.Find(Of T, T).IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -4515,6 +4548,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.Find`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  nameWithType: Find<T, TProjection>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps()
+  nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps()
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: Find<T, TProjection>.IncludeRequiredProps
+    fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: Find(Of T, TProjection).IncludeRequiredProps
+    fullName: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

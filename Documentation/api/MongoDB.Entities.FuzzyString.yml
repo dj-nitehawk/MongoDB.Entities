@@ -23,7 +23,7 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nUse this type to store strings if you need fuzzy text searching with MongoDB\n<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance. \nIf you exceed the default limit, an exception will be thrown. \nYou can increase the limit by sacrificing performance/resource utilization by setting the static property \n<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>\n"
+  summary: "\nUse this type to store strings if you need fuzzy text searching with MongoDB\n<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.\nIf you exceed the default limit, an exception will be thrown.\nYou can increase the limit by sacrificing performance/resource utilization by setting the static property\n<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>\n"
   example: []
   syntax:
     content: public class FuzzyString

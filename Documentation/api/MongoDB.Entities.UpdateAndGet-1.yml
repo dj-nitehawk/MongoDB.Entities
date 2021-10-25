@@ -28,6 +28,7 @@ items:
       description: Any class that implements IEntity
     content.vb: >-
       Public Class UpdateAndGet(Of T As IEntity)
+
           Inherits UpdateAndGet(Of T, T)
   inheritance:
   - System.Object
@@ -60,6 +61,7 @@ items:
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Linq.Expressions.Expression{System.Func{{T},{T}}})
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{T}}})
+  - MongoDB.Entities.UpdateAndGet{{T},{T}}.IncludeRequiredProps
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.IgnoreGlobalFilters
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateAndGet{{T},{T}}.ExecutePipelineAsync(System.Threading.CancellationToken)
@@ -2061,6 +2063,37 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet{{T},{T}}.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.UpdateAndGet{`0,`0}.IncludeRequiredProps
+  parent: MongoDB.Entities.UpdateAndGet{{T},{T}}
+  definition: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  nameWithType: UpdateAndGet<T, T>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.UpdateAndGet<T, T>.IncludeRequiredProps()
+  nameWithType.vb: UpdateAndGet(Of T, T).IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, T).IncludeRequiredProps()
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: UpdateAndGet<T, T>.IncludeRequiredProps
+    fullName: MongoDB.Entities.UpdateAndGet<T, T>.IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: UpdateAndGet(Of T, T).IncludeRequiredProps
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, T).IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )
@@ -4700,6 +4733,35 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps
+    fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+    name: IncludeRequiredProps
+    nameWithType: UpdateAndGet(Of T, TProjection).IncludeRequiredProps
+    fullName: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

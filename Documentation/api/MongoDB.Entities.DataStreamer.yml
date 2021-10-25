@@ -20,7 +20,7 @@ items:
   source:
     id: DataStreamer
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 68
+    startLine: 69
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -59,7 +59,7 @@ items:
   source:
     id: DownloadWithTimeoutAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 108
+    startLine: 110
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -102,7 +102,7 @@ items:
   source:
     id: DownloadAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 120
+    startLine: 122
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -233,7 +233,7 @@ items:
   source:
     id: DeleteBinaryChunks
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 227
+    startLine: 238
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

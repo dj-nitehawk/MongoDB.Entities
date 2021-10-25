@@ -146,6 +146,7 @@ items:
   syntax:
     content: >-
       public Template Collection<TEntity>()
+
           where TEntity : IEntity
     typeParameters:
     - id: TEntity

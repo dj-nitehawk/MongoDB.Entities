@@ -53,7 +53,9 @@ items:
       description: Type of the child IEntity.
     content.vb: >-
       Public NotInheritable Class Many(Of TChild As IEntity)
+
           Inherits ManyBase
+
           Implements IEnumerable(Of TChild), IEnumerable
   inheritance:
   - System.Object
@@ -389,6 +391,7 @@ items:
   syntax:
     content: >-
       public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property)
+
           where TParent : IEntity
     parameters:
     - id: parent
@@ -432,6 +435,7 @@ items:
   syntax:
     content: >-
       public void VB_InitManyToMany<TParent>(TParent parent, Expression<Func<TParent, object>> propertyParent, Expression<Func<TChild, object>> propertyChild, bool isInverse)
+
           where TParent : IEntity
     parameters:
     - id: parent
@@ -520,6 +524,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children)
+
           where TParent : IEntity
     parameters:
     - id: children
@@ -562,6 +567,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childID
@@ -610,6 +616,7 @@ items:
   syntax:
     content: >-
       public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -736,6 +743,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childID
@@ -784,6 +792,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: childIDs
@@ -832,6 +841,7 @@ items:
   syntax:
     content: >-
       public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where TParent : IEntity
     parameters:
     - id: children

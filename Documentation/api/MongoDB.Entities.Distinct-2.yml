@@ -38,6 +38,7 @@ items:
   syntax:
     content: >-
       public class Distinct<T, TProperty>
+
           where T : IEntity
     typeParameters:
     - id: T
@@ -316,7 +317,7 @@ items:
   summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
   example: []
   syntax:
-    content: public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
+    content: public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     parameters:
     - id: coordinatesProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}

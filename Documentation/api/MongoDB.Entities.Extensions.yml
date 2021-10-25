@@ -101,6 +101,7 @@ items:
   syntax:
     content: >-
       public static IMongoCollection<T> Collection<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -148,6 +149,7 @@ items:
   syntax:
     content: >-
       public static string CollectionName<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -237,6 +239,7 @@ items:
   syntax:
     content: >-
       public static IMongoDatabase Database<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -284,6 +287,7 @@ items:
   syntax:
     content: >-
       public static string DatabaseName<T>(this T _)
+
           where T : IEntity
     parameters:
     - id: _
@@ -416,6 +420,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -467,6 +472,7 @@ items:
   syntax:
     content: >-
       public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -509,7 +515,7 @@ items:
   source:
     id: ToBatches
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 47
+    startLine: 49
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -558,7 +564,7 @@ items:
   source:
     id: FullPath
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 68
+    startLine: 70
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -603,7 +609,7 @@ items:
   source:
     id: Queryable
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 76
+    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -612,6 +618,7 @@ items:
   syntax:
     content: >-
       public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: _
@@ -651,7 +658,7 @@ items:
   source:
     id: ToDocument
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 84
+    startLine: 86
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -660,6 +667,7 @@ items:
   syntax:
     content: >-
       public static T ToDocument<T>(this T entity)
+
           where T : IEntity
     parameters:
     - id: entity
@@ -697,7 +705,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 94
+    startLine: 96
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -706,6 +714,7 @@ items:
   syntax:
     content: >-
       public static T[] ToDocuments<T>(this T[] entities)
+
           where T : IEntity
     parameters:
     - id: entities
@@ -743,7 +752,7 @@ items:
   source:
     id: ToDocuments
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 105
+    startLine: 107
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -752,6 +761,7 @@ items:
   syntax:
     content: >-
       public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities)
+
           where T : IEntity
     parameters:
     - id: entities
@@ -789,14 +799,14 @@ items:
   source:
     id: SortByRelevance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 121
+    startLine: 123
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   summary: "\nSort a list of objects by relevance to a given string using Levenshtein Distance\n"
   example: []
   syntax:
-    content: public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy, int? maxDistance = default(int? ))
+    content: public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy, int? maxDistance = null)
     parameters:
     - id: objects
       type: System.Collections.Generic.IEnumerable{{T}}
@@ -844,7 +854,7 @@ items:
   source:
     id: ToDoubleMetaphoneHash
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 142
+    startLine: 144
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -884,7 +894,7 @@ items:
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 151
+    startLine: 166
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -893,6 +903,7 @@ items:
   syntax:
     content: >-
       public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: _
@@ -942,6 +953,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null)
+
           where T : IEntity
     parameters:
     - id: _
@@ -995,6 +1007,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -1042,6 +1055,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -1093,6 +1107,7 @@ items:
   syntax:
     content: >-
       public static IAggregateFluent<T> MatchExpression<T>(this IAggregateFluent<T> aggregate, string expression)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -1144,6 +1159,7 @@ items:
   syntax:
     content: >-
       public static Task InsertAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1196,6 +1212,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1248,6 +1265,7 @@ items:
   syntax:
     content: >-
       public static PagedSearch<T, TProjection> PagedSearch<T, TProjection>(this IAggregateFluent<T> aggregate)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -1297,6 +1315,7 @@ items:
   syntax:
     content: >-
       public static PagedSearch<T, T> PagedSearch<T>(this IAggregateFluent<T> aggregate)
+
           where T : IEntity
     parameters:
     - id: aggregate
@@ -1344,6 +1363,7 @@ items:
   syntax:
     content: >-
       public static One<T> ToReference<T>(this T entity)
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1390,6 +1410,7 @@ items:
   syntax:
     content: >-
       public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit)
+
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1438,6 +1459,7 @@ items:
   syntax:
     content: >-
       public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide)
+
           where TChild : IEntity
     parameters:
     - id: parent
@@ -1489,6 +1511,7 @@ items:
   syntax:
     content: >-
       public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1541,6 +1564,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1593,6 +1617,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1650,6 +1675,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1707,6 +1733,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity
@@ -1764,6 +1791,7 @@ items:
   syntax:
     content: >-
       public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entities
@@ -1821,6 +1849,7 @@ items:
   syntax:
     content: >-
       public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
           where T : IEntity
     parameters:
     - id: entity

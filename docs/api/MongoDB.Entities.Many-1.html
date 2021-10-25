@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Many&lt;TChild&gt;
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.4.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -726,6 +726,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(IAggregateFluent&lt;TChild&gt; children)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -787,6 +788,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -860,6 +862,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TParent&gt; ParentsFluent&lt;TParent&gt;(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -933,6 +936,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQueryable&lt;TChild&gt; children, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1006,6 +1010,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1079,6 +1084,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(string childID, IClientSessionHandle session = null, AggregateOptions options = null)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1376,6 +1382,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void VB_InitManyToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; propertyParent, Expression&lt;Func&lt;TChild, object&gt;&gt; propertyChild, bool isInverse)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1440,6 +1447,7 @@ This is only needed in VB.Net</p>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void VB_InitOneToMany&lt;TParent&gt;(TParent parent, Expression&lt;Func&lt;TParent, object&gt;&gt; property)
+
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

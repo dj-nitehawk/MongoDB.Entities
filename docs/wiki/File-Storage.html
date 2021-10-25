@@ -17,7 +17,7 @@
     <title>GridFS alternative | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="GridFS alternative | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.4.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -116,8 +116,7 @@
 
 await kitty.SaveAsync();
 
-var streamTask = new HttpClient()
-                      .GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
+var streamTask = new HttpClient().GetStreamAsync(&quot;https://placekitten.com/g/4000/4000&quot;);
 
 using (var stream = await streamTask)
 {
@@ -126,6 +125,17 @@ using (var stream = await streamTask)
 </code></pre>
 <p>the <code>Data</code> property on the file entity gives you access to a couple of methods for uploading and downloading. with those methods, you can specify <em>upload chunk size</em>, <em>download batch size</em>, <em>operation timeout period</em>, as well as <em>cancellation token</em> for controlling the process.</p>
 <p>in addition to the properties you added, there will also be <code>FileSize</code>, <code>ChunkCount</code> &amp; <code>UploadSuccessful</code> properties on the file entity. the file size reports how much data has been read from the stream in bytes if the upload is still in progress or the total file size if the upload is complete. chunk count reports how many number of pieces the file has been broken into for storage. <em>UploadSuccessful</em> will only return true if the process completed without any issues.</p>
+<h4 id="data-integrity-verification">Data integrity verification</h4>
+<p>you have the option of specifying an MD5 hash when uploading and get mongodb to throw an <code>InvalidDataException</code> in case the data stream has got corrupted during the upload/transfer process. typically you'd calculate an MD5 hash value in your front-end/ui app before initiating the file upload and set it as a property value on the file entity like so:</p>
+<pre><code class="lang-csharp">var kitty = new Picture
+{
+    Title = &quot;NiceKitty.jpg&quot;,
+    Width = 4000,
+    Height = 4000,
+    MD5 = &quot;cccfa116f0acf41a217cbefbe34cd599&quot;
+};
+</code></pre>
+<p>the <code>MD5</code> property comes from the base <code>FileEntity</code>. if a value has been set before calling <code>.Data.UploadAsync()</code> an MD5 hash will be calculated at the end of the upload process and matched against the MD5 hash you specified. if they don't match, an exception is thrown. so if specifying an MD5 for verification, you should always wrap your upload code in a try/catch block. if verification fails, the uploaded data is discarded and you'll have to re-attempt the upload.</p>
 <h3 id="download-data">Download data</h3>
 <pre><code class="lang-csharp">var picture = await DB.Find&lt;Picture&gt;()
                       .Match(p =&gt; p.Title == &quot;NiceKitty.jpg&quot;)
@@ -138,7 +148,7 @@ using (var stream = File.OpenWrite(&quot;kitty.jpg&quot;))
 </code></pre>
 <p>first retrieve the file entity you want to work with and then call the <code>.Data.DownloadAsync()</code> method by supplying it a stream object to write the data to.</p>
 <p>alternatively, if the ID of the file entity is known, you can avoid fetching the file entity from the database and access the data directly like so:</p>
-<pre><code class="lang-csharp">await DB.File&lt;Picture&gt;(&quot;xxxxxxxxx&quot;).DownloadAsync(stream);
+<pre><code class="lang-csharp">await DB.File&lt;Picture&gt;(&quot;FileID&quot;).DownloadAsync(stream);
 </code></pre>
 <h3 id="transaction-support">Transaction support</h3>
 <p>uploading &amp; downloading file data within a transaction requires passing in a session to the upload and download methods. see <a href="Transactions.html#file-storage">here</a> for an example.</p>

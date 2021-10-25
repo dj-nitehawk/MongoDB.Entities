@@ -30,6 +30,7 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class InverseSideAttribute
+
           Inherits Attribute
   inheritance:
   - System.Object

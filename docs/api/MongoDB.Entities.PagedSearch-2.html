@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class PagedSearch&lt;T, TProjection&gt;
    | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.4.0">
     <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -136,6 +136,7 @@
   <h5 id="MongoDB_Entities_PagedSearch_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class PagedSearch&lt;T, TProjection&gt;
+
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -487,7 +488,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))</code></pre>
+    <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1113,6 +1114,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; WithFluent&lt;TFluent&gt;(TFluent fluentPipeline)
+
     where TFluent : IAggregateFluent&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

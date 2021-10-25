@@ -2783,6 +2783,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.FileEntity.FileSize
   nameWithType: FileEntity.FileSize
+- uid: MongoDB.Entities.FileEntity.MD5
+  name: MD5
+  href: api/MongoDB.Entities.FileEntity.html#MongoDB_Entities_FileEntity_MD5
+  commentId: P:MongoDB.Entities.FileEntity.MD5
+  fullName: MongoDB.Entities.FileEntity.MD5
+  nameWithType: FileEntity.MD5
+- uid: MongoDB.Entities.FileEntity.MD5*
+  name: MD5
+  href: api/MongoDB.Entities.FileEntity.html#MongoDB_Entities_FileEntity_MD5_
+  commentId: Overload:MongoDB.Entities.FileEntity.MD5
+  isSpec: "True"
+  fullName: MongoDB.Entities.FileEntity.MD5
+  nameWithType: FileEntity.MD5
 - uid: MongoDB.Entities.FileEntity.UploadSuccessful
   name: UploadSuccessful
   href: api/MongoDB.Entities.FileEntity.html#MongoDB_Entities_FileEntity_UploadSuccessful
@@ -2916,6 +2929,23 @@ references:
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IgnoreGlobalFilters
   nameWithType: Find<T, TProjection>.IgnoreGlobalFilters
   nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters
+- uid: MongoDB.Entities.Find`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_IncludeRequiredProps
+  commentId: M:MongoDB.Entities.Find`2.IncludeRequiredProps
+  fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps()
+  nameWithType: Find<T, TProjection>.IncludeRequiredProps()
+  nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps()
+- uid: MongoDB.Entities.Find`2.IncludeRequiredProps*
+  name: IncludeRequiredProps
+  href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_IncludeRequiredProps_
+  commentId: Overload:MongoDB.Entities.Find`2.IncludeRequiredProps
+  isSpec: "True"
+  fullName: MongoDB.Entities.Find<T, TProjection>.IncludeRequiredProps
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection).IncludeRequiredProps
+  nameWithType: Find<T, TProjection>.IncludeRequiredProps
+  nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps
 - uid: MongoDB.Entities.Find`2.Limit(System.Int32)
   name: Limit(Int32)
   href: api/MongoDB.Entities.Find-2.html#MongoDB_Entities_Find_2_Limit_System_Int32_
@@ -6337,6 +6367,23 @@ references:
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
   nameWithType: UpdateAndGet<T, TProjection>.IgnoreGlobalFilters
   nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters
+- uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  name: IncludeRequiredProps()
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_IncludeRequiredProps
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
+  nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
+- uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps*
+  name: IncludeRequiredProps
+  href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_IncludeRequiredProps_
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  isSpec: "True"
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps
+  nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps
 - uid: MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
   name: Match(FilterDefinition<T>)
   href: api/MongoDB.Entities.UpdateAndGet-2.html#MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Driver_FilterDefinition__0__

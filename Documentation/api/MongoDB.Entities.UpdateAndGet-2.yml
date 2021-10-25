@@ -8,6 +8,7 @@ items:
   - MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)
   - MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
+  - MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
   - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})
   - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)
   - MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)
@@ -59,6 +60,7 @@ items:
       description: The type to project to
     content.vb: >-
       Public Class UpdateAndGet(Of T As IEntity, TProjection)
+
           Inherits UpdateBase(Of T)
   inheritance:
   - System.Object
@@ -339,7 +341,7 @@ items:
   summary: "\nSpecify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)\n<p>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T>() before searching</p>\n<p>Note: DB.FluentGeoNear() supports more advanced options</p>\n"
   example: []
   syntax:
-    content: public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = default(double? ), double? minDistance = default(double? ))
+    content: public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     parameters:
     - id: coordinatesProperty
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
@@ -1066,6 +1068,38 @@ items:
   - Public
   fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).Project(System.Func(Of MongoDB.Driver.ProjectionDefinitionBuilder(Of T), MongoDB.Driver.ProjectionDefinition(Of T, TProjection)))
   name.vb: Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
+- uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  commentId: M:MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  id: IncludeRequiredProps
+  parent: MongoDB.Entities.UpdateAndGet`2
+  langs:
+  - csharp
+  - vb
+  name: IncludeRequiredProps()
+  nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps()
+  type: Method
+  source:
+    id: IncludeRequiredProps
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\UpdateAndGet.cs
+    startLine: 361
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSpecify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. \n<p>HINT: this method should only be called after the .Project() method.</p>\n"
+  example: []
+  syntax:
+    content: public UpdateAndGet<T, TProjection> IncludeRequiredProps()
+    return:
+      type: MongoDB.Entities.UpdateAndGet`2
+    content.vb: Public Function IncludeRequiredProps As UpdateAndGet(Of T, TProjection)
+  overload: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps*
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
 - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
   commentId: M:MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
   id: IgnoreGlobalFilters
@@ -1080,7 +1114,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\UpdateAndGet.cs
-    startLine: 360
+    startLine: 373
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1112,7 +1146,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\UpdateAndGet.cs
-    startLine: 370
+    startLine: 383
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1149,7 +1183,7 @@ items:
   source:
     id: ExecutePipelineAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\UpdateAndGet.cs
-    startLine: 385
+    startLine: 398
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -3338,6 +3372,13 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps*
+  commentId: Overload:MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps
+  name: IncludeRequiredProps
+  nameWithType: UpdateAndGet<T, TProjection>.IncludeRequiredProps
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>.IncludeRequiredProps
+  nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection).IncludeRequiredProps
 - uid: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters*
   commentId: Overload:MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters
   name: IgnoreGlobalFilters

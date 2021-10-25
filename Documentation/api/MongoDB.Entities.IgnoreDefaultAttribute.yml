@@ -30,7 +30,9 @@ items:
       <AttributeUsage(AttributeTargets.Property, AllowMultiple:=False)>
 
       Public Class IgnoreDefaultAttribute
+
           Inherits BsonIgnoreIfDefaultAttribute
+
           Implements IBsonMemberMapAttribute
   inheritance:
   - System.Object

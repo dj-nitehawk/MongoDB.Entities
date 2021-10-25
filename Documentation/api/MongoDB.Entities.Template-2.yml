@@ -62,6 +62,7 @@ items:
       description: The output type
     content.vb: >-
       Public Class Template(Of TInput As IEntity, TResult)
+
           Inherits Template
   inheritance:
   - System.Object
@@ -156,6 +157,7 @@ items:
   syntax:
     content: >-
       public Template<TInput, TResult> Collection<TEntity>()
+
           where TEntity : IEntity
     typeParameters:
     - id: TEntity
