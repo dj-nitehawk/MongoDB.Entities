@@ -79,9 +79,15 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd(
-                $"{tenantPrefix}_{collectionName}",
-                _ => DB.Database($"{tenantPrefix}_{dbNameWithoutTenantPrefix}").GetCollection<T>(collectionName));
+            return cache.GetOrAdd($"{tenantPrefix}_{collectionName}", _ =>
+            {
+                var dbName =
+                    string.IsNullOrEmpty(tenantPrefix)
+                    ? dbNameWithoutTenantPrefix
+                    : $"{tenantPrefix}_{dbNameWithoutTenantPrefix}";
+
+                return DB.Database(dbName).GetCollection<T>(collectionName);
+            });
         }
 
         internal static void SetDbNameWithoutTenantPrefix(string dbNameWithTenantPrefix)

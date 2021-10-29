@@ -118,15 +118,18 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="databaseName">The name of the database</param>
         public static void DatabaseFor<T>(string databaseName) where T : IEntity
-            => Cache<T>.SetDbNameWithoutTenantPrefix(databaseName);
+        {
+            Cache<T>.SetDbNameWithoutTenantPrefix(databaseName);
+        }
 
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public static IMongoDatabase Database<T>() where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static IMongoDatabase Database<T>(string tenantPrefix = "") where T : IEntity
         {
-            return Cache<T>.Database;
+            return Cache<T>.Collection(tenantPrefix).Database;
         }
 
         /// <summary>
@@ -156,9 +159,10 @@ namespace MongoDB.Entities
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static string DatabaseName<T>() where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static string DatabaseName<T>(string tenantPrefix = "") where T : IEntity
         {
-            return Cache<T>.DBName;
+            return Database<T>(tenantPrefix).DatabaseNamespace.DatabaseName;
         }
 
         /// <summary>
@@ -174,9 +178,9 @@ namespace MongoDB.Entities
 
             defaultDb = Database(name);
 
-            TypeMap.Clear();
-
             DefaultDbChanged?.Invoke();
+
+            //todo: this can be removed if multi tenancy works!
         }
 
         /// <summary>
