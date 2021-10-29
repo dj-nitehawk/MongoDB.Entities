@@ -34,7 +34,7 @@ namespace MongoDB.Entities
 
         internal static event Action DefaultDbChanged;
 
-        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new ConcurrentDictionary<string, IMongoDatabase>();
+        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
         private static IMongoDatabase defaultDb;
 
         /// <summary>

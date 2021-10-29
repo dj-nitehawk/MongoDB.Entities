@@ -14,7 +14,7 @@ namespace MongoDB.Entities
     public abstract class ManyBase
     {
         //shared state for all Many<T> instances
-        internal static ConcurrentBag<string> indexedCollections = new ConcurrentBag<string>();
+        internal static ConcurrentBag<string> indexedCollections = new();
         internal static string PropTypeName = typeof(Many<Entity>).Name;
     }
 
@@ -28,7 +28,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
     public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     {
-        private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
+        private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
         private bool isInverse;
         private IEntity parent;
 

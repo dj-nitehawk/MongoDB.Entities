@@ -320,12 +320,13 @@ namespace MongoDB.Entities
                 .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(),
                         BsonSerializer.SerializerRegistry);
 
-            BsonDocument doc = new BsonDocument {
-                { "_id",1 },
-                { "operationType", 1},
-                { "documentKey", 1},
-                { "updateDescription", 1},
-                { "fullDocument._id", 1}
+            BsonDocument doc = new()
+            {
+                { "_id", 1 },
+                { "operationType", 1 },
+                { "documentKey", 1 },
+                { "updateDescription", 1 },
+                { "fullDocument._id", 1 }
             };
 
             foreach (var element in rendered.Document.Elements)

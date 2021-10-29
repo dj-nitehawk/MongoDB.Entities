@@ -31,9 +31,9 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type to project to</typeparam>
     public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
-        private readonly List<PipelineStageDefinition<T, TProjection>> stages = new List<PipelineStageDefinition<T, TProjection>>();
+        private readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new FindOneAndUpdateOptions<T, TProjection>() { ReturnDocument = ReturnDocument.After };
+        private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;

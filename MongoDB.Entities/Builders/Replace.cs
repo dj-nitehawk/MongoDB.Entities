@@ -17,9 +17,9 @@ namespace MongoDB.Entities
     public class Replace<T> where T : IEntity
     {
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private ReplaceOptions options = new ReplaceOptions();
+        private ReplaceOptions options = new();
         private readonly IClientSessionHandle session;
-        private readonly List<ReplaceOneModel<T>> models = new List<ReplaceOneModel<T>>();
+        private readonly List<ReplaceOneModel<T>> models = new();
         private readonly ModifiedBy modifiedBy;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<T> onSaveAction;

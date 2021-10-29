@@ -6,8 +6,8 @@ namespace MongoDB.Entities
 {
     internal static class TypeMap
     {
-        private static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new ConcurrentDictionary<Type, IMongoDatabase>();
-        private static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new ConcurrentDictionary<Type, string>();
+        private static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new();
+        private static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new();
 
         internal static void AddCollectionMapping(Type entityType, string collectionName)
             => TypeToCollMap[entityType] = collectionName;

@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
         //      there's no other purpose for this.
 
-        protected readonly List<UpdateDefinition<T>> defs = new List<UpdateDefinition<T>>();
+        protected readonly List<UpdateDefinition<T>> defs = new();
 
         /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)
@@ -61,11 +61,11 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Update<T> : UpdateBase<T> where T : IEntity
     {
-        private readonly List<PipelineStageDefinition<T, T>> stages = new List<PipelineStageDefinition<T, T>>();
+        private readonly List<PipelineStageDefinition<T, T>> stages = new();
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private UpdateOptions options = new UpdateOptions();
+        private UpdateOptions options = new();
         private readonly IClientSessionHandle session;
-        private readonly List<UpdateManyModel<T>> models = new List<UpdateManyModel<T>>();
+        private readonly List<UpdateManyModel<T>> models = new();
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;

@@ -256,16 +256,16 @@ namespace MongoDB.Entities
     /// </summary>
     public class Template
     {
-        private static readonly Regex regex = new Regex("<.*?>", RegexOptions.Compiled);
-        private static readonly ConcurrentDictionary<int, string> cache = new ConcurrentDictionary<int, string>();
+        private static readonly Regex regex = new("<.*?>", RegexOptions.Compiled);
+        private static readonly ConcurrentDictionary<int, string> cache = new();
 
         internal readonly StringBuilder builder;
         private bool cacheHit, hasAppendedStages;
         private readonly int cacheKey;
-        private readonly HashSet<string> goalTags = new HashSet<string>();
-        private readonly HashSet<string> missingTags = new HashSet<string>();
-        private readonly HashSet<string> replacedTags = new HashSet<string>();
-        private readonly Dictionary<string, string> valueTags = new Dictionary<string, string>();
+        private readonly HashSet<string> goalTags = new();
+        private readonly HashSet<string> missingTags = new();
+        private readonly HashSet<string> replacedTags = new();
+        private readonly Dictionary<string, string> valueTags = new();
 
         /// <summary>
         /// Initialize a command builder with the supplied template string.

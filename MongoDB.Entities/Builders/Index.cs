@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     public class Index<T> where T : IEntity
     {
         internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
-        private readonly CreateIndexOptions<T> options = new CreateIndexOptions<T> { Background = true };
+        private readonly CreateIndexOptions<T> options = new() { Background = true };
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.

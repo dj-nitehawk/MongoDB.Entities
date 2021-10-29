@@ -10,8 +10,8 @@ namespace MongoDB.Entities
 {
     public static partial class DB
     {
-        private static readonly BulkWriteOptions unOrdBlkOpts = new BulkWriteOptions { IsOrdered = false };
-        private static readonly UpdateOptions updateOptions = new UpdateOptions { IsUpsert = true };
+        private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
+        private static readonly UpdateOptions updateOptions = new() { IsUpsert = true };
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 

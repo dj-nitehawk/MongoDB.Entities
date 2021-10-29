@@ -16,7 +16,7 @@ namespace MongoDB.Entities
     {
         private FieldDefinition<T, TProperty> field;
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly DistinctOptions options = new DistinctOptions();
+        private readonly DistinctOptions options = new();
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;

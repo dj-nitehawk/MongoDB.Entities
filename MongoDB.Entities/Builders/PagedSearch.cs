@@ -31,8 +31,8 @@ namespace MongoDB.Entities
     {
         private IAggregateFluent<T> fluentPipeline;
         private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private readonly List<SortDefinition<T>> sorts = new List<SortDefinition<T>>();
-        private readonly AggregateOptions options = new AggregateOptions();
+        private readonly List<SortDefinition<T>> sorts = new();
+        private readonly AggregateOptions options = new();
         private PipelineStageDefinition<T, TProjection> projectionStage;
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;

@@ -9,10 +9,10 @@ namespace MongoDB.Entities
     /// </summary>
     public static class Prop
     {
-        private static readonly Regex rxOne = new Regex(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
-        private static readonly Regex rxTwo = new Regex(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
-        private static readonly Regex rxThree = new Regex(@"\[\d+\]", RegexOptions.Compiled);
-        private static readonly Regex rxFour = new Regex(@"\[(\d+)\]", RegexOptions.Compiled);
+        private static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
+        private static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
+        private static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
+        private static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
         private static string ToLowerCaseLetter(long n)
         {
