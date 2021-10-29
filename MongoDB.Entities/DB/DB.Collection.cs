@@ -10,7 +10,7 @@ namespace MongoDB.Entities
     {
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
-            return Database<T>().GetCollection<JoinRecord>(name);
+            return Database<T>("").GetCollection<JoinRecord>(name);
         }
 
         /// <summary>
@@ -18,9 +18,9 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really necessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>() where T : IEntity
+        public static IMongoCollection<T> Collection<T>(string tenantPrefix) where T : IEntity //todo: make optional
         {
-            return Cache<T>.Collection;
+            return Cache<T>.Collection(tenantPrefix);
         }
 
         /// <summary>
@@ -39,13 +39,14 @@ namespace MongoDB.Entities
         /// <param name="options">The options to use for collection creation</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
+        public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, string tenantPrefix, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
         {
+            //todo: tenant prefix optional 
             var opts = new CreateCollectionOptions<T>();
             options(opts);
             return session == null
-                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
+                   ? Cache<T>.Collection(tenantPrefix).Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : Cache<T>.Collection(tenantPrefix).Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
         }
 
         /// <summary>
@@ -54,10 +55,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
+        public static async Task DropCollectionAsync<T>(string tenantPrefix, IClientSessionHandle session = null) where T : IEntity
         {
+            //todo: tenant prefix optional 
+
             var tasks = new List<Task>();
-            var db = Database<T>();
+            var db = Database<T>(tenantPrefix);
             var collName = CollectionName<T>();
             var options = new ListCollectionNamesOptions
             {
