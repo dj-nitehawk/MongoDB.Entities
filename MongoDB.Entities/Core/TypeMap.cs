@@ -6,31 +6,36 @@ namespace MongoDB.Entities
 {
     internal static class TypeMap
     {
-        private static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new();
-        private static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new();
+        //key: TenantPrefix_EntityTypeName
+        //val: IMongoDatabase instance
+        //private static readonly ConcurrentDictionary<string, IMongoDatabase> TypeToDBMap = new();
 
-        internal static void AddCollectionMapping(Type entityType, string collectionName)
-            => TypeToCollMap[entityType] = collectionName;
+        //key: TenantPrefix_EntityTypeName
+        //val: Collection Name (ex: Author, Book)
+        //private static readonly ConcurrentDictionary<string, string> TypeToCollMap = new();
 
-        internal static string GetCollectionName(Type entityType)
-        {
-            TypeToCollMap.TryGetValue(entityType, out string name);
-            return name;
-        }
+        //internal static void AddCollectionMapping(Type entityType, string collectionName)
+        //    => TypeToCollMap[entityType] = collectionName;
 
-        internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
-            => TypeToDBMap[entityType] = database;
+        //internal static string GetCollectionName(Type entityType)
+        //{
+        //    TypeToCollMap.TryGetValue(entityType, out string name);
+        //    return name;
+        //}
 
-        internal static void Clear()
-        {
-            TypeToDBMap.Clear();
-            TypeToCollMap.Clear();
-        }
+        //internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
+        //    => TypeToDBMap[entityType] = database;
 
-        internal static IMongoDatabase GetDatabase(Type entityType)
-        {
-            TypeToDBMap.TryGetValue(entityType, out IMongoDatabase db);
-            return db ?? DB.Database(default);
-        }
+        //internal static void Clear()
+        //{
+        //    TypeToDBMap.Clear();
+        //    TypeToCollMap.Clear();
+        //}
+
+        //internal static IMongoDatabase GetDatabase(Type entityType)
+        //{
+        //    TypeToDBMap.TryGetValue(entityType, out IMongoDatabase db);
+        //    return db ?? DB.Database(default);
+        //}
     }
 }

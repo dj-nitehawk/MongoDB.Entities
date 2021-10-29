@@ -12,17 +12,18 @@ namespace MongoDB.Entities
 {
     internal static class Cache<T> where T : IEntity
     {
-        internal static IMongoDatabase Database { get; private set; }
-        internal static IMongoCollection<T> Collection { get; private set; }
-        internal static string DBName { get; private set; }
-        internal static string CollectionName { get; private set; }
-        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; }
+        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
         internal static bool HasCreatedOn { get; private set; }
         internal static bool HasModifiedOn { get; private set; }
         internal static string ModifiedOnPropName { get; private set; }
         internal static PropertyInfo ModifiedByProp { get; private set; }
         internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
+        //key: TenantPrefix_CollectionName
+        //val: IMongoCollection<T>
+        private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
+        private static string dbNameWithoutTenantPrefix;
+        private static string collectionName;
         private static PropertyInfo[] updatableProps;
         private static ProjectionDefinition<T> requiredPropsProjection;
 
@@ -35,26 +36,20 @@ namespace MongoDB.Entities
         private static void Initialize()
         {
             var type = typeof(T);
-
-            Database = TypeMap.GetDatabase(type);
-            DBName = Database.DatabaseNamespace.DatabaseName;
+            var interfaces = type.GetInterfaces();
 
             var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false) ??
 #pragma warning disable CS0618 // Type or member is obsolete
-                type.GetCustomAttribute<NameAttribute>(false);
+                            type.GetCustomAttribute<NameAttribute>(false);
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
+            collectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
-            if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
-                throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
+            if (string.IsNullOrWhiteSpace(collectionName) || collectionName.Contains("~"))
+                throw new ArgumentException($"{collectionName} is an illegal name for a collection!");
 
-            Collection = Database.GetCollection<T>(CollectionName);
-            TypeMap.AddCollectionMapping(type, CollectionName);
+            SetDbNameWithoutTenantPrefix(DB.Database(null).DatabaseNamespace.DatabaseName); //default db for this type, which is overriden by calling DB.DatabaseFor<T>()
 
-            Watchers = new ConcurrentDictionary<string, Watcher<T>>();
-
-            var interfaces = type.GetInterfaces();
             HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
@@ -81,6 +76,16 @@ namespace MongoDB.Entities
                 throw new InvalidOperationException("Multiple [ModifiedBy] properties are not allowed on entities!");
             }
         }
+
+        internal static IMongoCollection<T> Collection(string tenantPrefix)
+        {
+            return cache.GetOrAdd(
+                $"{tenantPrefix}_{collectionName}",
+                _ => DB.Database($"{tenantPrefix}_{dbNameWithoutTenantPrefix}").GetCollection<T>(collectionName));
+        }
+
+        internal static void SetDbNameWithoutTenantPrefix(string dbNameWithTenantPrefix)
+            => dbNameWithoutTenantPrefix = dbNameWithTenantPrefix.Substring(dbNameWithTenantPrefix.IndexOf('_'));
 
         internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
         {

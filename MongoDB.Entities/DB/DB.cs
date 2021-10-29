@@ -34,6 +34,7 @@ namespace MongoDB.Entities
 
         internal static event Action DefaultDbChanged;
 
+        //key: FullDBName(including tenant prefix - ex: TenantX_DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
         private static IMongoDatabase defaultDb;
 
@@ -115,9 +116,9 @@ namespace MongoDB.Entities
         /// Only needed for entity types you want stored in a db other than the default db.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="database">The name of the database</param>
-        public static void DatabaseFor<T>(string database) where T : IEntity
-            => TypeMap.AddDatabaseMapping(typeof(T), Database(database));
+        /// <param name="databaseName">The name of the database</param>
+        public static void DatabaseFor<T>(string databaseName) where T : IEntity
+            => Cache<T>.SetDbNameWithoutTenantPrefix(databaseName);
 
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
