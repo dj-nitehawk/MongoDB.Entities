@@ -18,12 +18,12 @@ namespace MongoDB.Entities
         internal static string ModifiedOnPropName { get; private set; }
         internal static PropertyInfo ModifiedByProp { get; private set; }
         internal static bool HasIgnoreIfDefaultProps { get; private set; }
+        internal static string CollectionName { get; set; }
 
         //key: TenantPrefix_CollectionName
         //val: IMongoCollection<T>
         private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
         private static string dbNameWithoutTenantPrefix;
-        private static string collectionName;
         private static PropertyInfo[] updatableProps;
         private static ProjectionDefinition<T> requiredPropsProjection;
 
@@ -43,10 +43,10 @@ namespace MongoDB.Entities
                             type.GetCustomAttribute<NameAttribute>(false);
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            collectionName = collAttrb != null ? collAttrb.Name : type.Name;
+            CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
-            if (string.IsNullOrWhiteSpace(collectionName) || collectionName.Contains("~"))
-                throw new ArgumentException($"{collectionName} is an illegal name for a collection!");
+            if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
+                throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
             SetDbNameWithoutTenantPrefix(DB.Database(null).DatabaseNamespace.DatabaseName); //default db for this type, which is overriden by calling DB.DatabaseFor<T>()
 
@@ -79,14 +79,14 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd($"{tenantPrefix}_{collectionName}", _ =>
+            return cache.GetOrAdd($"{tenantPrefix}_{CollectionName}", _ =>
             {
                 var dbName =
                     string.IsNullOrEmpty(tenantPrefix)
                     ? dbNameWithoutTenantPrefix
                     : $"{tenantPrefix}_{dbNameWithoutTenantPrefix}";
 
-                return DB.Database(dbName).GetCollection<T>(collectionName);
+                return DB.Database(dbName).GetCollection<T>(CollectionName);
             });
         }
 

@@ -127,7 +127,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static IMongoDatabase Database<T>(string tenantPrefix = "") where T : IEntity
+        public static IMongoDatabase Database<T>(string tenantPrefix) where T : IEntity //todo: string tenantPrefix = ""
         {
             return Cache<T>.Collection(tenantPrefix).Database;
         }
@@ -160,7 +160,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static string DatabaseName<T>(string tenantPrefix = "") where T : IEntity
+        public static string DatabaseName<T>(string tenantPrefix) where T : IEntity //todo: string tenantPrefix = ""
         {
             return Database<T>(tenantPrefix).DatabaseNamespace.DatabaseName;
         }
