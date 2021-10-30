@@ -82,7 +82,7 @@ namespace MongoDB.Entities
         private bool resume;
         private CancellationToken cancelToken;
         private bool _initialized;
-        private string tenantPrefix;
+        private readonly string tenantPrefix;
 
         internal Watcher(string name, string tenantPrefix)
         {
