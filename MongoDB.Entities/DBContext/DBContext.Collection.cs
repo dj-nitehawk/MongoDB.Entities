@@ -15,7 +15,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CreateCollectionAsync(options, cancellation, Session);
+            return DB.CreateCollectionAsync(options, tenantPrefix, cancellation, Session);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
         public Task DropCollectionAsync<T>() where T : IEntity
         {
-            return DB.DropCollectionAsync<T>(Session);
+            return DB.DropCollectionAsync<T>(tenantPrefix, Session);
         }
     }
 }

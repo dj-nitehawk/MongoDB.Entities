@@ -16,7 +16,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountEstimatedAsync<T>(cancellation);
+            return DB.CountEstimatedAsync<T>(tenantPrefix, cancellation);
         }
 
         /// <summary>
@@ -31,6 +31,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, globalFilters, expression),
+                tenantPrefix,
                 Session,
                 cancellation,
                 options);
@@ -43,7 +44,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountAsync<T>(Session, cancellation);
+            return DB.CountAsync<T>(tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -58,6 +59,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
+                tenantPrefix,
                 Session,
                 cancellation,
                 options);
@@ -75,6 +77,7 @@ namespace MongoDB.Entities
         {
             return DB.CountAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
+                tenantPrefix,
                 Session,
                 cancellation,
                 options);
