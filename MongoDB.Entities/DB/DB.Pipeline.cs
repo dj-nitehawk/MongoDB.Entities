@@ -14,14 +14,15 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TResult">The type of the resulting objects</typeparam>
         /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             return session == null
-                   ? Collection<T>().AggregateAsync(template.ToPipeline(), options, cancellation)
-                   : Collection<T>().AggregateAsync(session, template.ToPipeline(), options, cancellation);
+                   ? Collection<T>(tenantPrefix).AggregateAsync(template.ToPipeline(), options, cancellation)
+                   : Collection<T>(tenantPrefix).AggregateAsync(session, template.ToPipeline(), options, cancellation);
         }
 
         /// <summary>
@@ -30,13 +31,14 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TResult">The type of the resulting objects</typeparam>
         /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             var list = new List<TResult>();
-            using (var cursor = await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
+            using (var cursor = await PipelineCursorAsync(template, tenantPrefix, options, session, cancellation).ConfigureAwait(false))
             {
                 while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
                 {
@@ -53,15 +55,16 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TResult">The type of the resulting object</typeparam>
         /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             AggregateOptions opts = options ?? new AggregateOptions();
             opts.BatchSize = 2;
 
-            using (var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false))
+            using (var cursor = await PipelineCursorAsync(template, tenantPrefix, opts, session, cancellation).ConfigureAwait(false))
             {
                 await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
                 return cursor.Current.SingleOrDefault();
@@ -74,15 +77,16 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TResult">The type of the resulting object</typeparam>
         /// <param name="template">A 'Template' object with tags replaced</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
             AggregateOptions opts = options ?? new AggregateOptions();
             opts.BatchSize = 1;
 
-            using (var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false))
+            using (var cursor = await PipelineCursorAsync(template, tenantPrefix, opts, session, cancellation).ConfigureAwait(false))
             {
                 await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
                 return cursor.Current.SingleOrDefault();

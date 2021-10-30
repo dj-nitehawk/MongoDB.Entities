@@ -17,11 +17,11 @@ namespace MongoDB.Entities
             if (globalFilter != Builders<T>.Filter.Empty)
             {
                 return DB
-                    .Fluent<T>(options, Session)
+                    .Fluent<T>(tenantPrefix, options, Session)
                     .Match(globalFilter);
             }
 
-            return DB.Fluent<T>(options, Session);
+            return DB.Fluent<T>(tenantPrefix, options, Session);
         }
 
         /// <summary>
@@ -42,11 +42,11 @@ namespace MongoDB.Entities
             if (globalFilter != Builders<T>.Filter.Empty)
             {
                 return DB
-                    .FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session)
+                    .FluentTextSearch<T>(searchType, searchTerm, tenantPrefix, caseSensitive, diacriticSensitive, language, options, Session)
                     .Match(globalFilter);
             }
 
-            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session);
+            return DB.FluentTextSearch<T>(searchType, searchTerm, tenantPrefix, caseSensitive, diacriticSensitive, language, options, Session);
         }
     }
 }

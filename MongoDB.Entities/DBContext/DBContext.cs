@@ -21,21 +21,21 @@ namespace MongoDB.Entities
 
         private static Type[] allEntitiyTypes;
         private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-        private string tenantPrefix = "";
+        private readonly string tenantPrefix;
 
         /// <summary>
         /// Initializes a DBContext instance with the given connection parameters.
         /// <para>TIP: network connection is deferred until the first actual operation.</para>
         /// </summary>
-        /// <param name="database">Name of the database</param>
         /// <param name="tenantPrefix">A tenant prefix value. Database names for each tenant will have this value prefixed to them</param>
+        /// <param name="database">Name of the database</param>
         /// <param name="host">Address of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
         /// <param name="modifiedBy">An optional ModifiedBy instance. 
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public DBContext(string database, string tenantPrefix, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
+        public DBContext(string tenantPrefix, string database, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
         {
             DB.Initialize(
                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
@@ -75,14 +75,14 @@ namespace MongoDB.Entities
         /// Initializes a DBContext instance with the given connection parameters.
         /// <para>TIP: network connection is deferred until the first actual operation.</para>
         /// </summary>
-        /// <param name="database">Name of the database</param>
         /// <param name="tenantPrefix">A tenant prefix value. Database names for each tenant will have this value prefixed to them</param>
+        /// <param name="database">Name of the database</param>
         /// <param name="settings">A MongoClientSettings object</param>
         /// <param name="modifiedBy">An optional ModifiedBy instance. 
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public DBContext(string database, string tenantPrefix, MongoClientSettings settings, ModifiedBy modifiedBy = null)
+        public DBContext(string tenantPrefix, string database, MongoClientSettings settings, ModifiedBy modifiedBy = null)
         {
             DB.Initialize(settings, $"{tenantPrefix}_{database}", true)
               .GetAwaiter()

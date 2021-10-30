@@ -8,7 +8,7 @@
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public PagedSearch<T> PagedSearch<T>() where T : IEntity
         {
-            return new PagedSearch<T>(Session, globalFilters);
+            return new PagedSearch<T>(Session, globalFilters, tenantPrefix);
         }
 
         /// <summary>
@@ -18,7 +18,7 @@
         /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
         public PagedSearch<T, TProjection> PagedSearch<T, TProjection>() where T : IEntity
         {
-            return new PagedSearch<T, TProjection>(Session, globalFilters);
+            return new PagedSearch<T, TProjection>(Session, globalFilters, tenantPrefix);
         }
     }
 }
