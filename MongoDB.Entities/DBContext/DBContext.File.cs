@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using System;
-
-namespace MongoDB.Entities
+﻿namespace MongoDB.Entities
 {
     public partial class DBContext
     {
