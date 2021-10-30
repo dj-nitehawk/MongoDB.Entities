@@ -43,7 +43,6 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, string tenantPrefix, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
         {
-            //todo: tenant prefix optional 
             var opts = new CreateCollectionOptions<T>();
             options(opts);
             return session == null
@@ -60,8 +59,6 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         public static async Task DropCollectionAsync<T>(string tenantPrefix, IClientSessionHandle session = null) where T : IEntity
         {
-            //todo: tenant prefix optional 
-
             var tasks = new List<Task>();
             var db = Database<T>(tenantPrefix);
             var collName = CollectionName<T>();
