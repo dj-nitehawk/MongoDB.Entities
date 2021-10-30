@@ -76,9 +76,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity
+        public static IMongoQueryable<T> Queryable<T>(this T _, string tenantPrefix, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Queryable<T>(options);
+            return DB.Queryable<T>(tenantPrefix, options);
         }
 
         /// <summary>
@@ -163,10 +163,12 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
+        /// <param name="_"></param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
+        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, string tenantPrefix, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(cancellation);
+            return DB.NextSequentialNumberAsync<T>(tenantPrefix, cancellation);
         }
     }
 }

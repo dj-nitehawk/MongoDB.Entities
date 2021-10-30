@@ -10,7 +10,8 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity => DB.Collection<T>();
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static IMongoCollection<T> Collection<T>(this T _, string tenantPrefix) where T : IEntity => DB.Collection<T>(tenantPrefix);
 
         /// <summary>
         /// Gets the collection name for this entity

@@ -12,12 +12,12 @@ namespace MongoDB.Entities
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public static IMongoDatabase Database<T>(this T _) where T : IEntity => DB.Database<T>();
+        public static IMongoDatabase Database<T>(this T _, string tenantPrefix) where T : IEntity => DB.Database<T>(tenantPrefix);
 
         /// <summary>
         /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
         /// </summary>
-        public static string DatabaseName<T>(this T _) where T : IEntity => DB.DatabaseName<T>();
+        public static string DatabaseName<T>(this T _, string tenantPrefix) where T : IEntity => DB.DatabaseName<T>(tenantPrefix);
 
         /// <summary>
         /// Pings the mongodb server to check if it's still connectable
