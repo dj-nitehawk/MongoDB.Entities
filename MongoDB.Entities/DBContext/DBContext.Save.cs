@@ -21,6 +21,7 @@ namespace MongoDB.Entities
         public Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
+            entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
             return DB.SaveAsync(entity, tenantPrefix, Session, cancellation);
         }
@@ -35,6 +36,7 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
+            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
             return DB.SaveAsync(entities, tenantPrefix, Session, cancellation);
         }
@@ -52,6 +54,7 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
+            entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
             return DB.SaveOnlyAsync(entity, members, tenantPrefix, Session, cancellation);
         }
@@ -69,6 +72,7 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
+            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
             return DB.SaveOnlyAsync(entities, members, tenantPrefix, Session, cancellation);
         }
@@ -86,6 +90,7 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
+            entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
             return DB.SaveExceptAsync(entity, members, tenantPrefix, Session, cancellation);
         }
@@ -103,6 +108,7 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
+            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
             return DB.SaveExceptAsync(entities, members, tenantPrefix, Session, cancellation);
         }
@@ -117,6 +123,7 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
+            entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
             return DB.SavePreservingAsync(entity, tenantPrefix, Session, cancellation);
         }

@@ -392,6 +392,7 @@ namespace MongoDB.Entities
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
             if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            SetTenantDbOnFileEntities(tenantPrefix);
             onUpdateAction?.Invoke(this);
             return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
@@ -407,6 +408,7 @@ namespace MongoDB.Entities
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+            SetTenantDbOnFileEntities(tenantPrefix);
 
             return UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
         }

@@ -29,6 +29,7 @@ namespace MongoDB.Entities
         internal static PropertyInfo ModifiedByProp { get; private set; }
         internal static bool HasIgnoreIfDefaultProps { get; private set; }
         internal static string CollectionName { get; set; }
+        internal static bool IsFileEntity { get; private set; }
 
         //key: TenantPrefix_CollectionName
         //val: IMongoCollection<T>
@@ -62,6 +63,7 @@ namespace MongoDB.Entities
             HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
+            IsFileEntity = type.BaseType == typeof(FileEntity);
 
             updatableProps = type.GetProperties()
                 .Where(p =>

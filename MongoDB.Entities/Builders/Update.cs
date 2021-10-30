@@ -52,6 +52,16 @@ namespace MongoDB.Entities
         {
             AddModification(template.RenderToString());
         }
+
+        protected void SetTenantDbOnFileEntities(string tenantPrefix)
+        {
+            if (Cache<T>.IsFileEntity)
+            {
+                defs.Add(Builders<T>.Update.Set(
+                    nameof(FileEntity.TenantDb),
+                    Cache<T>.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
+            }
+        }
     }
 
     /// <summary>
@@ -389,6 +399,7 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            SetTenantDbOnFileEntities(tenantPrefix);
             onUpdateAction?.Invoke(this);
             models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
             {
@@ -431,6 +442,7 @@ namespace MongoDB.Entities
                 if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
                 if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+                SetTenantDbOnFileEntities(tenantPrefix);
                 onUpdateAction?.Invoke(this);
                 return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
             }
@@ -447,6 +459,7 @@ namespace MongoDB.Entities
             if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
             if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+            SetTenantDbOnFileEntities(tenantPrefix);
 
             return UpdateAsync(
                 mergedFilter,

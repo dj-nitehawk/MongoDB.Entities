@@ -177,6 +177,8 @@ namespace MongoDB.Entities
 
             this.entity = entity;
 
+            this.entity.SetTenantDbOnFileEntity(tenantPrefix);
+
             return this;
         }
 
