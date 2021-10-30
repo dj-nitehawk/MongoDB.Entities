@@ -14,10 +14,10 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task SaveAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveAsync(entity, session, cancellation, tenantPrefix);
         }
@@ -27,10 +27,10 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveAsync(entities, session, cancellation, tenantPrefix);
         }
@@ -44,10 +44,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveOnlyAsync(entity, members, session, cancellation, tenantPrefix);
         }
@@ -61,10 +61,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveOnlyAsync(entities, members, session, cancellation, tenantPrefix);
         }
@@ -78,10 +78,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveExceptAsync(entity, members, session, cancellation, tenantPrefix);
         }
@@ -95,10 +95,10 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SaveExceptAsync(entities, members, session, cancellation, tenantPrefix);
         }
@@ -109,10 +109,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The entity to save</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">Optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             return DB.SavePreservingAsync(entity, session, cancellation, tenantPrefix);
         }
