@@ -49,7 +49,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(session, options)
                        .Where(j => childIDs.Contains(j.ParentID))
                        .Join(
-                           DB.Collection<TParent>(),
+                           DB.Collection<TParent>(null),
                            j => j.ChildID,
                            p => p.ID,
                            (_, p) => p)
@@ -60,7 +60,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(session, options)
                        .Where(j => childIDs.Contains(j.ChildID))
                        .Join(
-                           DB.Collection<TParent>(),
+                           DB.Collection<TParent>(null),
                            j => j.ParentID,
                            p => p.ID,
                            (_, p) => p)
@@ -88,7 +88,7 @@ namespace MongoDB.Entities
                             j => j.ParentID,
                             (_, j) => j)
                         .Join(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             j => j.ChildID,
                             p => p.ID,
                             (_, p) => p)
@@ -103,7 +103,7 @@ namespace MongoDB.Entities
                             j => j.ChildID,
                             (_, j) => j)
                        .Join(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             j => j.ParentID,
                             p => p.ID,
                             (_, p) => p)
@@ -125,7 +125,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(session, options)
                        .Where(j => j.ChildID == parent.ID)
                        .Join(
-                           DB.Collection<TChild>(),
+                           DB.Collection<TChild>(null),
                            j => j.ParentID,
                            c => c.ID,
                            (_, c) => c);
@@ -135,7 +135,7 @@ namespace MongoDB.Entities
                 return JoinQueryable(session, options)
                        .Where(j => j.ParentID == parent.ID)
                        .Join(
-                           DB.Collection<TChild>(),
+                           DB.Collection<TChild>(null),
                            j => j.ChildID,
                            c => c.ID,
                            (_, c) => c);

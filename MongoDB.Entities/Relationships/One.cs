@@ -53,24 +53,26 @@ namespace MongoDB.Entities
         /// <summary>
         /// Fetches the actual entity this reference represents from the database.
         /// </summary>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <returns>A Task containing the actual entity</returns>
-        public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
+        public Task<T> ToEntityAsync(string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return new Find<T>(session, null).OneAsync(ID, cancellation);
+            return new Find<T>(session, null, tenantPrefix).OneAsync(ID, cancellation);
         }
 
         /// <summary>
         /// Fetches the actual entity this reference represents from the database with a projection.
         /// </summary>
         /// <param name="projection">x => new Test { PropName = x.Prop }</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name = "cancellation" > An optional cancellation token</param>
         /// <returns>A Task containing the actual projected entity</returns>
-        public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session, null)
+            return (await new Find<T>(session, null, tenantPrefix)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
@@ -81,12 +83,13 @@ namespace MongoDB.Entities
         /// Fetches the actual entity this reference represents from the database with a projection.
         /// </summary>
         /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name = "cancellation" > An optional cancellation token</param>
         /// <returns>A Task containing the actual projected entity</returns>
-        public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
-            return (await new Find<T>(session, null)
+            return (await new Find<T>(session, null, tenantPrefix)
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))

@@ -37,7 +37,7 @@ namespace MongoDB.Entities
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             r => r.ChildID,
                             p => p.ID,
                             j => j.Results)
@@ -54,7 +54,7 @@ namespace MongoDB.Entities
                             j => j.Results)
                        .ReplaceRoot(j => j.Results[0])
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
@@ -91,7 +91,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                        .Match(f => f.In(j => j.ParentID, childIDs))
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             j => j.ChildID,
                             p => p.ID,
                             j => j.Results)
@@ -103,7 +103,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                        .Match(f => f.In(j => j.ChildID, childIDs))
                        .Lookup<JoinRecord, TParent, Joined<TParent>>(
-                            DB.Collection<TParent>(),
+                            DB.Collection<TParent>(null),
                             r => r.ParentID,
                             p => p.ID,
                             j => j.Results)
@@ -126,7 +126,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                         .Match(f => f.Eq(r => r.ChildID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                            DB.Collection<TChild>(),
+                            DB.Collection<TChild>(null),
                             r => r.ParentID,
                             c => c.ID,
                             j => j.Results)
@@ -137,7 +137,7 @@ namespace MongoDB.Entities
                 return JoinFluent(session, options)
                         .Match(f => f.Eq(r => r.ParentID, parent.ID))
                         .Lookup<JoinRecord, TChild, Joined<TChild>>(
-                            DB.Collection<TChild>(),
+                            DB.Collection<TChild>(null),
                             r => r.ChildID,
                             c => c.ID,
                             j => j.Results)
