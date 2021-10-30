@@ -10,7 +10,17 @@ using System.Reflection;
 
 namespace MongoDB.Entities
 {
-    internal static class Cache<T> where T : IEntity
+    internal abstract class Cache
+    {
+        //key: entity type
+        //val: collection name
+        protected static readonly ConcurrentDictionary<Type, string> typeToCollectionMap = new();
+
+        internal static string CollectionNameFor(Type entityType)
+            => typeToCollectionMap[entityType];
+    }
+
+    internal class Cache<T> : Cache where T : IEntity
     {
         internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
         internal static bool HasCreatedOn { get; private set; }
@@ -47,6 +57,8 @@ namespace MongoDB.Entities
 
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
+
+            typeToCollectionMap[type] = CollectionName;
 
             SetDbNameWithoutTenantPrefix(DB.Database(null).DatabaseNamespace.DatabaseName); //default db for this type, which is overriden by calling DB.DatabaseFor<T>()
 

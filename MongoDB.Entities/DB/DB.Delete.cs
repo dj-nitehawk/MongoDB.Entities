@@ -12,7 +12,7 @@ namespace MongoDB.Entities
     {
         private static readonly int deleteBatchSize = 100000;
 
-        private static async Task<DeleteResult> DeleteCascadingAsync<T>(
+        private static async Task<DeleteResult> DeleteCascadingAsync<T>(string tenantPrefix,
             IEnumerable<string> IDs,
             IClientSessionHandle session = null,
             CancellationToken cancellation = default) where T : IEntity
@@ -22,7 +22,7 @@ namespace MongoDB.Entities
             //       i.e. don't pass the cancellation token to delete methods below that don't take a session.
             //       also make consumers call ThrowIfCancellationNotSupported() before calling this method.
 
-            var db = Database<T>();
+            var db = Database<T>(tenantPrefix);
             var options = new ListCollectionNamesOptions
             {
                 Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
@@ -30,22 +30,25 @@ namespace MongoDB.Entities
 
             var tasks = new List<Task>();
 
-            // note: db.listCollections() mongo command does not support transactions.
-            //       so don't add session support here.
-            var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
-
-            foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
+            if (tenantPrefix != null)
             {
-                tasks.Add(
-                    session == null
-                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
+                // note: db.listCollections() mongo command does not support transactions.
+                //       so don't add session support here.
+                var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
+
+                foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
+                {
+                    tasks.Add(
+                        session == null
+                        ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                        : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
+                }
             }
 
             var delResTask =
                     session == null
-                    ? Collection<T>().DeleteManyAsync(x => IDs.Contains(x.ID))
-                    : Collection<T>().DeleteManyAsync(session, x => IDs.Contains(x.ID), null, cancellation);
+                    ? Collection<T>(tenantPrefix).DeleteManyAsync(x => IDs.Contains(x.ID))
+                    : Collection<T>(tenantPrefix).DeleteManyAsync(session, x => IDs.Contains(x.ID), null, cancellation);
 
             tasks.Add(delResTask);
 

@@ -43,6 +43,7 @@ namespace MongoDB.Entities
         [IgnoreDefault]
         public string MD5 { get; set; }
 
+        [IgnoreDefault]
         public string TenantDb { get; set; }
 
         /// <summary>
@@ -74,6 +75,7 @@ namespace MongoDB.Entities
         private static readonly HashSet<string> indexedDBs = new();
 
         private readonly FileEntity parent;
+        private readonly Type parentType;
         private readonly IMongoDatabase db;
         private readonly IMongoCollection<FileChunk> chunkCollection;
         private FileChunk doc;
@@ -85,14 +87,11 @@ namespace MongoDB.Entities
         internal DataStreamer(FileEntity parent, string tenantDbName)
         {
             this.parent = parent;
-
+            parentType = parent.GetType();
             db = DB.Database(tenantDbName);
-
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
 
-            var dbName = db.DatabaseNamespace.DatabaseName;
-
-            if (indexedDBs.Add(dbName))
+            if (indexedDBs.Add(db.DatabaseNamespace.DatabaseName))
             {
                 _ = chunkCollection.Indexes.CreateOneAsync(
                     new CreateIndexModel<FileChunk>(
@@ -280,7 +279,7 @@ namespace MongoDB.Entities
 
         private Task UpdateMetaDataAsync(IClientSessionHandle session)
         {
-            var collection = db.GetCollection<FileEntity>(TypeMap.GetCollectionName(parentType));
+            var collection = db.GetCollection<FileEntity>(Cache.CollectionNameFor(parentType));
             var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
             var update = Builders<FileEntity>.Update
                             .Set(e => e.FileSize, parent.FileSize)
