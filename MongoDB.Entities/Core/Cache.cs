@@ -102,7 +102,14 @@ namespace MongoDB.Entities
         }
 
         internal static void SetDbNameWithoutTenantPrefix(string dbNameWithTenantPrefix)
-            => dbNameWithoutTenantPrefix = dbNameWithTenantPrefix.Substring(dbNameWithTenantPrefix.IndexOf('_'));
+        {
+            var prefixSeperatorIndex = dbNameWithTenantPrefix.IndexOf('_');
+
+            dbNameWithoutTenantPrefix =
+                prefixSeperatorIndex > 0
+                ? dbNameWithTenantPrefix.Substring(prefixSeperatorIndex)
+                : dbNameWithTenantPrefix;
+        }
 
         internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
         {
