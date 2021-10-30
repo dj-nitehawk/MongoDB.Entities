@@ -24,20 +24,22 @@ namespace MongoDB.Entities
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<T> onSaveAction;
         private bool ignoreGlobalFilters;
+        private readonly string tenantPrefix;
+        private T entity;
 
         internal Replace(
             IClientSessionHandle session,
             ModifiedBy modifiedBy,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<T> onSaveAction)
+            Action<T> onSaveAction,
+            string tenantPrefix)
         {
             this.session = session;
             this.modifiedBy = modifiedBy;
             this.globalFilters = globalFilters;
             this.onSaveAction = onSaveAction;
+            this.tenantPrefix = tenantPrefix;
         }
-
-        private T entity { get; set; }
 
         /// <summary>
         /// Specify an IEntity ID as the matching criteria
@@ -230,8 +232,8 @@ namespace MongoDB.Entities
             {
                 var bulkWriteResult = await (
                     session == null
-                    ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                    : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                    ? DB.Collection<T>(tenantPrefix).BulkWriteAsync(models, null, cancellation)
+                    : DB.Collection<T>(tenantPrefix).BulkWriteAsync(session, models, null, cancellation)
                     ).ConfigureAwait(false);
 
                 models.Clear();
@@ -249,8 +251,8 @@ namespace MongoDB.Entities
                 SetModOnAndByValues();
 
                 return session == null
-                       ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
-                       : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
+                       ? await DB.Collection<T>(tenantPrefix).ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
+                       : await DB.Collection<T>(tenantPrefix).ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
             }
         }
 

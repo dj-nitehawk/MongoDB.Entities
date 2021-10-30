@@ -69,15 +69,18 @@ namespace MongoDB.Entities
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;
+        private readonly string tenantPrefix;
 
         internal Update(
             IClientSessionHandle session,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction)
+            Action<UpdateBase<T>> onUpdateAction,
+            string tenantPrefix)
         {
             this.session = session;
             this.globalFilters = globalFilters;
             this.onUpdateAction = onUpdateAction;
+            this.tenantPrefix = tenantPrefix;
         }
 
         /// <summary>
@@ -410,8 +413,8 @@ namespace MongoDB.Entities
             {
                 var bulkWriteResult = await (
                     session == null
-                    ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                    : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                    ? DB.Collection<T>(tenantPrefix).BulkWriteAsync(models, null, cancellation)
+                    : DB.Collection<T>(tenantPrefix).BulkWriteAsync(session, models, null, cancellation)
                     ).ConfigureAwait(false);
 
                 models.Clear();
@@ -468,8 +471,8 @@ namespace MongoDB.Entities
         private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             return session == null
-                   ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
-                   : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
+                   ? DB.Collection<T>(tenantPrefix).UpdateManyAsync(filter, definition, options, cancellation)
+                   : DB.Collection<T>(tenantPrefix).UpdateManyAsync(session, filter, definition, options, cancellation);
         }
     }
 }

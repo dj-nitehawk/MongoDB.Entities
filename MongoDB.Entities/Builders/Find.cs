@@ -20,8 +20,8 @@ namespace MongoDB.Entities
     {
         internal Find(
             IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
-            : base(session, globalFilters) { }
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters, string tenantPrefix)
+            : base(session, globalFilters, tenantPrefix) { }
     }
 
     /// <summary>
@@ -38,13 +38,15 @@ namespace MongoDB.Entities
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
+        private readonly string tenantPrefix;
 
         internal Find(
             IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters, string tenantPrefix)
         {
             this.session = session;
             this.globalFilters = globalFilters;
+            this.tenantPrefix = tenantPrefix;
         }
 
         /// <summary>
@@ -430,8 +432,8 @@ namespace MongoDB.Entities
             var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
             return session == null
-                   ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)
-                   : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
+                   ? DB.Collection<T>(tenantPrefix).FindAsync(mergedFilter, options, cancellation)
+                   : DB.Collection<T>(tenantPrefix).FindAsync(session, mergedFilter, options, cancellation);
         }
 
         private void AddTxtScoreToProjection(string propName)

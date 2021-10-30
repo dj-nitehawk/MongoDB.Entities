@@ -20,13 +20,15 @@ namespace MongoDB.Entities
         private readonly IClientSessionHandle session;
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
+        private readonly string tenantPrefix;
 
         internal Distinct(
             IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters, string tenantPrefix)
         {
             this.session = session;
             this.globalFilters = globalFilters;
+            this.tenantPrefix = tenantPrefix;
         }
 
         /// <summary>
@@ -183,8 +185,8 @@ namespace MongoDB.Entities
             var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
             return session == null
-                   ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)
-                   : DB.Collection<T>().DistinctAsync(session, field, mergedFilter, options, cancellation);
+                   ? DB.Collection<T>(tenantPrefix).DistinctAsync(field, mergedFilter, options, cancellation)
+                   : DB.Collection<T>(tenantPrefix).DistinctAsync(session, field, mergedFilter, options, cancellation);
         }
 
         /// <summary>

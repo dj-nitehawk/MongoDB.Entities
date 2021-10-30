@@ -18,8 +18,9 @@ namespace MongoDB.Entities
     {
         internal PagedSearch(
             IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
-        : base(session, globalFilters) { }
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            string tenantPrefix)
+        : base(session, globalFilters, tenantPrefix) { }
     }
 
     /// <summary>
@@ -38,10 +39,12 @@ namespace MongoDB.Entities
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private bool ignoreGlobalFilters;
         private int pageNumber = 1, pageSize = 100;
+        private readonly string tenantPrefix;
 
         internal PagedSearch(
             IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
+            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
+            string tenantPrefix)
         {
             var type = typeof(TProjection);
             if (type.IsPrimitive || type.IsValueType || (type == typeof(string)))
@@ -49,6 +52,7 @@ namespace MongoDB.Entities
 
             this.session = session;
             this.globalFilters = globalFilters;
+            this.tenantPrefix = tenantPrefix;
         }
 
         /// <summary>
@@ -372,8 +376,8 @@ namespace MongoDB.Entities
 
                 facetResult =
                     session == null
-                    ? await DB.Collection<T>().Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
-                    : await DB.Collection<T>().Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false);
+                    ? await DB.Collection<T>(tenantPrefix).Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
+                    : await DB.Collection<T>(tenantPrefix).Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false);
             }
             else //.WithFluent() used
             {

@@ -10,6 +10,7 @@ namespace MongoDB.Entities
     {
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
+            //no support for multi-tenancy :-(
             return Database<T>("").GetCollection<JoinRecord>(name);
         }
 
@@ -18,7 +19,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Try never to use this unless really necessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(string tenantPrefix) where T : IEntity //todo: make optional
+        public static IMongoCollection<T> Collection<T>(string tenantPrefix) where T : IEntity
         {
             return Cache<T>.Collection(tenantPrefix);
         }
@@ -37,6 +38,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity that will be stored in the created collection</typeparam>
         /// <param name="options">The options to use for collection creation</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, string tenantPrefix, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
@@ -54,6 +56,7 @@ namespace MongoDB.Entities
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         public static async Task DropCollectionAsync<T>(string tenantPrefix, IClientSessionHandle session = null) where T : IEntity
         {

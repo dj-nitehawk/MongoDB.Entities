@@ -19,8 +19,9 @@ namespace MongoDB.Entities
         internal UpdateAndGet(
             IClientSessionHandle session,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction)
-            : base(session, globalFilters, onUpdateAction) { }
+            Action<UpdateBase<T>> onUpdateAction,
+            string tenantPrefix)
+            : base(session, globalFilters, onUpdateAction, tenantPrefix) { }
     }
 
     /// <summary>
@@ -38,15 +39,18 @@ namespace MongoDB.Entities
         private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
         private bool ignoreGlobalFilters;
+        private readonly string tenantPrefix;
 
         internal UpdateAndGet(
             IClientSessionHandle session,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction)
+            Action<UpdateBase<T>> onUpdateAction,
+            string tenantPrefix)
         {
             this.session = session;
             this.globalFilters = globalFilters;
             this.onUpdateAction = onUpdateAction;
+            this.tenantPrefix = tenantPrefix;
         }
 
         /// <summary>
@@ -422,8 +426,8 @@ namespace MongoDB.Entities
         private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default)
         {
             return session == null
-                ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
-                : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
+                ? DB.Collection<T>(tenantPrefix).FindOneAndUpdateAsync(filter, definition, options, cancellation)
+                : DB.Collection<T>(tenantPrefix).FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
         }
     }
 }

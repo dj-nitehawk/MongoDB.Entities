@@ -16,6 +16,12 @@ namespace MongoDB.Entities
     {
         internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
         private readonly CreateIndexOptions<T> options = new() { Background = true };
+        private readonly string tenantPrefix;
+
+        internal Index(string tenantPrefix)
+        {
+            this.tenantPrefix = tenantPrefix;
+        }
 
         /// <summary>
         /// Call this method to finalize defining the index after setting the index keys and options.
@@ -123,7 +129,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task DropAsync(string name, CancellationToken cancellation = default)
         {
-            await DB.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
+            await DB.Collection<T>(tenantPrefix).Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -132,12 +138,12 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task DropAllAsync(CancellationToken cancellation = default)
         {
-            await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
+            await DB.Collection<T>(tenantPrefix).Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
         }
 
         private Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
         {
-            return DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
+            return DB.Collection<T>(tenantPrefix).Indexes.CreateOneAsync(model, cancellationToken: cancellation);
         }
     }
 
