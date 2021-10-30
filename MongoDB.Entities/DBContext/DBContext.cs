@@ -24,7 +24,7 @@ namespace MongoDB.Entities
 
         private static Type[] allEntitiyTypes;
         private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-        private string tenantPrefix;
+        private readonly string tenantPrefix;
 
         /// <summary>
         /// Initializes a DBContext instance with the given connection parameters.

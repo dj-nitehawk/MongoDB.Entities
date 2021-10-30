@@ -22,6 +22,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// Inserts a batch of new entities into the collection.
         /// </summary>
+        /// <param name="entities"></param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>

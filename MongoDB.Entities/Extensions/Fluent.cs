@@ -12,7 +12,8 @@ namespace MongoDB.Entities
         /// <param name="_"></param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
-        public static IAggregateFluent<T> Fluent<T>(this T _, string tenantPrefix, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null, string tenantPrefix = null) where T : IEntity
         {
             return DB.Fluent<T>(options, session, tenantPrefix);
         }
