@@ -8,13 +8,14 @@ namespace MongoDB.Entities
         /// Exposes the MongoDB collection for the given IEntity as an IAggregateFluent in order to facilitate Fluent queries.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
+        public static IAggregateFluent<T> Fluent<T>(string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             return session == null
-                   ? Collection<T>().Aggregate(options)
-                   : Collection<T>().Aggregate(session, options);
+                   ? Collection<T>(tenantPrefix).Aggregate(options)
+                   : Collection<T>(tenantPrefix).Aggregate(session, options);
         }
 
         /// <summary>
@@ -27,8 +28,9 @@ namespace MongoDB.Entities
         /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
+        public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, string tenantPrefix, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
         {
             if (searchType == Search.Fuzzy)
             {
@@ -48,8 +50,8 @@ namespace MongoDB.Entities
                             });
 
             return session == null
-                   ? Collection<T>().Aggregate(options).Match(filter)
-                   : Collection<T>().Aggregate(session, options).Match(filter);
+                   ? Collection<T>(tenantPrefix).Aggregate(options).Match(filter)
+                   : Collection<T>(tenantPrefix).Aggregate(session, options).Match(filter);
         }
     }
 }
