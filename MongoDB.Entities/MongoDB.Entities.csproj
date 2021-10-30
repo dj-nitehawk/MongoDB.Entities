@@ -30,7 +30,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <NoWarn>CS1591</NoWarn>
+    <NoWarn>CS1591,RCS1158</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

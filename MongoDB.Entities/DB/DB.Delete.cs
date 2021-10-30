@@ -159,7 +159,7 @@ namespace MongoDB.Entities
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 
-            var cursor = await new Find<T, string>(session, null)
+            var cursor = await new Find<T, string>(session, null, tenantPrefix)
                                .Match(_ => filter)
                                .Project(e => e.ID)
                                .Option(o => o.BatchSize = deleteBatchSize)

@@ -44,7 +44,7 @@ namespace MongoDB.Entities
         public string MD5 { get; set; }
 
         [IgnoreDefault]
-        public string TenantDb { get; set; }
+        public string TenantDb { get; set; } //todo: dbcontext should set this when saving and maybe when updating
 
         /// <summary>
         /// Access the DataStreamer class for uploading and downloading data

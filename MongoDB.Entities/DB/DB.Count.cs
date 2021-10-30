@@ -17,7 +17,6 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<long> CountEstimatedAsync<T>(string tenantPrefix, CancellationToken cancellation = default) where T : IEntity
         {
-            //todo: tp make optional
             return Collection<T>(tenantPrefix).EstimatedDocumentCountAsync(null, cancellation);
         }
 
@@ -31,7 +30,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
-        {//todo: tp make optional
+        {
             return
                  session == null
                  ? Collection<T>(tenantPrefix).CountDocumentsAsync(expression, options, cancellation)
@@ -48,7 +47,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         public static Task<long> CountAsync<T>(FilterDefinition<T> filter, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
-        {//todo: tp make optional
+        {
             return
                  session == null
                  ? Collection<T>(tenantPrefix).CountDocumentsAsync(filter, options, cancellation)
@@ -65,7 +64,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, CountOptions options = null) where T : IEntity
-        {//todo: tp make optional
+        {
             return
                  session == null
                  ? Collection<T>(tenantPrefix).CountDocumentsAsync(filter(Builders<T>.Filter), options, cancellation)
@@ -80,7 +79,7 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<long> CountAsync<T>(string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
-        {//todo: tp make optional
+        {
             return CountAsync<T>(_ => true, tenantPrefix, session, cancellation);
         }
     }

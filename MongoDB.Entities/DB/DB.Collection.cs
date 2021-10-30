@@ -11,7 +11,7 @@ namespace MongoDB.Entities
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
             //no support for multi-tenancy :-(
-            return Database<T>("").GetCollection<JoinRecord>(name);
+            return Database<T>(null).GetCollection<JoinRecord>(name);
         }
 
         /// <summary>

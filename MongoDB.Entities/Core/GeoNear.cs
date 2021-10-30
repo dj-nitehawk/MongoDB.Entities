@@ -48,6 +48,7 @@ namespace MongoDB.Entities
     /// <typeparam name="T">The type of entity</typeparam>
     public class GeoNear<T> where T : IEntity
     {
+#pragma warning disable IDE1006
         public Coordinates2D near { get; set; }
         public string distanceField { get; set; }
         public bool spherical { get; set; }
@@ -58,14 +59,15 @@ namespace MongoDB.Entities
         [BsonIgnoreIfNull] public string includeLocs { get; set; }
         [BsonIgnoreIfNull] public double? minDistance { get; set; }
         [BsonIgnoreIfNull] public string key { get; set; }
+#pragma warning restore IDE1006
 
-        internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
+        internal IAggregateFluent<T> ToFluent(string tenantPrefix, AggregateOptions options = null, IClientSessionHandle session = null)
         {
             var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
             return session == null
-                    ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
-                    : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
+                    ? DB.Collection<T>(tenantPrefix).Aggregate(options).AppendStage<T>(stage)
+                    : DB.Collection<T>(tenantPrefix).Aggregate(session, options).AppendStage<T>(stage);
         }
     }
 }

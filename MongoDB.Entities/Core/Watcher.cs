@@ -82,8 +82,13 @@ namespace MongoDB.Entities
         private bool resume;
         private CancellationToken cancelToken;
         private bool _initialized;
+        private string tenantPrefix;
 
-        internal Watcher(string name) => Name = name;
+        internal Watcher(string name, string tenantPrefix)
+        {
+            Name = name;
+            this.tenantPrefix = tenantPrefix;
+        }
 
         /// <summary>
         /// Starts the watcher instance with the supplied parameters
@@ -380,7 +385,7 @@ namespace MongoDB.Entities
             {
                 try
                 {
-                    using (var cursor = await DB.Collection<T>().WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false))
+                    using (var cursor = await DB.Collection<T>(tenantPrefix).WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false))
                     {
                         while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
                         {
