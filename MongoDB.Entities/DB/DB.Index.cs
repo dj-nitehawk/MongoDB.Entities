@@ -7,9 +7,10 @@
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static Index<T> Index<T>() where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Index<T> Index<T>(string tenantPrefix) where T : IEntity
         {
-            return new Index<T>();
+            return new Index<T>(tenantPrefix);
         }
     }
 }

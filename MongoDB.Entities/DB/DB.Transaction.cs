@@ -19,9 +19,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
         /// <param name="options">Client session options (not required)</param>
-        public static Transaction Transaction<T>(ClientSessionOptions options = null, ModifiedBy modifiedBy = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Transaction Transaction<T>(string tenantPrefix, ClientSessionOptions options = null, ModifiedBy modifiedBy = null) where T : IEntity
         {
-            return new Transaction(DatabaseName<T>(), options, modifiedBy);
+            return new Transaction(DatabaseName<T>(tenantPrefix), options, modifiedBy);
         }
     }
 }

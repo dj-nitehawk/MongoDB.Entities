@@ -11,12 +11,13 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to get a watcher for</typeparam>
         /// <param name="name">A unique name for the watcher of this entity type. Names can be duplicate among different entity types.</param>
-        public static Watcher<T> Watcher<T>(string name) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Watcher<T> Watcher<T>(string name, string tenantPrefix) where T : IEntity
         {
             if (Cache<T>.Watchers.TryGetValue(name.ToLower().Trim(), out Watcher<T> watcher))
                 return watcher;
 
-            watcher = new Watcher<T>(name.ToLower().Trim());
+            watcher = new Watcher<T>(name.ToLower().Trim(), tenantPrefix);
             Cache<T>.Watchers.TryAdd(name, watcher);
             return watcher;
         }

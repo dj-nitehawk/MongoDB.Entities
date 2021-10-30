@@ -13,9 +13,10 @@ namespace MongoDB.Entities
         /// Discover and run migrations from the same assembly as the specified type.
         /// </summary>
         /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
-        public static Task MigrateAsync<T>() where T : class
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task MigrateAsync<T>(string tenantPrefix) where T : class
         {
-            return Migrate(typeof(T));
+            return Migrate(typeof(T), tenantPrefix);
         }
 
         /// <summary>
@@ -24,21 +25,23 @@ namespace MongoDB.Entities
         /// and implement IMigration interface on them. 
         /// Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
-        public static Task MigrateAsync()
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task MigrateAsync(string tenantPrefix)
         {
-            return Migrate(null);
+            return Migrate(null, tenantPrefix);
         }
 
         /// <summary>
         /// Executes the given collection of IMigrations in the correct order to transform the database.
         /// </summary>
         /// <param name="migrations">The collection of migrations to execute</param>
-        public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task MigrationsAsync(IEnumerable<IMigration> migrations, string tenantPrefix)
         {
-            return Execute(migrations);
+            return Execute(migrations, tenantPrefix);
         }
 
-        private static Task Migrate(Type targetType)
+        private static Task Migrate(Type targetType, string tenantPrefix)
         {
             IEnumerable<Assembly> assemblies;
 
@@ -74,13 +77,13 @@ namespace MongoDB.Entities
             if (!types.Any())
                 throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.");
 
-            return Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
+            return Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)), tenantPrefix);
         }
 
-        private static async Task Execute(IEnumerable<IMigration> migrations)
+        private static async Task Execute(IEnumerable<IMigration> migrations, string tenantPrefix)
         {
             var lastMigNum = await
-                Find<Migration, int>()
+                Find<Migration, int>(tenantPrefix)
                 .Sort(m => m.Number, Order.Descending)
                 .Project(m => m.Number)
                 .ExecuteFirstAsync()
@@ -116,7 +119,7 @@ namespace MongoDB.Entities
                     Name = migration.Value.name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
                 };
-                await SaveAsync(mig).ConfigureAwait(false);
+                await SaveAsync(mig, tenantPrefix).ConfigureAwait(false);
                 sw.Stop();
                 sw.Reset();
             }
