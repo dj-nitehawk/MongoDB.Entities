@@ -22,7 +22,7 @@ namespace MongoDB.Entities
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveAsync(entity, Session, cancellation);
+            return DB.SaveAsync(entity, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveAsync(entities, Session, cancellation);
+            return DB.SaveAsync(entities, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace MongoDB.Entities
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveOnlyAsync(entity, members, Session, cancellation);
+            return DB.SaveOnlyAsync(entity, members, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace MongoDB.Entities
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveOnlyAsync(entities, members, Session, cancellation);
+            return DB.SaveOnlyAsync(entities, members, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace MongoDB.Entities
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveExceptAsync(entity, members, Session, cancellation);
+            return DB.SaveExceptAsync(entity, members, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace MongoDB.Entities
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveExceptAsync(entities, members, Session, cancellation);
+            return DB.SaveExceptAsync(entities, members, tenantPrefix, Session, cancellation);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace MongoDB.Entities
         {
             SetModifiedBySingle(entity);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SavePreservingAsync(entity, Session, cancellation);
+            return DB.SavePreservingAsync(entity, tenantPrefix, Session, cancellation);
         }
 
         private void SetModifiedBySingle<T>(T entity) where T : IEntity

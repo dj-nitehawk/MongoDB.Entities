@@ -21,7 +21,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+            return DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), tenantPrefix, options, Session, cancellation);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+            return DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), tenantPrefix, options, Session, cancellation);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+            return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), tenantPrefix, options, Session, cancellation);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+            return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), tenantPrefix, options, Session, cancellation);
         }
 
         private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
