@@ -14,10 +14,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entity">The instance to persist</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public static Task InsertAsync<T>(T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task InsertAsync<T>(T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             PrepAndCheckIfInsert(entity);
             return session == null
@@ -30,10 +30,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="entities">The entities to persist</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             var models = new List<WriteModel<T>>(entities.Count());
 

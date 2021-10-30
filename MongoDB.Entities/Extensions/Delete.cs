@@ -18,7 +18,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<DeleteResult> DeleteAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entity.ID, tenantPrefix, session, cancellation);
+            return DB.DeleteAsync<T>(entity.ID, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.DeleteAsync<T>(entities.Select(e => e.ID), tenantPrefix, session, cancellation);
+            return DB.DeleteAsync<T>(entities.Select(e => e.ID), session, cancellation, tenantPrefix);
         }
 
     }

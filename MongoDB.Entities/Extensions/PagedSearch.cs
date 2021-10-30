@@ -11,7 +11,7 @@ namespace MongoDB.Entities
         /// <typeparam name="TProjection">The type of the resulting projection</typeparam>
         public static PagedSearch<T, TProjection> PagedSearch<T, TProjection>(this IAggregateFluent<T> aggregate, string tenantPrefix) where T : IEntity
         {
-            return DB.PagedSearch<T, TProjection>(tenantPrefix).WithFluent(aggregate);
+            return DB.PagedSearch<T, TProjection>(tenantPrefix: tenantPrefix).WithFluent(aggregate);
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public static PagedSearch<T, T> PagedSearch<T>(this IAggregateFluent<T> aggregate, string tenantPrefix) where T : IEntity
         {
-            return DB.PagedSearch<T, T>(tenantPrefix).WithFluent(aggregate);
+            return DB.PagedSearch<T, T>(tenantPrefix: tenantPrefix).WithFluent(aggregate);
         }
     }
 }

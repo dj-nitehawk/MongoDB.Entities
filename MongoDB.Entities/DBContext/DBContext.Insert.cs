@@ -19,7 +19,7 @@ namespace MongoDB.Entities
             SetModifiedBySingle(entity);
             entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.InsertAsync(entity, tenantPrefix, Session, cancellation);
+            return DB.InsertAsync(entity, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace MongoDB.Entities
             SetModifiedByMultiple(entities);
             entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.InsertAsync(entities, tenantPrefix, Session, cancellation);
+            return DB.InsertAsync(entities, Session, cancellation, tenantPrefix);
         }
     }
 }

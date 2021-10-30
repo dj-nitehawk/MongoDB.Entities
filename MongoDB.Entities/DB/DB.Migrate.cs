@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task MigrateAsync<T>(string tenantPrefix) where T : class
+        public static Task MigrateAsync<T>(string tenantPrefix = null) where T : class
         {
             return Migrate(typeof(T), tenantPrefix);
         }
@@ -26,7 +26,7 @@ namespace MongoDB.Entities
         /// Call this method at the startup of the application in order to run the migrations.</para>
         /// </summary>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task MigrateAsync(string tenantPrefix)
+        public static Task MigrateAsync(string tenantPrefix = null)
         {
             return Migrate(null, tenantPrefix);
         }
@@ -36,12 +36,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="migrations">The collection of migrations to execute</param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task MigrationsAsync(IEnumerable<IMigration> migrations, string tenantPrefix)
+        public static Task MigrationsAsync(IEnumerable<IMigration> migrations, string tenantPrefix = null)
         {
             return Execute(migrations, tenantPrefix);
         }
 
-        private static Task Migrate(Type targetType, string tenantPrefix)
+        private static Task Migrate(Type targetType, string tenantPrefix = null)
         {
             IEnumerable<Assembly> assemblies;
 
@@ -80,10 +80,10 @@ namespace MongoDB.Entities
             return Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)), tenantPrefix);
         }
 
-        private static async Task Execute(IEnumerable<IMigration> migrations, string tenantPrefix)
+        private static async Task Execute(IEnumerable<IMigration> migrations, string tenantPrefix = null)
         {
             var lastMigNum = await
-                Find<Migration, int>(tenantPrefix)
+                Find<Migration, int>(tenantPrefix: tenantPrefix)
                 .Sort(m => m.Number, Order.Descending)
                 .Project(m => m.Number)
                 .ExecuteFirstAsync()
@@ -119,7 +119,7 @@ namespace MongoDB.Entities
                     Name = migration.Value.name,
                     TimeTakenSeconds = sw.Elapsed.TotalSeconds
                 };
-                await SaveAsync(mig, tenantPrefix).ConfigureAwait(false);
+                await SaveAsync(mig, tenantPrefix: tenantPrefix).ConfigureAwait(false);
                 sw.Stop();
                 sw.Reset();
             }

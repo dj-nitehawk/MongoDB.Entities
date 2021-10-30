@@ -23,7 +23,7 @@ namespace MongoDB.Entities
             SetModifiedBySingle(entity);
             entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveAsync(entity, tenantPrefix, Session, cancellation);
+            return DB.SaveAsync(entity, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace MongoDB.Entities
             SetModifiedByMultiple(entities);
             entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveAsync(entities, tenantPrefix, Session, cancellation);
+            return DB.SaveAsync(entities, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace MongoDB.Entities
             SetModifiedBySingle(entity);
             entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveOnlyAsync(entity, members, tenantPrefix, Session, cancellation);
+            return DB.SaveOnlyAsync(entity, members, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace MongoDB.Entities
             SetModifiedByMultiple(entities);
             entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveOnlyAsync(entities, members, tenantPrefix, Session, cancellation);
+            return DB.SaveOnlyAsync(entities, members, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace MongoDB.Entities
             SetModifiedBySingle(entity);
             entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveExceptAsync(entity, members, tenantPrefix, Session, cancellation);
+            return DB.SaveExceptAsync(entity, members, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace MongoDB.Entities
             SetModifiedByMultiple(entities);
             entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveExceptAsync(entities, members, tenantPrefix, Session, cancellation);
+            return DB.SaveExceptAsync(entities, members, Session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace MongoDB.Entities
             SetModifiedBySingle(entity);
             entity.SetTenantDbOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SavePreservingAsync(entity, tenantPrefix, Session, cancellation);
+            return DB.SavePreservingAsync(entity, Session, cancellation, tenantPrefix);
         }
 
         private void SetModifiedBySingle<T>(T entity) where T : IEntity

@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         public static IAggregateFluent<T> Fluent<T>(this T _, string tenantPrefix, IClientSessionHandle session = null, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Fluent<T>(tenantPrefix, options, session);
+            return DB.Fluent<T>(options, session, tenantPrefix);
         }
 
         /// <summary>

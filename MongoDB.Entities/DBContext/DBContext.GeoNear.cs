@@ -30,11 +30,11 @@ namespace MongoDB.Entities
             if (globalFilter != Builders<T>.Filter.Empty)
             {
                 return DB
-                    .FluentGeoNear(tenantPrefix, NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session)
+                    .FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, tenantPrefix)
                     .Match(globalFilter);
             }
 
-            return DB.FluentGeoNear(tenantPrefix, NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session);
+            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, tenantPrefix);
         }
     }
 }

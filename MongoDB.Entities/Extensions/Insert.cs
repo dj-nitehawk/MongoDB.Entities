@@ -16,7 +16,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task InsertAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.InsertAsync(entity, tenantPrefix, session, cancellation);
+            return DB.InsertAsync(entity, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.InsertAsync(entities, tenantPrefix, session, cancellation);
+            return DB.InsertAsync(entities, session, cancellation, tenantPrefix);
         }
 
     }

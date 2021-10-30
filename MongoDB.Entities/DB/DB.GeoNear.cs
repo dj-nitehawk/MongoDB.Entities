@@ -10,7 +10,6 @@ namespace MongoDB.Entities
         /// <summary>
         /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.
         /// </summary>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="NearCoordinates">The coordinates from which to find documents from</param>
         /// <param name="DistanceField">x => x.Distance</param>
         /// <param name="Spherical">Calculate distances using spherical geometry or not</param>
@@ -23,7 +22,8 @@ namespace MongoDB.Entities
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="session">An optional session if using within a transaction</param>
-        public static IAggregateFluent<T> FluentGeoNear<T>(string tenantPrefix, Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
         {
             return new GeoNear<T>
             {

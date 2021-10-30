@@ -14,7 +14,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync(DB.CollectionName<T>(), tenantPrefix, cancellation);
+            return DB.NextSequentialNumberAsync(DB.CollectionName<T>(), cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
         {
-            return DB.NextSequentialNumberAsync(sequenceName, tenantPrefix, cancellation);
+            return DB.NextSequentialNumberAsync(sequenceName, cancellation, tenantPrefix);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task SaveAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entity, tenantPrefix, session, cancellation);
+            return DB.SaveAsync(entity, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveAsync(entities, tenantPrefix, session, cancellation);
+            return DB.SaveAsync(entities, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveOnlyAsync(entity, members, tenantPrefix, session, cancellation);
+            return DB.SaveOnlyAsync(entity, members, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveOnlyAsync(entities, members, tenantPrefix, session, cancellation);
+            return DB.SaveOnlyAsync(entities, members, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveExceptAsync(entity, members, tenantPrefix, session, cancellation);
+            return DB.SaveExceptAsync(entity, members, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SaveExceptAsync(entities, members, tenantPrefix, session, cancellation);
+            return DB.SaveExceptAsync(entities, members, session, cancellation, tenantPrefix);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.SavePreservingAsync(entity, tenantPrefix, session, cancellation);
+            return DB.SavePreservingAsync(entity, session, cancellation, tenantPrefix);
         }
     }
 }

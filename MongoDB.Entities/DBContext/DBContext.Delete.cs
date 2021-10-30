@@ -21,9 +21,9 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
-                tenantPrefix,
                 Session,
-                cancellation);
+                cancellation,
+                tenantPrefix: tenantPrefix);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
-                tenantPrefix,
                 Session,
-                cancellation);
+                cancellation,
+                tenantPrefix: tenantPrefix);
         }
 
         /// <summary>
@@ -58,10 +58,10 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Where(expression)),
-                tenantPrefix,
                 Session,
                 cancellation,
-                collation);
+                collation,
+                tenantPrefix);
         }
 
         /// <summary>
@@ -78,10 +78,10 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
-                tenantPrefix,
                 Session,
                 cancellation,
-                collation);
+                collation,
+                tenantPrefix);
         }
 
         /// <summary>
@@ -98,10 +98,10 @@ namespace MongoDB.Entities
         {
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
-                tenantPrefix,
                 Session,
                 cancellation,
-                collation);
+                collation,
+                tenantPrefix);
         }
     }
 }

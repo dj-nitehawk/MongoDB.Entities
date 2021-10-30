@@ -71,10 +71,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<DeleteResult> DeleteAsync<T>(string ID, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             ThrowIfCancellationNotSupported(session, cancellation);
             return DeleteCascadingAsync<T>(tenantPrefix, new[] { ID }, session, cancellation);
@@ -87,10 +87,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name = "session" > An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -119,13 +119,13 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
         {
-            return DeleteAsync(Builders<T>.Filter.Where(expression), tenantPrefix, session, cancellation, collation);
+            return DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation, tenantPrefix);
         }
 
         /// <summary>
@@ -135,13 +135,13 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
         {
-            return DeleteAsync(filter(Builders<T>.Filter), tenantPrefix, session, cancellation, collation);
+            return DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation, tenantPrefix);
         }
 
         /// <summary>
@@ -151,11 +151,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="filter">A filter definition for matching entities to delete.</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, string tenantPrefix, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 

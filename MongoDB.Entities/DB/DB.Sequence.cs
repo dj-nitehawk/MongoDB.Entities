@@ -11,20 +11,20 @@ namespace MongoDB.Entities
         /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ulong> NextSequentialNumberAsync<T>(string tenantPrefix, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
         {
-            return NextSequentialNumberAsync(CollectionName<T>(), tenantPrefix, cancellation);
+            return NextSequentialNumberAsync(CollectionName<T>(), cancellation, tenantPrefix);
         }
 
         /// <summary>
         /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public static Task<ulong> NextSequentialNumberAsync(string sequenceName, string tenantPrefix, CancellationToken cancellation = default)
+        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
+        public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, string tenantPrefix = null)
         {
             return new UpdateAndGet<SequenceCounter, ulong>(null, null, null, tenantPrefix)
                 .Match(s => s.ID == sequenceName)

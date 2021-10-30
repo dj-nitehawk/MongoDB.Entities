@@ -17,11 +17,11 @@ namespace MongoDB.Entities
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
-                return DB.Queryable<T>(tenantPrefix, options, Session)
+                return DB.Queryable<T>(options, Session, tenantPrefix)
                          .Where(_ => globalFilter.Inject());
             }
 
-            return DB.Queryable<T>(tenantPrefix, options, Session);
+            return DB.Queryable<T>(options, Session, tenantPrefix);
         }
     }
 }

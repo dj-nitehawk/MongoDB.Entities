@@ -78,7 +78,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T _, string tenantPrefix, AggregateOptions options = null) where T : IEntity
         {
-            return DB.Queryable<T>(tenantPrefix, options);
+            return DB.Queryable<T>(options, tenantPrefix: tenantPrefix);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public static Task<ulong> NextSequentialNumberAsync<T>(this T _, string tenantPrefix, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(tenantPrefix, cancellation);
+            return DB.NextSequentialNumberAsync<T>(cancellation, tenantPrefix);
         }
 
         internal static void SetTenantDbOnFileEntity<T>(this T entity, string tenantPrefix) where T : IEntity
