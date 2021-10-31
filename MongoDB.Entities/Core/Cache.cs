@@ -14,34 +14,36 @@ namespace MongoDB.Entities
     {
         //key: entity type
         //val: collection name
-        protected static readonly ConcurrentDictionary<Type, string> typeToCollectionMap = new();
+        protected static readonly ConcurrentDictionary<Type, string> typeToCollectionNameMap = new();
 
         //key: entity type
-        //val: database name without tenant prefix
-        protected static readonly ConcurrentDictionary<Type, string> typeToDatabaseMap = new();
+        //val: database name without tenant prefix (will be null if not specifically set using DB.DatabaseFor<T>() method)
+        protected static readonly ConcurrentDictionary<Type, string> typeToDbNameWithoutTenantPrefixMap = new();
 
         internal static string CollectionNameFor(Type entityType)
-            => typeToCollectionMap[entityType];
+            => typeToCollectionNameMap[entityType];
 
         internal static string DbNameWithoutTenantPrefixFor(Type entityType)
-            => typeToDatabaseMap[entityType];
+            => typeToDbNameWithoutTenantPrefixMap[entityType];
+
+        internal static void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
+            => typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
     }
 
     internal class Cache<T> : Cache where T : IEntity
     {
         internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
-        internal static bool HasCreatedOn { get; private set; }
-        internal static bool HasModifiedOn { get; private set; }
-        internal static string ModifiedOnPropName { get; private set; }
-        internal static PropertyInfo ModifiedByProp { get; private set; }
-        internal static bool HasIgnoreIfDefaultProps { get; private set; }
-        internal static string CollectionName { get; set; }
-        internal static bool IsFileEntity { get; private set; }
+        internal static bool HasCreatedOn { get; }
+        internal static bool HasModifiedOn { get; }
+        internal static string ModifiedOnPropName { get; }
+        internal static PropertyInfo ModifiedByProp { get; }
+        internal static bool HasIgnoreIfDefaultProps { get; }
+        internal static string CollectionName { get; }
+        internal static bool IsFileEntity { get; }
 
-        //key: TenantPrefix~CollectionName
+        //key: TenantPrefix:CollectionName
         //val: IMongoCollection<T>
         private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
-        private static string dbNameWithoutTenantPrefix;
         private static readonly PropertyInfo[] updatableProps;
         private static ProjectionDefinition<T> requiredPropsProjection;
 
@@ -57,11 +59,8 @@ namespace MongoDB.Entities
             if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
-            typeToCollectionMap[type] = CollectionName;
-
-            SetDbNameWithoutTenantPrefix(DB.Database(null).DatabaseNamespace.DatabaseName); //default db for this type, which is overriden by calling DB.DatabaseFor<T>()
-
-            typeToDatabaseMap[type] = dbNameWithoutTenantPrefix;
+            typeToCollectionNameMap[type] = CollectionName;
+            typeToDbNameWithoutTenantPrefixMap[type] = null;
 
             HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
@@ -93,27 +92,22 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd($"{tenantPrefix}~{CollectionName}", _ =>
+            return cache.GetOrAdd($"{tenantPrefix}:{CollectionName}", _ =>
             {
-                var dbName =
-                    string.IsNullOrEmpty(tenantPrefix)
-                    ? dbNameWithoutTenantPrefix
-                    : $"{tenantPrefix}~{dbNameWithoutTenantPrefix}";
+                string fullDbName = null;
 
-                return DB.Database(dbName).GetCollection<T>(CollectionName);
+                string dbNameWithoutTenantPrefix = DbNameWithoutTenantPrefixFor(typeof(T));
+
+                if (!string.IsNullOrEmpty(dbNameWithoutTenantPrefix))
+                {
+                    if (!string.IsNullOrEmpty(tenantPrefix))
+                        fullDbName = $"{tenantPrefix}:{dbNameWithoutTenantPrefix}";
+                    else
+                        fullDbName = dbNameWithoutTenantPrefix;
+                }
+
+                return DB.Database(fullDbName).GetCollection<T>(CollectionName);
             });
-        }
-
-        internal static void SetDbNameWithoutTenantPrefix(string dbNameWithTenantPrefix)
-        {
-            var prefixSeperatorIndex = dbNameWithTenantPrefix.IndexOf('~');
-
-            dbNameWithoutTenantPrefix =
-                prefixSeperatorIndex > 0
-                ? dbNameWithTenantPrefix.Substring(prefixSeperatorIndex)
-                : dbNameWithTenantPrefix;
-
-            typeToDatabaseMap[typeof(T)] = dbNameWithoutTenantPrefix;
         }
 
         internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)

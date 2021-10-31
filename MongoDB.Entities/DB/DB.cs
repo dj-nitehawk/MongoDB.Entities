@@ -117,7 +117,7 @@ namespace MongoDB.Entities
         /// <param name="databaseName">The name of the database</param>
         public static void DatabaseFor<T>(string databaseName) where T : IEntity
         {
-            Cache<T>.SetDbNameWithoutTenantPrefix(databaseName);
+            Cache.MapTypeToDbNameWithoutTenantPrefix<T>(databaseName);
         }
 
         /// <summary>
