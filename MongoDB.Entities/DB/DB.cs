@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities
@@ -32,11 +33,8 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        internal static event Action DefaultDbChanged;
-
         //key: FullDBName(including tenant prefix - ex: TenantX_DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
-        private static IMongoDatabase defaultDb;
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -75,9 +73,6 @@ namespace MongoDB.Entities
             try
             {
                 var db = new MongoClient(settings).GetDatabase(dbName);
-
-                if (dbs.Count == 0)
-                    defaultDb = db;
 
                 if (dbs.TryAdd(dbName, db) && !skipNetworkPing)
                     await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
@@ -144,7 +139,7 @@ namespace MongoDB.Entities
             if (dbs.Count > 0)
             {
                 if (string.IsNullOrEmpty(name))
-                    db = defaultDb;
+                    db = dbs.First().Value;
                 else
                     dbs.TryGetValue(name, out db);
             }
@@ -163,22 +158,6 @@ namespace MongoDB.Entities
         public static string DatabaseName<T>(string tenantPrefix = null) where T : IEntity
         {
             return Database<T>(tenantPrefix).DatabaseNamespace.DatabaseName;
-        }
-
-        /// <summary>
-        /// Switches the default database at runtime
-        /// <para>WARNING: Use at your own risk!!! Might result in entities getting saved in the wrong databases under high concurrency situations.</para>
-        /// <para>TIP: Make sure to cancel any watchers (change-streams) before switching the default database.</para>
-        /// </summary>
-        /// <param name="name">The name of the database to mark as the new default database</param>
-        public static void ChangeDefaultDatabase(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
-
-            defaultDb = Database(name);
-
-            DefaultDbChanged?.Invoke();
         }
 
         /// <summary>

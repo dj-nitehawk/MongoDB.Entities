@@ -35,16 +35,10 @@ namespace MongoDB.Entities
         //val: IMongoCollection<T>
         private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
         private static string dbNameWithoutTenantPrefix;
-        private static PropertyInfo[] updatableProps;
+        private static readonly PropertyInfo[] updatableProps;
         private static ProjectionDefinition<T> requiredPropsProjection;
 
         static Cache()
-        {
-            Initialize();
-            DB.DefaultDbChanged += Initialize;
-        }
-
-        private static void Initialize()
         {
             var type = typeof(T);
             var interfaces = type.GetInterfaces();
