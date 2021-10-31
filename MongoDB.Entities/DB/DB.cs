@@ -33,7 +33,7 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
-        //key: FullDBName(including tenant prefix - ex: TenantX_DBName)
+        //key: FullDBName(including tenant prefix - ex: TenantX~DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
 
         /// <summary>

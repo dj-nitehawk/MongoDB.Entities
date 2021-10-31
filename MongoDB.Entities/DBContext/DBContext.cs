@@ -46,7 +46,7 @@ namespace MongoDB.Entities
 
             DB.Initialize(
                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
-               $"{tenantPrefix}_{dbName}",
+               $"{tenantPrefix}~{dbName}",
                true)
              .GetAwaiter()
              .GetResult();
@@ -95,7 +95,7 @@ namespace MongoDB.Entities
             if (!multiTenancyMode)
                 throw new ArgumentException("multiTenancyMode should be set to True");
 
-            DB.Initialize(settings, $"{tenantPrefix}_{dbName}", true)
+            DB.Initialize(settings, $"{tenantPrefix}~{dbName}", true)
               .GetAwaiter()
               .GetResult();
 

@@ -31,7 +31,7 @@ namespace MongoDB.Entities
         internal static string CollectionName { get; set; }
         internal static bool IsFileEntity { get; private set; }
 
-        //key: TenantPrefix_CollectionName
+        //key: TenantPrefix~CollectionName
         //val: IMongoCollection<T>
         private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
         private static string dbNameWithoutTenantPrefix;
@@ -84,12 +84,12 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd($"{tenantPrefix}_{CollectionName}", _ =>
+            return cache.GetOrAdd($"{tenantPrefix}~{CollectionName}", _ =>
             {
                 var dbName =
                     string.IsNullOrEmpty(tenantPrefix)
                     ? dbNameWithoutTenantPrefix
-                    : $"{tenantPrefix}_{dbNameWithoutTenantPrefix}";
+                    : $"{tenantPrefix}~{dbNameWithoutTenantPrefix}";
 
                 return DB.Database(dbName).GetCollection<T>(CollectionName);
             });
@@ -97,7 +97,7 @@ namespace MongoDB.Entities
 
         internal static void SetDbNameWithoutTenantPrefix(string dbNameWithTenantPrefix)
         {
-            var prefixSeperatorIndex = dbNameWithTenantPrefix.IndexOf('_');
+            var prefixSeperatorIndex = dbNameWithTenantPrefix.IndexOf('~');
 
             dbNameWithoutTenantPrefix =
                 prefixSeperatorIndex > 0
