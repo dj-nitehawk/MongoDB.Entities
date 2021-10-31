@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     
-    <Version>20.26.0</Version>
+    <Version>21.0.0-alpha1</Version>
 
     <PackageReleaseNotes>
-      - add MD5 verification support for file uploads
-      - add diacritic support for fuzzy text search
-      - change project lang version to 9.0
+      - add support for db per tenant multi-tenancy
+      - remove previously deprecated NameAttribute
+      - remove ability to change default database during runtime
+      - upgrade dependencies
     </PackageReleaseNotes>
 
     <TargetFramework>netstandard2.0</TargetFramework>
