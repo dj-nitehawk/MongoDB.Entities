@@ -23,11 +23,25 @@ namespace MongoDB.Entities
         internal static string CollectionNameFor(Type entityType)
             => typeToCollectionNameMap[entityType];
 
-        internal static string DbNameWithoutTenantPrefixFor(Type entityType)
-            => typeToDbNameWithoutTenantPrefixMap[entityType];
-
         internal static void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
             => typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
+
+        internal static string GetFullDbName(Type entityType, string tenantPrefix)
+        {
+            string fullDbName = null;
+
+            string dbNameWithoutTenantPrefix = typeToDbNameWithoutTenantPrefixMap[entityType];
+
+            if (!string.IsNullOrEmpty(dbNameWithoutTenantPrefix))
+            {
+                if (!string.IsNullOrEmpty(tenantPrefix))
+                    fullDbName = $"{tenantPrefix}:{dbNameWithoutTenantPrefix}";
+                else
+                    fullDbName = dbNameWithoutTenantPrefix;
+            }
+
+            return fullDbName;
+        }
     }
 
     internal class Cache<T> : Cache where T : IEntity
@@ -92,22 +106,9 @@ namespace MongoDB.Entities
 
         internal static IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd($"{tenantPrefix}:{CollectionName}", _ =>
-            {
-                string fullDbName = null;
-
-                string dbNameWithoutTenantPrefix = DbNameWithoutTenantPrefixFor(typeof(T));
-
-                if (!string.IsNullOrEmpty(dbNameWithoutTenantPrefix))
-                {
-                    if (!string.IsNullOrEmpty(tenantPrefix))
-                        fullDbName = $"{tenantPrefix}:{dbNameWithoutTenantPrefix}";
-                    else
-                        fullDbName = dbNameWithoutTenantPrefix;
-                }
-
-                return DB.Database(fullDbName).GetCollection<T>(CollectionName);
-            });
+            return cache.GetOrAdd(
+                key: $"{tenantPrefix}:{CollectionName}",
+                valueFactory: _ => DB.Database(GetFullDbName(typeof(T), tenantPrefix)).GetCollection<T>(CollectionName));
         }
 
         internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)

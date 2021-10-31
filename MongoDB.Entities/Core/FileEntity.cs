@@ -88,14 +88,7 @@ namespace MongoDB.Entities
         {
             this.parent = parent;
             parentType = parent.GetType();
-
-            var dbNameWithoutTenantPrefix = Cache.DbNameWithoutTenantPrefixFor(parentType);
-            var fullDbName =
-                tenantPrefix == null
-                ? dbNameWithoutTenantPrefix
-                : $"{tenantPrefix}~{dbNameWithoutTenantPrefix}";
-
-            db = DB.Database(fullDbName);
+            db = DB.Database(Cache.GetFullDbName(parentType, tenantPrefix));
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
 
             if (indexedDBs.Add(db.DatabaseNamespace.DatabaseName))
