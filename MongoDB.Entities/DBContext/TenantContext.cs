@@ -28,13 +28,14 @@ namespace MongoDB.Entities
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public Task InitAsync(string dbName, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
+        public void Init(string dbName, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
         {
             ModifiedBy = modifiedBy;
-            return DB.Initialize(
+            DB.Initialize(
                 new MongoClientSettings { Server = new MongoServerAddress(host, port) },
                 $"{tenantPrefix}~{dbName}",
-                true);
+                true
+            ).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -47,10 +48,10 @@ namespace MongoDB.Entities
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public Task InitAsync(string dbName, MongoClientSettings settings, ModifiedBy modifiedBy = null)
+        public void Init(string dbName, MongoClientSettings settings, ModifiedBy modifiedBy = null)
         {
             ModifiedBy = modifiedBy;
-            return DB.Initialize(settings, $"{tenantPrefix}~{dbName}", true);
+            DB.Initialize(settings, $"{tenantPrefix}~{dbName}", true).GetAwaiter().GetResult();
         }
     }
 }
