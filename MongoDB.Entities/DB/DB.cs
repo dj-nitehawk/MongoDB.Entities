@@ -35,6 +35,7 @@ namespace MongoDB.Entities
 
         //key: FullDBName(including tenant prefix - ex: TenantX~DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
+        private static IMongoDatabase defaultDb;
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -73,6 +74,9 @@ namespace MongoDB.Entities
             try
             {
                 var db = new MongoClient(settings).GetDatabase(dbName);
+
+                if (dbs.Count == 0)
+                    defaultDb = db;
 
                 if (dbs.TryAdd(dbName, db) && !skipNetworkPing)
                     await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
@@ -139,7 +143,7 @@ namespace MongoDB.Entities
             if (dbs.Count > 0)
             {
                 if (string.IsNullOrEmpty(name))
-                    db = dbs.First().Value;
+                    db = defaultDb;
                 else
                     dbs.TryGetValue(name, out db);
             }
