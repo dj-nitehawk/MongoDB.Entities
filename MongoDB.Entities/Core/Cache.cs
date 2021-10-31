@@ -37,7 +37,7 @@ namespace MongoDB.Entities
             if (!string.IsNullOrEmpty(dbNameWithoutTenantPrefix))
             {
                 if (!string.IsNullOrEmpty(tenantPrefix))
-                    fullDbName = $"{tenantPrefix}:{dbNameWithoutTenantPrefix}";
+                    fullDbName = $"{tenantPrefix}~{dbNameWithoutTenantPrefix}";
                 else
                     fullDbName = dbNameWithoutTenantPrefix;
             }
