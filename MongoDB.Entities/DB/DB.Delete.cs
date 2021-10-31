@@ -30,19 +30,16 @@ namespace MongoDB.Entities
 
             var tasks = new List<Task>();
 
-            if (tenantPrefix != null)
-            {
-                // note: db.listCollections() mongo command does not support transactions.
-                //       so don't add session support here.
-                var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
+            // note: db.listCollections() mongo command does not support transactions.
+            //       so don't add session support here.
+            var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
 
-                foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
-                {
-                    tasks.Add(
-                        session == null
-                        ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                        : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
-                }
+            foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
+            {
+                tasks.Add(
+                    session == null
+                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
             }
 
             var delResTask =
