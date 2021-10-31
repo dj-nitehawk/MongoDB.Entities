@@ -171,11 +171,11 @@ namespace MongoDB.Entities
             return DB.NextSequentialNumberAsync<T>(cancellation, tenantPrefix);
         }
 
-        internal static void SetTenantDbOnFileEntity<T>(this T entity, string tenantPrefix) where T : IEntity
+        internal static void SetTenantPrefixOnFileEntity<T>(this T entity, string tenantPrefix) where T : IEntity
         {
             if (entity is FileEntity e)
             {
-                e.TenantDb = Cache<T>.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName;
+                e.TenantPrefix = tenantPrefix;
             }
         }
 
@@ -183,7 +183,7 @@ namespace MongoDB.Entities
         {
             foreach (var entity in entities)
             {
-                SetTenantDbOnFileEntity(entity, tenantPrefix);
+                SetTenantPrefixOnFileEntity(entity, tenantPrefix);
             }
         }
     }

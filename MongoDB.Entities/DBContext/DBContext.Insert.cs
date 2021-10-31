@@ -17,7 +17,7 @@ namespace MongoDB.Entities
         public Task InsertAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantDbOnFileEntity(tenantPrefix);
+            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
             return DB.InsertAsync(entity, Session, cancellation, tenantPrefix);
         }

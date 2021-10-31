@@ -58,7 +58,7 @@ namespace MongoDB.Entities
             if (Cache<T>.IsFileEntity)
             {
                 defs.Add(Builders<T>.Update.Set(
-                    nameof(FileEntity.TenantDb),
+                    nameof(FileEntity.TenantPrefix),
                     Cache<T>.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
             }
         }

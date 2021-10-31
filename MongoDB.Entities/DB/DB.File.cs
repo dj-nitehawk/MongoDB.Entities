@@ -18,7 +18,7 @@ namespace MongoDB.Entities
 
             return new DataStreamer(
                 new T() { ID = ID, UploadSuccessful = true },
-                DatabaseName<T>(tenantPrefix));
+                tenantPrefix);
         }
     }
 }

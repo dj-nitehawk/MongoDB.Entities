@@ -44,12 +44,12 @@ namespace MongoDB.Entities
         public string MD5 { get; set; }
 
         [IgnoreDefault]
-        public string TenantDb { get; set; }
+        public string TenantPrefix { get; set; }
 
         /// <summary>
         /// Access the DataStreamer class for uploading and downloading data
         /// </summary>
-        public DataStreamer Data => streamer ??= new DataStreamer(this, TenantDb);
+        public DataStreamer Data => streamer ??= new DataStreamer(this, TenantPrefix);
     }
 
     [Collection("[BINARY_CHUNKS]")]
@@ -84,11 +84,18 @@ namespace MongoDB.Entities
         private List<byte> dataChunk;
         private MD5 md5;
 
-        internal DataStreamer(FileEntity parent, string tenantDbName)
+        internal DataStreamer(FileEntity parent, string tenantPrefix)
         {
             this.parent = parent;
             parentType = parent.GetType();
-            db = DB.Database(tenantDbName);
+
+            var dbNameWithoutTenantPrefix = Cache.DbNameWithoutTenantPrefixFor(parentType);
+            var fullDbName =
+                tenantPrefix == null
+                ? dbNameWithoutTenantPrefix
+                : $"{tenantPrefix}~{dbNameWithoutTenantPrefix}";
+
+            db = DB.Database(fullDbName);
             chunkCollection = db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
 
             if (indexedDBs.Add(db.DatabaseNamespace.DatabaseName))

@@ -16,8 +16,15 @@ namespace MongoDB.Entities
         //val: collection name
         protected static readonly ConcurrentDictionary<Type, string> typeToCollectionMap = new();
 
+        //key: entity type
+        //val: database name without tenant prefix
+        protected static readonly ConcurrentDictionary<Type, string> typeToDatabaseMap = new();
+
         internal static string CollectionNameFor(Type entityType)
             => typeToCollectionMap[entityType];
+
+        internal static string DbNameWithoutTenantPrefixFor(Type entityType)
+            => typeToDatabaseMap[entityType];
     }
 
     internal class Cache<T> : Cache where T : IEntity
@@ -53,6 +60,8 @@ namespace MongoDB.Entities
             typeToCollectionMap[type] = CollectionName;
 
             SetDbNameWithoutTenantPrefix(DB.Database(null).DatabaseNamespace.DatabaseName); //default db for this type, which is overriden by calling DB.DatabaseFor<T>()
+
+            typeToDatabaseMap[type] = dbNameWithoutTenantPrefix;
 
             HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
@@ -103,6 +112,8 @@ namespace MongoDB.Entities
                 prefixSeperatorIndex > 0
                 ? dbNameWithTenantPrefix.Substring(prefixSeperatorIndex)
                 : dbNameWithTenantPrefix;
+
+            typeToDatabaseMap[typeof(T)] = dbNameWithoutTenantPrefix;
         }
 
         internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
