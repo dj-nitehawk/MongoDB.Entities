@@ -24,7 +24,9 @@ namespace MongoDB.Entities
             => typeToCollectionNameMap[entityType];
 
         internal static void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
-            => typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
+        {
+            typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
+        }
 
         internal static string GetFullDbName(Type entityType, string tenantPrefix)
         {
@@ -74,7 +76,9 @@ namespace MongoDB.Entities
                 throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
             typeToCollectionNameMap[type] = CollectionName;
-            typeToDbNameWithoutTenantPrefixMap[type] = null;
+
+            if (!typeToDbNameWithoutTenantPrefixMap.ContainsKey(type))
+                typeToDbNameWithoutTenantPrefixMap[type] = null;
 
             HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
             HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
