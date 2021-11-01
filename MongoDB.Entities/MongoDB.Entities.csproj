@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     
-    <Version>21.0.0-alpha2</Version>
+    <Version>21.0.0-alpha3</Version>
 
     <PackageReleaseNotes>
       - add support for db per tenant multi-tenancy
