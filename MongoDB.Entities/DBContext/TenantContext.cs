@@ -9,13 +9,25 @@ namespace MongoDB.Entities
     public class TenantContext : DBContext
     {
         /// <summary>
+        /// If you use this ctor, make sure to call SetTenantPrefix() method and specify the tenant prefix
+        /// </summary>
+        public TenantContext() { }
+
+        /// <summary>
         /// Instantiate a tenant context with the given tenant prefix value.
         /// </summary>
-        /// <param name="tenantPrefix">The tenant prefix to be prepended to database names.</param>
+        /// <param name="tenantPrefix">The tenant prefix to be prepended to database names</param>
         public TenantContext(string tenantPrefix)
         {
             this.tenantPrefix = tenantPrefix;
         }
+
+        /// <summary>
+        /// Set the tenant prefix
+        /// </summary>
+        /// <param name="tenantPrefix">The tenant prefix to be prepended to database names</param>
+        public void SetTenantPrefix(string tenantPrefix)
+            => this.tenantPrefix = tenantPrefix;
 
         /// <summary>
         /// Configure this tenant context to be able to connect to a particular database/server.
