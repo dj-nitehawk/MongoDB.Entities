@@ -24,9 +24,7 @@ namespace MongoDB.Entities
             => typeToCollectionNameMap[entityType];
 
         internal static void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
-        {
-            typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
-        }
+            => typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
 
         internal static string GetFullDbName(Type entityType, string tenantPrefix)
         {
