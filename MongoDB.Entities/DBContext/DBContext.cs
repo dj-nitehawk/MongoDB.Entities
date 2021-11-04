@@ -189,8 +189,6 @@ namespace MongoDB.Entities
             }
         }
 
-
-
         /// <summary>
         /// Specify a global filter for all entity types that implements a given interface
         /// </summary>
