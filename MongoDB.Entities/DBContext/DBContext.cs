@@ -16,15 +16,35 @@ namespace MongoDB.Entities
         /// Returns the session object used for transactions
         /// </summary>
         public IClientSessionHandle Session { get; protected set; }
-        public MongoContext MongoContext { get; set; }
+
+
+        public MongoContext MongoContext { get; }
+
         /// <summary>
-        /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
+        /// wrapper around <see cref="MongoContext.ModifiedBy"/> so that we don't break the public api
         /// </summary>
-        public ModifiedBy ModifiedBy { get; set; }
+        public ModifiedBy ModifiedBy
+        {
+            get
+            {
+                return MongoContext.ModifiedBy;
+            }
+            set
+            {
+                MongoContext.Options.ModifiedBy = value;
+            }
+        }
+
+
 
         protected string tenantPrefix;
         private static Type[] allEntitiyTypes;
         private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
+
+        public DBContext(MongoContext mongoContext)
+        {
+            MongoContext = mongoContext;
+        }
 
         /// <summary>
         /// Initializes a DBContext instance with the given connection parameters.

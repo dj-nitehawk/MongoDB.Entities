@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Clusters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,154 +9,166 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
+    //Make these interface implmentation explicit, so we can fine-tune the api return result
     public partial class MongoContext
     {
-        public void DropDatabase(string name, CancellationToken cancellationToken = default)
+        public ICluster Cluster => Client.Cluster;
+
+        public MongoClientSettings Settings => Client.Settings;
+
+        void IMongoClient.DropDatabase(string name, CancellationToken cancellationToken)
         {
             Client.DropDatabase(name, cancellationToken);
         }
 
-        public void DropDatabase(IClientSessionHandle session, string name, CancellationToken cancellationToken = default)
+        void IMongoClient.DropDatabase(IClientSessionHandle session, string name, CancellationToken cancellationToken)
         {
             Client.DropDatabase(session, name, cancellationToken);
         }
 
-        public Task DropDatabaseAsync(string name, CancellationToken cancellationToken = default)
+        Task IMongoClient.DropDatabaseAsync(string name, CancellationToken cancellationToken)
         {
             return Client.DropDatabaseAsync(name, cancellationToken);
         }
 
-        public Task DropDatabaseAsync(IClientSessionHandle session, string name, CancellationToken cancellationToken = default)
+        Task IMongoClient.DropDatabaseAsync(IClientSessionHandle session, string name, CancellationToken cancellationToken)
         {
             return Client.DropDatabaseAsync(session, name, cancellationToken);
         }
 
-        public IMongoDatabase GetDatabase(string name, MongoDatabaseSettings settings = null)
+        IMongoDatabase IMongoClient.GetDatabase(string name, MongoDatabaseSettings settings)
         {
             return Client.GetDatabase(name, settings);
         }
 
-        public IAsyncCursor<string> ListDatabaseNames(CancellationToken cancellationToken = default)
+        IAsyncCursor<string> IMongoClient.ListDatabaseNames(CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNames(cancellationToken);
         }
 
-        public IAsyncCursor<string> ListDatabaseNames(ListDatabaseNamesOptions options, CancellationToken cancellationToken = default)
+        IAsyncCursor<string> IMongoClient.ListDatabaseNames(ListDatabaseNamesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNames(options, cancellationToken);
         }
 
-        public IAsyncCursor<string> ListDatabaseNames(IClientSessionHandle session, CancellationToken cancellationToken = default)
+        IAsyncCursor<string> IMongoClient.ListDatabaseNames(IClientSessionHandle session, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNames(session, cancellationToken);
         }
 
-        public IAsyncCursor<string> ListDatabaseNames(IClientSessionHandle session, ListDatabaseNamesOptions options, CancellationToken cancellationToken = default)
+        IAsyncCursor<string> IMongoClient.ListDatabaseNames(IClientSessionHandle session, ListDatabaseNamesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNames(session, options, cancellationToken);
         }
 
-        public Task<IAsyncCursor<string>> ListDatabaseNamesAsync(CancellationToken cancellationToken = default)
+        public async Task<List<string>> AllDatabaseNamesAsync()
+        {
+            return await (await
+                   ((IMongoClient)this)
+                   .ListDatabaseNamesAsync().ConfigureAwait(false))
+                   .ToListAsync().ConfigureAwait(false);
+        }
+        Task<IAsyncCursor<string>> IMongoClient.ListDatabaseNamesAsync(CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNamesAsync(cancellationToken);
         }
 
-        public Task<IAsyncCursor<string>> ListDatabaseNamesAsync(ListDatabaseNamesOptions options, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<string>> IMongoClient.ListDatabaseNamesAsync(ListDatabaseNamesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNamesAsync(options, cancellationToken);
         }
 
-        public Task<IAsyncCursor<string>> ListDatabaseNamesAsync(IClientSessionHandle session, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<string>> IMongoClient.ListDatabaseNamesAsync(IClientSessionHandle session, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNamesAsync(session, cancellationToken);
         }
 
-        public Task<IAsyncCursor<string>> ListDatabaseNamesAsync(IClientSessionHandle session, ListDatabaseNamesOptions options, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<string>> IMongoClient.ListDatabaseNamesAsync(IClientSessionHandle session, ListDatabaseNamesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNamesAsync(session, options, cancellationToken);
         }
 
-        public IAsyncCursor<BsonDocument> ListDatabases(CancellationToken cancellationToken = default)
+        IAsyncCursor<BsonDocument> IMongoClient.ListDatabases(CancellationToken cancellationToken)
         {
             return Client.ListDatabases(cancellationToken);
         }
 
-        public IAsyncCursor<BsonDocument> ListDatabases(ListDatabasesOptions options, CancellationToken cancellationToken = default)
+        IAsyncCursor<BsonDocument> IMongoClient.ListDatabases(ListDatabasesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabases(options, cancellationToken);
         }
 
-        public IAsyncCursor<BsonDocument> ListDatabases(IClientSessionHandle session, CancellationToken cancellationToken = default)
+        IAsyncCursor<BsonDocument> IMongoClient.ListDatabases(IClientSessionHandle session, CancellationToken cancellationToken)
         {
             return Client.ListDatabases(session, cancellationToken);
         }
 
-        public IAsyncCursor<BsonDocument> ListDatabases(IClientSessionHandle session, ListDatabasesOptions options, CancellationToken cancellationToken = default)
+        IAsyncCursor<BsonDocument> IMongoClient.ListDatabases(IClientSessionHandle session, ListDatabasesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabases(session, options, cancellationToken);
         }
 
-        public Task<IAsyncCursor<BsonDocument>> ListDatabasesAsync(CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<BsonDocument>> IMongoClient.ListDatabasesAsync(CancellationToken cancellationToken)
         {
             return Client.ListDatabasesAsync(cancellationToken);
         }
 
-        public Task<IAsyncCursor<BsonDocument>> ListDatabasesAsync(ListDatabasesOptions options, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<BsonDocument>> IMongoClient.ListDatabasesAsync(ListDatabasesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabasesAsync(options, cancellationToken);
         }
 
-        public Task<IAsyncCursor<BsonDocument>> ListDatabasesAsync(IClientSessionHandle session, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<BsonDocument>> IMongoClient.ListDatabasesAsync(IClientSessionHandle session, CancellationToken cancellationToken)
         {
             return Client.ListDatabasesAsync(session, cancellationToken);
         }
 
-        public Task<IAsyncCursor<BsonDocument>> ListDatabasesAsync(IClientSessionHandle session, ListDatabasesOptions options, CancellationToken cancellationToken = default)
+        Task<IAsyncCursor<BsonDocument>> IMongoClient.ListDatabasesAsync(IClientSessionHandle session, ListDatabasesOptions options, CancellationToken cancellationToken)
         {
             return Client.ListDatabasesAsync(session, options, cancellationToken);
         }
 
-        public IClientSessionHandle StartSession(ClientSessionOptions options = null, CancellationToken cancellationToken = default)
+        IClientSessionHandle IMongoClient.StartSession(ClientSessionOptions options, CancellationToken cancellationToken)
         {
             return Client.StartSession(options, cancellationToken);
         }
 
-        public Task<IClientSessionHandle> StartSessionAsync(ClientSessionOptions options = null, CancellationToken cancellationToken = default)
+        Task<IClientSessionHandle> IMongoClient.StartSessionAsync(ClientSessionOptions options, CancellationToken cancellationToken)
         {
             return Client.StartSessionAsync(options, cancellationToken);
         }
 
-        public IChangeStreamCursor<TResult> Watch<TResult>(PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options = null, CancellationToken cancellationToken = default)
+        IChangeStreamCursor<TResult> IMongoClient.Watch<TResult>(PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken)
         {
             return Client.Watch(pipeline, options, cancellationToken);
         }
 
-        public IChangeStreamCursor<TResult> Watch<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options = null, CancellationToken cancellationToken = default)
+        IChangeStreamCursor<TResult> IMongoClient.Watch<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken)
         {
             return Client.Watch(session, pipeline, options, cancellationToken);
         }
 
-        public Task<IChangeStreamCursor<TResult>> WatchAsync<TResult>(PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options = null, CancellationToken cancellationToken = default)
+        Task<IChangeStreamCursor<TResult>> IMongoClient.WatchAsync<TResult>(PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken)
         {
             return Client.WatchAsync(pipeline, options, cancellationToken);
         }
 
-        public Task<IChangeStreamCursor<TResult>> WatchAsync<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options = null, CancellationToken cancellationToken = default)
+        Task<IChangeStreamCursor<TResult>> IMongoClient.WatchAsync<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken = default)
         {
             return Client.WatchAsync(session, pipeline, options, cancellationToken);
         }
 
-        public IMongoClient WithReadConcern(ReadConcern readConcern)
+        IMongoClient IMongoClient.WithReadConcern(ReadConcern readConcern)
         {
             return Client.WithReadConcern(readConcern);
         }
 
-        public IMongoClient WithReadPreference(ReadPreference readPreference)
+        IMongoClient IMongoClient.WithReadPreference(ReadPreference readPreference)
         {
             return Client.WithReadPreference(readPreference);
         }
 
-        public IMongoClient WithWriteConcern(WriteConcern writeConcern)
+        IMongoClient IMongoClient.WithWriteConcern(WriteConcern writeConcern)
         {
             return Client.WithWriteConcern(writeConcern);
         }

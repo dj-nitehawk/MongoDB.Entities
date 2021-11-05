@@ -33,6 +33,7 @@ namespace MongoDB.Entities
         }
 
         //TODO: refactor api
+        public static DBContext Context { get; set; }
 
         //key: FullDBName(including tenant prefix - ex: TenantX~DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
