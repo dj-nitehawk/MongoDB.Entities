@@ -9,12 +9,20 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public abstract class UpdateBase<T> where T : IEntity
+    public class UpdateBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : UpdateBase<T, TSelf>
     {
         //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
         //      there's no other purpose for this.
 
         protected readonly List<UpdateDefinition<T>> defs = new();
+
+        internal UpdateBase(FilterQueryBase<T, TSelf> other) : base(other)
+        {
+        }
+
+        internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters)
+        {
+        }
 
         /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)
@@ -53,15 +61,15 @@ namespace MongoDB.Entities
             AddModification(template.RenderToString());
         }
 
-        protected void SetTenantDbOnFileEntities(string tenantPrefix)
-        {
-            if (Cache<T>.IsFileEntity)
-            {
-                defs.Add(Builders<T>.Update.Set(
-                    nameof(FileEntity.TenantPrefix),
-                    Cache<T>.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
-            }
-        }
+        //protected void SetTenantDbOnFileEntities(string tenantPrefix)
+        //{
+        //    if (Cache<T>.Instance.IsFileEntity)
+        //    {
+        //        defs.Add(Builders<T>.Update.Set(
+        //            nameof(FileEntity.TenantPrefix),
+        //            Cache<T>.Instance.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
+        //    }
+        //}
     }
 
     /// <summary>
@@ -69,151 +77,29 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Update<T> : UpdateBase<T> where T : IEntity
+    public class Update<T> : UpdateBase<T, Update<T>>, ICollectionRelated<T> where T : IEntity
     {
-        private readonly List<PipelineStageDefinition<T, T>> stages = new();
-        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private UpdateOptions options = new();
-        private readonly IClientSessionHandle session;
-        private readonly List<UpdateManyModel<T>> models = new();
-        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-        private readonly Action<UpdateBase<T>> onUpdateAction;
-        private bool ignoreGlobalFilters;
-        private readonly string tenantPrefix;
+        private readonly List<PipelineStageDefinition<T, T>> _stages = new();
+        private UpdateOptions _options = new();
+        private readonly List<UpdateManyModel<T>> _models = new();
+        private readonly Action<Update<T>> _onUpdateAction;
+
+        public DBContext Context { get; }
+        public IMongoCollection<T> Collection { get; }
 
         internal Update(
-            IClientSessionHandle session,
+            DBContext context,
+            IMongoCollection<T> collection,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction,
-            string tenantPrefix)
+            Action<Update<T>> onUpdateAction) :
+            base(globalFilters)
         {
-            this.session = session;
-            this.globalFilters = globalFilters;
-            this.onUpdateAction = onUpdateAction;
-            this.tenantPrefix = tenantPrefix;
+            Context = context;
+            Collection = collection;
+            _onUpdateAction = onUpdateAction;
         }
 
-        /// <summary>
-        /// Specify an IEntity ID as the matching criteria
-        /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Update<T> MatchID(string ID)
-        {
-            return Match(f => f.Eq(t => t.ID, ID));
-        }
 
-        /// <summary>
-        /// Specify the matching criteria with a lambda expression
-        /// </summary>
-        /// <param name="expression">x => x.Property == Value</param>
-        public Update<T> Match(Expression<Func<T, bool>> expression)
-        {
-            return Match(f => f.Where(expression));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            this.filter &= filter(Builders<T>.Filter);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter definition
-        /// </summary>
-        /// <param name="filterDefinition">A filter definition</param>
-        public Update<T> Match(FilterDefinition<T> filterDefinition)
-        {
-            filter &= filterDefinition;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a template
-        /// </summary>
-        /// <param name="template">A Template with a find query</param>
-        public Update<T> Match(Template template)
-        {
-            filter &= template.RenderToString();
-            return this;
-        }
-
-        /// <summary>
-        /// Specify a search term to find results from the text index of this particular collection.
-        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
-        /// </summary>
-        /// <param name="searchType">The type of text matching to do</param>
-        /// <param name="searchTerm">The search term</param>
-        /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
-        /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
-        /// <param name="language">The language for the search (optional)</param>
-        public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
-        {
-            if (searchType == Search.Fuzzy)
-            {
-                searchTerm = searchTerm.ToDoubleMetaphoneHash();
-                caseSensitive = false;
-                diacriticSensitive = false;
-                language = null;
-            }
-
-            return Match(
-                f => f.Text(
-                    searchTerm,
-                    new TextSearchOptions
-                    {
-                        CaseSensitive = caseSensitive,
-                        DiacriticSensitive = diacriticSensitive,
-                        Language = language
-                    }));
-        }
-
-        /// <summary>
-        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
-        /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
-        /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
-        /// </summary>
-        /// <param name="coordinatesProperty">The property where 2DCoordinates are stored</param>
-        /// <param name="nearCoordinates">The search point</param>
-        /// <param name="maxDistance">Maximum distance in meters from the search point</param>
-        /// <param name="minDistance">Minimum distance in meters from the search point</param>
-        public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
-        {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a JSON string
-        /// </summary>
-        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
-        public Update<T> MatchString(string jsonString)
-        {
-            filter &= jsonString;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with an aggregation expression (i.e. $expr)
-        /// </summary>
-        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
-        public Update<T> MatchExpression(string expression)
-        {
-            filter &= "{$expr:" + expression + "}";
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a Template
-        /// </summary>
-        /// <param name="template">A Template object</param>
-        public Update<T> MatchExpression(Template template)
-        {
-            filter &= "{$expr:" + template.RenderToString() + "}";
-            return this;
-        }
 
         /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)
@@ -263,7 +149,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the property values from</param>
         public Update<T> ModifyWith(T entity)
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity));
             return this;
         }
@@ -275,7 +161,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members));
             return this;
         }
@@ -287,7 +173,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
             return this;
         }
@@ -301,7 +187,7 @@ namespace MongoDB.Entities
         {
             foreach (var stage in template.ToStages())
             {
-                stages.Add(stage);
+                _stages.Add(stage);
             }
 
             return this;
@@ -314,7 +200,7 @@ namespace MongoDB.Entities
         /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
         public Update<T> WithPipelineStage(string stage)
         {
-            stages.Add(stage);
+            _stages.Add(stage);
             return this;
         }
 
@@ -336,10 +222,10 @@ namespace MongoDB.Entities
         {
             ArrayFilterDefinition<T> def = filter;
 
-            options.ArrayFilters =
-                options.ArrayFilters == null
+            _options.ArrayFilters =
+                _options.ArrayFilters == null
                 ? new[] { def }
-                : options.ArrayFilters.Concat(new[] { def });
+                : _options.ArrayFilters.Concat(new[] { def });
 
             return this;
         }
@@ -362,10 +248,10 @@ namespace MongoDB.Entities
         {
             var defs = template.ToArrayFilters<T>();
 
-            options.ArrayFilters =
-                options.ArrayFilters == null
+            _options.ArrayFilters =
+                _options.ArrayFilters == null
                 ? defs
-                : options.ArrayFilters.Concat(defs);
+                : _options.ArrayFilters.Concat(defs);
 
             return this;
         }
@@ -377,40 +263,32 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Update<T> Option(Action<UpdateOptions> option)
         {
-            option(options);
+            option(_options);
             return this;
         }
 
-        /// <summary>
-        /// Specify that this operation should ignore any global filters
-        /// </summary>
-        public Update<T> IgnoreGlobalFilters()
-        {
-            ignoreGlobalFilters = true;
-            return this;
-        }
+
 
         /// <summary>
         /// Queue up an update command for bulk execution later.
         /// </summary>
         public Update<T> AddToQueue()
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+            var mergedFilter = MergedFilter;
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-            SetTenantDbOnFileEntities(tenantPrefix);
-            onUpdateAction?.Invoke(this);
-            models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
+            if (Cache<T>.Instance.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
+            _onUpdateAction?.Invoke(this);
+            _models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
             {
-                ArrayFilters = options.ArrayFilters,
-                Collation = options.Collation,
-                Hint = options.Hint,
-                IsUpsert = options.IsUpsert
+                ArrayFilters = _options.ArrayFilters,
+                Collation = _options.Collation,
+                Hint = _options.Hint,
+                IsUpsert = _options.IsUpsert
             });
-            filter = Builders<T>.Filter.Empty;
+            _filter = Builders<T>.Filter.Empty;
             defs.Clear();
-            options = new UpdateOptions();
+            _options = new UpdateOptions();
             return this;
         }
 
@@ -420,15 +298,15 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
         {
-            if (models.Count > 0)
+            if (_models.Count > 0)
             {
                 var bulkWriteResult = await (
-                    session == null
-                    ? DB.Collection<T>(tenantPrefix).BulkWriteAsync(models, null, cancellation)
-                    : DB.Collection<T>(tenantPrefix).BulkWriteAsync(session, models, null, cancellation)
+                    this.Session() is not IClientSessionHandle session
+                    ? Collection.BulkWriteAsync(_models, null, cancellation)
+                    : Collection.BulkWriteAsync(session, _models, null, cancellation)
                     ).ConfigureAwait(false);
 
-                models.Clear();
+                _models.Clear();
 
                 if (!bulkWriteResult.IsAcknowledged)
                     return UpdateResult.Unacknowledged.Instance;
@@ -437,14 +315,14 @@ namespace MongoDB.Entities
             }
             else
             {
-                var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+                var mergedFilter = MergedFilter;
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
-                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-                SetTenantDbOnFileEntities(tenantPrefix);
-                onUpdateAction?.Invoke(this);
-                return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
+                if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
+
+                _onUpdateAction?.Invoke(this);
+                return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, this.Session(), cancellation).ConfigureAwait(false);
             }
         }
 
@@ -454,18 +332,17 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+            var mergedFilter = MergedFilter;
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+            if (_stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
-            SetTenantDbOnFileEntities(tenantPrefix);
+            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.Instance.ModifiedOnPropName}': new Date() }} }}");
 
             return UpdateAsync(
                 mergedFilter,
-                Builders<T>.Update.Pipeline(stages.ToArray()),
-                options,
-                session,
+                Builders<T>.Update.Pipeline(_stages.ToArray()),
+                _options,
+                this.Session(),
                 cancellation);
         }
 
@@ -474,18 +351,18 @@ namespace MongoDB.Entities
             //only set mod date by library if user hasn't done anything with the ModifiedOn property
 
             return
-                Cache<T>.HasModifiedOn &&
+                Cache<T>.Instance.HasModifiedOn &&
                 !defs.Any(d => d
                        .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
                        .ToString()
-                       .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
+                       .Contains($"\"{Cache<T>.Instance.ModifiedOnPropName}\""));
         }
 
-        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         {
             return session == null
-                   ? DB.Collection<T>(tenantPrefix).UpdateManyAsync(filter, definition, options, cancellation)
-                   : DB.Collection<T>(tenantPrefix).UpdateManyAsync(session, filter, definition, options, cancellation);
+                   ? Collection.UpdateManyAsync(filter, definition, options, cancellation)
+                   : Collection.UpdateManyAsync(session, filter, definition, options, cancellation);
         }
     }
 }

@@ -14,154 +14,30 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Replace<T> where T : IEntity
+    public class Replace<T> : FilterQueryBase<T, Replace<T>>, ICollectionRelated<T> where T : IEntity
     {
-        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private ReplaceOptions options = new();
-        private readonly IClientSessionHandle session;
-        private readonly List<ReplaceOneModel<T>> models = new();
-        private readonly ModifiedBy modifiedBy;
-        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-        private readonly Action<T> onSaveAction;
-        private bool ignoreGlobalFilters;
-        private readonly string tenantPrefix;
-        private T entity;
+        private ReplaceOptions _options = new();
+        private readonly List<ReplaceOneModel<T>> _models = new();
+        private readonly ModifiedBy? _modifiedBy;
+        private readonly Action<T> _onSaveAction;
+        private T? _entity;
+
+        public DBContext Context { get; }
+        public IMongoCollection<T> Collection { get; }
 
         internal Replace(
-            IClientSessionHandle session,
+            DBContext context,
+            IMongoCollection<T> collection,
             ModifiedBy modifiedBy,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<T> onSaveAction,
-            string tenantPrefix)
+            Action<T> onSaveAction) : base(globalFilters)
         {
-            this.session = session;
-            this.modifiedBy = modifiedBy;
-            this.globalFilters = globalFilters;
-            this.onSaveAction = onSaveAction;
-            this.tenantPrefix = tenantPrefix;
+            Context = context;
+            Collection = collection;
+            this._modifiedBy = modifiedBy;
+            this._onSaveAction = onSaveAction;
         }
 
-        /// <summary>
-        /// Specify an IEntity ID as the matching criteria
-        /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Replace<T> MatchID(string ID)
-        {
-            return Match(f => f.Eq(t => t.ID, ID));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a lambda expression
-        /// </summary>
-        /// <param name="expression">x => x.Property == Value</param>
-        public Replace<T> Match(Expression<Func<T, bool>> expression)
-        {
-            return Match(f => f.Where(expression));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public Replace<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            this.filter &= filter(Builders<T>.Filter);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter definition
-        /// </summary>
-        /// <param name="filterDefinition">A filter definition</param>
-        public Replace<T> Match(FilterDefinition<T> filterDefinition)
-        {
-            filter &= filterDefinition;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a template
-        /// </summary>
-        /// <param name="template">A Template with a find query</param>
-        public Replace<T> Match(Template template)
-        {
-            filter &= template.RenderToString();
-            return this;
-        }
-
-        /// <summary>
-        /// Specify a search term to find results from the text index of this particular collection.
-        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
-        /// </summary>
-        /// <param name="searchType">The type of text matching to do</param>
-        /// <param name="searchTerm">The search term</param>
-        /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
-        /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
-        /// <param name="language">The language for the search (optional)</param>
-        public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
-        {
-            if (searchType == Search.Fuzzy)
-            {
-                searchTerm = searchTerm.ToDoubleMetaphoneHash();
-                caseSensitive = false;
-                diacriticSensitive = false;
-                language = null;
-            }
-
-            return Match(
-                f => f.Text(
-                    searchTerm,
-                    new TextSearchOptions
-                    {
-                        CaseSensitive = caseSensitive,
-                        DiacriticSensitive = diacriticSensitive,
-                        Language = language
-                    }));
-        }
-
-        /// <summary>
-        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
-        /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
-        /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
-        /// </summary>
-        /// <param name="coordinatesProperty">The property where 2DCoordinates are stored</param>
-        /// <param name="nearCoordinates">The search point</param>
-        /// <param name="maxDistance">Maximum distance in meters from the search point</param>
-        /// <param name="minDistance">Minimum distance in meters from the search point</param>
-        public Replace<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
-        {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a JSON string
-        /// </summary>
-        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
-        public Replace<T> MatchString(string jsonString)
-        {
-            filter &= jsonString;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with an aggregation expression (i.e. $expr)
-        /// </summary>
-        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
-        public Replace<T> MatchExpression(string expression)
-        {
-            filter &= "{$expr:" + expression + "}";
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a Template
-        /// </summary>
-        /// <param name="template">A Template object</param>
-        public Replace<T> MatchExpression(Template template)
-        {
-            filter &= "{$expr:" + template.RenderToString() + "}";
-            return this;
-        }
 
         /// <summary>
         /// Supply the entity to replace the first matched document with
@@ -173,12 +49,9 @@ namespace MongoDB.Entities
             if (string.IsNullOrEmpty(entity.ID))
                 throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
-            onSaveAction?.Invoke(entity);
+            _onSaveAction?.Invoke(entity);
 
-            this.entity = entity;
-
-            this.entity.SetTenantPrefixOnFileEntity(tenantPrefix);
-
+            this._entity = entity;
             return this;
         }
 
@@ -189,38 +62,30 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Replace<T> Option(Action<ReplaceOptions> option)
         {
-            option(options);
+            option(_options);
             return this;
         }
 
-        /// <summary>
-        /// Specify that this operation should ignore any global filters
-        /// </summary>
-        public Replace<T> IgnoreGlobalFilters()
-        {
-            ignoreGlobalFilters = true;
-            return this;
-        }
 
         /// <summary>
         /// Queue up a replace command for bulk execution later.
         /// </summary>
         public Replace<T> AddToQueue()
         {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+            var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+            if (_entity == null) throw new ArgumentException("Please use WithEntity() method first!");
             SetModOnAndByValues();
 
-            models.Add(new ReplaceOneModel<T>(mergedFilter, entity)
+            _models.Add(new ReplaceOneModel<T>(mergedFilter, _entity)
             {
-                Collation = options.Collation,
-                Hint = options.Hint,
-                IsUpsert = options.IsUpsert
+                Collation = _options.Collation,
+                Hint = _options.Hint,
+                IsUpsert = _options.IsUpsert
             });
-            filter = Builders<T>.Filter.Empty;
-            entity = default;
-            options = new ReplaceOptions();
+            _filter = Builders<T>.Filter.Empty;
+            _entity = default;
+            _options = new ReplaceOptions();
             return this;
         }
 
@@ -230,15 +95,15 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task<ReplaceOneResult> ExecuteAsync(CancellationToken cancellation = default)
         {
-            if (models.Count > 0)
+            if (_models.Count > 0)
             {
                 var bulkWriteResult = await (
-                    session == null
-                    ? DB.Collection<T>(tenantPrefix).BulkWriteAsync(models, null, cancellation)
-                    : DB.Collection<T>(tenantPrefix).BulkWriteAsync(session, models, null, cancellation)
+                    this.Session() is not IClientSessionHandle session
+                    ? Collection.BulkWriteAsync(_models, null, cancellation)
+                    : Collection.BulkWriteAsync(session, _models, null, cancellation)
                     ).ConfigureAwait(false);
 
-                models.Clear();
+                _models.Clear();
 
                 if (!bulkWriteResult.IsAcknowledged)
                     return ReplaceOneResult.Unacknowledged.Instance;
@@ -247,25 +112,25 @@ namespace MongoDB.Entities
             }
             else
             {
-                var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+                var mergedFilter = MergedFilter;
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+                if (_entity == null) throw new ArgumentException("Please use WithEntity() method first!");
                 SetModOnAndByValues();
 
-                return session == null
-                       ? await DB.Collection<T>(tenantPrefix).ReplaceOneAsync(mergedFilter, entity, options, cancellation).ConfigureAwait(false)
-                       : await DB.Collection<T>(tenantPrefix).ReplaceOneAsync(session, mergedFilter, entity, options, cancellation).ConfigureAwait(false);
+                return this.Session() is not IClientSessionHandle session
+                       ? await Collection.ReplaceOneAsync(mergedFilter, _entity, _options, cancellation).ConfigureAwait(false)
+                       : await Collection.ReplaceOneAsync(session, mergedFilter, _entity, _options, cancellation).ConfigureAwait(false);
             }
         }
 
         private void SetModOnAndByValues()
         {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
+            if (Cache<T>.Instance.HasModifiedOn && _entity is IModifiedOn _entityModifiedOn) _entityModifiedOn.ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.Instance.ModifiedByProp != null && _modifiedBy != null)
             {
-                Cache<T>.ModifiedByProp.SetValue(
-                    entity,
-                    BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+                Cache<T>.Instance.ModifiedByProp.SetValue(
+                    _entity,
+                    BsonSerializer.Deserialize(_modifiedBy.ToBson(), Cache<T>.Instance.ModifiedByProp.PropertyType));
             }
         }
     }

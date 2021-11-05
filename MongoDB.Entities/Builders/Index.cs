@@ -12,15 +12,18 @@ namespace MongoDB.Entities
     /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Index<T> where T : IEntity
+    public class Index<T> : ICollectionRelated<T> where T : IEntity
     {
         internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
-        private readonly CreateIndexOptions<T> options = new() { Background = true };
-        private readonly string tenantPrefix;
+        public DBContext Context { get; }
+        public IMongoCollection<T> Collection { get; }
 
-        internal Index(string tenantPrefix)
+        private readonly CreateIndexOptions<T> _options = new() { Background = true };
+
+        internal Index(DBContext context, IMongoCollection<T> collection)
         {
-            this.tenantPrefix = tenantPrefix;
+            Context = context;
+            Collection = collection;
         }
 
         /// <summary>
@@ -74,17 +77,17 @@ namespace MongoDB.Entities
                 propNames.Add(key.PropertyName + keyType);
             }
 
-            if (string.IsNullOrEmpty(options.Name))
+            if (string.IsNullOrEmpty(_options.Name))
             {
                 if (isTextIndex)
-                    options.Name = "[TEXT]";
+                    _options.Name = "[TEXT]";
                 else
-                    options.Name = string.Join(" | ", propNames);
+                    _options.Name = string.Join(" | ", propNames);
             }
 
             var model = new CreateIndexModel<T>(
                 Builders<T>.IndexKeys.Combine(keyDefs),
-                options);
+                _options);
 
             try
             {
@@ -92,11 +95,11 @@ namespace MongoDB.Entities
             }
             catch (MongoCommandException x) when (x.Code == 85 || x.Code == 86)
             {
-                await DropAsync(options.Name, cancellation).ConfigureAwait(false);
+                await DropAsync(_options.Name, cancellation).ConfigureAwait(false);
                 await CreateAsync(model, cancellation).ConfigureAwait(false);
             }
 
-            return options.Name;
+            return _options.Name;
         }
 
         /// <summary>
@@ -106,7 +109,7 @@ namespace MongoDB.Entities
         /// <param name="option">x => x.OptionName = OptionValue</param>
         public Index<T> Option(Action<CreateIndexOptions<T>> option)
         {
-            option(options);
+            option(_options);
             return this;
         }
 
@@ -129,7 +132,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task DropAsync(string name, CancellationToken cancellation = default)
         {
-            await DB.Collection<T>(tenantPrefix).Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
+            await Collection.Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -138,12 +141,12 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public async Task DropAllAsync(CancellationToken cancellation = default)
         {
-            await DB.Collection<T>(tenantPrefix).Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
+            await Collection.Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
         }
 
         private Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
         {
-            return DB.Collection<T>(tenantPrefix).Indexes.CreateOneAsync(model, cancellationToken: cancellation);
+            return Collection.Indexes.CreateOneAsync(model, cancellationToken: cancellation);
         }
     }
 

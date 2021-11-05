@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         internal UpdateAndGet(
             IClientSessionHandle session,
             Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction,
+            Action<Update<T>> onUpdateAction,
             string tenantPrefix)
             : base(session, globalFilters, onUpdateAction, tenantPrefix) { }
     }
@@ -30,16 +30,11 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type to project to</typeparam>
-    public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
+    public class UpdateAndGet<T, TProjection> : UpdateBase<T, UpdateAndGet<T, TProjection>> where T : IEntity
     {
         private readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
-        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
         private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
-        private readonly IClientSessionHandle session;
-        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
         private readonly Action<UpdateBase<T>> onUpdateAction;
-        private bool ignoreGlobalFilters;
-        private readonly string tenantPrefix;
 
         internal UpdateAndGet(
             IClientSessionHandle session,

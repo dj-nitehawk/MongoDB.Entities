@@ -1,47 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    
-    <Version>21.0.0-alpha3</Version>
+	<PropertyGroup>
 
-    <PackageReleaseNotes>
-      - add support for db per tenant multi-tenancy
-      - remove previously deprecated NameAttribute
-      - remove ability to change default database during runtime
-      - upgrade dependencies
-    </PackageReleaseNotes>
+		<Version>21.0.0-alpha3</Version>
+		<Nullable>enable</Nullable>
+		<PackageReleaseNotes>
+			- add support for db per tenant multi-tenancy
+			- remove previously deprecated NameAttribute
+			- remove ability to change default database during runtime
+			- upgrade dependencies
+		</PackageReleaseNotes>
 
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>MongoDB.Entities</RootNamespace>
-    <AssemblyName>MongoDB.Entities</AssemblyName>
-    <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
-    <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
-    <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageId>MongoDB.Entities</PackageId>
-    <Product>MongoDB.Entities</Product>
-    <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RootNamespace>MongoDB.Entities</RootNamespace>
+		<AssemblyName>MongoDB.Entities</AssemblyName>
+		<Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
+		<Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
+		<PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
+		<Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
+		<PackageId>MongoDB.Entities</PackageId>
+		<Product>MongoDB.Entities</Product>
+		<RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <NoWarn>CS1591,RCS1158</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<NoWarn>CS1591,RCS1158</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="MongoDB.Driver" Version="2.13.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>

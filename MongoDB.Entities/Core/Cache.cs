@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+#nullable enable
 namespace MongoDB.Entities
 {
     internal abstract class Cache
@@ -46,6 +46,9 @@ namespace MongoDB.Entities
 
     internal class Cache<T> : Cache where T : IEntity
     {
+        private static Cache<T>? _instance;
+        public static Cache<T> Instance => _instance ??= new();
+
         public ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
         public bool HasCreatedOn { get; }
         public bool HasModifiedOn { get; }
@@ -59,10 +62,11 @@ namespace MongoDB.Entities
         //val: IMongoCollection<T>
         private readonly ConcurrentDictionary<string, IMongoCollection<T>> _cache = new();
         private readonly PropertyInfo[] _updatableProps;
-        private ProjectionDefinition<T> _requiredPropsProjection;
+        private ProjectionDefinition<T>? _requiredPropsProjection;
 
         public Cache()
         {
+            if (_instance == null) _instance = this;
             var type = typeof(T);
             var interfaces = type.GetInterfaces();
 

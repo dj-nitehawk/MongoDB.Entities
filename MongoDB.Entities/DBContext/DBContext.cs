@@ -265,10 +265,10 @@ namespace MongoDB.Entities
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
         {
-            if (Cache<T>().ModifiedByProp != null && ModifiedBy is null)
+            if (Cache<T>.Instance.ModifiedByProp != null && ModifiedBy is null)
             {
                 throw new InvalidOperationException(
-                    $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
+                    $"A value for [{Cache<T>.Instance.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.Instance.CollectionName}]");
             }
         }
 

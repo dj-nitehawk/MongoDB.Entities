@@ -38,6 +38,8 @@ namespace MongoDB.Entities
         /// </summary>
         public IMongoCollection<JoinRecord> JoinCollection { get; private set; }
 
+        public string TargetCollectionName { get; set; }
+
         /// <summary>
         /// Get the number of children for a relationship
         /// </summary>
