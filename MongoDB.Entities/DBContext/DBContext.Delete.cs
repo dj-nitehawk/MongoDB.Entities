@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         public Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.DeleteAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
                 Session,
                 cancellation,
                 tenantPrefix: tenantPrefix);
@@ -38,7 +38,7 @@ namespace MongoDB.Entities
         public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.DeleteAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.In(e => e.ID, IDs)),
                 Session,
                 cancellation,
                 tenantPrefix: tenantPrefix);
@@ -57,7 +57,7 @@ namespace MongoDB.Entities
         public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.DeleteAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Where(expression)),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Where(expression)),
                 Session,
                 cancellation,
                 collation,
@@ -77,7 +77,7 @@ namespace MongoDB.Entities
         public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.DeleteAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
                 Session,
                 cancellation,
                 collation,
@@ -97,7 +97,7 @@ namespace MongoDB.Entities
         public Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.DeleteAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
                 Session,
                 cancellation,
                 collation,

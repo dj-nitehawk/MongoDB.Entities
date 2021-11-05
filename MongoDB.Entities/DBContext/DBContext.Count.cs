@@ -30,7 +30,7 @@ namespace MongoDB.Entities
         public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.CountAsync(
-                Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, globalFilters, expression),
+                Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, _globalFilters, expression),
                 Session,
                 cancellation,
                 options,
@@ -58,7 +58,7 @@ namespace MongoDB.Entities
         public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.CountAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
                 Session,
                 cancellation,
                 options,
@@ -76,7 +76,7 @@ namespace MongoDB.Entities
         public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
             return DB.CountAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
+                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
                 Session,
                 cancellation,
                 options,

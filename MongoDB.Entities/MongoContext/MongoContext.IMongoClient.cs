@@ -36,7 +36,7 @@ namespace MongoDB.Entities
             return Client.DropDatabaseAsync(session, name, cancellationToken);
         }
 
-        IMongoDatabase IMongoClient.GetDatabase(string name, MongoDatabaseSettings settings)
+        public IMongoDatabase GetDatabase(string name, MongoDatabaseSettings settings = null)
         {
             return Client.GetDatabase(name, settings);
         }
@@ -61,13 +61,6 @@ namespace MongoDB.Entities
             return Client.ListDatabaseNames(session, options, cancellationToken);
         }
 
-        public async Task<List<string>> AllDatabaseNamesAsync()
-        {
-            return await (await
-                   ((IMongoClient)this)
-                   .ListDatabaseNamesAsync().ConfigureAwait(false))
-                   .ToListAsync().ConfigureAwait(false);
-        }
         Task<IAsyncCursor<string>> IMongoClient.ListDatabaseNamesAsync(CancellationToken cancellationToken)
         {
             return Client.ListDatabaseNamesAsync(cancellationToken);

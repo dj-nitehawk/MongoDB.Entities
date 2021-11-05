@@ -14,19 +14,19 @@ namespace MongoDB.Entities
     {
         //key: entity type
         //val: collection name
-        protected static readonly ConcurrentDictionary<Type, string> typeToCollectionNameMap = new();
+        protected readonly ConcurrentDictionary<Type, string> typeToCollectionNameMap = new();
 
         //key: entity type
         //val: database name without tenant prefix (will be null if not specifically set using DB.DatabaseFor<T>() method)
-        protected static readonly ConcurrentDictionary<Type, string> typeToDbNameWithoutTenantPrefixMap = new();
+        protected readonly ConcurrentDictionary<Type, string> typeToDbNameWithoutTenantPrefixMap = new();
 
-        internal static string CollectionNameFor(Type entityType)
+        internal string CollectionNameFor(Type entityType)
             => typeToCollectionNameMap[entityType];
 
-        internal static void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
+        internal void MapTypeToDbNameWithoutTenantPrefix<T>(string dbNameWithoutTenantPrefix) where T : IEntity
             => typeToDbNameWithoutTenantPrefixMap[typeof(T)] = dbNameWithoutTenantPrefix;
 
-        internal static string GetFullDbName(Type entityType, string tenantPrefix)
+        internal string GetFullDbName(Type entityType, string tenantPrefix)
         {
             string fullDbName = null;
 
@@ -46,22 +46,22 @@ namespace MongoDB.Entities
 
     internal class Cache<T> : Cache where T : IEntity
     {
-        internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
-        internal static bool HasCreatedOn { get; }
-        internal static bool HasModifiedOn { get; }
-        internal static string ModifiedOnPropName { get; }
-        internal static PropertyInfo ModifiedByProp { get; }
-        internal static bool HasIgnoreIfDefaultProps { get; }
-        internal static string CollectionName { get; }
-        internal static bool IsFileEntity { get; }
+        public ConcurrentDictionary<string, Watcher<T>> Watchers { get; } = new();
+        public bool HasCreatedOn { get; }
+        public bool HasModifiedOn { get; }
+        public string ModifiedOnPropName { get; }
+        public PropertyInfo ModifiedByProp { get; }
+        public bool HasIgnoreIfDefaultProps { get; }
+        public string CollectionName { get; }
+        public bool IsFileEntity { get; }
 
         //key: TenantPrefix:CollectionName
         //val: IMongoCollection<T>
-        private static readonly ConcurrentDictionary<string, IMongoCollection<T>> cache = new();
-        private static readonly PropertyInfo[] updatableProps;
-        private static ProjectionDefinition<T> requiredPropsProjection;
+        private readonly ConcurrentDictionary<string, IMongoCollection<T>> _cache = new();
+        private readonly PropertyInfo[] _updatableProps;
+        private ProjectionDefinition<T> _requiredPropsProjection;
 
-        static Cache()
+        public Cache()
         {
             var type = typeof(T);
             var interfaces = type.GetInterfaces();
@@ -83,20 +83,20 @@ namespace MongoDB.Entities
             ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
             IsFileEntity = type.BaseType == typeof(FileEntity);
 
-            updatableProps = type.GetProperties()
+            _updatableProps = type.GetProperties()
                 .Where(p =>
                        p.PropertyType.Name != ManyBase.PropTypeName &&
                       !p.IsDefined(typeof(BsonIdAttribute), false) &&
                       !p.IsDefined(typeof(BsonIgnoreAttribute), false))
                 .ToArray();
 
-            HasIgnoreIfDefaultProps = updatableProps.Any(p =>
+            HasIgnoreIfDefaultProps = _updatableProps.Any(p =>
                     p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) ||
                     p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false));
 
             try
             {
-                ModifiedByProp = updatableProps.SingleOrDefault(p =>
+                ModifiedByProp = _updatableProps.SingleOrDefault(p =>
                                 p.PropertyType == typeof(ModifiedBy) ||
                                 p.PropertyType.IsSubclassOf(typeof(ModifiedBy)));
             }
@@ -106,32 +106,32 @@ namespace MongoDB.Entities
             }
         }
 
-        internal static IMongoCollection<T> Collection(string tenantPrefix)
+        public IMongoCollection<T> Collection(string tenantPrefix)
         {
-            return cache.GetOrAdd(
+            return _cache.GetOrAdd(
                 key: $"{tenantPrefix}:{CollectionName}",
                 valueFactory: _ => DB.Database(GetFullDbName(typeof(T), tenantPrefix)).GetCollection<T>(CollectionName));
         }
 
-        internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
+        public IEnumerable<PropertyInfo> UpdatableProps(T entity)
         {
             if (HasIgnoreIfDefaultProps)
             {
-                return updatableProps.Where(p =>
+                return _updatableProps.Where(p =>
                     !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
                     !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null));
             }
-            return updatableProps;
+            return _updatableProps;
         }
 
-        internal static ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
+        public ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
         {
             if (userProjection == null)
                 throw new InvalidOperationException("Please use .Project() method before .IncludeRequiredProps()");
 
-            if (requiredPropsProjection is null)
+            if (_requiredPropsProjection is null)
             {
-                requiredPropsProjection = "{_id:1}";
+                _requiredPropsProjection = "{_id:1}";
 
                 var props = typeof(T)
                     .GetProperties()
@@ -146,9 +146,9 @@ namespace MongoDB.Entities
                     attr = p.GetCustomAttribute<FieldAttribute>();
 
                     if (attr is null)
-                        requiredPropsProjection = requiredPropsProjection.Include(p.Name);
+                        _requiredPropsProjection = _requiredPropsProjection.Include(p.Name);
                     else
-                        requiredPropsProjection = requiredPropsProjection.Include(attr.ElementName);
+                        _requiredPropsProjection = _requiredPropsProjection.Include(attr.ElementName);
                 }
             }
 
@@ -158,7 +158,7 @@ namespace MongoDB.Entities
 
             return Builders<T>.Projection.Combine(new[]
             {
-                requiredPropsProjection,
+                _requiredPropsProjection,
                 userProj
             });
         }

@@ -1,5 +1,9 @@
 ﻿using MongoDB.Driver;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 #nullable enable
 namespace MongoDB.Entities
 {
@@ -28,6 +32,52 @@ namespace MongoDB.Entities
 
         /// <inheritdoc cref="MongoContextOptions.ModifiedBy"/>
         public ModifiedBy? ModifiedBy => Options.ModifiedBy;
+
+        public async Task<List<string>> AllDatabaseNamesAsync()
+        {
+            return await (await
+                   ((IMongoClient)this)
+                   .ListDatabaseNamesAsync().ConfigureAwait(false))
+                   .ToListAsync().ConfigureAwait(false);
+        }
+
+        private Type[]? _allEntitiyTypes;
+        public Type[] AllEntitiyTypes => _allEntitiyTypes ??= GetAllEntityTypes();
+
+        private readonly ConcurrentDictionary<Type, Cache> _cache = new();
+        internal Cache<T> Cache<T>() where T : IEntity
+        {
+            if (!_cache.TryGetValue(typeof(T), out var c))
+            {
+                c = new Cache<T>();
+            }
+            return (Cache<T>)c;
+        }
+
+        private static Type[] GetAllEntityTypes()
+        {
+            var excludes = new[]
+                {
+                    "Microsoft.",
+                    "System.",
+                    "MongoDB.",
+                    "testhost.",
+                    "netstandard",
+                    "Newtonsoft.",
+                    "mscorlib",
+                    "NuGet."
+                };
+
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(a =>
+                      !a.IsDynamic &&
+                      (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => typeof(IEntity).IsAssignableFrom(t))
+                .ToArray();
+        }
+
     }
 
 }

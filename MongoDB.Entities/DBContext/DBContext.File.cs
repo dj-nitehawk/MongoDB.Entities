@@ -1,4 +1,7 @@
-﻿namespace MongoDB.Entities
+﻿using MongoDB.Bson;
+using System;
+
+namespace MongoDB.Entities
 {
     public partial class DBContext
     {
@@ -9,7 +12,13 @@
         /// <param name="ID">The ID of the file entity</param>
         public DataStreamer File<T>(string ID) where T : FileEntity, new()
         {
-            return DB.File<T>(ID, tenantPrefix);
+            if (!ObjectId.TryParse(ID, out _))
+                throw new ArgumentException("The ID passed in is not of the correct format!");
+
+            return new DataStreamer(
+                new T() { ID = ID, UploadSuccessful = true },
+                tenantPrefix);
+            return File<T>(ID);
         }
     }
 }

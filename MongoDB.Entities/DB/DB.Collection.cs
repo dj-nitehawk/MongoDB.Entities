@@ -39,15 +39,9 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity that will be stored in the created collection</typeparam>
         /// <param name="options">The options to use for collection creation</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
+        public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default) where T : IEntity
         {
-            var opts = new CreateCollectionOptions<T>();
-            options(opts);
-            return session == null
-                   ? Cache<T>.Collection(tenantPrefix).Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-                   : Cache<T>.Collection(tenantPrefix).Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
+            return Context.CreateCollectionAsync(options, cancellation);
         }
 
         /// <summary>
@@ -55,32 +49,9 @@ namespace MongoDB.Entities
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
+        public static async Task DropCollectionAsync<T>() where T : IEntity
         {
-            var tasks = new List<Task>();
-            var db = Database<T>(tenantPrefix);
-            var collName = CollectionName<T>();
-            var options = new ListCollectionNamesOptions
-            {
-                Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
-            };
-
-            foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
-            {
-                tasks.Add(
-                    session == null
-                    ? db.DropCollectionAsync(cName)
-                    : db.DropCollectionAsync(session, cName));
-            }
-
-            tasks.Add(
-                session == null
-                ? db.DropCollectionAsync(collName)
-                : db.DropCollectionAsync(session, collName));
-
-            await Task.WhenAll(tasks).ConfigureAwait(false);
+            await Context.DropCollectionAsync<T>();
         }
     }
 }

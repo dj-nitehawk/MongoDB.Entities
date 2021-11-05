@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +16,12 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CreateCollectionAsync(options, cancellation, Session, tenantPrefix);
+            var opts = new CreateCollectionOptions<T>();
+            options(opts);
+            return Session == null
+                  ? Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                  : Database.CreateCollectionAsync(Session, Cache<T>.CollectionName, opts, cancellation);
+
         }
 
         /// <summary>
@@ -23,9 +29,30 @@ namespace MongoDB.Entities
         /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
         /// </summary>
         /// <typeparam name="T">The entity type to drop the collection of</typeparam>
-        public Task DropCollectionAsync<T>() where T : IEntity
+        public async Task DropCollectionAsync<T>() where T : IEntity
         {
-            return DB.DropCollectionAsync<T>(Session, tenantPrefix);
+            var tasks = new List<Task>();
+            var db = Database;
+            var collName = Cache<T>.CollectionName;
+            var options = new ListCollectionNamesOptions
+            {
+                Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
+            };
+
+            foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
+            {
+                tasks.Add(
+                    Session == null
+                    ? db.DropCollectionAsync(cName)
+                    : db.DropCollectionAsync(Session, cName));
+            }
+
+            tasks.Add(
+                Session == null
+                ? db.DropCollectionAsync(collName)
+                : db.DropCollectionAsync(Session, collName));
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
     }
 }

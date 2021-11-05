@@ -4,46 +4,71 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Threading;
+using System.Threading.Tasks;
+#nullable enable
 namespace MongoDB.Entities
 {
     /// <summary>
     /// This db context class can be used as an alternative entry point instead of the DB static class. 
     /// </summary>
-    public partial class DBContext
+    public partial class DBContext : IMongoDatabase
     {
         /// <summary>
         /// Returns the session object used for transactions
         /// </summary>
-        public IClientSessionHandle Session { get; protected set; }
+        public IClientSessionHandle? Session { get; protected set; }
 
 
-        public MongoContext MongoContext { get; }
+        public MongoContext MongoContext { get; set; }
+        public IMongoDatabase Database { get; set; }
+        public DBContextOptions Options { get; set; }
 
         /// <summary>
         /// wrapper around <see cref="MongoContext.ModifiedBy"/> so that we don't break the public api
         /// </summary>
-        public ModifiedBy ModifiedBy
+        public ModifiedBy? ModifiedBy
         {
             get
             {
                 return MongoContext.ModifiedBy;
             }
+            [Obsolete("Use MongoContext.Options.ModifiedBy = value instead")]
             set
             {
                 MongoContext.Options.ModifiedBy = value;
             }
         }
 
+        public IMongoClient Client => MongoContext;
 
+        public DatabaseNamespace DatabaseNamespace => Database.DatabaseNamespace;
 
-        protected string tenantPrefix;
-        private static Type[] allEntitiyTypes;
-        private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
+        public MongoDatabaseSettings Settings => Database.Settings;
 
-        public DBContext(MongoContext mongoContext)
+        private Dictionary<Type, (object filterDef, bool prepend)> _globalFilters = new();
+
+        /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="other"></param>
+        public DBContext(DBContext other)
+        {
+            MongoContext = other.MongoContext;
+            Database = other.Database;
+            Options = other.Options;
+        }
+        public DBContext(MongoContext mongoContext, IMongoDatabase database, DBContextOptions? options = null)
         {
             MongoContext = mongoContext;
+            Database = database;
+            Options = options ?? new();
+        }
+        public DBContext(MongoContext mongoContext, string database, MongoDatabaseSettings? settings = null, DBContextOptions? options = null)
+        {
+            MongoContext = mongoContext;
+            Database = mongoContext.GetDatabase(database, settings);
+            Options = options ?? new();
         }
 
         /// <summary>
@@ -57,16 +82,20 @@ namespace MongoDB.Entities
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
+        public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
         {
-            DB.Initialize(
-                new MongoClientSettings { Server = new MongoServerAddress(host, port) },
-                database,
-                true)
-              .GetAwaiter()
-              .GetResult();
-
-            ModifiedBy = modifiedBy;
+            MongoContext = new MongoContext(
+                client: new MongoClient(
+                    new MongoClientSettings
+                    {
+                        Server = new MongoServerAddress(host, port)
+                    }),
+                options: new()
+                {
+                    ModifiedBy = modifiedBy
+                });
+            Database = MongoContext.GetDatabase(database);
+            Options = new();
         }
 
         /// <summary>
@@ -79,14 +108,18 @@ namespace MongoDB.Entities
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public DBContext(string database, MongoClientSettings settings, ModifiedBy modifiedBy = null)
+        public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
         {
-            DB.Initialize(settings, database, true)
-              .GetAwaiter()
-              .GetResult();
-
-            ModifiedBy = modifiedBy;
+            MongoContext = new MongoContext(
+               client: new MongoClient(settings),
+               options: new()
+               {
+                   ModifiedBy = modifiedBy
+               });
+            Database = MongoContext.GetDatabase(database);
+            Options = new();
         }
+
 
         /// <summary>
         /// Instantiates a DBContext instance
@@ -96,16 +129,17 @@ namespace MongoDB.Entities
         /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
         /// You can even inherit from the ModifiedBy class and add your own properties to it. 
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
-        public DBContext(ModifiedBy modifiedBy = null)
-            => ModifiedBy = modifiedBy;
-
+        [Obsolete("This constructor is obsolete, you can only create a DBContext after knowing the database name")]
+        public DBContext(ModifiedBy? modifiedBy = null) : this("default", modifiedBy: modifiedBy)
+        {
+        }
 
 
         /// <summary>
         /// This event hook will be trigged right before an entity is persisted
         /// </summary>
         /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-        protected virtual Action<T> OnBeforeSave<T>() where T : IEntity
+        protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
         {
             return null;
         }
@@ -114,7 +148,7 @@ namespace MongoDB.Entities
         /// This event hook will be triggered right before an update/replace command is executed
         /// </summary>
         /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-        protected virtual Action<UpdateBase<T>> OnBeforeUpdate<T>() where T : IEntity
+        protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
         {
             return null;
         }
@@ -197,9 +231,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false) where TBase : IEntity
         {
-            if (allEntitiyTypes is null) allEntitiyTypes = GetAllEntityTypes();
-
-            foreach (var entType in allEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
+            foreach (var entType in MongoContext.AllEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
             {
                 var bsonDoc = filter.Render(
                     BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
@@ -221,9 +253,8 @@ namespace MongoDB.Entities
 
             if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", "TInterface");
 
-            if (allEntitiyTypes is null) allEntitiyTypes = GetAllEntityTypes();
 
-            foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
+            foreach (var entType in MongoContext.AllEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
             {
                 AddFilter(entType, (jsonString, prepend));
             }
@@ -231,33 +262,10 @@ namespace MongoDB.Entities
 
 
 
-        private static Type[] GetAllEntityTypes()
-        {
-            var excludes = new[]
-                {
-                    "Microsoft.",
-                    "System.",
-                    "MongoDB.",
-                    "testhost.",
-                    "netstandard",
-                    "Newtonsoft.",
-                    "mscorlib",
-                    "NuGet."
-                };
-
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
-                .Where(a =>
-                      !a.IsDynamic &&
-                      (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
-                .SelectMany(a => a.GetTypes())
-                .Where(t => typeof(IEntity).IsAssignableFrom(t))
-                .ToArray();
-        }
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
         {
-            if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
+            if (Cache<T>().ModifiedByProp != null && ModifiedBy is null)
             {
                 throw new InvalidOperationException(
                     $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
@@ -266,9 +274,9 @@ namespace MongoDB.Entities
 
         private void AddFilter(Type type, (object filterDef, bool prepend) filter)
         {
-            if (globalFilters is null) globalFilters = new Dictionary<Type, (object filterDef, bool prepend)>();
+            if (_globalFilters is null) _globalFilters = new Dictionary<Type, (object filterDef, bool prepend)>();
 
-            globalFilters[type] = filter;
+            _globalFilters[type] = filter;
         }
     }
 }

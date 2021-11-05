@@ -74,7 +74,7 @@ namespace MongoDB.Entities
             //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
             //         if the following logic changes, update the other method also
 
-            if (!ignoreGlobalFilters && globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (!ignoreGlobalFilters && _globalFilters.Count > 0 && _globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 BsonDocument filter = null;
 

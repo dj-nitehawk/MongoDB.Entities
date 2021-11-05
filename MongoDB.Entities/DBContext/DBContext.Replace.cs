@@ -10,7 +10,7 @@
         public Replace<T> Replace<T>() where T : IEntity
         {
             ThrowIfModifiedByIsEmpty<T>();
-            return new Replace<T>(Session, ModifiedBy, globalFilters, OnBeforeSave<T>(), tenantPrefix);
+            return new Replace<T>(Session, ModifiedBy, _globalFilters, OnBeforeSave<T>(), tenantPrefix);
         }
     }
 }

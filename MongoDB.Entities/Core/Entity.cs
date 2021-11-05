@@ -7,7 +7,7 @@ namespace MongoDB.Entities
     /// Inherit this class for all entities you want to store in their own collection.
     /// </summary>
     public abstract class Entity : IEntity
-    {
+    {        
         /// <summary>
         /// This property is auto managed. A new ID will be assigned for new entities upon saving.
         /// </summary>

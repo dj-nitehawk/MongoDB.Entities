@@ -35,10 +35,6 @@ namespace MongoDB.Entities
         //TODO: refactor api
         public static DBContext Context { get; set; }
 
-        //key: FullDBName(including tenant prefix - ex: TenantX~DBName)
-        private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
-        private static IMongoDatabase defaultDb;
-
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
         /// <para>WARNING: will throw an error if server is not reachable!</para>

@@ -13,7 +13,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         public IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
