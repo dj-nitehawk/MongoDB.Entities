@@ -19,8 +19,8 @@ namespace MongoDB.Entities
             var opts = new CreateCollectionOptions<T>();
             options(opts);
             return Session == null
-                  ? Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-                  : Database.CreateCollectionAsync(Session, Cache<T>.CollectionName, opts, cancellation);
+                  ? Database.CreateCollectionAsync(Cache<T>().CollectionName, opts, cancellation)
+                  : Database.CreateCollectionAsync(Session, Cache<T>().CollectionName, opts, cancellation);
 
         }
 
@@ -33,7 +33,7 @@ namespace MongoDB.Entities
         {
             var tasks = new List<Task>();
             var db = Database;
-            var collName = Cache<T>.CollectionName;
+            var collName = Cache<T>().CollectionName;
             var options = new ListCollectionNamesOptions
             {
                 Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"

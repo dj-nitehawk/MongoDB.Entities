@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -67,8 +68,8 @@ namespace MongoDB.Entities
         public DBContext(MongoContext mongoContext, string database, MongoDatabaseSettings? settings = null, DBContextOptions? options = null)
         {
             MongoContext = mongoContext;
-            Database = mongoContext.GetDatabase(database, settings);
             Options = options ?? new();
+            Database = mongoContext.GetDatabase((mongoContext.Options.TenantId ?? "") + database, settings);
         }
 
         /// <summary>
@@ -94,8 +95,8 @@ namespace MongoDB.Entities
                 {
                     ModifiedBy = modifiedBy
                 });
-            Database = MongoContext.GetDatabase(database);
             Options = new();
+            Database = MongoContext.GetDatabase((MongoContext.Options.TenantId ?? "") + database);
         }
 
         /// <summary>
@@ -116,8 +117,8 @@ namespace MongoDB.Entities
                {
                    ModifiedBy = modifiedBy
                });
-            Database = MongoContext.GetDatabase(database);
             Options = new();
+            Database = MongoContext.GetDatabase((MongoContext.Options.TenantId ?? "") + database);
         }
 
 
@@ -148,7 +149,8 @@ namespace MongoDB.Entities
         /// This event hook will be triggered right before an update/replace command is executed
         /// </summary>
         /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-        protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
+        /// <typeparam name="TSelf">Any entity that implements IEntity</typeparam>
+        protected virtual Action<UpdateBase<T, TSelf>>? OnBeforeUpdate<T, TSelf>() where T : IEntity where TSelf : UpdateBase<T, TSelf>
         {
             return null;
         }
@@ -265,10 +267,10 @@ namespace MongoDB.Entities
 
         private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
         {
-            if (Cache<T>.Instance.ModifiedByProp != null && ModifiedBy is null)
+            if (Cache<T>().ModifiedByProp != null && ModifiedBy is null)
             {
                 throw new InvalidOperationException(
-                    $"A value for [{Cache<T>.Instance.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.Instance.CollectionName}]");
+                    $"A value for [{Cache<T>().ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>().CollectionName}]");
             }
         }
 
@@ -277,6 +279,22 @@ namespace MongoDB.Entities
             if (_globalFilters is null) _globalFilters = new Dictionary<Type, (object filterDef, bool prepend)>();
 
             _globalFilters[type] = filter;
+        }
+
+
+        private readonly ConcurrentDictionary<Type, Cache> _cache = new();
+        internal Cache<T> Cache<T>() where T : IEntity
+        {
+            if (!_cache.TryGetValue(typeof(T), out var c))
+            {
+                c = new Cache<T>();
+            }
+            return (Cache<T>)c;
+        }
+
+        public IMongoCollection<T> CollectionFor<T>() where T : IEntity
+        {
+            return Database.GetCollection<T>(Cache<T>().CollectionName);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null, string tenantPrefix = null) where T : IEntity
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, string tenantPrefix = null) where T : IEntity
         {
             return DB.Queryable<T>(options, tenantPrefix: tenantPrefix);
         }

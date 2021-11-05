@@ -44,15 +44,6 @@ namespace MongoDB.Entities
         private Type[]? _allEntitiyTypes;
         public Type[] AllEntitiyTypes => _allEntitiyTypes ??= GetAllEntityTypes();
 
-        private readonly ConcurrentDictionary<Type, Cache> _cache = new();
-        internal Cache<T> Cache<T>() where T : IEntity
-        {
-            if (!_cache.TryGetValue(typeof(T), out var c))
-            {
-                c = new Cache<T>();
-            }
-            return (Cache<T>)c;
-        }
 
         private static Type[] GetAllEntityTypes()
         {

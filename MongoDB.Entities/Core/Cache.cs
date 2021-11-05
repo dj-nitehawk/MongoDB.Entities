@@ -66,7 +66,6 @@ namespace MongoDB.Entities
 
         public Cache()
         {
-            if (_instance == null) _instance = this;
             var type = typeof(T);
             var interfaces = type.GetInterfaces();
 

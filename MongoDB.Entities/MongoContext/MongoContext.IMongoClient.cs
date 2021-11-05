@@ -36,7 +36,7 @@ namespace MongoDB.Entities
             return Client.DropDatabaseAsync(session, name, cancellationToken);
         }
 
-        public IMongoDatabase GetDatabase(string name, MongoDatabaseSettings settings = null)
+        public IMongoDatabase GetDatabase(string name, MongoDatabaseSettings? settings = null)
         {
             return Client.GetDatabase(name, settings);
         }

@@ -8,11 +8,11 @@
         /// <typeparam name="T">The type of entity</typeparam>
         public Update<T> Update<T>() where T : IEntity
         {
-            var cmd = new Update<T>(Session, _globalFilters, OnBeforeUpdate<T>(), tenantPrefix);
-            if (Cache<T>.ModifiedByProp != null)
+            var cmd = new Update<T>(this, CollectionFor<T>(), _globalFilters, OnBeforeUpdate<T, Update<T>>());
+            if (Cache<T>().ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
-                cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+                cmd.Modify(b => b.Set(Cache<T>().ModifiedByProp.Name, ModifiedBy));
             }
             return cmd;
         }
@@ -33,11 +33,11 @@
         /// <typeparam name="TProjection">The type of the end result</typeparam>
         public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
         {
-            var cmd = new UpdateAndGet<T, TProjection>(Session, _globalFilters, OnBeforeUpdate<T>(), tenantPrefix);
-            if (Cache<T>.ModifiedByProp != null)
+            var cmd = new UpdateAndGet<T, TProjection>(this, CollectionFor<T>(), _globalFilters, OnBeforeUpdate<T, UpdateAndGet<T, TProjection>>());
+            if (Cache<T>().ModifiedByProp != null)
             {
                 ThrowIfModifiedByIsEmpty<T>();
-                cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+                cmd.Modify(b => b.Set(Cache<T>().ModifiedByProp.Name, ModifiedBy));
             }
             return cmd;
         }

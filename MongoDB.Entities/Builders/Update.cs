@@ -23,7 +23,7 @@ namespace MongoDB.Entities
             defs = other.defs;
         }
         private TSelf This => (TSelf)this;
-        internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<TSelf>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(globalFilters)
+        internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<TSelf>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(globalFilters)
         {
             this.onUpdateAction = onUpdateAction;
             this.defs = defs ?? new();
@@ -172,7 +172,7 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        internal Update(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<Update<T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(globalFilters, onUpdateAction, defs)
+        internal Update(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<Update<T>>? onUpdateAction, List<UpdateDefinition<T>>? defs = null) : base(globalFilters, onUpdateAction, defs)
         {
             Context = context;
             Collection = collection;
