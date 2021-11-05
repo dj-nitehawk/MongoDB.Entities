@@ -14,14 +14,19 @@ namespace MongoDB.Entities
         //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
         //      there's no other purpose for this.
 
-        protected readonly List<UpdateDefinition<T>> defs = new();
+        protected readonly List<UpdateDefinition<T>> defs;
+        protected readonly Action<TSelf>? onUpdateAction;
 
-        internal UpdateBase(FilterQueryBase<T, TSelf> other) : base(other)
+        internal UpdateBase(UpdateBase<T, TSelf> other) : base(other)
         {
+            onUpdateAction = other.onUpdateAction;
+            defs = other.defs;
         }
-
-        internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters)
+        private TSelf This => (TSelf)this;
+        internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<TSelf>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(globalFilters)
         {
+            this.onUpdateAction = onUpdateAction;
+            this.defs = defs ?? new();
         }
 
         /// <summary>
@@ -70,6 +75,84 @@ namespace MongoDB.Entities
         //            Cache<T>.Instance.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
         //    }
         //}
+
+
+        /// <summary>
+        /// Specify the property and it's value to modify (use multiple times if needed)
+        /// </summary>
+        /// <param name="property">x => x.Property</param>
+        /// <param name="value">The value to set on the property</param>
+        public TSelf Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
+        {
+            AddModification(property, value);
+            return This;
+        }
+
+        /// <summary>
+        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
+        /// <returns></returns>
+        public TSelf Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+        {
+            AddModification(operation);
+            return This;
+        }
+
+        /// <summary>
+        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+        public TSelf Modify(string update)
+        {
+            AddModification(update);
+            return This;
+        }
+
+        /// <summary>
+        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
+        /// </summary>
+        /// <param name="template">A Template with a single update</param>
+        public TSelf Modify(Template template)
+        {
+            AddModification(template.RenderToString());
+            return This;
+        }
+
+        /// <summary>
+        /// Modify ALL properties with the values from the supplied entity instance.
+        /// </summary>
+        /// <param name="entity">The entity instance to read the property values from</param>
+        public TSelf ModifyWith(T entity)
+        {
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            defs.AddRange(Logic.BuildUpdateDefs(entity));
+            return This;
+        }
+
+        /// <summary>
+        /// Modify ONLY the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public TSelf ModifyOnly(Expression<Func<T, object>> members, T entity)
+        {
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+            return This;
+        }
+
+        /// <summary>
+        /// Modify all EXCEPT the specified properties with the values from a given entity instance.
+        /// </summary>
+        /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
+        /// <param name="entity">The entity instance to read the corresponding values from</param>
+        public TSelf ModifyExcept(Expression<Func<T, object>> members, T entity)
+        {
+            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
+            return This;
+        }
     }
 
     /// <summary>
@@ -82,101 +165,27 @@ namespace MongoDB.Entities
         private readonly List<PipelineStageDefinition<T, T>> _stages = new();
         private UpdateOptions _options = new();
         private readonly List<UpdateManyModel<T>> _models = new();
-        private readonly Action<Update<T>> _onUpdateAction;
+
+        internal Update(DBContext context, IMongoCollection<T> collection, UpdateBase<T, Update<T>> other) : base(other)
+        {
+            Context = context;
+            Collection = collection;
+        }
+
+        internal Update(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<Update<T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(globalFilters, onUpdateAction, defs)
+        {
+            Context = context;
+            Collection = collection;
+        }
 
         public DBContext Context { get; }
         public IMongoCollection<T> Collection { get; }
 
-        internal Update(
-            DBContext context,
-            IMongoCollection<T> collection,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<Update<T>> onUpdateAction) :
-            base(globalFilters)
-        {
-            Context = context;
-            Collection = collection;
-            _onUpdateAction = onUpdateAction;
-        }
 
 
 
-        /// <summary>
-        /// Specify the property and it's value to modify (use multiple times if needed)
-        /// </summary>
-        /// <param name="property">x => x.Property</param>
-        /// <param name="value">The value to set on the property</param>
-        public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
-        {
-            AddModification(property, value);
-            return this;
-        }
 
-        /// <summary>
-        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
-        /// <returns></returns>
-        public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
-        {
-            AddModification(operation);
-            return this;
-        }
 
-        /// <summary>
-        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
-        public Update<T> Modify(string update)
-        {
-            AddModification(update);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="template">A Template with a single update</param>
-        public Update<T> Modify(Template template)
-        {
-            AddModification(template.RenderToString());
-            return this;
-        }
-
-        /// <summary>
-        /// Modify ALL properties with the values from the supplied entity instance.
-        /// </summary>
-        /// <param name="entity">The entity instance to read the property values from</param>
-        public Update<T> ModifyWith(T entity)
-        {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity));
-            return this;
-        }
-
-        /// <summary>
-        /// Modify ONLY the specified properties with the values from a given entity instance.
-        /// </summary>
-        /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
-        /// <param name="entity">The entity instance to read the corresponding values from</param>
-        public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
-        {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity, members));
-            return this;
-        }
-
-        /// <summary>
-        /// Modify all EXCEPT the specified properties with the values from a given entity instance.
-        /// </summary>
-        /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
-        /// <param name="entity">The entity instance to read the corresponding values from</param>
-        public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
-        {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
-            return this;
-        }
 
         /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
@@ -278,7 +287,7 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (Cache<T>.Instance.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
-            _onUpdateAction?.Invoke(this);
+            onUpdateAction?.Invoke(this);
             _models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
             {
                 ArrayFilters = _options.ArrayFilters,
@@ -321,7 +330,7 @@ namespace MongoDB.Entities
                 if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
                 if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
 
-                _onUpdateAction?.Invoke(this);
+                onUpdateAction?.Invoke(this);
                 return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, this.Session(), cancellation).ConfigureAwait(false);
             }
         }
