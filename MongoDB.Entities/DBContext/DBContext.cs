@@ -16,7 +16,7 @@ namespace MongoDB.Entities
         /// Returns the session object used for transactions
         /// </summary>
         public IClientSessionHandle Session { get; protected set; }
-
+        public MongoContext MongoContext { get; set; }
         /// <summary>
         /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
         /// </summary>
