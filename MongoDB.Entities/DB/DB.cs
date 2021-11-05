@@ -32,6 +32,8 @@ namespace MongoDB.Entities
                 _ => true);
         }
 
+        //TODO: refactor api
+
         //key: FullDBName(including tenant prefix - ex: TenantX~DBName)
         private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
         private static IMongoDatabase defaultDb;
