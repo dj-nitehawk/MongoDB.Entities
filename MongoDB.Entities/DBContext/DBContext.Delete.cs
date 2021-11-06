@@ -22,8 +22,7 @@ namespace MongoDB.Entities
             return DB.DeleteAsync(
                 Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Eq(e => e.ID, ID)),
                 Session,
-                cancellation,
-                tenantPrefix: tenantPrefix);
+                cancellation);
         }
 
         /// <summary>

@@ -152,7 +152,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
+        public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
         {
             ThrowIfCancellationNotSupported(session, cancellation);
 

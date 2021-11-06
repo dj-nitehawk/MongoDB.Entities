@@ -47,7 +47,8 @@ namespace MongoDB.Entities
 
         public MongoDatabaseSettings Settings => Database.Settings;
 
-        private Dictionary<Type, (object filterDef, bool prepend)> _globalFilters = new();
+        private Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+        private Dictionary<Type, (object filterDef, bool prepend)> GlobalFilters => _globalFilters ??= new();
 
         /// <summary>
         /// Copy constructor
@@ -69,7 +70,7 @@ namespace MongoDB.Entities
         {
             MongoContext = mongoContext;
             Options = options ?? new();
-            Database = mongoContext.GetDatabase((mongoContext.Options.TenantId ?? "") + database, settings);
+            Database = mongoContext.GetDatabase(database, settings);
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace MongoDB.Entities
                     ModifiedBy = modifiedBy
                 });
             Options = new();
-            Database = MongoContext.GetDatabase((MongoContext.Options.TenantId ?? "") + database);
+            Database = MongoContext.GetDatabase(database);
         }
 
         /// <summary>
@@ -118,7 +119,7 @@ namespace MongoDB.Entities
                    ModifiedBy = modifiedBy
                });
             Options = new();
-            Database = MongoContext.GetDatabase((MongoContext.Options.TenantId ?? "") + database);
+            Database = MongoContext.GetDatabase(database);
         }
 
 
@@ -276,9 +277,7 @@ namespace MongoDB.Entities
 
         private void AddFilter(Type type, (object filterDef, bool prepend) filter)
         {
-            if (_globalFilters is null) _globalFilters = new Dictionary<Type, (object filterDef, bool prepend)>();
-
-            _globalFilters[type] = filter;
+            GlobalFilters[type] = filter;
         }
 
 

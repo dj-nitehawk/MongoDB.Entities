@@ -21,7 +21,6 @@ namespace MongoDB.Entities
             return Session == null
                   ? Database.CreateCollectionAsync(Cache<T>().CollectionName, opts, cancellation)
                   : Database.CreateCollectionAsync(Session, Cache<T>().CollectionName, opts, cancellation);
-
         }
 
         /// <summary>

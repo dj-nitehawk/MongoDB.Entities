@@ -11,9 +11,6 @@ namespace MongoDB.Entities
 {
     public class UpdateBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : UpdateBase<T, TSelf>
     {
-        //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
-        //      there's no other purpose for this.
-
         protected readonly List<UpdateDefinition<T>> defs;
         protected readonly Action<TSelf>? onUpdateAction;
 
@@ -65,17 +62,7 @@ namespace MongoDB.Entities
         {
             AddModification(template.RenderToString());
         }
-
-        //protected void SetTenantDbOnFileEntities(string tenantPrefix)
-        //{
-        //    if (Cache<T>.Instance.IsFileEntity)
-        //    {
-        //        defs.Add(Builders<T>.Update.Set(
-        //            nameof(FileEntity.TenantPrefix),
-        //            Cache<T>.Instance.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
-        //    }
-        //}
-
+   
 
         /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)

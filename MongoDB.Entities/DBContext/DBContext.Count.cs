@@ -16,7 +16,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountEstimatedAsync<T>(cancellation, tenantPrefix);
+            return CollectionFor<T>().EstimatedDocumentCountAsync(cancellationToken: cancellation);
         }
 
         /// <summary>
@@ -27,14 +27,9 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.CountAsync(
-                Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, _globalFilters, expression),
-                Session,
-                cancellation,
-                options,
-                tenantPrefix);
+            return CountAsync((FilterDefinition<T>)expression, cancellation, options, ignoreGlobalFilters);
         }
 
         /// <summary>
@@ -44,7 +39,8 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.CountAsync<T>(Session, cancellation, tenantPrefix);
+            return CountAsync<T>(_ => true, cancellation);
+
         }
 
         /// <summary>
@@ -55,14 +51,13 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.CountAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
-                Session,
-                cancellation,
-                options,
-                tenantPrefix);
+            filter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter);
+            return
+                 Session == null
+                 ? CollectionFor<T>().CountDocumentsAsync(filter, options, cancellation)
+                 : CollectionFor<T>().CountDocumentsAsync(Session, filter, options, cancellation);
         }
 
         /// <summary>
@@ -73,14 +68,9 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
         {
-            return DB.CountAsync(
-                Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
-                Session,
-                cancellation,
-                options,
-                tenantPrefix);
+            return CountAsync(filter(Builders<T>.Filter), cancellation, options, ignoreGlobalFilters);
         }
     }
 }
