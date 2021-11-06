@@ -10,14 +10,14 @@ namespace MongoDB.Entities
     /// <summary>
     /// MongoContext is a wrapper around an <see cref="IMongoClient"/>
     /// </summary>
-    public partial class MongoContext : IMongoClient
+    public partial class MongoServerContext : IMongoClient
     {
         /// <summary>
         /// Creates a new context
         /// </summary>        
         /// <param name="client">The backing client, usually a <see cref="MongoClient"/></param>
         /// <param name="options">The options to configure the context</param>
-        public MongoContext(IMongoClient client, MongoContextOptions? options = null)
+        public MongoServerContext(IMongoClient client, MongoContextOptions? options = null)
         {
             Client = client;
             Options = options ?? new();

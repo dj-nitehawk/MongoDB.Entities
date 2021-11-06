@@ -21,27 +21,27 @@ namespace MongoDB.Entities
         public IClientSessionHandle? Session { get; protected set; }
 
 
-        public MongoContext MongoContext { get; set; }
+        public MongoServerContext MongoServerContext { get; set; }
         public IMongoDatabase Database { get; set; }
         public DBContextOptions Options { get; set; }
 
         /// <summary>
-        /// wrapper around <see cref="MongoContext.ModifiedBy"/> so that we don't break the public api
+        /// wrapper around <see cref="MongoServerContext.ModifiedBy"/> so that we don't break the public api
         /// </summary>
         public ModifiedBy? ModifiedBy
         {
             get
             {
-                return MongoContext.ModifiedBy;
+                return MongoServerContext.ModifiedBy;
             }
             [Obsolete("Use MongoContext.Options.ModifiedBy = value instead")]
             set
             {
-                MongoContext.Options.ModifiedBy = value;
+                MongoServerContext.Options.ModifiedBy = value;
             }
         }
 
-        public IMongoClient Client => MongoContext;
+        public IMongoClient Client => MongoServerContext;
 
         public DatabaseNamespace DatabaseNamespace => Database.DatabaseNamespace;
 
@@ -56,19 +56,19 @@ namespace MongoDB.Entities
         /// <param name="other"></param>
         public DBContext(DBContext other)
         {
-            MongoContext = other.MongoContext;
+            MongoServerContext = other.MongoServerContext;
             Database = other.Database;
             Options = other.Options;
         }
-        public DBContext(MongoContext mongoContext, IMongoDatabase database, DBContextOptions? options = null)
+        public DBContext(MongoServerContext mongoContext, IMongoDatabase database, DBContextOptions? options = null)
         {
-            MongoContext = mongoContext;
+            MongoServerContext = mongoContext;
             Database = database;
             Options = options ?? new();
         }
-        public DBContext(MongoContext mongoContext, string database, MongoDatabaseSettings? settings = null, DBContextOptions? options = null)
+        public DBContext(MongoServerContext mongoContext, string database, MongoDatabaseSettings? settings = null, DBContextOptions? options = null)
         {
-            MongoContext = mongoContext;
+            MongoServerContext = mongoContext;
             Options = options ?? new();
             Database = mongoContext.GetDatabase(database, settings);
         }
@@ -86,7 +86,7 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
         {
-            MongoContext = new MongoContext(
+            MongoServerContext = new MongoServerContext(
                 client: new MongoClient(
                     new MongoClientSettings
                     {
@@ -97,7 +97,7 @@ namespace MongoDB.Entities
                     ModifiedBy = modifiedBy
                 });
             Options = new();
-            Database = MongoContext.GetDatabase(database);
+            Database = MongoServerContext.GetDatabase(database);
         }
 
         /// <summary>
@@ -112,14 +112,14 @@ namespace MongoDB.Entities
         /// Only one ModifiedBy property is allowed on a single entity type.</param>
         public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
         {
-            MongoContext = new MongoContext(
+            MongoServerContext = new MongoServerContext(
                client: new MongoClient(settings),
                options: new()
                {
                    ModifiedBy = modifiedBy
                });
             Options = new();
-            Database = MongoContext.GetDatabase(database);
+            Database = MongoServerContext.GetDatabase(database);
         }
 
 
@@ -234,7 +234,7 @@ namespace MongoDB.Entities
         /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
         protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false) where TBase : IEntity
         {
-            foreach (var entType in MongoContext.AllEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
+            foreach (var entType in MongoServerContext.AllEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
             {
                 var bsonDoc = filter.Render(
                     BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
@@ -257,7 +257,7 @@ namespace MongoDB.Entities
             if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", "TInterface");
 
 
-            foreach (var entType in MongoContext.AllEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
+            foreach (var entType in MongoServerContext.AllEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
             {
                 AddFilter(entType, (jsonString, prepend));
             }

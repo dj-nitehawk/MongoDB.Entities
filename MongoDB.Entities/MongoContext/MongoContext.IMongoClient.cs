@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities
 {
     //Make these interface implmentation explicit, so we can fine-tune the api return result
-    public partial class MongoContext
+    public partial class MongoServerContext
     {
         public ICluster Cluster => Client.Cluster;
 
