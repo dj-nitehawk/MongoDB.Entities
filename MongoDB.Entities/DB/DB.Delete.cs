@@ -10,57 +10,6 @@ namespace MongoDB.Entities
 {
     public static partial class DB
     {
-        private static readonly int deleteBatchSize = 100000;
-
-        private static async Task<DeleteResult> DeleteCascadingAsync<T>(string tenantPrefix,
-            IEnumerable<string> IDs,
-            IClientSessionHandle session = null,
-            CancellationToken cancellation = default) where T : IEntity
-        {
-            // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
-            //       and premature cancellation could cause data inconsistencies.
-            //       i.e. don't pass the cancellation token to delete methods below that don't take a session.
-            //       also make consumers call ThrowIfCancellationNotSupported() before calling this method.
-
-            var db = Database<T>(tenantPrefix);
-            var options = new ListCollectionNamesOptions
-            {
-                Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
-            };
-
-            var tasks = new List<Task>();
-
-            // note: db.listCollections() mongo command does not support transactions.
-            //       so don't add session support here.
-            var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
-
-            foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
-            {
-                tasks.Add(
-                    session == null
-                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
-            }
-
-            var delResTask =
-                    session == null
-                    ? Collection<T>(tenantPrefix).DeleteManyAsync(x => IDs.Contains(x.ID))
-                    : Collection<T>(tenantPrefix).DeleteManyAsync(session, x => IDs.Contains(x.ID), null, cancellation);
-
-            tasks.Add(delResTask);
-
-            if (typeof(T).BaseType == typeof(FileEntity))
-            {
-                tasks.Add(
-                    session == null
-                    ? db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                    : db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null, cancellation));
-            }
-
-            await Task.WhenAll(tasks).ConfigureAwait(false);
-
-            return await delResTask.ConfigureAwait(false);
-        }
 
         /// <summary>
         /// Deletes a single entity from MongoDB.
@@ -68,13 +17,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="ID">The Id of the entity to delete</param>
-        /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(string ID, CancellationToken cancellation = default) where T : IEntity
         {
-            ThrowIfCancellationNotSupported(session, cancellation);
-            return DeleteCascadingAsync<T>(tenantPrefix, new[] { ID }, session, cancellation);
+            return Context.DeleteAsync<T>(ID, cancellation);
         }
 
         /// <summary>
@@ -84,29 +30,10 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="IDs">An IEnumerable of entity IDs</param>
-        /// <param name = "session" > An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, CancellationToken cancellation = default) where T : IEntity
         {
-            ThrowIfCancellationNotSupported(session, cancellation);
-
-            if (IDs.Count() <= deleteBatchSize)
-                return await DeleteCascadingAsync<T>(tenantPrefix, IDs, session, cancellation).ConfigureAwait(false);
-
-            long deletedCount = 0;
-            DeleteResult res = null;
-
-            foreach (var batch in IDs.ToBatches(deleteBatchSize))
-            {
-                res = await DeleteCascadingAsync<T>(tenantPrefix, batch, session, cancellation).ConfigureAwait(false);
-                deletedCount += res.DeletedCount;
-            }
-
-            if (res?.IsAcknowledged == false)
-                return DeleteResult.Unacknowledged.Instance;
-
-            return new DeleteResult.Acknowledged(deletedCount);
+            return Context.DeleteAsync<T>(IDs, cancellation);
         }
 
         /// <summary>
@@ -116,13 +43,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="expression">A lambda expression for matching entities to delete.</param>
-        /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
         {
-            return DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation, tenantPrefix);
+            return Context.DeleteAsync(expression, collation: collation, cancellation: cancellation);
         }
 
         /// <summary>
@@ -132,13 +57,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null, string tenantPrefix = null) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
         {
-            return DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation, tenantPrefix);
+            return Context.DeleteAsync(filter, collation: collation, cancellation: cancellation);
         }
 
         /// <summary>
@@ -148,47 +71,11 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="filter">A filter definition for matching entities to delete.</param>
-        /// <param name = "session" >An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="collation">An optional collation object</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
+        public static Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
         {
-            ThrowIfCancellationNotSupported(session, cancellation);
-
-            var cursor = await new Find<T, string>(session, null, tenantPrefix)
-                               .Match(_ => filter)
-                               .Project(e => e.ID)
-                               .Option(o => o.BatchSize = deleteBatchSize)
-                               .Option(o => o.Collation = collation)
-                               .ExecuteCursorAsync(cancellation)
-                               .ConfigureAwait(false);
-
-            long deletedCount = 0;
-            DeleteResult res = null;
-
-            using (cursor)
-            {
-                while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
-                {
-                    if (cursor.Current.Any())
-                    {
-                        res = await DeleteCascadingAsync<T>(tenantPrefix, cursor.Current, session, cancellation).ConfigureAwait(false);
-                        deletedCount += res.DeletedCount;
-                    }
-                }
-            }
-
-            if (res?.IsAcknowledged == false)
-                return DeleteResult.Unacknowledged.Instance;
-
-            return new DeleteResult.Acknowledged(deletedCount);
-        }
-
-        private static void ThrowIfCancellationNotSupported(IClientSessionHandle session = null, CancellationToken cancellation = default)
-        {
-            if (cancellation != default && session == null)
-                throw new NotSupportedException("Cancellation is only supported within transactions for delete operations!");
+            return Context.DeleteAsync(filter, collation: collation, cancellation: cancellation);
         }
     }
 }
