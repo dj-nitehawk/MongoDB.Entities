@@ -77,8 +77,7 @@ namespace MongoDB.Entities
         }
         internal Distinct(
             DBContext context,
-            IMongoCollection<T> collection,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters: globalFilters)
+            IMongoCollection<T> collection) : base(globalFilters: context.GlobalFilters)
         {
             Context = context;
             Collection = collection;

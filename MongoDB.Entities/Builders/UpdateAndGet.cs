@@ -20,7 +20,7 @@ namespace MongoDB.Entities
         {
         }
 
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<UpdateAndGet<T, T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(context, collection, globalFilters, onUpdateAction, defs)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(context, collection, onUpdateAction, defs)
         {
         }
     }
@@ -45,13 +45,14 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<UpdateAndGet<T, TProjection>>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(globalFilters, onUpdateAction, defs)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, TProjection>>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(context.GlobalFilters, onUpdateAction, defs)
         {
             Context = context;
             Collection = collection;
         }
 
-
+        private Cache<T>? _cache;
+        internal override Cache<T> Cache() => _cache ??= Context.Cache<T>();
 
         /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
@@ -170,7 +171,7 @@ namespace MongoDB.Entities
             if (typeof(T) != typeof(TProjection))
                 throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
-            _options.Projection = Cache<T>.Instance.CombineWithRequiredProps(_options.Projection);
+            _options.Projection = Cache().CombineWithRequiredProps(_options.Projection);
             return this;
         }
 
@@ -184,9 +185,9 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
             if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
+            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
             onUpdateAction?.Invoke(this);
-            return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, this.Session(), cancellation).ConfigureAwait(false);
+            return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, cancellation).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -199,10 +200,10 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (_stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.Instance.ModifiedOnPropName}': new Date() }} }}");
+            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache().ModifiedOnPropName}': new Date() }} }}");
 
 
-            return UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(_stages.ToArray()), _options, this.Session(), cancellation);
+            return UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(_stages.ToArray()), _options, cancellation);
         }
 
         private bool ShouldSetModDate()
@@ -210,18 +211,19 @@ namespace MongoDB.Entities
             //only set mod date by library if user hasn't done anything with the ModifiedOn property
 
             return
-                Cache<T>.Instance.HasModifiedOn &&
+                Cache().HasModifiedOn &&
                 !defs.Any(d => d
                        .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
                        .ToString()
-                       .Contains($"\"{Cache<T>.Instance.ModifiedOnPropName}\""));
+                       .Contains($"\"{Cache().ModifiedOnPropName}\""));
         }
 
-        private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, CancellationToken cancellation = default)
         {
-            return session == null
+            return Context.Session is not IClientSessionHandle session
                 ? Collection.FindOneAndUpdateAsync(filter, definition, options, cancellation)
                 : Collection.FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
         }
+
     }
 }

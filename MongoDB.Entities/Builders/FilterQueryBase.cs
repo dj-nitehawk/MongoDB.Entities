@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 namespace MongoDB.Entities
 {
-    public class FilterQueryBase<T, TSelf> where T : IEntity where TSelf : FilterQueryBase<T, TSelf>
+    public abstract class FilterQueryBase<T, TSelf> where T : IEntity where TSelf : FilterQueryBase<T, TSelf>
     {
         internal FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
         internal Dictionary<Type, (object filterDef, bool prepend)> _globalFilters;

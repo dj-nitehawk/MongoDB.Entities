@@ -137,7 +137,7 @@ namespace MongoDB.Entities
             ThrowIfCancellationNotSupported(cancellation);
 
             var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter);
-            var cursor = await new Find<T, string>(this, CollectionFor<T>(), GlobalFilters)
+            var cursor = await new Find<T, string>(this, CollectionFor<T>())
                                .Match(filter)
                                .Project(e => e.ID)
                                .Option(o => o.BatchSize = _deleteBatchSize)

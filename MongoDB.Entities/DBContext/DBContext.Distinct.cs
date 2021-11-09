@@ -9,7 +9,7 @@
         /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
         public Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
         {
-            return new Distinct<T, TProperty>(Session, _globalFilters, tenantPrefix);
+            return new Distinct<T, TProperty>(this, CollectionFor<T>());
         }
     }
 }

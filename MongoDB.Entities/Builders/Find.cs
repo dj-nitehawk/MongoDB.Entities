@@ -158,8 +158,8 @@ namespace MongoDB.Entities
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public class Find<T> : Find<T, T> where T : IEntity
     {
-        internal Find(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
-            : base(context, collection, globalFilters) { }
+        internal Find(DBContext context, IMongoCollection<T> collection)
+            : base(context, collection) { }
 
         internal Find(DBContext context, IMongoCollection<T> collection, FindBase<T, T, Find<T, T>> baseQuery)
             : base(context, collection, baseQuery) { }
@@ -185,7 +185,7 @@ namespace MongoDB.Entities
             Context = context;
             Collection = collection;
         }
-        internal Find(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters)
+        internal Find(DBContext context, IMongoCollection<T> collection) : base(context.GlobalFilters)
         {
             Context = context;
             Collection = collection;

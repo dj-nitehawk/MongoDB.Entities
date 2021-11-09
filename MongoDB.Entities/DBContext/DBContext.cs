@@ -48,7 +48,7 @@ namespace MongoDB.Entities
         public MongoDatabaseSettings Settings => Database.Settings;
 
         private Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
-        private Dictionary<Type, (object filterDef, bool prepend)> GlobalFilters => _globalFilters ??= new();
+        internal Dictionary<Type, (object filterDef, bool prepend)> GlobalFilters => _globalFilters ??= new();
 
         /// <summary>
         /// Copy constructor

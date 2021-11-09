@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities
 {
-    public class UpdateBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : UpdateBase<T, TSelf>
+    public abstract class UpdateBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : UpdateBase<T, TSelf>
     {
         protected readonly List<UpdateDefinition<T>> defs;
         protected readonly Action<TSelf>? onUpdateAction;
+
+        internal abstract Cache<T> Cache();
 
         internal UpdateBase(UpdateBase<T, TSelf> other) : base(other)
         {
@@ -62,7 +64,7 @@ namespace MongoDB.Entities
         {
             AddModification(template.RenderToString());
         }
-   
+
 
         /// <summary>
         /// Specify the property and it's value to modify (use multiple times if needed)
@@ -112,7 +114,8 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the property values from</param>
         public TSelf ModifyWith(T entity)
         {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+
+            if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity));
             return This;
         }
@@ -124,7 +127,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public TSelf ModifyOnly(Expression<Func<T, object>> members, T entity)
         {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members));
             return This;
         }
@@ -136,7 +139,7 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity instance to read the corresponding values from</param>
         public TSelf ModifyExcept(Expression<Func<T, object>> members, T entity)
         {
-            if (Cache<T>.Instance.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
             return This;
         }
@@ -159,7 +162,7 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        internal Update(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<Update<T>>? onUpdateAction, List<UpdateDefinition<T>>? defs = null) : base(globalFilters, onUpdateAction, defs)
+        internal Update(DBContext context, IMongoCollection<T> collection, Action<Update<T>>? onUpdateAction, List<UpdateDefinition<T>>? defs = null) : base(context.GlobalFilters, onUpdateAction, defs)
         {
             Context = context;
             Collection = collection;
@@ -169,6 +172,8 @@ namespace MongoDB.Entities
         public IMongoCollection<T> Collection { get; }
 
 
+        private Cache<T>? _cache;
+        internal override Cache<T> Cache() => _cache ??= Context.Cache<T>();
 
 
 
@@ -273,7 +278,7 @@ namespace MongoDB.Entities
             var mergedFilter = MergedFilter;
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            if (Cache<T>.Instance.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
+            if (Cache().HasModifiedOn) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
             onUpdateAction?.Invoke(this);
             _models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
             {
@@ -315,10 +320,10 @@ namespace MongoDB.Entities
                 if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
                 if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
                 if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Instance.ModifiedOnPropName));
+                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
 
                 onUpdateAction?.Invoke(this);
-                return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, this.Session(), cancellation).ConfigureAwait(false);
+                return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, cancellation).ConfigureAwait(false);
             }
         }
 
@@ -332,13 +337,12 @@ namespace MongoDB.Entities
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (_stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
             if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.Instance.ModifiedOnPropName}': new Date() }} }}");
+            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache().ModifiedOnPropName}': new Date() }} }}");
 
             return UpdateAsync(
                 mergedFilter,
                 Builders<T>.Update.Pipeline(_stages.ToArray()),
                 _options,
-                this.Session(),
                 cancellation);
         }
 
@@ -347,18 +351,19 @@ namespace MongoDB.Entities
             //only set mod date by library if user hasn't done anything with the ModifiedOn property
 
             return
-                Cache<T>.Instance.HasModifiedOn &&
+                Cache().HasModifiedOn &&
                 !defs.Any(d => d
                        .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
                        .ToString()
-                       .Contains($"\"{Cache<T>.Instance.ModifiedOnPropName}\""));
+                       .Contains($"\"{Cache().ModifiedOnPropName}\""));
         }
 
-        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, CancellationToken cancellation = default)
         {
-            return session == null
+            return Context.Session is null
                    ? Collection.UpdateManyAsync(filter, definition, options, cancellation)
-                   : Collection.UpdateManyAsync(session, filter, definition, options, cancellation);
+                   : Collection.UpdateManyAsync(Context.Session, filter, definition, options, cancellation);
         }
+
     }
 }

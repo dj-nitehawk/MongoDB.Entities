@@ -173,9 +173,8 @@ namespace MongoDB.Entities
     public class PagedSearch<T> : PagedSearch<T, T> where T : IEntity
     {
         internal PagedSearch(
-            DBContext context, IMongoCollection<T> collection,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
-        : base(context, collection, globalFilters) { }
+            DBContext context, IMongoCollection<T> collection)
+        : base(context, collection) { }
     }
 
     /// <summary>
@@ -189,7 +188,7 @@ namespace MongoDB.Entities
         public DBContext Context { get; set; }
         public IMongoCollection<T> Collection { get; set; }
 
-        internal PagedSearch(DBContext context, IMongoCollection<T> collection, Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters)
+        internal PagedSearch(DBContext context, IMongoCollection<T> collection) : base(context.GlobalFilters)
         {
             var type = typeof(TProjection);
             if (type.IsPrimitive || type.IsValueType || (type == typeof(string)))

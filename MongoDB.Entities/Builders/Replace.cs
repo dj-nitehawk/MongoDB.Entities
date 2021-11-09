@@ -29,13 +29,12 @@ namespace MongoDB.Entities
             DBContext context,
             IMongoCollection<T> collection,
             ModifiedBy modifiedBy,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<T> onSaveAction) : base(globalFilters)
+            Action<T> onSaveAction) : base(context.GlobalFilters)
         {
             Context = context;
             Collection = collection;
-            this._modifiedBy = modifiedBy;
-            this._onSaveAction = onSaveAction;
+            _modifiedBy = modifiedBy;
+            _onSaveAction = onSaveAction;
         }
 
 
@@ -51,7 +50,7 @@ namespace MongoDB.Entities
 
             _onSaveAction?.Invoke(entity);
 
-            this._entity = entity;
+            _entity = entity;
             return this;
         }
 
@@ -125,12 +124,13 @@ namespace MongoDB.Entities
 
         private void SetModOnAndByValues()
         {
-            if (Cache<T>.Instance.HasModifiedOn && _entity is IModifiedOn _entityModifiedOn) _entityModifiedOn.ModifiedOn = DateTime.UtcNow;
-            if (Cache<T>.Instance.ModifiedByProp != null && _modifiedBy != null)
+            var cache = Context.Cache<T>();
+            if (cache.HasModifiedOn && _entity is IModifiedOn _entityModifiedOn) _entityModifiedOn.ModifiedOn = DateTime.UtcNow;
+            if (cache.ModifiedByProp != null && _modifiedBy != null)
             {
-                Cache<T>.Instance.ModifiedByProp.SetValue(
+                cache.ModifiedByProp.SetValue(
                     _entity,
-                    BsonSerializer.Deserialize(_modifiedBy.ToBson(), Cache<T>.Instance.ModifiedByProp.PropertyType));
+                    BsonSerializer.Deserialize(_modifiedBy.ToBson(), cache.ModifiedByProp.PropertyType));
             }
         }
     }

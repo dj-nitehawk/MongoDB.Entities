@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 #nullable enable
 namespace MongoDB.Entities
 {
-    public class SortFilterQueryBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : SortFilterQueryBase<T, TSelf>
+    public abstract class SortFilterQueryBase<T, TSelf> : FilterQueryBase<T, TSelf> where T : IEntity where TSelf : SortFilterQueryBase<T, TSelf>
     {
         internal List<SortDefinition<T>> _sorts = new();
         private TSelf This => (TSelf)this;
@@ -16,7 +16,6 @@ namespace MongoDB.Entities
         }
         internal SortFilterQueryBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters) : base(globalFilters: globalFilters)
         {
-            _globalFilters = globalFilters;
         }
 
 
