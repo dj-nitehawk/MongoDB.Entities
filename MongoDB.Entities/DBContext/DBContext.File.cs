@@ -10,15 +10,12 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The file entity type</typeparam>
         /// <param name="ID">The ID of the file entity</param>
-        public DataStreamer File<T>(string ID) where T : FileEntity, new()
+        public DataStreamer<T> File<T>(string ID) where T : FileEntity, new()
         {
             if (!ObjectId.TryParse(ID, out _))
                 throw new ArgumentException("The ID passed in is not of the correct format!");
 
-            return new DataStreamer(
-                new T() { ID = ID, UploadSuccessful = true },
-                tenantPrefix);
-            return File<T>(ID);
+            return new DataStreamer<T>(new T() { ID = ID, UploadSuccessful = true }, this);
         }
     }
 }

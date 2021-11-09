@@ -290,10 +290,13 @@ namespace MongoDB.Entities
             }
             return (Cache<T>)c;
         }
-
-        public IMongoCollection<T> CollectionFor<T>() where T : IEntity
+        public virtual string CollectionNameFor<T>() where T : IEntity
         {
-            return Database.GetCollection<T>(Cache<T>().CollectionName);
+            return Cache<T>().CollectionName;
+        }
+        public virtual IMongoCollection<T> CollectionFor<T>() where T : IEntity
+        {
+            return Database.GetCollection<T>(CollectionNameFor<T>());
         }
     }
 }

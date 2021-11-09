@@ -21,9 +21,8 @@ namespace MongoDB.Entities
         public Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveAsync(entity, Session, cancellation, tenantPrefix);
+            return DB.SaveAsync(entity, Session, cancellation);
         }
 
         /// <summary>
@@ -36,9 +35,8 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveAsync(entities, Session, cancellation, tenantPrefix);
+            return DB.SaveAsync(entities, Session, cancellation);
         }
 
         /// <summary>
@@ -54,9 +52,8 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveOnlyAsync(entity, members, Session, cancellation, tenantPrefix);
+            return DB.SaveOnlyAsync(entity, members, Session, cancellation);
         }
 
         /// <summary>
@@ -72,9 +69,8 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveOnlyAsync(entities, members, Session, cancellation, tenantPrefix);
+            return DB.SaveOnlyAsync(entities, members, Session, cancellation);
         }
 
         /// <summary>
@@ -90,9 +86,8 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveExceptAsync(entity, members, Session, cancellation, tenantPrefix);
+            return DB.SaveExceptAsync(entity, members, Session, cancellation);
         }
 
         /// <summary>
@@ -108,9 +103,8 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveExceptAsync(entities, members, Session, cancellation, tenantPrefix);
+            return DB.SaveExceptAsync(entities, members, Session, cancellation);
         }
 
         /// <summary>
@@ -123,32 +117,33 @@ namespace MongoDB.Entities
         public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SavePreservingAsync(entity, Session, cancellation, tenantPrefix);
+            return DB.SavePreservingAsync(entity, Session, cancellation);
         }
 
         private void SetModifiedBySingle<T>(T entity) where T : IEntity
         {
             ThrowIfModifiedByIsEmpty<T>();
-            Cache<T>.ModifiedByProp?.SetValue(
+            var cache = Cache<T>();
+            cache.ModifiedByProp?.SetValue(
                 entity,
-                BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+                BsonSerializer.Deserialize(ModifiedBy.ToBson(), cache.ModifiedByProp.PropertyType));
             //note: we can't use an IModifiedBy interface because the above line needs a concrete type
             //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.
         }
 
         private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
         {
-            if (Cache<T>.ModifiedByProp is null)
+            var cache = Cache<T>();
+            if (Cache<T>().ModifiedByProp is null)
                 return;
 
             ThrowIfModifiedByIsEmpty<T>();
 
-            var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType);
+            var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), cache.ModifiedByProp.PropertyType);
 
             foreach (var e in entities)
-                Cache<T>.ModifiedByProp.SetValue(e, val);
+                cache.ModifiedByProp.SetValue(e, val);
         }
     }
 }

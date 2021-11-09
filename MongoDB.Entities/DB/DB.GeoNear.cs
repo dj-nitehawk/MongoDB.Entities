@@ -21,24 +21,9 @@ namespace MongoDB.Entities
         /// <param name="IncludeLocations">Specify the output field to store the point used to calculate the distance</param>
         /// <param name="IndexKey"></param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
+        public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>>? DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument? Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>>? IncludeLocations = null, string? IndexKey = null, AggregateOptions? options = null) where T : IEntity
         {
-            return new GeoNear<T>
-            {
-                near = NearCoordinates,
-                distanceField = DistanceField?.FullPath(),
-                spherical = Spherical,
-                maxDistance = MaxDistance,
-                minDistance = MinDistance,
-                query = Query,
-                distanceMultiplier = DistanceMultiplier,
-                limit = Limit,
-                includeLocs = IncludeLocations?.FullPath(),
-                key = IndexKey,
-            }
-            .ToFluent(tenantPrefix, options, session);
+            return Context.GeoNear<T>(NearCoordinates: NearCoordinates, DistanceField: DistanceField, Spherical: Spherical, MaxDistance: MaxDistance, MinDistance: MinDistance, Limit: Limit, Query: Query, DistanceMultiplier: DistanceMultiplier, IncludeLocations: IncludeLocations, IndexKey: IndexKey, options: options);
         }
     }
 }

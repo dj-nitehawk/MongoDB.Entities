@@ -9,7 +9,7 @@
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         public Index<T> Index<T>() where T : IEntity
         {
-            return new Index<T>(tenantPrefix);
+            return new Index<T>(this, CollectionFor<T>());
         }
     }
 }

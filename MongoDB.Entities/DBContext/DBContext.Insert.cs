@@ -17,9 +17,8 @@ namespace MongoDB.Entities
         public Task InsertAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            entity.SetTenantPrefixOnFileEntity(tenantPrefix);
             OnBeforeSave<T>()?.Invoke(entity);
-            return DB.InsertAsync(entity, Session, cancellation, tenantPrefix);
+            return DB.InsertAsync(entity, Session, cancellation);
         }
 
         /// <summary>
@@ -32,9 +31,8 @@ namespace MongoDB.Entities
         public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            entities.SetTenantDbOnFileEntities(tenantPrefix);
             foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.InsertAsync(entities, Session, cancellation, tenantPrefix);
+            return DB.InsertAsync(entities, Session, cancellation);
         }
     }
 }
