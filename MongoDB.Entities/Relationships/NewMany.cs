@@ -89,35 +89,62 @@ public abstract class Many<TChild> where TChild : IEntity
         ChildProperty = childProperty;
     }
 
-    public PropertyInfo ParentProperty { get; }
-    public PropertyInfo ChildProperty { get; }
-
+    internal PropertyInfo ParentProperty { get; }
+    internal PropertyInfo ChildProperty { get; }
 
     public abstract IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
-    public abstract Find<TChild> GetChildFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
-    public abstract Find<TChild, TProjection> GetChildFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
+    public Find<TChild, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null) => GetChildrenFind<TChild>(context, childCollectionName, collection);
+    public abstract Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
 }
-internal abstract class Many<TParent, TChild> : Many<TChild> where TParent : IEntity where TChild : IEntity
+public abstract class Many<TParent, TChild> : Many<TChild> where TParent : IEntity where TChild : IEntity
 {
-    protected Many(PropertyInfo parentProperty, PropertyInfo childProperty) : base(parentProperty, childProperty)
+    public TParent Parent { get; }
+    protected Many(TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parentProperty, childProperty)
     {
+        Parent = parent;
     }
+    public FilterDefinition<TChild> GetFilterForSingleDocument() => Builders<TChild>.Filter.Eq(ChildProperty.Name, Parent.ID);
+
+
 }
-internal class ManyToMany<TParent, TChild> : Many<TParent, TChild> where TParent : IEntity where TChild : IEntity
+public sealed class ManyToMany<TParent, TChild> : Many<TParent, TChild> where TParent : IEntity where TChild : IEntity
 {
-    public ManyToMany(bool isParentOwner, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parentProperty, childProperty)
+    public ManyToMany(bool isParentOwner, TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parent, parentProperty, childProperty)
     {
         IsParentOwner = isParentOwner;
     }
 
     public bool IsParentOwner { get; }
+
+    public override Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null)
+    {
+        throw new NotImplementedException();
+    }
 }
 
-internal class ManyToOne<TParent, TChild> : Many<TParent, TChild> where TParent : IEntity where TChild : IEntity
+public sealed class ManyToOne<TParent, TChild> : Many<TParent, TChild> where TParent : IEntity where TChild : IEntity
 {
-    public ManyToOne(PropertyInfo parentProperty, PropertyInfo childProperty) : base(parentProperty, childProperty)
+    public ManyToOne(TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parent, parentProperty, childProperty)
     {
     }
+
+    public override Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? childCollection = null)
+    {
+        return context.Find<TChild, TProjection>(childCollectionName, childCollection)
+            .Match(GetFilterForSingleDocument()); //BRef==Parent.Id
+    }
+
+    public override IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? childCollection = null)
+    {
+        return context.Queryable(collectionName: childCollectionName, collection: childCollection)
+             .Where(_ => GetFilterForSingleDocument().Inject());
+    }
+
 }
 
 
@@ -148,7 +175,7 @@ public static class RelationsExt
         return propInfo;
     }
 
-    public static Many<TChild> InitManyToMany<TParent, TChild>(this TParent _, Expression<Func<TParent, Many<TChild>>> propertyExpression, Expression<Func<TChild, Many<TParent>>> propertyOtherSide) where TParent : IEntity where TChild : IEntity
+    public static ManyToMany<TParent, TChild> InitManyToMany<TParent, TChild>(this TParent parent, Expression<Func<TParent, Many<TChild>>> propertyExpression, Expression<Func<TChild, Many<TParent>>> propertyOtherSide) where TParent : IEntity where TChild : IEntity
     {
         var property = propertyExpression.GetPropertyInfo();
         var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
@@ -163,17 +190,17 @@ public static class RelationsExt
         if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
         if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
-        var res = new ManyToMany<TParent, TChild>(hasInverseAttrib, property, osProperty);
+        var res = new ManyToMany<TParent, TChild>(hasInverseAttrib, parent, property, osProperty);
         //should we set the property ourself or let the user handle it ?
         //property.SetValue(parent, res);
         return res;
     }
-    public static Many<TChild> InitManyToOne<TParent, TChild>(this TParent _, Expression<Func<TParent, Many<TChild>>> propertyExpression, Expression<Func<TChild, One<TParent>?>> propertyOtherSide) where TParent : IEntity where TChild : IEntity
+    public static ManyToOne<TParent, TChild> InitManyToOne<TParent, TChild>(this TParent parent, Expression<Func<TParent, Many<TChild>>> propertyExpression, Expression<Func<TChild, One<TParent>?>> propertyOtherSide) where TParent : IEntity where TChild : IEntity
     {
         var property = propertyExpression.GetPropertyInfo();
         var osProperty = propertyOtherSide.GetPropertyInfo();
 
-        return new ManyToOne<TParent, TChild>(property, osProperty);
+        return new ManyToOne<TParent, TChild>(parent, property, osProperty);
 
     }
 }
