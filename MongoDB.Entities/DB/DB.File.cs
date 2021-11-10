@@ -10,7 +10,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The file entity type</typeparam>
         /// <param name="ID">The ID of the file entity</param>        
-        public static DataStreamer File<T>(string ID) where T : FileEntity, new()
+        public static DataStreamer<T> File<T>(string ID) where T : FileEntity, new()
         {
             return Context.File<T>(ID);
         }

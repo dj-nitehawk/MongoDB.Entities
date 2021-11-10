@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,11 +19,23 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveAsync(entity, Session, cancellation);
+            OnBeforeSave(entity);
+            collection = Collection(collectionName, collection);
+            if (PrepAndCheckIfInsert(entity))
+            {
+                return Session is null
+                       ? collection.InsertOneAsync(entity, null, cancellation)
+                       : collection.InsertOneAsync(Session, entity, null, cancellation);
+            }
+
+            return Session == null
+                   ? collection.ReplaceOneAsync(x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+                   : collection.ReplaceOneAsync(Session, x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
         }
 
         /// <summary>
@@ -32,11 +45,32 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
-        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveAsync(entities, Session, cancellation);
+            foreach (var ent in entities) OnBeforeSave(ent);
+
+
+            var models = entities.Select<T, WriteModel<T>>(ent =>
+            {
+                if (PrepAndCheckIfInsert(ent))
+                {
+                    return new InsertOneModel<T>(ent);
+                }
+                else
+                {
+                    return new ReplaceOneModel<T>(
+                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        replacement: ent)
+                    { IsUpsert = true };
+                }
+            });
+
+            return Session == null
+                   ? Collection(collectionName, collection).BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+                   : Collection(collectionName, collection).BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
         }
 
         /// <summary>
@@ -49,11 +83,14 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveOnlyAsync(entity, members, Session, cancellation);
+            OnBeforeSave(entity);
+            return SavePartial(entity, members, cancellation, collectionName: collectionName, collection: collection);
+
         }
 
         /// <summary>
@@ -66,11 +103,13 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveOnlyAsync(entities, members, Session, cancellation);
+            foreach (var ent in entities) OnBeforeSave(ent);
+            return SavePartial(entities, members, cancellation, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>
@@ -83,11 +122,13 @@ namespace MongoDB.Entities
         /// <param name="entity">The entity to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SaveExceptAsync(entity, members, Session, cancellation);
+            OnBeforeSave(entity);
+            return SavePartial(entity, members, cancellation, true, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>
@@ -100,11 +141,13 @@ namespace MongoDB.Entities
         /// <param name="entities">The batch of entities to save</param>
         /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedByMultiple(entities);
-            foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
-            return DB.SaveExceptAsync(entities, members, Session, cancellation);
+            foreach (var ent in entities) OnBeforeSave(ent);
+            return SavePartial(entities, members, cancellation, true, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>
@@ -114,18 +157,64 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="entity">The entity to save</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<UpdateResult> SavePreservingAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             SetModifiedBySingle(entity);
-            OnBeforeSave<T>()?.Invoke(entity);
-            return DB.SavePreservingAsync(entity, Session, cancellation);
+            OnBeforeSave(entity);
+            entity.ThrowIfUnsaved();
+            var cache = Cache<T>();
+            var propsToUpdate = cache.UpdatableProps(entity);
+
+            IEnumerable<string> propsToPreserve = new string[0];
+
+            var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
+            var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
+
+            if (dontProps.Any() && presProps.Any())
+                throw new NotSupportedException("[Preseve] and [DontPreserve] attributes cannot be used together on the same entity!");
+
+            if (dontProps.Any())
+                propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name);
+
+            if (presProps.Any())
+                propsToPreserve = propsToUpdate.Where(p => presProps.Contains(p.Name)).Select(p => p.Name);
+
+            if (!propsToPreserve.Any())
+                throw new ArgumentException("No properties are being preserved. Please use .SaveAsync() method instead!");
+
+            propsToUpdate = propsToUpdate.Where(p => !propsToPreserve.Contains(p.Name));
+
+            var propsToUpdateCount = propsToUpdate.Count();
+
+            if (propsToUpdateCount == 0)
+                throw new ArgumentException("At least one property must be not preserved!");
+
+            var defs = new List<UpdateDefinition<T>>(propsToUpdateCount);
+
+            foreach (var p in propsToUpdate)
+            {
+                if (p.Name == cache.ModifiedOnPropName)
+                    defs.Add(Builders<T>.Update.CurrentDate(cache.ModifiedOnPropName));
+                else
+                    defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
+            }
+
+            return
+                Session == null
+                ? Collection(collectionName, collection).UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), _updateOptions, cancellation)
+                : Collection(collectionName, collection).UpdateOneAsync(Session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
         }
 
         private void SetModifiedBySingle<T>(T entity) where T : IEntity
         {
-            ThrowIfModifiedByIsEmpty<T>();
             var cache = Cache<T>();
-            cache.ModifiedByProp?.SetValue(
+            if (cache.ModifiedByProp is null) 
+                return;
+            ThrowIfModifiedByIsEmpty<T>();
+
+            cache.ModifiedByProp.SetValue(
                 entity,
                 BsonSerializer.Deserialize(ModifiedBy.ToBson(), cache.ModifiedByProp.PropertyType));
             //note: we can't use an IModifiedBy interface because the above line needs a concrete type
@@ -135,7 +224,7 @@ namespace MongoDB.Entities
         private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
         {
             var cache = Cache<T>();
-            if (Cache<T>().ModifiedByProp is null)
+            if (cache.ModifiedByProp is null)
                 return;
 
             ThrowIfModifiedByIsEmpty<T>();

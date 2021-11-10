@@ -13,27 +13,30 @@ namespace MongoDB.Entities
     /// <summary>
     /// The main entrypoint for all data access methods of the library
     /// </summary>
+    /// <remarks>Please consider using DBContext directly, this will be made obsolete in the future</remarks>
     public static partial class DB
     {
+        private static DBContext? _context;
+
         static DB()
         {
-            BsonSerializer.RegisterSerializer(new DateSerializer());
-            BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
-            BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
-            BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
-
-            ConventionRegistry.Register(
-                "DefaultConventions",
-                new ConventionPack
-                {
-                        new IgnoreExtraElementsConvention(true),
-                        new IgnoreManyPropsConvention()
-                },
-                _ => true);
+            DBContext.InitStatic();
         }
 
-        //TODO: refactor api
-        public static DBContext Context { get; set; }
+        /// <summary>
+        /// Checks if InitAsync was called successfully
+        /// </summary>
+        public static bool IsInitialized => _context is not null;
+
+        /// <summary>
+        /// Contains the latest initialized context
+        /// </summary>
+        /// <exception cref="ArgumentException">Throws an exception if InitAsync wasn't called, check <see cref="IsInitialized"/></exception>
+        public static DBContext Context
+        {
+            get => _context ?? throw new ArgumentException("The database hasn't been initialized yet! please call [InitAsync] first");
+            set => _context = value;
+        }
 
         /// <summary>
         /// Initializes a MongoDB connection with the given connection parameters.
@@ -43,10 +46,11 @@ namespace MongoDB.Entities
         /// <param name="database">Name of the database</param>
         /// <param name="host">Address of the MongoDB server</param>
         /// <param name="port">Port number of the server</param>
-        public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
+        /// <param name="skipNetworkPing">Whether to skip pinging the host on initialization, in which case the task completes instantly</param>
+        public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017, bool skipNetworkPing = false)
         {
             return Initialize(
-                new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database);
+                new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database, skipNetworkPing);
         }
 
         /// <summary>
@@ -56,33 +60,46 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="database">Name of the database</param>
         /// <param name="settings">A MongoClientSettings object</param>
-        public static Task InitAsync(string database, MongoClientSettings settings)
+        /// <param name="skipNetworkPing">Whether to skip pinging the host on initialization, in which case the task completes instantly</param>        
+        public static Task InitAsync(string database, MongoClientSettings settings, bool skipNetworkPing = false)
         {
-            return Initialize(settings, database);
+            return Initialize(settings, database, skipNetworkPing);
         }
+
+        /// <summary>
+        /// Initializes a MongoDB connection with the given DBContext parameters.
+        /// <para>WARNING: will throw an error if server is not reachable!</para>
+        /// </summary>
+        /// <param name="context">The database context</param>
+        /// <param name="skipNetworkPing">Whether to skip pinging the host on initialization, in which case the task completes instantly</param>
+        public static async Task InitAsync(DBContext context, bool skipNetworkPing = false)
+        {
+            if (skipNetworkPing || await context.PingNetwork())
+            {
+                _context = context;
+            }
+            else
+            {
+                _context = null;
+            }
+        }
+
 
         internal static async Task Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
         {
             if (string.IsNullOrEmpty(dbName))
                 throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-            if (dbs.ContainsKey(dbName))
-                return;
+            if (dbName == _context?.DatabaseNamespace.DatabaseName) return;
 
-            try
+            var newCtx = new DBContext(dbName, settings);
+            if (skipNetworkPing || await newCtx.PingNetwork())
             {
-                var db = new MongoClient(settings).GetDatabase(dbName);
-
-                if (dbs.Count == 0)
-                    defaultDb = db;
-
-                if (dbs.TryAdd(dbName, db) && !skipNetworkPing)
-                    await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
+                _context = newCtx;
             }
-            catch (Exception)
+            else
             {
-                dbs.TryRemove(dbName, out _);
-                throw;
+                _context = null;
             }
         }
 
@@ -114,19 +131,19 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <param name="databaseName">The name of the database</param>
+        [Obsolete("This method does nothing", error: true)]
         public static void DatabaseFor<T>(string databaseName) where T : IEntity
         {
-            Cache.MapTypeToDbNameWithoutTenantPrefix<T>(databaseName);
         }
 
         /// <summary>
         /// Gets the IMongoDatabase for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static IMongoDatabase Database<T>(string tenantPrefix = null) where T : IEntity
+        [Obsolete("This method returns the current Context", error: true)]
+        public static IMongoDatabase Database<T>() where T : IEntity
         {
-            return Cache<T>.Collection(tenantPrefix).Database;
+            return Context;
         }
 
         /// <summary>
@@ -134,32 +151,19 @@ namespace MongoDB.Entities
         /// You can also get the default database by passing 'default' or 'null' for the name parameter.
         /// </summary>
         /// <param name="name">The name of the database to retrieve</param>
-        public static IMongoDatabase Database(string name)
+        public static IMongoDatabase Database(string? name)
         {
-            IMongoDatabase db = null;
-
-            if (dbs.Count > 0)
-            {
-                if (string.IsNullOrEmpty(name))
-                    db = defaultDb;
-                else
-                    dbs.TryGetValue(name, out db);
-            }
-
-            if (db == null)
-                throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
-
-            return db;
+            return name == null ? Context : Context.MongoServerContext.GetDatabase(name);
         }
 
         /// <summary>
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static string DatabaseName<T>(string tenantPrefix = null) where T : IEntity
+        [Obsolete("This method returns the current DatabaseName in the Context")]
+        public static string DatabaseName<T>() where T : IEntity
         {
-            return Database<T>(tenantPrefix).DatabaseNamespace.DatabaseName;
+            return Context.DatabaseNamespace.DatabaseName;
         }
 
         /// <summary>

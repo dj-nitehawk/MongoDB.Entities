@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 #nullable enable
 namespace MongoDB.Entities
 {
-    public class FindBase<T, TProjection, TSelf> : SortFilterQueryBase<T, TSelf> where T : IEntity where TSelf : FindBase<T, TProjection, TSelf>
+    public abstract class FindBase<T, TProjection, TSelf> : SortFilterQueryBase<T, TSelf> where T : IEntity where TSelf : FindBase<T, TProjection, TSelf>
     {
         internal FindOptions<T, TProjection> _options = new();
 
@@ -22,7 +22,7 @@ namespace MongoDB.Entities
         {
             _globalFilters = globalFilters;
         }
-
+        public abstract DBContext Context { get; }
         private TSelf This => (TSelf)this;
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace MongoDB.Entities
             if (typeof(T) != typeof(TProjection))
                 throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
-            _options.Projection = Cache<T>.Instance.CombineWithRequiredProps(_options.Projection);
+            _options.Projection = Context.Cache<T>().CombineWithRequiredProps(_options.Projection);
             return This;
         }
 
@@ -174,6 +174,7 @@ namespace MongoDB.Entities
     /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
     public class Find<T, TProjection> : FindBase<T, TProjection, Find<T, TProjection>>, ICollectionRelated<T> where T : IEntity
     {
+
         /// <summary>
         /// copy constructor
         /// </summary>
@@ -191,7 +192,7 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        public DBContext Context { get; private set; }
+        public override DBContext Context { get; }
         public IMongoCollection<T> Collection { get; private set; }
 
 

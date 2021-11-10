@@ -47,7 +47,7 @@ namespace MongoDB.Entities
         /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
+        public Task RemoveAsync(IEnumerable<string> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         {
             var filter =
                 isInverse

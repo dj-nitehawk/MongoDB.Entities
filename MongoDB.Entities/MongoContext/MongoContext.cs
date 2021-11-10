@@ -23,6 +23,7 @@ namespace MongoDB.Entities
             Options = options ?? new();
         }
 
+
         /// <summary>
         /// The backing client
         /// </summary>
@@ -32,7 +33,10 @@ namespace MongoDB.Entities
 
         /// <inheritdoc cref="MongoContextOptions.ModifiedBy"/>
         public ModifiedBy? ModifiedBy => Options.ModifiedBy;
-
+        public DBContext GetDatabase(string name, MongoDatabaseSettings? settings = null, DBContextOptions? options = null)
+        {
+            return new(this, Client.GetDatabase(name, settings), options);
+        }
         public async Task<List<string>> AllDatabaseNamesAsync()
         {
             return await (await
@@ -43,8 +47,6 @@ namespace MongoDB.Entities
 
         private Type[]? _allEntitiyTypes;
         public Type[] AllEntitiyTypes => _allEntitiyTypes ??= GetAllEntityTypes();
-
-
         private static Type[] GetAllEntityTypes()
         {
             var excludes = new[]
@@ -69,6 +71,11 @@ namespace MongoDB.Entities
                 .ToArray();
         }
 
+        //key: entity type
+        //val: database name without tenant prefix (will be null if not specifically set using DB.DatabaseFor<T>() method)
+        internal readonly ConcurrentDictionary<Type, string> _typeToDbName = new();
+        internal void MapTypeToDb<T>(string dbNameWithoutTenantPrefix) where T : IEntity
+           => _typeToDbName[typeof(T)] = dbNameWithoutTenantPrefix;
     }
 
 }

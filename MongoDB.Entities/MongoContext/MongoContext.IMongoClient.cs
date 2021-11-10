@@ -36,7 +36,8 @@ namespace MongoDB.Entities
             return Client.DropDatabaseAsync(session, name, cancellationToken);
         }
 
-        public IMongoDatabase GetDatabase(string name, MongoDatabaseSettings? settings = null)
+
+        IMongoDatabase IMongoClient.GetDatabase(string name, MongoDatabaseSettings settings)
         {
             return Client.GetDatabase(name, settings);
         }
@@ -146,7 +147,7 @@ namespace MongoDB.Entities
             return Client.WatchAsync(pipeline, options, cancellationToken);
         }
 
-        Task<IChangeStreamCursor<TResult>> IMongoClient.WatchAsync<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken = default)
+        Task<IChangeStreamCursor<TResult>> IMongoClient.WatchAsync<TResult>(IClientSessionHandle session, PipelineDefinition<ChangeStreamDocument<BsonDocument>, TResult> pipeline, ChangeStreamOptions options, CancellationToken cancellationToken)
         {
             return Client.WatchAsync(session, pipeline, options, cancellationToken);
         }

@@ -1,4 +1,6 @@
-﻿namespace MongoDB.Entities
+﻿using MongoDB.Driver;
+
+namespace MongoDB.Entities
 {
     public partial class DBContext
     {
@@ -7,9 +9,9 @@
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Index<T> Index<T>() where T : IEntity
+        public Index<T> Index<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
-            return new Index<T>(this, CollectionFor<T>());
+            return new Index<T>(this, Collection(collectionName, collection));
         }
     }
 }

@@ -111,7 +111,11 @@ namespace MongoDB.Entities
             return Database.DropCollectionAsync(session, name, cancellationToken);
         }
 
-        public IMongoCollection<TDocument> GetCollection<TDocument>(string name, MongoCollectionSettings? settings = null)
+        public DBCollection<TDocument> GetCollection<TDocument>(string name, MongoCollectionSettings? settings = null)
+        {
+            return new(Database.GetCollection<TDocument>(name, settings));
+        }
+        IMongoCollection<TDocument> IMongoDatabase.GetCollection<TDocument>(string name, MongoCollectionSettings? settings)
         {
             return Database.GetCollection<TDocument>(name, settings);
         }
@@ -126,12 +130,12 @@ namespace MongoDB.Entities
             return Database.ListCollectionNames(session, options, cancellationToken);
         }
 
-        Task<IAsyncCursor<string>> IMongoDatabase.ListCollectionNamesAsync(ListCollectionNamesOptions options, CancellationToken cancellationToken)
+        public Task<IAsyncCursor<string>> ListCollectionNamesAsync(ListCollectionNamesOptions options, CancellationToken cancellationToken)
         {
             return Database.ListCollectionNamesAsync(options, cancellationToken);
         }
 
-        Task<IAsyncCursor<string>> IMongoDatabase.ListCollectionNamesAsync(IClientSessionHandle session, ListCollectionNamesOptions options, CancellationToken cancellationToken)
+        public Task<IAsyncCursor<string>> ListCollectionNamesAsync(IClientSessionHandle session, ListCollectionNamesOptions options, CancellationToken cancellationToken)
         {
             return Database.ListCollectionNamesAsync(session, options, cancellationToken);
         }

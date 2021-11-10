@@ -14,7 +14,7 @@ namespace MongoDB.Entities
             if (entity == null)
                 throw new ArgumentException("The supplied entity cannot be null!");
 
-            var props = (context?.Cache<T>() ?? Cache<T>.Instance).UpdatableProps(entity);
+            var props = (context?.Cache<T>() ?? EntityCache<T>.Instance).UpdatableProps(entity);
 
             return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
@@ -27,7 +27,7 @@ namespace MongoDB.Entities
             if (!propNames.Any())
                 throw new ArgumentException("Unable to get any properties from the members expression!");
 
-            var props = (context?.Cache<T>() ?? Cache<T>.Instance).UpdatableProps(entity);
+            var props = (context?.Cache<T>() ?? EntityCache<T>.Instance).UpdatableProps(entity);
 
             if (excludeMode)
                 props = props.Where(p => !propNames.Contains(p.Name));
@@ -42,7 +42,7 @@ namespace MongoDB.Entities
             //WARNING: this has to do the same thing as DBContext.Pipeline.MergeWithGlobalFilter method
             //         if the following logic changes, update the other method also
 
-            if (!ignoreGlobalFilters && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (!ignoreGlobalFilters && globalFilters is not null && globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
             {
                 switch (gFilter.filterDef)
                 {

@@ -9,10 +9,8 @@ namespace MongoDB.Entities
         /// <para>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Find<T> Find<T>(IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
-            => new(session, null, tenantPrefix);
+        public static Find<T> Find<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+            => new(Context, collection ?? Collection<T>(collectionName));
 
         /// <summary>
         /// Represents a MongoDB Find command
@@ -20,9 +18,7 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
         /// <typeparam name="TProjection">The type that is returned by projection</typeparam>
-        /// <param name="session">An optional session if using within a transaction</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Find<T, TProjection> Find<T, TProjection>(IClientSessionHandle session = null, string tenantPrefix = null) where T : IEntity
-            => new(session, null, tenantPrefix);
+        public static Find<T, TProjection> Find<T, TProjection>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+            => new(Context, collection ?? Collection<T>(collectionName));
     }
 }

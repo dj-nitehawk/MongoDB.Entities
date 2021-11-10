@@ -19,7 +19,7 @@ namespace MongoDB.Entities
         private ReplaceOptions _options = new();
         private readonly List<ReplaceOneModel<T>> _models = new();
         private readonly ModifiedBy? _modifiedBy;
-        private readonly Action<T> _onSaveAction;
+        private readonly Action<T>? _onSaveAction;
         private T? _entity;
 
         public DBContext Context { get; }
@@ -28,12 +28,11 @@ namespace MongoDB.Entities
         internal Replace(
             DBContext context,
             IMongoCollection<T> collection,
-            ModifiedBy modifiedBy,
-            Action<T> onSaveAction) : base(context.GlobalFilters)
+            Action<T>? onSaveAction) : base(context.GlobalFilters)
         {
             Context = context;
             Collection = collection;
-            _modifiedBy = modifiedBy;
+            _modifiedBy = context.ModifiedBy;
             _onSaveAction = onSaveAction;
         }
 

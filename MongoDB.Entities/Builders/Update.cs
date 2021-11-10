@@ -14,7 +14,9 @@ namespace MongoDB.Entities
         protected readonly List<UpdateDefinition<T>> defs;
         protected readonly Action<TSelf>? onUpdateAction;
 
-        internal abstract Cache<T> Cache();
+        public abstract DBContext Context { get; }
+        private EntityCache<T>? _cache;
+        internal EntityCache<T> Cache() => _cache ??= Context.Cache<T>();
 
         internal UpdateBase(UpdateBase<T, TSelf> other) : base(other)
         {
@@ -116,7 +118,7 @@ namespace MongoDB.Entities
         {
 
             if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity));
+            defs.AddRange(Logic.BuildUpdateDefs(entity, Context));
             return This;
         }
 
@@ -168,15 +170,8 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        public DBContext Context { get; }
+        public override DBContext Context { get; }
         public IMongoCollection<T> Collection { get; }
-
-
-        private Cache<T>? _cache;
-        internal override Cache<T> Cache() => _cache ??= Context.Cache<T>();
-
-
-
 
 
         /// <summary>

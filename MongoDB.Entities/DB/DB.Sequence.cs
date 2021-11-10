@@ -12,10 +12,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
-            return NextSequentialNumberAsync(CollectionName<T>(), cancellation, tenantPrefix);
+            return Context.NextSequentialNumberAsync<T>(cancellation);
         }
 
         /// <summary>
@@ -23,15 +22,9 @@ namespace MongoDB.Entities
         /// </summary>
         /// <param name="sequenceName">The name of the sequence to get the next number for</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default, string tenantPrefix = null)
+        public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
         {
-            return new UpdateAndGet<SequenceCounter, ulong>(null, null, null, tenantPrefix)
-                .Match(s => s.ID == sequenceName)
-                .Modify(b => b.Inc(s => s.Count, 1ul))
-                .Option(o => o.IsUpsert = true)
-                .Project(s => s.Count)
-                .ExecuteAsync(cancellation);
+            return Context.NextSequentialNumberAsync(sequenceName, cancellation);
         }
     }
 }

@@ -10,13 +10,15 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
             var aggregate = Session is not IClientSessionHandle session
-                   ? CollectionFor<T>().Aggregate(options)
-                   : CollectionFor<T>().Aggregate(session, options);
+                   ? Collection(collectionName, collection).Aggregate(options)
+                   : Collection(collectionName, collection).Aggregate(session, options);
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
@@ -36,7 +38,9 @@ namespace MongoDB.Entities
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
@@ -58,8 +62,8 @@ namespace MongoDB.Entities
                             });
 
             var aggregate = Session is not IClientSessionHandle session
-                   ? CollectionFor<T>().Aggregate(options).Match(filter)
-                   : CollectionFor<T>().Aggregate(session, options).Match(filter);
+                   ? Collection(collectionName, collection).Aggregate(options).Match(filter)
+                   : Collection(collectionName, collection).Aggregate(session, options).Match(filter);
 
 
             if (globalFilter != Builders<T>.Filter.Empty)

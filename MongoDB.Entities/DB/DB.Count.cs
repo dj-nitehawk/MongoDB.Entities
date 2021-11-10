@@ -14,7 +14,6 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to get the count for</typeparam>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         public static Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
         {
             return Context.CountEstimatedAsync<T>(cancellation);
@@ -49,10 +48,8 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T">The entity type to get the count for</typeparam>
         /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="options">An optional CountOptions object</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
         public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null) where T : IEntity
         {
             return Context.CountAsync(filter, cancellation, options);

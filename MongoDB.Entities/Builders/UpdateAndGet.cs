@@ -51,8 +51,8 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        private Cache<T>? _cache;
-        internal override Cache<T> Cache() => _cache ??= Context.Cache<T>();
+        private EntityCache<T>? _cache;
+        internal override EntityCache<T> Cache() => _cache ??= Context.Cache<T>();
 
         /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.

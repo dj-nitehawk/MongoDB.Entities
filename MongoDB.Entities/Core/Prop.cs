@@ -62,7 +62,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of the entity to get the collection name of</typeparam>
         public static string Collection<T>() where T : IEntity
         {
-            return Cache<T>.CollectionName;
+            return EntityCache<T>.CollectionName;
         }
 
         /// <summary>

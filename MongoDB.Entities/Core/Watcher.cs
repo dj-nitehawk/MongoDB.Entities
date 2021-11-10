@@ -29,32 +29,32 @@ namespace MongoDB.Entities
         /// <summary>
         /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
         /// </summary>
-        public event Action<IEnumerable<T>> OnChanges;
+        public event Action<IEnumerable<T>>? OnChanges;
 
         /// <summary>
         /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
         /// </summary>
-        public event AsyncEventHandler<IEnumerable<T>> OnChangesAsync;
+        public event AsyncEventHandler<IEnumerable<T>>? OnChangesAsync;
 
         /// <summary>
         /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
         /// </summary>
-        public event Action<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSD;
+        public event Action<IEnumerable<ChangeStreamDocument<T>>>? OnChangesCSD;
 
         /// <summary>
         /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
         /// </summary>
-        public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSDAsync;
+        public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>>? OnChangesCSDAsync;
 
         /// <summary>
         /// This event is fired when an exception is thrown in the change-stream.
         /// </summary>
-        public event Action<Exception> OnError;
+        public event Action<Exception>? OnError;
 
         /// <summary>
         /// This event is fired when the internal cursor get closed due to an 'invalidate' event or cancellation is requested via the cancellation token.
         /// </summary>
-        public event Action OnStop;
+        public event Action? OnStop;
 
         /// <summary>
         /// The name of this watcher instance
@@ -70,24 +70,23 @@ namespace MongoDB.Entities
         /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
         /// Will always return false after cancellation is requested via the cancellation token.
         /// </summary>
-        public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
+        public bool CanRestart { get => !_cancelToken.IsCancellationRequested; }
 
         /// <summary>
         /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
         /// </summary>
-        public BsonDocument ResumeToken => options?.StartAfter;
+        public BsonDocument? ResumeToken => _options?.StartAfter;
 
-        private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
-        private ChangeStreamOptions options;
-        private bool resume;
-        private CancellationToken cancelToken;
+        private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>>? _pipeline;
+        private ChangeStreamOptions? _options;
+        private bool _resume;
+        private CancellationToken _cancelToken;
         private bool _initialized;
-        private readonly string tenantPrefix;
-
-        internal Watcher(string name, string tenantPrefix)
+        private readonly IMongoCollection<T> _collection;
+        internal Watcher(string name, DBContext context, IMongoCollection<T> collection)
         {
             Name = name;
-            this.tenantPrefix = tenantPrefix;
+            _collection = collection;
         }
 
         /// <summary>
@@ -101,7 +100,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void Start(
             EventType eventTypes,
-            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
             int batchSize = 25,
             bool onlyGetIDs = false,
             bool autoResume = true,
@@ -119,8 +118,8 @@ namespace MongoDB.Entities
         /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
         public void Start(
             EventType eventTypes,
-            Expression<Func<T, T>> projection,
-            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            Expression<Func<T, T>>? projection,
+            Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
             int batchSize = 25,
             bool autoResume = true,
             CancellationToken cancellation = default)
@@ -174,7 +173,7 @@ namespace MongoDB.Entities
         public void StartWithToken(
             BsonDocument resumeToken,
             EventType eventTypes,
-            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
             int batchSize = 25,
             bool onlyGetIDs = false,
             CancellationToken cancellation = default)
@@ -193,7 +192,7 @@ namespace MongoDB.Entities
             BsonDocument resumeToken,
             EventType eventTypes,
             Expression<Func<T, T>> projection,
-            Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+            Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
             int batchSize = 25,
             CancellationToken cancellation = default)
         => Init(resumeToken, eventTypes, filter, projection, batchSize, false, true, cancellation);
@@ -235,10 +234,10 @@ namespace MongoDB.Entities
         => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
 
         private void Init(
-            BsonDocument resumeToken,
+            BsonDocument? resumeToken,
             EventType eventTypes,
             FilterDefinition<ChangeStreamDocument<T>> filter,
-            Expression<Func<T, T>> projection,
+            Expression<Func<T, T>>? projection,
             int batchSize,
             bool onlyGetIDs,
             bool autoResume,
@@ -247,8 +246,8 @@ namespace MongoDB.Entities
             if (_initialized)
                 throw new InvalidOperationException("This watcher has already been initialized!");
 
-            resume = autoResume;
-            cancelToken = cancellation;
+            _resume = autoResume;
+            _cancelToken = cancellation;
 
             var ops = new List<ChangeStreamOperationType>(3) { ChangeStreamOperationType.Invalidate };
 
@@ -303,9 +302,9 @@ namespace MongoDB.Entities
             if (projection != null)
                 stages.Add(PipelineStageDefinitionBuilder.Project(BuildProjection(projection)));
 
-            pipeline = stages;
+            _pipeline = stages;
 
-            options = new ChangeStreamOptions
+            _options = new ChangeStreamOptions
             {
                 StartAfter = resumeToken,
                 BatchSize = batchSize,
@@ -349,7 +348,7 @@ namespace MongoDB.Entities
         /// If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.
         /// </summary>
         /// <param name="resumeToken">An optional resume token to restart watching with</param>
-        public void ReStart(BsonDocument resumeToken = null)
+        public void ReStart(BsonDocument? resumeToken = null)
         {
             if (!CanRestart)
             {
@@ -362,11 +361,11 @@ namespace MongoDB.Entities
             if (!_initialized)
                 throw new InvalidOperationException("This watcher was never started. Please use .Start() first!");
 
-            if (cancelToken.IsCancellationRequested)
+            if (_cancelToken.IsCancellationRequested)
                 throw new InvalidOperationException("This watcher cannot be restarted as it has been aborted/cancelled!");
 
-            if (resumeToken != null)
-                options.StartAfter = resumeToken;
+            if (resumeToken != null && _options is not null)
+                _options.StartAfter = resumeToken;
 
             StartWatching();
         }
@@ -379,81 +378,80 @@ namespace MongoDB.Entities
             //        continuations will be run on differnt threadpool threads upon re-entry.
             //        i.e. long running thread creation is useless/wasteful for async delegates.
 
-            _ = IterateCursorAsync();
 
+            _ = IterateCursorAsync();
             async Task IterateCursorAsync()
             {
                 try
                 {
-                    using (var cursor = await DB.Collection<T>(tenantPrefix).WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false))
+
+                    using var cursor = await _collection.WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
+                    while (!_cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(_cancelToken).ConfigureAwait(false))
                     {
-                        while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
+                        if (cursor.Current.Any())
                         {
-                            if (cursor.Current.Any())
-                            {
-                                if (resume)
-                                    options.StartAfter = cursor.Current.Last().ResumeToken;
+                            if (_resume && _options is not null)
+                                _options.StartAfter = cursor.Current.Last().ResumeToken;
 
-                                if (OnChangesAsync != null)
-                                {
-                                    await OnChangesAsync.InvokeAllAsync(
-                                        cursor.Current
-                                              .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                                              .Select(d => d.FullDocument)
-                                    ).ConfigureAwait(false);
-                                }
-
-                                OnChanges?.Invoke(
-                                        cursor.Current
-                                              .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                                              .Select(d => d.FullDocument));
-
-                                if (OnChangesCSDAsync != null)
-                                    await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);
-
-                                OnChangesCSD?.Invoke(cursor.Current);
-                            }
-                        }
-
-                        OnStop?.Invoke();
-
-                        if (cancelToken.IsCancellationRequested)
-                        {
                             if (OnChangesAsync != null)
                             {
-                                foreach (var h in OnChangesAsync.GetHandlers())
-                                    OnChangesAsync -= h;
+                                await OnChangesAsync.InvokeAllAsync(
+                                    cursor.Current
+                                          .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                          .Select(d => d.FullDocument)
+                                ).ConfigureAwait(false);
                             }
+
+                            OnChanges?.Invoke(
+                                    cursor.Current
+                                          .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                          .Select(d => d.FullDocument));
 
                             if (OnChangesCSDAsync != null)
-                            {
-                                foreach (var h in OnChangesCSDAsync.GetHandlers())
-                                    OnChangesCSDAsync -= h;
-                            }
+                                await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);
 
-                            if (OnChanges != null)
-                            {
-                                foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
-                                    OnChanges -= a;
-                            }
+                            OnChangesCSD?.Invoke(cursor.Current);
+                        }
+                    }
 
-                            if (OnChangesCSD != null)
-                            {
-                                foreach (Action<IEnumerable<ChangeStreamDocument<T>>> a in OnChangesCSD.GetInvocationList())
-                                    OnChangesCSD -= a;
-                            }
+                    OnStop?.Invoke();
 
-                            if (OnError != null)
-                            {
-                                foreach (Action<Exception> a in OnError.GetInvocationList())
-                                    OnError -= a;
-                            }
+                    if (_cancelToken.IsCancellationRequested)
+                    {
+                        if (OnChangesAsync != null)
+                        {
+                            foreach (var h in OnChangesAsync.GetHandlers())
+                                OnChangesAsync -= h;
+                        }
 
-                            if (OnStop != null)
-                            {
-                                foreach (Action a in OnStop.GetInvocationList())
-                                    OnStop -= a;
-                            }
+                        if (OnChangesCSDAsync != null)
+                        {
+                            foreach (var h in OnChangesCSDAsync.GetHandlers())
+                                OnChangesCSDAsync -= h;
+                        }
+
+                        if (OnChanges != null)
+                        {
+                            foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
+                                OnChanges -= a;
+                        }
+
+                        if (OnChangesCSD != null)
+                        {
+                            foreach (Action<IEnumerable<ChangeStreamDocument<T>>> a in OnChangesCSD.GetInvocationList())
+                                OnChangesCSD -= a;
+                        }
+
+                        if (OnError != null)
+                        {
+                            foreach (Action<Exception> a in OnError.GetInvocationList())
+                                OnError -= a;
+                        }
+
+                        if (OnStop != null)
+                        {
+                            foreach (Action a in OnStop.GetInvocationList())
+                                OnStop -= a;
                         }
                     }
                 }

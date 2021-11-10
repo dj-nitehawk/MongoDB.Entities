@@ -10,18 +10,17 @@ namespace MongoDB.Entities
     {
         internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         {
-            //no support for multi-tenancy :-(
-            return Database<T>(null).GetCollection<JoinRecord>(name);
+            return Context.GetCollection<JoinRecord>(name);
         }
 
         /// <summary>
         /// Gets the IMongoCollection for a given IEntity type.
-        /// <para>TIP: Try never to use this unless really necessary.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static IMongoCollection<T> Collection<T>(string tenantPrefix = null) where T : IEntity
+        /// <param name="collectionName">Optionally use a specific collection name</param>
+        public static IMongoCollection<T> Collection<T>(string? collectionName = null) where T : IEntity
         {
-            return Cache<T>.Collection(tenantPrefix);
+            return Context.Collection<T>(collectionName);
         }
 
         /// <summary>
@@ -30,7 +29,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
         public static string CollectionName<T>() where T : IEntity
         {
-            return Cache<T>.CollectionName;
+            return Context.CollectionName<T>();
         }
 
         /// <summary>

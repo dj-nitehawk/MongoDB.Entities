@@ -10,12 +10,12 @@
         /// The ID of the parent IEntity for both one-to-many and the owner side of many-to-many relationships.
         /// </summary>
         [AsObjectId]
-        public string ParentID { get; set; }
+        public string ParentID { get; set; } = null!;
 
         /// <summary>
         /// The ID of the child IEntity in one-to-many relationships and the ID of the inverse side IEntity in many-to-many relationships.
         /// </summary>
         [AsObjectId]
-        public string ChildID { get; set; }
+        public string ChildID { get; set; } = null!;
     }
 }

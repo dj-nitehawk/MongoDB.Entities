@@ -66,6 +66,7 @@ namespace MongoDB.Entities
 
         private readonly T _parent;
         private readonly DBContext _db;
+        private readonly IMongoCollection<T> _collection;
         private readonly IMongoCollection<FileChunk> _chunkCollection;
         private FileChunk? _doc;
         private int _chunkSize, _readCount;
@@ -73,12 +74,12 @@ namespace MongoDB.Entities
         private List<byte>? _dataChunk;
         private MD5? _md5;
 
-        internal DataStreamer(T parent, DBContext db)
+        internal DataStreamer(T parent, DBContext db, IMongoCollection<T> collection)
         {
             _parent = parent;
             _db = db;
-            _chunkCollection = db.CollectionFor<FileChunk>();
-
+            _chunkCollection = db.Collection<FileChunk>();
+            _collection = collection;
             if (_indexedDBs.Add(db.DatabaseNamespace.DatabaseName))
             {
                 _ = _chunkCollection.Indexes.CreateOneAsync(
@@ -266,7 +267,6 @@ namespace MongoDB.Entities
 
         private Task UpdateMetaDataAsync()
         {
-            var collection = _db.CollectionFor<T>();
             var filter = Builders<T>.Filter.Eq(e => e.ID, _parent.ID);
             var update = Builders<T>.Update
                             .Set(e => e.FileSize, _parent.FileSize)
@@ -274,8 +274,8 @@ namespace MongoDB.Entities
                             .Set(e => e.UploadSuccessful, _parent.UploadSuccessful);
 
             return _db.Session is not IClientSessionHandle session
-                   ? collection.UpdateOneAsync(filter, update)
-                   : collection.UpdateOneAsync(session, filter, update);
+                   ? _collection.UpdateOneAsync(filter, update)
+                   : _collection.UpdateOneAsync(session, filter, update);
         }
     }
 }
