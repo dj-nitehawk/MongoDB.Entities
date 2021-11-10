@@ -24,7 +24,7 @@ namespace MongoDB.Entities
         /// Starts an update-and-get command for the given entity type
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
-        public UpdateAndGet<T, T> UpdateAndGet<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public UpdateAndGet<T> UpdateAndGet<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
             return UpdateAndGet<T, T>(collectionName, collection);
         }

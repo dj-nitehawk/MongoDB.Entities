@@ -36,7 +36,7 @@ namespace MongoDB.Entities
         private readonly List<PipelineStageDefinition<T, TProjection>> _stages = new();
         private protected readonly FindOneAndUpdateOptions<T, TProjection> _options = new() { ReturnDocument = ReturnDocument.After };
 
-        public DBContext Context { get; }
+        public override DBContext Context { get; }
         public IMongoCollection<T> Collection { get; }
 
         internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, UpdateBase<T, UpdateAndGet<T, TProjection>> other) : base(other)
@@ -51,8 +51,7 @@ namespace MongoDB.Entities
             Collection = collection;
         }
 
-        private EntityCache<T>? _cache;
-        internal override EntityCache<T> Cache() => _cache ??= Context.Cache<T>();
+
 
         /// <summary>
         /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
