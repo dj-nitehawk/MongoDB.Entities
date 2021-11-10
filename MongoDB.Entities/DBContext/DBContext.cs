@@ -19,9 +19,9 @@ namespace MongoDB.Entities;
 public partial class DBContext : IMongoDatabase
 {
     /// <summary>
-    /// Returns the session object used for transactions
+    /// Returns the session object used for transactions <see cref="MongoServerContext.Session"/>
     /// </summary>
-    public IClientSessionHandle? Session { get; protected set; }
+    public IClientSessionHandle? Session => MongoServerContext.Session;
 
 
     public MongoServerContext MongoServerContext { get; }

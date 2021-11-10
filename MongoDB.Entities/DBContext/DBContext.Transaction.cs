@@ -16,15 +16,7 @@ namespace MongoDB.Entities
         /// <param name="options">Client session options for this transaction</param>
         public IClientSessionHandle Transaction(ClientSessionOptions? options = null)
         {
-            if (Session is null)
-            {
-                Session = Client.StartSession(options);
-                Session.StartTransaction();
-                return Session;
-            }
-
-            throw new NotSupportedException(
-                "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
+            return MongoServerContext.Transaction(options);
         }
 
 
@@ -34,12 +26,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task CommitAsync(CancellationToken cancellation = default)
         {
-            if (Session is null)
-            {
-                throw new ArgumentNullException(nameof(Session), "Please call Transaction<T>() first before committing");
-            }
-
-            return Session.CommitTransactionAsync(cancellation);
+            return MongoServerContext.CommitAsync(cancellation);
         }
 
         /// <summary>
@@ -48,12 +35,7 @@ namespace MongoDB.Entities
         /// <param name="cancellation">An optional cancellation token</param>
         public Task AbortAsync(CancellationToken cancellation = default)
         {
-            if (Session is null)
-            {
-                throw new ArgumentNullException(nameof(Session), "Please call Transaction<T>() first before aborting");
-            }
-
-            return Session.AbortTransactionAsync(cancellation);
+            return MongoServerContext.AbortAsync(cancellation);
         }
     }
 }
