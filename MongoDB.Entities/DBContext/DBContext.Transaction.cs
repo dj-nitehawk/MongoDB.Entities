@@ -19,6 +19,16 @@ namespace MongoDB.Entities
             return MongoServerContext.Transaction(options);
         }
 
+        /// <summary>
+        /// Creates a new DBContext and a new MongoServerContext and Starts a transaction on the new instance.        
+        /// </summary>
+        /// <param name="options">Client session options for this transaction</param>
+        public DBContext TransactionCopy(ClientSessionOptions? options = null)
+        {
+            var server = new MongoServerContext(MongoServerContext);
+            server.Transaction(options);
+            return new DBContext(server, Database, Options);
+        }
 
         /// <summary>
         /// Commits a transaction to MongoDB

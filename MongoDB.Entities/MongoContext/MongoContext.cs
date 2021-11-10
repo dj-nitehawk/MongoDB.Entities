@@ -11,10 +11,10 @@ namespace MongoDB.Entities
     /// <summary>
     /// MongoContext is a wrapper around an <see cref="IMongoClient"/>
     /// </summary>
-    public partial class MongoServerContext : IMongoClient
+    public partial class MongoServerContext : IMongoClient, IDisposable
     {
         /// <summary>
-        /// Creates a new context
+        /// Creates a new server context
         /// </summary>        
         /// <param name="client">The backing client, usually a <see cref="MongoClient"/></param>
         /// <param name="options">The options to configure the context</param>
@@ -22,6 +22,16 @@ namespace MongoDB.Entities
         {
             Client = client;
             Options = options ?? new();
+        }
+
+        /// <summary>
+        /// Copies a new MongoServerContext without the Session
+        /// </summary>        
+        /// <param name="other"></param>
+        public MongoServerContext(MongoServerContext other)
+        {
+            Client = other.Client;
+            Options = other.Options;
         }
 
 
@@ -104,6 +114,17 @@ namespace MongoDB.Entities
                 "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
         }
 
+        /// <summary>
+        /// Creates a new MongoServerContext and Starts a transaction on the new instance.        
+        /// </summary>
+        /// <param name="options">Client session options for this transaction</param>
+        public MongoServerContext TransactionCopy(ClientSessionOptions? options = null)
+        {
+            var res = new MongoServerContext(this);
+            res.Transaction(options);
+            return res;
+        }
+
 
         /// <summary>
         /// Commits a transaction to MongoDB
@@ -131,6 +152,12 @@ namespace MongoDB.Entities
             }
 
             return Session.AbortTransactionAsync(cancellation);
+        }
+
+        public void Dispose()
+        {
+            Session?.Dispose();
+            Session = null;
         }
     }
 
