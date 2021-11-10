@@ -30,7 +30,7 @@ namespace MongoDB.Entities
                 ).Data;
         }
 
-        internal static void ThrowIfUnsaved(this string entityID)
+        internal static void ThrowIfUnsaved(this string? entityID)
         {
             if (string.IsNullOrWhiteSpace(entityID))
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
