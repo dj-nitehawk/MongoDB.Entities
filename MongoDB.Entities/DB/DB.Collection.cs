@@ -8,9 +8,9 @@ namespace MongoDB.Entities
 {
     public static partial class DB
     {
-        internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
+        internal static IMongoCollection<JoinRecord<string, string>> GetRefCollection<T>(string name) where T : IEntity
         {
-            return Context.GetCollection<JoinRecord>(name);
+            return Context.GetCollection<JoinRecord<string, string>>(name);
         }
 
         /// <summary>

@@ -12,23 +12,29 @@ namespace MongoDB.Entities
     {
         private static readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
         private static readonly UpdateOptions _updateOptions = new() { IsUpsert = true };
-        private Task<UpdateResult> SavePartial<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation, bool excludeMode = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        private Task<UpdateResult> SavePartial<T, TId>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation, bool excludeMode = false, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
-            PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
+            PrepAndCheckIfInsert<T, TId>(entity); //just prep. we don't care about inserts here
+            var filter = Builders<T>.Filter.Eq(e => e.ID, entity.ID);
+            var update = Builders<T>.Update.Combine(Logic.BuildUpdateDefs<T, TId>(entity, members, this, excludeMode));
             return
                 Session == null
-                ? Collection(collectionName, collection).UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, members, excludeMode)), _updateOptions, cancellation)
-                : Collection(collectionName, collection).UpdateOneAsync(Session, e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, members, excludeMode)), _updateOptions, cancellation);
+                ? Collection(collectionName, collection).UpdateOneAsync(filter, update, _updateOptions, cancellation)
+                : Collection(collectionName, collection).UpdateOneAsync(Session, filter, update, _updateOptions, cancellation);
         }
 
-        private Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation, bool excludeMode = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        private Task<BulkWriteResult<T>> SavePartial<T, TId>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation, bool excludeMode = false, string? collectionName = null, IMongoCollection<T>? collection = null)
+                      where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
             var models = entities.Select(ent =>
             {
-                PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
+                PrepAndCheckIfInsert<T, TId>(ent); //just prep. we don't care about inserts here
                 return new UpdateOneModel<T>(
                             filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
-                            update: Builders<T>.Update.Combine(Logic.BuildUpdateDefs(ent, members, excludeMode)))
+                            update: Builders<T>.Update.Combine(Logic.BuildUpdateDefs<T, TId>(ent, members, this, excludeMode)))
                 { IsUpsert = true };
             }).ToList();
             return Session == null
@@ -36,10 +42,12 @@ namespace MongoDB.Entities
                 : Collection(collectionName, collection).BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
         }
 
-        private bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
+        private bool PrepAndCheckIfInsert<T, TId>(T entity)
+            where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
             var cache = Cache<T>();
-            if (string.IsNullOrEmpty(entity.ID))
+            if (EqualityComparer<TId?>.Default.Equals(entity.ID, default))
             {
                 entity.ID = entity.GenerateNewID();
                 if (cache.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
@@ -56,15 +64,18 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
+        /// <typeparam name="TId">ID type</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
-        public Task InsertAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public Task InsertAsync<T, TId>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+                     where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
             SetModifiedBySingle(entity);
             OnBeforeSave(entity);
-            PrepAndCheckIfInsert(entity);
+            PrepAndCheckIfInsert<T, TId>(entity);
             return Session == null
                    ? Collection(collectionName, collection).InsertOneAsync(entity, null, cancellation)
                    : Collection(collectionName, collection).InsertOneAsync(Session, entity, null, cancellation);
@@ -75,18 +86,21 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
+        /// <typeparam name="TId">ID type</typeparam>
         /// <param name="entities">The entities to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
-        public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public Task<BulkWriteResult<T>> InsertAsync<T, TId>(IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+                     where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
             SetModifiedByMultiple(entities);
             foreach (var ent in entities) OnBeforeSave(ent);
 
             var models = entities.Select(ent =>
             {
-                PrepAndCheckIfInsert(ent);
+                PrepAndCheckIfInsert<T, TId>(ent);
                 return new InsertOneModel<T>(ent);
             }).ToList();
 

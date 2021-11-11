@@ -30,13 +30,12 @@ namespace MongoDB.Entities
                 ).Data;
         }
 
-        internal static void ThrowIfUnsaved(this string? entityID)
+        internal static void ThrowIfUnsaved<TId>(this TId? id) where TId : IComparable<TId>, IEquatable<TId>
         {
-            if (string.IsNullOrWhiteSpace(entityID))
+            if ((id is string strId && string.IsNullOrWhiteSpace(strId)) || EqualityComparer<TId?>.Default.Equals(id, default))
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
-
-        internal static void ThrowIfUnsaved(this IEntity entity)
+        internal static void ThrowIfUnsaved<TId>(this IEntity<TId> entity) where TId : IComparable<TId>, IEquatable<TId>
         {
             ThrowIfUnsaved(entity.ID);
         }
@@ -78,7 +77,7 @@ namespace MongoDB.Entities
         /// </summary>
         public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, string tenantPrefix = null) where T : IEntity
         {
-            return DB.Queryable<T>(options, tenantPrefix: tenantPrefix);
+            return DB.Queryable<T>(options);
         }
 
         /// <summary>

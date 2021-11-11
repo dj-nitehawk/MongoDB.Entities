@@ -14,13 +14,16 @@ namespace MongoDB.Entities
     /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
+    /// <typeparam name="TId">ID type</typeparam>
+    public class UpdateAndGet<T, TId> : UpdateAndGet<T, TId, T>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where T : IEntity<TId>
     {
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, UpdateBase<T, UpdateAndGet<T, T>> other) : base(context, collection, other)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, UpdateBase<T, TId, UpdateAndGet<T, TId, T>> other) : base(context, collection, other)
         {
         }
 
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(context, collection, onUpdateAction, defs)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, TId, T>>? onUpdateAction, List<UpdateDefinition<T>>? defs) : base(context, collection, onUpdateAction, defs)
         {
         }
     }
@@ -31,7 +34,10 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <typeparam name="TProjection">The type to project to</typeparam>
-    public class UpdateAndGet<T, TProjection> : UpdateBase<T, UpdateAndGet<T, TProjection>>, ICollectionRelated<T> where T : IEntity
+    /// <typeparam name="TId">ID type</typeparam>
+    public class UpdateAndGet<T, TId, TProjection> : UpdateBase<T, TId, UpdateAndGet<T, TId, TProjection>>, ICollectionRelated<T>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where T : IEntity<TId>
     {
         private readonly List<PipelineStageDefinition<T, TProjection>> _stages = new();
         private protected readonly FindOneAndUpdateOptions<T, TProjection> _options = new() { ReturnDocument = ReturnDocument.After };
@@ -39,13 +45,13 @@ namespace MongoDB.Entities
         public override DBContext Context { get; }
         public IMongoCollection<T> Collection { get; }
 
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, UpdateBase<T, UpdateAndGet<T, TProjection>> other) : base(other)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, UpdateBase<T, TId, UpdateAndGet<T, TId, TProjection>> other) : base(other)
         {
             Context = context;
             Collection = collection;
         }
 
-        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, TProjection>>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(context.GlobalFilters, onUpdateAction, defs)
+        internal UpdateAndGet(DBContext context, IMongoCollection<T> collection, Action<UpdateAndGet<T, TId, TProjection>>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(context.GlobalFilters, onUpdateAction, defs)
         {
             Context = context;
             Collection = collection;
@@ -58,7 +64,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="template">A Template object containing multiple pipeline stages</param>
-        public UpdateAndGet<T, TProjection> WithPipeline(Template template)
+        public UpdateAndGet<T, TId, TProjection> WithPipeline(Template template)
         {
             foreach (var stage in template.ToStages())
             {
@@ -73,7 +79,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
-        public UpdateAndGet<T, TProjection> WithPipelineStage(string stage)
+        public UpdateAndGet<T, TId, TProjection> WithPipelineStage(string stage)
         {
             _stages.Add(stage);
             return this;
@@ -84,7 +90,7 @@ namespace MongoDB.Entities
         /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
         /// </summary>
         /// <param name="template">A Template object containing a pipeline stage</param>
-        public UpdateAndGet<T, TProjection> WithPipelineStage(Template template)
+        public UpdateAndGet<T, TId, TProjection> WithPipelineStage(Template template)
         {
             return WithPipelineStage(template.RenderToString());
         }
@@ -93,7 +99,7 @@ namespace MongoDB.Entities
         /// Specify an array filter to target nested entities for updates (use multiple times if needed).
         /// </summary>
         /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
-        public UpdateAndGet<T, TProjection> WithArrayFilter(string filter)
+        public UpdateAndGet<T, TId, TProjection> WithArrayFilter(string filter)
         {
             ArrayFilterDefinition<T> def = filter;
 
@@ -109,7 +115,7 @@ namespace MongoDB.Entities
         /// Specify a single array filter using a Template to target nested entities for updates
         /// </summary>
         /// <param name="template"></param>
-        public UpdateAndGet<T, TProjection> WithArrayFilter(Template template)
+        public UpdateAndGet<T, TId, TProjection> WithArrayFilter(Template template)
         {
             WithArrayFilter(template.RenderToString());
             return this;
@@ -119,7 +125,7 @@ namespace MongoDB.Entities
         /// Specify multiple array filters with a Template to target nested entities for updates.
         /// </summary>
         /// <param name="template">The template with an array [...] of filters</param>
-        public UpdateAndGet<T, TProjection> WithArrayFilters(Template template)
+        public UpdateAndGet<T, TId, TProjection> WithArrayFilters(Template template)
         {
             var defs = template.ToArrayFilters<T>();
 
@@ -136,7 +142,7 @@ namespace MongoDB.Entities
         /// <para>TIP: Setting options is not required</para>
         /// </summary>
         /// <param name="option">x => x.OptionName = OptionValue</param>
-        public UpdateAndGet<T, TProjection> Option(Action<FindOneAndUpdateOptions<T, TProjection>> option)
+        public UpdateAndGet<T, TId, TProjection> Option(Action<FindOneAndUpdateOptions<T, TProjection>> option)
         {
             option(_options);
             return this;
@@ -146,7 +152,7 @@ namespace MongoDB.Entities
         /// Specify how to project the results using a lambda expression
         /// </summary>
         /// <param name="expression">x => new Test { PropName = x.Prop }</param>
-        public UpdateAndGet<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
+        public UpdateAndGet<T, TId, TProjection> Project(Expression<Func<T, TProjection>> expression)
         {
             return Project(p => p.Expression(expression));
         }
@@ -155,7 +161,7 @@ namespace MongoDB.Entities
         /// Specify how to project the results using a projection expression
         /// </summary>
         /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
-        public UpdateAndGet<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
+        public UpdateAndGet<T, TId, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
         {
             _options.Projection = projection(Builders<T>.Projection);
             return this;
@@ -165,7 +171,7 @@ namespace MongoDB.Entities
         /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. 
         /// <para>HINT: this method should only be called after the .Project() method.</para>
         /// </summary>
-        public UpdateAndGet<T, TProjection> IncludeRequiredProps()
+        public UpdateAndGet<T, TId, TProjection> IncludeRequiredProps()
         {
             if (typeof(T) != typeof(TProjection))
                 throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");

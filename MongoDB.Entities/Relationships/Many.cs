@@ -27,7 +27,10 @@ public abstract class ManyBase
 /// </summary>
 /// <see cref="JoinRecord"/>
 /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
+/// <typeparam name="TChildId">Child Id type.</typeparam>
+public sealed partial class Many<TChild, TChildId> : ManyBase
+    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+    where TChild : IEntity<TChildId>
 {
     private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
     private bool isInverse;

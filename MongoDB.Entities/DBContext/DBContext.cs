@@ -169,8 +169,8 @@ public partial class DBContext : IMongoDatabase
     /// <summary>
     /// This event hook will be trigged right before an entity is persisted
     /// </summary>
-    /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-    protected virtual void OnBeforeSave<T>(T entity) where T : IEntity
+    /// <typeparam name="T">Any entity</typeparam>    
+    protected virtual void OnBeforeSave<T>(T entity)
     {
     }
 
@@ -179,7 +179,11 @@ public partial class DBContext : IMongoDatabase
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     /// <typeparam name="TSelf">Any entity that implements IEntity</typeparam>
-    protected virtual void OnBeforeUpdate<T, TSelf>(UpdateBase<T, TSelf> updateBase) where T : IEntity where TSelf : UpdateBase<T, TSelf>
+    /// <typeparam name="TId">ID type</typeparam>
+    protected virtual void OnBeforeUpdate<T, TId, TSelf>(UpdateBase<T, TId, TSelf> updateBase)
+        where T : IEntity<TId>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where TSelf : UpdateBase<T, TId, TSelf>
     {
     }
 
@@ -191,7 +195,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
     /// <param name="filter">x => x.Prop1 == "some value"</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param> 
-    protected void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
+    protected void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false)
     {
         SetGlobalFilter(Builders<T>.Filter.Where(filter), prepend);
     }
@@ -202,7 +206,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
     /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false) where T : IEntity
+    protected void SetGlobalFilter<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, bool prepend = false)
     {
         SetGlobalFilter(filter(Builders<T>.Filter), prepend);
     }
@@ -213,7 +217,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
     /// <param name="filter">A filter definition to be applied</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false) where T : IEntity
+    protected void SetGlobalFilter<T>(FilterDefinition<T> filter, bool prepend = false)
     {
         AddFilter(typeof(T), (filter, prepend));
     }
@@ -237,7 +241,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="TBase">The type of the base class</typeparam>
     /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, bool>> filter, bool prepend = false) where TBase : IEntity
+    protected void SetGlobalFilterForBaseClass<TBase>(Expression<Func<TBase, bool>> filter, bool prepend = false)
     {
         SetGlobalFilterForBaseClass(Builders<TBase>.Filter.Where(filter), prepend);
     }
@@ -248,7 +252,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="TBase">The type of the base class</typeparam>
     /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>> filter, bool prepend = false) where TBase : IEntity
+    protected void SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>> filter, bool prepend = false)
     {
         SetGlobalFilterForBaseClass(filter(Builders<TBase>.Filter), prepend);
     }
@@ -259,7 +263,7 @@ public partial class DBContext : IMongoDatabase
     /// <typeparam name="TBase">The type of the base class</typeparam>
     /// <param name="filter">A filter definition to be applied</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false) where TBase : IEntity
+    protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false)
     {
         foreach (var entType in MongoServerContext.AllEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
         {
@@ -293,7 +297,7 @@ public partial class DBContext : IMongoDatabase
 
 
 
-    private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
+    private void ThrowIfModifiedByIsEmpty<T>()
     {
         var cache = Cache<T>();
         if (cache.ModifiedByProp is not null && ModifiedBy is null)
@@ -310,20 +314,23 @@ public partial class DBContext : IMongoDatabase
 
 
     private readonly ConcurrentDictionary<Type, Cache> _cache = new();
-    internal EntityCache<T> Cache<T>() where T : IEntity
+
+    internal EntityCache<T> Cache<T>()
     {
-        if (!_cache.TryGetValue(typeof(T), out var c))
+        var type = typeof(T);
+        if (!_cache.TryGetValue(type, out var c))
         {
-            c = new EntityCache<T>();
+            _cache[type] = c = EntityCache<T>.Default;
         }
         return (EntityCache<T>)c;
     }
-    public virtual string CollectionName<T>() where T : IEntity
+
+    public virtual string CollectionName<T>()
     {
         return Cache<T>().CollectionName;
     }
 
-    public virtual IMongoCollection<T> Collection<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public virtual IMongoCollection<T> Collection<T>(string? collectionName = null, IMongoCollection<T>? collection = null)
     {
         return collection ?? GetCollection<T>(collectionName ?? CollectionName<T>());
     }

@@ -15,7 +15,7 @@ namespace MongoDB.Entities
     /// A helper class to build a JSON command from a string with tag replacement
     /// </summary>
     /// <typeparam name="T">Any type that implements IEntity</typeparam>
-    public class Template<T> : Template<T, T> where T : IEntity
+    public class Template<T> : Template<T, T>
     {
         /// <summary>
         /// Initializes a template with a tagged input string.
@@ -29,7 +29,7 @@ namespace MongoDB.Entities
     /// </summary>
     /// <typeparam name="TInput">The input type</typeparam>
     /// <typeparam name="TResult">The output type</typeparam>
-    public class Template<TInput, TResult> : Template where TInput : IEntity
+    public class Template<TInput, TResult> : Template
     {
         /// <summary>
         /// Initializes a template with a tagged input string.
@@ -361,11 +361,11 @@ namespace MongoDB.Entities
         /// Gets the collection name of a given entity type and replaces matching tags in the template such as "&lt;EntityName&gt;"
         /// </summary>
         /// <typeparam name="TEntity">The type of entity to get the collection name of</typeparam>
-        public Template Collection<TEntity>() where TEntity : IEntity
+        public Template Collection<TEntity>()
         {
             if (cacheHit) return this;
 
-            return ReplacePath(Prop.Collection<TEntity>());
+            return ReplacePath(EntityCache<TEntity>.Default.CollectionName);
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace MongoDB.Entities
                 .Cast<MemberExpression>()
                 .Select(e => e.Member.Name);
 
-            if (!props.Any())
+            if (props == null || !props.Any())
                 throw new ArgumentException("Unable to parse any property names from the supplied `new` expression!");
 
             foreach (var p in props)
@@ -426,7 +426,7 @@ namespace MongoDB.Entities
                 .Arguments
                 .Select(a => Prop.GetPath(a.ToString()));
 
-            if (!paths.Any())
+            if (paths is null || !paths.Any())
                 throw new ArgumentException("Unable to parse any property paths from the supplied `new` expression!");
 
             foreach (var p in paths)

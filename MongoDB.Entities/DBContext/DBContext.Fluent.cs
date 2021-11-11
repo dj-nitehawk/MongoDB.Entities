@@ -12,7 +12,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
-        public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
             var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
@@ -40,7 +40,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
-        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) 
         {
             var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 

@@ -9,9 +9,12 @@ namespace MongoDB.Entities
         /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public Index<T> Index<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        /// <typeparam name="TId">ID type</typeparam>
+        public Index<T, TId> Index<T, TId>(string? collectionName = null, IMongoCollection<T>? collection = null)
+            where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
-            return new Index<T>(this, Collection(collectionName, collection));
+            return new Index<T, TId>(this, Collection(collectionName, collection));
         }
     }
 }

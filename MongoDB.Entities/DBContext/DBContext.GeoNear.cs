@@ -25,7 +25,7 @@ namespace MongoDB.Entities
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
-        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>>? DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument? Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>>? IncludeLocations = null, string? IndexKey = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>>? DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument? Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>>? IncludeLocations = null, string? IndexKey = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
             var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 

@@ -15,7 +15,7 @@ public partial class DBContext
     /// <param name="options">The options to use for collection creation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collectionName"></param>
-    public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, string? collectionName = null) where T : IEntity
+    public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, string? collectionName = null)
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);
@@ -29,7 +29,7 @@ public partial class DBContext
     /// <para>TIP: When deleting a collection, all relationships associated with that entity type is also deleted.</para>
     /// </summary>
     /// <typeparam name="T">The entity type to drop the collection of</typeparam>
-    public async Task DropCollectionAsync<T>(string? collectionName = null) where T : IEntity
+    public async Task DropCollectionAsync<T>(string? collectionName = null)
     {
         var tasks = new List<Task>();
         var db = Database;

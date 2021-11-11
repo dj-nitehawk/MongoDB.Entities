@@ -11,7 +11,10 @@ namespace MongoDB.Entities
     /// Represents a one-to-one relationship with an IEntity.
     /// </summary>
     /// <typeparam name="T">Any type that implements IEntity</typeparam>
-    public class One<T> where T : IEntity
+    /// <typeparam name="TId">Any type that implements IEntity</typeparam>
+    public class One<T, TId>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where T : IEntity<TId>
     {
         private T? _cache;
 
@@ -19,7 +22,7 @@ namespace MongoDB.Entities
         /// The Id of the entity referenced by this instance.
         /// </summary>
         [AsObjectId]
-        public string? ID { get; set; }
+        public TId? ID { get; set; }
 
         public T? Cache
         {
@@ -28,9 +31,16 @@ namespace MongoDB.Entities
             {
                 value?.ThrowIfUnsaved();
                 _cache = value;
-                if (ID != value?.ID)
+                if (value is not null)
                 {
-                    ID = value?.ID!;
+                    if (!EqualityComparer<TId?>.Default.Equals(ID, value.ID))
+                    {
+                        ID = value.ID!;
+                    }
+                }
+                else
+                {
+                    ID = default;
                 }
             }
         }
@@ -52,18 +62,18 @@ namespace MongoDB.Entities
         /// Operator for returning a new One&lt;T&gt; object from a string ID
         /// </summary>
         /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
-        public static implicit operator One<T>(string id)
+        public static implicit operator One<T, TId>(TId id)
         {
-            return new One<T>() { ID = id };
+            return new One<T, TId>() { ID = id };
         }
 
         /// <summary>
         /// Operator for returning a new One&lt;T&gt; object from an entity
         /// </summary>
         /// <param name="entity">The entity to make a reference to</param>
-        public static implicit operator One<T>(T entity)
+        public static implicit operator One<T, TId>(T entity)
         {
-            return new One<T>(entity);
+            return new One<T, TId>(entity);
         }
 
         /// <summary>
@@ -81,7 +91,7 @@ namespace MongoDB.Entities
                 return default;
             }
 
-            return Cache = await new Find<T>(context, collection ?? context.Collection<T>(collectionName)).OneAsync(ID, cancellation);
+            return Cache = await new Find<T, TId>(context, collection ?? context.Collection<T>(collectionName)).OneAsync(ID, cancellation);
         }
 
         /// <summary>
@@ -93,14 +103,14 @@ namespace MongoDB.Entities
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
         /// <returns>A Task containing the actual projected entity</returns>
-        public async Task<T?> ToEntityAsync<TFrom>(DBContext context, Expression<Func<TFrom, T>> projection, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<TFrom>? collection = null) where TFrom : IEntity
+        public async Task<TTo?> ToEntityAsync<TTo>(DBContext context, Expression<Func<T, TTo>> projection, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
             if (ID is null)
             {
                 return default;
             }
 
-            return Cache = (await new Find<TFrom, T>(context, collection ?? context.Collection<TFrom>(collectionName))
+            return (await new Find<T, TId, TTo>(context, collection ?? context.Collection<T>(collectionName))
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
@@ -116,17 +126,22 @@ namespace MongoDB.Entities
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
         /// <returns>A Task containing the actual projected entity</returns>
-        public async Task<T?> ToEntityAsync<TFrom>(DBContext context, Func<ProjectionDefinitionBuilder<TFrom>, ProjectionDefinition<TFrom, T>> projection, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<TFrom>? collection = null) where TFrom : IEntity
+        public async Task<TTo?> ToEntityAsync<TTo>(DBContext context, Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TTo>> projection, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
             if (ID is null)
             {
                 return default;
             }
-            return Cache = (await new Find<TFrom, T>(context, collection ?? context.Collection<TFrom>(collectionName))
+            return (await new Find<T, TId, TTo>(context, collection ?? context.Collection<T>(collectionName))
                         .Match(ID)
                         .Project(projection)
                         .ExecuteAsync(cancellation).ConfigureAwait(false))
                    .SingleOrDefault();
         }
+    }
+
+    public class One<T> : One<T, string> where T : IEntity
+    {
+
     }
 }

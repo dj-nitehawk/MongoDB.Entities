@@ -1,12 +1,7 @@
-﻿#nullable enable
+﻿namespace MongoDB.Entities;
 
-using MongoDB.Driver;
-
-namespace MongoDB.Entities
+public class DBContextOptions
 {
-    public class DBContextOptions
-    {
-        
-        
-    }
+
+
 }

@@ -11,7 +11,7 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <remarks>transaction support will not be added due to unpredictability with concurrency.</remarks>
-        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
+        public Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default)
         {
             return NextSequentialNumberAsync(CollectionName<T>(), cancellation);
         }
@@ -24,7 +24,7 @@ namespace MongoDB.Entities
         /// <remarks>transaction support will not be added due to unpredictability with concurrency.</remarks>
         public Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
         {
-            return new UpdateAndGet<SequenceCounter, ulong>(this, Collection<SequenceCounter>(), onUpdateAction: null, defs: null)
+            return new UpdateAndGet<SequenceCounter, string, ulong>(this, Collection<SequenceCounter>(), onUpdateAction: null, defs: null)
                 .Match(s => s.ID == sequenceName)
                 .Modify(b => b.Inc(s => s.Count, 1ul))
                 .Option(o => o.IsUpsert = true)

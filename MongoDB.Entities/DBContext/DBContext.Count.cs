@@ -16,7 +16,7 @@ public partial class DBContext
     /// <param name="collectionName">To override the default collection name</param>
     /// <param name="collection">To override the default collection</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
     {
         return Collection(collectionName, collection).EstimatedDocumentCountAsync(cancellationToken: cancellation);
     }
@@ -31,7 +31,7 @@ public partial class DBContext
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     /// <param name="collectionName"></param>
     /// <param name="collection"></param>
-    public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
     {
         return CountAsync((FilterDefinition<T>)expression, cancellation, options, ignoreGlobalFilters, collection: collection, collectionName: collectionName);
     }
@@ -43,9 +43,9 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collectionName"></param>
     /// <param name="collection"></param>
-    public Task<long> CountAsync<T>(CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public Task<long> CountAsync<T>(CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
     {
-        return CountAsync<T>(_ => true, cancellation, collectionName: collectionName, collection: collection);
+        return CountAsync(_ => true, cancellation, collectionName: collectionName, collection: collection);
 
     }
 
@@ -59,7 +59,7 @@ public partial class DBContext
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     /// <param name="collectionName"></param>
     /// <param name="collection"></param>
-    public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
     {
         filter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter);
         return
@@ -78,7 +78,7 @@ public partial class DBContext
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     /// <param name="collectionName"></param>
     /// <param name="collection"></param>
-    public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+    public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
     {
         return CountAsync(filter(Builders<T>.Filter), cancellation, options, ignoreGlobalFilters, collectionName: collectionName, collection: collection);
     }
