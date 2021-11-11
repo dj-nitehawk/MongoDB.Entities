@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Entities.NewMany;
 
 namespace MongoDB.Entities;
 
@@ -6,7 +7,7 @@ internal class IgnoreManyPropsConvention : ConventionBase, IMemberMapConvention
 {
     public void Apply(BsonMemberMap mMap)
     {
-        if (mMap.MemberType.Name == ManyBase.PropTypeName)
+        if (typeof(IMany<,>).IsAssignableFrom(mMap.MemberType))
         {
             _ = mMap.SetShouldSerializeMethod(_ => false);
         }

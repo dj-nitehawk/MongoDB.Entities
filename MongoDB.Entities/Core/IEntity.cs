@@ -27,21 +27,3 @@ public interface IEntity<TId>
     /// </summary>
     TId GenerateNewID();
 }
-
-//public class MultipleIdEntity : IEntity<ValueTuple<Guid, ObjectId>>
-//{
-//    public (Guid, ObjectId) ID { get; set; }
-//    [BsonIgnore]
-//    public Guid Id1
-//    {
-//        get => ID.Item1;
-//        set => ID = (value, ID.Item2);
-//    }
-//    [BsonIgnore]
-//    public ObjectId Id2
-//    {
-//        get => ID.Item2;
-//        set => ID = (ID.Item1, value);
-//    }
-//    public (Guid, ObjectId) GenerateNewID() => (Guid.NewGuid(), ObjectId.GenerateNewId());
-//}

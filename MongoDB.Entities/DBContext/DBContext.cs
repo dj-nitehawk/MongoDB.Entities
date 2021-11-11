@@ -139,7 +139,7 @@ public partial class DBContext : IMongoDatabase
         BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
         BsonSerializer.RegisterSerializer(typeof(decimal), new DecimalSerializer(BsonType.Decimal128));
         BsonSerializer.RegisterSerializer(typeof(decimal?), new NullableSerializer<decimal>(new DecimalSerializer(BsonType.Decimal128)));
-
+        BsonSerializer.RegisterGenericSerializerDefinition(typeof(JoinRecord<,>), typeof(JoinRecordSerializer<,>));
         ConventionRegistry.Register(
             "DefaultConventions",
             new ConventionPack
