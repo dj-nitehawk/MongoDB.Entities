@@ -13,6 +13,8 @@ internal class Cache
     public bool HasIgnoreIfDefaultProps { get; protected set; }
     public string CollectionName { get; protected set; } = null!;
     public bool IsFileEntity { get; protected set; }
+    public bool IsEntity { get; protected set; }
+    public Type? IdType { get; set; }
     protected Cache(Type type)
     {
         var interfaces = type.GetInterfaces();
@@ -24,6 +26,9 @@ internal class Cache
         if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
             throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
 
+        var ientityType = interfaces.FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEntity<>));
+        IsEntity = ientityType != null;
+        IdType = ientityType?.GenericTypeArguments.First();
 
         HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
         HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
@@ -86,7 +91,10 @@ internal class EntityCache<T> : Cache
 
         if (_requiredPropsProjection is null)
         {
-            _requiredPropsProjection = "{_id:1}";
+            if (IsEntity)
+            {
+                _requiredPropsProjection = "{_id:1}";
+            }
 
             var props = typeof(T)
                 .GetProperties()

@@ -35,6 +35,7 @@ namespace MongoDB.Entities
             if ((id is string strId && string.IsNullOrWhiteSpace(strId)) || EqualityComparer<TId?>.Default.Equals(id, default))
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
+
         internal static void ThrowIfUnsaved<TId>(this IEntity<TId> entity) where TId : IComparable<TId>, IEquatable<TId>
         {
             ThrowIfUnsaved(entity.ID);
@@ -66,8 +67,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the full dotted path of a property for the given expression
         /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static string FullPath<T>(this Expression<Func<T, object>> expression)
+        /// <typeparam name="T">Any class</typeparam>
+        /// <typeparam name="TProp">Property type</typeparam>
+        public static string FullPath<T, TProp>(this Expression<Func<T, TProp>> expression)
         {
             return Prop.Path(expression);
         }
@@ -75,7 +77,7 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, string tenantPrefix = null) where T : IEntity
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, string? tenantPrefix = null) where T : IEntity
         {
             return DB.Queryable<T>(options);
         }

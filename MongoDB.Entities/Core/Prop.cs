@@ -26,7 +26,7 @@ public static class Prop
         return val;
     }
 
-    private static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
+    private static void ThrowIfInvalid<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         if (expression == null)
             throw new ArgumentNullException(nameof(expression), "The supplied expression is null!");
@@ -35,7 +35,7 @@ public static class Prop
             throw new ArgumentException("Cannot generate property path from lambda parameter!");
     }
 
-    private static string GetPath<T>(Expression<Func<T, object>> expression)
+    private static string GetPath<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         ThrowIfInvalid(expression);
 
@@ -70,7 +70,7 @@ public static class Prop
     /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string Path<T>(Expression<Func<T, object>> expression)
+    public static string Path<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         return _rxThree.Replace(GetPath(expression), "");
     }
@@ -83,7 +83,7 @@ public static class Prop
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosFiltered<T>(Expression<Func<T, object>> expression)
+    public static string PosFiltered<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         return _rxFour.Replace(
                         GetPath(expression),
@@ -95,7 +95,7 @@ public static class Prop
     /// <para>EX: Authors[0].Name > Authors.$[].Name</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosAll<T>(Expression<Func<T, object>> expression)
+    public static string PosAll<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         return _rxThree.Replace(GetPath(expression), ".$[]");
     }
@@ -105,7 +105,7 @@ public static class Prop
     /// <para>EX: Authors[0].Name > Authors.$.Name</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosFirst<T>(Expression<Func<T, object>> expression)
+    public static string PosFirst<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         return _rxThree.Replace(GetPath(expression), ".$");
     }
@@ -115,7 +115,7 @@ public static class Prop
     /// <para>EX: b => b.Tags > Tags</para>
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public static string Elements<T>(Expression<Func<T, object>> expression)
+    public static string Elements<T, TProp>(Expression<Func<T, TProp>> expression)
     {
         return Path(expression);
     }
@@ -128,7 +128,7 @@ public static class Prop
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public static string Elements<T>(int index, Expression<Func<T, object>> expression)
+    public static string Elements<T, TProp>(int index, Expression<Func<T, TProp>> expression)
     {
         return $"{ToLowerCaseLetter(index)}.{Path(expression)}";
     }

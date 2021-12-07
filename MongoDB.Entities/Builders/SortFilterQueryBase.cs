@@ -1,14 +1,14 @@
 ﻿namespace MongoDB.Entities;
-
-public abstract class SortFilterQueryBase<T, TId, TSelf> : FilterQueryBase<T, TId, TSelf>
-    where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
-    where TSelf : SortFilterQueryBase<T, TId, TSelf>
+public abstract class SortFilterQueryBase<T, TSelf> : FilterQueryBase<T, TSelf>,
+    ISortBuilder<T, TSelf>
+    where TSelf : SortFilterQueryBase<T, TSelf>
 {
     internal List<SortDefinition<T>> _sorts = new();
     private TSelf This => (TSelf)this;
 
-    internal SortFilterQueryBase(SortFilterQueryBase<T, TId, TSelf> other) : base(other)
+    List<SortDefinition<T>> ISortBuilder<T, TSelf>.Sorts => _sorts;
+
+    internal SortFilterQueryBase(SortFilterQueryBase<T, TSelf> other) : base(other)
     {
         _sorts = other._sorts;
     }
@@ -42,4 +42,6 @@ public abstract class SortFilterQueryBase<T, TId, TSelf> : FilterQueryBase<T, TI
         _sorts.Add(sortFunction(Builders<T>.Sort));
         return This;
     }
+
+
 }

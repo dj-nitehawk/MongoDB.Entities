@@ -6,7 +6,7 @@
 /// </summary>
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 /// <typeparam name="TId">ID type</typeparam>
-public class Replace<T, TId> : FilterQueryBase<T, TId, Replace<T, TId>>, ICollectionRelated<T>
+public class Replace<T, TId> : FilterQueryBase<T, Replace<T, TId>>, ICollectionRelated<T>
     where TId : IComparable<TId>, IEquatable<TId>
     where T : IEntity<TId>
 {

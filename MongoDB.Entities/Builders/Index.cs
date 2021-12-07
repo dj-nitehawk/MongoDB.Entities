@@ -4,13 +4,10 @@
 /// Represents an index creation command
 /// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
 /// </summary>
-/// <typeparam name="T">Any class that implements IEntity</typeparam>
-/// <typeparam name="TId">Id type</typeparam>
-public class Index<T, TId> : ICollectionRelated<T>
-            where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
+/// <typeparam name="T">Any class</typeparam>
+public class Index<T> : ICollectionRelated<T>, IIndexBuilder<T, Index<T>>
 {
-    internal List<Key<T, TId>> Keys { get; set; } = new();
+    internal List<Key<T>> Keys { get; set; } = new();
     public DBContext Context { get; }
     public IMongoCollection<T> Collection { get; }
 
@@ -98,26 +95,17 @@ public class Index<T, TId> : ICollectionRelated<T>
         return _options.Name;
     }
 
-    /// <summary>
-    /// Set the options for this index definition
-    /// <para>TIP: Setting options is not required.</para>
-    /// </summary>
-    /// <param name="option">x => x.OptionName = OptionValue</param>
-    public Index<T, TId> Option(Action<CreateIndexOptions<T>> option)
+
+    public Index<T> Option(Action<CreateIndexOptions<T>> option)
     {
         option(_options);
         return this;
     }
 
-    /// <summary>
-    /// Adds a key definition to the index
-    /// <para>TIP: At least one key definition is required</para>
-    /// </summary>
-    /// <param name="propertyToIndex">x => x.PropertyName</param>
-    /// <param name="type">The type of the key</param>
-    public Index<T, TId> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
+
+    public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
     {
-        Keys.Add(new Key<T, TId>(propertyToIndex, type));
+        Keys.Add(new Key<T>(propertyToIndex, type));
         return this;
     }
 
@@ -146,9 +134,7 @@ public class Index<T, TId> : ICollectionRelated<T>
     }
 }
 
-internal class Key<T, TId>
-    where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
+internal class Key<T>
 {
     internal string PropertyName { get; set; }
     internal KeyType Type { get; set; }

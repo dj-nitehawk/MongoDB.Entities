@@ -1,11 +1,14 @@
 ﻿namespace MongoDB.Entities;
 
-public class PagedSearchBase<T, TId, TProjection, TSelf> : SortFilterQueryBase<T, TId, TSelf>
-    where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
-    where TSelf : PagedSearchBase<T, TId, TProjection, TSelf>
+public interface IPagedSearchBuilder<T, TProjection, TSelf> : IProjectionBuilder<T, TProjection, TSelf>
+    where TSelf : IPagedSearchBuilder<T, TProjection, TSelf>
 {
-    internal PagedSearchBase(PagedSearchBase<T, TId, TProjection, TSelf> other) : base(other)
+
+}
+public abstract class PagedSearchBase<T, TProjection, TSelf> : SortFilterQueryBase<T, TSelf>, IPagedSearchBuilder<T, TProjection, TSelf>
+    where TSelf : PagedSearchBase<T, TProjection, TSelf>
+{
+    internal PagedSearchBase(PagedSearchBase<T, TProjection, TSelf> other) : base(other)
     {
     }
 
@@ -163,10 +166,7 @@ public class PagedSearchBase<T, TId, TProjection, TSelf> : SortFilterQueryBase<T
 /// Represents an aggregation query that retrieves results with easy paging support.
 /// </summary>
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
-/// <typeparam name="TId">Id type</typeparam>
-public class PagedSearch<T, TId> : PagedSearch<T, TId, T>
-    where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
+public class PagedSearch<T> : PagedSearch<T, T>
 {
     internal PagedSearch(
         DBContext context, IMongoCollection<T> collection)
@@ -177,11 +177,8 @@ public class PagedSearch<T, TId> : PagedSearch<T, TId, T>
 /// Represents an aggregation query that retrieves results with easy paging support.
 /// </summary>
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
-/// <typeparam name="TId">Id type</typeparam>
 /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
-public class PagedSearch<T, TId, TProjection> : PagedSearchBase<T, TId, TProjection, PagedSearch<T, TId, TProjection>>
-    where TId : IComparable<TId>, IEquatable<TId>
-    where T : IEntity<TId>
+public class PagedSearch<T, TProjection> : PagedSearchBase<T, TProjection, PagedSearch<T, TProjection>>, ICollectionRelated<T>
 {
 
     public DBContext Context { get; set; }
@@ -197,6 +194,11 @@ public class PagedSearch<T, TId, TProjection> : PagedSearchBase<T, TId, TProject
     }
 
 
+    public PagedSearch<T, TProjection> IncludeRequiredProps()
+    {
+        _projectionStage = PipelineStageDefinitionBuilder.Project(this.Cache().CombineWithRequiredProps<TProjection>(_projectionStage?.ToString()));
+        return this;
+    }
 
     /// <summary>
     /// Run the aggregation search command in MongoDB server and get a page of results and total + page count

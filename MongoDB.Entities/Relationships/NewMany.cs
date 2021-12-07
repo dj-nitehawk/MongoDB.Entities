@@ -74,44 +74,25 @@ Many(Parent)-Many(Child) (B-C)
 //    public override Guid GenerateNewID() => Guid.NewGuid();
 //}
 
-public interface IManyS<TChild> : IMany<TChild, string>
-    where TChild : IEntity
+public interface IMany<TChild>
 {
-
-}
-public interface IMany<TChild, TChildId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
-{
-    Find<TChild, TChildId, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
-    Find<TChild, TChildId, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
+    Find<TChild, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
+    Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
     IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
 }
 
-public interface IMany<TParent, TParentId, TChild, TChildId> : IMany<TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public interface IMany<TParent, TChild> : IMany<TChild>
 {
     TParent Parent { get; }
 
     FilterDefinition<TChild> GetFilterForSingleDocument();
 }
 
-public interface IManyToMany<TParent, TParentId, TChild, TChildId> : IMany<TParent, TParentId, TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public interface IManyToMany<TParent, TChild> : IMany<TParent, TChild>
 {
     bool IsParentOwner { get; }
 }
-public interface IManyToOne<TParent, TParentId, TChild, TChildId> : IMany<TParent, TParentId, TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public interface IManyToOne<TParent, TChild> : IMany<TParent, TChild>
 {
 }
 
@@ -121,9 +102,7 @@ public interface IManyToOne<TParent, TParentId, TChild, TChildId> : IMany<TParen
 /// </summary>
 /// <typeparam name="TChild"></typeparam>
 /// <typeparam name="TChildId"></typeparam>
-public abstract class Many<TChild, TChildId> : IMany<TChild, TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
-    where TChild : IEntity<TChildId>
+public abstract class Many<TChild> : IMany<TChild>
 {
     protected Many(PropertyInfo parentProperty, PropertyInfo childProperty)
     {
@@ -135,14 +114,10 @@ public abstract class Many<TChild, TChildId> : IMany<TChild, TChildId>
     internal PropertyInfo ChildProperty { get; }
 
     public abstract IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
-    public Find<TChild, TChildId, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null) => GetChildrenFind<TChild>(context, childCollectionName, collection);
-    public abstract Find<TChild, TChildId, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
+    public Find<TChild, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null) => GetChildrenFind<TChild>(context, childCollectionName, collection);
+    public abstract Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
 }
-public abstract class Many<TParent, TParentId, TChild, TChildId> : Many<TChild, TChildId>, IMany<TParent, TParentId, TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public abstract class Many<TParent, TChild> : Many<TChild>, IMany<TParent, TChild>
 {
     public TParent Parent { get; }
     protected Many(TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parentProperty, childProperty)
@@ -150,15 +125,9 @@ public abstract class Many<TParent, TParentId, TChild, TChildId> : Many<TChild, 
         Parent = parent;
     }
     public FilterDefinition<TChild> GetFilterForSingleDocument() => Builders<TChild>.Filter.Eq(ChildProperty.Name, Parent.ID);
-
-
 }
 
-public sealed class ManyToMany<TParent, TParentId, TChild, TChildId> : Many<TParent, TParentId, TChild, TChildId>, IManyToMany<TParent, TParentId, TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public sealed class ManyToMany<TParent, TChild> : Many<TParent, TChild>, IManyToMany<TParent, TChild>
 {
     public ManyToMany(bool isParentOwner, TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parent, parentProperty, childProperty)
     {
@@ -167,7 +136,7 @@ public sealed class ManyToMany<TParent, TParentId, TChild, TChildId> : Many<TPar
 
     public bool IsParentOwner { get; }
 
-    public override Find<TChild, TChildId, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null)
+    public override Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null)
     {
         throw new NotImplementedException();
     }
@@ -178,19 +147,15 @@ public sealed class ManyToMany<TParent, TParentId, TChild, TChildId> : Many<TPar
     }
 }
 
-public sealed class ManyToOne<TParent, TParentId, TChild, TChildId> : Many<TParent, TParentId, TChild, TChildId>, IManyToOne<TParent, TParentId, TChild, TChildId>
-    where TParent : IEntity<TParentId>
-    where TParentId : IComparable<TParentId>, IEquatable<TParentId>
-    where TChild : IEntity<TChildId>
-    where TChildId : IComparable<TChildId>, IEquatable<TChildId>
+public sealed class ManyToOne<TParent, TChild> : Many<TParent, TChild>, IManyToOne<TParent, TChild>
 {
     public ManyToOne(TParent parent, PropertyInfo parentProperty, PropertyInfo childProperty) : base(parent, parentProperty, childProperty)
     {
     }
 
-    public override Find<TChild, TChildId, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? childCollection = null)
+    public override Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? childCollection = null)
     {
-        return context.Find<TChild, TChildId, TProjection>(childCollectionName, childCollection)
+        return context.Find<TChild, TProjection>(childCollectionName, childCollection)
             .Match(GetFilterForSingleDocument()); //BRef==Parent.Id
     }
 
@@ -229,7 +194,7 @@ public static class RelationsExt
         return propInfo;
     }
 
-    public static IManyToMany<TParent, TParentId, TChild, TChildId> InitManyToMany<TParent, TParentId, TChild, TChildId>(this TParent parent, Expression<Func<TParent, IMany<TChild, TChildId>>> propertyExpression, Expression<Func<TChild, IMany<TParent, TParentId>>> propertyOtherSide)
+    public static IManyToMany<TParent, TChild> InitManyToMany<TParent, TParentId, TChild, TChildId>(this TParent parent, Expression<Func<TParent, IMany<TChild, TChildId>>> propertyExpression, Expression<Func<TChild, IMany<TParent, TParentId>>> propertyOtherSide)
         where TParent : IEntity<TParentId>
         where TParentId : IComparable<TParentId>, IEquatable<TParentId>
         where TChild : IEntity<TChildId>
@@ -248,13 +213,13 @@ public static class RelationsExt
         if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
         if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
-        var res = new ManyToMany<TParent, TParentId, TChild, TChildId>(hasInverseAttrib, parent, property, osProperty);
+        var res = new ManyToMany<TParent, TChild>(hasInverseAttrib, parent, property, osProperty);
         //should we set the property ourself or let the user handle it ?
         //property.SetValue(parent, res);
         return res;
     }
-    public static IManyToOne<TParent, TParentId, TChild, TChildId> InitManyToOne<TParent, TParentId, TChild, TChildId>(this TParent parent, Expression<Func<TParent, IMany<TChild, TChildId>>> propertyExpression, Expression<Func<TChild, One<TParent, TParentId>?>> propertyOtherSide)
-        where TParent : IEntity<TParentId>
+    public static IManyToOne<TParent, TChild> InitManyToOne<TParent, TParentId, TChild, TChildId>(this TParent parent, Expression<Func<TParent, IMany<TChild, TChildId>>> propertyExpression, Expression<Func<TChild, One<TParent, TParentId>?>> propertyOtherSide)
+          where TParent : IEntity<TParentId>
         where TParentId : IComparable<TParentId>, IEquatable<TParentId>
         where TChild : IEntity<TChildId>
         where TChildId : IComparable<TChildId>, IEquatable<TChildId>
@@ -262,6 +227,6 @@ public static class RelationsExt
         var property = propertyExpression.GetPropertyInfo();
         var osProperty = propertyOtherSide.GetPropertyInfo();
 
-        return new ManyToOne<TParent, TParentId, TChild, TChildId>(parent, property, osProperty);
+        return new ManyToOne<TParent, TChild>(parent, property, osProperty);
     }
 }
