@@ -1,46 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    
-    <Version>20.26.0</Version>
+    <PropertyGroup>
 
-    <PackageReleaseNotes>
-      - add MD5 verification support for file uploads
-      - add diacritic support for fuzzy text search
-      - change project lang version to 9.0
-    </PackageReleaseNotes>
+        <Version>20.26.1</Version>
 
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>MongoDB.Entities</RootNamespace>
-    <AssemblyName>MongoDB.Entities</AssemblyName>
-    <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
-    <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
-    <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
-    <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
-    <PackageId>MongoDB.Entities</PackageId>
-    <Product>MongoDB.Entities</Product>
-    <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
+        <PackageReleaseNotes>
+            - hotfix for issue #146 (all children not removed when supplying multiple child IDs)
+            - change project lang version to 10.0
+            - upgrade test/benchmark project SDK to .net 6.0
+            - upgrade dependencies to latest
+        </PackageReleaseNotes>
 
-  <PropertyGroup>
-    <NoWarn>CS1591</NoWarn>
-  </PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>MongoDB.Entities</RootNamespace>
+        <AssemblyName>MongoDB.Entities</AssemblyName>
+        <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>
+        <Description>A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.</Description>
+        <PackageProjectUrl>https://mongodb-entities.com</PackageProjectUrl>
+        <Copyright>Đĵ ΝιΓΞΗΛψΚ</Copyright>
+        <PackageId>MongoDB.Entities</PackageId>
+        <Product>MongoDB.Entities</Product>
+        <RepositoryUrl>https://github.com/dj-nitehawk/MongoDB.Entities.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <LangVersion>10.0</LangVersion>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
-  </ItemGroup>
+    <PropertyGroup>
+        <NoWarn>CS1591</NoWarn>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md" Pack="true" PackagePath="\" />
-    <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
 </Project>
