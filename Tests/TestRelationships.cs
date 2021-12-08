@@ -478,6 +478,7 @@ namespace MongoDB.Entities.Tests
             Assert.AreEqual(2, a2books.Count);
             Assert.AreEqual(b1.Title, a2books[0].Title);
             Assert.AreEqual(b2.Title, a2books.Last().Title);
+            Assert.AreEqual(0, await a1.Books.ChildrenCountAsync());
         }
     }
 }

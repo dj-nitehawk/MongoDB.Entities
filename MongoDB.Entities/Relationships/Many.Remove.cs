@@ -60,8 +60,8 @@ namespace MongoDB.Entities
                     Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
 
             return session == null
-                   ? JoinCollection.DeleteOneAsync(filter, null, cancellation)
-                   : JoinCollection.DeleteOneAsync(session, filter, null, cancellation);
+                   ? JoinCollection.DeleteManyAsync(filter, null, cancellation)
+                   : JoinCollection.DeleteManyAsync(session, filter, null, cancellation);
         }
     }
 }
