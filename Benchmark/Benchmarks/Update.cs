@@ -15,13 +15,15 @@ namespace Benchmark
 
         public UpdateOne()
         {
-            DB.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
+            DB.Context.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
         }
 
         [Benchmark]
         public override Task MongoDB_Entities()
         {
-            return DB.Update<Author>()
+            var update = DB.Context.Update<Author>();
+            update.MatchID(id);
+            return DB.Context.Update<Author>()
                      .MatchID(id)
                      .Modify(a => a.FirstName, "updated")
                      .ExecuteAsync();
@@ -44,7 +46,8 @@ namespace Benchmark
 
         public Update100()
         {
-            DB.Index<Author>()
+            DB.Context
+                .Index<Author>()
               .Key(a => a.FirstName, KeyType.Ascending)
               .Option(o => o.Background = false)
               .CreateAsync()
@@ -64,7 +67,7 @@ namespace Benchmark
         [Benchmark]
         public override Task MongoDB_Entities()
         {
-            return DB
+            return DB.Context
                 .Update<Author>()
                 .Match(x => x.FirstName == guid)
                 .Modify(x => x.FirstName, "updated")

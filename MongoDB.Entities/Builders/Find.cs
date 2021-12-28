@@ -155,6 +155,7 @@ public class Find<T, TProjection> :
 
 public static class FindExt
 {
+
     /// <summary>
     /// Find a single IEntity by ID
     /// </summary>
@@ -162,12 +163,11 @@ public static class FindExt
     /// <param name="ID">The unique ID of an IEntity</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A single entity or null if not found</returns>
-    public static Task<TProjection> OneAsync<TEntity, TId, TProjection, TSelf>(this TSelf self, TId ID, CancellationToken cancellation = default)
+    public static Task<TProjection> OneAsync<TEntity, TId, TProjection>(this Find<TEntity, TProjection> self, TId ID, CancellationToken cancellation = default)
         where TId : IComparable<TId>, IEquatable<TId>
         where TEntity : IEntity<TId>
-        where TSelf : Find<TEntity, TProjection>, IFilterBuilder<TEntity, TSelf>
     {
-        self.MatchID<TEntity, TId, TSelf>(ID);
+        self.MatchID(ID);
         return self.ExecuteSingleAsync(cancellation);
     }
 }

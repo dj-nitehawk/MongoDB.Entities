@@ -23,8 +23,10 @@ public abstract class FilterQueryBase<T, TSelf> : IFilterBuilder<T, TSelf>
     bool IFilterBuilder<T, TSelf>.IsIgnoreGlobalFilters => _ignoreGlobalFilters;
     FilterDefinition<T> IFilterBuilder<T, TSelf>.Filter => _filter;
     Dictionary<Type, (object filterDef, bool prepend)> IFilterBuilder<T, TSelf>.GlobalFilters => _globalFilters;
+    internal FilterDefinition<T> MergedFilter => (this as IFilterBuilder<T, TSelf>).MergedFilter;
 
     private TSelf This => (TSelf)this;
+
 
     /// <summary>
     /// Specify that this operation should ignore any global filters

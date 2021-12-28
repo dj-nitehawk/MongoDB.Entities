@@ -17,14 +17,26 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <typeparam name="T">The type of entity</typeparam>
+        /// <param name="entity">The instance to persist</param>
+        /// <param name="cancellation">And optional cancellation token</param>
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where T : IEntity => SaveAsync<T, string>(entity, cancellation, collectionName, collection);
+
+        /// <summary>
+        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
         /// <typeparam name="TId">ID type</typeparam>
         /// <param name="entity">The instance to persist</param>
         /// <param name="cancellation">And optional cancellation token</param>
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
         public Task SaveAsync<T, TId>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
-            where TId : IComparable<TId>, IEquatable<TId>
-            where T : IEntity<TId>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where T : IEntity<TId>
         {
             SetModifiedBySingle(entity);
             OnBeforeSave(entity);

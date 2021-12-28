@@ -5,11 +5,19 @@ public partial class DBContext
     /// <summary>
     /// Starts an update command for the given entity type
     /// </summary>
+    /// <typeparam name="T">The type of entity</typeparam> 
+    public Update<T, string> Update<T>(string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
+        => Update<T, string>(collectionName: collectionName, collection: collection);
+
+
+    /// <summary>
+    /// Starts an update command for the given entity type
+    /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
     /// <typeparam name="TId">ID type</typeparam>
     public Update<T, TId> Update<T, TId>(string? collectionName = null, IMongoCollection<T>? collection = null)
-        where TId : IComparable<TId>, IEquatable<TId>
-        where T : IEntity<TId>
+    where TId : IComparable<TId>, IEquatable<TId>
+    where T : IEntity<TId>
     {
         var cmd = new Update<T, TId>(this, Collection(collectionName, collection), OnBeforeUpdate<T, TId, Update<T, TId>>);
         if (Cache<T>().ModifiedByProp is PropertyInfo ModifiedByProp)

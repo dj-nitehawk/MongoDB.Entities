@@ -7,6 +7,11 @@ public interface IFilterBuilder<T, TSelf>
     internal FilterDefinition<T> Filter { get; }
     internal Dictionary<Type, (object filterDef, bool prepend)> GlobalFilters { get; }
 
+    internal FilterDefinition<T> MergedFilter => Logic.MergeWithGlobalFilter(IsIgnoreGlobalFilters, GlobalFilters, Filter);
+
+    
+
+
     /// <summary>
     /// Specify that this operation should ignore any global filters
     /// </summary>

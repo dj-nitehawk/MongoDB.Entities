@@ -1,6 +1,6 @@
 ﻿namespace MongoDB.Entities;
 
-public abstract class UpdateBase<T, TId, TSelf> : FilterQueryBase<T, TId, TSelf>
+public abstract class UpdateBase<T, TId, TSelf> : FilterQueryBase<T, TSelf>
     where TId : IComparable<TId>, IEquatable<TId>
     where T : IEntity<TId>
     where TSelf : UpdateBase<T, TId, TSelf>
