@@ -30,7 +30,7 @@ public abstract class PagedSearchBase<T, TProjection, TSelf> : SortFilterQueryBa
     /// <param name="fluentPipeline">The input IAggregateFluent pipeline</param>
     public TSelf WithFluent<TFluent>(TFluent fluentPipeline) where TFluent : IAggregateFluent<T>
     {
-        this._fluentPipeline = fluentPipeline;
+        _fluentPipeline = fluentPipeline;
         return This;
     }
 

@@ -9,7 +9,7 @@ internal class JoinRecordSerializer<T1, T2> : SerializerBase<JoinRecord<T1, T2>>
     }
     public override JoinRecord<T1, T2> Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
     {
-
+        return new JoinRecord<T1, T2>(default, default);
     }
 
     public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo? serializationInfo)

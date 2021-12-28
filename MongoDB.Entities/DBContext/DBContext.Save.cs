@@ -12,17 +12,6 @@ namespace MongoDB.Entities
 {
     public partial class DBContext
     {
-        /// <summary>
-        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
-        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
-        /// </summary>
-        /// <typeparam name="T">The type of entity</typeparam>
-        /// <param name="entity">The instance to persist</param>
-        /// <param name="cancellation">And optional cancellation token</param>
-        /// <param name="collectionName"></param>
-        /// <param name="collection"></param>
-        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
-            where T : IEntity => SaveAsync<T, string>(entity, cancellation, collectionName, collection);
 
         /// <summary>
         /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
@@ -35,8 +24,8 @@ namespace MongoDB.Entities
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
         public Task SaveAsync<T, TId>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
-        where TId : IComparable<TId>, IEquatable<TId>
-        where T : IEntity<TId>
+            where TId : IComparable<TId>, IEquatable<TId>
+            where T : IEntity<TId>
         {
             SetModifiedBySingle(entity);
             OnBeforeSave(entity);
@@ -54,6 +43,19 @@ namespace MongoDB.Entities
         }
 
         /// <summary>
+        /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <param name="entity">The instance to persist</param>
+        /// <param name="cancellation">And optional cancellation token</param>
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task SaveAsync<T>(T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where T : IEntity => SaveAsync<T, string>(entity, cancellation, collectionName, collection);
+
+
+        /// <summary>
         /// Saves a batch of complete entities replacing an existing entities or creating a new ones if they do not exist. 
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
@@ -64,7 +66,7 @@ namespace MongoDB.Entities
         /// <param name="collectionName"></param>
         /// <param name="collection"></param>
         public Task<BulkWriteResult<T>> SaveAsync<T, TId>(IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
-             where TId : IComparable<TId>, IEquatable<TId>
+            where TId : IComparable<TId>, IEquatable<TId>
             where T : IEntity<TId>
         {
             SetModifiedByMultiple(entities);
@@ -89,6 +91,22 @@ namespace MongoDB.Entities
             return Session == null
                    ? Collection(collectionName, collection).BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
                    : Collection(collectionName, collection).BulkWriteAsync(Session, models, _unOrdBlkOpts, cancellation);
+        }
+
+
+        /// <summary>
+        /// Saves a batch of complete entities replacing an existing entities or creating a new ones if they do not exist. 
+        /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
+        /// </summary>
+        /// <typeparam name="T">The type of entity</typeparam>
+        /// <param name="entities">The entities to persist</param>
+        /// <param name="cancellation">And optional cancellation token</param>
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where T : IEntity
+        {
+            return SaveAsync<T, string>(entities: entities, cancellation: cancellation, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ public class Distinct<T, TProperty> : DistinctBase<T, TProperty, Distinct<T, TPr
         if (_field == null)
             throw new InvalidOperationException("Please use the .Property() method to specify the field to use for obtaining unique values for!");
 
-        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
+        var mergedFilter = MergedFilter;
 
         return Context.Session is IClientSessionHandle session
                ? Collection.DistinctAsync(session, _field, mergedFilter, _options, cancellation)

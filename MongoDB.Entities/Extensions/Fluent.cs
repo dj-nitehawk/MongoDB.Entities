@@ -10,12 +10,13 @@ namespace MongoDB.Entities
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="_"></param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="options">The options for the aggregation. This is not required.</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static IAggregateFluent<T> Fluent<T>(this T _, IClientSessionHandle session = null, AggregateOptions options = null, string tenantPrefix = null) where T : IEntity
+        /// <param name="ignoreGlobalFilters"></param>
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public static IAggregateFluent<T> Fluent<T>(this T _, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
-            return DB.Fluent<T>(options, session, tenantPrefix);
+            return DB.Context.Fluent(options, ignoreGlobalFilters: ignoreGlobalFilters, collection: collection, collectionName: collectionName);
         }
 
         /// <summary>

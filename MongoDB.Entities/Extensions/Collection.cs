@@ -9,16 +9,19 @@ namespace MongoDB.Entities
         /// Gets the IMongoCollection for a given IEntity type.
         /// <para>TIP: Try never to use this unless really neccessary.</para>
         /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static IMongoCollection<T> Collection<T>(this T _, string tenantPrefix) where T : IEntity => DB.Collection<T>(tenantPrefix);
+        /// <typeparam name="T">Any class</typeparam>
+        /// <param name="_"></param>
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public static IMongoCollection<T> Collection<T>(this T _, string? collectionName = null, IMongoCollection<T>? collection = null)
+            => DB.Context.Collection(collectionName: collectionName, collection: collection);
 
         /// <summary>
         /// Gets the collection name for this entity
         /// </summary>
-        public static string CollectionName<T>(this T _) where T : IEntity
+        public static string CollectionName<T>(this T _)
         {
-            return DB.CollectionName<T>();
+            return DB.Context.CollectionName<T>();
         }
 
         /// <summary>

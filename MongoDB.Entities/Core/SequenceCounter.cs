@@ -4,7 +4,7 @@
 internal class SequenceCounter : IEntity<string>
 {
     [BsonId]
-    public string ID { get; set; } = null!;
+    public string? ID { get; set; }
 
     [BsonRepresentation(BsonType.Int64)]
     public ulong Count { get; set; }

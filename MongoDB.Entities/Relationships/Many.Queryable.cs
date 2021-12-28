@@ -49,7 +49,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
             return JoinQueryable(session, options)
                    .Where(j => childIDs.Contains(j.ParentID))
                    .Join(
-                       DB.Collection<TParent>(null),
+                       DB.Context.Collection<TParent>(null),
                        j => j.ChildID,
                        p => p.ID,
                        (_, p) => p)
@@ -60,7 +60,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
             return JoinQueryable(session, options)
                    .Where(j => childIDs.Contains(j.ChildID))
                    .Join(
-                       DB.Collection<TParent>(null),
+                       DB.Context.Collection<TParent>(null),
                        j => j.ParentID,
                        p => p.ID,
                        (_, p) => p)
@@ -125,7 +125,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
             return JoinQueryable(session, options)
                    .Where(j => j.ChildID == parent.ID)
                    .Join(
-                       DB.Collection<TChild>(null),
+                       DB.Context.Collection<TChild>(null),
                        j => j.ParentID,
                        c => c.ID,
                        (_, c) => c);
@@ -135,7 +135,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
             return JoinQueryable(session, options)
                    .Where(j => j.ParentID == parent.ID)
                    .Join(
-                       DB.Collection<TChild>(null),
+                       DB.Context.Collection<TChild>(null),
                        j => j.ChildID,
                        c => c.ID,
                        (_, c) => c);

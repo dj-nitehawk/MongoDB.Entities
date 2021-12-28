@@ -160,8 +160,8 @@ namespace MongoDB.Entities
         /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
         /// </summary>
         /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        [Obsolete("This method returns the current DatabaseName in the Context")]
-        public static string DatabaseName<T>() where T : IEntity
+        [Obsolete("This method always returns the current DatabaseName in the Context")]
+        public static string DatabaseName<T>()
         {
             return Context.DatabaseNamespace.DatabaseName;
         }

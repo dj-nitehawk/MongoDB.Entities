@@ -40,10 +40,11 @@ public partial class DBContext
         var casted = IDs.Cast<object>();
         foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
         {
-            tasks.Add(
-                Session is null
-                ? Collection<JoinRecord<object, object>>(cName).DeleteManyAsync(r => casted.Contains(r.ID.ChildID) || casted.Contains(r.ID.ParentID))
-                : Collection<JoinRecord<object, object>>(cName).DeleteManyAsync(Session, r => casted.Contains(r.ID.ChildID) || casted.Contains(r.ID.ParentID), null, cancellation));
+            //TODO(@ahmednfwela): check if this is needed
+            //tasks.Add(
+            //    Session is null
+            //    ? Collection<JoinRecord<object, object>>(cName).DeleteManyAsync(r => casted.Contains(r.ID.ChildID) || casted.Contains(r.ID.ParentID))
+            //    : Collection<JoinRecord<object, object>>(cName).DeleteManyAsync(Session, r => casted.Contains(r.ID.ChildID) || casted.Contains(r.ID.ParentID), null, cancellation));
         }
 
         var delResTask =
@@ -164,7 +165,7 @@ public partial class DBContext
         ThrowIfCancellationNotSupported(cancellation);
 
         var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter);
-        var cursor = await new Find<T, TId, TId?>(this, Collection(collectionName, collection))
+        var cursor = await new Find<T, TId?>(this, Collection(collectionName, collection))
                            .Match(filter)
                            .Project(e => e.ID)
                            .Option(o => o.BatchSize = _deleteBatchSize)

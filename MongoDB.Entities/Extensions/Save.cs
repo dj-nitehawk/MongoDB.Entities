@@ -14,12 +14,13 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task SaveAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public static Task SaveAsync<T>(this T entity, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where T : IEntity
         {
-            return DB.SaveAsync(entity, session, cancellation, tenantPrefix);
+            return DB.Context.SaveAsync(entity, cancellation: cancellation, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>
@@ -27,12 +28,13 @@ namespace MongoDB.Entities
         /// If ID value is null, a new entity is created. If ID has a value, then existing entity is replaced.
         /// </summary>
         /// <param name="entities"></param>
-        /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
-        /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, CancellationToken cancellation = default, string? collectionName = null, IMongoCollection<T>? collection = null)
+            where T : IEntity
         {
-            return DB.SaveAsync(entities, session, cancellation, tenantPrefix);
+            return DB.Context.SaveAsync(entities: entities, cancellation, collectionName: collectionName, collection: collection);
         }
 
         /// <summary>

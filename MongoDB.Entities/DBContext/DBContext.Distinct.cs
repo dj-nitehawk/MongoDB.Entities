@@ -10,10 +10,8 @@ public partial class DBContext
     /// <typeparam name="T">Any Entity that implements IEntity interface</typeparam>
     /// <typeparam name="TId">Id type</typeparam>
     /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
-    public Distinct<T, TId, TProperty> Distinct<T, TId, TProperty>(string? collectionName = null, IMongoCollection<T>? collection = null)
-        where TId : IComparable<TId>, IEquatable<TId>
-        where T : IEntity<TId>
+    public Distinct<T, TProperty> Distinct<T, TId, TProperty>(string? collectionName = null, IMongoCollection<T>? collection = null)
     {
-        return new Distinct<T, TId, TProperty>(this, Collection(collectionName, collection));
+        return new Distinct<T, TProperty>(this, Collection(collectionName, collection));
     }
 }

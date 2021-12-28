@@ -36,6 +36,7 @@ namespace MongoDB.Entities
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
+        //TODO(@ahmednfwela): add static analysis attributes
         internal static void ThrowIfUnsaved<TId>(this IEntity<TId> entity) where TId : IComparable<TId>, IEquatable<TId>
         {
             ThrowIfUnsaved(entity.ID);
@@ -77,9 +78,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, string? tenantPrefix = null) where T : IEntity
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
-            return DB.Queryable<T>(options);
+            return DB.Context.Queryable(options, collectionName: collectionName, collection: collection, ignoreGlobalFilters: ignoreGlobalFilters);
         }
 
         /// <summary>
@@ -167,9 +168,9 @@ namespace MongoDB.Entities
         /// <param name="_"></param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(cancellation, tenantPrefix);
+            return DB.Context.NextSequentialNumberAsync<T>(cancellation);
         }
     }
 }
