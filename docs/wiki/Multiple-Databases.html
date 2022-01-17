@@ -141,23 +141,6 @@ var result = await DB.Find&lt;Picture&gt;().OneAsync(pic.ID);
 <li>no cross-database joins/ look-ups as the driver doesn't support it.</li>
 <li>storing a single entity type in multiple datbases is not supported.</li>
 </ul>
-<h2 id="utility-methods">Utility methods</h2>
-<h3 id="get-database-name-from-an-entity-instance-or-type">Get database name from an entity instance or type</h3>
-<pre><code class="lang-csharp">var dbName = pic.DatabaseName();
-var dbName = DB.DatabaseName&lt;Book&gt;();
-</code></pre>
-<p>the above methods will return the name of the database that the entity is stored in. if not specifically attached to seperate db, it will return the name of the default database.</p>
-<h3 id="check-if-a-database-already-exists-on-the-server">Check if a database already exists on the server</h3>
-<pre><code class="lang-csharp">bool dbExists = await DB.Database(&quot;BookShopFILES&quot;).ExistsAsync();
-bool dbExists = await DB.Database&lt;Picture&gt;().ExistsAsync();
-</code></pre>
-<h3 id="check-if-a-database-is-still-accessible">Check if a database is still accessible</h3>
-<pre><code class="lang-csharp">bool isAlive = await DB.Database(&quot;BookShopFILES&quot;).IsAccessibleAsync();
-bool isAlive = await DB.Database&lt;Picture&gt;().IsAccessibleAsync();
-</code></pre>
-<h3 id="get-a-list-of-all-databases-on-the-server">Get a list of all databases on the server</h3>
-<pre><code class="lang-csharp">var dbNames = await DB.AllDatabaseNamesAsync(&quot;localhost&quot;);
-</code></pre>
 </article>
           </div>
           
