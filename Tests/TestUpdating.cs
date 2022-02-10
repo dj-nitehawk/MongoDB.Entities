@@ -406,6 +406,49 @@ namespace MongoDB.Entities.Tests
         }
 
         [TestMethod]
+        public async Task bulk_update_with_modifywith()
+        {
+            var books = new[] {
+                new Book{ Title ="one"},
+                new Book{ Title ="two"},
+            };
+
+            await books.SaveAsync();
+
+            foreach (var book in books)
+            {
+                await DB
+                    .Update<Book>()
+                    .MatchID(book.ID)
+                    .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
+                    .ExecuteAsync();
+            }
+
+            var bulkUpdate = DB.Update<Book>();
+
+            foreach (var book in books)
+            {
+                book.Title = "updated!";
+                bulkUpdate
+                    .MatchID(book.ID)
+                    .ModifyWith(book)
+                    .AddToQueue();
+            }
+
+            await bulkUpdate.ExecuteAsync();
+
+            var bIDs = books.Select(b => b.ID).ToArray();
+
+            var res = await DB.Find<Book>()
+                .Match(b => bIDs.Contains(b.ID))
+                .ExecuteAsync();
+
+            Assert.AreEqual("updated!", res[0].Title);
+            Assert.AreEqual("updated!", res[1].Title);
+            Assert.IsTrue(res.All(b => b.ModifiedOn.Date == DateTime.UtcNow.Date));
+        }
+
+        [TestMethod]
         public async Task update_with_modifyexcept_works()
         {
             var book = new Book

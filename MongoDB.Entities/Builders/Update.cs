@@ -398,7 +398,7 @@ namespace MongoDB.Entities
             var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            if (Cache<T>.HasModifiedOn) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
             SetTenantDbOnFileEntities(tenantPrefix);
             onUpdateAction?.Invoke(this);
             models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
