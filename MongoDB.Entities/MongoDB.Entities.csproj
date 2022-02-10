@@ -2,12 +2,10 @@
 
     <PropertyGroup>
 
-        <Version>20.26.1</Version>
+        <Version>20.26.2</Version>
 
         <PackageReleaseNotes>
-            - hotfix for issue #146 (all children not removed when supplying multiple child IDs)
-            - change project lang version to 10.0
-            - upgrade test/benchmark project SDK to .net 6.0
+            - hotfix for bulk updates not working with .ModifyWith(entity)
             - upgrade dependencies to latest
         </PackageReleaseNotes>
 
