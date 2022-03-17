@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>20.26.3-beta1</Version>
+        <Version>20.26.3</Version>
 
         <PackageReleaseNotes>
             - hotfix for bulk updates not working with .ModifyWith(entity)
