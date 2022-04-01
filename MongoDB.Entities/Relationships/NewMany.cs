@@ -74,14 +74,14 @@ Many(Parent)-Many(Child) (B-C)
 //    public override Guid GenerateNewID() => Guid.NewGuid();
 //}
 
-public interface IMany<TChild>
+public interface IManyRelation<TChild>
 {
     Find<TChild, TChild> GetChildrenFind(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
     Find<TChild, TProjection> GetChildrenFind<TProjection>(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
     IMongoQueryable<TChild> GetChildrenQuery(DBContext context, string? childCollectionName = null, IMongoCollection<TChild>? collection = null);
 }
 
-public interface IMany<TParent, TChild> : IMany<TChild>
+public interface IMany<TParent, TChild> : IManyRelation<TChild>
 {
     TParent Parent { get; }
 
@@ -93,7 +93,7 @@ public interface IManyToMany<TParent, TChild> : IMany<TParent, TChild>
     bool IsParentOwner { get; }
 }
 public interface IManyToOne<TParent, TChild> : IMany<TParent, TChild>
-{ 
+{
 }
 
 
@@ -102,7 +102,7 @@ public interface IManyToOne<TParent, TChild> : IMany<TParent, TChild>
 /// </summary>
 /// <typeparam name="TChild"></typeparam>
 /// <typeparam name="TChildId"></typeparam>
-public abstract class Many<TChild> : IMany<TChild>
+public abstract class Many<TChild> : IManyRelation<TChild>
 {
     protected Many(PropertyInfo parentProperty, PropertyInfo childProperty)
     {

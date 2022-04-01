@@ -328,6 +328,7 @@ public partial class DBContext : IMongoDatabase
     }
     protected virtual void OnConfigure(DBContextConfigBuilder config)
     {
+        
     }
 
     internal EntityCache<T> Cache<T>()
@@ -351,7 +352,7 @@ public partial class DBContext : IMongoDatabase
     }
 
     public async Task<bool> PingNetwork()
-    {
+    {   
         try
         {
             await Database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);

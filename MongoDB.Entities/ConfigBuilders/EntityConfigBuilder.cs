@@ -4,6 +4,7 @@ public class EntityConfigBuilder<T>
 {
     internal DBContextConfigBuilder Parent { get; }
     internal DBContext Context => Parent.Context;
+    internal HashSet<RelationDecision> _relationDecisions => Parent._relationDecisions;
     public EntityConfigBuilder(DBContextConfigBuilder parent, string collectionName)
     {
         Parent = parent;
@@ -12,7 +13,6 @@ public class EntityConfigBuilder<T>
     public string CollectionName { get; }
 
     internal Expression<Func<T, object>>? _keySelector;
-    internal readonly Dictionary<string, RelationDecision> _relationDecisions = new();
     public void HasKey(Expression<Func<T, object>> keySelector)
     {
         _keySelector = keySelector;

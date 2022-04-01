@@ -15,6 +15,8 @@ public class DBContextConfigBuilder
     }
     internal DBContext Context { get; }
     internal Dictionary<ValueTuple<Type, string>, object> EntityConfigBuilders { get; } = new();
+    internal readonly HashSet<RelationDecision> _relationDecisions = new();
+
     public EntityConfigBuilder<T> Entity<T>(string? collectionName = null)
     {
         collectionName ??= Context.CollectionName<T>();

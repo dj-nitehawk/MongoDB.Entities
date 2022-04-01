@@ -49,9 +49,9 @@ namespace MongoDB.Entities
         /// <param name="session">An optional session if using within a transaction</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default, string? collectionName = null) where T : IEntity
         {
-            return DB.SaveOnlyAsync(entity, members, session, cancellation, tenantPrefix);
+            return DB.Context.SaveOnlyAsync<T, string>(entity, members, cancellation);
         }
 
         /// <summary>
