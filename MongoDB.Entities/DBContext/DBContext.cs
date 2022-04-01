@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using MongoDB.Entities.ConfigBuilders;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -314,6 +315,20 @@ public partial class DBContext : IMongoDatabase
 
 
     private readonly ConcurrentDictionary<Type, Cache> _cache = new();
+
+    /// <summary>
+    /// TODO: proper place to call this
+    /// </summary>
+    /// <returns></returns>
+    internal DBContextConfigBuilder Configure()
+    {
+        var config = new DBContextConfigBuilder(this);
+        OnConfigure(config);
+        return config;
+    }
+    protected virtual void OnConfigure(DBContextConfigBuilder config)
+    {
+    }
 
     internal EntityCache<T> Cache<T>()
     {
