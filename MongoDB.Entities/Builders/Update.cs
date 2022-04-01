@@ -270,7 +270,7 @@ public class Update<T, TId> : UpdateBase<T, TId, Update<T, TId>>, ICollectionRel
         var mergedFilter = MergedFilter;
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
         if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-        if (Cache().HasModifiedOn) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
+        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
         onUpdateAction?.Invoke(this);
         _models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
         {

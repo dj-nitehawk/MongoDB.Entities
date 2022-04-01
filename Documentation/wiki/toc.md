@@ -31,6 +31,7 @@
 ## [Global Filters](DB-Instances-Global-Filters.md)
 
 # [Multiple Databases](Multiple-Databases.md)
+## [Utility Methods](Multiple-Databases-Utility-Methods.md)
 
 # [Transactions](Transactions.md)
 
