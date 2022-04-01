@@ -93,7 +93,7 @@ public interface IManyToMany<TParent, TChild> : IMany<TParent, TChild>
     bool IsParentOwner { get; }
 }
 public interface IManyToOne<TParent, TChild> : IMany<TParent, TChild>
-{
+{ 
 }
 
 
