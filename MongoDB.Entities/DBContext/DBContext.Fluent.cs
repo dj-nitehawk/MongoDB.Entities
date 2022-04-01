@@ -10,18 +10,21 @@ namespace MongoDB.Entities
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public IAggregateFluent<T> Fluent<T>(AggregateOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
+            var aggregate = Session is not IClientSessionHandle session
+                   ? Collection(collectionName, collection).Aggregate(options)
+                   : Collection(collectionName, collection).Aggregate(session, options);
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
-                return DB
-                    .Fluent<T>(options, Session, tenantPrefix)
-                    .Match(globalFilter);
+                aggregate = aggregate.Match(globalFilter);
             }
-
-            return DB.Fluent<T>(options, Session, tenantPrefix);
+            return aggregate;
         }
 
         /// <summary>
@@ -35,18 +38,40 @@ namespace MongoDB.Entities
         /// <param name="language">The language for the search (optional)</param>
         /// <param name="options">Options for finding documents (not required)</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null, AggregateOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) 
         {
-            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
+            if (searchType == Search.Fuzzy)
+            {
+                searchTerm = searchTerm.ToDoubleMetaphoneHash();
+                caseSensitive = false;
+                diacriticSensitive = false;
+                language = null;
+            }
+
+            var filter = Builders<T>.Filter.Text(
+                            searchTerm,
+                            new TextSearchOptions
+                            {
+                                CaseSensitive = caseSensitive,
+                                DiacriticSensitive = diacriticSensitive,
+                                Language = language
+                            });
+
+            var aggregate = Session is not IClientSessionHandle session
+                   ? Collection(collectionName, collection).Aggregate(options).Match(filter)
+                   : Collection(collectionName, collection).Aggregate(session, options).Match(filter);
+
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
-                return DB
-                    .FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session, tenantPrefix)
-                    .Match(globalFilter);
+                aggregate = aggregate.Match(globalFilter);
             }
 
-            return DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session, tenantPrefix);
+            return aggregate;
         }
     }
 }

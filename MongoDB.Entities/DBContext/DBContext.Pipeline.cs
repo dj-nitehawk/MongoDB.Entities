@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,9 +20,14 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            return DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation, tenantPrefix);
+            template = MergeTemplateGlobalFilter(template, ignoreGlobalFilters);
+            return Session == null
+                ? Collection(collectionName, collection).AggregateAsync(template.ToPipeline(), options, cancellation)
+                : Collection(collectionName, collection).AggregateAsync(Session, template.ToPipeline(), options, cancellation);
         }
 
         /// <summary>
@@ -34,9 +40,19 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            return DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation, tenantPrefix);
+            var list = new List<TResult>();
+            using (var cursor = await PipelineCursorAsync(template, options, cancellation, ignoreGlobalFilters: ignoreGlobalFilters, collectionName: collectionName, collection: collection).ConfigureAwait(false))
+            {
+                while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
+                {
+                    list.AddRange(cursor.Current);
+                }
+            }
+            return list;
         }
 
         /// <summary>
@@ -49,9 +65,17 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation, tenantPrefix);
+
+            AggregateOptions opts = options ?? new AggregateOptions();
+            opts.BatchSize = 2;
+
+            using var cursor = await PipelineCursorAsync(template, opts, cancellation, ignoreGlobalFilters: ignoreGlobalFilters, collectionName: collectionName, collection: collection).ConfigureAwait(false);
+            await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+            return cursor.Current.SingleOrDefault();
         }
 
         /// <summary>
@@ -64,19 +88,27 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation, tenantPrefix);
+
+            var opts = options ?? new AggregateOptions();
+            opts.BatchSize = 1;
+
+            using var cursor = await PipelineCursorAsync(template, opts, cancellation, ignoreGlobalFilters: ignoreGlobalFilters, collectionName: collectionName, collection: collection).ConfigureAwait(false);
+            await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+            return cursor.Current.SingleOrDefault();
         }
 
-        private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
+        private Template<T, TResult> MergeTemplateGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters)
         {
             //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
             //         if the following logic changes, update the other method also
 
-            if (!ignoreGlobalFilters && globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+            if (!ignoreGlobalFilters && GlobalFilters.Count > 0 && GlobalFilters.TryGetValue(typeof(T), out var gFilter))
             {
-                BsonDocument filter = null;
+                BsonDocument? filter = null;
 
                 switch (gFilter.filterDef)
                 {

@@ -23,18 +23,33 @@ namespace MongoDB.Entities
         /// <param name="options">The options for the aggregation. This is not required.</param>
         /// <typeparam name="T">The type of entity</typeparam>
         /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>> DistanceField, bool Spherical = true, int? MaxDistance = null, int? MinDistance = null, int? Limit = null, BsonDocument Query = null, int? DistanceMultiplier = null, Expression<Func<T, object>> IncludeLocations = null, string IndexKey = null, AggregateOptions options = null, bool ignoreGlobalFilters = false) where T : IEntity
+        /// <param name="collectionName"></param>
+        /// <param name="collection"></param>
+        public IAggregateFluent<T> GeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>>? DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument? Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>>? IncludeLocations = null, string? IndexKey = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null)
         {
-            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+            var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
+
+            var fluent = new GeoNear<T>
+            {
+                near = NearCoordinates,
+                distanceField = DistanceField?.FullPath(),
+                spherical = Spherical,
+                maxDistance = MaxDistance,
+                minDistance = MinDistance,
+                query = Query,
+                distanceMultiplier = DistanceMultiplier,
+                limit = Limit,
+                includeLocs = IncludeLocations?.FullPath(),
+                key = IndexKey,
+            }
+            .ToFluent(this, options, collectionName: collectionName, collection: collection);
 
             if (globalFilter != Builders<T>.Filter.Empty)
             {
-                return DB
-                    .FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, tenantPrefix)
-                    .Match(globalFilter);
+                fluent = fluent.Match(globalFilter);
             }
 
-            return DB.FluentGeoNear(NearCoordinates, DistanceField, Spherical, MaxDistance, MinDistance, Limit, Query, DistanceMultiplier, IncludeLocations, IndexKey, options, Session, tenantPrefix);
+            return fluent;
         }
     }
 }

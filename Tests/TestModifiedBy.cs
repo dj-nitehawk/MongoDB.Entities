@@ -13,7 +13,7 @@ namespace MongoDB.Entities.Tests
         {
             var db = new DBContext();
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-                async () => await db.SaveAsync(new Author()));
+                async () => await db.SaveAsync<Author, string>(new Author()));
         }
 
         [TestMethod]

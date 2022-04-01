@@ -1,491 +1,360 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace MongoDB.Entities;
 
-namespace MongoDB.Entities
+public abstract class UpdateBase<T, TId, TSelf> : FilterQueryBase<T, TSelf>
+    where TId : IComparable<TId>, IEquatable<TId>
+    where T : IEntity<TId>
+    where TSelf : UpdateBase<T, TId, TSelf>
 {
-    public abstract class UpdateBase<T> where T : IEntity
+    protected readonly List<UpdateDefinition<T>> defs;
+    protected readonly Action<TSelf>? onUpdateAction;
+
+    public abstract DBContext Context { get; }
+    private EntityCache<T>? _cache;
+    internal EntityCache<T> Cache() => _cache ??= Context.Cache<T>();
+
+    internal UpdateBase(UpdateBase<T, TId, TSelf> other) : base(other)
     {
-        //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
-        //      there's no other purpose for this.
+        onUpdateAction = other.onUpdateAction;
+        defs = other.defs;
+    }
+    private TSelf This => (TSelf)this;
+    internal UpdateBase(Dictionary<Type, (object filterDef, bool prepend)> globalFilters, Action<TSelf>? onUpdateAction = null, List<UpdateDefinition<T>>? defs = null) : base(globalFilters)
+    {
+        this.onUpdateAction = onUpdateAction;
+        this.defs = defs ?? new();
+    }
 
-        protected readonly List<UpdateDefinition<T>> defs = new();
+    /// <summary>
+    /// Specify the property and it's value to modify (use multiple times if needed)
+    /// </summary>
+    /// <param name="property">x => x.Property</param>
+    /// <param name="value">The value to set on the property</param>
+    public void AddModification<TProp>(Expression<Func<T, TProp>> property, TProp value)
+    {
+        defs.Add(Builders<T>.Update.Set(property, value));
+    }
 
-        /// <summary>
-        /// Specify the property and it's value to modify (use multiple times if needed)
-        /// </summary>
-        /// <param name="property">x => x.Property</param>
-        /// <param name="value">The value to set on the property</param>
-        public void AddModification<TProp>(Expression<Func<T, TProp>> property, TProp value)
+    /// <summary>
+    /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
+    public void AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+    {
+        defs.Add(operation(Builders<T>.Update));
+    }
+
+    /// <summary>
+    /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+    public void AddModification(string update)
+    {
+        defs.Add(update);
+    }
+
+    /// <summary>
+    /// Specify an update with a Template to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="template">A Template with a single update</param>
+    public void AddModification(Template template)
+    {
+        AddModification(template.RenderToString());
+    }
+
+
+    /// <summary>
+    /// Specify the property and it's value to modify (use multiple times if needed)
+    /// </summary>
+    /// <param name="property">x => x.Property</param>
+    /// <param name="value">The value to set on the property</param>
+    public TSelf Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
+    {
+        AddModification(property, value);
+        return This;
+    }
+
+    /// <summary>
+    /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
+    /// <returns></returns>
+    public TSelf Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
+    {
+        AddModification(operation);
+        return This;
+    }
+
+    /// <summary>
+    /// Specify an update (json string) to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
+    public TSelf Modify(string update)
+    {
+        AddModification(update);
+        return This;
+    }
+
+    /// <summary>
+    /// Specify an update with a Template to modify the Entities (use multiple times if needed)
+    /// </summary>
+    /// <param name="template">A Template with a single update</param>
+    public TSelf Modify(Template template)
+    {
+        AddModification(template.RenderToString());
+        return This;
+    }
+
+    /// <summary>
+    /// Modify ALL properties with the values from the supplied entity instance.
+    /// </summary>
+    /// <param name="entity">The entity instance to read the property values from</param>
+    public TSelf ModifyWith(T entity)
+    {
+
+        if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        defs.AddRange(Logic.BuildUpdateDefs(entity, Context));
+        return This;
+    }
+
+    /// <summary>
+    /// Modify ONLY the specified properties with the values from a given entity instance.
+    /// </summary>
+    /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
+    /// <param name="entity">The entity instance to read the corresponding values from</param>
+    public TSelf ModifyOnly(Expression<Func<T, object>> members, T entity)
+    {
+        if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        defs.AddRange(Logic.BuildUpdateDefs(entity, members, Context));
+        return This;
+    }
+
+    /// <summary>
+    /// Modify all EXCEPT the specified properties with the values from a given entity instance.
+    /// </summary>
+    /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
+    /// <param name="entity">The entity instance to read the corresponding values from</param>
+    public TSelf ModifyExcept(Expression<Func<T, object>> members, T entity)
+    {
+        if (Cache().HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        defs.AddRange(Logic.BuildUpdateDefs(entity, members, Context, excludeMode: true));
+        return This;
+    }
+}
+
+/// <summary>
+/// Represents an update command
+/// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+/// </summary>
+/// <typeparam name="T">Any class that implements IEntity</typeparam>
+/// <typeparam name="TId">ID type</typeparam>
+public class Update<T, TId> : UpdateBase<T, TId, Update<T, TId>>, ICollectionRelated<T>
+    where TId : IComparable<TId>, IEquatable<TId>
+    where T : IEntity<TId>
+{
+    private readonly List<PipelineStageDefinition<T, T>> _stages = new();
+    private UpdateOptions _options = new();
+    private readonly List<UpdateManyModel<T>> _models = new();
+
+    internal Update(DBContext context, IMongoCollection<T> collection, UpdateBase<T, TId, Update<T, TId>> other) : base(other)
+    {
+        Context = context;
+        Collection = collection;
+    }
+
+    internal Update(DBContext context, IMongoCollection<T> collection, Action<Update<T, TId>>? onUpdateAction, List<UpdateDefinition<T>>? defs = null) : base(context.GlobalFilters, onUpdateAction, defs)
+    {
+        Context = context;
+        Collection = collection;
+    }
+
+    public override DBContext Context { get; }
+    public IMongoCollection<T> Collection { get; }
+
+
+    /// <summary>
+    /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
+    /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+    /// </summary>
+    /// <param name="template">A Template object containing multiple pipeline stages</param>
+    public Update<T, TId> WithPipeline(Template template)
+    {
+        foreach (var stage in template.ToStages())
         {
-            defs.Add(Builders<T>.Update.Set(property, value));
+            _stages.Add(stage);
         }
 
-        /// <summary>
-        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
-        public void AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
-        {
-            defs.Add(operation(Builders<T>.Update));
-        }
+        return this;
+    }
 
-        /// <summary>
-        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
-        public void AddModification(string update)
-        {
-            defs.Add(update);
-        }
+    /// <summary>
+    /// Specify an update pipeline stage to modify the Entities (use multiple times if needed)
+    /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+    /// </summary>
+    /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
+    public Update<T, TId> WithPipelineStage(string stage)
+    {
+        _stages.Add(stage);
+        return this;
+    }
 
-        /// <summary>
-        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="template">A Template with a single update</param>
-        public void AddModification(Template template)
-        {
-            AddModification(template.RenderToString());
-        }
+    /// <summary>
+    /// Specify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)
+    /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
+    /// </summary>
+    /// <param name="template">A Template object containing a pipeline stage</param>
+    public Update<T, TId> WithPipelineStage(Template template)
+    {
+        return WithPipelineStage(template.RenderToString());
+    }
 
-        protected void SetTenantDbOnFileEntities(string tenantPrefix)
+    /// <summary>
+    /// Specify an array filter to target nested entities for updates (use multiple times if needed).
+    /// </summary>
+    /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
+    public Update<T, TId> WithArrayFilter(string filter)
+    {
+        ArrayFilterDefinition<T> def = filter;
+
+        _options.ArrayFilters =
+            _options.ArrayFilters == null
+            ? new[] { def }
+            : _options.ArrayFilters.Concat(new[] { def });
+
+        return this;
+    }
+
+    /// <summary>
+    /// Specify a single array filter using a Template to target nested entities for updates
+    /// </summary>
+    /// <param name="template"></param>
+    public Update<T, TId> WithArrayFilter(Template template)
+    {
+        WithArrayFilter(template.RenderToString());
+        return this;
+    }
+
+    /// <summary>
+    /// Specify multiple array filters with a Template to target nested entities for updates.
+    /// </summary>
+    /// <param name="template">The template with an array [...] of filters</param>
+    public Update<T, TId> WithArrayFilters(Template template)
+    {
+        var defs = template.ToArrayFilters<T>();
+
+        _options.ArrayFilters =
+            _options.ArrayFilters == null
+            ? defs
+            : _options.ArrayFilters.Concat(defs);
+
+        return this;
+    }
+
+    /// <summary>
+    /// Specify an option for this update command (use multiple times if needed)
+    /// <para>TIP: Setting options is not required</para>
+    /// </summary>
+    /// <param name="option">x => x.OptionName = OptionValue</param>
+    public Update<T, TId> Option(Action<UpdateOptions> option)
+    {
+        option(_options);
+        return this;
+    }
+
+
+
+    /// <summary>
+    /// Queue up an update command for bulk execution later.
+    /// </summary>
+    public Update<T, TId> AddToQueue()
+    {
+        var mergedFilter = MergedFilter;
+        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+        if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
+        onUpdateAction?.Invoke(this);
+        _models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
         {
-            if (Cache<T>.IsFileEntity)
-            {
-                defs.Add(Builders<T>.Update.Set(
-                    nameof(FileEntity.TenantPrefix),
-                    Cache<T>.Collection(tenantPrefix).Database.DatabaseNamespace.DatabaseName));
-            }
+            ArrayFilters = _options.ArrayFilters,
+            Collation = _options.Collation,
+            Hint = _options.Hint,
+            IsUpsert = _options.IsUpsert
+        });
+        _filter = Builders<T>.Filter.Empty;
+        defs.Clear();
+        _options = new UpdateOptions();
+        return this;
+    }
+
+    /// <summary>
+    /// Run the update command in MongoDB.
+    /// </summary>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
+    {
+        if (_models.Count > 0)
+        {
+            var bulkWriteResult = await (
+                this.Session() is not IClientSessionHandle session
+                ? Collection.BulkWriteAsync(_models, null, cancellation)
+                : Collection.BulkWriteAsync(session, _models, null, cancellation)
+                ).ConfigureAwait(false);
+
+            _models.Clear();
+
+            if (!bulkWriteResult.IsAcknowledged)
+                return UpdateResult.Unacknowledged.Instance;
+
+            return new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
+        }
+        else
+        {
+            var mergedFilter = MergedFilter;
+            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+            if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
+            if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache().ModifiedOnPropName));
+
+            onUpdateAction?.Invoke(this);
+            return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), _options, cancellation).ConfigureAwait(false);
         }
     }
 
     /// <summary>
-    /// Represents an update command
-    /// <para>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</para>
+    /// Run the update command with pipeline stages
     /// </summary>
-    /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public class Update<T> : UpdateBase<T> where T : IEntity
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
-        private readonly List<PipelineStageDefinition<T, T>> stages = new();
-        private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-        private UpdateOptions options = new();
-        private readonly IClientSessionHandle session;
-        private readonly List<UpdateManyModel<T>> models = new();
-        private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-        private readonly Action<UpdateBase<T>> onUpdateAction;
-        private bool ignoreGlobalFilters;
-        private readonly string tenantPrefix;
+        var mergedFilter = MergedFilter;
+        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+        if (_stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+        if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+        if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache().ModifiedOnPropName}': new Date() }} }}");
 
-        internal Update(
-            IClientSessionHandle session,
-            Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-            Action<UpdateBase<T>> onUpdateAction,
-            string tenantPrefix)
-        {
-            this.session = session;
-            this.globalFilters = globalFilters;
-            this.onUpdateAction = onUpdateAction;
-            this.tenantPrefix = tenantPrefix;
-        }
-
-        /// <summary>
-        /// Specify an IEntity ID as the matching criteria
-        /// </summary>
-        /// <param name="ID">A unique IEntity ID</param>
-        public Update<T> MatchID(string ID)
-        {
-            return Match(f => f.Eq(t => t.ID, ID));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a lambda expression
-        /// </summary>
-        /// <param name="expression">x => x.Property == Value</param>
-        public Update<T> Match(Expression<Func<T, bool>> expression)
-        {
-            return Match(f => f.Where(expression));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter expression
-        /// </summary>
-        /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-        public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
-        {
-            this.filter &= filter(Builders<T>.Filter);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a filter definition
-        /// </summary>
-        /// <param name="filterDefinition">A filter definition</param>
-        public Update<T> Match(FilterDefinition<T> filterDefinition)
-        {
-            filter &= filterDefinition;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a template
-        /// </summary>
-        /// <param name="template">A Template with a find query</param>
-        public Update<T> Match(Template template)
-        {
-            filter &= template.RenderToString();
-            return this;
-        }
-
-        /// <summary>
-        /// Specify a search term to find results from the text index of this particular collection.
-        /// <para>TIP: Make sure to define a text index with DB.Index&lt;T&gt;() before searching</para>
-        /// </summary>
-        /// <param name="searchType">The type of text matching to do</param>
-        /// <param name="searchTerm">The search term</param>
-        /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
-        /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
-        /// <param name="language">The language for the search (optional)</param>
-        public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
-        {
-            if (searchType == Search.Fuzzy)
-            {
-                searchTerm = searchTerm.ToDoubleMetaphoneHash();
-                caseSensitive = false;
-                diacriticSensitive = false;
-                language = null;
-            }
-
-            return Match(
-                f => f.Text(
-                    searchTerm,
-                    new TextSearchOptions
-                    {
-                        CaseSensitive = caseSensitive,
-                        DiacriticSensitive = diacriticSensitive,
-                        Language = language
-                    }));
-        }
-
-        /// <summary>
-        /// Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)
-        /// <para>TIP: Make sure to define a Geo2DSphere index with DB.Index&lt;T&gt;() before searching</para>
-        /// <para>Note: DB.FluentGeoNear() supports more advanced options</para>
-        /// </summary>
-        /// <param name="coordinatesProperty">The property where 2DCoordinates are stored</param>
-        /// <param name="nearCoordinates">The search point</param>
-        /// <param name="maxDistance">Maximum distance in meters from the search point</param>
-        /// <param name="minDistance">Minimum distance in meters from the search point</param>
-        public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
-        {
-            return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a JSON string
-        /// </summary>
-        /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
-        public Update<T> MatchString(string jsonString)
-        {
-            filter &= jsonString;
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with an aggregation expression (i.e. $expr)
-        /// </summary>
-        /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
-        public Update<T> MatchExpression(string expression)
-        {
-            filter &= "{$expr:" + expression + "}";
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the matching criteria with a Template
-        /// </summary>
-        /// <param name="template">A Template object</param>
-        public Update<T> MatchExpression(Template template)
-        {
-            filter &= "{$expr:" + template.RenderToString() + "}";
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the property and it's value to modify (use multiple times if needed)
-        /// </summary>
-        /// <param name="property">x => x.Property</param>
-        /// <param name="value">The value to set on the property</param>
-        public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
-        {
-            AddModification(property, value);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify the update definition builder operation to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
-        /// <returns></returns>
-        public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
-        {
-            AddModification(operation);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update (json string) to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
-        public Update<T> Modify(string update)
-        {
-            AddModification(update);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update with a Template to modify the Entities (use multiple times if needed)
-        /// </summary>
-        /// <param name="template">A Template with a single update</param>
-        public Update<T> Modify(Template template)
-        {
-            AddModification(template.RenderToString());
-            return this;
-        }
-
-        /// <summary>
-        /// Modify ALL properties with the values from the supplied entity instance.
-        /// </summary>
-        /// <param name="entity">The entity instance to read the property values from</param>
-        public Update<T> ModifyWith(T entity)
-        {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity));
-            return this;
-        }
-
-        /// <summary>
-        /// Modify ONLY the specified properties with the values from a given entity instance.
-        /// </summary>
-        /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
-        /// <param name="entity">The entity instance to read the corresponding values from</param>
-        public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
-        {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity, members));
-            return this;
-        }
-
-        /// <summary>
-        /// Modify all EXCEPT the specified properties with the values from a given entity instance.
-        /// </summary>
-        /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
-        /// <param name="entity">The entity instance to read the corresponding values from</param>
-        public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
-        {
-            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-            defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update pipeline with multiple stages using a Template to modify the Entities.
-        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
-        /// </summary>
-        /// <param name="template">A Template object containing multiple pipeline stages</param>
-        public Update<T> WithPipeline(Template template)
-        {
-            foreach (var stage in template.ToStages())
-            {
-                stages.Add(stage);
-            }
-
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update pipeline stage to modify the Entities (use multiple times if needed)
-        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
-        /// </summary>
-        /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
-        public Update<T> WithPipelineStage(string stage)
-        {
-            stages.Add(stage);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)
-        /// <para>NOTE: pipeline updates and regular updates cannot be used together.</para>
-        /// </summary>
-        /// <param name="template">A Template object containing a pipeline stage</param>
-        public Update<T> WithPipelineStage(Template template)
-        {
-            return WithPipelineStage(template.RenderToString());
-        }
-
-        /// <summary>
-        /// Specify an array filter to target nested entities for updates (use multiple times if needed).
-        /// </summary>
-        /// <param name="filter">{ 'x.SubProp': { $gte: 123 } }</param>
-        public Update<T> WithArrayFilter(string filter)
-        {
-            ArrayFilterDefinition<T> def = filter;
-
-            options.ArrayFilters =
-                options.ArrayFilters == null
-                ? new[] { def }
-                : options.ArrayFilters.Concat(new[] { def });
-
-            return this;
-        }
-
-        /// <summary>
-        /// Specify a single array filter using a Template to target nested entities for updates
-        /// </summary>
-        /// <param name="template"></param>
-        public Update<T> WithArrayFilter(Template template)
-        {
-            WithArrayFilter(template.RenderToString());
-            return this;
-        }
-
-        /// <summary>
-        /// Specify multiple array filters with a Template to target nested entities for updates.
-        /// </summary>
-        /// <param name="template">The template with an array [...] of filters</param>
-        public Update<T> WithArrayFilters(Template template)
-        {
-            var defs = template.ToArrayFilters<T>();
-
-            options.ArrayFilters =
-                options.ArrayFilters == null
-                ? defs
-                : options.ArrayFilters.Concat(defs);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Specify an option for this update command (use multiple times if needed)
-        /// <para>TIP: Setting options is not required</para>
-        /// </summary>
-        /// <param name="option">x => x.OptionName = OptionValue</param>
-        public Update<T> Option(Action<UpdateOptions> option)
-        {
-            option(options);
-            return this;
-        }
-
-        /// <summary>
-        /// Specify that this operation should ignore any global filters
-        /// </summary>
-        public Update<T> IgnoreGlobalFilters()
-        {
-            ignoreGlobalFilters = true;
-            return this;
-        }
-
-        /// <summary>
-        /// Queue up an update command for bulk execution later.
-        /// </summary>
-        public Update<T> AddToQueue()
-        {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-            SetTenantDbOnFileEntities(tenantPrefix);
-            onUpdateAction?.Invoke(this);
-            models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
-            {
-                ArrayFilters = options.ArrayFilters,
-                Collation = options.Collation,
-                Hint = options.Hint,
-                IsUpsert = options.IsUpsert
-            });
-            filter = Builders<T>.Filter.Empty;
-            defs.Clear();
-            options = new UpdateOptions();
-            return this;
-        }
-
-        /// <summary>
-        /// Run the update command in MongoDB.
-        /// </summary>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
-        {
-            if (models.Count > 0)
-            {
-                var bulkWriteResult = await (
-                    session == null
-                    ? DB.Collection<T>(tenantPrefix).BulkWriteAsync(models, null, cancellation)
-                    : DB.Collection<T>(tenantPrefix).BulkWriteAsync(session, models, null, cancellation)
-                    ).ConfigureAwait(false);
-
-                models.Clear();
-
-                if (!bulkWriteResult.IsAcknowledged)
-                    return UpdateResult.Unacknowledged.Instance;
-
-                return new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
-            }
-            else
-            {
-                var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-                if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-                if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
-                if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-                if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-                SetTenantDbOnFileEntities(tenantPrefix);
-                onUpdateAction?.Invoke(this);
-                return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
-            }
-        }
-
-        /// <summary>
-        /// Run the update command with pipeline stages
-        /// </summary>
-        /// <param name="cancellation">An optional cancellation token</param>
-        public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
-        {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
-            if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-            if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
-            SetTenantDbOnFileEntities(tenantPrefix);
-
-            return UpdateAsync(
-                mergedFilter,
-                Builders<T>.Update.Pipeline(stages.ToArray()),
-                options,
-                session,
-                cancellation);
-        }
-
-        private bool ShouldSetModDate()
-        {
-            //only set mod date by library if user hasn't done anything with the ModifiedOn property
-
-            return
-                Cache<T>.HasModifiedOn &&
-                !defs.Any(d => d
-                       .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
-                       .ToString()
-                       .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
-        }
-
-        private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
-        {
-            return session == null
-                   ? DB.Collection<T>(tenantPrefix).UpdateManyAsync(filter, definition, options, cancellation)
-                   : DB.Collection<T>(tenantPrefix).UpdateManyAsync(session, filter, definition, options, cancellation);
-        }
+        return UpdateAsync(
+            mergedFilter,
+            Builders<T>.Update.Pipeline(_stages.ToArray()),
+            _options,
+            cancellation);
     }
+
+    private bool ShouldSetModDate()
+    {
+        //only set mod date by library if user hasn't done anything with the ModifiedOn property
+
+        return
+            Cache().HasModifiedOn &&
+            !defs.Any(d => d
+                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+                   .ToString()
+                   .Contains($"\"{Cache().ModifiedOnPropName}\""));
+    }
+
+    private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, CancellationToken cancellation = default)
+    {
+        return Context.Session is null
+               ? Collection.UpdateManyAsync(filter, definition, options, cancellation)
+               : Collection.UpdateManyAsync(Context.Session, filter, definition, options, cancellation);
+    }
+
 }

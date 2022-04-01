@@ -30,13 +30,14 @@ namespace MongoDB.Entities
                 ).Data;
         }
 
-        internal static void ThrowIfUnsaved(this string entityID)
+        internal static void ThrowIfUnsaved<TId>(this TId? id) where TId : IComparable<TId>, IEquatable<TId>
         {
-            if (string.IsNullOrWhiteSpace(entityID))
+            if ((id is string strId && string.IsNullOrWhiteSpace(strId)) || EqualityComparer<TId?>.Default.Equals(id, default))
                 throw new InvalidOperationException("Please save the entity before performing this operation!");
         }
 
-        internal static void ThrowIfUnsaved(this IEntity entity)
+        //TODO(@ahmednfwela): add static analysis attributes
+        internal static void ThrowIfUnsaved<TId>(this IEntity<TId> entity) where TId : IComparable<TId>, IEquatable<TId>
         {
             ThrowIfUnsaved(entity.ID);
         }
@@ -67,8 +68,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// Returns the full dotted path of a property for the given expression
         /// </summary>
-        /// <typeparam name="T">Any class that implements IEntity</typeparam>
-        public static string FullPath<T>(this Expression<Func<T, object>> expression)
+        /// <typeparam name="T">Any class</typeparam>
+        /// <typeparam name="TProp">Property type</typeparam>
+        public static string FullPath<T, TProp>(this Expression<Func<T, TProp>> expression)
         {
             return Prop.Path(expression);
         }
@@ -76,9 +78,9 @@ namespace MongoDB.Entities
         /// <summary>
         /// An IQueryable collection of sibling Entities.
         /// </summary>
-        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null, string tenantPrefix = null) where T : IEntity
+        public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null, bool ignoreGlobalFilters = false, string? collectionName = null, IMongoCollection<T>? collection = null) where T : IEntity
         {
-            return DB.Queryable<T>(options, tenantPrefix: tenantPrefix);
+            return DB.Context.Queryable(options, collectionName: collectionName, collection: collection, ignoreGlobalFilters: ignoreGlobalFilters);
         }
 
         /// <summary>
@@ -166,25 +168,9 @@ namespace MongoDB.Entities
         /// <param name="_"></param>
         /// <param name="cancellation">An optional cancellation token</param>
         /// <param name="tenantPrefix">Optional tenant prefix if using multi-tenancy</param>
-        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default, string tenantPrefix = null) where T : IEntity
+        public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
         {
-            return DB.NextSequentialNumberAsync<T>(cancellation, tenantPrefix);
-        }
-
-        internal static void SetTenantPrefixOnFileEntity<T>(this T entity, string tenantPrefix) where T : IEntity
-        {
-            if (entity is FileEntity e)
-            {
-                e.TenantPrefix = tenantPrefix;
-            }
-        }
-
-        internal static void SetTenantDbOnFileEntities<T>(this IEnumerable<T> entities, string tenantPrefix) where T : IEntity
-        {
-            foreach (var entity in entities)
-            {
-                SetTenantPrefixOnFileEntity(entity, tenantPrefix);
-            }
+            return DB.Context.NextSequentialNumberAsync<T>(cancellation);
         }
     }
 }

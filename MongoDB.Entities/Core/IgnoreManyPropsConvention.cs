@@ -1,16 +1,15 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Conventions;
+﻿using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Entities.NewMany;
 
-namespace MongoDB.Entities
+namespace MongoDB.Entities;
+
+internal class IgnoreManyPropsConvention : ConventionBase, IMemberMapConvention
 {
-    internal class IgnoreManyPropsConvention : ConventionBase, IMemberMapConvention
+    public void Apply(BsonMemberMap mMap)
     {
-        public void Apply(BsonMemberMap mMap)
+        if (typeof(IMany<,>).IsAssignableFrom(mMap.MemberType))
         {
-            if (mMap.MemberType.Name == ManyBase.PropTypeName)
-            {
-                _ = mMap.SetShouldSerializeMethod(_ => false);
-            }
+            _ = mMap.SetShouldSerializeMethod(_ => false);
         }
     }
 }

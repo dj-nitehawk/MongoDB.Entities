@@ -1,8 +1,7 @@
-﻿namespace MongoDB.Entities
+﻿namespace MongoDB.Entities;
+
+public class ModifiedBy
 {
-    public class ModifiedBy
-    {
-        [AsObjectId] public string UserID { get; set; }
-        public string UserName { get; set; }
-    }
+    [AsObjectId] public string UserID { get; set; }
+    public string UserName { get; set; }
 }
