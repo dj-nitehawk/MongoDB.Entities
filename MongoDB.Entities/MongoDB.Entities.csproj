@@ -2,10 +2,9 @@
 
     <PropertyGroup>
 
-        <Version>20.26.3</Version>
+        <Version>20.26.4</Version>
 
         <PackageReleaseNotes>
-            - hotfix for bulk updates not working with .ModifyWith(entity)
             - upgrade dependencies to latest
         </PackageReleaseNotes>
 
@@ -34,7 +33,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
     </ItemGroup>
 
     <ItemGroup>
