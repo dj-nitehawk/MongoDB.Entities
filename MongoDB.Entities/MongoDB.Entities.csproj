@@ -2,11 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>20.26.4</Version>
-
-        <PackageReleaseNotes>
-            - upgrade dependencies to latest
-        </PackageReleaseNotes>
+        <Version>20.26.5-beta1</Version>
 
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
@@ -33,12 +29,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+        <PackageReference Include="MongoDB.Driver" Version="2.17.0" />
     </ItemGroup>
 
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
+        <None Include="..\changelog.md" Pack="false"/>
     </ItemGroup>
 
 </Project>
