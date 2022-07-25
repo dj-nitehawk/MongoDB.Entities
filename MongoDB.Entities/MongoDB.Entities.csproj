@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>20.26.5-beta1</Version>
+        <Version>20.26.5</Version>
 
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
