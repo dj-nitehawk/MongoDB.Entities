@@ -1,13 +1,12 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace Benchmark
+namespace Benchmark;
+
+public static class Program
 {
-    public static class Program
+    private static void Main()
     {
-        private static void Main()
-        {
-            BenchmarkRunner.Run(typeof(Program).Assembly);
-        }
+        BenchmarkRunner.Run(typeof(Program).Assembly);
     }
 }
 

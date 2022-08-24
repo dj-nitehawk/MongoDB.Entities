@@ -1,8 +1,7 @@
-﻿namespace MongoDB.Entities.Tests.Models
+﻿namespace MongoDB.Entities.Tests.Models;
+
+public class BookMark : Entity
 {
-    public class BookMark : Entity
-    {
-        public One<BookCover> BookCover { get; set; }
-        public string BookName { get; set; }
-    }
+    public One<BookCover> BookCover { get; set; }
+    public string BookName { get; set; }
 }

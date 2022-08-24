@@ -5,215 +5,214 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Benchmark
+namespace Benchmark;
+
+[MemoryDiagnoser]
+public class FindOne : BenchBase
 {
-    [MemoryDiagnoser]
-    public class FindOne : BenchBase
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public FindOne()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
 
-        public FindOne()
+        for (int i = 1; i <= 1000; i++)
         {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
+            list.Add(new Author
             {
-                list.Add(new Author
-                {
-                    FirstName = i == 500 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
+                FirstName = i == 500 ? guid : "test",
+            });
         }
-
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Find<Author>()
-                .Match(x => x.FirstName == guid)
-                .ExecuteAsync();
-        }
-
-        [Benchmark(Baseline = true)]
-        public override async Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            await (await AuthorCollection.FindAsync(filter)).ToListAsync();
-        }
+        list.SaveAsync().GetAwaiter().GetResult();
     }
 
-    [MemoryDiagnoser]
-    public class Find100 : BenchBase
+    [Benchmark]
+    public override Task MongoDB_Entities()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
-
-        public Find100()
-        {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
-            {
-                list.Add(new Author
-                {
-                    FirstName = i > 500 && i <= 600 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
-        }
-
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Find<Author>()
-                .Match(x => x.FirstName == guid)
-                .ExecuteAsync();
-        }
-
-        [Benchmark(Baseline = true)]
-        public override async Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            await (await AuthorCollection.FindAsync(filter)).ToListAsync();
-        }
+        return DB
+            .Find<Author>()
+            .Match(x => x.FirstName == guid)
+            .ExecuteAsync();
     }
 
-    [MemoryDiagnoser]
-    public class FindFirst : BenchBase
+    [Benchmark(Baseline = true)]
+    public override async Task Official_Driver()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        await (await AuthorCollection.FindAsync(filter)).ToListAsync();
+    }
+}
 
-        public FindFirst()
+[MemoryDiagnoser]
+public class Find100 : BenchBase
+{
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public Find100()
+    {
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
+
+        for (int i = 1; i <= 1000; i++)
         {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
+            list.Add(new Author
             {
-                list.Add(new Author
-                {
-                    FirstName = i > 500 && i <= 600 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
+                FirstName = i is > 500 and <= 600 ? guid : "test",
+            });
         }
-
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Find<Author>()
-                .Match(x => x.FirstName == guid)
-                .ExecuteFirstAsync();
-        }
-
-        [Benchmark(Baseline = true)]
-        public override async Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            await (await AuthorCollection.FindAsync(filter)).FirstOrDefaultAsync();
-        }
+        list.SaveAsync().GetAwaiter().GetResult();
     }
 
-    [MemoryDiagnoser]
-    public class FindAny : BenchBase
+    [Benchmark]
+    public override Task MongoDB_Entities()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
-
-        public FindAny()
-        {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
-            {
-                list.Add(new Author
-                {
-                    FirstName = i > 500 && i <= 600 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
-        }
-
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Find<Author>()
-                .Match(x => x.FirstName == guid)
-                .ExecuteAnyAsync();
-        }
-
-        [Benchmark(Baseline = true)]
-        public override async Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            await (await AuthorCollection.FindAsync(filter)).AnyAsync();
-        }
+        return DB
+            .Find<Author>()
+            .Match(x => x.FirstName == guid)
+            .ExecuteAsync();
     }
 
-    [MemoryDiagnoser]
-    public class FindSingle : BenchBase
+    [Benchmark(Baseline = true)]
+    public override async Task Official_Driver()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        await (await AuthorCollection.FindAsync(filter)).ToListAsync();
+    }
+}
 
-        public FindSingle()
+[MemoryDiagnoser]
+public class FindFirst : BenchBase
+{
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public FindFirst()
+    {
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
+
+        for (int i = 1; i <= 1000; i++)
         {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
+            list.Add(new Author
             {
-                list.Add(new Author
-                {
-                    FirstName = i == 500 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
+                FirstName = i is > 500 and <= 600 ? guid : "test",
+            });
         }
+        list.SaveAsync().GetAwaiter().GetResult();
+    }
 
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Find<Author>()
-                .Match(x => x.FirstName == guid)
-                .ExecuteSingleAsync();
-        }
+    [Benchmark]
+    public override Task MongoDB_Entities()
+    {
+        return DB
+            .Find<Author>()
+            .Match(x => x.FirstName == guid)
+            .ExecuteFirstAsync();
+    }
 
-        [Benchmark(Baseline = true)]
-        public override async Task Official_Driver()
+    [Benchmark(Baseline = true)]
+    public override async Task Official_Driver()
+    {
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        await (await AuthorCollection.FindAsync(filter)).FirstOrDefaultAsync();
+    }
+}
+
+[MemoryDiagnoser]
+public class FindAny : BenchBase
+{
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public FindAny()
+    {
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
+
+        for (int i = 1; i <= 1000; i++)
         {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            await (await AuthorCollection.FindAsync(filter)).SingleOrDefaultAsync();
+            list.Add(new Author
+            {
+                FirstName = i is > 500 and <= 600 ? guid : "test",
+            });
         }
+        list.SaveAsync().GetAwaiter().GetResult();
+    }
+
+    [Benchmark]
+    public override Task MongoDB_Entities()
+    {
+        return DB
+            .Find<Author>()
+            .Match(x => x.FirstName == guid)
+            .ExecuteAnyAsync();
+    }
+
+    [Benchmark(Baseline = true)]
+    public override async Task Official_Driver()
+    {
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        await (await AuthorCollection.FindAsync(filter)).AnyAsync();
+    }
+}
+
+[MemoryDiagnoser]
+public class FindSingle : BenchBase
+{
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public FindSingle()
+    {
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
+
+        for (int i = 1; i <= 1000; i++)
+        {
+            list.Add(new Author
+            {
+                FirstName = i == 500 ? guid : "test",
+            });
+        }
+        list.SaveAsync().GetAwaiter().GetResult();
+    }
+
+    [Benchmark]
+    public override Task MongoDB_Entities()
+    {
+        return DB
+            .Find<Author>()
+            .Match(x => x.FirstName == guid)
+            .ExecuteSingleAsync();
+    }
+
+    [Benchmark(Baseline = true)]
+    public override async Task Official_Driver()
+    {
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        await (await AuthorCollection.FindAsync(filter)).SingleOrDefaultAsync();
     }
 }

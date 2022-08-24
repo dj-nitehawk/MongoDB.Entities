@@ -3,88 +3,87 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+[TestClass]
+public class Counting
 {
-    [TestClass]
-    public class Counting
+    private DBContext db;
+
+    private Task Init(string guid)
     {
-        private DBContext db;
+        db = new MyDB();
 
-        private Task Init(string guid)
+        var list = new List<Author>();
+
+        for (int i = 1; i <= 25; i++)
         {
-            db = new MyDB();
-
-            var list = new List<Author>();
-
-            for (int i = 1; i <= 25; i++)
-            {
-                list.Add(new Author { Name = guid, Age = 111 });
-            }
-
-            for (int i = 1; i <= 10; i++)
-            {
-                list.Add(new Author { Name = guid, Age = 222 });
-            }
-
-            return list.SaveAsync();
+            list.Add(new Author { Name = guid, Age = 111 });
         }
 
-        [TestMethod]
-        public async Task count_estimated_works()
+        for (int i = 1; i <= 10; i++)
         {
-            var guid = Guid.NewGuid().ToString();
-            await Init(guid);
-
-            var count = await db.CountEstimatedAsync<Author>();
-
-            Assert.IsTrue(count > 0);
+            list.Add(new Author { Name = guid, Age = 222 });
         }
 
-        [TestMethod]
-        public async Task count_with_lambda()
-        {
-            var guid = Guid.NewGuid().ToString();
-            await Init(guid);
+        return list.SaveAsync();
+    }
 
-            var count = await db.CountAsync<Author>(a => a.Name == guid);
+    [TestMethod]
+    public async Task count_estimated_works()
+    {
+        var guid = Guid.NewGuid().ToString();
+        await Init(guid);
 
-            Assert.AreEqual(25, count);
-        }
+        var count = await db.CountEstimatedAsync<Author>();
 
-        [TestMethod]
-        public async Task count_with_lambda_use_json_string_filter()
-        {
-            var guid = Guid.NewGuid().ToString();
-            await Init(guid);
+        Assert.IsTrue(count > 0);
+    }
 
-            var count = await db.CountAsync<Author>(a => a.Name == guid);
+    [TestMethod]
+    public async Task count_with_lambda()
+    {
+        var guid = Guid.NewGuid().ToString();
+        await Init(guid);
 
-            Assert.AreEqual(25, count);
-        }
+        var count = await db.CountAsync<Author>(a => a.Name == guid);
 
-        [TestMethod]
-        public async Task count_with_filter_definition()
-        {
-            var guid = Guid.NewGuid().ToString();
-            await Init(guid);
+        Assert.AreEqual(25, count);
+    }
 
-            var filter = DB.Filter<Author>()
-                            .Eq(a => a.Name, guid);
+    [TestMethod]
+    public async Task count_with_lambda_use_json_string_filter()
+    {
+        var guid = Guid.NewGuid().ToString();
+        await Init(guid);
 
-            var count = await db.CountAsync(filter);
+        var count = await db.CountAsync<Author>(a => a.Name == guid);
 
-            Assert.AreEqual(25, count);
-        }
+        Assert.AreEqual(25, count);
+    }
 
-        [TestMethod]
-        public async Task count_with_filter_builder()
-        {
-            var guid = Guid.NewGuid().ToString();
-            await Init(guid);
+    [TestMethod]
+    public async Task count_with_filter_definition()
+    {
+        var guid = Guid.NewGuid().ToString();
+        await Init(guid);
 
-            var count = await db.CountAsync<Author>(b => b.Eq(a => a.Name, guid));
+        var filter = DB.Filter<Author>()
+                        .Eq(a => a.Name, guid);
 
-            Assert.AreEqual(25, count);
-        }
+        var count = await db.CountAsync(filter);
+
+        Assert.AreEqual(25, count);
+    }
+
+    [TestMethod]
+    public async Task count_with_filter_builder()
+    {
+        var guid = Guid.NewGuid().ToString();
+        await Init(guid);
+
+        var count = await db.CountAsync<Author>(b => b.Eq(a => a.Name, guid));
+
+        Assert.AreEqual(25, count);
     }
 }

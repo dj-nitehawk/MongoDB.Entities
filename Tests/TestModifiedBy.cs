@@ -3,172 +3,171 @@ using MongoDB.Bson;
 using System;
 using System.Threading.Tasks;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+[TestClass]
+public class ModifiedBy
 {
-    [TestClass]
-    public class ModifiedBy
+    [TestMethod]
+    public async Task throw_if_mod_by_not_supplied()
     {
-        [TestMethod]
-        public async Task throw_if_mod_by_not_supplied()
-        {
-            var db = new DBContext();
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-                async () => await db.SaveAsync(new Author()));
-        }
+        var db = new DBContext();
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(
+            async () => await db.SaveAsync(new Author()));
+    }
 
-        [TestMethod]
-        public async Task base_mod_by_save()
-        {
-            string userID = ObjectId.GenerateNewId().ToString();
+    [TestMethod]
+    public async Task base_mod_by_save()
+    {
+        string userID = ObjectId.GenerateNewId().ToString();
 
-            var db = new DBContext(
-                modifiedBy: new Entities.ModifiedBy
-                {
-                    UserID = userID,
-                    UserName = "TestUser"
-                });
-
-            var author = new Author();
-            await db.SaveAsync(author);
-
-            var res = await db.Find<Author>().OneAsync(author.ID);
-
-            Assert.AreEqual(res.UpdatedBy.UserID, userID);
-            Assert.AreEqual(res.UpdatedBy.UserName, "TestUser");
-        }
-
-        [TestMethod]
-        public async Task derived_mod_by_save()
-        {
-            string userID = ObjectId.GenerateNewId().ToString();
-
-            var db = new DBContext(
-                modifiedBy: new UpdatedBy
-                {
-                    UserID = userID,
-                    UserName = "TestUser",
-                    UserType = "TEST"
-                });
-
-            var author = new Book();
-            await db.SaveAsync(author);
-
-            var res = await db.Find<Book>().OneAsync(author.ID);
-
-            Assert.AreEqual(res.ModifiedBy.UserID, userID);
-            Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
-            Assert.AreEqual(res.ModifiedBy.UserType, "TEST");
-        }
-
-        [TestMethod]
-        public async Task mod_by_replace()
-        {
-            string userID = ObjectId.GenerateNewId().ToString();
-            var db = new DBContext(
-                modifiedBy: new UpdatedBy
-                {
-                    UserID = userID,
-                    UserName = "TestUser",
-                    UserType = "TEST"
-                });
-            var book = new Book();
-            await db.SaveAsync(book);
-
-            userID = ObjectId.GenerateNewId().ToString();
-            db.ModifiedBy = new UpdatedBy
+        var db = new DBContext(
+            modifiedBy: new Entities.ModifiedBy
             {
                 UserID = userID,
-                UserName = "TestUserUPDATED",
-                UserType = "TEST-UPDATED"
-            };
+                UserName = "TestUser"
+            });
 
-            book.Title = "TEST().BOOK";
+        var author = new Author();
+        await db.SaveAsync(author);
 
-            await db
-                .Replace<Book>()
-                .MatchID(book.ID)
-                .WithEntity(book)
-                .ExecuteAsync();
+        var res = await db.Find<Author>().OneAsync(author.ID);
 
-            var res = await db.Find<Book>().OneAsync(book.ID);
+        Assert.AreEqual(res.UpdatedBy.UserID, userID);
+        Assert.AreEqual(res.UpdatedBy.UserName, "TestUser");
+    }
 
-            Assert.AreEqual(res.ModifiedBy.UserID, userID);
-            Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-            Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-            Assert.AreEqual(res.Title, "TEST().BOOK");
-        }
+    [TestMethod]
+    public async Task derived_mod_by_save()
+    {
+        string userID = ObjectId.GenerateNewId().ToString();
 
-        [TestMethod]
-        public async Task mod_by_update()
-        {
-            string userID = ObjectId.GenerateNewId().ToString();
-            var db = new DBContext(
-                modifiedBy: new UpdatedBy
-                {
-                    UserID = userID,
-                    UserName = "TestUser",
-                    UserType = "TEST"
-                });
-            var book = new Book();
-            await db.SaveAsync(book);
-
-            userID = ObjectId.GenerateNewId().ToString();
-            db.ModifiedBy = new UpdatedBy
+        var db = new DBContext(
+            modifiedBy: new UpdatedBy
             {
                 UserID = userID,
-                UserName = "TestUserUPDATED",
-                UserType = "TEST-UPDATED"
-            };
-            await db
-                .Update<Book>()
-                .MatchID(book.ID)
-                .Modify(b => b.Title, "TEST().BOOK")
-                .ExecuteAsync();
+                UserName = "TestUser",
+                UserType = "TEST"
+            });
 
-            var res = await db.Find<Book>().OneAsync(book.ID);
+        var author = new Book();
+        await db.SaveAsync(author);
 
-            Assert.AreEqual(res.ModifiedBy.UserID, userID);
-            Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-            Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-            Assert.AreEqual(res.Title, "TEST().BOOK");
-        }
+        var res = await db.Find<Book>().OneAsync(author.ID);
 
-        [TestMethod]
-        public async Task mod_by_update_using_modifyonly()
-        {
-            string userID = ObjectId.GenerateNewId().ToString();
-            var db = new DBContext(
-                modifiedBy: new UpdatedBy
-                {
-                    UserID = userID,
-                    UserName = "TestUser",
-                    UserType = "TEST"
-                });
-            var book = new Book();
-            await db.SaveAsync(book);
+        Assert.AreEqual(res.ModifiedBy.UserID, userID);
+        Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
+        Assert.AreEqual(res.ModifiedBy.UserType, "TEST");
+    }
 
-            userID = ObjectId.GenerateNewId().ToString();
-            db.ModifiedBy = new UpdatedBy
+    [TestMethod]
+    public async Task mod_by_replace()
+    {
+        string userID = ObjectId.GenerateNewId().ToString();
+        var db = new DBContext(
+            modifiedBy: new UpdatedBy
             {
                 UserID = userID,
-                UserName = "TestUserUPDATED",
-                UserType = "TEST-UPDATED"
-            };
+                UserName = "TestUser",
+                UserType = "TEST"
+            });
+        var book = new Book();
+        await db.SaveAsync(book);
 
-            book.Title = "TEST().BOOK";
+        userID = ObjectId.GenerateNewId().ToString();
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUserUPDATED",
+            UserType = "TEST-UPDATED"
+        };
 
-            await db
-                .Update<Book>()
-                .MatchID(book.ID)
-                .ModifyOnly(x => new { x.Title }, book)
-                .ExecuteAsync();
+        book.Title = "TEST().BOOK";
 
-            var res = await db.Find<Book>().OneAsync(book.ID);
+        await db
+            .Replace<Book>()
+            .MatchID(book.ID)
+            .WithEntity(book)
+            .ExecuteAsync();
 
-            Assert.AreEqual(res.ModifiedBy.UserID, userID);
-            Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
-            Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
-            Assert.AreEqual(res.Title, "TEST().BOOK");
-        }
+        var res = await db.Find<Book>().OneAsync(book.ID);
+
+        Assert.AreEqual(res.ModifiedBy.UserID, userID);
+        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
+        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
+        Assert.AreEqual(res.Title, "TEST().BOOK");
+    }
+
+    [TestMethod]
+    public async Task mod_by_update()
+    {
+        string userID = ObjectId.GenerateNewId().ToString();
+        var db = new DBContext(
+            modifiedBy: new UpdatedBy
+            {
+                UserID = userID,
+                UserName = "TestUser",
+                UserType = "TEST"
+            });
+        var book = new Book();
+        await db.SaveAsync(book);
+
+        userID = ObjectId.GenerateNewId().ToString();
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUserUPDATED",
+            UserType = "TEST-UPDATED"
+        };
+        await db
+            .Update<Book>()
+            .MatchID(book.ID)
+            .Modify(b => b.Title, "TEST().BOOK")
+            .ExecuteAsync();
+
+        var res = await db.Find<Book>().OneAsync(book.ID);
+
+        Assert.AreEqual(res.ModifiedBy.UserID, userID);
+        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
+        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
+        Assert.AreEqual(res.Title, "TEST().BOOK");
+    }
+
+    [TestMethod]
+    public async Task mod_by_update_using_modifyonly()
+    {
+        string userID = ObjectId.GenerateNewId().ToString();
+        var db = new DBContext(
+            modifiedBy: new UpdatedBy
+            {
+                UserID = userID,
+                UserName = "TestUser",
+                UserType = "TEST"
+            });
+        var book = new Book();
+        await db.SaveAsync(book);
+
+        userID = ObjectId.GenerateNewId().ToString();
+        db.ModifiedBy = new UpdatedBy
+        {
+            UserID = userID,
+            UserName = "TestUserUPDATED",
+            UserType = "TEST-UPDATED"
+        };
+
+        book.Title = "TEST().BOOK";
+
+        await db
+            .Update<Book>()
+            .MatchID(book.ID)
+            .ModifyOnly(x => new { x.Title }, book)
+            .ExecuteAsync();
+
+        var res = await db.Find<Book>().OneAsync(book.ID);
+
+        Assert.AreEqual(res.ModifiedBy.UserID, userID);
+        Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
+        Assert.AreEqual(res.ModifiedBy.UserType, "TEST-UPDATED");
+        Assert.AreEqual(res.Title, "TEST().BOOK");
     }
 }

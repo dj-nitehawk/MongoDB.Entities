@@ -4,15 +4,15 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+[TestClass]
+public class Templates
 {
-    [TestClass]
-    public class Templates
+    [TestMethod]
+    public void missing_tags_throws()
     {
-        [TestMethod]
-        public void missing_tags_throws()
-        {
-            var template = new Template(@"[
+        var template = new Template(@"[
             {
               $lookup: {
                 from: 'users',
@@ -30,16 +30,16 @@ namespace MongoDB.Entities.Tests
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
             }]").Tag("size", "$size")
-                .Tag("user", "$user")
-                .Tag("missing", "blah");
+            .Tag("user", "$user")
+            .Tag("missing", "blah");
 
-            Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
-        }
+        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+    }
 
-        [TestMethod]
-        public void extra_tags_throws()
-        {
-            var template = new Template(@"[
+    [TestMethod]
+    public void extra_tags_throws()
+    {
+        var template = new Template(@"[
             {
               $lookup: {
                 from: 'users',
@@ -57,81 +57,81 @@ namespace MongoDB.Entities.Tests
                 $expr: { $gt: [ { <size>: '<user>' }, 0 ] }
               }
             }]").Tag("size", "$size")
-                .Tag("user", "$user");
+            .Tag("user", "$user");
 
-            Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
-        }
+        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+    }
 
-        [TestMethod]
-        public void tag_replacement_works()
-        {
-            var template = new Template(@"
+    [TestMethod]
+    public void tag_replacement_works()
+    {
+        var template = new Template(@"
             {
                $match: { '<OtherAuthors.Name>': /<search_term>/is }
             }")
 
-            .Path<Book>(b => b.OtherAuthors[0].Name)
-            .Tag("search_term", "Eckhart Tolle");
+        .Path<Book>(b => b.OtherAuthors[0].Name)
+        .Tag("search_term", "Eckhart Tolle");
 
-            const string expectation = @"
+        const string expectation = @"
             {
                $match: { 'OtherAuthors.Name': /Eckhart Tolle/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.RenderToString());
-        }
+        Assert.AreEqual(expectation.Trim(), template.RenderToString());
+    }
 
-        [TestMethod]
-        public void tag_replacement_works_for_collection()
-        {
-            var template = new Template<Author>(@"
+    [TestMethod]
+    public void tag_replacement_works_for_collection()
+    {
+        var template = new Template<Author>(@"
             {
                $match: { '<Book>': /search_term/is }
             }")
-            .Collection<Book>();
+        .Collection<Book>();
 
-            const string expectation = @"
+        const string expectation = @"
             {
                $match: { 'Book': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.RenderToString());
-        }
+        Assert.AreEqual(expectation.Trim(), template.RenderToString());
+    }
 
-        [TestMethod]
-        public void tag_replacement_works_for_property()
-        {
-            var template = new Template<Book, Author>(@"
+    [TestMethod]
+    public void tag_replacement_works_for_property()
+    {
+        var template = new Template<Book, Author>(@"
             {
                $match: { '<Name>': /search_term/is }
             }")
-            .Property(b => b.OtherAuthors[0].Name);
+        .Property(b => b.OtherAuthors[0].Name);
 
-            const string expectation = @"
+        const string expectation = @"
             {
                $match: { 'Name': /search_term/is }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.RenderToString());
-        }
+        Assert.AreEqual(expectation.Trim(), template.RenderToString());
+    }
 
-        [TestMethod]
-        public void tag_replacement_works_for_properties()
-        {
-            var template = new Template<Book, Author>(@"
+    [TestMethod]
+    public void tag_replacement_works_for_properties()
+    {
+        var template = new Template<Book, Author>(@"
             {
                $match: { 
                     '<Name>': /search_term/is ,
                     '<Age>': /search_term/is 
                 }
             }")
-            .Properties(b => new
-            {
-                b.OtherAuthors[0].Name,
-                b.OtherAuthors[0].Age
-            });
+        .Properties(b => new
+        {
+            b.OtherAuthors[0].Name,
+            b.OtherAuthors[0].Age
+        });
 
-            const string expectation = @"
+        const string expectation = @"
             {
                $match: { 
                     'Name': /search_term/is ,
@@ -139,13 +139,13 @@ namespace MongoDB.Entities.Tests
                 }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.RenderToString());
-        }
+        Assert.AreEqual(expectation.Trim(), template.RenderToString());
+    }
 
-        [TestMethod]
-        public void tag_replacement_with_new_expression()
-        {
-            var template = new Template(@"
+    [TestMethod]
+    public void tag_replacement_with_new_expression()
+    {
+        var template = new Template(@"
             {
                $match: { 
                     '<OtherAuthors.Name>': /search_term/is,
@@ -153,14 +153,14 @@ namespace MongoDB.Entities.Tests
                     '<ReviewList.Books.Review>: null'
                 }
             }")
-            .Paths<Book>(b => new
-            {
-                b.OtherAuthors[0].Name,
-                b.OtherAuthors[1].Age2,
-                b.ReviewList[1].Books[1].Review
-            });
+        .Paths<Book>(b => new
+        {
+            b.OtherAuthors[0].Name,
+            b.OtherAuthors[1].Age2,
+            b.ReviewList[1].Books[1].Review
+        });
 
-            const string expectation = @"
+        const string expectation = @"
             {
                $match: { 
                     'OtherAuthors.Name': /search_term/is,
@@ -169,18 +169,18 @@ namespace MongoDB.Entities.Tests
                 }
             }";
 
-            Assert.AreEqual(expectation.Trim(), template.RenderToString());
-        }
+        Assert.AreEqual(expectation.Trim(), template.RenderToString());
+    }
 
-        [TestMethod]
-        public async Task tag_replacement_with_db_pipeline()
-        {
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 54 };
-            var author2 = new Author { Name = guid, Age = 53 };
-            await DB.SaveAsync(new[] { author1, author2 });
+    [TestMethod]
+    public async Task tag_replacement_with_db_pipeline()
+    {
+        var guid = Guid.NewGuid().ToString();
+        var author1 = new Author { Name = guid, Age = 54 };
+        var author2 = new Author { Name = guid, Age = 53 };
+        await DB.SaveAsync(new[] { author1, author2 });
 
-            var pipeline = new Template<Author>(@"
+        var pipeline = new Template<Author>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -189,34 +189,34 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-              .Path(a => a.Name)
-              .Tag("author_name", guid)
-              .Path(a => a.Age);
+          .Path(a => a.Name)
+          .Tag("author_name", guid)
+          .Path(a => a.Age);
 
-            var results = await DB.PipelineAsync(pipeline);
+        var results = await DB.PipelineAsync(pipeline);
 
-            Assert.AreEqual(2, results.Count);
-            Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 54);
+        Assert.AreEqual(2, results.Count);
+        Assert.IsTrue(results[0].Name == guid);
+        Assert.IsTrue(results.Last().Age == 54);
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.PipelineSingleAsync(pipeline));
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => DB.PipelineSingleAsync(pipeline));
 
-            var first = await DB.PipelineFirstAsync(pipeline);
+        var first = await DB.PipelineFirstAsync(pipeline);
 
-            Assert.IsNotNull(first);
-        }
+        Assert.IsNotNull(first);
+    }
 
-        [TestMethod]
-        public async Task tag_replacement_with_global_filter_prepend()
-        {
-            var db = new MyDB(prepend: true);
+    [TestMethod]
+    public async Task tag_replacement_with_global_filter_prepend()
+    {
+        var db = new MyDB(prepend: true);
 
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 111 };
-            var author2 = new Author { Name = guid, Age = 53 };
-            await DB.SaveAsync(new[] { author1, author2 });
+        var guid = Guid.NewGuid().ToString();
+        var author1 = new Author { Name = guid, Age = 111 };
+        var author2 = new Author { Name = guid, Age = 53 };
+        await DB.SaveAsync(new[] { author1, author2 });
 
-            var pipeline = new Template<Author>(@"
+        var pipeline = new Template<Author>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -225,28 +225,28 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Path(a => a.Name)
-                .Tag("author_name", guid)
-                .Path(a => a.Age);
+            .Path(a => a.Name)
+            .Tag("author_name", guid)
+            .Path(a => a.Age);
 
-            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+        var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-            Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 111);
-        }
+        Assert.AreEqual(1, results.Count);
+        Assert.IsTrue(results[0].Name == guid);
+        Assert.IsTrue(results.Last().Age == 111);
+    }
 
-        [TestMethod]
-        public async Task tag_replacement_with_global_filter_append()
-        {
-            var db = new MyDB(prepend: false);
+    [TestMethod]
+    public async Task tag_replacement_with_global_filter_append()
+    {
+        var db = new MyDB(prepend: false);
 
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 111 };
-            var author2 = new Author { Name = guid, Age = 53 };
-            await DB.SaveAsync(new[] { author1, author2 });
+        var guid = Guid.NewGuid().ToString();
+        var author1 = new Author { Name = guid, Age = 111 };
+        var author2 = new Author { Name = guid, Age = 53 };
+        await DB.SaveAsync(new[] { author1, author2 });
 
-            var pipeline = new Template<Author>(@"
+        var pipeline = new Template<Author>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -255,28 +255,28 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Path(a => a.Name)
-                .Tag("author_name", guid)
-                .Path(a => a.Age);
+            .Path(a => a.Name)
+            .Tag("author_name", guid)
+            .Path(a => a.Age);
 
-            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+        var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-            Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 111);
-        }
+        Assert.AreEqual(1, results.Count);
+        Assert.IsTrue(results[0].Name == guid);
+        Assert.IsTrue(results.Last().Age == 111);
+    }
 
-        [TestMethod]
-        public async Task tag_replacement_with_global_filter_append_string_filter()
-        {
-            var db = new MyDBTemplates(prepend: false);
+    [TestMethod]
+    public async Task tag_replacement_with_global_filter_append_string_filter()
+    {
+        var db = new MyDBTemplates(prepend: false);
 
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 111 };
-            var author2 = new Author { Name = guid, Age = 53 };
-            await DB.SaveAsync(new[] { author1, author2 });
+        var guid = Guid.NewGuid().ToString();
+        var author1 = new Author { Name = guid, Age = 111 };
+        var author2 = new Author { Name = guid, Age = 53 };
+        await DB.SaveAsync(new[] { author1, author2 });
 
-            var pipeline = new Template<Author>(@"
+        var pipeline = new Template<Author>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -285,28 +285,28 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Path(a => a.Name)
-                .Tag("author_name", guid)
-                .Path(a => a.Age);
+            .Path(a => a.Name)
+            .Tag("author_name", guid)
+            .Path(a => a.Age);
 
-            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+        var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-            Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 111);
-        }
+        Assert.AreEqual(1, results.Count);
+        Assert.IsTrue(results[0].Name == guid);
+        Assert.IsTrue(results.Last().Age == 111);
+    }
 
-        [TestMethod]
-        public async Task tag_replacement_with_global_filter_prepend_string_filter()
-        {
-            var db = new MyDBTemplates(prepend: true);
+    [TestMethod]
+    public async Task tag_replacement_with_global_filter_prepend_string_filter()
+    {
+        var db = new MyDBTemplates(prepend: true);
 
-            var guid = Guid.NewGuid().ToString();
-            var author1 = new Author { Name = guid, Age = 111 };
-            var author2 = new Author { Name = guid, Age = 53 };
-            await DB.SaveAsync(new[] { author1, author2 });
+        var guid = Guid.NewGuid().ToString();
+        var author1 = new Author { Name = guid, Age = 111 };
+        var author2 = new Author { Name = guid, Age = 53 };
+        await DB.SaveAsync(new[] { author1, author2 });
 
-            var pipeline = new Template<Author>(@"
+        var pipeline = new Template<Author>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -315,29 +315,29 @@ namespace MongoDB.Entities.Tests
                   $sort: { <Age>: 1 }
                 }
             ]")
-                .Path(a => a.Name)
-                .Tag("author_name", guid)
-                .Path(a => a.Age);
+            .Path(a => a.Name)
+            .Tag("author_name", guid)
+            .Path(a => a.Age);
 
-            var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
+        var results = await (await db.PipelineCursorAsync(pipeline)).ToListAsync();
 
-            Assert.AreEqual(1, results.Count);
-            Assert.IsTrue(results[0].Name == guid);
-            Assert.IsTrue(results.Last().Age == 111);
-        }
+        Assert.AreEqual(1, results.Count);
+        Assert.IsTrue(results[0].Name == guid);
+        Assert.IsTrue(results.Last().Age == 111);
+    }
 
-        [TestMethod]
-        public async Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
-        {
-            var guid = Guid.NewGuid().ToString();
+    [TestMethod]
+    public async Task aggregation_pipeline_with_differnt_input_and_output_typesAsync()
+    {
+        var guid = Guid.NewGuid().ToString();
 
-            var author = new Author { Name = guid };
-            await author.SaveAsync();
+        var author = new Author { Name = guid };
+        await author.SaveAsync();
 
-            var book = new Book { Title = guid, MainAuthor = author };
-            await book.SaveAsync();
+        var book = new Book { Title = guid, MainAuthor = author };
+        await book.SaveAsync();
 
-            var pipeline = new Template<Book, Author>(@"
+        var pipeline = new Template<Book, Author>(@"
                 [
                     {
                         $match: { _id: <book_id> }
@@ -358,57 +358,56 @@ namespace MongoDB.Entities.Tests
                         $set: { <Surname> : '$<Name>' }
                     }
                 ]"
-            ).Tag("book_id", $"ObjectId('{book.ID}')")
-             .Tag("author_collection", DB.Entity<Author>().CollectionName())
-             .Path(b => b.MainAuthor.ID)
-             .PathOfResult(a => a.Surname)
-             .PathOfResult(a => a.Name);
+        ).Tag("book_id", $"ObjectId('{book.ID}')")
+         .Tag("author_collection", DB.Entity<Author>().CollectionName())
+         .Path(b => b.MainAuthor.ID)
+         .PathOfResult(a => a.Surname)
+         .PathOfResult(a => a.Name);
 
-            var result = (await (await DB.PipelineCursorAsync(pipeline))
-                           .ToListAsync())
-                           .Single();
+        var result = (await (await DB.PipelineCursorAsync(pipeline))
+                       .ToListAsync())
+                       .Single();
 
-            Assert.AreEqual(guid, result.Surname);
-            Assert.AreEqual(guid, result.Name);
-        }
+        Assert.AreEqual(guid, result.Surname);
+        Assert.AreEqual(guid, result.Name);
+    }
 
-        [TestMethod]
-        public void throws_when_template_not_a_stage_array()
-        {
-            var pipeline = new Template<Book>("{$match:{<Title>:'test'}}");
+    [TestMethod]
+    public void throws_when_template_not_a_stage_array()
+    {
+        var pipeline = new Template<Book>("{$match:{<Title>:'test'}}");
 
-            Assert.ThrowsException<InvalidOperationException>(() => pipeline.AppendStage(""));
-        }
+        Assert.ThrowsException<InvalidOperationException>(() => pipeline.AppendStage(""));
+    }
 
-        [TestMethod]
-        public void throws_when_added_stage_not_json_object()
-        {
-            var pipeline = new Template<Book>("[]");
+    [TestMethod]
+    public void throws_when_added_stage_not_json_object()
+    {
+        var pipeline = new Template<Book>("[]");
 
-            Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
-        }
+        Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
+    }
 
-        [TestMethod]
-        public void appending_pipeline_stages()
-        {
-            var pipeline = new Template<Book>("[{$match:{<Title>:'test'}}]");
-            pipeline.AppendStage("{$match:{<Title>:'test'}}");
-            pipeline.Property(b => b.Title);
-            var res = pipeline.RenderToString();
+    [TestMethod]
+    public void appending_pipeline_stages()
+    {
+        var pipeline = new Template<Book>("[{$match:{<Title>:'test'}}]");
+        pipeline.AppendStage("{$match:{<Title>:'test'}}");
+        pipeline.Property(b => b.Title);
+        var res = pipeline.RenderToString();
 
-            Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
-        }
+        Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
+    }
 
-        [TestMethod]
-        public void appending_pipeline_stages_with_empty_pipeline()
-        {
-            var pipeline = new Template<Book>("[]");
-            pipeline.AppendStage("{$match:{<Title>:'test'}}");
-            pipeline.AppendStage("{$match:{<Title>:'test'}}");
-            pipeline.Property(b => b.Title);
-            var res = pipeline.RenderToString();
+    [TestMethod]
+    public void appending_pipeline_stages_with_empty_pipeline()
+    {
+        var pipeline = new Template<Book>("[]");
+        pipeline.AppendStage("{$match:{<Title>:'test'}}");
+        pipeline.AppendStage("{$match:{<Title>:'test'}}");
+        pipeline.Property(b => b.Title);
+        var res = pipeline.RenderToString();
 
-            Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
-        }
+        Assert.AreEqual("[{$match:{Title:'test'}},{$match:{Title:'test'}}]", res);
     }
 }

@@ -5,146 +5,145 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+[TestClass]
+public class Watcher
 {
-    [TestClass]
-    public class Watcher
+    [TestMethod]
+    public async Task watching_works()
     {
-        [TestMethod]
-        public async Task watching_works()
+        var watcher = DB.Watcher<Flower>("test");
+        var allFlowers = new List<Flower>();
+
+        watcher.Start(
+            EventType.Created | EventType.Updated,
+            f => f.FullDocument.Name == "test");
+
+        await Task.Delay(500);
+
+        watcher.OnChanges +=
+            flowers => allFlowers.AddRange(flowers);
+
+        await new[] {
+            new Flower { Name = "test" },
+            new Flower { Name = "test" },
+            new Flower { Name = "test" }
+        }.SaveAsync();
+
+        var flower = new Flower { Name = "test" };
+        await flower.SaveAsync();
+
+        await flower.DeleteAsync();
+
+        await Task.Delay(500);
+
+        Assert.AreEqual(4, allFlowers.Count);
+    }
+
+    [TestMethod]
+    public async Task watching_with_projection_works()
+    {
+        var watcher = DB.Watcher<Flower>("test-with-projection");
+        var allFlowers = new List<Flower>();
+
+        watcher.Start(
+            EventType.Created | EventType.Updated,
+            f => new Flower { Color = f.Color },
+            f => f.FullDocument.Color == "red");
+
+        await Task.Delay(500);
+
+        watcher.OnChangesAsync += async flowers =>
         {
-            var watcher = DB.Watcher<Flower>("test");
-            var allFlowers = new List<Flower>();
+            allFlowers.AddRange(flowers);
+            await Task.CompletedTask;
+        };
 
-            watcher.Start(
-                EventType.Created | EventType.Updated,
-                f => f.FullDocument.Name == "test");
+        await new[] {
+            new Flower { Name = "test", Color = "red" },
+            new Flower { Name = "test", Color = "red" },
+            new Flower { Name = "test", Color = "red" }
+        }.SaveAsync();
 
-            await Task.Delay(500);
+        var flower = new Flower { Name = "test" };
+        await flower.SaveAsync();
 
-            watcher.OnChanges +=
-                flowers => allFlowers.AddRange(flowers);
+        await flower.DeleteAsync();
 
-            await new[] {
-                new Flower { Name = "test" },
-                new Flower { Name = "test" },
-                new Flower { Name = "test" }
-            }.SaveAsync();
+        await Task.Delay(500);
 
-            var flower = new Flower { Name = "test" };
-            await flower.SaveAsync();
+        Assert.AreEqual(3, allFlowers.Count);
+        Assert.IsTrue(allFlowers[0].Name == null && allFlowers[0].Color == "red");
+    }
 
-            await flower.DeleteAsync();
+    [TestMethod]
+    public async Task watching_with_filter_builders()
+    {
+        var guid = Guid.NewGuid().ToString();
 
-            await Task.Delay(500);
+        var watcher = DB.Watcher<Flower>("test-with-filter-builders");
+        var allFlowers = new List<Flower>();
 
-            Assert.AreEqual(4, allFlowers.Count);
-        }
+        watcher.Start(
+            EventType.Created | EventType.Updated,
+            b => b.Eq(d => d.FullDocument.Name, guid));
 
-        [TestMethod]
-        public async Task watching_with_projection_works()
+        await Task.Delay(500);
+
+        watcher.OnChanges +=
+            flowers => allFlowers.AddRange(flowers);
+
+        await new[] {
+            new Flower { Name = guid },
+            new Flower { Name = guid },
+            new Flower { Name = guid }
+        }.SaveAsync();
+
+        var flower = new Flower { Name = guid };
+        await flower.SaveAsync();
+
+        await flower.DeleteAsync();
+
+        await Task.Delay(500);
+
+        Assert.AreEqual(4, allFlowers.Count);
+    }
+
+    [TestMethod]
+    public async Task watching_with_filter_builders_CSD()
+    {
+        var guid = Guid.NewGuid().ToString();
+
+        var watcher = DB.Watcher<Flower>("test-with-filter-builders-csd");
+        var allFlowers = new List<Flower>();
+
+        watcher.Start(
+            EventType.Created | EventType.Updated,
+            b => b.Eq(d => d.FullDocument.Name, guid));
+
+        await Task.Delay(500);
+
+        watcher.OnChangesCSDAsync += async csDocs =>
         {
-            var watcher = DB.Watcher<Flower>("test-with-projection");
-            var allFlowers = new List<Flower>();
+            allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
+            await Task.CompletedTask;
+        };
 
-            watcher.Start(
-                EventType.Created | EventType.Updated,
-                f => new Flower { Color = f.Color },
-                f => f.FullDocument.Color == "red");
+        await new[] {
+            new Flower { Name = guid },
+            new Flower { Name = "exclude me" },
+            new Flower { Name = guid },
+            new Flower { Name = guid },
+        }.SaveAsync();
 
-            await Task.Delay(500);
+        var flower = new Flower { Name = guid };
+        await flower.SaveAsync();
 
-            watcher.OnChangesAsync += async flowers =>
-            {
-                allFlowers.AddRange(flowers);
-                await Task.CompletedTask;
-            };
+        await flower.DeleteAsync();
 
-            await new[] {
-                new Flower { Name = "test", Color = "red" },
-                new Flower { Name = "test", Color = "red" },
-                new Flower { Name = "test", Color = "red" }
-            }.SaveAsync();
+        await Task.Delay(500);
 
-            var flower = new Flower { Name = "test" };
-            await flower.SaveAsync();
-
-            await flower.DeleteAsync();
-
-            await Task.Delay(500);
-
-            Assert.AreEqual(3, allFlowers.Count);
-            Assert.IsTrue(allFlowers[0].Name == null && allFlowers[0].Color == "red");
-        }
-
-        [TestMethod]
-        public async Task watching_with_filter_builders()
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            var watcher = DB.Watcher<Flower>("test-with-filter-builders");
-            var allFlowers = new List<Flower>();
-
-            watcher.Start(
-                EventType.Created | EventType.Updated,
-                b => b.Eq(d => d.FullDocument.Name, guid));
-
-            await Task.Delay(500);
-
-            watcher.OnChanges +=
-                flowers => allFlowers.AddRange(flowers);
-
-            await new[] {
-                new Flower { Name = guid },
-                new Flower { Name = guid },
-                new Flower { Name = guid }
-            }.SaveAsync();
-
-            var flower = new Flower { Name = guid };
-            await flower.SaveAsync();
-
-            await flower.DeleteAsync();
-
-            await Task.Delay(500);
-
-            Assert.AreEqual(4, allFlowers.Count);
-        }
-
-        [TestMethod]
-        public async Task watching_with_filter_builders_CSD()
-        {
-            var guid = Guid.NewGuid().ToString();
-
-            var watcher = DB.Watcher<Flower>("test-with-filter-builders-csd");
-            var allFlowers = new List<Flower>();
-
-            watcher.Start(
-                EventType.Created | EventType.Updated,
-                b => b.Eq(d => d.FullDocument.Name, guid));
-
-            await Task.Delay(500);
-
-            watcher.OnChangesCSDAsync += async csDocs =>
-            {
-                allFlowers.AddRange(csDocs.Select(x => x.FullDocument));
-                await Task.CompletedTask;
-            };
-
-            await new[] {
-                new Flower { Name = guid },
-                new Flower { Name = "exclude me" },
-                new Flower { Name = guid },
-                new Flower { Name = guid },
-            }.SaveAsync();
-
-            var flower = new Flower { Name = guid };
-            await flower.SaveAsync();
-
-            await flower.DeleteAsync();
-
-            await Task.Delay(500);
-
-            Assert.AreEqual(4, allFlowers.Count);
-        }
+        Assert.AreEqual(4, allFlowers.Count);
     }
 }

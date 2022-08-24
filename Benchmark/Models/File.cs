@@ -1,9 +1,8 @@
 ﻿using MongoDB.Entities;
 
-namespace Benchmark
+namespace Benchmark;
+
+public class File : FileEntity
 {
-    public class File : FileEntity
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

@@ -1,4 +1,3 @@
-﻿namespace MongoDB.Entities.Tests
-{
-    public class Blank : Entity { }
-}
+﻿namespace MongoDB.Entities.Tests;
+
+public class Blank : Entity { }

@@ -6,77 +6,76 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Benchmark
+namespace Benchmark;
+
+[MemoryDiagnoser]
+public class UpdateOne : BenchBase
 {
-    [MemoryDiagnoser]
-    public class UpdateOne : BenchBase
+    private readonly string id = ObjectId.GenerateNewId().ToString();
+
+    public UpdateOne()
     {
-        private readonly string id = ObjectId.GenerateNewId().ToString();
-
-        public UpdateOne()
-        {
-            DB.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
-        }
-
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB.Update<Author>()
-                     .MatchID(id)
-                     .Modify(a => a.FirstName, "updated")
-                     .ExecuteAsync();
-        }
-
-        [Benchmark(Baseline = true)]
-        public override Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.ID == id);
-            var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
-            return AuthorCollection.UpdateOneAsync(filter, update);
-        }
+        DB.SaveAsync(new Author { ID = id, FirstName = "initial" }).GetAwaiter().GetResult();
     }
 
-    [MemoryDiagnoser]
-    public class Update100 : BenchBase
+    [Benchmark]
+    public override Task MongoDB_Entities()
     {
-        private readonly List<Author> list = new(1000);
-        private readonly string guid = Guid.NewGuid().ToString();
+        return DB.Update<Author>()
+                 .MatchID(id)
+                 .Modify(a => a.FirstName, "updated")
+                 .ExecuteAsync();
+    }
 
-        public Update100()
+    [Benchmark(Baseline = true)]
+    public override Task Official_Driver()
+    {
+        var filter = Builders<Author>.Filter.Where(a => a.ID == id);
+        var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
+        return AuthorCollection.UpdateOneAsync(filter, update);
+    }
+}
+
+[MemoryDiagnoser]
+public class Update100 : BenchBase
+{
+    private readonly List<Author> list = new(1000);
+    private readonly string guid = Guid.NewGuid().ToString();
+
+    public Update100()
+    {
+        DB.Index<Author>()
+          .Key(a => a.FirstName, KeyType.Ascending)
+          .Option(o => o.Background = false)
+          .CreateAsync()
+          .GetAwaiter()
+          .GetResult();
+
+        for (int i = 1; i <= 1000; i++)
         {
-            DB.Index<Author>()
-              .Key(a => a.FirstName, KeyType.Ascending)
-              .Option(o => o.Background = false)
-              .CreateAsync()
-              .GetAwaiter()
-              .GetResult();
-
-            for (int i = 1; i <= 1000; i++)
+            list.Add(new Author
             {
-                list.Add(new Author
-                {
-                    FirstName = i > 500 && i <= 600 ? guid : "test",
-                });
-            }
-            list.SaveAsync().GetAwaiter().GetResult();
+                FirstName = i is > 500 and <= 600 ? guid : "test",
+            });
         }
+        list.SaveAsync().GetAwaiter().GetResult();
+    }
 
-        [Benchmark]
-        public override Task MongoDB_Entities()
-        {
-            return DB
-                .Update<Author>()
-                .Match(x => x.FirstName == guid)
-                .Modify(x => x.FirstName, "updated")
-                .ExecuteAsync();
-        }
+    [Benchmark]
+    public override Task MongoDB_Entities()
+    {
+        return DB
+            .Update<Author>()
+            .Match(x => x.FirstName == guid)
+            .Modify(x => x.FirstName, "updated")
+            .ExecuteAsync();
+    }
 
-        [Benchmark(Baseline = true)]
-        public override Task Official_Driver()
-        {
-            var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
-            var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
-            return AuthorCollection.UpdateManyAsync(filter, update);
-        }
+    [Benchmark(Baseline = true)]
+    public override Task Official_Driver()
+    {
+        var filter = Builders<Author>.Filter.Where(a => a.FirstName == guid);
+        var update = Builders<Author>.Update.Set(a => a.FirstName, "updated");
+        return AuthorCollection.UpdateManyAsync(filter, update);
     }
 }

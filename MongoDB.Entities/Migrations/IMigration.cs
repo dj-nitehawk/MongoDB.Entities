@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace MongoDB.Entities
+namespace MongoDB.Entities;
+
+/// <summary>
+/// The contract for writing user data migration classes
+/// </summary>
+public interface IMigration
 {
-    /// <summary>
-    /// The contract for writing user data migration classes
-    /// </summary>
-    public interface IMigration
-    {
-        Task UpgradeAsync();
-    }
+    Task UpgradeAsync();
 }

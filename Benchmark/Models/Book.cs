@@ -1,12 +1,11 @@
 ﻿using MongoDB.Entities;
 using System;
 
-namespace Benchmark
+namespace Benchmark;
+
+public class Book : Entity
 {
-    public class Book : Entity
-    {
-        public string Title { get; set; }
-        public One<Author> Author { get; set; }
-        public DateTime PublishedOn { get; set; }
-    }
+    public string Title { get; set; }
+    public One<Author> Author { get; set; }
+    public DateTime PublishedOn { get; set; }
 }

@@ -1,67 +1,66 @@
 ﻿using MongoDB.Entities.Tests.Models;
 using System;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+public class MyDBTemplates : DBContext
 {
-    public class MyDBTemplates : DBContext
+    public MyDBTemplates(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
     {
-        public MyDBTemplates(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
-        {
-            SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }", prepend);
-        }
+        SetGlobalFilter(typeof(Author), "{ Age: {$eq: 111 } }", prepend);
+    }
+}
+
+public class MyDB : DBContext
+{
+    public MyDB(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+    {
+        SetGlobalFilter<Author>(a => a.Age == 111, prepend);
     }
 
-    public class MyDB : DBContext
+    protected override Action<T> OnBeforeSave<T>()
     {
-        public MyDB(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+        Action<Flower> action = f =>
         {
-            SetGlobalFilter<Author>(a => a.Age == 111, prepend);
-        }
-
-        protected override Action<T> OnBeforeSave<T>()
-        {
-            Action<Flower> action = f =>
+            if (f.ID == null)
             {
-                if (f.ID == null)
-                {
-                    f.CreatedBy = "God";
-                    f.CreatedDate = DateTime.MinValue;
-                }
-                else
-                {
-                    f.UpdatedBy = "Human";
-                    f.UpdateDate = DateTime.UtcNow;
-                }
-            };
-
-            return action as Action<T>;
-        }
-
-        protected override Action<UpdateBase<T>> OnBeforeUpdate<T>()
-        {
-            Action<UpdateBase<Flower>> action = update =>
+                f.CreatedBy = "God";
+                f.CreatedDate = DateTime.MinValue;
+            }
+            else
             {
-                update.AddModification(f => f.UpdatedBy, "Human");
-                update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
-            };
+                f.UpdatedBy = "Human";
+                f.UpdateDate = DateTime.UtcNow;
+            }
+        };
 
-            return action as Action<UpdateBase<T>>;
-        }
+        return action as Action<T>;
     }
 
-    public class MyDBFlower : DBContext
+    protected override Action<UpdateBase<T>> OnBeforeUpdate<T>()
     {
-        public MyDBFlower(bool prepend)
+        Action<UpdateBase<Flower>> action = update =>
         {
-            SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
-        }
-    }
+            update.AddModification(f => f.UpdatedBy, "Human");
+            update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
+        };
 
-    public class MyBaseEntityDB : DBContext
+        return action as Action<UpdateBase<T>>;
+    }
+}
+
+public class MyDBFlower : DBContext
+{
+    public MyDBFlower(bool prepend)
     {
-        public MyBaseEntityDB()
-        {
-            SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
-        }
+        SetGlobalFilterForInterface<ISoftDeleted>("{IsDeleted:false}", prepend);
+    }
+}
+
+public class MyBaseEntityDB : DBContext
+{
+    public MyBaseEntityDB()
+    {
+        SetGlobalFilterForBaseClass<BaseEntity>(be => be.CreatedBy == "xyz");
     }
 }

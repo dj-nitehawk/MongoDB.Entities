@@ -1,8 +1,7 @@
-﻿namespace MongoDB.Entities.Tests.Models
+﻿namespace MongoDB.Entities.Tests.Models;
+
+public class CustomIDDuplicate : Entity
 {
-    public class CustomIDDuplicate : Entity
-    {
-        public override string GenerateNewID()
-            => "iamnotauniqueid";
-    }
+    public override string GenerateNewID()
+        => "iamnotauniqueid";
 }

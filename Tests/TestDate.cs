@@ -5,121 +5,120 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MongoDB.Entities.Tests
+namespace MongoDB.Entities.Tests;
+
+[TestClass]
+public class Dates
 {
-    [TestClass]
-    public class Dates
+    [TestMethod]
+    public async Task not_setting_date_doesnt_cause_issuesAsync()
     {
-        [TestMethod]
-        public async Task not_setting_date_doesnt_cause_issuesAsync()
+        var book = new Book { Title = "nsddci" };
+        await book.SaveAsync();
+
+        var res = await DB.Find<Book>().OneAsync(book.ID);
+
+        Assert.AreEqual(res.Title, book.Title);
+        Assert.IsNull(res.PublishedOn);
+    }
+
+    [TestMethod]
+    public async Task date_props_contain_correct_value()
+    {
+        var pubDate = DateTime.UtcNow;
+
+        var book = new Book
         {
-            var book = new Book { Title = "nsddci" };
-            await book.SaveAsync();
+            Title = "dpccv",
+            PublishedOn = pubDate
+        };
+        await book.SaveAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+        var res = await DB.Find<Book>().OneAsync(book.ID);
 
-            Assert.AreEqual(res.Title, book.Title);
-            Assert.IsNull(res.PublishedOn);
-        }
+        Assert.AreEqual(pubDate.Ticks, res.PublishedOn.Ticks);
+        Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
+        Assert.AreEqual(pubDate, res.PublishedOn.DateTime);
+        Assert.AreEqual(DateTimeKind.Utc, res.PublishedOn.DateTime.Kind);
+    }
 
-        [TestMethod]
-        public async Task date_props_contain_correct_value()
+    [TestMethod]
+    public async Task querying_on_ticks_when_null()
+    {
+        var book = new Book
         {
-            var pubDate = DateTime.UtcNow;
+            Title = "qotwn",
+        };
+        await book.SaveAsync();
 
-            var book = new Book
-            {
-                Title = "dpccv",
-                PublishedOn = pubDate
-            };
-            await book.SaveAsync();
+        var res = await DB.Queryable<Book>()
+                    .Where(b => b.ID == book.ID && b.PublishedOn.Ticks > 0)
+                    .SingleOrDefaultAsync();
 
-            var res = await DB.Find<Book>().OneAsync(book.ID);
+        Assert.IsNull(res);
+    }
 
-            Assert.AreEqual(pubDate.Ticks, res.PublishedOn.Ticks);
-            Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
-            Assert.AreEqual(pubDate, res.PublishedOn.DateTime);
-            Assert.AreEqual(DateTimeKind.Utc, res.PublishedOn.DateTime.Kind);
-        }
+    [TestMethod]
+    public async Task querying_on_ticks_work()
+    {
+        var pubDate = DateTime.UtcNow;
 
-        [TestMethod]
-        public async Task querying_on_ticks_when_null()
+        var book = new Book
         {
-            var book = new Book
-            {
-                Title = "qotwn",
-            };
-            await book.SaveAsync();
+            Title = "qotw",
+            PublishedOn = pubDate
+        };
+        await book.SaveAsync();
 
-            var res = await DB.Queryable<Book>()
-                        .Where(b => b.ID == book.ID && b.PublishedOn.Ticks > 0)
-                        .SingleOrDefaultAsync();
-
-            Assert.IsNull(res);
-        }
-
-        [TestMethod]
-        public async Task querying_on_ticks_work()
-        {
-            var pubDate = DateTime.UtcNow;
-
-            var book = new Book
-            {
-                Title = "qotw",
-                PublishedOn = pubDate
-            };
-            await book.SaveAsync();
-
-            var res = (await DB.Find<Book>()
-                        .Match(b => b.ID == book.ID && b.PublishedOn.Ticks == pubDate.Ticks)
-                        .ExecuteAsync())
-                        .Single();
-
-            Assert.AreEqual(book.ID, res.ID);
-
-            res = (await DB.Find<Book>()
-                    .Match(b => b.ID == book.ID && b.PublishedOn.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
+        var res = (await DB.Find<Book>()
+                    .Match(b => b.ID == book.ID && b.PublishedOn.Ticks == pubDate.Ticks)
                     .ExecuteAsync())
                     .Single();
 
-            Assert.AreEqual(book.ID, res.ID);
-        }
+        Assert.AreEqual(book.ID, res.ID);
 
-        [TestMethod]
-        public async Task querying_on_datetime_prop_works()
+        res = (await DB.Find<Book>()
+                .Match(b => b.ID == book.ID && b.PublishedOn.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
+                .ExecuteAsync())
+                .Single();
+
+        Assert.AreEqual(book.ID, res.ID);
+    }
+
+    [TestMethod]
+    public async Task querying_on_datetime_prop_works()
+    {
+        var pubDate = DateTime.UtcNow;
+
+        var book = new Book
         {
-            var pubDate = DateTime.UtcNow;
+            Title = "qodtpw",
+            PublishedOn = pubDate
+        };
+        await book.SaveAsync();
 
-            var book = new Book
-            {
-                Title = "qodtpw",
-                PublishedOn = pubDate
-            };
-            await book.SaveAsync();
+        var res = (await DB.Find<Book>()
+        .Match(b => b.ID == book.ID && b.PublishedOn.DateTime == pubDate)
+        .ExecuteAsync())
+        .Single();
 
-            var res = (await DB.Find<Book>()
-            .Match(b => b.ID == book.ID && b.PublishedOn.DateTime == pubDate)
-            .ExecuteAsync())
-            .Single();
+        Assert.AreEqual(book.ID, res.ID);
 
-            Assert.AreEqual(book.ID, res.ID);
+        res = (await DB.Find<Book>()
+                .Match(b => b.ID == book.ID && b.PublishedOn.DateTime < pubDate.AddSeconds(1))
+                .ExecuteAsync())
+                .Single();
 
-            res = (await DB.Find<Book>()
-                    .Match(b => b.ID == book.ID && b.PublishedOn.DateTime < pubDate.AddSeconds(1))
-                    .ExecuteAsync())
-                    .Single();
+        Assert.AreEqual(book.ID, res.ID);
+    }
 
-            Assert.AreEqual(book.ID, res.ID);
-        }
+    [TestMethod]
+    public void setting_ticks_creates_correct_datetime()
+    {
+        var now = DateTime.UtcNow;
 
-        [TestMethod]
-        public void setting_ticks_creates_correct_datetime()
-        {
-            var now = DateTime.UtcNow;
+        var date = new Date() { Ticks = now.Ticks };
 
-            var date = new Date() { Ticks = now.Ticks };
-
-            Assert.AreEqual(now, date.DateTime);
-        }
+        Assert.AreEqual(now, date.DateTime);
     }
 }
