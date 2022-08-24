@@ -29,13 +29,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.17.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
     </ItemGroup>
 
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
-        <None Include="..\changelog.md" Pack="false"/>
+        <None Include="..\changelog.md" Pack="false" />
     </ItemGroup>
 
 </Project>
