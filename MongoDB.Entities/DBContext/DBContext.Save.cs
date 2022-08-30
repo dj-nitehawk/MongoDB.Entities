@@ -57,6 +57,23 @@ public partial class DBContext
     }
 
     /// <summary>
+    /// Saves an entity partially with only the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entity">The entity to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<UpdateResult> SaveOnlyAsync<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    {
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
+        return DB.SaveOnlyAsync(entity, propNames, Session, cancellation);
+    }
+
+    /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties. 
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
@@ -71,6 +88,23 @@ public partial class DBContext
         SetModifiedByMultiple(entities);
         foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
         return DB.SaveOnlyAsync(entities, members, Session, cancellation);
+    }
+
+    /// <summary>
+    /// Saves a batch of entities partially with only the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entities">The batch of entities to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    {
+        SetModifiedByMultiple(entities);
+        foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
+        return DB.SaveOnlyAsync(entities, propNames, Session, cancellation);
     }
 
     /// <summary>
@@ -91,6 +125,23 @@ public partial class DBContext
     }
 
     /// <summary>
+    /// Saves an entity partially excluding the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entity">The entity to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<UpdateResult> SaveExceptAsync<T>(T entity, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    {
+        SetModifiedBySingle(entity);
+        OnBeforeSave<T>()?.Invoke(entity);
+        return DB.SaveExceptAsync(entity, propNames, Session, cancellation);
+    }
+
+    /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties. 
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
@@ -105,6 +156,23 @@ public partial class DBContext
         SetModifiedByMultiple(entities);
         foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
         return DB.SaveExceptAsync(entities, members, Session, cancellation);
+    }
+
+    /// <summary>
+    /// Saves a batch of entities partially excluding the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entities">The batch of entities to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    {
+        SetModifiedByMultiple(entities);
+        foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
+        return DB.SaveExceptAsync(entities, propNames, Session, cancellation);
     }
 
     /// <summary>

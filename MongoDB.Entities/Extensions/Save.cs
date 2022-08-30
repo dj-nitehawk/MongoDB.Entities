@@ -50,6 +50,22 @@ public static partial class Extensions
     }
 
     /// <summary>
+    /// Saves an entity partially with only the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entity">The entity to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    {
+        return DB.SaveOnlyAsync(entity, propNames, session, cancellation);
+    }
+
+    /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties. 
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>TIP: The properties to be saved can be specified with a 'New' expression. 
@@ -63,6 +79,22 @@ public static partial class Extensions
     public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveOnlyAsync(entities, members, session, cancellation);
+    }
+
+    /// <summary>
+    /// Saves a batch of entities partially with only the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entities">The batch of entities to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    {
+        return DB.SaveOnlyAsync(entities, propNames, session, cancellation);
     }
 
     /// <summary>
@@ -82,6 +114,22 @@ public static partial class Extensions
     }
 
     /// <summary>
+    /// Saves an entity partially excluding the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entity">The entity to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    {
+        return DB.SaveExceptAsync(entity, propNames, session, cancellation);
+    }
+
+    /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties. 
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
     /// <para>TIP: The properties to be excluded can be specified with a 'New' expression. 
@@ -95,6 +143,22 @@ public static partial class Extensions
     public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveExceptAsync(entities, members, session, cancellation);
+    }
+
+    /// <summary>
+    /// Saves a batch of entities partially excluding the specified subset of properties. 
+    /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.
+    /// <para>TIP: The properties to be saved can be specified with an IEnumerable. 
+    /// Property names must match exactly.</para>
+    /// </summary>
+    /// <typeparam name="T">Any class that implements IEntity</typeparam>
+    /// <param name="entities">The batch of entities to save</param>
+    /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="cancellation">An optional cancellation token</param>
+    public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    {
+        return DB.SaveExceptAsync(entities, propNames, session, cancellation);
     }
 
     /// <summary>
