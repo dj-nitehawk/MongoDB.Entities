@@ -48,7 +48,12 @@ public static partial class DB
     public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
     {
         return Initialize(
-            new MongoClientSettings { Server = new MongoServerAddress(host, port) }, database);
+            new MongoClientSettings
+            {
+                Server = new(host, port),
+                LinqProvider = Driver.Linq.LinqProvider.V3
+            },
+            database);
     }
 
     /// <summary>
