@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>20.26.5</Version>
+        <Version>20.27.0-beta1</Version>
 
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
@@ -20,7 +20,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <LangVersion>10.0</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
