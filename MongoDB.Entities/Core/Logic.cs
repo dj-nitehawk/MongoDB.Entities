@@ -19,11 +19,20 @@ internal static class Logic
         return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
     }
 
-    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members, bool excludeMode = false) where T : IEntity
+    internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
     {
-        var propNames = (members?.Body as NewExpression)?.Arguments
+        return  (expression?.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);
+    }
 
+    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members,
+        bool excludeMode = false) where T : IEntity
+    {
+        return BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
+    }
+    
+    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
+    {
         if (!propNames.Any())
             throw new ArgumentException("Unable to get any properties from the members expression!");
 

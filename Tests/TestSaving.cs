@@ -101,6 +101,27 @@ public class Saving
     }
 
     [TestMethod]
+    public async Task save_partially_single_include_string()
+    {
+        var book = new Book { Title = "test book", Price = 100 };
+
+        await book.SaveOnlyAsync(new List<string> { "Title" });
+
+        var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+
+        Assert.AreEqual(0, res.Price);
+        Assert.AreEqual("test book", res.Title);
+
+        res.Price = 200;
+
+        await res.SaveOnlyAsync(new List<string> { "Price" });
+
+        res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+
+        Assert.AreEqual(200, res.Price);
+    }
+
+    [TestMethod]
     public async Task save_partially_batch_include()
     {
         var books = new[] {
@@ -109,6 +130,28 @@ public class Saving
         };
 
         await books.SaveOnlyAsync(b => new { b.Title });
+        var ids = books.Select(b => b.ID).ToArray();
+
+        var res = await DB.Find<Book>()
+            .Match(b => ids.Contains(b.ID))
+            .Sort(b => b.ID, Order.Ascending)
+            .ExecuteAsync();
+
+        Assert.AreEqual(0, res[0].Price);
+        Assert.AreEqual(0, res[1].Price);
+        Assert.AreEqual("one", res[0].Title);
+        Assert.AreEqual("two", res[1].Title);
+    }
+
+    [TestMethod]
+    public async Task save_partially_batch_include_string()
+    {
+        var books = new[] {
+            new Book{ Title = "one", Price = 100},
+            new Book{ Title = "two", Price = 200}
+        };
+
+        await books.SaveOnlyAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
         var res = await DB.Find<Book>()
@@ -144,6 +187,27 @@ public class Saving
     }
 
     [TestMethod]
+    public async Task save_partially_single_exclude_string()
+    {
+        var book = new Book { Title = "test book", Price = 100 };
+
+        await book.SaveExceptAsync(new List<string> { "Title" });
+
+        var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
+
+        Assert.AreEqual(100, res.Price);
+        Assert.AreEqual(null, res.Title);
+
+        res.Title = "updated";
+
+        await res.SaveExceptAsync(new List<string> { "Price" });
+
+        res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
+
+        Assert.AreEqual("updated", res.Title);
+    }
+
+    [TestMethod]
     public async Task save_partially_batch_exclude()
     {
         var books = new[] {
@@ -152,6 +216,28 @@ public class Saving
         };
 
         await books.SaveExceptAsync(b => new { b.Title });
+        var ids = books.Select(b => b.ID).ToArray();
+
+        var res = await DB.Find<Book>()
+            .Match(b => ids.Contains(b.ID))
+            .Sort(b => b.ID, Order.Ascending)
+            .ExecuteAsync();
+
+        Assert.AreEqual(100, res[0].Price);
+        Assert.AreEqual(200, res[1].Price);
+        Assert.AreEqual(null, res[0].Title);
+        Assert.AreEqual(null, res[1].Title);
+    }
+
+    [TestMethod]
+    public async Task save_partially_batch_exclude_string()
+    {
+        var books = new[] {
+            new Book{ Title = "one", Price = 100},
+            new Book{ Title = "two", Price = 200}
+        };
+
+        await books.SaveExceptAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
         var res = await DB.Find<Book>()
