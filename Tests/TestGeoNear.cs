@@ -56,7 +56,7 @@ public class GeoNearTest
 
         var qry = DB.FluentGeoNear<Place>(
                      NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
-                     DistanceField: x => x.DistanceKM,
+                     DistanceField: "DistanceKM",   // case matters, might need to be distanceKM or distancekm
                      MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
@@ -87,7 +87,7 @@ public class GeoNearTest
 
         var qry = TN.GeoNear<Place>(
                      NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
-                     DistanceField: x => x.DistanceKM,
+                     DistanceField: "DistanceKM",  // case matters, might be "distancekm"
                      MaxDistance: 20000);
 
         var cnt = await qry.Match(c => c.Name.Contains(guid)).ToListAsync();
