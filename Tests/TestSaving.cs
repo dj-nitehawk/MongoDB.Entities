@@ -851,21 +851,21 @@ public class Saving
     [TestMethod]
     public async Task custom_id_override_objectid()
     {
-        var e = new CustomIDOverride
+        var x = new CustomIDOverride
         {
             ID = ObjectId.GenerateNewId().ToString()
         };
-        await e.SaveAsync();
+        await x.SaveAsync();
 
-        Assert.IsTrue(ObjectId.TryParse(e.ID, out _));
+        Assert.IsTrue(ObjectId.TryParse(x.ID, out _));
     }
 
     [TestMethod]
-    public Task custom_id_duplicate_throws()
+    public async Task custom_id_duplicate_throws()
     {
         var one = new CustomIDDuplicate();
         var two = new CustomIDDuplicate();
-        return Assert.ThrowsExceptionAsync<MongoBulkWriteException<CustomIDDuplicate>>(() =>
+        await Assert.ThrowsExceptionAsync<MongoBulkWriteException<CustomIDDuplicate>>(() =>
             new[] { one, two }.SaveAsync());
     }
 }

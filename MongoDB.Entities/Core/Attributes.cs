@@ -97,13 +97,9 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 {
     public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable<ObjectIdSerializer>
+    private class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
     {
-        public BsonType Representation
-        {
-            get;
-            set;
-        }
+        public BsonType Representation { get; set; }
 
         public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
         {
@@ -115,12 +111,10 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 
             if (value.Length == 24 && ObjectId.TryParse(value, out var oID))
             {
-                Representation = BsonType.ObjectId;
                 ctx.Writer.WriteObjectId(oID);
                 return;
             }
 
-            Representation = BsonType.String;
             ctx.Writer.WriteString(value);
         }
 
@@ -143,19 +137,6 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
             }
         }
 
-        public string WithRepresentation(BsonType representation)
-        {
-            throw new NotImplementedException();
-        }
-
-        IBsonSerializer IRepresentationConfigurable.WithRepresentation(BsonType representation)
-        {
-            throw new NotImplementedException();
-        }
-
-        ObjectIdSerializer IRepresentationConfigurable<ObjectIdSerializer>.WithRepresentation(BsonType representation)
-        {
-            throw new NotImplementedException();
-        }
+        public IBsonSerializer WithRepresentation(BsonType representation) => throw new NotImplementedException();
     }
 }
