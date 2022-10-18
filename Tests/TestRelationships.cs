@@ -258,7 +258,7 @@ public class Relationships
         Assert.AreEqual(book2.Title, (await gen1.Books.ChildrenQueryable().FirstAsync()).Title);
     }
 
-    //[TestMethod]
+    [TestMethod]
     public async Task getting_parents_of_a_relationship_queryable_works()
     {
         var guid = Guid.NewGuid().ToString();
