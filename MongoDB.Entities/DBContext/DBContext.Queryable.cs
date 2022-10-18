@@ -16,8 +16,7 @@ public partial class DBContext
         var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-            ? DB.Queryable<T>(options, Session)
-                     .Where(_ => globalFilter.Inject())
-            : DB.Queryable<T>(options, Session);
+               ? DB.Queryable<T>(options, Session).Where(_ => globalFilter.Inject())
+               : DB.Queryable<T>(options, Session);
     }
 }

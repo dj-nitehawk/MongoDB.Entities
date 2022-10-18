@@ -14,7 +14,8 @@ jobs:
       - name: Setup .Net SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: 6.x
+          dotnet-version: 7.x
+          include-prerelease: true #remove after net7.0 final
 
       - name: Make Nuget Packages
         run: dotnet pack MongoDB.Entities/MongoDB.Entities.csproj -c Release

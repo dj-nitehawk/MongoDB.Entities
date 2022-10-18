@@ -21,6 +21,9 @@
         <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <PropertyGroup>

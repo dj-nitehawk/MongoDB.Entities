@@ -258,55 +258,55 @@ public class Relationships
         Assert.AreEqual(book2.Title, (await gen1.Books.ChildrenQueryable().FirstAsync()).Title);
     }
 
-    [TestMethod]
-    public async Task getting_parents_of_a_relationship_queryable_works()
-    {
-        var guid = Guid.NewGuid().ToString();
+    //[TestMethod]
+    //public async Task getting_parents_of_a_relationship_queryable_works()
+    //{
+    //    var guid = Guid.NewGuid().ToString();
 
-        var book = new Book { Title = "Planet Of The Apes " + guid };
-        await book.SaveAsync();
+    //    var book = new Book { Title = "Planet Of The Apes " + guid };
+    //    await book.SaveAsync();
 
-        var genre = new Genre { Name = "SciFi " + guid };
-        await genre.SaveAsync();
+    //    var genre = new Genre { Name = "SciFi " + guid };
+    //    await genre.SaveAsync();
 
-        var genre1 = new Genre { Name = "Thriller " + guid };
-        await genre1.SaveAsync();
+    //    var genre1 = new Genre { Name = "Thriller " + guid };
+    //    await genre1.SaveAsync();
 
-        await book.Genres.AddAsync(genre);
-        await book.Genres.AddAsync(genre1);
+    //    await book.Genres.AddAsync(genre);
+    //    await book.Genres.AddAsync(genre1);
 
-        var books = await book.Genres
-                        .ParentsQueryable<Book>(genre.ID)
-                        .ToListAsync();
+    //    var books = await book.Genres
+    //                    .ParentsQueryable<Book>(genre.ID)
+    //                    .ToListAsync();
 
-        Assert.AreEqual(1, books.Count);
-        Assert.AreEqual(book.Title, books.Single().Title);
+    //    Assert.AreEqual(1, books.Count);
+    //    Assert.AreEqual(book.Title, books.Single().Title);
 
-        //var y = (await genre.Queryable().Where(g => g.Name.Contains(guid)).ToListAsync()).Select(x => x.ID);
-        //var x = book.Genres.ParentsQueryable<Book>(y);
-        //books = await x.ToListAsync();
+    //    //var y = (await genre.Queryable().Where(g => g.Name.Contains(guid)).ToListAsync()).Select(x => x.ID);
+    //    //var x = book.Genres.ParentsQueryable<Book>(y);
+    //    //books = await x.ToListAsync();
 
-        books = await book.Genres
-                .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
-                .ToListAsync();
+    //    books = await book.Genres
+    //            .ParentsQueryable<Book>(genre.Queryable().Where(g => g.Name.Contains(guid)))
+    //            .ToListAsync();
 
-        Assert.AreEqual(1, books.Count);
-        Assert.AreEqual(book.Title, books.Single(b => b.ID == book.ID).Title);
+    //    Assert.AreEqual(1, books.Count);
+    //    Assert.AreEqual(book.Title, books.Single(b => b.ID == book.ID).Title);
 
-        var genres = await genre.Books
-                          .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
-                          .ToListAsync();
+    //    var genres = await genre.Books
+    //                      .ParentsQueryable<Genre>(new[] { book.ID, book.ID })
+    //                      .ToListAsync();
 
-        Assert.AreEqual(2, genres.Count);
-        Assert.AreEqual(genre.Name, genres.First(g => g.ID == genre.ID).Name);
+    //    Assert.AreEqual(2, genres.Count);
+    //    Assert.AreEqual(genre.Name, genres.First(g => g.ID == genre.ID).Name);
 
-        genres = await genre.Books
-                 .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
-                 .ToListAsync();
+    //    genres = await genre.Books
+    //             .ParentsQueryable<Genre>(book.Queryable().Where(b => b.ID == book.ID))
+    //             .ToListAsync();
 
-        Assert.AreEqual(2, genres.Count);
-        Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
-    }
+    //    Assert.AreEqual(2, genres.Count);
+    //    Assert.IsTrue(genres.Any(g => g.ID == genre.ID));
+    //}
 
     [TestMethod]
     public async Task getting_parents_of_a_relationship_fluent_works()
