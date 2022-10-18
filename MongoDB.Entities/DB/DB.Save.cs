@@ -94,7 +94,7 @@ public static partial class DB
     {
         return SavePartial(entity, propNames, session, cancellation);
     }
-    
+
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties. 
     /// If ID value is null, a new entity is created. If ID has a value, then existing entity is updated.

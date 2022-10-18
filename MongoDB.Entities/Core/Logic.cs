@@ -21,7 +21,7 @@ internal static class Logic
 
     internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
     {
-        return  (expression?.Body as NewExpression)?.Arguments
+        return (expression?.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);
     }
 
@@ -30,7 +30,7 @@ internal static class Logic
     {
         return BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
     }
-    
+
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
     {
         if (!propNames.Any())
