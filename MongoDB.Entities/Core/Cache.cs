@@ -118,7 +118,8 @@ internal static class Cache<T> where T : IEntity
 
         ProjectionDefinition<T> userProj = userProjection.Render(
             BsonSerializer.LookupSerializer<T>(),
-            BsonSerializer.SerializerRegistry).Document;
+            BsonSerializer.SerializerRegistry,
+            LinqProvider.V3).Document;
 
         return Builders<T>.Projection.Combine(new[]
         {

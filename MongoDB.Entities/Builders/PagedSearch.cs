@@ -229,7 +229,8 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
         var renderedStage = projectionStage.Render(
             BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-            BsonSerializer.SerializerRegistry);
+            BsonSerializer.SerializerRegistry,
+            Driver.Linq.LinqProvider.V3);
 
         renderedStage.Document["$project"][fieldName] = new BsonDocument { { "$meta", "textScore" } };
 

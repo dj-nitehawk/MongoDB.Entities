@@ -317,7 +317,8 @@ public class Watcher<T> where T : IEntity
         var rendered = Builders<T>.Projection
             .Expression(projection)
             .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-                    BsonSerializer.SerializerRegistry);
+                    BsonSerializer.SerializerRegistry,
+                    Driver.Linq.LinqProvider.V3);
 
         BsonDocument doc = new()
         {

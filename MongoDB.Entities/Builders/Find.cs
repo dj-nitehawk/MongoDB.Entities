@@ -440,7 +440,7 @@ public class Find<T, TProjection> where T : IEntity
 
         options.Projection =
             options.Projection
-            .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+            .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
             .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
     }
 }

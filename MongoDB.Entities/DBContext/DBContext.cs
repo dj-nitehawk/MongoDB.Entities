@@ -236,7 +236,8 @@ public partial class DBContext
         {
             var bsonDoc = filter.Render(
                 BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
-                BsonSerializer.SerializerRegistry);
+                BsonSerializer.SerializerRegistry,
+                Driver.Linq.LinqProvider.V3);
 
             AddFilter(entType, (bsonDoc, prepend));
         }

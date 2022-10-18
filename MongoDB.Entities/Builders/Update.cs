@@ -459,7 +459,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         return
             Cache<T>.HasModifiedOn &&
             !defs.Any(d => d
-                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)
+                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
                    .ToString()
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }

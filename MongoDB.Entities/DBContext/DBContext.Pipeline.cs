@@ -83,7 +83,8 @@ public partial class DBContext
                 case FilterDefinition<T> def:
                     filter = def.Render(
                         BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-                        BsonSerializer.SerializerRegistry);
+                        BsonSerializer.SerializerRegistry,
+                        Driver.Linq.LinqProvider.V3);
                     break;
 
                 case BsonDocument doc:
