@@ -408,7 +408,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 96
+    startLine: 95
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -458,7 +458,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 114
+    startLine: 113
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -508,7 +508,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 132
+    startLine: 131
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -558,7 +558,7 @@ items:
   source:
     id: Start
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 150
+    startLine: 149
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -608,7 +608,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 168
+    startLine: 167
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -658,7 +658,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 186
+    startLine: 185
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -708,7 +708,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 204
+    startLine: 203
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -758,7 +758,7 @@ items:
   source:
     id: StartWithToken
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 222
+    startLine: 221
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

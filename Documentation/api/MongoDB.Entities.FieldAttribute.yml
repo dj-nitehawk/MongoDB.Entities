@@ -6,8 +6,8 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.FieldAttribute.#ctor(System.Int32)
-  - MongoDB.Entities.FieldAttribute.#ctor(System.String)
   - MongoDB.Entities.FieldAttribute.#ctor(System.String,System.Int32)
+  - MongoDB.Entities.FieldAttribute.#ctor(System.String)
   langs:
   - csharp
   - vb

@@ -521,7 +521,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 202
+    startLine: 197
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -553,7 +553,7 @@ items:
   source:
     id: SortByTextScore
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 212
+    startLine: 207
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -590,7 +590,7 @@ items:
   source:
     id: Sort
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 247
+    startLine: 243
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -627,7 +627,7 @@ items:
   source:
     id: PageNumber
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 257
+    startLine: 253
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -663,7 +663,7 @@ items:
   source:
     id: PageSize
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 267
+    startLine: 263
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -699,7 +699,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 277
+    startLine: 273
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -736,7 +736,7 @@ items:
   source:
     id: Project
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 287
+    startLine: 283
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -773,7 +773,7 @@ items:
   source:
     id: ProjectExcluding
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 297
+    startLine: 293
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -810,7 +810,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 321
+    startLine: 317
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -847,7 +847,7 @@ items:
   source:
     id: IgnoreGlobalFilters
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 330
+    startLine: 326
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -879,7 +879,7 @@ items:
   source:
     id: ExecuteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\PagedSearch.cs
-    startLine: 340
+    startLine: 336
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -2284,12 +2284,12 @@ references:
   commentId: T:System.Threading.Tasks.Task{System.ValueTuple{System.Collections.Generic.IReadOnlyList{`1},System.Int64,System.Int32}}
   parent: System.Threading.Tasks
   definition: System.Threading.Tasks.Task`1
-  name: Task<(T1, T2, T3)<IReadOnlyList<TProjection>, Int64, Int32>>
-  nameWithType: Task<(T1, T2, T3)<IReadOnlyList<TProjection>, Int64, Int32>>
+  name: Task<(T1 Item1, T2 Item2, T3 Item3)<IReadOnlyList<TProjection>, Int64, Int32>>
+  nameWithType: Task<(T1 Item1, T2 Item2, T3 Item3)<IReadOnlyList<TProjection>, Int64, Int32>>
   fullName: System.Threading.Tasks.Task<System.ValueTuple<System.Collections.Generic.IReadOnlyList<TProjection>, System.Int64, System.Int32>>
-  nameWithType.vb: Task(Of (T1, T2, T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
+  nameWithType.vb: Task(Of (Item1 As T1, Item2 As T2, Item3 As T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
   fullName.vb: System.Threading.Tasks.Task(Of System.ValueTuple(Of System.Collections.Generic.IReadOnlyList(Of TProjection), System.Int64, System.Int32))
-  name.vb: Task(Of (T1, T2, T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
+  name.vb: Task(Of (Item1 As T1, Item2 As T2, Item3 As T3)(Of IReadOnlyList(Of TProjection), Int64, Int32))
   spec.csharp:
   - uid: System.Threading.Tasks.Task`1
     name: Task
@@ -2300,8 +2300,8 @@ references:
     nameWithType: <
     fullName: <
   - uid: System.ValueTuple`3
-    name: (T1, T2, T3)
-    nameWithType: (T1, T2, T3)
+    name: (T1 Item1, T2 Item2, T3 Item3)
+    nameWithType: (T1 Item1, T2 Item2, T3 Item3)
     fullName: System.ValueTuple
     isExternal: true
   - name: <
@@ -2353,8 +2353,8 @@ references:
     nameWithType: '(Of '
     fullName: '(Of '
   - uid: System.ValueTuple`3
-    name: (T1, T2, T3)
-    nameWithType: (T1, T2, T3)
+    name: (Item1 As T1, Item2 As T2, Item3 As T3)
+    nameWithType: (Item1 As T1, Item2 As T2, Item3 As T3)
     fullName: System.ValueTuple
     isExternal: true
   - name: '(Of '

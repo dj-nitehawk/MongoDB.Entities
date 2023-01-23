@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
@@ -9,27 +9,27 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'UA-39155502-5');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class Replace&lt;T&gt;
-   | MongoDB.Entities </title>
+ | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Replace&lt;T&gt;
-   | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.4.0">
-    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+ | MongoDB.Entities ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    <meta property="docfx:newtab" content="true">
+  
+  <meta property="docfx:rel" content="../">
+  <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
     <meta property="og:url" content="https://mongodb-entities.com">
@@ -40,7 +40,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -94,10 +94,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Replace`1">
-  
-  
+
+
   <h1 id="MongoDB_Entities_Replace_1" data-uid="MongoDB.Entities.Replace`1" class="text-break">Class Replace&lt;T&gt;
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>Represents an UpdateOne command, which can replace the first matched document with a given entity</p>
 <p>TIP: Specify a filter first with the .Match(). Then set entity with .WithEntity() and finally call .Execute() to run the command.</p>
 </div>
@@ -136,7 +136,6 @@
   <h5 id="MongoDB_Entities_Replace_1_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Replace&lt;T&gt;
-
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -156,15 +155,15 @@
     </tbody>
   </table>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_Replace_1_AddToQueue_" data-uid="MongoDB.Entities.Replace`1.AddToQueue*"></a>
   <h4 id="MongoDB_Entities_Replace_1_AddToQueue" data-uid="MongoDB.Entities.Replace`1.AddToQueue">AddToQueue()</h4>
   <div class="markdown level1 summary"><p>Queue up a replace command for bulk execution later.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; AddToQueue()</code></pre>
   </div>
@@ -183,14 +182,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_ExecuteAsync_" data-uid="MongoDB.Entities.Replace`1.ExecuteAsync*"></a>
   <h4 id="MongoDB_Entities_Replace_1_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Replace`1.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the replace command in MongoDB.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;ReplaceOneResult&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -227,14 +226,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_IgnoreGlobalFilters_" data-uid="MongoDB.Entities.Replace`1.IgnoreGlobalFilters*"></a>
   <h4 id="MongoDB_Entities_Replace_1_IgnoreGlobalFilters" data-uid="MongoDB.Entities.Replace`1.IgnoreGlobalFilters">IgnoreGlobalFilters()</h4>
   <div class="markdown level1 summary"><p>Specify that this operation should ignore any global filters</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; IgnoreGlobalFilters()</code></pre>
   </div>
@@ -253,14 +252,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_MongoDB_Driver_FilterDefinition__0__" data-uid="MongoDB.Entities.Replace`1.Match(MongoDB.Driver.FilterDefinition{`0})">Match(FilterDefinition&lt;T&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter definition</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(FilterDefinition&lt;T&gt; filterDefinition)</code></pre>
   </div>
@@ -297,15 +296,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
@@ -366,14 +365,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Replace`1.Match(MongoDB.Entities.Template)">Match(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Template template)</code></pre>
   </div>
@@ -410,14 +409,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Replace`1.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
@@ -454,14 +453,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
@@ -498,8 +497,8 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Match_" data-uid="MongoDB.Entities.Replace`1.Match*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Replace`1.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
@@ -507,7 +506,7 @@
 <p>Note: DB.FluentGeoNear() supports more advanced options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
@@ -562,14 +561,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_MatchExpression_" data-uid="MongoDB.Entities.Replace`1.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_Replace_1_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Replace`1.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchExpression(Template template)</code></pre>
   </div>
@@ -606,14 +605,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_MatchExpression_" data-uid="MongoDB.Entities.Replace`1.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_Replace_1_MatchExpression_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchExpression(System.String)">MatchExpression(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchExpression(string expression)</code></pre>
   </div>
@@ -650,14 +649,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_MatchID_" data-uid="MongoDB.Entities.Replace`1.MatchID*"></a>
   <h4 id="MongoDB_Entities_Replace_1_MatchID_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchID(System.String)">MatchID(String)</h4>
   <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchID(string ID)</code></pre>
   </div>
@@ -694,14 +693,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_MatchString_" data-uid="MongoDB.Entities.Replace`1.MatchString*"></a>
   <h4 id="MongoDB_Entities_Replace_1_MatchString_System_String_" data-uid="MongoDB.Entities.Replace`1.MatchString(System.String)">MatchString(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; MatchString(string jsonString)</code></pre>
   </div>
@@ -738,15 +737,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_Option_" data-uid="MongoDB.Entities.Replace`1.Option*"></a>
   <h4 id="MongoDB_Entities_Replace_1_Option_System_Action_MongoDB_Driver_ReplaceOptions__" data-uid="MongoDB.Entities.Replace`1.Option(System.Action{MongoDB.Driver.ReplaceOptions})">Option(Action&lt;ReplaceOptions&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify an option for this replace command (use multiple times if needed)</p>
 <p>TIP: Setting options is not required</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; Option(Action&lt;ReplaceOptions&gt; option)</code></pre>
   </div>
@@ -783,15 +782,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Replace_1_WithEntity_" data-uid="MongoDB.Entities.Replace`1.WithEntity*"></a>
   <h4 id="MongoDB_Entities_Replace_1_WithEntity__0_" data-uid="MongoDB.Entities.Replace`1.WithEntity(`0)">WithEntity(T)</h4>
   <div class="markdown level1 summary"><p>Supply the entity to replace the first matched document with</p>
 <p>TIP: If the entity ID is empty, a new ID will be generated before being stored</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Replace&lt;T&gt; WithEntity(T entity)</code></pre>
   </div>
@@ -829,7 +828,7 @@
   </table>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -844,7 +843,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -852,13 +851,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-            
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>

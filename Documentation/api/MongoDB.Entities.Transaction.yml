@@ -85,9 +85,13 @@ items:
   - MongoDB.Entities.DBContext.SaveAsync``1({T},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveOnlyAsync``1({T},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.SaveOnlyAsync``1({T},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveExceptAsync``1({T},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.SaveExceptAsync``1({T},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
+  - MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.SavePreservingAsync``1({T},System.Threading.CancellationToken)
   - MongoDB.Entities.DBContext.Update``1
   - MongoDB.Entities.DBContext.UpdateAndGet``1
@@ -4181,6 +4185,98 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1({T},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(T, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(T, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync<T>
+    nameWithType: DBContext.SaveOnlyAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync(Of T)
+    nameWithType: DBContext.SaveOnlyAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
@@ -4329,6 +4425,120 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync<T>
+    nameWithType: DBContext.SaveOnlyAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync(Of T)
+    nameWithType: DBContext.SaveOnlyAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1({T},System.Linq.Expressions.Expression{System.Func{{T},System.Object}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   parent: MongoDB.Entities.DBContext
@@ -4441,6 +4651,98 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1({T},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(T, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(T, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync<T>
+    nameWithType: DBContext.SaveExceptAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync(Of T)
+    nameWithType: DBContext.SaveExceptAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -4589,6 +4891,120 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{{T}},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  parent: MongoDB.Entities.DBContext
+  definition: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  name: SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync<T>
+    nameWithType: DBContext.SaveExceptAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync(Of T)
+    nameWithType: DBContext.SaveExceptAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -7864,6 +8280,97 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  isExternal: true
+  name: SaveOnlyAsync<T>(T, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(T, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync<T>
+    nameWithType: DBContext.SaveOnlyAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync(Of T)
+    nameWithType: DBContext.SaveOnlyAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   isExternal: true
@@ -8011,6 +8518,119 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  isExternal: true
+  name: SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync<T>
+    nameWithType: DBContext.SaveOnlyAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveOnlyAsync(Of T)
+    nameWithType: DBContext.SaveOnlyAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveOnlyAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},System.Threading.CancellationToken)
   isExternal: true
@@ -8122,6 +8742,97 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  isExternal: true
+  name: SaveExceptAsync<T>(T, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(T, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync<T>
+    nameWithType: DBContext.SaveExceptAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync(Of T)
+    nameWithType: DBContext.SaveExceptAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
@@ -8269,6 +8980,119 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+  isExternal: true
+  name: SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  nameWithType: DBContext.SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, CancellationToken)
+  fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, System.Threading.CancellationToken)
+  nameWithType.vb: DBContext.SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  fullName.vb: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), CancellationToken)
+  spec.csharp:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync<T>
+    nameWithType: DBContext.SaveExceptAsync<T>
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync<T>
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.CancellationToken
+    name: CancellationToken
+    nameWithType: CancellationToken
+    fullName: System.Threading.CancellationToken
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: MongoDB.Entities.DBContext.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)
+    name: SaveExceptAsync(Of T)
+    nameWithType: DBContext.SaveExceptAsync(Of T)
+    fullName: MongoDB.Entities.DBContext.SaveExceptAsync(Of T)
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

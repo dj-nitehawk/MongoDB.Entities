@@ -106,7 +106,7 @@ items:
   source:
     id: Option
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 100
+    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -143,7 +143,7 @@ items:
   source:
     id: Key
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 112
+    startLine: 109
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -183,7 +183,7 @@ items:
   source:
     id: DropAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 123
+    startLine: 120
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -223,7 +223,7 @@ items:
   source:
     id: DropAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Builders\Index.cs
-    startLine: 132
+    startLine: 129
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
@@ -9,27 +9,27 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'UA-39155502-5');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class Template
-   | MongoDB.Entities </title>
+ | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Template
-   | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.4.0">
-    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+ | MongoDB.Entities ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    <meta property="docfx:newtab" content="true">
+  
+  <meta property="docfx:rel" content="../">
+  <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
     <meta property="og:url" content="https://mongodb-entities.com">
@@ -40,7 +40,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -94,10 +94,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Template">
-  
-  
+
+
   <h1 id="MongoDB_Entities_Template" data-uid="MongoDB.Entities.Template" class="text-break">Class Template
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -135,15 +135,15 @@
     <pre><code class="lang-csharp hljs">public class Template</code></pre>
   </div>
   <h3 id="constructors">Constructors
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_Template__ctor_" data-uid="MongoDB.Entities.Template.#ctor*"></a>
   <h4 id="MongoDB_Entities_Template__ctor_System_String_" data-uid="MongoDB.Entities.Template.#ctor(System.String)">Template(String)</h4>
   <div class="markdown level1 summary"><p>Initialize a command builder with the supplied template string.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template(string template)</code></pre>
   </div>
@@ -166,9 +166,9 @@
     </tbody>
   </table>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_Template_AppendStage_" data-uid="MongoDB.Entities.Template.AppendStage*"></a>
   <h4 id="MongoDB_Entities_Template_AppendStage_System_String_" data-uid="MongoDB.Entities.Template.AppendStage(System.String)">AppendStage(String)</h4>
   <div class="markdown level1 summary"><p>Appends a pipeline stage json string to the current pipeline.
@@ -177,7 +177,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 <p>WARNING: Appending stages prevents this template from being cached!!!</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void AppendStage(string pipelineStageString)</code></pre>
   </div>
@@ -199,17 +199,16 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Collection_" data-uid="MongoDB.Entities.Template.Collection*"></a>
   <h4 id="MongoDB_Entities_Template_Collection__1" data-uid="MongoDB.Entities.Template.Collection``1">Collection&lt;TEntity&gt;()</h4>
   <div class="markdown level1 summary"><p>Gets the collection name of a given entity type and replaces matching tags in the template such as &quot;&lt;EntityName&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Collection&lt;TEntity&gt;()
-
     where TEntity : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -243,14 +242,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Elements_" data-uid="MongoDB.Entities.Template.Elements*"></a>
   <h4 id="MongoDB_Entities_Template_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given index and expression into a path with the filtered positional identifier prepended to the property path like &quot;a.Name&quot; and replaces matching tags in the template such as &quot;&lt;a.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -308,14 +307,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Elements_" data-uid="MongoDB.Entities.Template.Elements*"></a>
   <h4 id="MongoDB_Entities_Template_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a path without any filtered positional identifier prepended to it like &quot;Name&quot; and replaces matching tags in the template such as &quot;&lt;Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -367,14 +366,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Path_" data-uid="MongoDB.Entities.Template.Path*"></a>
   <h4 id="MongoDB_Entities_Template_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a dotted path like &quot;SomeList.SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeList.SomeProp&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Path&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -426,14 +425,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Paths_" data-uid="MongoDB.Entities.Template.Paths*"></a>
   <h4 id="MongoDB_Entities_Template_Paths__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Paths``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Paths&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression into paths like &quot;Prop1.Child1 &amp; Prop2.Child2&quot; and replaces matching tags in the template.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Paths&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -485,14 +484,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_PosAll_" data-uid="MongoDB.Entities.Template.PosAll*"></a>
   <h4 id="MongoDB_Entities_Template_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template PosAll&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -544,15 +543,15 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_PosFiltered_" data-uid="MongoDB.Entities.Template.PosFiltered*"></a>
   <h4 id="MongoDB_Entities_Template_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -604,14 +603,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_PosFirst_" data-uid="MongoDB.Entities.Template.PosFirst*"></a>
   <h4 id="MongoDB_Entities_Template_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given expression into a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -663,14 +662,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Properties_" data-uid="MongoDB.Entities.Template.Properties*"></a>
   <h4 id="MongoDB_Entities_Template_Properties__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Properties``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Properties&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the property paths in the given <code>new</code> expression into property names like &quot;PropX &amp; PropY&quot; and replaces matching tags in the template.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Properties&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -722,14 +721,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Property_" data-uid="MongoDB.Entities.Template.Property*"></a>
   <h4 id="MongoDB_Entities_Template_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Turns the given member expression into a property name like &quot;SomeProp&quot; and replaces matching tags in the template such as &quot;&lt;SomeProp&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Property&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -781,15 +780,15 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_RenderToString_" data-uid="MongoDB.Entities.Template.RenderToString*"></a>
   <h4 id="MongoDB_Entities_Template_RenderToString" data-uid="MongoDB.Entities.Template.RenderToString">RenderToString()</h4>
   <div class="markdown level1 summary"><p>Executes the tag replacement and returns a string.</p>
 <p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string RenderToString()</code></pre>
   </div>
@@ -808,14 +807,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_Tag_" data-uid="MongoDB.Entities.Template.Tag*"></a>
   <h4 id="MongoDB_Entities_Template_Tag_System_String_System_String_" data-uid="MongoDB.Entities.Template.Tag(System.String,System.String)">Tag(String, String)</h4>
   <div class="markdown level1 summary"><p>Replaces the given tag in the template like &quot;&lt;search_term&gt;&quot; with the supplied value.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Template Tag(string tagName, string replacementValue)</code></pre>
   </div>
@@ -858,15 +857,15 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_ToArrayFilters_" data-uid="MongoDB.Entities.Template.ToArrayFilters*"></a>
   <h4 id="MongoDB_Entities_Template_ToArrayFilters__1" data-uid="MongoDB.Entities.Template.ToArrayFilters``1">ToArrayFilters&lt;T&gt;()</h4>
   <div class="markdown level1 summary"><p>Executes the tag replacement and returns array filter definitions.</p>
 <p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IEnumerable&lt;ArrayFilterDefinition&gt; ToArrayFilters&lt;T&gt;()</code></pre>
   </div>
@@ -900,15 +899,15 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_ToPipeline_" data-uid="MongoDB.Entities.Template.ToPipeline*"></a>
   <h4 id="MongoDB_Entities_Template_ToPipeline__2" data-uid="MongoDB.Entities.Template.ToPipeline``2">ToPipeline&lt;TInput, TOutput&gt;()</h4>
   <div class="markdown level1 summary"><p>Executes the tag replacement and returns a pipeline definition.</p>
 <p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public PipelineDefinition&lt;TInput, TOutput&gt; ToPipeline&lt;TInput, TOutput&gt;()</code></pre>
   </div>
@@ -948,15 +947,15 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_ToStages_" data-uid="MongoDB.Entities.Template.ToStages*"></a>
   <h4 id="MongoDB_Entities_Template_ToStages" data-uid="MongoDB.Entities.Template.ToStages">ToStages()</h4>
   <div class="markdown level1 summary"><p>Executes the tag replacement and returns the pipeline stages as an array of BsonDocuments.</p>
 <p>TIP: if all the tags don&apos;t match, an exception will be thrown.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IEnumerable&lt;BsonDocument&gt; ToStages()</code></pre>
   </div>
@@ -975,13 +974,14 @@ If this is going to be the first stage of your pipeline, you must instantiate th
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Template_ToString_" data-uid="MongoDB.Entities.Template.ToString*"></a>
   <h4 id="MongoDB_Entities_Template_ToString" data-uid="MongoDB.Entities.Template.ToString">ToString()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
+</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use the `RenderToString` method instead of `ToString`&quot;, true)]
 public string ToString()</code></pre>
@@ -1003,7 +1003,7 @@ public string ToString()</code></pre>
   </table>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -1018,7 +1018,7 @@ public string ToString()</code></pre>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -1026,13 +1026,13 @@ public string ToString()</code></pre>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-            
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>

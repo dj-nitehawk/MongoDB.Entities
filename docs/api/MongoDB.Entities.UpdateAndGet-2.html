@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
@@ -9,27 +9,27 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'UA-39155502-5');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class UpdateAndGet&lt;T, TProjection&gt;
-   | MongoDB.Entities </title>
+ | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class UpdateAndGet&lt;T, TProjection&gt;
-   | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.4.0">
-    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+ | MongoDB.Entities ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    <meta property="docfx:newtab" content="true">
+  
+  <meta property="docfx:rel" content="../">
+  <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
     <meta property="og:url" content="https://mongodb-entities.com">
@@ -40,7 +40,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -94,10 +94,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.UpdateAndGet`2">
-  
-  
+
+
   <h1 id="MongoDB_Entities_UpdateAndGet_2" data-uid="MongoDB.Entities.UpdateAndGet`2" class="text-break">Class UpdateAndGet&lt;T, TProjection&gt;
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>Update and retrieve the first document that was updated.</p>
 <p>TIP: Specify a filter first with the .Match(). Then set property values with .Modify() and finally call .Execute() to run the command.</p>
 </div>
@@ -176,15 +176,15 @@
     </tbody>
   </table>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_ExecuteAsync_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecuteAsync*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the update command in MongoDB and retrieve the first document modified</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TProjection&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -221,14 +221,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_ExecutePipelineAsync_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_ExecutePipelineAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.UpdateAndGet`2.ExecutePipelineAsync(System.Threading.CancellationToken)">ExecutePipelineAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the update command with pipeline stages and retrieve the first document modified</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; ExecutePipelineAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -265,14 +265,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_IgnoreGlobalFilters_" data-uid="MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_IgnoreGlobalFilters" data-uid="MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters">IgnoreGlobalFilters()</h4>
   <div class="markdown level1 summary"><p>Specify that this operation should ignore any global filters</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; IgnoreGlobalFilters()</code></pre>
   </div>
@@ -291,15 +291,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_IncludeRequiredProps_" data-uid="MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_IncludeRequiredProps" data-uid="MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps">IncludeRequiredProps()</h4>
   <div class="markdown level1 summary"><p>Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.</p>
 <p>HINT: this method should only be called after the .Project() method.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; IncludeRequiredProps()</code></pre>
   </div>
@@ -318,14 +318,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Driver_FilterDefinition__0__" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Driver.FilterDefinition{`0})">Match(FilterDefinition&lt;T&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter definition</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(FilterDefinition&lt;T&gt; filterDefinition)</code></pre>
   </div>
@@ -362,15 +362,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
@@ -431,14 +431,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Template template)</code></pre>
   </div>
@@ -475,14 +475,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
@@ -519,14 +519,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
@@ -563,8 +563,8 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Match_" data-uid="MongoDB.Entities.UpdateAndGet`2.Match*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.UpdateAndGet`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
@@ -572,7 +572,7 @@
 <p>Note: DB.FluentGeoNear() supports more advanced options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
@@ -627,14 +627,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchExpression(Template template)</code></pre>
   </div>
@@ -671,14 +671,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchExpression(System.String)">MatchExpression(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchExpression(string expression)</code></pre>
   </div>
@@ -715,14 +715,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_MatchID_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchID*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchID_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchID(System.String)">MatchID(String)</h4>
   <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchID(string ID)</code></pre>
   </div>
@@ -759,14 +759,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_MatchString_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchString*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_MatchString_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.MatchString(System.String)">MatchString(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; MatchString(string jsonString)</code></pre>
   </div>
@@ -803,14 +803,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(MongoDB.Entities.Template)">Modify(Template)</h4>
   <div class="markdown level1 summary"><p>Specify an update with a Template to modify the Entities (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify(Template template)</code></pre>
   </div>
@@ -847,14 +847,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_System_Func_MongoDB_Driver_UpdateDefinitionBuilder__0__MongoDB_Driver_UpdateDefinition__0___" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(System.Func{MongoDB.Driver.UpdateDefinitionBuilder{`0},MongoDB.Driver.UpdateDefinition{`0}})">Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the update definition builder operation to modify the Entities (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
   </div>
@@ -891,14 +891,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify(System.String)">Modify(String)</h4>
   <div class="markdown level1 summary"><p>Specify an update (json string) to modify the Entities (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify(string update)</code></pre>
   </div>
@@ -935,14 +935,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Modify_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Modify__1_System_Linq_Expressions_Expression_System_Func__0___0_____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.Modify``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0)">Modify&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt;, TProp)</h4>
   <div class="markdown level1 summary"><p>Specify the property and it's value to modify (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Modify&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt; property, TProp value)</code></pre>
   </div>
@@ -1000,14 +1000,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyExcept_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyExcept(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyExcept(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
   <div class="markdown level1 summary"><p>Modify all EXCEPT the specified properties with the values from a given entity instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyExcept(Expression&lt;Func&lt;T, object&gt;&gt; members, T entity)</code></pre>
   </div>
@@ -1050,14 +1050,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyOnly_System_Linq_Expressions_Expression_System_Func__0_System_Object____0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyOnly(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},`0)">ModifyOnly(Expression&lt;Func&lt;T, Object&gt;&gt;, T)</h4>
   <div class="markdown level1 summary"><p>Modify ONLY the specified properties with the values from a given entity instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyOnly(Expression&lt;Func&lt;T, object&gt;&gt; members, T entity)</code></pre>
   </div>
@@ -1100,14 +1100,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_ModifyWith_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyWith*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_ModifyWith__0_" data-uid="MongoDB.Entities.UpdateAndGet`2.ModifyWith(`0)">ModifyWith(T)</h4>
   <div class="markdown level1 summary"><p>Modify ALL properties with the values from the supplied entity instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; ModifyWith(T entity)</code></pre>
   </div>
@@ -1144,15 +1144,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Option_" data-uid="MongoDB.Entities.UpdateAndGet`2.Option*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Option_System_Action_MongoDB_Driver_FindOneAndUpdateOptions__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Option(System.Action{MongoDB.Driver.FindOneAndUpdateOptions{`0,`1}})">Option(Action&lt;FindOneAndUpdateOptions&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify an option for this update command (use multiple times if needed)</p>
 <p>TIP: Setting options is not required</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Option(Action&lt;FindOneAndUpdateOptions&lt;T, TProjection&gt;&gt; option)</code></pre>
   </div>
@@ -1189,14 +1189,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Project_" data-uid="MongoDB.Entities.UpdateAndGet`2.Project*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})">Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to project the results using a projection expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
   </div>
@@ -1233,14 +1233,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_Project_" data-uid="MongoDB.Entities.UpdateAndGet`2.Project*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___" data-uid="MongoDB.Entities.UpdateAndGet`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})">Project(Expression&lt;Func&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to project the results using a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
   </div>
@@ -1277,14 +1277,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilter_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilter_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(MongoDB.Entities.Template)">WithArrayFilter(Template)</h4>
   <div class="markdown level1 summary"><p>Specify a single array filter using a Template to target nested entities for updates</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithArrayFilter(Template template)</code></pre>
   </div>
@@ -1320,14 +1320,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilter_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilter_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilter(System.String)">WithArrayFilter(String)</h4>
   <div class="markdown level1 summary"><p>Specify an array filter to target nested entities for updates (use multiple times if needed).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithArrayFilter(string filter)</code></pre>
   </div>
@@ -1364,14 +1364,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilters_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilters*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithArrayFilters_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithArrayFilters(MongoDB.Entities.Template)">WithArrayFilters(Template)</h4>
   <div class="markdown level1 summary"><p>Specify multiple array filters with a Template to target nested entities for updates.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithArrayFilters(Template template)</code></pre>
   </div>
@@ -1408,15 +1408,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithPipeline_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipeline*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithPipeline_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipeline(MongoDB.Entities.Template)">WithPipeline(Template)</h4>
   <div class="markdown level1 summary"><p>Specify an update pipeline with multiple stages using a Template to modify the Entities.</p>
 <p>NOTE: pipeline updates and regular updates cannot be used together.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithPipeline(Template template)</code></pre>
   </div>
@@ -1453,15 +1453,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithPipelineStage_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithPipelineStage_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(MongoDB.Entities.Template)">WithPipelineStage(Template)</h4>
   <div class="markdown level1 summary"><p>Specify an update pipeline stage using a Template to modify the Entities (use multiple times if needed)</p>
 <p>NOTE: pipeline updates and regular updates cannot be used together.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithPipelineStage(Template template)</code></pre>
   </div>
@@ -1498,15 +1498,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_UpdateAndGet_2_WithPipelineStage_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*"></a>
   <h4 id="MongoDB_Entities_UpdateAndGet_2_WithPipelineStage_System_String_" data-uid="MongoDB.Entities.UpdateAndGet`2.WithPipelineStage(System.String)">WithPipelineStage(String)</h4>
   <div class="markdown level1 summary"><p>Specify an update pipeline stage to modify the Entities (use multiple times if needed)</p>
 <p>NOTE: pipeline updates and regular updates cannot be used together.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public UpdateAndGet&lt;T, TProjection&gt; WithPipelineStage(string stage)</code></pre>
   </div>
@@ -1545,7 +1545,7 @@
   </table>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -1560,7 +1560,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -1568,13 +1568,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-            
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>

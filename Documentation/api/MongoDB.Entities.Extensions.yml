@@ -29,9 +29,13 @@ items:
   - MongoDB.Entities.Extensions.Queryable``1(``0,MongoDB.Driver.AggregateOptions)
   - MongoDB.Entities.Extensions.SaveAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveAsync``1(System.Collections.Generic.IEnumerable{``0},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  - MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
@@ -325,7 +329,7 @@ items:
   source:
     id: IsAccessibleAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Database.cs
-    startLine: 25
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -336,6 +340,7 @@ items:
     parameters:
     - id: db
       type: MongoDB.Driver.IMongoDatabase
+      description: ''
     - id: timeoutSeconds
       type: System.Int32
       description: The number of seconds to keep trying
@@ -379,6 +384,7 @@ items:
     parameters:
     - id: db
       type: MongoDB.Driver.IMongoDatabase
+      description: ''
     - id: timeoutSeconds
       type: System.Int32
       description: The number of seconds to keep trying
@@ -411,7 +417,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Delete.cs
-    startLine: 15
+    startLine: 17
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -425,8 +431,10 @@ items:
     parameters:
     - id: entity
       type: '{T}'
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
+      description: ''
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -463,7 +471,7 @@ items:
   source:
     id: DeleteAllAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Delete.cs
-    startLine: 25
+    startLine: 29
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -477,8 +485,10 @@ items:
     parameters:
     - id: entities
       type: System.Collections.Generic.IEnumerable{{T}}
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
+      description: ''
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -894,7 +904,7 @@ items:
   source:
     id: NextSequentialNumberAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Entity.cs
-    startLine: 166
+    startLine: 167
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -908,6 +918,7 @@ items:
     parameters:
     - id: _
       type: '{T}'
+      description: ''
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -944,7 +955,7 @@ items:
   source:
     id: Fluent
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Fluent.cs
-    startLine: 13
+    startLine: 14
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -958,6 +969,7 @@ items:
     parameters:
     - id: _
       type: '{T}'
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
@@ -998,7 +1010,7 @@ items:
   source:
     id: Distinct
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Fluent.cs
-    startLine: 22
+    startLine: 23
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1046,7 +1058,7 @@ items:
   source:
     id: Match
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Fluent.cs
-    startLine: 50
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1098,7 +1110,7 @@ items:
   source:
     id: MatchExpression
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Fluent.cs
-    startLine: 61
+    startLine: 62
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1150,7 +1162,7 @@ items:
   source:
     id: InsertAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Insert.cs
-    startLine: 14
+    startLine: 15
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1164,6 +1176,7 @@ items:
     parameters:
     - id: entity
       type: '{T}'
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
@@ -1203,7 +1216,7 @@ items:
   source:
     id: InsertAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Insert.cs
-    startLine: 24
+    startLine: 26
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1217,6 +1230,7 @@ items:
     parameters:
     - id: entities
       type: System.Collections.Generic.IEnumerable{{T}}
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
@@ -1502,7 +1516,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 17
+    startLine: 18
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1516,6 +1530,7 @@ items:
     parameters:
     - id: entity
       type: '{T}'
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
@@ -1555,7 +1570,7 @@ items:
   source:
     id: SaveAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 28
+    startLine: 30
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1569,6 +1584,7 @@ items:
     parameters:
     - id: entities
       type: System.Collections.Generic.IEnumerable{{T}}
+      description: ''
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
       description: An optional session if using within a transaction
@@ -1608,7 +1624,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 44
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1651,6 +1667,64 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SaveOnlyAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: SaveOnlyAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: SaveOnlyAsync<T>(T, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(T, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: SaveOnlyAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
+    startLine: 62
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSaves an entity partially with only the specified subset of properties. \nIf ID value is null, a new entity is created. If ID has a value, then existing entity is updated.\n<p>TIP: The properties to be saved can be specified with an IEnumerable. \nProperty names must match exactly.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The entity to save
+    - id: propNames
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function SaveOnlyAsync(Of T As IEntity)(entity As T, propNames As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of UpdateResult)
+  overload: MongoDB.Entities.Extensions.SaveOnlyAsync*
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(T, IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(T, IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1666,7 +1740,7 @@ items:
   source:
     id: SaveOnlyAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 60
+    startLine: 78
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1709,6 +1783,64 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: SaveOnlyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveOnlyAsync<T>(IEnumerable<T>, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveOnlyAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: SaveOnlyAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
+    startLine: 94
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSaves a batch of entities partially with only the specified subset of properties. \nIf ID value is null, a new entity is created. If ID has a value, then existing entity is updated.\n<p>TIP: The properties to be saved can be specified with an IEnumerable. \nProperty names must match exactly.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: entities
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: The batch of entities to save
+    - id: propNames
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function SaveOnlyAsync(Of T As IEntity)(entities As IEnumerable(Of T), propNames As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of BulkWriteResult(Of T))
+  overload: MongoDB.Entities.Extensions.SaveOnlyAsync*
+  nameWithType.vb: Extensions.SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.SaveOnlyAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveOnlyAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: SaveExceptAsync``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1724,7 +1856,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 76
+    startLine: 110
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1767,6 +1899,64 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(T, System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SaveExceptAsync(Of T)(T, Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: SaveExceptAsync``1(``0,System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: SaveExceptAsync<T>(T, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(T, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(T, System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: SaveExceptAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
+    startLine: 126
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSaves an entity partially excluding the specified subset of properties. \nIf ID value is null, a new entity is created. If ID has a value, then existing entity is updated.\n<p>TIP: The properties to be saved can be specified with an IEnumerable. \nProperty names must match exactly.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The entity to save
+    - id: propNames
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.UpdateResult}
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function SaveExceptAsync(Of T As IEntity)(entity As T, propNames As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of UpdateResult)
+  overload: MongoDB.Entities.Extensions.SaveExceptAsync*
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(T, IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(T, System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(T, IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Object}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1782,7 +1972,7 @@ items:
   source:
     id: SaveExceptAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 92
+    startLine: 142
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1825,6 +2015,64 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Linq.Expressions.Expression(Of System.Func(Of T, System.Object)), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
   name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), Expression(Of Func(Of T, Object)), IClientSessionHandle, CancellationToken)
+- uid: MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  commentId: M:MongoDB.Entities.Extensions.SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  id: SaveExceptAsync``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{System.String},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  nameWithType: Extensions.SaveExceptAsync<T>(IEnumerable<T>, IEnumerable<String>, IClientSessionHandle, CancellationToken)
+  fullName: MongoDB.Entities.Extensions.SaveExceptAsync<T>(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEnumerable<System.String>, MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  type: Method
+  source:
+    id: SaveExceptAsync
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
+    startLine: 158
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nSaves a batch of entities partially excluding the specified subset of properties. \nIf ID value is null, a new entity is created. If ID has a value, then existing entity is updated.\n<p>TIP: The properties to be saved can be specified with an IEnumerable. \nProperty names must match exactly.</p>\n"
+  example: []
+  syntax:
+    content: >-
+      public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))
+
+          where T : IEntity
+    parameters:
+    - id: entities
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: The batch of entities to save
+    - id: propNames
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }
+    - id: session
+      type: MongoDB.Driver.IClientSessionHandle
+      description: An optional session if using within a transaction
+    - id: cancellation
+      type: System.Threading.CancellationToken
+      description: An optional cancellation token
+    typeParameters:
+    - id: T
+      description: Any class that implements IEntity
+    return:
+      type: System.Threading.Tasks.Task{MongoDB.Driver.BulkWriteResult{{T}}}
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function SaveExceptAsync(Of T As IEntity)(entities As IEnumerable(Of T), propNames As IEnumerable(Of String), session As IClientSessionHandle = Nothing, cancellation As CancellationToken = Nothing) As Task(Of BulkWriteResult(Of T))
+  overload: MongoDB.Entities.Extensions.SaveExceptAsync*
+  nameWithType.vb: Extensions.SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), IClientSessionHandle, CancellationToken)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: MongoDB.Entities.Extensions.SaveExceptAsync(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEnumerable(Of System.String), MongoDB.Driver.IClientSessionHandle, System.Threading.CancellationToken)
+  name.vb: SaveExceptAsync(Of T)(IEnumerable(Of T), IEnumerable(Of String), IClientSessionHandle, CancellationToken)
 - uid: MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -1840,7 +2088,7 @@ items:
   source:
     id: SavePreservingAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Save.cs
-    startLine: 104
+    startLine: 171
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1857,6 +2105,7 @@ items:
       description: The entity to save
     - id: session
       type: MongoDB.Driver.IClientSessionHandle
+      description: ''
     - id: cancellation
       type: System.Threading.CancellationToken
       description: An optional cancellation token
@@ -3920,6 +4169,50 @@ references:
     name: UpdateResult
     nameWithType: UpdateResult
     fullName: MongoDB.Driver.UpdateResult
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<String>
+  nameWithType: IEnumerable<String>
+  fullName: System.Collections.Generic.IEnumerable<System.String>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of System.String)
+  name.vb: IEnumerable(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
     isExternal: true
   - name: )
     nameWithType: )

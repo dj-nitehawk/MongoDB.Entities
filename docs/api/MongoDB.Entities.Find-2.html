@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
@@ -9,27 +9,27 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'UA-39155502-5');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class Find&lt;T, TProjection&gt;
-   | MongoDB.Entities </title>
+ | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Find&lt;T, TProjection&gt;
-   | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.4.0">
-    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+ | MongoDB.Entities ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    <meta property="docfx:newtab" content="true">
+  
+  <meta property="docfx:rel" content="../">
+  <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
     <meta property="og:url" content="https://mongodb-entities.com">
@@ -40,7 +40,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -94,10 +94,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Find`2">
-  
-  
+
+
   <h1 id="MongoDB_Entities_Find_2" data-uid="MongoDB.Entities.Find`2" class="text-break">Class Find&lt;T, TProjection&gt;
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>Represents a MongoDB Find command with the ability to project to a different result type.</p>
 <p>TIP: Specify your criteria using .Match() .Sort() .Skip() .Take() .Project() .Option() methods and finally call .Execute()</p>
 </div>
@@ -137,7 +137,6 @@
   <h5 id="MongoDB_Entities_Find_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Find&lt;T, TProjection&gt;
-
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -162,15 +161,15 @@
     </tbody>
   </table>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_Find_2_ExecuteAnyAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteAnyAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ExecuteAnyAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteAnyAsync(System.Threading.CancellationToken)">ExecuteAnyAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the Find command and get back a bool indicating whether any entities matched the query</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; ExecuteAnyAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -207,14 +206,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ExecuteAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ExecuteAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteAsync(System.Threading.CancellationToken)">ExecuteAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a list of results</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;List&lt;TProjection&gt;&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -251,14 +250,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ExecuteCursorAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteCursorAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ExecuteCursorAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteCursorAsync(System.Threading.CancellationToken)">ExecuteCursorAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a cursor instead of materialized results</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;IAsyncCursor&lt;TProjection&gt;&gt; ExecuteCursorAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -295,14 +294,14 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ExecuteFirstAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteFirstAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ExecuteFirstAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteFirstAsync(System.Threading.CancellationToken)">ExecuteFirstAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get the first result or the default value if not found</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TProjection&gt; ExecuteFirstAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -339,15 +338,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ExecuteSingleAsync_" data-uid="MongoDB.Entities.Find`2.ExecuteSingleAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ExecuteSingleAsync_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ExecuteSingleAsync(System.Threading.CancellationToken)">ExecuteSingleAsync(CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Run the Find command in MongoDB server and get a single result or the default value if not found.
 If more than one entity is found, it will throw an exception.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public async Task&lt;TProjection&gt; ExecuteSingleAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -384,14 +383,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_IgnoreGlobalFilters_" data-uid="MongoDB.Entities.Find`2.IgnoreGlobalFilters*"></a>
   <h4 id="MongoDB_Entities_Find_2_IgnoreGlobalFilters" data-uid="MongoDB.Entities.Find`2.IgnoreGlobalFilters">IgnoreGlobalFilters()</h4>
   <div class="markdown level1 summary"><p>Specify that this operation should ignore any global filters</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; IgnoreGlobalFilters()</code></pre>
   </div>
@@ -410,15 +409,15 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_IncludeRequiredProps_" data-uid="MongoDB.Entities.Find`2.IncludeRequiredProps*"></a>
   <h4 id="MongoDB_Entities_Find_2_IncludeRequiredProps" data-uid="MongoDB.Entities.Find`2.IncludeRequiredProps">IncludeRequiredProps()</h4>
   <div class="markdown level1 summary"><p>Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.</p>
 <p>HINT: this method should only be called after the .Project() method.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; IncludeRequiredProps()</code></pre>
   </div>
@@ -437,14 +436,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Limit_" data-uid="MongoDB.Entities.Find`2.Limit*"></a>
   <h4 id="MongoDB_Entities_Find_2_Limit_System_Int32_" data-uid="MongoDB.Entities.Find`2.Limit(System.Int32)">Limit(Int32)</h4>
   <div class="markdown level1 summary"><p>Specify how many entities to Take/Limit</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Limit(int takeCount)</code></pre>
   </div>
@@ -481,14 +480,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ManyAsync_" data-uid="MongoDB.Entities.Find`2.ManyAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ManyAsync_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ManyAsync(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}},System.Threading.CancellationToken)">ManyAsync(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Find entities by supplying a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProjection&gt;&gt; ManyAsync(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -532,14 +531,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ManyAsync_" data-uid="MongoDB.Entities.Find`2.ManyAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_ManyAsync_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.ManyAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Threading.CancellationToken)">ManyAsync(Expression&lt;Func&lt;T, Boolean&gt;&gt;, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Find entities by supplying a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;List&lt;TProjection&gt;&gt; ManyAsync(Expression&lt;Func&lt;T, bool&gt;&gt; expression, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -583,14 +582,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_MongoDB_Driver_FilterDefinition__0__" data-uid="MongoDB.Entities.Find`2.Match(MongoDB.Driver.FilterDefinition{`0})">Match(FilterDefinition&lt;T&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter definition</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(FilterDefinition&lt;T&gt; filterDefinition)</code></pre>
   </div>
@@ -627,15 +626,15 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_MongoDB_Entities_Search_System_String_System_Boolean_System_Boolean_System_String_" data-uid="MongoDB.Entities.Find`2.Match(MongoDB.Entities.Search,System.String,System.Boolean,System.Boolean,System.String)">Match(Search, String, Boolean, Boolean, String)</h4>
   <div class="markdown level1 summary"><p>Specify a search term to find results from the text index of this particular collection.</p>
 <p>TIP: Make sure to define a text index with DB.Index&lt;T>() before searching</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
@@ -696,14 +695,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Find`2.Match(MongoDB.Entities.Template)">Match(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Template template)</code></pre>
   </div>
@@ -740,14 +739,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_System_Func_MongoDB_Driver_FilterDefinitionBuilder__0__MongoDB_Driver_FilterDefinition__0___" data-uid="MongoDB.Entities.Find`2.Match(System.Func{MongoDB.Driver.FilterDefinitionBuilder{`0},MongoDB.Driver.FilterDefinition{`0}})">Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a filter expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
@@ -784,14 +783,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Boolean___" data-uid="MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">Match(Expression&lt;Func&lt;T, Boolean&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
@@ -828,8 +827,8 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Coordinates2D_System_Nullable_System_Double__System_Nullable_System_Double__" data-uid="MongoDB.Entities.Find`2.Match(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Coordinates2D,System.Nullable{System.Double},System.Nullable{System.Double})">Match(Expression&lt;Func&lt;T, Object&gt;&gt;, Coordinates2D, Nullable&lt;Double&gt;, Nullable&lt;Double&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify criteria for matching entities based on GeoSpatial data (longitude &amp; latitude)</p>
@@ -837,7 +836,7 @@ If more than one entity is found, it will throw an exception.</p>
 <p>Note: DB.FluentGeoNear() supports more advanced options</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
@@ -892,14 +891,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Match_" data-uid="MongoDB.Entities.Find`2.Match*"></a>
   <h4 id="MongoDB_Entities_Find_2_Match_System_String_" data-uid="MongoDB.Entities.Find`2.Match(System.String)">Match(String)</h4>
   <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Match(string ID)</code></pre>
   </div>
@@ -936,14 +935,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_MatchExpression_" data-uid="MongoDB.Entities.Find`2.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_Find_2_MatchExpression_MongoDB_Entities_Template_" data-uid="MongoDB.Entities.Find`2.MatchExpression(MongoDB.Entities.Template)">MatchExpression(Template)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a Template</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchExpression(Template template)</code></pre>
   </div>
@@ -980,14 +979,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_MatchExpression_" data-uid="MongoDB.Entities.Find`2.MatchExpression*"></a>
   <h4 id="MongoDB_Entities_Find_2_MatchExpression_System_String_" data-uid="MongoDB.Entities.Find`2.MatchExpression(System.String)">MatchExpression(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with an aggregation expression (i.e. $expr)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchExpression(string expression)</code></pre>
   </div>
@@ -1024,14 +1023,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_MatchID_" data-uid="MongoDB.Entities.Find`2.MatchID*"></a>
   <h4 id="MongoDB_Entities_Find_2_MatchID_System_String_" data-uid="MongoDB.Entities.Find`2.MatchID(System.String)">MatchID(String)</h4>
   <div class="markdown level1 summary"><p>Specify an IEntity ID as the matching criteria</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchID(string ID)</code></pre>
   </div>
@@ -1068,14 +1067,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_MatchString_" data-uid="MongoDB.Entities.Find`2.MatchString*"></a>
   <h4 id="MongoDB_Entities_Find_2_MatchString_System_String_" data-uid="MongoDB.Entities.Find`2.MatchString(System.String)">MatchString(String)</h4>
   <div class="markdown level1 summary"><p>Specify the matching criteria with a JSON string</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; MatchString(string jsonString)</code></pre>
   </div>
@@ -1112,14 +1111,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_OneAsync_" data-uid="MongoDB.Entities.Find`2.OneAsync*"></a>
   <h4 id="MongoDB_Entities_Find_2_OneAsync_System_String_System_Threading_CancellationToken_" data-uid="MongoDB.Entities.Find`2.OneAsync(System.String,System.Threading.CancellationToken)">OneAsync(String, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Find a single IEntity by ID</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;TProjection&gt; OneAsync(string ID, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
@@ -1163,14 +1162,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Option_" data-uid="MongoDB.Entities.Find`2.Option*"></a>
   <h4 id="MongoDB_Entities_Find_2_Option_System_Action_MongoDB_Driver_FindOptions__0__1___" data-uid="MongoDB.Entities.Find`2.Option(System.Action{MongoDB.Driver.FindOptions{`0,`1}})">Option(Action&lt;FindOptions&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify an option for this find command (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Option(Action&lt;FindOptions&lt;T, TProjection&gt;&gt; option)</code></pre>
   </div>
@@ -1207,14 +1206,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Project_" data-uid="MongoDB.Entities.Find`2.Project*"></a>
   <h4 id="MongoDB_Entities_Find_2_Project_System_Func_MongoDB_Driver_ProjectionDefinitionBuilder__0__MongoDB_Driver_ProjectionDefinition__0__1___" data-uid="MongoDB.Entities.Find`2.Project(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`1}})">Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to project the results using a projection expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
   </div>
@@ -1251,14 +1250,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Project_" data-uid="MongoDB.Entities.Find`2.Project*"></a>
   <h4 id="MongoDB_Entities_Find_2_Project_System_Linq_Expressions_Expression_System_Func__0__1___" data-uid="MongoDB.Entities.Find`2.Project(System.Linq.Expressions.Expression{System.Func{`0,`1}})">Project(Expression&lt;Func&lt;T, TProjection&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to project the results using a lambda expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
   </div>
@@ -1295,14 +1294,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_ProjectExcluding_" data-uid="MongoDB.Entities.Find`2.ProjectExcluding*"></a>
   <h4 id="MongoDB_Entities_Find_2_ProjectExcluding_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Find`2.ProjectExcluding(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">ProjectExcluding(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to project the results using an exclusion projection expression.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; ProjectExcluding(Expression&lt;Func&lt;T, object&gt;&gt; exclusion)</code></pre>
   </div>
@@ -1339,14 +1338,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Skip_" data-uid="MongoDB.Entities.Find`2.Skip*"></a>
   <h4 id="MongoDB_Entities_Find_2_Skip_System_Int32_" data-uid="MongoDB.Entities.Find`2.Skip(System.Int32)">Skip(Int32)</h4>
   <div class="markdown level1 summary"><p>Specify how many entities to skip</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Skip(int skipCount)</code></pre>
   </div>
@@ -1383,14 +1382,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Sort_" data-uid="MongoDB.Entities.Find`2.Sort*"></a>
   <h4 id="MongoDB_Entities_Find_2_Sort_System_Func_MongoDB_Driver_SortDefinitionBuilder__0__MongoDB_Driver_SortDefinition__0___" data-uid="MongoDB.Entities.Find`2.Sort(System.Func{MongoDB.Driver.SortDefinitionBuilder{`0},MongoDB.Driver.SortDefinition{`0}})">Sort(Func&lt;SortDefinitionBuilder&lt;T&gt;, SortDefinition&lt;T&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Specify how to sort using a sort expression</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Sort(Func&lt;SortDefinitionBuilder&lt;T&gt;, SortDefinition&lt;T&gt;&gt; sortFunction)</code></pre>
   </div>
@@ -1427,14 +1426,14 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_Sort_" data-uid="MongoDB.Entities.Find`2.Sort*"></a>
   <h4 id="MongoDB_Entities_Find_2_Sort_System_Linq_Expressions_Expression_System_Func__0_System_Object___MongoDB_Entities_Order_" data-uid="MongoDB.Entities.Find`2.Sort(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},MongoDB.Entities.Order)">Sort(Expression&lt;Func&lt;T, Object&gt;&gt;, Order)</h4>
   <div class="markdown level1 summary"><p>Specify which property and order to use for sorting (use multiple times if needed)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; Sort(Expression&lt;Func&lt;T, object&gt;&gt; propertyToSortBy, Order sortOrder)</code></pre>
   </div>
@@ -1477,15 +1476,15 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_SortByTextScore_" data-uid="MongoDB.Entities.Find`2.SortByTextScore*"></a>
   <h4 id="MongoDB_Entities_Find_2_SortByTextScore" data-uid="MongoDB.Entities.Find`2.SortByTextScore">SortByTextScore()</h4>
   <div class="markdown level1 summary"><p>Sort the results of a text search by the MetaTextScore</p>
 <p>TIP: Use this method after .Project() if you need to do a projection also</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; SortByTextScore()</code></pre>
   </div>
@@ -1504,15 +1503,15 @@ If more than one entity is found, it will throw an exception.</p>
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Find_2_SortByTextScore_" data-uid="MongoDB.Entities.Find`2.SortByTextScore*"></a>
   <h4 id="MongoDB_Entities_Find_2_SortByTextScore_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Find`2.SortByTextScore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">SortByTextScore(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Sort the results of a text search by the MetaTextScore and get back the score as well</p>
 <p>TIP: Use this method after .Project() if you need to do a projection also</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Find&lt;T, TProjection&gt; SortByTextScore(Expression&lt;Func&lt;T, object&gt;&gt; scoreProperty)</code></pre>
   </div>
@@ -1551,7 +1550,7 @@ If more than one entity is found, it will throw an exception.</p>
   </table>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -1566,7 +1565,7 @@ If more than one entity is found, it will throw an exception.</p>
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -1574,13 +1573,13 @@ If more than one entity is found, it will throw an exception.</p>
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-            
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>

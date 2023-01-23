@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-  
+
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-39155502-5"></script>
@@ -9,27 +9,27 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-  
+
       gtag('config', 'UA-39155502-5');
     </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Class Prop
-   | MongoDB.Entities </title>
+ | MongoDB.Entities </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Prop
-   | MongoDB.Entities ">
-    <meta name="generator" content="docfx 2.58.4.0">
-    <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
+ | MongoDB.Entities ">
+    <meta name="generator" content="docfx ">
+  <meta name="description" content="A data access library for MongoDB with an elegant api, LINQ support and built-in entity relationship management.">
     <link rel="shortcut icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    
-    <meta property="docfx:rel" content="../">
-    <meta property="docfx:newtab" content="true">
+  
+  <meta property="docfx:rel" content="../">
+  <meta property="docfx:newtab" content="true">
     <meta property="og:title" content="MongoDB.Entities">
     <meta property="og:site_name" content="MongoDB.Entities">
     <meta property="og:url" content="https://mongodb-entities.com">
@@ -40,7 +40,7 @@
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-        
+
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -50,7 +50,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              
+
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/icon.png" alt="">
               </a>
@@ -64,7 +64,7 @@
             </div>
           </div>
         </nav>
-        
+
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -74,7 +74,7 @@
         </div>
       </header>
       <div class="container body-content">
-        
+
         <div id="search-results">
           <div class="search-list">Search Results for <span></span></div>
           <div class="sr-items">
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div role="main" class="container body-content hide-when-search">
-        
+
         <div class="sidenav hide-when-search">
           <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
           <div class="sidetoggle collapse" id="sidetoggle">
@@ -94,10 +94,10 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Prop">
-  
-  
+
+
   <h1 id="MongoDB_Entities_Prop" data-uid="MongoDB.Entities.Prop" class="text-break">Class Prop
-  </h1>
+</h1>
   <div class="markdown level0 summary"><p>This class provides methods to generate property path strings from lambda expression.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -137,18 +137,17 @@
     <pre><code class="lang-csharp hljs">public static class Prop</code></pre>
   </div>
   <h3 id="methods">Methods
-  </h3>
-  
-  
+</h3>
+
+
   <a id="MongoDB_Entities_Prop_Collection_" data-uid="MongoDB.Entities.Prop.Collection*"></a>
   <h4 id="MongoDB_Entities_Prop_Collection__1" data-uid="MongoDB.Entities.Prop.Collection``1">Collection&lt;T&gt;()</h4>
   <div class="markdown level1 summary"><p>Returns the collection/entity name of a given entity type</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Collection&lt;T&gt;()
-
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
@@ -182,8 +181,8 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_Elements_" data-uid="MongoDB.Entities.Prop.Elements*"></a>
   <h4 id="MongoDB_Entities_Prop_Elements__1_System_Int32_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(System.Int32,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Int32, Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with the filtered positional identifier prepended to the property path.</p>
@@ -192,7 +191,7 @@
 <p>TIP: Index positions start from &apos;0&apos; which is converted to &apos;a&apos; and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -250,15 +249,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_Elements_" data-uid="MongoDB.Entities.Prop.Elements*"></a>
   <h4 id="MongoDB_Entities_Prop_Elements__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Elements``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Elements&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path without any filtered positional identifier prepended to it.</p>
 <p>EX: b => b.Tags > Tags</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -310,15 +309,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_Path_" data-uid="MongoDB.Entities.Prop.Path*"></a>
   <h4 id="MongoDB_Entities_Prop_Path__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Path``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Path&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns the full dotted path for a given expression.</p>
 <p>EX: Authors[0].Books[0].Title > Authors.Books.Title</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Path&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -370,15 +369,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_PosAll_" data-uid="MongoDB.Entities.Prop.PosAll*"></a>
   <h4 id="MongoDB_Entities_Prop_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with the all positional operator $[] for a given expression.</p>
 <p>EX: Authors[0].Name > Authors.$[].Name</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string PosAll&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -430,8 +429,8 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_PosFiltered_" data-uid="MongoDB.Entities.Prop.PosFiltered*"></a>
   <h4 id="MongoDB_Entities_Prop_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with filtered positional identifiers $[x] for a given expression.</p>
@@ -441,7 +440,7 @@
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -493,15 +492,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_PosFirst_" data-uid="MongoDB.Entities.Prop.PosFirst*"></a>
   <h4 id="MongoDB_Entities_Prop_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns a path with the first positional operator $ for a given expression.</p>
 <p>EX: Authors[0].Name > Authors.$.Name</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -553,15 +552,15 @@
       </tr>
     </tbody>
   </table>
-  
-  
+
+
   <a id="MongoDB_Entities_Prop_Property_" data-uid="MongoDB.Entities.Prop.Property*"></a>
   <h4 id="MongoDB_Entities_Prop_Property__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Prop.Property``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">Property&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Returns the name of the property for a given expression.</p>
 <p>EX: Authors[0].Books[0].Title > Title</p>
 </div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
+  <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static string Property&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
@@ -615,7 +614,7 @@
   </table>
 </article>
           </div>
-          
+
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
@@ -630,7 +629,7 @@
           </div>
         </div>
       </div>
-      
+
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -638,13 +637,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-            Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
-            
+      Developed by <a href='https://github.com/dj-nitehawk'>Đĵ ΝιΓΞΗΛψΚ</a> and <a href='https://github.com/dj-nitehawk/MongoDB.Entities/graphs/contributors'>contributors</a> / Licensed under <a href='https://github.com/dj-nitehawk/MongoDB.Entities/blob/master/LICENSE'>MIT</a> / Website generated by <a href='https://dotnet.github.io/docfx/'>DocFX</a>
+      
           </div>
         </div>
       </footer>
     </div>
-    
+
     <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
