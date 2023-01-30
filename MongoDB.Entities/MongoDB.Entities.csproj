@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>21.0.1</Version>
+        <Version>21.0.2</Version>
 
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
@@ -33,7 +33,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 

@@ -333,7 +333,8 @@ public class Watcher<T> where T : IEntity
         {
             if (element.Name != "_id")
             {
-                doc["fullDocument." + element.Name] = element.Value;
+                var val = element.Value.ToString();
+                doc["fullDocument." + element.Name] = val.Insert(1, "fullDocument.");
             }
         }
 

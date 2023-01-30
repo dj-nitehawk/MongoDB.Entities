@@ -49,7 +49,7 @@ public class Watcher
 
         watcher.Start(
             EventType.Created | EventType.Updated,
-            f => new Flower { Color = f.Color },
+            f => new Flower { Color = f.Color, NestedFlower = f.NestedFlower },
             f => f.FullDocument.Color == "red");
 
         await Task.Delay(500);
@@ -61,7 +61,7 @@ public class Watcher
         };
 
         await new[] {
-            new Flower { Name = "test", Color = "red" },
+            new Flower { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
             new Flower { Name = "test", Color = "red" },
             new Flower { Name = "test", Color = "red" }
         }.SaveAsync();
@@ -74,7 +74,10 @@ public class Watcher
         await Task.Delay(500);
 
         Assert.AreEqual(3, allFlowers.Count);
-        Assert.IsTrue(allFlowers[0].Name == null && allFlowers[0].Color == "red");
+        Assert.IsTrue(
+            allFlowers[0].Name == null &&
+            allFlowers[0].Color == "red" &&
+            allFlowers[0].NestedFlower.Name == "nested");
     }
 
     [TestMethod]
