@@ -177,7 +177,7 @@ public class DataStreamer
         await CleanUpAsync(session).ConfigureAwait(false);
 
         var chunkSize = chunkSizeKB * 1024;
-        StreamInfo streamInfo = new StreamInfo(
+        var streamInfo = new StreamInfo(
             new FileChunk { FileID = parent.ID },
             chunkSize,
             0,

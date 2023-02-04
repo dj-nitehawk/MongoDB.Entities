@@ -19,10 +19,10 @@ internal static class Logic
         return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
     }
 
-    internal static IEnumerable<string>? GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
+    internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
     {
         return (expression?.Body as NewExpression)?.Arguments
-            .Select(a => a.ToString().Split('.')[1]);
+            .Select(a => a.ToString().Split('.')[1]) ?? Enumerable.Empty<string>();
     }
 
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members,
@@ -31,9 +31,9 @@ internal static class Logic
         return BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
     }
 
-    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string>? propNames, bool excludeMode = false) where T : IEntity
+    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
     {
-        if (propNames is null || !propNames.Any())
+        if (!propNames.Any())
             throw new ArgumentException("Unable to get any properties from the members expression!");
 
         var props = Cache<T>.UpdatableProps(entity);

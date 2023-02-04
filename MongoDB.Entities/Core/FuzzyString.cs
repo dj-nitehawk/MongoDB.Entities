@@ -62,7 +62,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
         }
     }
 
-    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo? serializationInfo)
+    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
     {
         switch (memberName)
         {
@@ -70,7 +70,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
                 serializationInfo = new BsonSerializationInfo("Value", strSerializer, typeof(string));
                 return true;
             default:
-                serializationInfo = null;
+                serializationInfo = null!;
                 return false;
         }
     }

@@ -76,7 +76,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entity, Logic.GetPropNamesFromExpression(members) ?? new string[]{}, session, cancellation);
+        return SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation);
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[]{}, session, cancellation);
+        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation);
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entity, Logic.GetPropNamesFromExpression(members) ?? new string[]{}, session, cancellation, true);
+        return SavePartial(entity, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
     }
 
     /// <summary>
@@ -172,7 +172,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[]{}, session, cancellation, true);
+        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
     }
 
     /// <summary>

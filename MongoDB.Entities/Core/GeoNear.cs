@@ -48,6 +48,7 @@ public class Coordinates2D
 /// <typeparam name="T">The type of entity</typeparam>
 public class GeoNear<T> where T : IEntity
 {
+#pragma warning disable IDE1006
     public Coordinates2D? near { get; set; }
     public string? distanceField { get; set; }
     public bool spherical { get; set; }
