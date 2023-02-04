@@ -77,7 +77,7 @@ public class Watcher<T> where T : IEntity
     /// </summary>
     public BsonDocument? ResumeToken => options?.StartAfter;
 
-    private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>>? pipeline;
+    private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline = null!;
     private ChangeStreamOptions? options;
     private bool resume;
     private CancellationToken cancelToken;
@@ -428,7 +428,7 @@ public class Watcher<T> where T : IEntity
 
                     if (OnChanges != null)
                     {
-                        foreach (Action<IEnumerable<T>> a in OnChanges.GetInvocationList())
+                        foreach (var a in OnChanges.GetInvocationList().Cast<Action<IEnumerable<T>>>())
                             OnChanges -= a;
                     }
 
