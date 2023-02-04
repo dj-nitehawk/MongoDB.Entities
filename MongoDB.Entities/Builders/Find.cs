@@ -385,7 +385,7 @@ public class Find<T, TProjection> where T : IEntity
     /// If more than one entity is found, it will throw an exception.
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public async Task<TProjection> ExecuteSingleAsync(CancellationToken cancellation = default)
+    public async Task<TProjection?> ExecuteSingleAsync(CancellationToken cancellation = default)
     {
         Limit(2);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
@@ -397,7 +397,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Run the Find command in MongoDB server and get the first result or the default value if not found
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public async Task<TProjection> ExecuteFirstAsync(CancellationToken cancellation = default)
+    public async Task<TProjection?> ExecuteFirstAsync(CancellationToken cancellation = default)
     {
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
