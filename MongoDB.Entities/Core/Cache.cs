@@ -12,19 +12,19 @@ namespace MongoDB.Entities;
 
 internal static class Cache<T> where T : IEntity
 {
-    internal static IMongoDatabase Database { get; private set; }
-    internal static IMongoCollection<T> Collection { get; private set; }
-    internal static string DBName { get; private set; }
-    internal static string CollectionName { get; private set; }
-    internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; }
+    internal static IMongoDatabase Database { get; private set; } = null!;
+    internal static IMongoCollection<T> Collection { get; private set; } = null!;
+    internal static string DBName { get; private set; } = null!;
+    internal static string CollectionName { get; private set; } = null!;
+    internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
     internal static bool HasCreatedOn { get; private set; }
     internal static bool HasModifiedOn { get; private set; }
-    internal static string ModifiedOnPropName { get; private set; }
-    internal static PropertyInfo ModifiedByProp { get; private set; }
+    internal static string ModifiedOnPropName { get; private set; } = null!;
+    internal static PropertyInfo ModifiedByProp { get; private set; } = null!;
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
-    private static PropertyInfo[] updatableProps;
-    private static ProjectionDefinition<T> requiredPropsProjection;
+    private static PropertyInfo[] updatableProps = null!;
+    private static ProjectionDefinition<T> requiredPropsProjection = null!;
 
     static Cache()
     {

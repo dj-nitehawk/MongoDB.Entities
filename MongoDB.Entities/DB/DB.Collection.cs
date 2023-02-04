@@ -39,7 +39,7 @@ public static partial class DB
     /// <param name="options">The options to use for collection creation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle session = null) where T : IEntity
+    public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle? session = null) where T : IEntity
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);
@@ -54,7 +54,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">The entity type to drop the collection of</typeparam>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static async Task DropCollectionAsync<T>(IClientSessionHandle session = null) where T : IEntity
+    public static async Task DropCollectionAsync<T>(IClientSessionHandle? session = null) where T : IEntity
     {
         var tasks = new List<Task>();
         var db = Database<T>();

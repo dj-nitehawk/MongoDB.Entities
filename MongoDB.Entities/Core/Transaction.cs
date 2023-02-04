@@ -19,7 +19,7 @@ public class Transaction : DBContext, IDisposable
     /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
     /// You can inherit from the ModifiedBy class and add your own properties to it. 
     /// Only one ModifiedBy property is allowed on a single entity type.</param>
-    public Transaction(string database = default, ClientSessionOptions options = null, ModifiedBy modifiedBy = null)
+    public Transaction(string? database = default, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
     {
         Session = DB.Database(database).Client.StartSession(options);
         Session.StartTransaction();
@@ -36,7 +36,7 @@ public class Transaction : DBContext, IDisposable
         {
             if (disposing)
             {
-                Session.Dispose();
+                Session?.Dispose();
             }
 
             disposedValue = true;

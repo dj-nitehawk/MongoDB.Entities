@@ -21,7 +21,7 @@ public static partial class Extensions
     public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        property.SetValue(parent, new Many<TChild>(parent, property.Name));
+        property?.SetValue(parent, new Many<TChild>(parent, property.Name));
     }
 
     /// <summary>
@@ -33,8 +33,8 @@ public static partial class Extensions
     public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
-        var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute), false);
+        var hasOwnerAttrib = property?.IsDefined(typeof(OwnerSideAttribute), false) ?? false;
+        var hasInverseAttrib = property?.IsDefined(typeof(InverseSideAttribute), false) ?? false;
         if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
         if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
 
@@ -46,6 +46,6 @@ public static partial class Extensions
 
         if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
 
-        property.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
+        property?.SetValue(parent, new Many<TChild>(parent, property.Name, osProperty.Name, hasInverseAttrib));
     }
 }

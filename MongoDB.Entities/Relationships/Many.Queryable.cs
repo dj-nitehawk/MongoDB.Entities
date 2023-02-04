@@ -14,7 +14,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// </summary>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
+    public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return session == null
                ? JoinCollection.AsQueryable(options)
@@ -28,7 +28,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
     {
         return ParentsQueryable<TParent>(new[] { childID }, session, options);
     }
@@ -40,7 +40,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -71,7 +71,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     [Obsolete("This method is no longer supported due to incompatibilities with LINQ3 translation engine!", true)]
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
     {
         throw new NotSupportedException();
         //return typeof(TParent) == typeof(TChild)
@@ -108,7 +108,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// </summary>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle session = null, AggregateOptions options = null)
+    public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         parent.ThrowIfUnsaved();
 

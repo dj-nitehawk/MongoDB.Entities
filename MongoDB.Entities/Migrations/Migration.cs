@@ -9,4 +9,12 @@ public class Migration : Entity
     public int Number { get; set; }
     public string Name { get; set; }
     public double TimeTakenSeconds { get; set; }
+
+    public Migration(int number, string name, double timeTakenSeconds)
+    {
+        Number = number;
+        Name = name;
+        TimeTakenSeconds = timeTakenSeconds;
+
+    }
 }

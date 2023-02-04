@@ -29,32 +29,32 @@ public class Watcher<T> where T : IEntity
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
     /// </summary>
-    public event Action<IEnumerable<T>> OnChanges;
+    public event Action<IEnumerable<T>>? OnChanges;
 
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'entities' that was received as input.
     /// </summary>
-    public event AsyncEventHandler<IEnumerable<T>> OnChangesAsync;
+    public event AsyncEventHandler<IEnumerable<T>>? OnChangesAsync;
 
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
     /// </summary>
-    public event Action<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSD;
+    public event Action<IEnumerable<ChangeStreamDocument<T>>>? OnChangesCSD;
 
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
     /// </summary>
-    public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>> OnChangesCSDAsync;
+    public event AsyncEventHandler<IEnumerable<ChangeStreamDocument<T>>>? OnChangesCSDAsync;
 
     /// <summary>
     /// This event is fired when an exception is thrown in the change-stream.
     /// </summary>
-    public event Action<Exception> OnError;
+    public event Action<Exception>? OnError;
 
     /// <summary>
     /// This event is fired when the internal cursor get closed due to an 'invalidate' event or cancellation is requested via the cancellation token.
     /// </summary>
-    public event Action OnStop;
+    public event Action? OnStop;
 
     /// <summary>
     /// The name of this watcher instance
@@ -75,10 +75,10 @@ public class Watcher<T> where T : IEntity
     /// <summary>
     /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
     /// </summary>
-    public BsonDocument ResumeToken => options?.StartAfter;
+    public BsonDocument? ResumeToken => options?.StartAfter;
 
-    private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline;
-    private ChangeStreamOptions options;
+    private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>>? pipeline;
+    private ChangeStreamOptions? options;
     private bool resume;
     private CancellationToken cancelToken;
 
@@ -95,7 +95,7 @@ public class Watcher<T> where T : IEntity
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
     public void Start(
         EventType eventTypes,
-        Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
         int batchSize = 25,
         bool onlyGetIDs = false,
         bool autoResume = true,
@@ -114,7 +114,7 @@ public class Watcher<T> where T : IEntity
     public void Start(
         EventType eventTypes,
         Expression<Func<T, T>> projection,
-        Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
         int batchSize = 25,
         bool autoResume = true,
         CancellationToken cancellation = default)
@@ -168,7 +168,7 @@ public class Watcher<T> where T : IEntity
     public void StartWithToken(
         BsonDocument resumeToken,
         EventType eventTypes,
-        Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
         int batchSize = 25,
         bool onlyGetIDs = false,
         CancellationToken cancellation = default)
@@ -187,7 +187,7 @@ public class Watcher<T> where T : IEntity
         BsonDocument resumeToken,
         EventType eventTypes,
         Expression<Func<T, T>> projection,
-        Expression<Func<ChangeStreamDocument<T>, bool>> filter = null,
+        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
         int batchSize = 25,
         CancellationToken cancellation = default)
     => Init(resumeToken, eventTypes, filter, projection, batchSize, false, true, cancellation);
@@ -229,10 +229,10 @@ public class Watcher<T> where T : IEntity
     => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
 
     private void Init(
-        BsonDocument resumeToken,
+        BsonDocument? resumeToken,
         EventType eventTypes,
         FilterDefinition<ChangeStreamDocument<T>> filter,
-        Expression<Func<T, T>> projection,
+        Expression<Func<T, T>>? projection,
         int batchSize,
         bool onlyGetIDs,
         bool autoResume,
@@ -345,7 +345,7 @@ public class Watcher<T> where T : IEntity
     /// If the watcher stopped due to an error or invalidate event, you can try to restart the watching again with this method.
     /// </summary>
     /// <param name="resumeToken">An optional resume token to restart watching with</param>
-    public void ReStart(BsonDocument resumeToken = null)
+    public void ReStart(BsonDocument? resumeToken = null)
     {
         if (!CanRestart)
         {
@@ -361,7 +361,7 @@ public class Watcher<T> where T : IEntity
         if (cancelToken.IsCancellationRequested)
             throw new InvalidOperationException("This watcher cannot be restarted as it has been aborted/cancelled!");
 
-        if (resumeToken != null)
+        if (resumeToken != null && options != null)
             options.StartAfter = resumeToken;
 
         StartWatching();
@@ -386,7 +386,7 @@ public class Watcher<T> where T : IEntity
                 {
                     if (cursor.Current.Any())
                     {
-                        if (resume)
+                        if (resume && options != null)
                             options.StartAfter = cursor.Current.Last().ResumeToken;
 
                         if (OnChangesAsync != null)

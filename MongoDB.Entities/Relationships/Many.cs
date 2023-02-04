@@ -30,13 +30,13 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
 {
     private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
     private bool isInverse;
-    private IEntity parent;
+    private IEntity parent = null!;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
     /// <para>TIP: Try never to use this unless really neccessary.</para>
     /// </summary>
-    public IMongoCollection<JoinRecord> JoinCollection { get; private set; }
+    public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null!;
 
     /// <summary>
     /// Get the number of children for a relationship
@@ -44,7 +44,7 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default)
+    public Task<long> ChildrenCountAsync(IClientSessionHandle? session = null, CountOptions? options = null, CancellationToken cancellation = default)
     {
         parent.ThrowIfUnsaved();
 

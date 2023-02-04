@@ -19,8 +19,8 @@ namespace MongoDB.Entities;
 public class Find<T> : Find<T, T> where T : IEntity
 {
     internal Find(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
         : base(session, globalFilters) { }
 }
 
@@ -35,13 +35,13 @@ public class Find<T, TProjection> where T : IEntity
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private readonly List<SortDefinition<T>> sorts = new();
     private readonly FindOptions<T, TProjection> options = new();
-    private readonly IClientSessionHandle session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
+    private readonly IClientSessionHandle? session;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
     private bool ignoreGlobalFilters;
 
     internal Find(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -149,7 +149,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -243,7 +243,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     /// <param name="scoreProperty">x => x.TextScoreProp</param>
-    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>> scoreProperty)
+    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>>? scoreProperty)
     {
         switch (scoreProperty)
         {
@@ -316,7 +316,7 @@ public class Find<T, TProjection> where T : IEntity
         var props = (exclusion.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);
 
-        if (!props.Any())
+        if (props == null || !props.Any())
             throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
         var defs = new List<ProjectionDefinition<T>>(props.Count());

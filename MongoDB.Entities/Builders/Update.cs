@@ -64,16 +64,16 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     private readonly List<PipelineStageDefinition<T, T>> stages = new();
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private UpdateOptions options = new();
-    private readonly IClientSessionHandle session;
+    private readonly IClientSessionHandle? session;
     private readonly List<UpdateManyModel<T>> models = new();
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-    private readonly Action<UpdateBase<T>> onUpdateAction;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
     internal Update(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -137,7 +137,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -464,7 +464,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
                ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)

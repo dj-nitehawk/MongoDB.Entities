@@ -52,7 +52,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Where(expression)),
@@ -71,7 +71,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
@@ -90,7 +90,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation collation = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),

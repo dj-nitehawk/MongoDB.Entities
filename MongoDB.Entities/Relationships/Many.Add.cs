@@ -15,7 +15,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="child">The child Entity to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public Task AddAsync(TChild child, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return AddAsync(child.ID, session, cancellation);
     }
@@ -27,7 +27,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="children">The child Entities to add</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return AddAsync(children.Select(c => c.ID), session, cancellation);
     }
@@ -39,7 +39,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childID">The ID of the child Entity to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public Task AddAsync(string childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return AddAsync(new[] { childID }, session, cancellation);
     }
@@ -51,7 +51,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childIDs">The IDs of the child Entities to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public Task AddAsync(IEnumerable<string> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         parent.ThrowIfUnsaved();
 

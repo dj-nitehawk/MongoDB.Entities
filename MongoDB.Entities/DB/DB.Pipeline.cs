@@ -17,7 +17,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return session == null
                ? Collection<T>().AggregateAsync(template.ToPipeline(), options, cancellation)
@@ -33,7 +33,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         var list = new List<TResult>();
         using (var cursor = await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
@@ -56,7 +56,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         AggregateOptions opts = options ?? new AggregateOptions();
         opts.BatchSize = 2;
@@ -75,7 +75,7 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         AggregateOptions opts = options ?? new AggregateOptions();
         opts.BatchSize = 1;

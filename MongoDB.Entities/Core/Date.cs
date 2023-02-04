@@ -6,12 +6,12 @@ using System;
 
 namespace MongoDB.Entities;
 
-internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
+internal class DateSerializer : SerializerBase<Date?>, IBsonDocumentSerializer
 {
     private static readonly Int64Serializer longSerializer = new();
     private static readonly DateTimeSerializer dtSerializer = new();
 
-    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
+    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date? date)
     {
         if (date == null)
         {
@@ -27,7 +27,7 @@ internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
         }
     }
 
-    public override Date Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+    public override Date? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
     {
         var bsonType = ctx.Reader.GetCurrentBsonType();
 
@@ -58,7 +58,7 @@ internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
         }
     }
 
-    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
+    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo? serializationInfo)
     {
         switch (memberName)
         {

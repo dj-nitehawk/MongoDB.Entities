@@ -14,9 +14,9 @@ public static class Prop
     private static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
     private static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
-    private static string ToLowerCaseLetter(long n)
+    private static string? ToLowerCaseLetter(long n)
     {
-        string val = null;
+        string? val = null;
         const char c = 'a';
         while (n >= 0)
         {

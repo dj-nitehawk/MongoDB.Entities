@@ -18,18 +18,18 @@ public class Replace<T> where T : IEntity
 {
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private ReplaceOptions options = new();
-    private readonly IClientSessionHandle session;
+    private readonly IClientSessionHandle? session;
     private readonly List<ReplaceOneModel<T>> models = new();
-    private readonly ModifiedBy modifiedBy;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-    private readonly Action<T> onSaveAction;
+    private readonly ModifiedBy? modifiedBy;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    private readonly Action<T>? onSaveAction;
     private bool ignoreGlobalFilters;
 
     internal Replace(
-        IClientSessionHandle session,
-        ModifiedBy modifiedBy,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<T> onSaveAction)
+        IClientSessionHandle? session,
+        ModifiedBy? modifiedBy,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<T>? onSaveAction)
     {
         this.session = session;
         this.modifiedBy = modifiedBy;
@@ -37,7 +37,7 @@ public class Replace<T> where T : IEntity
         this.onSaveAction = onSaveAction;
     }
 
-    private T entity { get; set; }
+    private T? entity { get; set; }
 
     /// <summary>
     /// Specify an IEntity ID as the matching criteria
@@ -96,7 +96,7 @@ public class Replace<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -255,7 +255,7 @@ public class Replace<T> where T : IEntity
 
     private void SetModOnAndByValues()
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn && entity != null) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
         {
             Cache<T>.ModifiedByProp.SetValue(

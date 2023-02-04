@@ -11,7 +11,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// </summary>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<JoinRecord> JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)
+    public IAggregateFluent<JoinRecord> JoinFluent(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return session == null
             ? JoinCollection.Aggregate(options)
@@ -65,7 +65,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+    public IAggregateFluent<TParent> ParentsFluent<TParent>(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
     {
         return ParentsFluent<TParent>(new[] { childID }, session, options);
     }
@@ -77,7 +77,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle session = null, AggregateOptions options = null) where TParent : IEntity
+    public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -107,7 +107,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// </summary>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle session = null, AggregateOptions options = null)
+    public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         parent.ThrowIfUnsaved();
 
@@ -132,6 +132,6 @@ public sealed partial class Many<TChild> where TChild : IEntity
 
     private class Joined<T> : JoinRecord
     {
-        public T[] Results { get; set; }
+        public T[] Results { get; set; } = null!;
     }
 }

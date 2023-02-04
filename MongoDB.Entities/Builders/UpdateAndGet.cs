@@ -17,9 +17,9 @@ namespace MongoDB.Entities;
 public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 {
     internal UpdateAndGet(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
         : base(session, globalFilters, onUpdateAction) { }
 }
 
@@ -34,15 +34,15 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     private readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
-    private readonly IClientSessionHandle session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-    private readonly Action<UpdateBase<T>> onUpdateAction;
+    private readonly IClientSessionHandle? session;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
     internal UpdateAndGet(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -106,7 +106,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -419,7 +419,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
             ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)

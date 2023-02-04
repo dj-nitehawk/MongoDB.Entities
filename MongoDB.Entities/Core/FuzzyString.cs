@@ -6,11 +6,11 @@ using System;
 
 namespace MongoDB.Entities;
 
-internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
+internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSerializer
 {
     private static readonly StringSerializer strSerializer = new();
 
-    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
+    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
     {
         if (fString == null || string.IsNullOrWhiteSpace(fString.Value))
         {
@@ -18,17 +18,17 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumen
         }
         else
         {
-            if (fString.Value.Length > FuzzyString.CharacterLimit)
+            if (fString.Value?.Length > FuzzyString.CharacterLimit)
                 throw new NotSupportedException($"FuzzyString can only hold a maximum of {FuzzyString.CharacterLimit} characters!");
 
             ctx.Writer.WriteStartDocument();
             ctx.Writer.WriteString("Value", fString.Value);
-            ctx.Writer.WriteString("Hash", fString.Value.ToDoubleMetaphoneHash());
+            ctx.Writer.WriteString("Hash", fString.Value?.ToDoubleMetaphoneHash());
             ctx.Writer.WriteEndDocument();
         }
     }
 
-    public override FuzzyString Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+    public override FuzzyString? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
     {
         var bsonType = ctx.Reader.GetCurrentBsonType();
 
@@ -36,7 +36,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumen
         {
             case BsonType.Document:
 
-                string value = null;
+                string? value = null;
 
                 ctx.Reader.ReadStartDocument();
                 while (ctx.Reader.ReadBsonType() != BsonType.EndOfDocument)
@@ -62,7 +62,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumen
         }
     }
 
-    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
+    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo? serializationInfo)
     {
         switch (memberName)
         {
@@ -87,14 +87,14 @@ public class FuzzyString
 {
     public static int CharacterLimit { get; set; } = 250;
 
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
     public static implicit operator FuzzyString(string value)
     {
         return new FuzzyString { Value = value };
     }
 
-    public static implicit operator string(FuzzyString fuzzyString)
+    public static implicit operator string?(FuzzyString fuzzyString)
     {
         return fuzzyString.Value;
     }

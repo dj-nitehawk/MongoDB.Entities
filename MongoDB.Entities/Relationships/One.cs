@@ -17,7 +17,7 @@ public class One<T> where T : IEntity
     /// The Id of the entity referenced by this instance.
     /// </summary>
     [AsObjectId]
-    public string ID { get; set; }
+    public string ID { get; set; } = null!;
 
     public One()
     { }
@@ -56,7 +56,7 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
-    public Task<T> ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public Task<T> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return new Find<T>(session, null).OneAsync(ID, cancellation);
     }
@@ -68,7 +68,7 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name = "cancellation" > An optional cancellation token</param>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public async Task<T?> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
                     .Match(ID)
@@ -84,7 +84,7 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name = "cancellation" > An optional cancellation token</param>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    public async Task<T?> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
                     .Match(ID)

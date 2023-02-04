@@ -21,12 +21,16 @@ public static partial class Extensions
     private class Holder<T>
     {
         public T Data { get; set; }
+        public Holder(T data)
+        {
+            Data = data;
+        }
     }
 
     private static T Duplicate<T>(this T source)
     {
         return BsonSerializer.Deserialize<Holder<T>>(
-            new Holder<T> { Data = source }.ToBson()
+            new Holder<T>(source).ToBson()
             ).Data;
     }
 
@@ -76,7 +80,7 @@ public static partial class Extensions
     /// <summary>
     /// An IQueryable collection of sibling Entities.
     /// </summary>
-    public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity
+    public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
     {
         return DB.Queryable<T>(options);
     }
