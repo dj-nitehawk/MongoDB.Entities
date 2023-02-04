@@ -296,7 +296,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
         var props = (exclusion.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);
 
-        if (props == null || !props.Any())
+        if (props?.Any() != true)
             throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
         var defs = new List<ProjectionDefinition<T>>(props.Count());

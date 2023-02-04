@@ -20,7 +20,7 @@ internal static class Cache<T> where T : IEntity
     internal static bool HasCreatedOn { get; private set; }
     internal static bool HasModifiedOn { get; private set; }
     internal static string ModifiedOnPropName { get; private set; } = null!;
-    internal static PropertyInfo ModifiedByProp { get; private set; } = null!;
+    internal static PropertyInfo? ModifiedByProp { get; private set; }
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
     private static PropertyInfo[] updatableProps = null!;
