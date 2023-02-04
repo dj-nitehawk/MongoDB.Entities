@@ -14,8 +14,11 @@ public static class Prop
     private static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
     private static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
-    private static string? ToLowerCaseLetter(long n)
+    private static string ToLowerCaseLetter(long n)
     {
+        if (n < 0)
+            throw new NotSupportedException("Value must be greater than 0!");
+
         string? val = null;
         const char c = 'a';
         while (n >= 0)
@@ -25,7 +28,7 @@ public static class Prop
             n--;
         }
 
-        return val;
+        return val!;
     }
 
     private static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
