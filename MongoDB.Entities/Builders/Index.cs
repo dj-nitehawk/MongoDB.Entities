@@ -155,7 +155,7 @@ internal class Key<T> where T : IEntity
 
         if (expression.Body.NodeType == ExpressionType.MemberAccess && type == KeyType.Text)
         {
-            PropertyName = expression.PropertyInfo()?.PropertyType == typeof(FuzzyString) ? expression.FullPath() + ".Hash" : expression.FullPath();
+            PropertyName = expression.PropertyInfo().PropertyType == typeof(FuzzyString) ? expression.FullPath() + ".Hash" : expression.FullPath();
             return;
         }
 

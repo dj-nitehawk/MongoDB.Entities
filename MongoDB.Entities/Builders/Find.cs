@@ -53,7 +53,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">The unique ID of an IEntity</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A single entity or null if not found</returns>
-    public Task<TProjection> OneAsync(string? ID, CancellationToken cancellation = default)
+    public Task<TProjection?> OneAsync(string? ID, CancellationToken cancellation = default)
     {
         Match(ID);
         return ExecuteSingleAsync(cancellation);

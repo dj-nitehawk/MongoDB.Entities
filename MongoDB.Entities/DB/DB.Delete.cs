@@ -13,7 +13,7 @@ public static partial class DB
     private static readonly int deleteBatchSize = 100000;
 
     private static async Task<DeleteResult> DeleteCascadingAsync<T>(
-        IEnumerable<string> IDs,
+        IEnumerable<string?> IDs,
         IClientSessionHandle? session = null,
         CancellationToken cancellation = default) where T : IEntity
     {
@@ -70,7 +70,7 @@ public static partial class DB
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(string? ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
         return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
@@ -85,7 +85,7 @@ public static partial class DB
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name = "session" > An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -153,7 +153,7 @@ public static partial class DB
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
-        var cursor = await new Find<T, string>(session, null)
+        var cursor = await new Find<T, string?>(session, null)
                            .Match(_ => filter)
                            .Project(e => e.ID)
                            .Option(o => o.BatchSize = deleteBatchSize)
