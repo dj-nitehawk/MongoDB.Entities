@@ -21,20 +21,18 @@ public static partial class Extensions
     private class Holder<T>
     {
         public T Data { get; set; }
+
         public Holder(T data)
-        {
-            Data = data;
-        }
+            => Data = data;
     }
 
     private static T Duplicate<T>(this T source)
     {
         return BsonSerializer.Deserialize<Holder<T>>(
-            new Holder<T>(source).ToBson()
-            ).Data;
+            new Holder<T>(source).ToBson()).Data;
     }
 
-    internal static void ThrowIfUnsaved(this string entityID)
+    internal static void ThrowIfUnsaved(this string? entityID)
     {
         if (string.IsNullOrWhiteSpace(entityID))
             throw new InvalidOperationException("Please save the entity before performing this operation!");

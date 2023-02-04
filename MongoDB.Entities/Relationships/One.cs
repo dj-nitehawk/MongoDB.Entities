@@ -17,7 +17,7 @@ public class One<T> where T : IEntity
     /// The Id of the entity referenced by this instance.
     /// </summary>
     [AsObjectId]
-    public string ID { get; set; } = null!;
+    public string? ID { get; set; }
 
     public One()
     { }

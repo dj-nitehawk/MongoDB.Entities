@@ -43,7 +43,7 @@ public class Replace<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Replace<T> MatchID(string ID)
+    public Replace<T> MatchID(string? ID)
     {
         return Match(f => f.Eq(t => t.ID, ID));
     }

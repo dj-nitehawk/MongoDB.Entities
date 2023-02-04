@@ -6,9 +6,9 @@ namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-    internal static PropertyInfo? PropertyInfo<T>(this Expression<T> expression)
+    internal static PropertyInfo PropertyInfo<T>(this Expression<T> expression)
     {
-        return MemberInfo(expression) as PropertyInfo;
+        return (PropertyInfo)MemberInfo(expression);
     }
 
     internal static MemberInfo MemberInfo<T>(this Expression<T> expression)

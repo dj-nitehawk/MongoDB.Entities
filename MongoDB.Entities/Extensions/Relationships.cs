@@ -21,7 +21,7 @@ public static partial class Extensions
     public static void InitOneToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>>> propertyToInit) where TChild : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        property?.SetValue(parent, new Many<TChild>(parent, property.Name));
+        property.SetValue(parent, new Many<TChild>(parent, property.Name));
     }
 
     /// <summary>

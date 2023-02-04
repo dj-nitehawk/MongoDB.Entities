@@ -84,7 +84,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Update<T> MatchID(string ID)
+    public Update<T> MatchID(string? ID)
     {
         return Match(f => f.Eq(t => t.ID, ID));
     }
