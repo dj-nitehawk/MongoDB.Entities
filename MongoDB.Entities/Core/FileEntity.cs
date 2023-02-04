@@ -52,13 +52,13 @@ public abstract class FileEntity : Entity
 [Collection("[BINARY_CHUNKS]")]
 internal class FileChunk : IEntity
 {
-    [BsonId, ObjectId] 
-    public string ID { get; set; } = null!;
+    [BsonId, ObjectId]
+    public string? ID { get; set; }
 
     [AsObjectId]
-    public string FileID { get; set; } = null!;
+    public string? FileID { get; set; }
 
-    public byte[] Data { get; set; } = null!;
+    public byte[] Data { get; set; } = Array.Empty<byte>();
 
     public string GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
@@ -184,7 +184,7 @@ public class DataStreamer
             new byte[64 * 1024],
             new List<byte>(chunkSize)
         );
-        
+
         if (!string.IsNullOrEmpty(parent.MD5))
             streamInfo.Md5 = MD5.Create();
 

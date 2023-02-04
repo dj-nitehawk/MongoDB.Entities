@@ -58,7 +58,7 @@ internal class DateSerializer : SerializerBase<Date?>, IBsonDocumentSerializer
         }
     }
 
-    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo? serializationInfo)
+    public bool TryGetMemberSerializationInfo(string memberName, out BsonSerializationInfo serializationInfo)
     {
         switch (memberName)
         {
@@ -69,7 +69,7 @@ internal class DateSerializer : SerializerBase<Date?>, IBsonDocumentSerializer
                 serializationInfo = new BsonSerializationInfo("DateTime", dtSerializer, typeof(DateTime));
                 return true;
             default:
-                serializationInfo = null;
+                serializationInfo = null!;
                 return false;
         }
     }
