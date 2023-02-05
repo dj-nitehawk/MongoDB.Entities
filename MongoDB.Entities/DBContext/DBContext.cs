@@ -259,7 +259,7 @@ public partial class DBContext
 
         allEntitiyTypes ??= GetAllEntityTypes();
 
-        foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
+        foreach (var entType in allEntitiyTypes.Where(targetType.IsAssignableFrom))
         {
             AddFilter(entType, (jsonString, prepend));
         }

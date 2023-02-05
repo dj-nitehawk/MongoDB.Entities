@@ -45,7 +45,7 @@ public static class Prop
         ThrowIfInvalid(expression);
 
         return rxTwo.Replace(
-            rxOne.Match(expression.ToString()).Value.Substring(1),
+            rxOne.Match(expression.ToString()).Value[1..],
             m => "[" + m.Groups[1].Value + "]");
     }
 
@@ -54,7 +54,7 @@ public static class Prop
         return
             rxThree.Replace(
                 rxTwo.Replace(
-                    rxOne.Match(expString).Value.Substring(1),
+                    rxOne.Match(expString).Value[1..],
                     m => "[" + m.Groups[1].Value + "]"),
                 "");
     }
