@@ -141,7 +141,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public PagedSearch<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public PagedSearch<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -291,7 +291,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// Specify how to project the results using an exclusion projection expression.
     /// </summary>
     /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
-    public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
+    public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object?>> exclusion)
     {
         var props = (exclusion.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);

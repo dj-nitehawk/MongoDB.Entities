@@ -70,7 +70,7 @@ public static partial class Extensions
     /// Returns the full dotted path of a property for the given expression
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static string FullPath<T>(this Expression<Func<T, object>> expression)
+    public static string FullPath<T>(this Expression<Func<T, object?>> expression)
     {
         return Prop.Path(expression);
     }

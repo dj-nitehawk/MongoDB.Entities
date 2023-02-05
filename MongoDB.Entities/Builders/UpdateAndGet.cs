@@ -136,7 +136,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -228,7 +228,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
@@ -240,7 +240,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));

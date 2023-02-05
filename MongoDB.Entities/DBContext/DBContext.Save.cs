@@ -49,7 +49,7 @@ public partial class DBContext
     /// <param name="entity">The entity to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+    public Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
     {
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
@@ -83,7 +83,7 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
     {
         SetModifiedByMultiple(entities);
         foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);
@@ -117,7 +117,7 @@ public partial class DBContext
     /// <param name="entity">The entity to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+    public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
     {
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
@@ -151,7 +151,7 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, CancellationToken cancellation = default) where T : IEntity
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
     {
         SetModifiedByMultiple(entities);
         foreach (var ent in entities) OnBeforeSave<T>()?.Invoke(ent);

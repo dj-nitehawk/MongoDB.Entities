@@ -31,7 +31,7 @@ public static partial class Extensions
     /// <param name="parent"></param>
     /// <param name="propertyToInit">() = > PropertyName</param>
     /// <param name="propertyOtherSide">x => x.PropertyName</param>
-    public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>?>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity
+    public static void InitManyToMany<TChild>(this IEntity parent, Expression<Func<Many<TChild>?>> propertyToInit, Expression<Func<TChild, object?>> propertyOtherSide) where TChild : IEntity
     {
         var property = propertyToInit.PropertyInfo();
         var hasOwnerAttrib = property?.IsDefined(typeof(OwnerSideAttribute), false) ?? false;

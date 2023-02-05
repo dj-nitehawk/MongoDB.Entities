@@ -44,7 +44,7 @@ public static partial class Extensions
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveOnlyAsync(entity, members, session, cancellation);
     }
@@ -76,7 +76,7 @@ public static partial class Extensions
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveOnlyAsync(entities, members, session, cancellation);
     }
@@ -108,7 +108,7 @@ public static partial class Extensions
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveExceptAsync(entity, members, session, cancellation);
     }
@@ -140,7 +140,7 @@ public static partial class Extensions
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.SaveExceptAsync(entities, members, session, cancellation);
     }
