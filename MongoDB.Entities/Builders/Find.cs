@@ -292,7 +292,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify how to project the results using a lambda expression
     /// </summary>
     /// <param name="expression">x => new Test { PropName = x.Prop }</param>
-    public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
+    public Find<T, TProjection> Project(Expression<Func<T, TProjection?>> expression)
     {
         return Project(p => p.Expression(expression));
     }
@@ -301,9 +301,9 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify how to project the results using a projection expression
     /// </summary>
     /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
-    public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
+    public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection?>> projection)
     {
-        options.Projection = projection(Builders<T>.Projection);
+        options.Projection = projection(Builders<T>.Projection)!;
         return this;
     }
 

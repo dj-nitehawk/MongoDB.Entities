@@ -69,19 +69,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the property paths in the given `new` expression (of input type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template<TInput, TResult> Properties(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public Template<TInput, TResult> Properties(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of output type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of any type) into paths like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public new Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public new Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
 
 
@@ -109,19 +109,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the property paths in the given `new` expression (of input type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template<TInput, TResult> Paths(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public Template<TInput, TResult> Paths(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of output type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template<TInput, TResult> PathsOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public Template<TInput, TResult> PathsOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of any type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public new Template<TInput, TResult> Paths<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public new Template<TInput, TResult> Paths<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
 
 
@@ -292,7 +292,7 @@ public class Template
 
         if (!(builder[0] == '[' && builder[1] == ']')) //not an empty array
         {
-            foreach (Match match in regex.Matches(cacheHit ? cachedTemplate : template))
+            foreach (var match in regex.Matches(cacheHit ? cachedTemplate : template).Cast<Match>())
                 goalTags.Add(match.Value);
 
             if (!cacheHit && goalTags.Count == 0)
@@ -318,8 +318,8 @@ public class Template
     }
 
     /// <summary>
-    /// Appends a pipeline stage json string to the current pipeline. 
-    /// This method can only be used if the template was initialized with an array of pipeline stages. 
+    /// Appends a pipeline stage json string to the current pipeline.
+    /// This method can only be used if the template was initialized with an array of pipeline stages.
     /// If this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <c>new Template("[]")</c>
     /// <para>WARNING: Appending stages prevents this template from being cached!!!</para>
     /// </summary>
@@ -344,7 +344,7 @@ public class Template
         if (!pipelineStageString.StartsWith("{") && !pipelineStageString.EndsWith("}"))
             throw new ArgumentException("A pipeline stage string must begin with a { and end with a }");
 
-        foreach (Match match in regex.Matches(pipelineStageString))
+        foreach (var match in regex.Matches(pipelineStageString).Cast<Match>())
             goalTags.Add(match.Value);
 
         if (builder[0] == '[' && builder[1] == ']')//empty array
@@ -379,7 +379,7 @@ public class Template
     /// Turns the property paths in the given `new` expression into property names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template Properties<T>(Expression<Func<T, object>> expression)
+    public Template Properties<T>(Expression<Func<T, object?>> expression)
     {
         if (cacheHit) return this;
 
@@ -389,7 +389,7 @@ public class Template
             .Cast<MemberExpression>()
             .Select(e => e.Member.Name);
 
-        if (props == null || !props.Any())
+        if (props?.Any() != true)
             throw new ArgumentException("Unable to parse any property names from the supplied `new` expression!");
 
         foreach (var p in props)
@@ -411,7 +411,7 @@ public class Template
     /// Turns the property paths in the given `new` expression into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template Paths<T>(Expression<Func<T, object>> expression)
+    public Template Paths<T>(Expression<Func<T, object?>> expression)
     {
         if (cacheHit) return this;
 
@@ -420,7 +420,7 @@ public class Template
             .Arguments
             .Select(a => Prop.GetPath(a.ToString()));
 
-        if (paths is null || !paths.Any())
+        if (paths?.Any() != true)
             throw new ArgumentException("Unable to parse any property paths from the supplied `new` expression!");
 
         foreach (var p in paths)

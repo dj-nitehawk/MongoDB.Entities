@@ -17,7 +17,7 @@ public class PagedSearch
         var (Results, _, PageCount) = await DB
             .PagedSearch<Book>()
             .Match(b => b.ID == guid)
-            .Sort(b => b.ID!, Order.Ascending)
+            .Sort(b => b.ID, Order.Ascending)
             .PageNumber(1)
             .PageSize(200)
             .ExecuteAsync();
