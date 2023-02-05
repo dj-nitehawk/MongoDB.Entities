@@ -20,7 +20,7 @@ public class Flower : BaseEntity, ISoftDeleted
 
     public Flower()
     {
-        this.InitOneToMany(() => Customers);
+        this.InitOneToMany(() => Customers!);
     }
 }
 

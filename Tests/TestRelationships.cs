@@ -24,7 +24,7 @@ public class Relationships
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(author.Name, res!.Name);
     }
 
     [TestMethod]
@@ -39,7 +39,7 @@ public class Relationships
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(author.Name, res!.Name);
     }
 
     [TestMethod]
@@ -54,7 +54,7 @@ public class Relationships
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(author.Name, res!.Name);
     }
 
     [TestMethod]
@@ -69,7 +69,7 @@ public class Relationships
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(a => new Author { Name = a.Name });
-        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(author.Name, res!.Name);
         Assert.AreEqual(null, res.ID);
     }
 
@@ -85,7 +85,7 @@ public class Relationships
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
-        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(author.Name, res!.Name);
         Assert.AreEqual(null, res.ID);
     }
 
@@ -381,7 +381,7 @@ public class Relationships
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var flower = new Flower() { Name = customer.ID };
+        var flower = new Flower() { Name = customer.ID! };
         await flower.SaveAsync();
 
         var flower2 = new Flower();

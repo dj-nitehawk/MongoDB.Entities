@@ -150,7 +150,7 @@ public class Deleting
         var res = await db.DeleteAsync<Author>(IDs);
         var notDeletedIDs = await DB.Find<Author, string>()
                                     .Match(a => IDs.Contains(a.ID))
-                                    .Project(a => a.ID)
+                                    .Project(a => a.ID!)
                                     .ExecuteAsync();
 
         Assert.AreEqual(2, res.DeletedCount);

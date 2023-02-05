@@ -4,7 +4,7 @@
 
         <Version>21.0.2</Version>
 
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
         <AssemblyName>MongoDB.Entities</AssemblyName>
         <Authors>Đĵ ΝιΓΞΗΛψΚ</Authors>

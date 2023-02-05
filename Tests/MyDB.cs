@@ -34,7 +34,7 @@ public class MyDB : DBContext
             }
         };
 
-        return action as Action<T>;
+        return (action as Action<T>)!;
     }
 
     protected override Action<UpdateBase<T>> OnBeforeUpdate<T>()
@@ -45,7 +45,7 @@ public class MyDB : DBContext
             update.AddModification(f => f.UpdateDate, DateTime.UtcNow);
         };
 
-        return action as Action<UpdateBase<T>>;
+        return (action as Action<UpdateBase<T>>)!;
     }
 }
 

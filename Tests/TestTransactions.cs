@@ -34,7 +34,7 @@ public class Transactions
 
         var res = await DB.Find<Author>().OneAsync(author1.ID);
 
-        Assert.AreEqual(author1.Name, res.Name);
+        Assert.AreEqual(author1.Name, res!.Name);
     }
 
     [TestMethod]
@@ -58,7 +58,7 @@ public class Transactions
 
         var res = await DB.Find<Author>().OneAsync(author1.ID);
 
-        Assert.AreEqual(guid, res.Name);
+        Assert.AreEqual(guid, res!.Name);
     }
 
     [TestMethod]
@@ -84,7 +84,7 @@ public class Transactions
 
         var res = await DB.Find<Author>().OneAsync(author1.ID);
 
-        Assert.AreEqual(guid, res.Name);
+        Assert.AreEqual(guid, res!.Name);
     }
 
     [TestMethod]
@@ -93,7 +93,7 @@ public class Transactions
         var book1 = new Book { Title = "caftrcd1" };
         var book2 = new Book { Title = "caftrcd1" };
 
-        Book res;
+        Book? res;
         Book fnt;
 
         using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))

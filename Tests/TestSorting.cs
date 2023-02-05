@@ -17,7 +17,7 @@ public class Sorting
             new Book { Title = "Five", Review = new Review { Fuzzy = "one two three" } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy);
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!);
 
         Assert.AreEqual(5, res.Count());
         Assert.AreEqual("Five", res.First().Title);
@@ -35,7 +35,7 @@ public class Sorting
             new Book { Title = "Five", Review = new Review { Fuzzy = "one two three" } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy, 10).ToArray();
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!, 10).ToArray();
 
         Assert.AreEqual(3, res.Length);
         Assert.AreEqual("Five", res[0].Title);

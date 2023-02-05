@@ -181,7 +181,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// </summary>
     /// <param name="propertyToSortBy">x => x.Prop</param>
     /// <param name="sortOrder">The sort order</param>
-    public PagedSearch<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
+    public PagedSearch<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
     {
         return sortOrder switch
         {
@@ -205,7 +205,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     /// <param name="scoreProperty">x => x.TextScoreProp</param>
-    public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object>>? scoreProperty)
+    public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
     {
         switch (scoreProperty)
         {

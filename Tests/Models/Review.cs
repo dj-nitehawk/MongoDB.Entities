@@ -12,6 +12,6 @@ public class Review : Entity
     public string Reviewer { get; set; }
 
     public double Rating { get; set; }
-    public FuzzyString Fuzzy { get; set; }
+    public FuzzyString? Fuzzy { get; set; }
     public Collection<Book> Books { get; set; }
 }

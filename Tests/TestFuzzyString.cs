@@ -16,10 +16,10 @@ public class FuzzyStringTest
         await new Book { Title = "fstsarw", Review = new Review { Fuzzy = guid } }.SaveAsync();
 
         var res = await DB.Queryable<Book>()
-                    .Where(b => b.Review.Fuzzy.Value == guid)
+                    .Where(b => b.Review.Fuzzy!.Value == guid)
                     .SingleAsync();
 
-        Assert.AreEqual(guid, res.Review.Fuzzy.Value);
+        Assert.AreEqual(guid, res.Review.Fuzzy!.Value);
     }
 
     [TestMethod]

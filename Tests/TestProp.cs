@@ -74,7 +74,7 @@ public class Props
     [TestMethod]
     public void prop_pos_filtered()
     {
-        var res1 = Prop.PosFiltered<Book>(b => b.ReviewArray[0].Books[1].MainAuthor.ID);
+        var res1 = Prop.PosFiltered<Book>(b => b.ReviewArray[0].Books[1].MainAuthor!.ID!);
         Assert.AreEqual("ReviewArray.$[a].Books.$[b].MainAuthor.ID", res1);
 
         var res2 = Prop.PosFiltered<Book>(b => b.ReviewList[0].Rating);
