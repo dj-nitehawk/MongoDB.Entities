@@ -5,7 +5,7 @@ namespace Benchmark;
 
 public class Book : Entity
 {
-    public string Title { get; set; }
-    public One<Author> Author { get; set; }
+    public string Title { get; set; } = null!;
+    public One<Author> Author { get; set; } = null!;
     public DateTime PublishedOn { get; set; }
 }

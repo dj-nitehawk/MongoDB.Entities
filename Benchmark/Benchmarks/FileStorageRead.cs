@@ -12,7 +12,7 @@ public partial class FileStorageRead : BenchBase
 {
     private static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
 
-    private readonly string fEntityID;
+    private readonly string? fEntityID;
     private readonly ObjectId gridFSId;
 
     public FileStorageRead()
@@ -21,7 +21,7 @@ public partial class FileStorageRead : BenchBase
         gridFSId = WriteFileGridFS().GetAwaiter().GetResult();
     }
 
-    public async Task<string> WriteFileME()
+    public async Task<string?> WriteFileME()
     {
         memStream.Position = 0;
         var file = new File { Name = "file name here" };
