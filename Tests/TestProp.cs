@@ -10,31 +10,31 @@ public class Props
     [TestMethod]
     public void prop_dotted()
     {
-        Expression<Func<Book, object>> exp = x => x.ReviewList[0].Rating;
+        Expression<Func<Book, object?>> exp = x => x.ReviewList[0].Rating;
         var res = exp.FullPath();
         Assert.AreEqual("ReviewList.Rating", res);
 
-        Expression<Func<Book, object>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
+        Expression<Func<Book, object?>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
         var res1 = exp1.FullPath();
         Assert.AreEqual("ReviewArray.Books.ReviewArray.Books.ModifiedOn", res1);
 
-        Expression<Func<Book, object>> exp2 = x => x.ReviewArray[0].Books[0].Price;
+        Expression<Func<Book, object?>> exp2 = x => x.ReviewArray[0].Books[0].Price;
         var res2 = exp2.FullPath();
         Assert.AreEqual("ReviewArray.Books.Price", res2);
 
-        Expression<Func<Book, object>> exp3 = x => x.ReviewArray[0].Books[0].PriceInt;
+        Expression<Func<Book, object?>> exp3 = x => x.ReviewArray[0].Books[0].PriceInt;
         var res3 = exp3.FullPath();
         Assert.AreEqual("ReviewArray.Books.PriceInt", res3);
 
-        Expression<Func<Book, object>> exp4 = x => x.ReviewArray[0].Books[0].PriceLong;
+        Expression<Func<Book, object?>> exp4 = x => x.ReviewArray[0].Books[0].PriceLong;
         var res4 = exp4.FullPath();
         Assert.AreEqual("ReviewArray.Books.PriceLong", res4);
 
-        Expression<Func<Book, object>> exp5 = x => x.ReviewArray[0].Books[0].PriceDbl;
+        Expression<Func<Book, object?>> exp5 = x => x.ReviewArray[0].Books[0].PriceDbl;
         var res5 = exp5.FullPath();
         Assert.AreEqual("ReviewArray.Books.PriceDbl", res5);
 
-        Expression<Func<Book, object>> exp6 = x => x.ReviewArray[0].Books[0].PriceFloat;
+        Expression<Func<Book, object?>> exp6 = x => x.ReviewArray[0].Books[0].PriceFloat;
         var res6 = exp6.FullPath();
         Assert.AreEqual("ReviewArray.Books.PriceFloat", res6);
     }
@@ -42,31 +42,31 @@ public class Props
     [TestMethod]
     public void prop_name()
     {
-        Expression<Func<Book, object>> exp = x => x.ReviewList[0].Rating;
+        Expression<Func<Book, object?>> exp = x => x.ReviewList[0].Rating;
         var res = Prop.Property(exp);
         Assert.AreEqual("Rating", res);
 
-        Expression<Func<Book, object>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
+        Expression<Func<Book, object?>> exp1 = x => x.ReviewArray[0].Books[0].ReviewArray[0].Books[0].ModifiedOn;
         var res1 = Prop.Property(exp1);
         Assert.AreEqual("ModifiedOn", res1);
 
-        Expression<Func<Book, object>> exp2 = x => x.ReviewArray[0].Books[0].Price;
+        Expression<Func<Book, object?>> exp2 = x => x.ReviewArray[0].Books[0].Price;
         var res2 = Prop.Property(exp2);
         Assert.AreEqual("Price", res2);
 
-        Expression<Func<Book, object>> exp3 = x => x.ReviewArray[0].Books[0].PriceInt;
+        Expression<Func<Book, object?>> exp3 = x => x.ReviewArray[0].Books[0].PriceInt;
         var res3 = Prop.Property(exp3);
         Assert.AreEqual("PriceInt", res3);
 
-        Expression<Func<Book, object>> exp4 = x => x.ReviewArray[0].Books[0].PriceLong;
+        Expression<Func<Book, object?>> exp4 = x => x.ReviewArray[0].Books[0].PriceLong;
         var res4 = Prop.Property(exp4);
         Assert.AreEqual("PriceLong", res4);
 
-        Expression<Func<Book, object>> exp5 = x => x.ReviewArray[0].Books[0].PriceDbl;
+        Expression<Func<Book, object?>> exp5 = x => x.ReviewArray[0].Books[0].PriceDbl;
         var res5 = Prop.Property(exp5);
         Assert.AreEqual("PriceDbl", res5);
 
-        Expression<Func<Book, object>> exp6 = x => x.ReviewArray[0].Books[0].PriceFloat;
+        Expression<Func<Book, object?>> exp6 = x => x.ReviewArray[0].Books[0].PriceFloat;
         var res6 = Prop.Property(exp6);
         Assert.AreEqual("PriceFloat", res6);
     }

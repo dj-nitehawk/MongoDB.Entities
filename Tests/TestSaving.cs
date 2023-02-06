@@ -88,7 +88,7 @@ public class Saving
 
         var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(0, res.Price);
+        Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
 
         res.Price = 200;
@@ -97,7 +97,7 @@ public class Saving
 
         res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(200, res.Price);
+        Assert.AreEqual(200, res!.Price);
     }
 
     [TestMethod]
@@ -109,7 +109,7 @@ public class Saving
 
         var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(0, res.Price);
+        Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
 
         res.Price = 200;
@@ -118,7 +118,7 @@ public class Saving
 
         res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(200, res.Price);
+        Assert.AreEqual(200, res!.Price);
     }
 
     [TestMethod]
@@ -174,7 +174,7 @@ public class Saving
 
         var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(100, res.Price);
+        Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
 
         res.Title = "updated";
@@ -183,7 +183,7 @@ public class Saving
 
         res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual("updated", res.Title);
+        Assert.AreEqual("updated", res!.Title);
     }
 
     [TestMethod]
@@ -195,7 +195,7 @@ public class Saving
 
         var res = await DB.Find<Book>().MatchID(book.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual(100, res.Price);
+        Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
 
         res.Title = "updated";
@@ -204,7 +204,7 @@ public class Saving
 
         res = await DB.Find<Book>().MatchID(res.ID).ExecuteSingleAsync();
 
-        Assert.AreEqual("updated", res.Title);
+        Assert.AreEqual("updated", res!.Title);
     }
 
     [TestMethod]
@@ -264,7 +264,7 @@ public class Saving
 
         book = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual("updated title", book.Title);
+        Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
         Assert.AreEqual(default, book.DontSaveThis);
     }
@@ -282,7 +282,7 @@ public class Saving
 
         book = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual("updated title", book.Title);
+        Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
         Assert.AreEqual(default, book.DontSaveThis);
     }
@@ -302,13 +302,13 @@ public class Saving
         book.Title = "updated";
         book.Price = 111;
         book.PriceDbl = 999;
-        book.MainAuthor = null;
+        book.MainAuthor = null!;
 
         await book.SavePreservingAsync();
 
         var res = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual(res.Title, book.Title);
+        Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
         Assert.AreEqual(res.PriceDbl, 666);
         Assert.IsFalse(res.MainAuthor.ID == null);
@@ -337,7 +337,7 @@ public class Saving
 
         var res = await DB.Find<Author>().OneAsync(author.ID);
 
-        Assert.AreEqual("updated author name", res.Name);
+        Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
         Assert.AreEqual(default, res.Age2);
         Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday);
@@ -525,7 +525,7 @@ public class Saving
         var res2 = await DB.Find<Book>().OneAsync(book2.ID);
 
         Assert.AreEqual(null, res1);
-        Assert.AreEqual(book2.ID, res2.ID);
+        Assert.AreEqual(book2.ID, res2!.ID);
     }
 
     [TestMethod]
@@ -552,7 +552,7 @@ public class Saving
             .Match(f => f.Eq(a => a.Name, guid))
             .ExecuteFirstAsync();
 
-        Assert.AreEqual(author1.ID, res.ID);
+        Assert.AreEqual(author1.ID, res!.ID);
     }
 
     [TestMethod]
@@ -631,7 +631,7 @@ public class Saving
                     .ExecuteAsync())
                     .FirstOrDefault();
 
-        Assert.AreEqual(three.Name, res.Tester);
+        Assert.AreEqual(three.Name, res!.Tester);
     }
 
     [TestMethod]
@@ -744,7 +744,7 @@ public class Saving
                     .IncludeRequiredProps()
                     .ExecuteSingleAsync();
 
-        Assert.AreEqual(5, res.Stars);
+        Assert.AreEqual(5, res!.Stars);
         Assert.AreEqual("test", res.Reviewer);
         Assert.AreEqual(1, res.Rating);
     }
@@ -802,7 +802,7 @@ public class Saving
 
         var res = await DB.Find<Author>().OneAsync(author.ID);
 
-        Assert.IsTrue(res.Age == 0);
+        Assert.IsTrue(res!.Age == 0);
         Assert.IsTrue(res.Birthday == null);
     }
 
@@ -814,7 +814,7 @@ public class Saving
 
         var res = await DB.Find<CustomerWithCustomID>().OneAsync(customer.ID);
 
-        Assert.AreEqual(res.ID, customer.ID);
+        Assert.AreEqual(res!.ID, customer.ID);
     }
 
     [TestMethod]
@@ -827,7 +827,7 @@ public class Saving
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();
-        Assert.AreEqual(res.ID, customer.ID);
+        Assert.AreEqual(res!.ID, customer.ID);
 
         var cus = await DB.Queryable<Book>()
                           .Where(b => b.Customer.ID == customer.ID)
@@ -843,7 +843,7 @@ public class Saving
         await DB.SaveAsync(e);
         await Task.Delay(100);
 
-        var creationTime = new DateTime(long.Parse(e.ID));
+        var creationTime = new DateTime(long.Parse(e.ID!));
 
         Assert.IsTrue(creationTime < DateTime.Now);
     }

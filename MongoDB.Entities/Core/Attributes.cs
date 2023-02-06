@@ -97,11 +97,11 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 {
     public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
+    private class ObjectIdSerializer : SerializerBase<string?>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
 
-        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string? value)
         {
             if (value == null)
             {
@@ -118,7 +118,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
             ctx.Writer.WriteString(value);
         }
 
-        public override string Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+        public override string? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
         {
             switch (ctx.Reader.CurrentBsonType)
             {

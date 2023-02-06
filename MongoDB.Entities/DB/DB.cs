@@ -32,10 +32,10 @@ public static partial class DB
             _ => true);
     }
 
-    internal static event Action DefaultDbChanged;
+    internal static event Action? DefaultDbChanged;
 
     private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
-    private static IMongoDatabase defaultDb;
+    private static IMongoDatabase? defaultDb;
 
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
@@ -135,16 +135,16 @@ public static partial class DB
     /// You can also get the default database by passing 'default' or 'null' for the name parameter.
     /// </summary>
     /// <param name="name">The name of the database to retrieve</param>
-    public static IMongoDatabase Database(string name)
+    public static IMongoDatabase Database(string? name)
     {
-        IMongoDatabase db = null;
+        IMongoDatabase? db = null;
 
         if (dbs.Count > 0)
         {
             if (string.IsNullOrEmpty(name))
                 db = defaultDb;
             else
-                dbs.TryGetValue(name, out db);
+                dbs.TryGetValue(name!, out db);
         }
 
         return db ?? throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");

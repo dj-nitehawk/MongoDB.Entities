@@ -17,12 +17,12 @@ public partial class DBContext
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
     /// </summary>
-    public ModifiedBy ModifiedBy { get; set; }
+    public ModifiedBy? ModifiedBy { get; set; }
 
 
 
-    private static Type[] allEntitiyTypes;
-    private Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
+    private static Type[]? allEntitiyTypes;
+    private Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
 
 
 
@@ -37,7 +37,7 @@ public partial class DBContext
     /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
     /// You can even inherit from the ModifiedBy class and add your own properties to it. 
     /// Only one ModifiedBy property is allowed on a single entity type.</param>
-    public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy modifiedBy = null)
+    public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
     {
         DB.Initialize(
             new MongoClientSettings { Server = new MongoServerAddress(host, port) },
@@ -59,7 +59,7 @@ public partial class DBContext
     /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
     /// You can even inherit from the ModifiedBy class and add your own properties to it. 
     /// Only one ModifiedBy property is allowed on a single entity type.</param>
-    public DBContext(string database, MongoClientSettings settings, ModifiedBy modifiedBy = null)
+    public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
     {
         DB.Initialize(settings, database, true)
           .GetAwaiter()
@@ -76,7 +76,7 @@ public partial class DBContext
     /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
     /// You can even inherit from the ModifiedBy class and add your own properties to it. 
     /// Only one ModifiedBy property is allowed on a single entity type.</param>
-    public DBContext(ModifiedBy modifiedBy = null)
+    public DBContext(ModifiedBy? modifiedBy = null)
         => ModifiedBy = modifiedBy;
 
 
@@ -84,7 +84,7 @@ public partial class DBContext
     /// <summary>
     /// Returns the session object used for transactions
     /// </summary>
-    public IClientSessionHandle Session { get; protected set; }
+    public IClientSessionHandle? Session { get; protected set; }
 
     /// <summary>
     /// Starts a transaction and returns a session object.
@@ -94,7 +94,7 @@ public partial class DBContext
     /// </summary>
     /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
     /// <param name="options">Client session options for this transaction</param>
-    public IClientSessionHandle Transaction(string database = default, ClientSessionOptions options = null)
+    public IClientSessionHandle Transaction(string? database = default, ClientSessionOptions? options = null)
     {
         if (Session is null)
         {
@@ -115,7 +115,7 @@ public partial class DBContext
     /// </summary>
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
-    public IClientSessionHandle Transaction<T>(ClientSessionOptions options = null) where T : IEntity
+    public IClientSessionHandle Transaction<T>(ClientSessionOptions? options = null) where T : IEntity
     {
         return Transaction(DB.DatabaseName<T>(), options);
     }
@@ -124,13 +124,13 @@ public partial class DBContext
     /// Commits a transaction to MongoDB
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task CommitAsync(CancellationToken cancellation = default) => Session.CommitTransactionAsync(cancellation);
+    public Task CommitAsync(CancellationToken cancellation = default) => Session?.CommitTransactionAsync(cancellation) ?? Task.CompletedTask;
 
     /// <summary>
     /// Aborts and rolls back a transaction
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AbortAsync(CancellationToken cancellation = default) => Session.AbortTransactionAsync(cancellation);
+    public Task AbortAsync(CancellationToken cancellation = default) => Session?.AbortTransactionAsync(cancellation) ?? Task.CompletedTask;
 
 
 
@@ -138,7 +138,7 @@ public partial class DBContext
     /// This event hook will be trigged right before an entity is persisted
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-    protected virtual Action<T> OnBeforeSave<T>() where T : IEntity
+    protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
     {
         return null;
     }
@@ -147,7 +147,7 @@ public partial class DBContext
     /// This event hook will be triggered right before an update/replace command is executed
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
-    protected virtual Action<UpdateBase<T>> OnBeforeUpdate<T>() where T : IEntity
+    protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
     {
         return null;
     }
@@ -259,7 +259,7 @@ public partial class DBContext
 
         allEntitiyTypes ??= GetAllEntityTypes();
 
-        foreach (var entType in allEntitiyTypes.Where(t => targetType.IsAssignableFrom(t)))
+        foreach (var entType in allEntitiyTypes.Where(targetType.IsAssignableFrom))
         {
             AddFilter(entType, (jsonString, prepend));
         }

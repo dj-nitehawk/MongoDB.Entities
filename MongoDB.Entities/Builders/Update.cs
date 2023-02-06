@@ -64,16 +64,16 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     private readonly List<PipelineStageDefinition<T, T>> stages = new();
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private UpdateOptions options = new();
-    private readonly IClientSessionHandle session;
+    private readonly IClientSessionHandle? session;
     private readonly List<UpdateManyModel<T>> models = new();
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-    private readonly Action<UpdateBase<T>> onUpdateAction;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
     internal Update(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -84,7 +84,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Update<T> MatchID(string ID)
+    public Update<T> MatchID(string? ID)
     {
         return Match(f => f.Eq(t => t.ID, ID));
     }
@@ -137,7 +137,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -167,7 +167,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Update<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -260,7 +260,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    public Update<T> ModifyOnly(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
@@ -272,7 +272,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    public Update<T> ModifyExcept(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
@@ -464,7 +464,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
                ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)

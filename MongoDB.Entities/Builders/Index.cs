@@ -107,7 +107,7 @@ public class Index<T> where T : IEntity
     /// </summary>
     /// <param name="propertyToIndex">x => x.PropertyName</param>
     /// <param name="type">The type of the key</param>
-    public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
+    public Index<T> Key(Expression<Func<T, object?>> propertyToIndex, KeyType type)
     {
         Keys.Add(new Key<T>(propertyToIndex, type));
         return this;
@@ -143,7 +143,7 @@ internal class Key<T> where T : IEntity
     internal string PropertyName { get; set; }
     internal KeyType Type { get; set; }
 
-    internal Key(Expression<Func<T, object>> expression, KeyType type)
+    internal Key(Expression<Func<T, object?>> expression, KeyType type)
     {
         Type = type;
 

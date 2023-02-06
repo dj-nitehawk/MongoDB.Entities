@@ -9,7 +9,7 @@ public class Author : Entity, IModifiedOn, ICreatedOn
     public string Surname { get; set; }
 
     [Bson.Serialization.Attributes.BsonIgnoreIfNull]
-    public string FullName { get; set; }
+    public string? FullName { get; set; }
 
     [Preserve]
     public Date Birthday { get; set; }
@@ -35,5 +35,5 @@ public class Author : Entity, IModifiedOn, ICreatedOn
 
     public DateTime CreatedOn { get; set; }
 
-    public Author() => this.InitOneToMany(() => Books);
+    public Author() => this.InitOneToMany(() => Books!);
 }

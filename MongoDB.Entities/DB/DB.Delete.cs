@@ -13,8 +13,8 @@ public static partial class DB
     private static readonly int deleteBatchSize = 100000;
 
     private static async Task<DeleteResult> DeleteCascadingAsync<T>(
-        IEnumerable<string> IDs,
-        IClientSessionHandle session = null,
+        IEnumerable<string?> IDs,
+        IClientSessionHandle? session = null,
         CancellationToken cancellation = default) where T : IEntity
     {
         // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
@@ -70,7 +70,7 @@ public static partial class DB
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(string ID, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(string? ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
         return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
@@ -85,7 +85,7 @@ public static partial class DB
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name = "session" > An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string> IDs, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -93,7 +93,7 @@ public static partial class DB
             return await DeleteCascadingAsync<T>(IDs, session, cancellation).ConfigureAwait(false);
 
         long deletedCount = 0;
-        DeleteResult res = null;
+        DeleteResult res = DeleteResult.Unacknowledged.Instance;
 
         foreach (var batch in IDs.ToBatches(deleteBatchSize))
         {
@@ -101,7 +101,12 @@ public static partial class DB
             deletedCount += res.DeletedCount;
         }
 
-        return res?.IsAcknowledged == false ? DeleteResult.Unacknowledged.Instance : new DeleteResult.Acknowledged(deletedCount);
+        if (res.IsAcknowledged)
+        {
+            res = new DeleteResult.Acknowledged(deletedCount);
+        }
+
+        return res;
     }
 
     /// <summary>
@@ -114,7 +119,7 @@ public static partial class DB
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
     {
         return DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation);
     }
@@ -129,7 +134,7 @@ public static partial class DB
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
     {
         return DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation);
     }
@@ -144,11 +149,11 @@ public static partial class DB
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle session = null, CancellationToken cancellation = default, Collation collation = null) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
-        var cursor = await new Find<T, string>(session, null)
+        var cursor = await new Find<T, string?>(session, null)
                            .Match(_ => filter)
                            .Project(e => e.ID)
                            .Option(o => o.BatchSize = deleteBatchSize)
@@ -157,7 +162,7 @@ public static partial class DB
                            .ConfigureAwait(false);
 
         long deletedCount = 0;
-        DeleteResult res = null;
+        DeleteResult res = DeleteResult.Unacknowledged.Instance;
 
         using (cursor)
         {
@@ -171,10 +176,15 @@ public static partial class DB
             }
         }
 
-        return res?.IsAcknowledged == false ? DeleteResult.Unacknowledged.Instance : new DeleteResult.Acknowledged(deletedCount);
+        if (res.IsAcknowledged)
+        {
+            res = new DeleteResult.Acknowledged(deletedCount);
+        }
+
+        return res;
     }
 
-    private static void ThrowIfCancellationNotSupported(IClientSessionHandle session = null, CancellationToken cancellation = default)
+    private static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         if (cancellation != default && session == null)
             throw new NotSupportedException("Cancellation is only supported within transactions for delete operations!");

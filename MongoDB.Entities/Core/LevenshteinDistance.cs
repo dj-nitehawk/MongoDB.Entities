@@ -59,6 +59,6 @@ internal class Levenshtein
             }
         }
 
-        return costs[costs.Length - 1];
+        return costs[^1];
     }
 }

@@ -38,7 +38,7 @@ public static partial class DB
         return Execute(migrations);
     }
 
-    private static Task Migrate(Type targetType)
+    private static Task Migrate(Type? targetType)
     {
         IEnumerable<Assembly> assemblies;
 
@@ -109,12 +109,7 @@ public static partial class DB
         {
             sw.Start();
             await migration.Value.migration.UpgradeAsync().ConfigureAwait(false);
-            var mig = new Migration
-            {
-                Number = migration.Key,
-                Name = migration.Value.name,
-                TimeTakenSeconds = sw.Elapsed.TotalSeconds
-            };
+            var mig = new Migration(migration.Key, migration.Value.name, sw.Elapsed.TotalSeconds);
             await SaveAsync(mig).ConfigureAwait(false);
             sw.Stop();
             sw.Reset();

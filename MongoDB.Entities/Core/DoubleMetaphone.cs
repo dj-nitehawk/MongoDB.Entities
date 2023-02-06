@@ -727,9 +727,9 @@ internal static class DoubleMetaphone
         if (hasAlternate)
         {
             int secondaryLength = Math.Min(MaxLength, sbSecondary.Length);
-            return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0), sbSecondary.ToString().Substring(0, secondaryLength - 0) };
+            return new[] { sbPrimary.ToString()[..primaryLength], sbSecondary.ToString()[..secondaryLength] };
         }
-        return new[] { sbPrimary.ToString().Substring(0, primaryLength - 0) };
+        return new[] { sbPrimary.ToString()[..primaryLength] };
     }
 
     public static IEnumerable<string> GetKeys(string phrase)

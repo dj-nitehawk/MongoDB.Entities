@@ -48,18 +48,19 @@ public class Coordinates2D
 /// <typeparam name="T">The type of entity</typeparam>
 public class GeoNear<T> where T : IEntity
 {
-    public Coordinates2D near { get; set; }
-    public string distanceField { get; set; }
+#pragma warning disable IDE1006
+    public Coordinates2D? near { get; set; }
+    public string? distanceField { get; set; }
     public bool spherical { get; set; }
     [BsonIgnoreIfNull] public int? limit { get; set; }
     [BsonIgnoreIfNull] public double? maxDistance { get; set; }
-    [BsonIgnoreIfNull] public BsonDocument query { get; set; }
+    [BsonIgnoreIfNull] public BsonDocument? query { get; set; }
     [BsonIgnoreIfNull] public double? distanceMultiplier { get; set; }
-    [BsonIgnoreIfNull] public string includeLocs { get; set; }
+    [BsonIgnoreIfNull] public string? includeLocs { get; set; }
     [BsonIgnoreIfNull] public double? minDistance { get; set; }
-    [BsonIgnoreIfNull] public string key { get; set; }
+    [BsonIgnoreIfNull] public string? key { get; set; }
 
-    internal IAggregateFluent<T> ToFluent(AggregateOptions options = null, IClientSessionHandle session = null)
+    internal IAggregateFluent<T> ToFluent(AggregateOptions? options = null, IClientSessionHandle? session = null)
     {
         var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 

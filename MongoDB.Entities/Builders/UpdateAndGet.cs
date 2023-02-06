@@ -17,9 +17,9 @@ namespace MongoDB.Entities;
 public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 {
     internal UpdateAndGet(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
         : base(session, globalFilters, onUpdateAction) { }
 }
 
@@ -34,15 +34,15 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     private readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
     private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
-    private readonly IClientSessionHandle session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)> globalFilters;
-    private readonly Action<UpdateBase<T>> onUpdateAction;
+    private readonly IClientSessionHandle? session;
+    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
     internal UpdateAndGet(
-        IClientSessionHandle session,
-        Dictionary<Type, (object filterDef, bool prepend)> globalFilters,
-        Action<UpdateBase<T>> onUpdateAction)
+        IClientSessionHandle? session,
+        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+        Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -53,7 +53,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public UpdateAndGet<T, TProjection> MatchID(string ID)
+    public UpdateAndGet<T, TProjection> MatchID(string? ID)
     {
         return Match(f => f.Eq(t => t.ID, ID));
     }
@@ -106,7 +106,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)
+    public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType == Search.Fuzzy)
         {
@@ -136,7 +136,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -228,7 +228,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
@@ -240,7 +240,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object?>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
@@ -419,7 +419,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle session = null, CancellationToken cancellation = default)
+    private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
             ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)

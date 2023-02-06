@@ -8,6 +8,6 @@ public class BookCover : Entity
 
     public BookCover()
     {
-        this.InitOneToMany(() => BookMarks);
+        this.InitOneToMany(() => BookMarks!);
     }
 }

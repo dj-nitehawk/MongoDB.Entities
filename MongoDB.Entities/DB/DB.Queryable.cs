@@ -11,7 +11,7 @@ public static partial class DB
     /// <param name="options">The aggregate options</param>
     /// <param name="session">An optional session if used within a transaction</param>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IMongoQueryable<T> Queryable<T>(AggregateOptions options = null, IClientSessionHandle session = null) where T : IEntity
+    public static IMongoQueryable<T> Queryable<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
     {
         return session == null
                ? Collection<T>().AsQueryable(options)

@@ -21,16 +21,18 @@ public static partial class Extensions
     private class Holder<T>
     {
         public T Data { get; set; }
+
+        public Holder(T data)
+            => Data = data;
     }
 
     private static T Duplicate<T>(this T source)
     {
         return BsonSerializer.Deserialize<Holder<T>>(
-            new Holder<T> { Data = source }.ToBson()
-            ).Data;
+            new Holder<T>(source).ToBson()).Data;
     }
 
-    internal static void ThrowIfUnsaved(this string entityID)
+    internal static void ThrowIfUnsaved(this string? entityID)
     {
         if (string.IsNullOrWhiteSpace(entityID))
             throw new InvalidOperationException("Please save the entity before performing this operation!");
@@ -68,7 +70,7 @@ public static partial class Extensions
     /// Returns the full dotted path of a property for the given expression
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static string FullPath<T>(this Expression<Func<T, object>> expression)
+    public static string FullPath<T>(this Expression<Func<T, object?>> expression)
     {
         return Prop.Path(expression);
     }
@@ -76,7 +78,7 @@ public static partial class Extensions
     /// <summary>
     /// An IQueryable collection of sibling Entities.
     /// </summary>
-    public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions options = null) where T : IEntity
+    public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
     {
         return DB.Queryable<T>(options);
     }

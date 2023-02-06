@@ -19,7 +19,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
@@ -34,7 +34,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
@@ -49,7 +49,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<TResult?> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
@@ -64,7 +64,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<TResult?> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
@@ -74,9 +74,9 @@ public partial class DBContext
         //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
         //         if the following logic changes, update the other method also
 
-        if (!ignoreGlobalFilters && globalFilters.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+        if (!ignoreGlobalFilters && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
         {
-            BsonDocument filter = null;
+            BsonDocument? filter = null;
 
             switch (gFilter.filterDef)
             {

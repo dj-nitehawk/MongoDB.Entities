@@ -31,7 +31,7 @@ public class MultiDb
 
         var res = await DB.Find<BookCover>().OneAsync(cover.ID);
 
-        Assert.AreEqual(cover.ID, res.ID);
+        Assert.AreEqual(cover.ID, res!.ID);
         Assert.AreEqual(cover.BookName, res.BookName);
     }
 
@@ -63,7 +63,7 @@ public class MultiDb
 
         Assert.AreEqual(cover.BookName, res.BookName);
 
-        Assert.AreEqual((await res.BookCover.ToEntityAsync()).ID, cover.ID);
+        Assert.AreEqual((await res!.BookCover.ToEntityAsync())!.ID, cover.ID);
     }
 
     [TestMethod]
@@ -142,6 +142,6 @@ public class MultiDb
 
         var res = await db.Find<Author>().OneAsync(author.ID);
 
-        Assert.AreEqual(author.ID, res.ID);
+        Assert.AreEqual(author.ID, res!.ID);
     }
 }

@@ -9,7 +9,7 @@ public interface IEntity
     /// The ID property for this entity type.
     /// <para>IMPORTANT: make sure to decorate this property with the [BsonId] attribute when implementing this interface</para>
     /// </summary>
-    string ID { get; set; }
+    string? ID { get; set; }
 
     /// <summary>
     /// Generate and return a new ID string from this method. It will be used when saving new entities that don't have their ID set. 

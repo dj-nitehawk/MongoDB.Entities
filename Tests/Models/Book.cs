@@ -6,7 +6,7 @@ namespace MongoDB.Entities.Tests;
 
 public class Book : Entity, IModifiedOn
 {
-    public Date PublishedOn { get; set; }
+    public Date? PublishedOn { get; set; }
 
     [DontPreserve] public string Title { get; set; }
     [DontPreserve] public decimal Price { get; set; }

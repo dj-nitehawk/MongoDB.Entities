@@ -95,7 +95,7 @@ public class Update
 
         var res = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual(22.22, res.Review.Rating);
+        Assert.AreEqual(22.22, res!.Review.Rating);
     }
 
     [TestMethod]
@@ -153,7 +153,7 @@ public class Update
 
         var res = await DB.Find<Author>().OneAsync(author.ID);
 
-        Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
+        Assert.AreEqual(author.Name + " " + author.Surname, res!.FullName);
         Assert.AreEqual(0, res.Age);
     }
 
@@ -166,7 +166,7 @@ public class Update
         await author.SaveAsync();
 
         var stage = new Template<Author>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName)
+            .Path(a => a.FullName!)
             .Path(a => a.Name)
             .Path(a => a.Surname)
             .RenderToString();
@@ -176,7 +176,7 @@ public class Update
           .WithPipelineStage(stage)
           .ExecutePipelineAsync();
 
-        var fullname = (await DB.Find<Author>().OneAsync(author.ID)).FullName;
+        var fullname = (await DB.Find<Author>().OneAsync(author.ID))?.FullName;
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
     }
 
@@ -192,10 +192,10 @@ public class Update
             { 
                 _id: ObjectId('<ID>') 
             }")
-            .Tag("ID", author.ID);
+            .Tag("ID", author.ID!);
 
         var stage = new Template<Author>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
-            .Path(a => a.FullName)
+            .Path(a => a.FullName!)
             .Path(a => a.Name)
             .Path(a => a.Surname);
 
@@ -205,7 +205,7 @@ public class Update
           .ExecutePipelineAsync();
 
         var fullname = (await DB.Find<Author>()
-                         .OneAsync(author.ID))
+                         .OneAsync(author.ID))?
                          .FullName;
 
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
@@ -339,7 +339,7 @@ public class Update
         await book.SaveAsync();
 
         book = await DB.Find<Book>().OneAsync(book.ID);
-        Assert.IsTrue(DateTime.UtcNow.Subtract(book.ModifiedOn).TotalSeconds < 5);
+        Assert.IsTrue(DateTime.UtcNow.Subtract(book!.ModifiedOn).TotalSeconds < 5);
 
         var targetDate = DateTime.UtcNow.AddDays(100);
 
@@ -350,7 +350,7 @@ public class Update
             .ExecuteAsync();
 
         book = await DB.Find<Book>().OneAsync(book.ID);
-        Assert.AreEqual(targetDate.ToShortDateString(), book.ModifiedOn.ToShortDateString());
+        Assert.AreEqual(targetDate.ToShortDateString(), book!.ModifiedOn.ToShortDateString());
     }
 
     [TestMethod]
@@ -376,7 +376,7 @@ public class Update
 
         var res = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual(res.Title, "updated");
+        Assert.AreEqual(res!.Title, "updated");
         Assert.AreEqual(res.Price, 100);
         Assert.AreEqual(res.PublishedOn, null);
     }
@@ -401,7 +401,7 @@ public class Update
 
         var res = await DB.Find<Flower>().OneAsync(flower.ID);
 
-        Assert.AreEqual("green", res.Color);
+        Assert.AreEqual("green", res!.Color);
         Assert.AreEqual("daisy", res.Name);
     }
 
@@ -471,7 +471,7 @@ public class Update
 
         var res = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual(res.Title, "book");
+        Assert.AreEqual(res!.Title, "book");
         Assert.AreEqual(res.Price, 200);
         Assert.IsNotNull(res.PublishedOn);
     }
@@ -498,7 +498,7 @@ public class Update
 
         var res = await DB.Find<Book>().OneAsync(book.ID);
 
-        Assert.AreEqual(res.Title, "updated");
+        Assert.AreEqual(res!.Title, "updated");
         Assert.AreEqual(0, res.Price);
         Assert.IsTrue(res.ModifiedOn > DateTime.UtcNow.AddSeconds(-10));
     }
@@ -540,6 +540,6 @@ public class Update
                 .ExecuteAsync();
 
         var res = await db.Find<Flower>().OneAsync(flower.ID);
-        Assert.AreEqual("Human", res.UpdatedBy);
+        Assert.AreEqual("Human", res!.UpdatedBy);
     }
 }

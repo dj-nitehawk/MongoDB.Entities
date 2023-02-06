@@ -10,6 +10,6 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static Replace<T> Replace<T>(IClientSessionHandle session = null) where T : IEntity
+    public static Replace<T> Replace<T>(IClientSessionHandle? session = null) where T : IEntity
         => new(session, null, null, null);
 }

@@ -30,13 +30,13 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
 {
     private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
     private bool isInverse;
-    private IEntity parent;
+    private IEntity parent = null!;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
     /// <para>TIP: Try never to use this unless really neccessary.</para>
     /// </summary>
-    public IMongoCollection<JoinRecord> JoinCollection { get; private set; }
+    public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null!;
 
     /// <summary>
     /// Get the number of children for a relationship
@@ -44,7 +44,7 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<long> ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default)
+    public Task<long> ChildrenCountAsync(IClientSessionHandle? session = null, CountOptions? options = null, CancellationToken cancellation = default)
     {
         parent.ThrowIfUnsaved();
 
@@ -86,7 +86,7 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <typeparam name="TParent">The type of the parent</typeparam>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="property">Function(x) x.PropName</param>
-    public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object>> property) where TParent : IEntity
+    public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object?>> property) where TParent : IEntity
     {
         Init(parent, Prop.Property(property));
     }
@@ -120,8 +120,8 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <param name="isInverse">Specify if this is the inverse side of the relationship or not</param>
     public void VB_InitManyToMany<TParent>(
         TParent parent,
-        Expression<Func<TParent, object>> propertyParent,
-        Expression<Func<TChild, object>> propertyChild,
+        Expression<Func<TParent, object?>> propertyParent,
+        Expression<Func<TChild, object?>> propertyChild,
         bool isInverse) where TParent : IEntity
     {
         Init(parent, Prop.Property(propertyParent), Prop.Property(propertyChild), isInverse);

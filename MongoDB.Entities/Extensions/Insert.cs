@@ -13,7 +13,7 @@ public static partial class Extensions
     /// <param name="entity"></param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task InsertAsync<T>(this T entity, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task InsertAsync<T>(this T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.InsertAsync(entity, session, cancellation);
     }
@@ -24,7 +24,7 @@ public static partial class Extensions
     /// <param name="entities"></param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities, IClientSessionHandle session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return DB.InsertAsync(entities, session, cancellation);
     }
