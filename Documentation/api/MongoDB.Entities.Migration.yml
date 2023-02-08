@@ -5,6 +5,7 @@ items:
   id: Migration
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)
   - MongoDB.Entities.Migration.Name
   - MongoDB.Entities.Migration.Number
   - MongoDB.Entities.Migration.TimeTakenSeconds
@@ -175,6 +176,39 @@ items:
   - public
   - get
   - set
+  modifiers.vb:
+  - Public
+- uid: MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)
+  commentId: M:MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)
+  id: '#ctor(System.Int32,System.String,System.Double)'
+  parent: MongoDB.Entities.Migration
+  langs:
+  - csharp
+  - vb
+  name: Migration(Int32, String, Double)
+  nameWithType: Migration.Migration(Int32, String, Double)
+  fullName: MongoDB.Entities.Migration.Migration(System.Int32, System.String, System.Double)
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Migrations\Migration.cs
+    startLine: 12
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  syntax:
+    content: public Migration(int number, string name, double timeTakenSeconds)
+    parameters:
+    - id: number
+      type: System.Int32
+    - id: name
+      type: System.String
+    - id: timeTakenSeconds
+      type: System.Double
+    content.vb: Public Sub New(number As Integer, name As String, timeTakenSeconds As Double)
+  overload: MongoDB.Entities.Migration.#ctor*
+  modifiers.csharp:
+  - public
   modifiers.vb:
   - Public
 references:
@@ -3326,3 +3360,8 @@ references:
   name: Double
   nameWithType: Double
   fullName: System.Double
+- uid: MongoDB.Entities.Migration.#ctor*
+  commentId: Overload:MongoDB.Entities.Migration.#ctor
+  name: Migration
+  nameWithType: Migration.Migration
+  fullName: MongoDB.Entities.Migration.Migration

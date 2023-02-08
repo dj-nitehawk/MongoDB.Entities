@@ -70,7 +70,6 @@ items:
 references:
 - uid: MongoDB.Entities.Distinct`2
   commentId: T:MongoDB.Entities.Distinct`2
-  parent: MongoDB.Entities
   name: Distinct<T, TProperty>
   nameWithType: Distinct<T, TProperty>
   fullName: MongoDB.Entities.Distinct<T, TProperty>
@@ -155,7 +154,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
-  parent: MongoDB.Entities
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>
@@ -216,7 +214,6 @@ references:
   fullName: MongoDB.Entities.Search
 - uid: MongoDB.Entities.Index`1
   commentId: T:MongoDB.Entities.Index`1
-  parent: MongoDB.Entities
   name: Index<T>
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
@@ -295,7 +292,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.PagedSearch`2
   commentId: T:MongoDB.Entities.PagedSearch`2
-  parent: MongoDB.Entities
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
@@ -344,7 +340,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Replace`1
   commentId: T:MongoDB.Entities.Replace`1
-  parent: MongoDB.Entities
   name: Replace<T>
   nameWithType: Replace<T>
   fullName: MongoDB.Entities.Replace<T>
@@ -417,7 +412,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Update`1
   commentId: T:MongoDB.Entities.Update`1
-  parent: MongoDB.Entities
   name: Update<T>
   nameWithType: Update<T>
   fullName: MongoDB.Entities.Update<T>
@@ -490,7 +484,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2
   commentId: T:MongoDB.Entities.UpdateAndGet`2
-  parent: MongoDB.Entities
   name: UpdateAndGet<T, TProjection>
   nameWithType: UpdateAndGet<T, TProjection>
   fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
@@ -730,7 +723,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Template`2
   commentId: T:MongoDB.Entities.Template`2
-  parent: MongoDB.Entities
   name: Template<TInput, TResult>
   nameWithType: Template<TInput, TResult>
   fullName: MongoDB.Entities.Template<TInput, TResult>
@@ -949,7 +941,6 @@ references:
   fullName: MongoDB.Entities.ManyBase
 - uid: MongoDB.Entities.One`1
   commentId: T:MongoDB.Entities.One`1
-  parent: MongoDB.Entities
   name: One<T>
   nameWithType: One<T>
   fullName: MongoDB.Entities.One<T>

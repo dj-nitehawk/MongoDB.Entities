@@ -116,7 +116,7 @@ items:
       type: System.String
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function MatchID(ID As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.MatchID*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchID(String)
@@ -152,7 +152,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
@@ -189,7 +189,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -226,7 +226,7 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(FilterDefinition(Of T))
@@ -263,7 +263,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Template)
@@ -311,7 +311,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
@@ -356,7 +356,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Match*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -393,7 +393,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function MatchString(jsonString As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.MatchString*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchString(String)
@@ -429,7 +429,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function MatchExpression(expression As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.MatchExpression*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(String)
@@ -465,7 +465,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function MatchExpression(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.MatchExpression*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).MatchExpression(Template)
@@ -506,7 +506,7 @@ items:
     typeParameters:
     - id: TProp
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Modify(Of TProp)(property As Expression(Of Func(Of T, TProp)), value As TProp) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Modify*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
@@ -543,7 +543,7 @@ items:
       type: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
       description: b => b.Inc(x => x.PropName, Value)
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Modify(operation As Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Modify*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T)))
@@ -580,7 +580,7 @@ items:
       type: System.String
       description: '{ $set: { &apos;RootProp.$[x].SubProp&apos; : 321 } }'
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Modify(update As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Modify*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(String)
@@ -616,7 +616,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a single update
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Modify(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Modify*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Modify(Template)
@@ -652,7 +652,7 @@ items:
       type: '{T}'
       description: The entity instance to read the property values from
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function ModifyWith(entity As T) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.ModifyWith*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyWith(T)
@@ -691,7 +691,7 @@ items:
       type: '{T}'
       description: The entity instance to read the corresponding values from
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function ModifyOnly(members As Expression(Of Func(Of T, Object)), entity As T) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.ModifyOnly*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyOnly(Expression(Of Func(Of T, Object)), T)
@@ -731,7 +731,7 @@ items:
       type: '{T}'
       description: The entity instance to read the corresponding values from
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function ModifyExcept(members As Expression(Of Func(Of T, Object)), entity As T) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.ModifyExcept*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).ModifyExcept(Expression(Of Func(Of T, Object)), T)
@@ -768,7 +768,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object containing multiple pipeline stages
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithPipeline(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithPipeline*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipeline(Template)
@@ -804,7 +804,7 @@ items:
       type: System.String
       description: '{ $set: { FullName: { $concat: [&apos;$Name&apos;, &apos; &apos;, &apos;$Surname&apos;] } } }'
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithPipelineStage(stage As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipelineStage(String)
@@ -840,7 +840,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object containing a pipeline stage
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithPipelineStage(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithPipelineStage*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithPipelineStage(Template)
@@ -876,7 +876,7 @@ items:
       type: System.String
       description: '{ &apos;x.SubProp&apos;: { $gte: 123 } }'
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithArrayFilter(filter As String) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilter(String)
@@ -912,7 +912,7 @@ items:
       type: MongoDB.Entities.Template
       description: ''
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithArrayFilter(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilter*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilter(Template)
@@ -948,7 +948,7 @@ items:
       type: MongoDB.Entities.Template
       description: The template with an array [...] of filters
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function WithArrayFilters(template As Template) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.WithArrayFilters*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).WithArrayFilters(Template)
@@ -984,7 +984,7 @@ items:
       type: System.Action{MongoDB.Driver.FindOneAndUpdateOptions{{T},{TProjection}}}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Option(option As Action(Of FindOneAndUpdateOptions(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Option*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Option(Action(Of FindOneAndUpdateOptions(Of T, TProjection)))
@@ -1021,7 +1021,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
       description: x => new Test { PropName = x.Prop }
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Project*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
@@ -1058,7 +1058,7 @@ items:
       type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
       description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.Project*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
@@ -1091,7 +1091,7 @@ items:
   syntax:
     content: public UpdateAndGet<T, TProjection> IncludeRequiredProps()
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function IncludeRequiredProps As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.IncludeRequiredProps*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).IncludeRequiredProps()
@@ -1123,7 +1123,7 @@ items:
   syntax:
     content: public UpdateAndGet<T, TProjection> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.UpdateAndGet`2
+      type: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
     content.vb: Public Function IgnoreGlobalFilters As UpdateAndGet(Of T, TProjection)
   overload: MongoDB.Entities.UpdateAndGet`2.IgnoreGlobalFilters*
   nameWithType.vb: UpdateAndGet(Of T, TProjection).IgnoreGlobalFilters()
@@ -2206,9 +2206,58 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
+- uid: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
+  commentId: T:MongoDB.Entities.UpdateAndGet{`0,`1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.UpdateAndGet`2
+  name: UpdateAndGet<T, TProjection>
+  nameWithType: UpdateAndGet<T, TProjection>
+  fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>
+  nameWithType.vb: UpdateAndGet(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.UpdateAndGet(Of T, TProjection)
+  name.vb: UpdateAndGet(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.UpdateAndGet`2
+    name: UpdateAndGet
+    nameWithType: UpdateAndGet
+    fullName: MongoDB.Entities.UpdateAndGet
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2
   commentId: T:MongoDB.Entities.UpdateAndGet`2
-  parent: MongoDB.Entities
   name: UpdateAndGet<T, TProjection>
   nameWithType: UpdateAndGet<T, TProjection>
   fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>

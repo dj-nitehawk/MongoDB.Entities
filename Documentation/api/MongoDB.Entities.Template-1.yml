@@ -4472,7 +4472,6 @@ references:
   fullName: System
 - uid: MongoDB.Entities.Template`2
   commentId: T:MongoDB.Entities.Template`2
-  parent: MongoDB.Entities
   name: Template<TInput, TResult>
   nameWithType: Template<TInput, TResult>
   fullName: MongoDB.Entities.Template<TInput, TResult>

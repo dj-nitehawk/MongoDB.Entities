@@ -2661,7 +2661,6 @@ references:
   fullName: System
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
-  parent: MongoDB.Entities
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>

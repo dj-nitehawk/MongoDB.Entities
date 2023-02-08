@@ -2844,7 +2844,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2
   commentId: T:MongoDB.Entities.UpdateAndGet`2
-  parent: MongoDB.Entities
   name: UpdateAndGet<T, TProjection>
   nameWithType: UpdateAndGet<T, TProjection>
   fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>

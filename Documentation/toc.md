@@ -3,5 +3,5 @@
 # [Benchmarks](wiki/Performance-Benchmarks.md)
 # [Api Reference](api/)
 # [GitHub](https://github.com/dj-nitehawk/MongoDB.Entities)
-# [Discord](https://discord.com/invite/CM5mw2G)
+# [Discord](https://discord.gg/8UpqWT35rj)
 # [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9LM2APQXVA9VE)

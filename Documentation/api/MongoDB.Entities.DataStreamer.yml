@@ -59,7 +59,7 @@ items:
   source:
     id: DownloadWithTimeoutAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 110
+    startLine: 105
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -102,7 +102,7 @@ items:
   source:
     id: DownloadAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 122
+    startLine: 117
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -146,7 +146,7 @@ items:
   source:
     id: UploadWithTimeoutAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 163
+    startLine: 158
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -189,7 +189,7 @@ items:
   source:
     id: UploadAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 176
+    startLine: 171
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -233,7 +233,7 @@ items:
   source:
     id: DeleteBinaryChunks
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FileEntity.cs
-    startLine: 238
+    startLine: 232
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

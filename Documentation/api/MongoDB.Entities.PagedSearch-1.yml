@@ -2080,7 +2080,6 @@ references:
   fullName: System
 - uid: MongoDB.Entities.PagedSearch`2
   commentId: T:MongoDB.Entities.PagedSearch`2
-  parent: MongoDB.Entities
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>

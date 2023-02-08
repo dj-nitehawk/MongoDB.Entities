@@ -110,7 +110,7 @@ items:
       type: System.String
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function MatchID(ID As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.MatchID*
   nameWithType.vb: Update(Of T).MatchID(String)
@@ -146,7 +146,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Boolean)))
@@ -183,7 +183,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -220,7 +220,7 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(FilterDefinition(Of T))
@@ -257,7 +257,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(Template)
@@ -305,7 +305,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(Search, String, Boolean, Boolean, String)
@@ -350,7 +350,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Match*
   nameWithType.vb: Update(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -387,7 +387,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function MatchString(jsonString As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.MatchString*
   nameWithType.vb: Update(Of T).MatchString(String)
@@ -423,7 +423,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function MatchExpression(expression As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.MatchExpression*
   nameWithType.vb: Update(Of T).MatchExpression(String)
@@ -459,7 +459,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function MatchExpression(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.MatchExpression*
   nameWithType.vb: Update(Of T).MatchExpression(Template)
@@ -500,7 +500,7 @@ items:
     typeParameters:
     - id: TProp
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Modify(Of TProp)(property As Expression(Of Func(Of T, TProp)), value As TProp) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Modify*
   nameWithType.vb: Update(Of T).Modify(Of TProp)(Expression(Of Func(Of T, TProp)), TProp)
@@ -537,7 +537,7 @@ items:
       type: System.Func{MongoDB.Driver.UpdateDefinitionBuilder{{T}},MongoDB.Driver.UpdateDefinition{{T}}}
       description: b => b.Inc(x => x.PropName, Value)
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
       description: ''
     content.vb: Public Function Modify(operation As Func(Of UpdateDefinitionBuilder(Of T), UpdateDefinition(Of T))) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Modify*
@@ -575,7 +575,7 @@ items:
       type: System.String
       description: '{ $set: { &apos;RootProp.$[x].SubProp&apos; : 321 } }'
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Modify(update As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Modify*
   nameWithType.vb: Update(Of T).Modify(String)
@@ -611,7 +611,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a single update
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Modify(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Modify*
   nameWithType.vb: Update(Of T).Modify(Template)
@@ -647,7 +647,7 @@ items:
       type: '{T}'
       description: The entity instance to read the property values from
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function ModifyWith(entity As T) As Update(Of T)
   overload: MongoDB.Entities.Update`1.ModifyWith*
   nameWithType.vb: Update(Of T).ModifyWith(T)
@@ -686,7 +686,7 @@ items:
       type: '{T}'
       description: The entity instance to read the corresponding values from
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function ModifyOnly(members As Expression(Of Func(Of T, Object)), entity As T) As Update(Of T)
   overload: MongoDB.Entities.Update`1.ModifyOnly*
   nameWithType.vb: Update(Of T).ModifyOnly(Expression(Of Func(Of T, Object)), T)
@@ -726,7 +726,7 @@ items:
       type: '{T}'
       description: The entity instance to read the corresponding values from
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function ModifyExcept(members As Expression(Of Func(Of T, Object)), entity As T) As Update(Of T)
   overload: MongoDB.Entities.Update`1.ModifyExcept*
   nameWithType.vb: Update(Of T).ModifyExcept(Expression(Of Func(Of T, Object)), T)
@@ -763,7 +763,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object containing multiple pipeline stages
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithPipeline(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithPipeline*
   nameWithType.vb: Update(Of T).WithPipeline(Template)
@@ -799,7 +799,7 @@ items:
       type: System.String
       description: '{ $set: { FullName: { $concat: [&apos;$Name&apos;, &apos; &apos;, &apos;$Surname&apos;] } } }'
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithPipelineStage(stage As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithPipelineStage*
   nameWithType.vb: Update(Of T).WithPipelineStage(String)
@@ -835,7 +835,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object containing a pipeline stage
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithPipelineStage(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithPipelineStage*
   nameWithType.vb: Update(Of T).WithPipelineStage(Template)
@@ -871,7 +871,7 @@ items:
       type: System.String
       description: '{ &apos;x.SubProp&apos;: { $gte: 123 } }'
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithArrayFilter(filter As String) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithArrayFilter*
   nameWithType.vb: Update(Of T).WithArrayFilter(String)
@@ -907,7 +907,7 @@ items:
       type: MongoDB.Entities.Template
       description: ''
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithArrayFilter(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithArrayFilter*
   nameWithType.vb: Update(Of T).WithArrayFilter(Template)
@@ -943,7 +943,7 @@ items:
       type: MongoDB.Entities.Template
       description: The template with an array [...] of filters
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function WithArrayFilters(template As Template) As Update(Of T)
   overload: MongoDB.Entities.Update`1.WithArrayFilters*
   nameWithType.vb: Update(Of T).WithArrayFilters(Template)
@@ -979,7 +979,7 @@ items:
       type: System.Action{MongoDB.Driver.UpdateOptions}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function Option(option As Action(Of UpdateOptions)) As Update(Of T)
   overload: MongoDB.Entities.Update`1.Option*
   nameWithType.vb: Update(Of T).Option(Action(Of UpdateOptions))
@@ -1012,7 +1012,7 @@ items:
   syntax:
     content: public Update<T> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function IgnoreGlobalFilters As Update(Of T)
   overload: MongoDB.Entities.Update`1.IgnoreGlobalFilters*
   nameWithType.vb: Update(Of T).IgnoreGlobalFilters()
@@ -1044,7 +1044,7 @@ items:
   syntax:
     content: public Update<T> AddToQueue()
     return:
-      type: MongoDB.Entities.Update`1
+      type: MongoDB.Entities.Update{{T}}
     content.vb: Public Function AddToQueue As Update(Of T)
   overload: MongoDB.Entities.Update`1.AddToQueue*
   nameWithType.vb: Update(Of T).AddToQueue()
@@ -2127,9 +2127,46 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
+- uid: MongoDB.Entities.Update{{T}}
+  commentId: T:MongoDB.Entities.Update{`0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Update`1
+  name: Update<T>
+  nameWithType: Update<T>
+  fullName: MongoDB.Entities.Update<T>
+  nameWithType.vb: Update(Of T)
+  fullName.vb: MongoDB.Entities.Update(Of T)
+  name.vb: Update(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Update`1
+    name: Update
+    nameWithType: Update
+    fullName: MongoDB.Entities.Update
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Update`1
   commentId: T:MongoDB.Entities.Update`1
-  parent: MongoDB.Entities
   name: Update<T>
   nameWithType: Update<T>
   fullName: MongoDB.Entities.Update<T>

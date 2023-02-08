@@ -233,7 +233,7 @@ items:
       type: System.String
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function MatchID(ID As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchID*
   nameWithType.vb: Find(Of T, TProjection).MatchID(String)
@@ -269,7 +269,7 @@ items:
       type: System.String
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(ID As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(String)
@@ -305,7 +305,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
@@ -342,7 +342,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -379,7 +379,7 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(FilterDefinition(Of T))
@@ -416,7 +416,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(template As Template) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Template)
@@ -464,7 +464,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
@@ -509,7 +509,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Match*
   nameWithType.vb: Find(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -546,7 +546,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function MatchString(jsonString As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchString*
   nameWithType.vb: Find(Of T, TProjection).MatchString(String)
@@ -582,7 +582,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function MatchExpression(expression As String) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchExpression*
   nameWithType.vb: Find(Of T, TProjection).MatchExpression(String)
@@ -618,7 +618,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function MatchExpression(template As Template) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.MatchExpression*
   nameWithType.vb: Find(Of T, TProjection).MatchExpression(Template)
@@ -657,7 +657,7 @@ items:
       type: MongoDB.Entities.Order
       description: The sort order
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Sort(propertyToSortBy As Expression(Of Func(Of T, Object)), sortOrder As Order) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Sort*
   nameWithType.vb: Find(Of T, TProjection).Sort(Expression(Of Func(Of T, Object)), Order)
@@ -690,7 +690,7 @@ items:
   syntax:
     content: public Find<T, TProjection> SortByTextScore()
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function SortByTextScore As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.SortByTextScore*
   nameWithType.vb: Find(Of T, TProjection).SortByTextScore()
@@ -726,7 +726,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => x.TextScoreProp
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function SortByTextScore(scoreProperty As Expression(Of Func(Of T, Object))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.SortByTextScore*
   nameWithType.vb: Find(Of T, TProjection).SortByTextScore(Expression(Of Func(Of T, Object)))
@@ -763,7 +763,7 @@ items:
       type: System.Func{MongoDB.Driver.SortDefinitionBuilder{{T}},MongoDB.Driver.SortDefinition{{T}}}
       description: s => s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
       description: ''
     content.vb: Public Function Sort(sortFunction As Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Sort*
@@ -801,7 +801,7 @@ items:
       type: System.Int32
       description: The number to skip
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Skip(skipCount As Integer) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Skip*
   nameWithType.vb: Find(Of T, TProjection).Skip(Int32)
@@ -837,7 +837,7 @@ items:
       type: System.Int32
       description: The number to limit/take
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Limit(takeCount As Integer) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Limit*
   nameWithType.vb: Find(Of T, TProjection).Limit(Int32)
@@ -873,7 +873,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
       description: x => new Test { PropName = x.Prop }
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Project*
   nameWithType.vb: Find(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
@@ -910,7 +910,7 @@ items:
       type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
       description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Project*
   nameWithType.vb: Find(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
@@ -947,7 +947,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => new { x.PropToExclude, x.AnotherPropToExclude }
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function ProjectExcluding(exclusion As Expression(Of Func(Of T, Object))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.ProjectExcluding*
   nameWithType.vb: Find(Of T, TProjection).ProjectExcluding(Expression(Of Func(Of T, Object)))
@@ -980,7 +980,7 @@ items:
   syntax:
     content: public Find<T, TProjection> IncludeRequiredProps()
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function IncludeRequiredProps As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.IncludeRequiredProps*
   nameWithType.vb: Find(Of T, TProjection).IncludeRequiredProps()
@@ -1016,7 +1016,7 @@ items:
       type: System.Action{MongoDB.Driver.FindOptions{{T},{TProjection}}}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function Option(option As Action(Of FindOptions(Of T, TProjection))) As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.Option*
   nameWithType.vb: Find(Of T, TProjection).Option(Action(Of FindOptions(Of T, TProjection)))
@@ -1049,7 +1049,7 @@ items:
   syntax:
     content: public Find<T, TProjection> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.Find`2
+      type: MongoDB.Entities.Find{{T},{TProjection}}
     content.vb: Public Function IgnoreGlobalFilters As Find(Of T, TProjection)
   overload: MongoDB.Entities.Find`2.IgnoreGlobalFilters*
   nameWithType.vb: Find(Of T, TProjection).IgnoreGlobalFilters()
@@ -1998,9 +1998,58 @@ references:
   fullName: MongoDB.Entities.Find<T, TProjection>.MatchID
   nameWithType.vb: Find(Of T, TProjection).MatchID
   fullName.vb: MongoDB.Entities.Find(Of T, TProjection).MatchID
+- uid: MongoDB.Entities.Find{{T},{TProjection}}
+  commentId: T:MongoDB.Entities.Find{`0,`1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Find`2
+  name: Find<T, TProjection>
+  nameWithType: Find<T, TProjection>
+  fullName: MongoDB.Entities.Find<T, TProjection>
+  nameWithType.vb: Find(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.Find(Of T, TProjection)
+  name.vb: Find(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.Find`2
+    name: Find
+    nameWithType: Find
+    fullName: MongoDB.Entities.Find
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Find`2
+    name: Find
+    nameWithType: Find
+    fullName: MongoDB.Entities.Find
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
-  parent: MongoDB.Entities
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>

@@ -108,7 +108,7 @@ items:
     - id: TFluent
       description: The type of the input pipeline
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function WithFluent(Of TFluent As IAggregateFluent(Of T))(fluentPipeline As TFluent) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.WithFluent*
   nameWithType.vb: PagedSearch(Of T, TProjection).WithFluent(Of TFluent)(TFluent)
@@ -145,7 +145,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Expression(Of Func(Of T, Boolean)))
@@ -182,7 +182,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -219,7 +219,7 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(FilterDefinition(Of T))
@@ -256,7 +256,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(template As Template) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Template)
@@ -304,7 +304,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Search, String, Boolean, Boolean, String)
@@ -349,7 +349,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Match*
   nameWithType.vb: PagedSearch(Of T, TProjection).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -386,7 +386,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function MatchString(jsonString As String) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchString*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchString(String)
@@ -422,7 +422,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function MatchExpression(expression As String) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchExpression*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchExpression(String)
@@ -458,7 +458,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function MatchExpression(template As Template) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.MatchExpression*
   nameWithType.vb: PagedSearch(Of T, TProjection).MatchExpression(Template)
@@ -497,7 +497,7 @@ items:
       type: MongoDB.Entities.Order
       description: The sort order
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Sort(propertyToSortBy As Expression(Of Func(Of T, Object)), sortOrder As Order) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Sort*
   nameWithType.vb: PagedSearch(Of T, TProjection).Sort(Expression(Of Func(Of T, Object)), Order)
@@ -530,7 +530,7 @@ items:
   syntax:
     content: public PagedSearch<T, TProjection> SortByTextScore()
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function SortByTextScore As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.SortByTextScore*
   nameWithType.vb: PagedSearch(Of T, TProjection).SortByTextScore()
@@ -566,7 +566,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => x.TextScoreProp
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function SortByTextScore(scoreProperty As Expression(Of Func(Of T, Object))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.SortByTextScore*
   nameWithType.vb: PagedSearch(Of T, TProjection).SortByTextScore(Expression(Of Func(Of T, Object)))
@@ -603,7 +603,7 @@ items:
       type: System.Func{MongoDB.Driver.SortDefinitionBuilder{{T}},MongoDB.Driver.SortDefinition{{T}}}
       description: s => s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Sort(sortFunction As Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Sort*
   nameWithType.vb: PagedSearch(Of T, TProjection).Sort(Func(Of SortDefinitionBuilder(Of T), SortDefinition(Of T)))
@@ -640,7 +640,7 @@ items:
       type: System.Int32
       description: The page number
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function PageNumber(pageNumber As Integer) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.PageNumber*
   nameWithType.vb: PagedSearch(Of T, TProjection).PageNumber(Int32)
@@ -676,7 +676,7 @@ items:
       type: System.Int32
       description: The size of a page
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function PageSize(pageSize As Integer) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.PageSize*
   nameWithType.vb: PagedSearch(Of T, TProjection).PageSize(Int32)
@@ -712,7 +712,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},{TProjection}}}
       description: x => new Test { PropName = x.Prop }
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Project(expression As Expression(Of Func(Of T, TProjection))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Project*
   nameWithType.vb: PagedSearch(Of T, TProjection).Project(Expression(Of Func(Of T, TProjection)))
@@ -749,7 +749,7 @@ items:
       type: System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{{T}},MongoDB.Driver.ProjectionDefinition{{T},{TProjection}}}
       description: p => p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Project(projection As Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Project*
   nameWithType.vb: PagedSearch(Of T, TProjection).Project(Func(Of ProjectionDefinitionBuilder(Of T), ProjectionDefinition(Of T, TProjection)))
@@ -786,7 +786,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => new { x.PropToExclude, x.AnotherPropToExclude }
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function ProjectExcluding(exclusion As Expression(Of Func(Of T, Object))) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.ProjectExcluding*
   nameWithType.vb: PagedSearch(Of T, TProjection).ProjectExcluding(Expression(Of Func(Of T, Object)))
@@ -823,7 +823,7 @@ items:
       type: System.Action{MongoDB.Driver.AggregateOptions}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function Option(option As Action(Of AggregateOptions)) As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.Option*
   nameWithType.vb: PagedSearch(Of T, TProjection).Option(Action(Of AggregateOptions))
@@ -856,7 +856,7 @@ items:
   syntax:
     content: public PagedSearch<T, TProjection> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.PagedSearch`2
+      type: MongoDB.Entities.PagedSearch{{T},{TProjection}}
     content.vb: Public Function IgnoreGlobalFilters As PagedSearch(Of T, TProjection)
   overload: MongoDB.Entities.PagedSearch`2.IgnoreGlobalFilters*
   nameWithType.vb: PagedSearch(Of T, TProjection).IgnoreGlobalFilters()
@@ -1213,9 +1213,10 @@ references:
   name: TFluent
   nameWithType: TFluent
   fullName: TFluent
-- uid: MongoDB.Entities.PagedSearch`2
-  commentId: T:MongoDB.Entities.PagedSearch`2
+- uid: MongoDB.Entities.PagedSearch{{T},{TProjection}}
+  commentId: T:MongoDB.Entities.PagedSearch{`0,`1}
   parent: MongoDB.Entities
+  definition: MongoDB.Entities.PagedSearch`2
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
@@ -1267,6 +1268,54 @@ references:
   name: TFluent
   nameWithType: TFluent
   fullName: TFluent
+- uid: MongoDB.Entities.PagedSearch`2
+  commentId: T:MongoDB.Entities.PagedSearch`2
+  name: PagedSearch<T, TProjection>
+  nameWithType: PagedSearch<T, TProjection>
+  fullName: MongoDB.Entities.PagedSearch<T, TProjection>
+  nameWithType.vb: PagedSearch(Of T, TProjection)
+  fullName.vb: MongoDB.Entities.PagedSearch(Of T, TProjection)
+  name.vb: PagedSearch(Of T, TProjection)
+  spec.csharp:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.PagedSearch`2
+    name: PagedSearch
+    nameWithType: PagedSearch
+    fullName: MongoDB.Entities.PagedSearch
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProjection
+    nameWithType: TProjection
+    fullName: TProjection
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.PagedSearch`2.Match*
   commentId: Overload:MongoDB.Entities.PagedSearch`2.Match
   name: Match

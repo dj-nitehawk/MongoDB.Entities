@@ -338,6 +338,7 @@
   "MongoDB.Entities.Many`1.VB_InitOneToMany``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Object}})": "MongoDB.Entities.Many-1.yml",
   "MongoDB.Entities.ManyBase": "MongoDB.Entities.ManyBase.yml",
   "MongoDB.Entities.Migration": "MongoDB.Entities.Migration.yml",
+  "MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)": "MongoDB.Entities.Migration.yml",
   "MongoDB.Entities.Migration.Name": "MongoDB.Entities.Migration.yml",
   "MongoDB.Entities.Migration.Number": "MongoDB.Entities.Migration.yml",
   "MongoDB.Entities.Migration.TimeTakenSeconds": "MongoDB.Entities.Migration.yml",

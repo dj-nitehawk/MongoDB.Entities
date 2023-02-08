@@ -73,7 +73,7 @@ items:
   source:
     id: near
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 50
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -106,7 +106,7 @@ items:
   source:
     id: distanceField
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 51
+    startLine: 52
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -139,7 +139,7 @@ items:
   source:
     id: spherical
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 52
+    startLine: 53
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -172,7 +172,7 @@ items:
   source:
     id: limit
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 53
+    startLine: 54
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -215,7 +215,7 @@ items:
   source:
     id: maxDistance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 54
+    startLine: 55
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -258,7 +258,7 @@ items:
   source:
     id: query
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 55
+    startLine: 56
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -301,7 +301,7 @@ items:
   source:
     id: distanceMultiplier
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 56
+    startLine: 57
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -344,7 +344,7 @@ items:
   source:
     id: includeLocs
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 57
+    startLine: 58
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -387,7 +387,7 @@ items:
   source:
     id: minDistance
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 58
+    startLine: 59
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -430,7 +430,7 @@ items:
   source:
     id: key
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 59
+    startLine: 60
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

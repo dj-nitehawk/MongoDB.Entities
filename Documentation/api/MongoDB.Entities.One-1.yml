@@ -156,7 +156,7 @@ items:
       type: System.String
       description: The ID to create a new One&lt;T> with
     return:
-      type: MongoDB.Entities.One`1
+      type: MongoDB.Entities.One{{T}}
     content.vb: Public Shared Widening Operator CType(id As String) As One(Of T)
   overload: MongoDB.Entities.One`1.op_Implicit*
   nameWithType.vb: One(Of T).Widening(String to One(Of T))
@@ -195,7 +195,7 @@ items:
       type: '{T}'
       description: The entity to make a reference to
     return:
-      type: MongoDB.Entities.One`1
+      type: MongoDB.Entities.One{{T}}
     content.vb: Public Shared Widening Operator CType(entity As T) As One(Of T)
   overload: MongoDB.Entities.One`1.op_Implicit*
   nameWithType.vb: One(Of T).Widening(T to One(Of T))
@@ -664,9 +664,46 @@ references:
   nameWithType.vb: One(Of T).Widening
   fullName.vb: MongoDB.Entities.One(Of T).Widening
   name.vb: Widening
+- uid: MongoDB.Entities.One{{T}}
+  commentId: T:MongoDB.Entities.One{``0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.One`1
+  name: One<T>
+  nameWithType: One<T>
+  fullName: MongoDB.Entities.One<T>
+  nameWithType.vb: One(Of T)
+  fullName.vb: MongoDB.Entities.One(Of T)
+  name.vb: One(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.One`1
+    name: One
+    nameWithType: One
+    fullName: MongoDB.Entities.One
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.One`1
+    name: One
+    nameWithType: One
+    fullName: MongoDB.Entities.One
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.One`1
   commentId: T:MongoDB.Entities.One`1
-  parent: MongoDB.Entities
   name: One<T>
   nameWithType: One<T>
   fullName: MongoDB.Entities.One<T>

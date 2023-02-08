@@ -91,7 +91,7 @@ items:
       type: System.String
       description: A unique IEntity ID
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function MatchID(ID As String) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.MatchID*
   nameWithType.vb: Replace(Of T).MatchID(String)
@@ -127,7 +127,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Boolean)))
@@ -164,7 +164,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -201,7 +201,7 @@ items:
       type: MongoDB.Driver.FilterDefinition{{T}}
       description: A filter definition
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(filterDefinition As FilterDefinition(Of T)) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(FilterDefinition(Of T))
@@ -238,7 +238,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(template As Template) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(Template)
@@ -286,7 +286,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(Search, String, Boolean, Boolean, String)
@@ -331,7 +331,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Match*
   nameWithType.vb: Replace(Of T).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -368,7 +368,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function MatchString(jsonString As String) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.MatchString*
   nameWithType.vb: Replace(Of T).MatchString(String)
@@ -404,7 +404,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function MatchExpression(expression As String) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.MatchExpression*
   nameWithType.vb: Replace(Of T).MatchExpression(String)
@@ -440,7 +440,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function MatchExpression(template As Template) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.MatchExpression*
   nameWithType.vb: Replace(Of T).MatchExpression(Template)
@@ -476,7 +476,7 @@ items:
       type: '{T}'
       description: ''
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function WithEntity(entity As T) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.WithEntity*
   nameWithType.vb: Replace(Of T).WithEntity(T)
@@ -512,7 +512,7 @@ items:
       type: System.Action{MongoDB.Driver.ReplaceOptions}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function Option(option As Action(Of ReplaceOptions)) As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.Option*
   nameWithType.vb: Replace(Of T).Option(Action(Of ReplaceOptions))
@@ -545,7 +545,7 @@ items:
   syntax:
     content: public Replace<T> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function IgnoreGlobalFilters As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.IgnoreGlobalFilters*
   nameWithType.vb: Replace(Of T).IgnoreGlobalFilters()
@@ -577,7 +577,7 @@ items:
   syntax:
     content: public Replace<T> AddToQueue()
     return:
-      type: MongoDB.Entities.Replace`1
+      type: MongoDB.Entities.Replace{{T}}
     content.vb: Public Function AddToQueue As Replace(Of T)
   overload: MongoDB.Entities.Replace`1.AddToQueue*
   nameWithType.vb: Replace(Of T).AddToQueue()
@@ -935,9 +935,46 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
+- uid: MongoDB.Entities.Replace{{T}}
+  commentId: T:MongoDB.Entities.Replace{`0}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Replace`1
+  name: Replace<T>
+  nameWithType: Replace<T>
+  fullName: MongoDB.Entities.Replace<T>
+  nameWithType.vb: Replace(Of T)
+  fullName.vb: MongoDB.Entities.Replace(Of T)
+  name.vb: Replace(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Replace`1
+    name: Replace
+    nameWithType: Replace
+    fullName: MongoDB.Entities.Replace
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Replace`1
   commentId: T:MongoDB.Entities.Replace`1
-  parent: MongoDB.Entities
   name: Replace<T>
   nameWithType: Replace<T>
   fullName: MongoDB.Entities.Replace<T>

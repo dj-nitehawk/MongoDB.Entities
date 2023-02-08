@@ -1222,7 +1222,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 116
+    startLine: 121
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1276,7 +1276,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 131
+    startLine: 136
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -1330,7 +1330,7 @@ items:
   source:
     id: DeleteAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\DB\DB.Delete.cs
-    startLine: 146
+    startLine: 151
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -4919,7 +4919,7 @@ references:
   nameWithType: DB.Distinct
   fullName: MongoDB.Entities.DB.Distinct
 - uid: MongoDB.Entities.Distinct{{T},{TProperty}}
-  commentId: T:MongoDB.Entities.Distinct{``0,``1}
+  commentId: T:MongoDB.Entities.Distinct{`0,`1}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.Distinct`2
   name: Distinct<T, TProperty>
@@ -4970,7 +4970,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Distinct`2
   commentId: T:MongoDB.Entities.Distinct`2
-  parent: MongoDB.Entities
   name: Distinct<T, TProperty>
   nameWithType: Distinct<T, TProperty>
   fullName: MongoDB.Entities.Distinct<T, TProperty>
@@ -5108,7 +5107,7 @@ references:
     nameWithType: )
     fullName: )
 - uid: MongoDB.Entities.Find{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.Find{``0,``1}
+  commentId: T:MongoDB.Entities.Find{`0,`1}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.Find`2
   name: Find<T, TProjection>
@@ -5159,7 +5158,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Find`2
   commentId: T:MongoDB.Entities.Find`2
-  parent: MongoDB.Entities
   name: Find<T, TProjection>
   nameWithType: Find<T, TProjection>
   fullName: MongoDB.Entities.Find<T, TProjection>
@@ -5550,7 +5548,7 @@ references:
   nameWithType: DB.Index
   fullName: MongoDB.Entities.DB.Index
 - uid: MongoDB.Entities.Index{{T}}
-  commentId: T:MongoDB.Entities.Index{``0}
+  commentId: T:MongoDB.Entities.Index{`0}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.Index`1
   name: Index<T>
@@ -5589,7 +5587,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Index`1
   commentId: T:MongoDB.Entities.Index`1
-  parent: MongoDB.Entities
   name: Index<T>
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
@@ -5863,7 +5860,7 @@ references:
     nameWithType: )
     fullName: )
 - uid: MongoDB.Entities.PagedSearch{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.PagedSearch{``0,``1}
+  commentId: T:MongoDB.Entities.PagedSearch{`0,`1}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.PagedSearch`2
   name: PagedSearch<T, TProjection>
@@ -5914,7 +5911,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.PagedSearch`2
   commentId: T:MongoDB.Entities.PagedSearch`2
-  parent: MongoDB.Entities
   name: PagedSearch<T, TProjection>
   nameWithType: PagedSearch<T, TProjection>
   fullName: MongoDB.Entities.PagedSearch<T, TProjection>
@@ -6080,7 +6076,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Template`2
   commentId: T:MongoDB.Entities.Template`2
-  parent: MongoDB.Entities
   name: Template<TInput, TResult>
   nameWithType: Template<TInput, TResult>
   fullName: MongoDB.Entities.Template<TInput, TResult>
@@ -6340,7 +6335,7 @@ references:
   nameWithType: DB.Replace
   fullName: MongoDB.Entities.DB.Replace
 - uid: MongoDB.Entities.Replace{{T}}
-  commentId: T:MongoDB.Entities.Replace{``0}
+  commentId: T:MongoDB.Entities.Replace{`0}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.Replace`1
   name: Replace<T>
@@ -6379,7 +6374,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Replace`1
   commentId: T:MongoDB.Entities.Replace`1
-  parent: MongoDB.Entities
   name: Replace<T>
   nameWithType: Replace<T>
   fullName: MongoDB.Entities.Replace<T>
@@ -6557,7 +6551,7 @@ references:
   nameWithType: DB.Update
   fullName: MongoDB.Entities.DB.Update
 - uid: MongoDB.Entities.Update{{T}}
-  commentId: T:MongoDB.Entities.Update{``0}
+  commentId: T:MongoDB.Entities.Update{`0}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.Update`1
   name: Update<T>
@@ -6596,7 +6590,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.Update`1
   commentId: T:MongoDB.Entities.Update`1
-  parent: MongoDB.Entities
   name: Update<T>
   nameWithType: Update<T>
   fullName: MongoDB.Entities.Update<T>
@@ -6637,7 +6630,7 @@ references:
   nameWithType: DB.UpdateAndGet
   fullName: MongoDB.Entities.DB.UpdateAndGet
 - uid: MongoDB.Entities.UpdateAndGet{{T},{TProjection}}
-  commentId: T:MongoDB.Entities.UpdateAndGet{``0,``1}
+  commentId: T:MongoDB.Entities.UpdateAndGet{`0,`1}
   parent: MongoDB.Entities
   definition: MongoDB.Entities.UpdateAndGet`2
   name: UpdateAndGet<T, TProjection>
@@ -6688,7 +6681,6 @@ references:
     fullName: )
 - uid: MongoDB.Entities.UpdateAndGet`2
   commentId: T:MongoDB.Entities.UpdateAndGet`2
-  parent: MongoDB.Entities
   name: UpdateAndGet<T, TProjection>
   nameWithType: UpdateAndGet<T, TProjection>
   fullName: MongoDB.Entities.UpdateAndGet<T, TProjection>

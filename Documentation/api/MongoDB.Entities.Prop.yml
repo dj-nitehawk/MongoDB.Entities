@@ -63,7 +63,7 @@ items:
   source:
     id: Collection
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 62
+    startLine: 65
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -104,7 +104,7 @@ items:
   source:
     id: Property
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 72
+    startLine: 75
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -145,7 +145,7 @@ items:
   source:
     id: Path
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 83
+    startLine: 86
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -186,7 +186,7 @@ items:
   source:
     id: PosFiltered
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 96
+    startLine: 99
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -227,7 +227,7 @@ items:
   source:
     id: PosAll
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 108
+    startLine: 111
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -268,7 +268,7 @@ items:
   source:
     id: PosFirst
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 118
+    startLine: 121
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -309,7 +309,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 128
+    startLine: 131
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -350,7 +350,7 @@ items:
   source:
     id: Elements
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Prop.cs
-    startLine: 141
+    startLine: 144
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

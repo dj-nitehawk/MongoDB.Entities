@@ -92,7 +92,7 @@ items:
       type: System.String
       description: 'ex: &quot;Address.Street&quot;'
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Property(property As String) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Property*
   nameWithType.vb: Distinct(Of T, TProperty).Property(String)
@@ -128,7 +128,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Object}}
       description: x => x.Address.Street
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Property(property As Expression(Of Func(Of T, Object))) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Property*
   nameWithType.vb: Distinct(Of T, TProperty).Property(Expression(Of Func(Of T, Object)))
@@ -165,7 +165,7 @@ items:
       type: System.Func{MongoDB.Driver.FilterDefinitionBuilder{{T}},MongoDB.Driver.FilterDefinition{{T}}}
       description: f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Match(filter As Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T))) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Match*
   nameWithType.vb: Distinct(Of T, TProperty).Match(Func(Of FilterDefinitionBuilder(Of T), FilterDefinition(Of T)))
@@ -202,7 +202,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{T},System.Boolean}}
       description: x => x.Property == Value
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Match(expression As Expression(Of Func(Of T, Boolean))) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Match*
   nameWithType.vb: Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, Boolean)))
@@ -239,7 +239,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template with a find query
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Match(template As Template) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Match*
   nameWithType.vb: Distinct(Of T, TProperty).Match(Template)
@@ -287,7 +287,7 @@ items:
       type: System.String
       description: The language for the search (optional)
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Match(searchType As Search, searchTerm As String, caseSensitive As Boolean = False, diacriticSensitive As Boolean = False, language As String = Nothing) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Match*
   nameWithType.vb: Distinct(Of T, TProperty).Match(Search, String, Boolean, Boolean, String)
@@ -332,7 +332,7 @@ items:
       type: System.Nullable{System.Double}
       description: Minimum distance in meters from the search point
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Match(coordinatesProperty As Expression(Of Func(Of T, Object)), nearCoordinates As Coordinates2D, maxDistance As Double? = Nothing, minDistance As Double? = Nothing) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Match*
   nameWithType.vb: Distinct(Of T, TProperty).Match(Expression(Of Func(Of T, Object)), Coordinates2D, Nullable(Of Double), Nullable(Of Double))
@@ -369,7 +369,7 @@ items:
       type: System.String
       description: '{ Title : &apos;The Power Of Now&apos; }'
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function MatchString(jsonString As String) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.MatchString*
   nameWithType.vb: Distinct(Of T, TProperty).MatchString(String)
@@ -405,7 +405,7 @@ items:
       type: System.String
       description: '{ $gt: [&apos;$Property1&apos;, &apos;$Property2&apos;] }'
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function MatchExpression(expression As String) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.MatchExpression*
   nameWithType.vb: Distinct(Of T, TProperty).MatchExpression(String)
@@ -441,7 +441,7 @@ items:
       type: MongoDB.Entities.Template
       description: A Template object
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function MatchExpression(template As Template) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.MatchExpression*
   nameWithType.vb: Distinct(Of T, TProperty).MatchExpression(Template)
@@ -477,7 +477,7 @@ items:
       type: System.Action{MongoDB.Driver.DistinctOptions}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function Option(option As Action(Of DistinctOptions)) As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.Option*
   nameWithType.vb: Distinct(Of T, TProperty).Option(Action(Of DistinctOptions))
@@ -510,7 +510,7 @@ items:
   syntax:
     content: public Distinct<T, TProperty> IgnoreGlobalFilters()
     return:
-      type: MongoDB.Entities.Distinct`2
+      type: MongoDB.Entities.Distinct{{T},{TProperty}}
     content.vb: Public Function IgnoreGlobalFilters As Distinct(Of T, TProperty)
   overload: MongoDB.Entities.Distinct`2.IgnoreGlobalFilters*
   nameWithType.vb: Distinct(Of T, TProperty).IgnoreGlobalFilters()
@@ -904,9 +904,58 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
+- uid: MongoDB.Entities.Distinct{{T},{TProperty}}
+  commentId: T:MongoDB.Entities.Distinct{`0,`1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Distinct`2
+  name: Distinct<T, TProperty>
+  nameWithType: Distinct<T, TProperty>
+  fullName: MongoDB.Entities.Distinct<T, TProperty>
+  nameWithType.vb: Distinct(Of T, TProperty)
+  fullName.vb: MongoDB.Entities.Distinct(Of T, TProperty)
+  name.vb: Distinct(Of T, TProperty)
+  spec.csharp:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Distinct`2
+    name: Distinct
+    nameWithType: Distinct
+    fullName: MongoDB.Entities.Distinct
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TProperty
+    nameWithType: TProperty
+    fullName: TProperty
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Distinct`2
   commentId: T:MongoDB.Entities.Distinct`2
-  parent: MongoDB.Entities
   name: Distinct<T, TProperty>
   nameWithType: Distinct<T, TProperty>
   fullName: MongoDB.Entities.Distinct<T, TProperty>

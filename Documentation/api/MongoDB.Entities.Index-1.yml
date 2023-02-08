@@ -119,7 +119,7 @@ items:
       type: System.Action{MongoDB.Driver.CreateIndexOptions{{T}}}
       description: x => x.OptionName = OptionValue
     return:
-      type: MongoDB.Entities.Index`1
+      type: MongoDB.Entities.Index{{T}}
     content.vb: Public Function Option(option As Action(Of CreateIndexOptions(Of T))) As Index(Of T)
   overload: MongoDB.Entities.Index`1.Option*
   nameWithType.vb: Index(Of T).Option(Action(Of CreateIndexOptions(Of T)))
@@ -159,7 +159,7 @@ items:
       type: MongoDB.Entities.KeyType
       description: The type of the key
     return:
-      type: MongoDB.Entities.Index`1
+      type: MongoDB.Entities.Index{{T}}
     content.vb: Public Function Key(propertyToIndex As Expression(Of Func(Of T, Object)), type As KeyType) As Index(Of T)
   overload: MongoDB.Entities.Index`1.Key*
   nameWithType.vb: Index(Of T).Key(Expression(Of Func(Of T, Object)), KeyType)
@@ -722,9 +722,10 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: MongoDB.Entities.Index`1
-  commentId: T:MongoDB.Entities.Index`1
+- uid: MongoDB.Entities.Index{{T}}
+  commentId: T:MongoDB.Entities.Index{`0}
   parent: MongoDB.Entities
+  definition: MongoDB.Entities.Index`1
   name: Index<T>
   nameWithType: Index<T>
   fullName: MongoDB.Entities.Index<T>
@@ -789,6 +790,42 @@ references:
     nameWithType: Action
     fullName: System.Action
     isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: MongoDB.Entities.Index`1
+  commentId: T:MongoDB.Entities.Index`1
+  name: Index<T>
+  nameWithType: Index<T>
+  fullName: MongoDB.Entities.Index<T>
+  nameWithType.vb: Index(Of T)
+  fullName.vb: MongoDB.Entities.Index(Of T)
+  name.vb: Index(Of T)
+  spec.csharp:
+  - uid: MongoDB.Entities.Index`1
+    name: Index
+    nameWithType: Index
+    fullName: MongoDB.Entities.Index
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Index`1
+    name: Index
+    nameWithType: Index
+    fullName: MongoDB.Entities.Index
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '

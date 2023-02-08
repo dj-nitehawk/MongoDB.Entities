@@ -4268,6 +4268,19 @@ references:
   commentId: T:MongoDB.Entities.Migration
   fullName: MongoDB.Entities.Migration
   nameWithType: Migration
+- uid: MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)
+  name: Migration(Int32, String, Double)
+  href: api/MongoDB.Entities.Migration.html#MongoDB_Entities_Migration__ctor_System_Int32_System_String_System_Double_
+  commentId: M:MongoDB.Entities.Migration.#ctor(System.Int32,System.String,System.Double)
+  fullName: MongoDB.Entities.Migration.Migration(System.Int32, System.String, System.Double)
+  nameWithType: Migration.Migration(Int32, String, Double)
+- uid: MongoDB.Entities.Migration.#ctor*
+  name: Migration
+  href: api/MongoDB.Entities.Migration.html#MongoDB_Entities_Migration__ctor_
+  commentId: Overload:MongoDB.Entities.Migration.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.Migration.Migration
+  nameWithType: Migration.Migration
 - uid: MongoDB.Entities.Migration.Name
   name: Name
   href: api/MongoDB.Entities.Migration.html#MongoDB_Entities_Migration_Name

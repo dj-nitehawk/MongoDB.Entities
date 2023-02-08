@@ -163,7 +163,7 @@ items:
     - id: TEntity
       description: The type of entity to get the collection name of
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Collection(Of TEntity As IEntity) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Collection*
   nameWithType.vb: Template(Of TInput, TResult).Collection(Of TEntity)()
@@ -200,7 +200,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.RootProp.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Property(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Property*
   nameWithType.vb: Template(Of TInput, TResult).Property(Expression(Of Func(Of TInput, Object)))
@@ -237,7 +237,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.RootProp.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PropertyOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PropertyOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PropertyOfResult(Expression(Of Func(Of TResult, Object)))
@@ -276,7 +276,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Property(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Property*
   nameWithType.vb: Template(Of TInput, TResult).Property(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -313,7 +313,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => new { x.Prop1.PropX, x.Prop2.PropY }
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Properties(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Properties*
   nameWithType.vb: Template(Of TInput, TResult).Properties(Expression(Of Func(Of TInput, Object)))
@@ -350,7 +350,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => new { x.Prop1.PropX, x.Prop2.PropY }
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PropertiesOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PropertiesOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PropertiesOfResult(Expression(Of Func(Of TResult, Object)))
@@ -389,7 +389,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Properties(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Properties*
   nameWithType.vb: Template(Of TInput, TResult).Properties(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -426,7 +426,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Path(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Path*
   nameWithType.vb: Template(Of TInput, TResult).Path(Expression(Of Func(Of TInput, Object)))
@@ -463,7 +463,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PathOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PathOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PathOfResult(Expression(Of Func(Of TResult, Object)))
@@ -502,7 +502,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Path(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Path*
   nameWithType.vb: Template(Of TInput, TResult).Path(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -539,7 +539,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => new { x.Prop1.Child1, x.Prop2.Child2 }
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Paths(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Paths*
   nameWithType.vb: Template(Of TInput, TResult).Paths(Expression(Of Func(Of TInput, Object)))
@@ -576,7 +576,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => new { x.Prop1.Child1, x.Prop2.Child2 }
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PathsOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PathsOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PathsOfResult(Expression(Of Func(Of TResult, Object)))
@@ -615,7 +615,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Paths(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Paths*
   nameWithType.vb: Template(Of TInput, TResult).Paths(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -652,7 +652,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFiltered(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFiltered*
   nameWithType.vb: Template(Of TInput, TResult).PosFiltered(Expression(Of Func(Of TInput, Object)))
@@ -689,7 +689,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFilteredOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFilteredOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PosFilteredOfResult(Expression(Of Func(Of TResult, Object)))
@@ -728,7 +728,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFiltered(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFiltered*
   nameWithType.vb: Template(Of TInput, TResult).PosFiltered(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -765,7 +765,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosAll(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosAll*
   nameWithType.vb: Template(Of TInput, TResult).PosAll(Expression(Of Func(Of TInput, Object)))
@@ -802,7 +802,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosAllOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosAllOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PosAllOfResult(Expression(Of Func(Of TResult, Object)))
@@ -841,7 +841,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosAll(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosAll*
   nameWithType.vb: Template(Of TInput, TResult).PosAll(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -878,7 +878,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFirst(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFirst*
   nameWithType.vb: Template(Of TInput, TResult).PosFirst(Expression(Of Func(Of TInput, Object)))
@@ -915,7 +915,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeList[0].SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFirstOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFirstOfResult*
   nameWithType.vb: Template(Of TInput, TResult).PosFirstOfResult(Expression(Of Func(Of TResult, Object)))
@@ -954,7 +954,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function PosFirst(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.PosFirst*
   nameWithType.vb: Template(Of TInput, TResult).PosFirst(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -991,7 +991,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Elements(expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Elements*
   nameWithType.vb: Template(Of TInput, TResult).Elements(Expression(Of Func(Of TInput, Object)))
@@ -1028,7 +1028,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function ElementsOfResult(expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.ElementsOfResult*
   nameWithType.vb: Template(Of TInput, TResult).ElementsOfResult(Expression(Of Func(Of TResult, Object)))
@@ -1067,7 +1067,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Elements(Of TOther)(expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Elements*
   nameWithType.vb: Template(Of TInput, TResult).Elements(Of TOther)(Expression(Of Func(Of TOther, Object)))
@@ -1107,7 +1107,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TInput},System.Object}}
       description: x => x.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Elements(index As Integer, expression As Expression(Of Func(Of TInput, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Elements*
   nameWithType.vb: Template(Of TInput, TResult).Elements(Int32, Expression(Of Func(Of TInput, Object)))
@@ -1147,7 +1147,7 @@ items:
       type: System.Linq.Expressions.Expression{System.Func{{TResult},System.Object}}
       description: x => x.SomeProp
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function ElementsOfResult(index As Integer, expression As Expression(Of Func(Of TResult, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.ElementsOfResult*
   nameWithType.vb: Template(Of TInput, TResult).ElementsOfResult(Int32, Expression(Of Func(Of TResult, Object)))
@@ -1189,7 +1189,7 @@ items:
     typeParameters:
     - id: TOther
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Elements(Of TOther)(index As Integer, expression As Expression(Of Func(Of TOther, Object))) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Elements*
   nameWithType.vb: Template(Of TInput, TResult).Elements(Of TOther)(Int32, Expression(Of Func(Of TOther, Object)))
@@ -1229,7 +1229,7 @@ items:
       type: System.String
       description: The value to replace with
     return:
-      type: MongoDB.Entities.Template`2
+      type: MongoDB.Entities.Template{{TInput},{TResult}}
     content.vb: Public Function Tag(tagName As String, replacementValue As String) As Template(Of TInput, TResult)
   overload: MongoDB.Entities.Template`2.Tag*
   nameWithType.vb: Template(Of TInput, TResult).Tag(String, String)
@@ -3568,9 +3568,58 @@ references:
   fullName: MongoDB.Entities.Template<TInput, TResult>.Collection
   nameWithType.vb: Template(Of TInput, TResult).Collection
   fullName.vb: MongoDB.Entities.Template(Of TInput, TResult).Collection
+- uid: MongoDB.Entities.Template{{TInput},{TResult}}
+  commentId: T:MongoDB.Entities.Template{`0,`1}
+  parent: MongoDB.Entities
+  definition: MongoDB.Entities.Template`2
+  name: Template<TInput, TResult>
+  nameWithType: Template<TInput, TResult>
+  fullName: MongoDB.Entities.Template<TInput, TResult>
+  nameWithType.vb: Template(Of TInput, TResult)
+  fullName.vb: MongoDB.Entities.Template(Of TInput, TResult)
+  name.vb: Template(Of TInput, TResult)
+  spec.csharp:
+  - uid: MongoDB.Entities.Template`2
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: MongoDB.Entities.Template`2
+    name: Template
+    nameWithType: Template
+    fullName: MongoDB.Entities.Template
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TInput
+    nameWithType: TInput
+    fullName: TInput
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: MongoDB.Entities.Template`2
   commentId: T:MongoDB.Entities.Template`2
-  parent: MongoDB.Entities
   name: Template<TInput, TResult>
   nameWithType: Template<TInput, TResult>
   fullName: MongoDB.Entities.Template<TInput, TResult>

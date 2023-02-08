@@ -109,7 +109,7 @@ items:
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nAppends a pipeline stage json string to the current pipeline. \nThis method can only be used if the template was initialized with an array of pipeline stages. \nIf this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code>\n<p>WARNING: Appending stages prevents this template from being cached!!!</p>\n"
+  summary: "\nAppends a pipeline stage json string to the current pipeline.\nThis method can only be used if the template was initialized with an array of pipeline stages.\nIf this is going to be the first stage of your pipeline, you must instantiate the template with an empty array string <code>new Template(&quot;[]&quot;)</code>\n<p>WARNING: Appending stages prevents this template from being cached!!!</p>\n"
   example: []
   syntax:
     content: public void AppendStage(string pipelineStageString)

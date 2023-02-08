@@ -808,7 +808,7 @@ items:
   source:
     id: ReStart
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Watcher.cs
-    startLine: 346
+    startLine: 347
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
