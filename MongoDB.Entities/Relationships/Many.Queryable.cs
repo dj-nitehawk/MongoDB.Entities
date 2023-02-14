@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MongoDB.Entities;
 
-public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IEntity
+public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TChild : IEntity where TParent : IEntity
 {
     /// <summary>
     /// An IQueryable of JoinRecords for this relationship
@@ -28,9 +28,9 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        return ParentsQueryable<TParent>(new[] { childID }, session, options);
+        return ParentsQueryable(new[] { childID }, session, options);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IEnumerable<string> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable(IEnumerable<string> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -50,7 +50,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ChildID,
-                       p => p.ID,
+                       p => p.GetId(),
                        (_, p) => p)
                    .Distinct()
             : JoinQueryable(session, options)
@@ -58,7 +58,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ParentID,
-                       p => p.ID,
+                       p => p.GetId(),
                        (_, p) => p)
                    .Distinct();
     }
@@ -71,7 +71,7 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     [Obsolete("This method is no longer supported due to incompatibilities with LINQ3 translation engine!", true)]
-    public IMongoQueryable<TParent> ParentsQueryable<TParent>(IMongoQueryable<TChild> children, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
+    public IMongoQueryable<TParent> ParentsQueryable(IMongoQueryable<TChild> children, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         throw new NotSupportedException();
         //return typeof(TParent) == typeof(TChild)
@@ -114,18 +114,18 @@ public sealed partial class Many<TChild> : IEnumerable<TChild> where TChild : IE
 
         return isInverse
             ? JoinQueryable(session, options)
-                   .Where(j => j.ChildID == parent.ID)
+                   .Where(j => j.ChildID == parent.GetId())
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ParentID,
-                       c => c.ID,
+                       c => c.GetId(),
                        (_, c) => c)
             : JoinQueryable(session, options)
-                   .Where(j => j.ParentID == parent.ID)
+                   .Where(j => j.ParentID == parent.GetId())
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ChildID,
-                       c => c.ID,
+                       c => c.GetId(),
                        (_, c) => c);
     }
 

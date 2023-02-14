@@ -22,6 +22,8 @@ internal static class Cache<T> where T : IEntity
     internal static string ModifiedOnPropName { get; private set; } = null!;
     internal static PropertyInfo? ModifiedByProp { get; private set; }
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
+    internal static PropertyInfo IdentityProp { get; private set; } = null!;
+    internal static string IdentityPropName { get; private set; } = null!;
 
     private static PropertyInfo[] updatableProps = null!;
     private static ProjectionDefinition<T> requiredPropsProjection = null!;
@@ -79,6 +81,17 @@ internal static class Cache<T> where T : IEntity
         catch (InvalidOperationException)
         {
             throw new InvalidOperationException("Multiple [ModifiedBy] properties are not allowed on entities!");
+        }
+        
+        var propertyInfo = type.GetIdPropertyInfo();
+        if (propertyInfo != null)
+        {
+            IdentityProp = propertyInfo;
+            IdentityPropName = propertyInfo.Name;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', or [BsonId] expected");
         }
     }
 

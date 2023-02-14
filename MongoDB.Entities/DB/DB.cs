@@ -218,8 +218,10 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The ID to set on the returned instance</param>
-    public static T Entity<T>(string ID) where T : IEntity, new()
+    public static T Entity<T>(object ID) where T : IEntity, new()
     {
-        return new T { ID = ID };
+        var newT = new T();
+        newT.SetId(ID);
+        return newT;
     }
 }

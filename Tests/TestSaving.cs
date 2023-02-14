@@ -256,7 +256,7 @@ public class Saving
     {
         var book = new Book { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
 
-        book.ID = book.GenerateNewID();
+        book.ID = (string)book.GenerateNewID();
         book.Title = "updated title";
         book.Price = 543.21m;
 
@@ -295,7 +295,7 @@ public class Saving
             Title = "original", //dontpreserve
             Price = 100, //dontpreserve
             PriceDbl = 666,
-            MainAuthor = ObjectId.GenerateNewId().ToString()
+            MainAuthor = One<Author>.FromObject(ObjectId.GenerateNewId().ToString())
         };
         await book.SaveAsync();
 
@@ -331,7 +331,7 @@ public class Saving
         author.Age2 = 400; //preserve
         author.Birthday = DateTime.MinValue; //preserve
         author.FullName = null;
-        author.BestSeller = ObjectId.GenerateNewId().ToString();
+        author.BestSeller = One<Book>.FromObject(ObjectId.GenerateNewId().ToString());
 
         await author.SavePreservingAsync();
 
@@ -830,7 +830,7 @@ public class Saving
         Assert.AreEqual(res!.ID, customer.ID);
 
         var cus = await DB.Queryable<Book>()
-                          .Where(b => b.Customer.ID == customer.ID)
+                          .Where(b => Equals(b.Customer.ID,customer.ID))
                           .Select(b => b.Customer)
                           .SingleOrDefaultAsync();
         Assert.AreEqual(cus.ID, customer.ID);

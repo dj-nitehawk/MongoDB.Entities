@@ -16,8 +16,7 @@ public class One<T> where T : IEntity
     /// <summary>
     /// The Id of the entity referenced by this instance.
     /// </summary>
-    [AsObjectId]
-    public string? ID { get; set; }
+    public object? ID { get; set; }
 
     public One()
     { }
@@ -29,14 +28,14 @@ public class One<T> where T : IEntity
     internal One(T entity)
     {
         entity.ThrowIfUnsaved();
-        ID = entity.ID;
+        ID = entity.GetId();
     }
 
     /// <summary>
-    /// Operator for returning a new One&lt;T&gt; object from a string ID
+    /// Operator for returning a new One&lt;T&gt; object from a object ID
     /// </summary>
     /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
-    public static implicit operator One<T>(string? id)
+    public static One<T> FromObject(object? id)
     {
         return new One<T> { ID = id };
     }

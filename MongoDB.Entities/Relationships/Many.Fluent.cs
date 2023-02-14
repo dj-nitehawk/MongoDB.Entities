@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MongoDB.Entities;
 
-public sealed partial class Many<TChild> where TChild : IEntity
+public sealed partial class Many<TChild, TParent> where TChild : IEntity where TParent : IEntity
 {
     /// <summary>
     /// An IAggregateFluent of JoinRecords for this relationship
@@ -23,7 +23,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// </summary>
     /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="children">An IAggregateFluent of children</param>
-    public IAggregateFluent<TParent> ParentsFluent<TParent>(IAggregateFluent<TChild> children) where TParent : IEntity
+    public IAggregateFluent<TParent> ParentsFluent(IAggregateFluent<TChild> children)
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -31,28 +31,28 @@ public sealed partial class Many<TChild> where TChild : IEntity
             ? children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        c => c.ID,
+                        c => c.GetId(),
                         r => r.ParentID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ChildID,
-                        p => p.ID,
+                        p => p.GetId(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
             : children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        c => c.ID,
+                        c => c.GetId(),
                         r => r.ChildID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        p => p.ID,
+                        p => p.GetId(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -65,9 +65,9 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent<TParent>(string? childID, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
+    public IAggregateFluent<TParent> ParentsFluent(string? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        return ParentsFluent<TParent>(new[] { childID }, session, options);
+        return ParentsFluent(new[] { childID }, session, options);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent<TParent>(IEnumerable<string?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null) where TParent : IEntity
+    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<string?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -87,7 +87,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         j => j.ChildID,
-                        p => p.ID,
+                        p => p.GetId(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
@@ -96,7 +96,7 @@ public sealed partial class Many<TChild> where TChild : IEntity
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        p => p.ID,
+                        p => p.GetId(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -113,19 +113,19 @@ public sealed partial class Many<TChild> where TChild : IEntity
 
         return isInverse
             ? JoinFluent(session, options)
-                    .Match(f => f.Eq(r => r.ChildID, parent.ID))
+                    .Match(f => f.Eq(r => r.ChildID, parent.GetId()))
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ParentID,
-                        c => c.ID,
+                        c => c.GetId(),
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0])
             : JoinFluent(session, options)
-                    .Match(f => f.Eq(r => r.ParentID, parent.ID))
+                    .Match(f => f.Eq(r => r.ParentID, parent.GetId()))
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ChildID,
-                        c => c.ID,
+                        c => c.GetId(),
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0]);
     }

@@ -66,7 +66,7 @@ public class CreateBulk : BenchBase
         var models = new List<WriteModel<Author>>(list.Count);
         foreach (var author in list)
         {
-            author.ID = author.GenerateNewID();
+            author.ID = (string)author.GenerateNewID();
             models.Add(new InsertOneModel<Author>(author));
         }
         return AuthorCollection.BulkWriteAsync(models);

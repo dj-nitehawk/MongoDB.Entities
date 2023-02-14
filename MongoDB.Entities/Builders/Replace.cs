@@ -43,9 +43,9 @@ public class Replace<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Replace<T> MatchID(string? ID)
+    public Replace<T> MatchID(object? ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public class Replace<T> where T : IEntity
     /// <param name="entity"></param>
     public Replace<T> WithEntity(T entity)
     {
-        if (string.IsNullOrEmpty(entity.ID))
+        if (entity.GetId() == null || string.IsNullOrEmpty(entity.GetId()!.ToString()))
             throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
         onSaveAction?.Invoke(entity);

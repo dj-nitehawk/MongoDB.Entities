@@ -13,7 +13,7 @@ public static partial class DB
     private static readonly int deleteBatchSize = 100000;
 
     private static async Task<DeleteResult> DeleteCascadingAsync<T>(
-        IEnumerable<string?> IDs,
+        IEnumerable<object?> IDs,
         IClientSessionHandle? session = null,
         CancellationToken cancellation = default) where T : IEntity
     {
@@ -42,10 +42,12 @@ public static partial class DB
                 : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
         }
 
+        var filter = Builders<T>.Filter.In(Cache<T>.IdentityPropName, IDs);
+        
         var delResTask =
                 session == null
-                ? Collection<T>().DeleteManyAsync(x => IDs.Contains(x.ID))
-                : Collection<T>().DeleteManyAsync(session, x => IDs.Contains(x.ID), null, cancellation);
+                ? Collection<T>().DeleteManyAsync(filter)
+                : Collection<T>().DeleteManyAsync(session, filter, null, cancellation);
 
         tasks.Add(delResTask);
 
@@ -70,7 +72,7 @@ public static partial class DB
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(string? ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(object? ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
         return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
@@ -155,7 +157,7 @@ public static partial class DB
 
         var cursor = await new Find<T, string?>(session, null)
                            .Match(_ => filter)
-                           .Project(e => e.ID)
+                           .Project(p => p.Include(Cache<T>.IdentityPropName))
                            .Option(o => o.BatchSize = deleteBatchSize)
                            .Option(o => o.Collation = collation)
                            .ExecuteCursorAsync(cancellation)

@@ -53,7 +53,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">The unique ID of an IEntity</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A single entity or null if not found</returns>
-    public Task<TProjection?> OneAsync(string? ID, CancellationToken cancellation = default)
+    public Task<TProjection?> OneAsync(object? ID, CancellationToken cancellation = default)
     {
         Match(ID);
         return ExecuteSingleAsync(cancellation);
@@ -89,16 +89,16 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Find<T, TProjection> MatchID(string? ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
     }
 
     /// <summary>
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Find<T, TProjection> Match(string? ID)
+    public Find<T, TProjection> Match(object? ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
     }
 
     /// <summary>
@@ -411,7 +411,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     {
-        Project(b => b.Include(x => x.ID));
+        Project(b => b.Include(x => x.GetId()));
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);

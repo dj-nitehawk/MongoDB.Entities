@@ -11,7 +11,7 @@ public class Genre : Entity
     public Review Review { get; set; }
 
     [InverseSide]
-    public Many<Book> Books { get; set; }
+    public Many<Book, Genre> Books { get; set; }
 
     public Genre() => this.InitManyToMany(() => Books, b => b.Genres);
 }
