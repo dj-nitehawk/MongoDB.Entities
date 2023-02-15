@@ -17,7 +17,7 @@ public partial class DBContext
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<DeleteResult> DeleteAsync<T>(string? ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(object? ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(Cache<T>.IdentityPropName, ID)),
@@ -34,7 +34,7 @@ public partial class DBContext
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<DeleteResult> DeleteAsync<T>(IEnumerable<string?> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(Cache<T>.IdentityPropName, IDs)),

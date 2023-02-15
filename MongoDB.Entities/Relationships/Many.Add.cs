@@ -28,9 +28,9 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="children">The child Entities to add</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(IEnumerable<TChild?> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return AddAsync(children.Select(c => c?.GetId()), session, cancellation);
+        return AddAsync(children.Select(Cache<TChild>.SelectIdFunc()), session, cancellation);
     }
 
     /// <summary>

@@ -845,7 +845,7 @@ public class Saving
 
         var creationTime = new DateTime(long.Parse(e.ID!));
 
-        Assert.IsTrue(creationTime < DateTime.Now);
+        Assert.IsTrue(creationTime < DateTime.UtcNow);
     }
 
     [TestMethod]

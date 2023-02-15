@@ -87,7 +87,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Find<T, TProjection> MatchID(string? ID)
+    public Find<T, TProjection> MatchID(object? ID)
     {
         return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
     }
@@ -411,7 +411,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     {
-        Project(b => b.Include(x => x.GetId()));
+        Project(b => b.Include(Cache<T>.SelectIdExpression()));
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);

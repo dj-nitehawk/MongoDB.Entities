@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -31,29 +32,28 @@ public static partial class Extensions
   /// <param name="type">Any class that implements a MongoDB id</param>
   internal static PropertyInfo? GetIdPropertyInfo(this Type type)
   {
-    // Let's get the identity Property based on the MongoDB identity rules
-    PropertyInfo[] idProps = type.GetProperties()
-      .Where(p =>
-        p.IsDefined(typeof(BsonIdAttribute), true))
-      .ToArray();
-
-    PropertyInfo? propertyInfo=null;
-    if (idProps.Count() != 0)
+    PropertyInfo? propertyInfo=type.GetProperty("_id");
+    
+    if (propertyInfo == null)
     {
-      propertyInfo = idProps[0];
+      propertyInfo = type.GetProperty("Id");
     }
-    else
+    
+    if (propertyInfo == null)
     {
-      PropertyInfo? idProp; 
-      if ((idProp=type.GetProperty("_id")) != null)
+      // Let's get the identity Property based on the MongoDB identity rules
+      PropertyInfo[] idProps = type.GetProperties()
+        .Where(p =>
+          p.IsDefined(typeof(BsonIdAttribute), true))
+        .ToArray();
+
+      if (idProps.Any())
       {
-        propertyInfo = idProp;
-      } else if ((idProp=type.GetProperty("_Id")) != null)
-      {
-        propertyInfo = idProp;
+        propertyInfo = idProps[0];
       }
     }
-
+    
     return propertyInfo;
   }
+  
 }

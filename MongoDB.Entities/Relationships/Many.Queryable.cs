@@ -50,7 +50,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ChildID,
-                       p => p.GetId(),
+                       Cache<TParent>.SelectIdExpression(),
                        (_, p) => p)
                    .Distinct()
             : JoinQueryable(session, options)
@@ -58,7 +58,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ParentID,
-                       p => p.GetId(),
+                       Cache<TParent>.SelectIdExpression(),
                        (_, p) => p)
                    .Distinct();
     }
@@ -114,18 +114,18 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
 
         return isInverse
             ? JoinQueryable(session, options)
-                   .Where(j => j.ChildID == parent.GetId())
+                   .Where(j => Equals(j.ChildID,parent.GetId()))
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ParentID,
-                       c => c.GetId(),
+                       Cache<TChild>.SelectIdExpression(),
                        (_, c) => c)
             : JoinQueryable(session, options)
-                   .Where(j => j.ParentID == parent.GetId())
+                   .Where(j => Equals(j.ParentID,parent.GetId()))
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ChildID,
-                       c => c.GetId(),
+                       Cache<TChild>.SelectIdExpression(),
                        (_, c) => c);
     }
 

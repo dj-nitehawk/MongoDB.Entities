@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace MongoDB.Entities;
@@ -140,4 +141,25 @@ internal static class Cache<T> where T : IEntity
             userProj
         });
     }
+    
+    /// <summary>
+    /// Returns a Select expression for the Id
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
+    internal static Expression<Func<T,dynamic?>> SelectIdExpression()
+    {
+        var parameter = Expression.Parameter(typeof(T), "t");
+        var property = Expression.Property(parameter, IdentityPropName);
+        return Expression.Lambda<Func<T, dynamic?>>(property, parameter);
+    }
+    
+    /// <summary>
+    /// Returns a Select Func for the Id
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
+    internal static Func<T,object?> SelectIdFunc()
+    {
+        return SelectIdExpression().Compile();
+    }
+
 }

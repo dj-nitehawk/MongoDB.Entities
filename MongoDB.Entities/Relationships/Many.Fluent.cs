@@ -31,28 +31,28 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
             ? children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        c => c.GetId(),
+                        Cache<TChild>.SelectIdExpression(),
                         r => r.ParentID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ChildID,
-                        p => p.GetId(),
+                        Cache<TParent>.SelectIdExpression(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
             : children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        c => c.GetId(),
+                        Cache<TChild>.SelectIdExpression(),
                         r => r.ChildID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        p => p.GetId(),
+                        Cache<TParent>.SelectIdExpression(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -77,7 +77,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<string?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
@@ -87,7 +87,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         j => j.ChildID,
-                        p => p.GetId(),
+                        Cache<TParent>.SelectIdExpression(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
@@ -96,7 +96,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        p => p.GetId(),
+                        Cache<TParent>.SelectIdExpression(),
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -117,7 +117,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ParentID,
-                        c => c.GetId(),
+                        Cache<TChild>.SelectIdExpression(),
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0])
             : JoinFluent(session, options)
@@ -125,7 +125,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ChildID,
-                        c => c.GetId(),
+                        Cache<TChild>.SelectIdExpression(),
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0]);
     }

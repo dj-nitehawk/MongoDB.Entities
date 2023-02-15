@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -87,7 +88,7 @@ public static partial class DB
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name = "session" > An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<string?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -155,7 +156,7 @@ public static partial class DB
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
-        var cursor = await new Find<T, string?>(session, null)
+        var cursor = await new Find<T, object?>(session, null)
                            .Match(_ => filter)
                            .Project(p => p.Include(Cache<T>.IdentityPropName))
                            .Option(o => o.BatchSize = deleteBatchSize)
@@ -172,7 +173,8 @@ public static partial class DB
             {
                 if (cursor.Current.Any())
                 {
-                    res = await DeleteCascadingAsync<T>(cursor.Current, session, cancellation).ConfigureAwait(false);
+                    var idObjects = ValidateCursor((List<object>)cursor.Current);
+                    res = await DeleteCascadingAsync<T>(idObjects, session, cancellation).ConfigureAwait(false);
                     deletedCount += res.DeletedCount;
                 }
             }
@@ -184,6 +186,22 @@ public static partial class DB
         }
 
         return res;
+    }
+
+    private static List<object> ValidateCursor(List<object> idObjects)
+    {
+        if (idObjects.Any() && idObjects[0] is ExpandoObject)
+        {
+            List<object> ids = new();
+            foreach (dynamic id in idObjects)
+            {
+                ids.Add(id._id);
+            }
+            return ids;
+        }
+
+        return idObjects;
+        
     }
 
     private static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
