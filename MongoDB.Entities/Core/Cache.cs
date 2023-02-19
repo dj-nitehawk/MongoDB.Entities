@@ -33,6 +33,8 @@ internal static class Cache<T> where T : IEntity
     internal static string IdPropName { get; private set; } = null!;
     internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
+    internal static Action<object, object?> IdSetter { get; private set; } = null!;
+    internal static Func<object, object?> IdGetter { get; private set; } = null!;
 
     private static PropertyInfo[] updatableProps = null!;
 
@@ -55,6 +57,8 @@ internal static class Cache<T> where T : IEntity
             IdPropName = propertyInfo.Name;
             IdExpression = SelectIdExpression(propertyInfo);
             IdSelector = IdExpression.Compile();
+            IdGetter = type.GetterForProp(IdPropName);
+            IdSetter = type.SetterForProp(IdPropName);
         }
         else
         {
