@@ -89,7 +89,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Find<T, TProjection> MatchID(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Find<T, TProjection> Match(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
@@ -411,7 +411,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     {
-        Project(b => b.Include(Cache<T>.SelectIdExpression()));
+        Project(b => b.Include(Cache<T>.IdExpression));
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);

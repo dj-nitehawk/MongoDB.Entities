@@ -38,7 +38,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="cancellation">An optional cancellation token</param>
     public Task RemoveAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return RemoveAsync(children.Select(Cache<TChild>.SelectIdFunc()), session, cancellation);
+        return RemoveAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
     }
 
     /// <summary>

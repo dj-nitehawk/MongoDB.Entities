@@ -13,20 +13,29 @@ namespace MongoDB.Entities;
 
 internal static class Cache<T> where T : IEntity
 {
-    internal static IMongoDatabase Database { get; private set; } = null!;
-    internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string DBName { get; private set; } = null!;
+    internal static IMongoDatabase Database { get; private set; } = null!;
+
+    internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
+
     internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
+
     internal static bool HasCreatedOn { get; private set; }
+
     internal static bool HasModifiedOn { get; private set; }
     internal static string ModifiedOnPropName { get; private set; } = null!;
     internal static PropertyInfo? ModifiedByProp { get; private set; }
+
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
-    internal static PropertyInfo IdentityProp { get; private set; } = null!;
-    internal static string IdentityPropName { get; private set; } = null!;
+
+    internal static PropertyInfo IdProp { get; private set; } = null!;
+    internal static string IdPropName { get; private set; } = null!;
+    internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
+    internal static Func<T, object?> IdSelector { get; private set; } = null!;
 
     private static PropertyInfo[] updatableProps = null!;
+
     private static ProjectionDefinition<T> requiredPropsProjection = null!;
 
     static Cache()
@@ -42,8 +51,10 @@ internal static class Cache<T> where T : IEntity
         var propertyInfo = type.GetIdPropertyInfo();
         if (propertyInfo != null)
         {
-            IdentityProp = propertyInfo;
-            IdentityPropName = propertyInfo.Name;
+            IdProp = propertyInfo;
+            IdPropName = propertyInfo.Name;
+            IdExpression = SelectIdExpression(propertyInfo);
+            IdSelector = IdExpression.Compile();
         }
         else
         {
@@ -53,10 +64,7 @@ internal static class Cache<T> where T : IEntity
         Database = TypeMap.GetDatabase(type);
         DBName = Database.DatabaseNamespace.DatabaseName;
 
-        var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false) ??
-#pragma warning disable CS0618 // Type or member is obsolete
-            type.GetCustomAttribute<NameAttribute>(false);
-#pragma warning restore CS0618 // Type or member is obsolete
+        var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
         CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
@@ -142,24 +150,10 @@ internal static class Cache<T> where T : IEntity
         });
     }
 
-    /// <summary>
-    /// Returns a Select expression for the Id
-    /// </summary>
-    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static Expression<Func<T, dynamic?>> SelectIdExpression()
+    private static Expression<Func<T, object?>> SelectIdExpression(PropertyInfo idProp)
     {
         var parameter = Expression.Parameter(typeof(T), "t");
-        var property = Expression.Property(parameter, IdentityPropName);
-        return Expression.Lambda<Func<T, dynamic?>>(property, parameter);
+        var property = Expression.Property(parameter, idProp);
+        return Expression.Lambda<Func<T, object?>>(property, parameter);
     }
-
-    /// <summary>
-    /// Returns a Select Func for the Id
-    /// </summary>
-    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static Func<T, object?> SelectIdFunc()
-    {
-        return SelectIdExpression().Compile();
-    }
-
 }

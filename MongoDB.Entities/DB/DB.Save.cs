@@ -23,7 +23,7 @@ public static partial class DB
     /// <param name="cancellation">And optional cancellation token</param>
     public static Task SaveAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        var filter = Builders<T>.Filter.Eq(Cache<T>.IdentityPropName, entity.GetId());
+        var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
         return PrepAndCheckIfInsert(entity)
             ? session == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)

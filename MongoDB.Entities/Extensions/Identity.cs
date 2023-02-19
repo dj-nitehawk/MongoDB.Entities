@@ -10,19 +10,19 @@ public static partial class Extensions
     /// Gets the name of the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    internal static string GetIdName<T>(this T _) where T : IEntity => Cache<T>.IdentityPropName;
+    internal static string GetIdName<T>(this T _) where T : IEntity => Cache<T>.IdPropName;
 
     /// <summary>
     /// Gets the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    internal static object? GetId<T>(this T instance) where T : IEntity => Cache<T>.IdentityProp.GetValue(instance);
+    internal static object? GetId<T>(this T instance) where T : IEntity => Cache<T>.IdProp.GetValue(instance);
 
     /// <summary>
     /// Sets the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static void SetId<T>(this T instance, object? identity) where T : IEntity => Cache<T>.IdentityProp.SetValue(instance, identity);
+    internal static void SetId<T>(this T instance, object? identity) where T : IEntity => Cache<T>.IdProp.SetValue(instance, identity);
 
     /// <summary>
     /// Gets the PropertyInfo for the Identity object

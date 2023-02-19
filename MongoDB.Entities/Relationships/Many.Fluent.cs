@@ -31,28 +31,28 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
             ? children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        Cache<TChild>.SelectIdExpression(),
+                        Cache<TChild>.IdExpression,
                         r => r.ParentID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ChildID,
-                        Cache<TParent>.SelectIdExpression(),
+                        Cache<TParent>.IdExpression,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
             : children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
-                        Cache<TChild>.SelectIdExpression(),
+                        Cache<TChild>.IdExpression,
                         r => r.ChildID,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        Cache<TParent>.SelectIdExpression(),
+                        Cache<TParent>.IdExpression,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -87,7 +87,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         j => j.ChildID,
-                        Cache<TParent>.SelectIdExpression(),
+                        Cache<TParent>.IdExpression,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct()
@@ -96,7 +96,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
                         DB.Collection<TParent>(),
                         r => r.ParentID,
-                        Cache<TParent>.SelectIdExpression(),
+                        Cache<TParent>.IdExpression,
                         j => j.Results)
                    .ReplaceRoot(j => j.Results[0])
                    .Distinct();
@@ -117,7 +117,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ParentID,
-                        Cache<TChild>.SelectIdExpression(),
+                        Cache<TChild>.IdExpression,
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0])
             : JoinFluent(session, options)
@@ -125,7 +125,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ChildID,
-                        Cache<TChild>.SelectIdExpression(),
+                        Cache<TChild>.IdExpression,
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0]);
     }

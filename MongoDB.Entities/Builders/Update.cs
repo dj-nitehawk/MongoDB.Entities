@@ -86,7 +86,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Update<T> MatchID(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdentityPropName, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>

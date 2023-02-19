@@ -20,7 +20,7 @@ public partial class DBContext
     public Task<DeleteResult> DeleteAsync<T>(object? ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
-            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(Cache<T>.IdentityPropName, ID)),
+            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(Cache<T>.IdPropName, ID)),
             Session,
             cancellation);
     }
@@ -37,7 +37,7 @@ public partial class DBContext
     public Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.DeleteAsync(
-            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(Cache<T>.IdentityPropName, IDs)),
+            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(Cache<T>.IdPropName, IDs)),
             Session,
             cancellation);
     }

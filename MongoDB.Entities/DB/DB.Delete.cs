@@ -43,7 +43,7 @@ public static partial class DB
                 : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
         }
 
-        var filter = Builders<T>.Filter.In(Cache<T>.IdentityPropName, IDs);
+        var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
         
         var delResTask =
                 session == null
@@ -158,7 +158,7 @@ public static partial class DB
 
         var cursor = await new Find<T, object?>(session, null)
                            .Match(_ => filter)
-                           .Project(p => p.Include(Cache<T>.IdentityPropName))
+                           .Project(p => p.Include(Cache<T>.IdPropName))
                            .Option(o => o.BatchSize = deleteBatchSize)
                            .Option(o => o.Collation = collation)
                            .ExecuteCursorAsync(cancellation)

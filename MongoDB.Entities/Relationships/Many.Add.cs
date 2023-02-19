@@ -1,5 +1,4 @@
-﻿using System;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -30,7 +29,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return AddAsync(children.Select(Cache<TChild>.SelectIdFunc()), session, cancellation);
+        return AddAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
     }
 
     /// <summary>
