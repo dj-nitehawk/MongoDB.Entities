@@ -39,6 +39,17 @@ internal static class Cache<T> where T : IEntity
     {
         var type = typeof(T);
 
+        var propertyInfo = type.GetIdPropertyInfo();
+        if (propertyInfo != null)
+        {
+            IdentityProp = propertyInfo;
+            IdentityPropName = propertyInfo.Name;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
+        }
+
         Database = TypeMap.GetDatabase(type);
         DBName = Database.DatabaseNamespace.DatabaseName;
 
@@ -82,17 +93,6 @@ internal static class Cache<T> where T : IEntity
         catch (InvalidOperationException)
         {
             throw new InvalidOperationException("Multiple [ModifiedBy] properties are not allowed on entities!");
-        }
-        
-        var propertyInfo = type.GetIdPropertyInfo();
-        if (propertyInfo != null)
-        {
-            IdentityProp = propertyInfo;
-            IdentityPropName = propertyInfo.Name;
-        }
-        else
-        {
-            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', or [BsonId] expected");
         }
     }
 
@@ -141,23 +141,23 @@ internal static class Cache<T> where T : IEntity
             userProj
         });
     }
-    
+
     /// <summary>
     /// Returns a Select expression for the Id
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static Expression<Func<T,dynamic?>> SelectIdExpression()
+    internal static Expression<Func<T, dynamic?>> SelectIdExpression()
     {
         var parameter = Expression.Parameter(typeof(T), "t");
         var property = Expression.Property(parameter, IdentityPropName);
         return Expression.Lambda<Func<T, dynamic?>>(property, parameter);
     }
-    
+
     /// <summary>
     /// Returns a Select Func for the Id
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static Func<T,object?> SelectIdFunc()
+    internal static Func<T, object?> SelectIdFunc()
     {
         return SelectIdExpression().Compile();
     }

@@ -1,59 +1,39 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Reflection;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities;
 
 public static partial class Extensions
 {
-  /// <summary>
-  /// Gets the name of the Identity object
-  /// </summary>
-  /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-  internal static string GetIdName<T>(this T _) where T : IEntity => Cache<T>.IdentityPropName;
-  
-  /// <summary>
-  /// Gets the Identity object
-  /// </summary>
-  /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-  internal static object? GetId<T>(this T instance) where T : IEntity => Cache<T>.IdentityProp.GetValue(instance);
+    /// <summary>
+    /// Gets the name of the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static string GetIdName<T>(this T _) where T : IEntity => Cache<T>.IdentityPropName;
 
-  /// <summary>
-  /// Sets the Identity object
-  /// </summary>
-  /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-  internal static void SetId<T>(this T instance, object? identity) where T : IEntity => Cache<T>.IdentityProp.SetValue(instance,identity);
+    /// <summary>
+    /// Gets the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static object? GetId<T>(this T instance) where T : IEntity => Cache<T>.IdentityProp.GetValue(instance);
 
-  /// <summary>
-  /// Gets the PropertyInfo for the Identity object
-  /// </summary>
-  /// <param name="type">Any class that implements a MongoDB id</param>
-  internal static PropertyInfo? GetIdPropertyInfo(this Type type)
-  {
-    PropertyInfo? propertyInfo=type.GetProperty("_id");
-    
-    if (propertyInfo == null)
+    /// <summary>
+    /// Sets the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
+    internal static void SetId<T>(this T instance, object? identity) where T : IEntity => Cache<T>.IdentityProp.SetValue(instance, identity);
+
+    /// <summary>
+    /// Gets the PropertyInfo for the Identity object
+    /// </summary>
+    /// <param name="type">Any class that implements a MongoDB id</param>
+    internal static PropertyInfo? GetIdPropertyInfo(this Type type)
     {
-      propertyInfo = type.GetProperty("Id");
+        // Let's get the identity Property based on the MongoDB identity rules
+        return Array.Find(type.GetProperties(), p =>
+            p.Name.Equals("_id", StringComparison.OrdinalIgnoreCase) ||
+            p.Name.Equals("id", StringComparison.OrdinalIgnoreCase) ||
+            p.IsDefined(typeof(BsonIdAttribute), true));
     }
-    
-    if (propertyInfo == null)
-    {
-      // Let's get the identity Property based on the MongoDB identity rules
-      PropertyInfo[] idProps = type.GetProperties()
-        .Where(p =>
-          p.IsDefined(typeof(BsonIdAttribute), true))
-        .ToArray();
-
-      if (idProps.Any())
-      {
-        propertyInfo = idProps[0];
-      }
-    }
-    
-    return propertyInfo;
-  }
-  
 }
