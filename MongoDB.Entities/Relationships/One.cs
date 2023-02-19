@@ -41,6 +41,15 @@ public class One<T> where T : IEntity
     }
 
     /// <summary>
+    /// Operator for returning a new One&lt;T&gt; object from a string ID
+    /// </summary>
+    /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
+    public static implicit operator One<T>(string? id)
+    {
+        return new One<T> { ID = id };
+    }
+
+    /// <summary>
     /// Operator for returning a new One&lt;T&gt; object from an entity
     /// </summary>
     /// <param name="entity">The entity to make a reference to</param>

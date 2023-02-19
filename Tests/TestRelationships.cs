@@ -33,7 +33,7 @@ public class Relationships
         var book = new Book { Title = "book" };
         var author = new Author { Name = "sotorrce" };
         await author.SaveAsync();
-        book.MainAuthor = One<Author>.FromObject(author.ID);
+        book.MainAuthor = author.ID; //One<Author>.FromObject(author.ID);
         await book.SaveAsync();
         var res = await (await book.Queryable()
                       .Where(b => b.ID == book.ID)
