@@ -61,7 +61,6 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
@@ -73,7 +72,6 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>

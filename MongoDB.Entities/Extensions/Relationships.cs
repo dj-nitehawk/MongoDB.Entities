@@ -19,10 +19,10 @@ public static partial class Extensions
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="propertyToInit">() => PropertyName</param>
-    public static void InitOneToMany<TChild, TParent>(this TParent parent, Expression<Func<Many<TChild,TParent>?>> propertyToInit) where TChild : IEntity where TParent : IEntity
+    public static void InitOneToMany<TChild, TParent>(this TParent parent, Expression<Func<Many<TChild, TParent>?>> propertyToInit) where TChild : IEntity where TParent : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        property.SetValue(parent, new Many<TChild,TParent>(parent, property.Name));
+        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name));
     }
 
     /// <summary>

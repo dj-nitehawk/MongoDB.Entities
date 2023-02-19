@@ -44,7 +44,7 @@ public static partial class DB
         }
 
         var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
-        
+
         var delResTask =
                 session == null
                 ? Collection<T>().DeleteManyAsync(filter)
@@ -201,7 +201,7 @@ public static partial class DB
         }
 
         return idObjects;
-        
+
     }
 
     private static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)

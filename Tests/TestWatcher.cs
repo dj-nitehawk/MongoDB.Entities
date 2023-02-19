@@ -23,7 +23,7 @@ public class Watcher
         await Task.Delay(500);
 
         watcher.OnChanges +=
-            flowers => allFlowers.AddRange(flowers);
+            allFlowers.AddRange;
 
         await new[] {
             new Flower { Name = "test" },
@@ -95,7 +95,7 @@ public class Watcher
         await Task.Delay(500);
 
         watcher.OnChanges +=
-            flowers => allFlowers.AddRange(flowers);
+            allFlowers.AddRange;
 
         await new[] {
             new Flower { Name = guid },

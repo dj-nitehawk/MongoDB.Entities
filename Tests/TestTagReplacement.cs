@@ -33,7 +33,7 @@ public class Templates
             .Tag("user", "$user")
             .Tag("missing", "blah");
 
-        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]
@@ -59,7 +59,7 @@ public class Templates
             }]").Tag("size", "$size")
             .Tag("user", "$user");
 
-        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]

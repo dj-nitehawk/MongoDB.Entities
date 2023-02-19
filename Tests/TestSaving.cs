@@ -830,7 +830,7 @@ public class Saving
         Assert.AreEqual(res!.ID, customer.ID);
 
         var cus = await DB.Queryable<Book>()
-                          .Where(b => Equals(b.Customer.ID,customer.ID))
+                          .Where(b => Equals(b.Customer.ID, customer.ID))
                           .Select(b => b.Customer)
                           .SingleOrDefaultAsync();
         Assert.AreEqual(cus.ID, customer.ID);
