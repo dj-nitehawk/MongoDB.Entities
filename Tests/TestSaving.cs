@@ -322,14 +322,14 @@ public class Saving
             Age = 123,
             Name = "initial name",
             FullName = "initial fullname",
-            Birthday = DateTime.UtcNow
+            Birthday = DateTime.UtcNow.ToDate()
         };
         await author.SaveAsync();
 
         author.Name = "updated author name";
         author.Age = 666; //preserve
         author.Age2 = 400; //preserve
-        author.Birthday = DateTime.MinValue; //preserve
+        author.Birthday = new(DateTime.MinValue); //preserve
         author.FullName = null;
         author.BestSeller = ObjectId.GenerateNewId().ToString();
 
@@ -340,7 +340,7 @@ public class Saving
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
         Assert.AreEqual(default, res.Age2);
-        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday);
+        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday.DateTime);
         Assert.AreEqual("initial fullname", res.FullName);
         Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
     }

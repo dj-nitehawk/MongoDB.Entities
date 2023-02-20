@@ -13,7 +13,7 @@ public class FuzzyStringTest
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new Book { Title = "fstsarw", Review = new Review { Fuzzy = guid } }.SaveAsync();
+        await new Book { Title = "fstsarw", Review = new Review { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
         var res = await DB.Queryable<Book>()
                     .Where(b => b.Review.Fuzzy!.Value == guid)

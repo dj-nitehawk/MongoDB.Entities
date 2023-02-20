@@ -51,7 +51,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
                 if (value == null)
                     throw new FormatException("Unable to deserialize a value from the FuzzyString document!");
 
-                return value;
+                return new() { Value = value };
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
@@ -88,4 +88,12 @@ public class FuzzyString
     public static int CharacterLimit { get; set; } = 250;
 
     public string? Value { get; set; }
+
+    public FuzzyString() { }
+
+    /// <summary>
+    /// instantiate a FuzzyString object with a given string
+    /// </summary>
+    /// <param name="value">the string value to create the FuzzyString with</param>
+    public FuzzyString(string? value) => Value = value;
 }
