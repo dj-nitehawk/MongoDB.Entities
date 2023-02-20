@@ -94,14 +94,4 @@ public class Date
         get => date;
         set { date = value; ticks = value.Ticks; }
     }
-
-    public static implicit operator Date(DateTime datetime)
-    {
-        return new Date { DateTime = datetime };
-    }
-
-    public static implicit operator DateTime(Date date)
-    {
-        return date == null ? throw new NullReferenceException("The [Date] instance is Null!") : new DateTime(date.Ticks);
-    }
 }

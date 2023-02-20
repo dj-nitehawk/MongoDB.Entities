@@ -88,14 +88,4 @@ public class FuzzyString
     public static int CharacterLimit { get; set; } = 250;
 
     public string? Value { get; set; }
-
-    public static implicit operator FuzzyString(string value)
-    {
-        return new FuzzyString { Value = value };
-    }
-
-    public static implicit operator string?(FuzzyString fuzzyString)
-    {
-        return fuzzyString.Value;
-    }
 }
