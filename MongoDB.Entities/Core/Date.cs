@@ -8,8 +8,8 @@ namespace MongoDB.Entities;
 
 internal class DateSerializer : SerializerBase<Date?>, IBsonDocumentSerializer
 {
-    private static readonly Int64Serializer longSerializer = new();
-    private static readonly DateTimeSerializer dtSerializer = new();
+    private static readonly IBsonSerializer<long> longSerializer = BsonSerializer.LookupSerializer<long>();
+    private static readonly IBsonSerializer<DateTime> dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date? date)
     {
