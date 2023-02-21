@@ -33,7 +33,7 @@ public class Relationships
         var book = new Book { Title = "book" };
         var author = new Author { Name = "sotorrce" };
         await author.SaveAsync();
-        book.MainAuthor = author.ID;
+        book.MainAuthor = author.ToReference();
         await book.SaveAsync();
         var res = await (await book.Queryable()
                       .Where(b => b.ID == book.ID)
@@ -48,7 +48,7 @@ public class Relationships
         var book = new Book { Title = "book" };
         var author = new Author { Name = "soorfioberce" };
         await author.SaveAsync();
-        book.MainAuthor = author;
+        book.MainAuthor = author.ToReference();
         await book.SaveAsync();
         var res = await (await book.Queryable()
                       .Where(b => b.ID == book.ID)
