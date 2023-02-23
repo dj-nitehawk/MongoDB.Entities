@@ -360,7 +360,7 @@ public class Update
         {
             Title = "book",
             Price = 100,
-            PublishedOn = DateTime.UtcNow
+            PublishedOn = DateTime.UtcNow.ToDate()
         };
 
         await book.SaveAsync();
@@ -455,7 +455,7 @@ public class Update
         {
             Title = "book",
             Price = 100,
-            PublishedOn = DateTime.UtcNow
+            PublishedOn = DateTime.UtcNow.ToDate()
         };
 
         await book.SaveAsync();

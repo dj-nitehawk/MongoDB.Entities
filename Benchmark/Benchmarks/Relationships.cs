@@ -44,7 +44,7 @@ public class Relationships : BenchBase
             {
                 var book = new Book
                 {
-                    Author = author,
+                    Author = author.ToReference(),
                     PublishedOn = DateTime.UtcNow,
                     Title = x == 500 ? bookTitle : "book title " + y
                 };

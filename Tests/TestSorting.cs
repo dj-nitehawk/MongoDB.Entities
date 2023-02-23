@@ -10,14 +10,14 @@ public class Sorting
     public void sorting_lists_by_levenshtein_distance_works()
     {
         var books = new[] {
-            new Book { Title = "One", Review = new Review { Fuzzy = "one two three four five six seven" } },
-            new Book { Title = "Two", Review = new Review { Fuzzy = "one two three four five six" } },
-            new Book { Title = "Three", Review = new Review { Fuzzy = "one two three four five" } },
-            new Book { Title = "Four", Review = new Review { Fuzzy = "one two three four" } },
-            new Book { Title = "Five", Review = new Review { Fuzzy = "one two three" } }
+            new Book { Title = "One", Review = new Review { Fuzzy = new("one two three four five six seven") } },
+            new Book { Title = "Two", Review = new Review { Fuzzy = new("one two three four five six") } },
+            new Book { Title = "Three", Review = new Review { Fuzzy = new("one two three four five") } },
+            new Book { Title = "Four", Review = new Review { Fuzzy = new("one two three four") } },
+            new Book { Title = "Five", Review = new Review { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!);
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!);
 
         Assert.AreEqual(5, res.Count());
         Assert.AreEqual("Five", res.First().Title);
@@ -28,14 +28,14 @@ public class Sorting
     public void sorting_lists_by_levenshtein_distance_specify_max_distance()
     {
         var books = new[] {
-            new Book { Title = "One", Review = new Review { Fuzzy = "one two three four five six seven" } },
-            new Book { Title = "Two", Review = new Review { Fuzzy = "one two three four five six" } },
-            new Book { Title = "Three", Review = new Review { Fuzzy = "one two three four five" } },
-            new Book { Title = "Four", Review = new Review { Fuzzy = "one two three four" } },
-            new Book { Title = "Five", Review = new Review { Fuzzy = "one two three" } }
+            new Book { Title = "One", Review = new Review { Fuzzy = new("one two three four five six seven") } },
+            new Book { Title = "Two", Review = new Review { Fuzzy = new("one two three four five six") } },
+            new Book { Title = "Three", Review = new Review { Fuzzy = new("one two three four five") } },
+            new Book { Title = "Four", Review = new Review { Fuzzy = new("one two three four") } },
+            new Book { Title = "Five", Review = new Review { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!, 10).ToArray();
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!, 10).ToArray();
 
         Assert.AreEqual(3, res.Length);
         Assert.AreEqual("Five", res[0].Title);

@@ -25,7 +25,7 @@ public class One<T> where T : IEntity
     /// Initializes a reference to an entity in MongoDB.
     /// </summary>
     /// <param name="entity">The actual entity this reference represents.</param>
-    internal One(T entity)
+    public One(T entity)
     {
         entity.ThrowIfUnsaved();
         ID = entity.GetId();
@@ -41,22 +41,10 @@ public class One<T> where T : IEntity
     }
 
     /// <summary>
-    /// Operator for returning a new One&lt;T&gt; object from a string ID
+    /// Initializes a reference to an entity in MongoDB.
     /// </summary>
-    /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
-    public static implicit operator One<T>(string? id)
-    {
-        return new One<T> { ID = id };
-    }
-
-    /// <summary>
-    /// Operator for returning a new One&lt;T&gt; object from an entity
-    /// </summary>
-    /// <param name="entity">The entity to make a reference to</param>
-    public static implicit operator One<T>(T entity)
-    {
-        return new One<T>(entity);
-    }
+    /// <param name="id">the ID of the referenced entity</param>
+    public One(string id) => ID = id;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.

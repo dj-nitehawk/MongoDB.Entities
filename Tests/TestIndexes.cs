@@ -63,12 +63,12 @@ public class Indexes
           .Key(b => b.Title, KeyType.Text)
           .CreateAsync();
 
-        var b1 = new Book { Title = "One", Review = new Review { Fuzzy = "Katherine Zeta Jones" } };
-        var b2 = new Book { Title = "Two", Review = new Review { Fuzzy = "Katheryne Zeta Jones" } };
-        var b3 = new Book { Title = "Three", Review = new Review { Fuzzy = "Katheryne Jones Abigale" } };
-        var b4 = new Book { Title = "Four", Review = new Review { Fuzzy = "Katheryne Jones Abigale" } };
-        var b5 = new Book { Title = "Five", Review = new Review { Fuzzy = "Katya Bykova Jhohanes" } };
-        var b6 = new Book { Title = "Five", Review = new Review { Fuzzy = " " } };
+        var b1 = new Book { Title = "One", Review = new Review { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new Book { Title = "Two", Review = new Review { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new Book { Title = "Three", Review = new Review { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new Book { Title = "Four", Review = new Review { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new Book { Title = "Five", Review = new Review { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new Book { Title = "Five", Review = new Review { Fuzzy = " ".ToFuzzy() } };
 
         await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 

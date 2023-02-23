@@ -8,8 +8,8 @@ namespace MongoDB.Entities;
 
 internal class DateSerializer : SerializerBase<Date?>, IBsonDocumentSerializer
 {
-    private static readonly Int64Serializer longSerializer = new();
-    private static readonly DateTimeSerializer dtSerializer = new();
+    private static readonly IBsonSerializer<long> longSerializer = BsonSerializer.LookupSerializer<long>();
+    private static readonly IBsonSerializer<DateTime> dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date? date)
     {
@@ -95,13 +95,17 @@ public class Date
         set { date = value; ticks = value.Ticks; }
     }
 
-    public static implicit operator Date(DateTime datetime)
-    {
-        return new Date { DateTime = datetime };
-    }
+    public Date() { }
 
-    public static implicit operator DateTime(Date date)
-    {
-        return date == null ? throw new NullReferenceException("The [Date] instance is Null!") : new DateTime(date.Ticks);
-    }
+    /// <summary>
+    /// instantiate a Date with ticks
+    /// </summary>
+    /// <param name="ticks">the ticks</param>
+    public Date(long ticks) => Ticks = ticks;
+
+    /// <summary>
+    /// instantiate a Date with a DateTime
+    /// </summary>
+    /// <param name="dateTime">the DateTime</param>
+    public Date(DateTime dateTime) => DateTime = dateTime;
 }

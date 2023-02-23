@@ -295,7 +295,7 @@ public class Saving
             Title = "original", //dontpreserve
             Price = 100, //dontpreserve
             PriceDbl = 666,
-            MainAuthor = One<Author>.FromObject(ObjectId.GenerateNewId().ToString())
+            MainAuthor = new(ObjectId.GenerateNewId().ToString())
         };
         await book.SaveAsync();
 
@@ -322,16 +322,16 @@ public class Saving
             Age = 123,
             Name = "initial name",
             FullName = "initial fullname",
-            Birthday = DateTime.UtcNow
+            Birthday = DateTime.UtcNow.ToDate()
         };
         await author.SaveAsync();
 
         author.Name = "updated author name";
         author.Age = 666; //preserve
         author.Age2 = 400; //preserve
-        author.Birthday = DateTime.MinValue; //preserve
+        author.Birthday = new(DateTime.MinValue); //preserve
         author.FullName = null;
-        author.BestSeller = One<Book>.FromObject(ObjectId.GenerateNewId().ToString());
+        author.BestSeller = new(ObjectId.GenerateNewId().ToString());
 
         await author.SavePreservingAsync();
 
@@ -340,7 +340,7 @@ public class Saving
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
         Assert.AreEqual(default, res.Age2);
-        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday);
+        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday.DateTime);
         Assert.AreEqual("initial fullname", res.FullName);
         Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
     }
@@ -823,7 +823,7 @@ public class Saving
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var book = new Book { Title = "ciuiar", Customer = customer };
+        var book = new Book { Title = "ciuiar", Customer = customer.ToReference() };
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();

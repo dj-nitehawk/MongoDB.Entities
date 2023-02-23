@@ -8,7 +8,7 @@ namespace MongoDB.Entities;
 
 internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSerializer
 {
-    private static readonly StringSerializer strSerializer = new();
+    private static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
     {
@@ -51,7 +51,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
                 if (value == null)
                     throw new FormatException("Unable to deserialize a value from the FuzzyString document!");
 
-                return value;
+                return new() { Value = value };
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
@@ -89,13 +89,11 @@ public class FuzzyString
 
     public string? Value { get; set; }
 
-    public static implicit operator FuzzyString(string value)
-    {
-        return new FuzzyString { Value = value };
-    }
+    public FuzzyString() { }
 
-    public static implicit operator string?(FuzzyString fuzzyString)
-    {
-        return fuzzyString.Value;
-    }
+    /// <summary>
+    /// instantiate a FuzzyString object with a given string
+    /// </summary>
+    /// <param name="value">the string value to create the FuzzyString with</param>
+    public FuzzyString(string? value) => Value = value;
 }

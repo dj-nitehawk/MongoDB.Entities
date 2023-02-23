@@ -30,7 +30,7 @@ public class Dates
         var book = new Book
         {
             Title = "dpccv",
-            PublishedOn = pubDate
+            PublishedOn = pubDate.ToDate()
         };
         await book.SaveAsync();
 
@@ -66,7 +66,7 @@ public class Dates
         var book = new Book
         {
             Title = "qotw",
-            PublishedOn = pubDate
+            PublishedOn = new(pubDate)
         };
         await book.SaveAsync();
 
@@ -93,7 +93,7 @@ public class Dates
         var book = new Book
         {
             Title = "qodtpw",
-            PublishedOn = pubDate
+            PublishedOn = new(pubDate)
         };
         await book.SaveAsync();
 
