@@ -156,6 +156,11 @@ public static partial class DB
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
+        //workaround for the newly added implicit operator in driver which matches all strings as json filters
+        var jsonFilter = filter as JsonFilterDefinition<T>;
+        if (jsonFilter?.Json.StartsWith("{") is false)
+            filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
+
         var cursor = await new Find<T, object?>(session, null)
                            .Match(_ => filter)
                            .Project(p => p.Include(Cache<T>.IdPropName))
