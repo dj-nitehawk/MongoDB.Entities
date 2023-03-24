@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace MongoDB.Entities;
 
@@ -68,6 +69,17 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
         return ParentsFluent(new[] { childID }, session, options);
     }
 
+    /// <summary>
+    /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
+    /// </summary>
+    /// <param name="childID">An child ID</param>
+    /// <param name="session">An optional session if using within a transaction</param>
+    /// <param name="options">An optional AggregateOptions object</param>
+    public IAggregateFluent<TParent> ParentsFluent(ObjectId? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    {
+        return ParentsFluent(new object?[] { childID }, session, options);
+    }
+    
     /// <summary>
     /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
     /// </summary>
