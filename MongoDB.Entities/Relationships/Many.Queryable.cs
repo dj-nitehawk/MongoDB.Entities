@@ -24,7 +24,6 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <summary>
     /// Get an IQueryable of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
@@ -36,7 +35,6 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <summary>
     /// Get an IQueryable of parents matching multiple child IDs for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
@@ -66,7 +64,6 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <summary>
     /// Get an IQueryable of parents matching a supplied IQueryable of children for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="children">An IQueryable of children</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>

@@ -26,6 +26,7 @@ public abstract class ManyBase
 /// <para><c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c></para>
 /// </summary>
 /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
+/// <typeparam name="TParent">The type of the parent</typeparam>
 public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEntity where TParent : IEntity
 {
     private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
@@ -83,7 +84,6 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <summary>
     /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent</typeparam>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="property">Function(x) x.PropName</param>
     public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object?>> property)
@@ -113,7 +113,6 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <summary>
     /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent</typeparam>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="propertyParent">Function(x) x.ParentProp</param>
     /// <param name="propertyChild">Function(x) x.ChildProp</param>

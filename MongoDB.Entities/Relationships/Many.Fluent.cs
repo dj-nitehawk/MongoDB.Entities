@@ -21,7 +21,6 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a supplied IAggregateFluent of children for this relationship.
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent IEntity</typeparam>
     /// <param name="children">An IAggregateFluent of children</param>
     public IAggregateFluent<TParent> ParentsFluent(IAggregateFluent<TChild> children)
     {
