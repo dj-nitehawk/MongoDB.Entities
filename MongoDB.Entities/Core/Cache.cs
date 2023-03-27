@@ -159,11 +159,11 @@ internal static class Cache<T> where T : IEntity
     {
         var parameter = Expression.Parameter(typeof(T), "t");
         var property = Expression.Property(parameter, idProp);
-        Expression conversion = typeof(T) is ObjectId ? Expression.Convert(property, typeof(object), typeof(Cache<>).GetMethod("ConvertObjectId")) : Expression.Convert(property, typeof(object));
+        Expression conversion = Expression.Convert(property, typeof(object), typeof(Cache<>).GetMethod("ConvertId"));
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
 
-    private static object? ConvertObjectId(ObjectId? objectId)
+    private static object? ConvertId(object? objectId)
     {
         return objectId;
     }
