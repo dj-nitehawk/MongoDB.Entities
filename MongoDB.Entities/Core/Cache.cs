@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson;
 
 namespace MongoDB.Entities;
 
@@ -158,7 +159,12 @@ internal static class Cache<T> where T : IEntity
     {
         var parameter = Expression.Parameter(typeof(T), "t");
         var property = Expression.Property(parameter, idProp);
-        Expression conversion = Expression.Convert(property, typeof(object));
+        Expression conversion = typeof(T) is ObjectId ? Expression.Convert(property, typeof(object), typeof(Cache<>).GetMethod("ConvertObjectId")) : Expression.Convert(property, typeof(object));
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
+    }
+
+    private static object? ConvertObjectId(ObjectId? objectId)
+    {
+        return objectId;
     }
 }
