@@ -34,7 +34,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     </ItemGroup>
 
