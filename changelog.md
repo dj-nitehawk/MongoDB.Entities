@@ -8,4 +8,4 @@
 
 ### IMPROVEMENTS
 - make watcher compatible with linq v3 engine
-- upgrade mongodb driver to v2.19
+- upgrade mongodb driver to v2.19.1
