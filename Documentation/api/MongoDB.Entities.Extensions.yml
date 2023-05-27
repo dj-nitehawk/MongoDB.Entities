@@ -40,10 +40,13 @@ items:
   - MongoDB.Entities.Extensions.SavePreservingAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.Extensions.SortByRelevance``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Func{``0,System.String},System.Nullable{System.Int32})
   - MongoDB.Entities.Extensions.ToBatches``1(System.Collections.Generic.IEnumerable{``0},System.Int32)
+  - MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  - MongoDB.Entities.Extensions.ToDate(System.Int64)
   - MongoDB.Entities.Extensions.ToDocument``1(``0)
   - MongoDB.Entities.Extensions.ToDocuments``1(``0[])
   - MongoDB.Entities.Extensions.ToDocuments``1(System.Collections.Generic.IEnumerable{``0})
   - MongoDB.Entities.Extensions.ToDoubleMetaphoneHash(System.String)
+  - MongoDB.Entities.Extensions.ToFuzzy(System.String)
   - MongoDB.Entities.Extensions.ToReference``1(``0)
   langs:
   - csharp
@@ -399,6 +402,86 @@ items:
   - public
   - static
   - async
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  commentId: M:MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  id: ToDate(System.DateTime)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: ToDate(DateTime)
+  nameWithType: Extensions.ToDate(DateTime)
+  fullName: MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  type: Method
+  source:
+    id: ToDate
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Date.cs
+    startLine: 10
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nconverts a <xref href=\"System.DateTime\" data-throw-if-not-resolved=\"false\"></xref> instance to a <xref href=\"MongoDB.Entities.Date\" data-throw-if-not-resolved=\"false\"></xref> instance.\n"
+  example: []
+  syntax:
+    content: public static Date ToDate(this DateTime dateTime)
+    parameters:
+    - id: dateTime
+      type: System.DateTime
+      description: the <xref href="System.DateTime" data-throw-if-not-resolved="false"></xref> instance to convert
+    return:
+      type: MongoDB.Entities.Date
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToDate(dateTime As Date) As Date
+  overload: MongoDB.Entities.Extensions.ToDate*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: MongoDB.Entities.Extensions.ToDate(System.Int64)
+  commentId: M:MongoDB.Entities.Extensions.ToDate(System.Int64)
+  id: ToDate(System.Int64)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: ToDate(Int64)
+  nameWithType: Extensions.ToDate(Int64)
+  fullName: MongoDB.Entities.Extensions.ToDate(System.Int64)
+  type: Method
+  source:
+    id: ToDate
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\Date.cs
+    startLine: 17
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nconverts ticks to a <xref href=\"MongoDB.Entities.Date\" data-throw-if-not-resolved=\"false\"></xref> instance.\n"
+  example: []
+  syntax:
+    content: public static Date ToDate(this long ticks)
+    parameters:
+    - id: ticks
+      type: System.Int64
+      description: the ticks to convert
+    return:
+      type: MongoDB.Entities.Date
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToDate(ticks As Long) As Date
+  overload: MongoDB.Entities.Extensions.ToDate*
+  modifiers.csharp:
+  - public
+  - static
   modifiers.vb:
   - Public
   - Shared
@@ -1147,6 +1230,46 @@ items:
   - Shared
   fullName.vb: MongoDB.Entities.Extensions.MatchExpression(Of T)(MongoDB.Driver.IAggregateFluent(Of T), System.String)
   name.vb: MatchExpression(Of T)(IAggregateFluent(Of T), String)
+- uid: MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  commentId: M:MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  id: ToFuzzy(System.String)
+  isExtensionMethod: true
+  parent: MongoDB.Entities.Extensions
+  langs:
+  - csharp
+  - vb
+  name: ToFuzzy(String)
+  nameWithType: Extensions.ToFuzzy(String)
+  fullName: MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  type: Method
+  source:
+    id: ToFuzzy
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Extensions\FuzzyString.cs
+    startLine: 8
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nconverts a string value to a FuzzyString\n"
+  example: []
+  syntax:
+    content: public static FuzzyString ToFuzzy(this string value)
+    parameters:
+    - id: value
+      type: System.String
+      description: the string to convert
+    return:
+      type: MongoDB.Entities.FuzzyString
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToFuzzy(value As String) As FuzzyString
+  overload: MongoDB.Entities.Extensions.ToFuzzy*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
 - uid: MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.Extensions.InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: InsertAsync``1(``0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -2715,6 +2838,31 @@ references:
   name: ExistsAsync
   nameWithType: Extensions.ExistsAsync
   fullName: MongoDB.Entities.Extensions.ExistsAsync
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: MongoDB.Entities.Date
+  commentId: T:MongoDB.Entities.Date
+  parent: MongoDB.Entities
+  name: Date
+  nameWithType: Date
+  fullName: MongoDB.Entities.Date
+- uid: MongoDB.Entities.Extensions.ToDate*
+  commentId: Overload:MongoDB.Entities.Extensions.ToDate
+  name: ToDate
+  nameWithType: Extensions.ToDate
+  fullName: MongoDB.Entities.Extensions.ToDate
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: Int64
+  nameWithType: Int64
+  fullName: System.Int64
 - uid: MongoDB.Entities.Extensions.DeleteAsync*
   commentId: Overload:MongoDB.Entities.Extensions.DeleteAsync
   name: DeleteAsync
@@ -3642,6 +3790,17 @@ references:
   name: MatchExpression
   nameWithType: Extensions.MatchExpression
   fullName: MongoDB.Entities.Extensions.MatchExpression
+- uid: MongoDB.Entities.Extensions.ToFuzzy*
+  commentId: Overload:MongoDB.Entities.Extensions.ToFuzzy
+  name: ToFuzzy
+  nameWithType: Extensions.ToFuzzy
+  fullName: MongoDB.Entities.Extensions.ToFuzzy
+- uid: MongoDB.Entities.FuzzyString
+  commentId: T:MongoDB.Entities.FuzzyString
+  parent: MongoDB.Entities
+  name: FuzzyString
+  nameWithType: FuzzyString
+  fullName: MongoDB.Entities.FuzzyString
 - uid: MongoDB.Entities.Extensions.InsertAsync*
   commentId: Overload:MongoDB.Entities.Extensions.InsertAsync
   name: InsertAsync

@@ -5,6 +5,7 @@ items:
   id: Coordinates2D
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.Coordinates2D.#ctor
   - MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
   - MongoDB.Entities.Coordinates2D.Coordinates
   - MongoDB.Entities.Coordinates2D.GeoJsonPoint(System.Double,System.Double)
@@ -20,7 +21,7 @@ items:
   source:
     id: Coordinates2D
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 10
+    startLine: 11
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -59,7 +60,7 @@ items:
   source:
     id: Type
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 12
+    startLine: 13
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -102,7 +103,7 @@ items:
   source:
     id: Coordinates
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 15
+    startLine: 16
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -131,6 +132,34 @@ items:
   - set
   modifiers.vb:
   - Public
+- uid: MongoDB.Entities.Coordinates2D.#ctor
+  commentId: M:MongoDB.Entities.Coordinates2D.#ctor
+  id: '#ctor'
+  parent: MongoDB.Entities.Coordinates2D
+  langs:
+  - csharp
+  - vb
+  name: Coordinates2D()
+  nameWithType: Coordinates2D.Coordinates2D()
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates2D()
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
+    startLine: 22
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInstantiate a new Coordinates2D instance with default values\n"
+  example: []
+  syntax:
+    content: public Coordinates2D()
+    content.vb: Public Sub New
+  overload: MongoDB.Entities.Coordinates2D.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 - uid: MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
   commentId: M:MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
   id: '#ctor(System.Double,System.Double)'
@@ -145,7 +174,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 21
+    startLine: 27
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -178,7 +207,7 @@ items:
   source:
     id: ToGeoJsonPoint
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 30
+    startLine: 36
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -208,7 +237,7 @@ items:
   source:
     id: GeoJsonPoint
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\GeoNear.cs
-    startLine: 38
+    startLine: 44
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities

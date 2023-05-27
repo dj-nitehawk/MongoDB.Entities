@@ -126,10 +126,10 @@ public class Genre : Entity
 <p>the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.</p>
 <p>also note that you specify which side of the relationship a property is using the attributes <code>[OwnerSide]</code> or <code>[InverseSide]</code> for defining many-to-many relationships.</p>
 <h2 id="one-to-one">One-to-one</h2>
-<p>a reference can be assigned in any of the following three ways:</p>
+<p>a reference can be assigned in any of the following two ways:</p>
 <pre><code class="lang-csharp">book.MainAuthor = author.ToReference(); //call ToReference on a child
-book.MainAuthor = author;               //assign a child instance
-book.MainAuthor = &quot;AuthorID&quot;;           //assign just the ID value of a child
+book.MainAuthor = new(author);          //assign a child instance
+book.MainAuthor = new(&quot;AuthorID&quot;);      //assign just the ID value of a child
 
 await book.SaveAsync();                 //call save on parent to store
 </code></pre>

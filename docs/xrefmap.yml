@@ -111,6 +111,12 @@ references:
   commentId: T:MongoDB.Entities.Coordinates2D
   fullName: MongoDB.Entities.Coordinates2D
   nameWithType: Coordinates2D
+- uid: MongoDB.Entities.Coordinates2D.#ctor
+  name: Coordinates2D()
+  href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D__ctor
+  commentId: M:MongoDB.Entities.Coordinates2D.#ctor
+  fullName: MongoDB.Entities.Coordinates2D.Coordinates2D()
+  nameWithType: Coordinates2D.Coordinates2D()
 - uid: MongoDB.Entities.Coordinates2D.#ctor(System.Double,System.Double)
   name: Coordinates2D(Double, Double)
   href: api/MongoDB.Entities.Coordinates2D.html#MongoDB_Entities_Coordinates2D__ctor_System_Double_System_Double_
@@ -253,6 +259,31 @@ references:
   commentId: T:MongoDB.Entities.Date
   fullName: MongoDB.Entities.Date
   nameWithType: Date
+- uid: MongoDB.Entities.Date.#ctor
+  name: Date()
+  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date__ctor
+  commentId: M:MongoDB.Entities.Date.#ctor
+  fullName: MongoDB.Entities.Date.Date()
+  nameWithType: Date.Date()
+- uid: MongoDB.Entities.Date.#ctor(System.DateTime)
+  name: Date(DateTime)
+  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date__ctor_System_DateTime_
+  commentId: M:MongoDB.Entities.Date.#ctor(System.DateTime)
+  fullName: MongoDB.Entities.Date.Date(System.DateTime)
+  nameWithType: Date.Date(DateTime)
+- uid: MongoDB.Entities.Date.#ctor(System.Int64)
+  name: Date(Int64)
+  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date__ctor_System_Int64_
+  commentId: M:MongoDB.Entities.Date.#ctor(System.Int64)
+  fullName: MongoDB.Entities.Date.Date(System.Int64)
+  nameWithType: Date.Date(Int64)
+- uid: MongoDB.Entities.Date.#ctor*
+  name: Date
+  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date__ctor_
+  commentId: Overload:MongoDB.Entities.Date.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.Date.Date
+  nameWithType: Date.Date
 - uid: MongoDB.Entities.Date.DateTime
   name: DateTime
   href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date_DateTime
@@ -266,34 +297,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Date.DateTime
   nameWithType: Date.DateTime
-- uid: MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
-  name: Implicit(Date to DateTime)
-  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date_op_Implicit_MongoDB_Entities_Date__System_DateTime
-  commentId: M:MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
-  name.vb: Widening(Date to DateTime)
-  fullName: MongoDB.Entities.Date.Implicit(MongoDB.Entities.Date to System.DateTime)
-  fullName.vb: MongoDB.Entities.Date.Widening(MongoDB.Entities.Date to System.DateTime)
-  nameWithType: Date.Implicit(Date to DateTime)
-  nameWithType.vb: Date.Widening(Date to DateTime)
-- uid: MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
-  name: Implicit(DateTime to Date)
-  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date_op_Implicit_System_DateTime__MongoDB_Entities_Date
-  commentId: M:MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
-  name.vb: Widening(DateTime to Date)
-  fullName: MongoDB.Entities.Date.Implicit(System.DateTime to MongoDB.Entities.Date)
-  fullName.vb: MongoDB.Entities.Date.Widening(System.DateTime to MongoDB.Entities.Date)
-  nameWithType: Date.Implicit(DateTime to Date)
-  nameWithType.vb: Date.Widening(DateTime to Date)
-- uid: MongoDB.Entities.Date.op_Implicit*
-  name: Implicit
-  href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date_op_Implicit_
-  commentId: Overload:MongoDB.Entities.Date.op_Implicit
-  isSpec: "True"
-  name.vb: Widening
-  fullName: MongoDB.Entities.Date.Implicit
-  fullName.vb: MongoDB.Entities.Date.Widening
-  nameWithType: Date.Implicit
-  nameWithType.vb: Date.Widening
 - uid: MongoDB.Entities.Date.Ticks
   name: Ticks
   href: api/MongoDB.Entities.Date.html#MongoDB_Entities_Date_Ticks
@@ -2745,6 +2748,25 @@ references:
   fullName.vb: MongoDB.Entities.Extensions.ToBatches(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Int32)
   nameWithType: Extensions.ToBatches<T>(IEnumerable<T>, Int32)
   nameWithType.vb: Extensions.ToBatches(Of T)(IEnumerable(Of T), Int32)
+- uid: MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  name: ToDate(DateTime)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDate_System_DateTime_
+  commentId: M:MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  fullName: MongoDB.Entities.Extensions.ToDate(System.DateTime)
+  nameWithType: Extensions.ToDate(DateTime)
+- uid: MongoDB.Entities.Extensions.ToDate(System.Int64)
+  name: ToDate(Int64)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDate_System_Int64_
+  commentId: M:MongoDB.Entities.Extensions.ToDate(System.Int64)
+  fullName: MongoDB.Entities.Extensions.ToDate(System.Int64)
+  nameWithType: Extensions.ToDate(Int64)
+- uid: MongoDB.Entities.Extensions.ToDate*
+  name: ToDate
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDate_
+  commentId: Overload:MongoDB.Entities.Extensions.ToDate
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.ToDate
+  nameWithType: Extensions.ToDate
 - uid: MongoDB.Entities.Extensions.ToDocument*
   name: ToDocument
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocument_
@@ -2799,6 +2821,19 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.Extensions.ToDoubleMetaphoneHash
   nameWithType: Extensions.ToDoubleMetaphoneHash
+- uid: MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  name: ToFuzzy(String)
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToFuzzy_System_String_
+  commentId: M:MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  fullName: MongoDB.Entities.Extensions.ToFuzzy(System.String)
+  nameWithType: Extensions.ToFuzzy(String)
+- uid: MongoDB.Entities.Extensions.ToFuzzy*
+  name: ToFuzzy
+  href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToFuzzy_
+  commentId: Overload:MongoDB.Entities.Extensions.ToFuzzy
+  isSpec: "True"
+  fullName: MongoDB.Entities.Extensions.ToFuzzy
+  nameWithType: Extensions.ToFuzzy
 - uid: MongoDB.Entities.Extensions.ToReference*
   name: ToReference
   href: api/MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToReference_
@@ -3382,6 +3417,25 @@ references:
   commentId: T:MongoDB.Entities.FuzzyString
   fullName: MongoDB.Entities.FuzzyString
   nameWithType: FuzzyString
+- uid: MongoDB.Entities.FuzzyString.#ctor
+  name: FuzzyString()
+  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString__ctor
+  commentId: M:MongoDB.Entities.FuzzyString.#ctor
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString()
+  nameWithType: FuzzyString.FuzzyString()
+- uid: MongoDB.Entities.FuzzyString.#ctor(System.String)
+  name: FuzzyString(String)
+  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString__ctor_System_String_
+  commentId: M:MongoDB.Entities.FuzzyString.#ctor(System.String)
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString(System.String)
+  nameWithType: FuzzyString.FuzzyString(String)
+- uid: MongoDB.Entities.FuzzyString.#ctor*
+  name: FuzzyString
+  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString__ctor_
+  commentId: Overload:MongoDB.Entities.FuzzyString.#ctor
+  isSpec: "True"
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString
+  nameWithType: FuzzyString.FuzzyString
 - uid: MongoDB.Entities.FuzzyString.CharacterLimit
   name: CharacterLimit
   href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_CharacterLimit
@@ -3395,34 +3449,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.FuzzyString.CharacterLimit
   nameWithType: FuzzyString.CharacterLimit
-- uid: MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
-  name: Implicit(FuzzyString to String)
-  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_op_Implicit_MongoDB_Entities_FuzzyString__System_String
-  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
-  name.vb: Widening(FuzzyString to String)
-  fullName: MongoDB.Entities.FuzzyString.Implicit(MongoDB.Entities.FuzzyString to System.String)
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening(MongoDB.Entities.FuzzyString to System.String)
-  nameWithType: FuzzyString.Implicit(FuzzyString to String)
-  nameWithType.vb: FuzzyString.Widening(FuzzyString to String)
-- uid: MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
-  name: Implicit(String to FuzzyString)
-  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_op_Implicit_System_String__MongoDB_Entities_FuzzyString
-  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
-  name.vb: Widening(String to FuzzyString)
-  fullName: MongoDB.Entities.FuzzyString.Implicit(System.String to MongoDB.Entities.FuzzyString)
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening(System.String to MongoDB.Entities.FuzzyString)
-  nameWithType: FuzzyString.Implicit(String to FuzzyString)
-  nameWithType.vb: FuzzyString.Widening(String to FuzzyString)
-- uid: MongoDB.Entities.FuzzyString.op_Implicit*
-  name: Implicit
-  href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_op_Implicit_
-  commentId: Overload:MongoDB.Entities.FuzzyString.op_Implicit
-  isSpec: "True"
-  name.vb: Widening
-  fullName: MongoDB.Entities.FuzzyString.Implicit
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening
-  nameWithType: FuzzyString.Implicit
-  nameWithType.vb: FuzzyString.Widening
 - uid: MongoDB.Entities.FuzzyString.Value
   name: Value
   href: api/MongoDB.Entities.FuzzyString.html#MongoDB_Entities_FuzzyString_Value
@@ -4352,25 +4378,6 @@ references:
   isSpec: "True"
   fullName: MongoDB.Entities.ModifiedBy.UserName
   nameWithType: ModifiedBy.UserName
-- uid: MongoDB.Entities.NameAttribute
-  name: NameAttribute
-  href: api/MongoDB.Entities.NameAttribute.html
-  commentId: T:MongoDB.Entities.NameAttribute
-  fullName: MongoDB.Entities.NameAttribute
-  nameWithType: NameAttribute
-- uid: MongoDB.Entities.NameAttribute.#ctor(System.String)
-  name: NameAttribute(String)
-  href: api/MongoDB.Entities.NameAttribute.html#MongoDB_Entities_NameAttribute__ctor_System_String_
-  commentId: M:MongoDB.Entities.NameAttribute.#ctor(System.String)
-  fullName: MongoDB.Entities.NameAttribute.NameAttribute(System.String)
-  nameWithType: NameAttribute.NameAttribute(String)
-- uid: MongoDB.Entities.NameAttribute.#ctor*
-  name: NameAttribute
-  href: api/MongoDB.Entities.NameAttribute.html#MongoDB_Entities_NameAttribute__ctor_
-  commentId: Overload:MongoDB.Entities.NameAttribute.#ctor
-  isSpec: "True"
-  fullName: MongoDB.Entities.NameAttribute.NameAttribute
-  nameWithType: NameAttribute.NameAttribute
 - uid: MongoDB.Entities.ObjectIdAttribute
   name: ObjectIdAttribute
   href: api/MongoDB.Entities.ObjectIdAttribute.html
@@ -4407,6 +4414,22 @@ references:
   fullName.vb: MongoDB.Entities.One(Of T).One()
   nameWithType: One<T>.One()
   nameWithType.vb: One(Of T).One()
+- uid: MongoDB.Entities.One`1.#ctor(`0)
+  name: One(T)
+  href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1__ctor__0_
+  commentId: M:MongoDB.Entities.One`1.#ctor(`0)
+  fullName: MongoDB.Entities.One<T>.One(T)
+  fullName.vb: MongoDB.Entities.One(Of T).One(T)
+  nameWithType: One<T>.One(T)
+  nameWithType.vb: One(Of T).One(T)
+- uid: MongoDB.Entities.One`1.#ctor(System.String)
+  name: One(String)
+  href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1__ctor_System_String_
+  commentId: M:MongoDB.Entities.One`1.#ctor(System.String)
+  fullName: MongoDB.Entities.One<T>.One(System.String)
+  fullName.vb: MongoDB.Entities.One(Of T).One(System.String)
+  nameWithType: One<T>.One(String)
+  nameWithType.vb: One(Of T).One(String)
 - uid: MongoDB.Entities.One`1.#ctor*
   name: One
   href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1__ctor_
@@ -4433,34 +4456,6 @@ references:
   fullName.vb: MongoDB.Entities.One(Of T).ID
   nameWithType: One<T>.ID
   nameWithType.vb: One(Of T).ID
-- uid: MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
-  name: Implicit(T to One<T>)
-  href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1_op_Implicit__0__MongoDB_Entities_One__0_
-  commentId: M:MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
-  name.vb: Widening(T to One(Of T))
-  fullName: MongoDB.Entities.One<T>.Implicit(T to MongoDB.Entities.One<T>)
-  fullName.vb: MongoDB.Entities.One(Of T).Widening(T to MongoDB.Entities.One(Of T))
-  nameWithType: One<T>.Implicit(T to One<T>)
-  nameWithType.vb: One(Of T).Widening(T to One(Of T))
-- uid: MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
-  name: Implicit(String to One<T>)
-  href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1_op_Implicit_System_String__MongoDB_Entities_One__0_
-  commentId: M:MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
-  name.vb: Widening(String to One(Of T))
-  fullName: MongoDB.Entities.One<T>.Implicit(System.String to MongoDB.Entities.One<T>)
-  fullName.vb: MongoDB.Entities.One(Of T).Widening(System.String to MongoDB.Entities.One(Of T))
-  nameWithType: One<T>.Implicit(String to One<T>)
-  nameWithType.vb: One(Of T).Widening(String to One(Of T))
-- uid: MongoDB.Entities.One`1.op_Implicit*
-  name: Implicit
-  href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1_op_Implicit_
-  commentId: Overload:MongoDB.Entities.One`1.op_Implicit
-  isSpec: "True"
-  name.vb: Widening
-  fullName: MongoDB.Entities.One<T>.Implicit
-  fullName.vb: MongoDB.Entities.One(Of T).Widening
-  nameWithType: One<T>.Implicit
-  nameWithType.vb: One(Of T).Widening
 - uid: MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   name: ToEntityAsync(IClientSessionHandle, CancellationToken)
   href: api/MongoDB.Entities.One-1.html#MongoDB_Entities_One_1_ToEntityAsync_MongoDB_Driver_IClientSessionHandle_System_Threading_CancellationToken_

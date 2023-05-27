@@ -37,12 +37,12 @@ also note that you specify which side of the relationship a property is using th
 
 ## One-to-one
 
-a reference can be assigned in any of the following three ways:
+a reference can be assigned in any of the following two ways:
 
 ```csharp
 book.MainAuthor = author.ToReference(); //call ToReference on a child
-book.MainAuthor = author;               //assign a child instance
-book.MainAuthor = "AuthorID";           //assign just the ID value of a child
+book.MainAuthor = new(author);          //assign a child instance
+book.MainAuthor = new("AuthorID");      //assign just the ID value of a child
 
 await book.SaveAsync();                 //call save on parent to store
 ```

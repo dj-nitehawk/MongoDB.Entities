@@ -77,8 +77,6 @@
     name: Migration
   - uid: MongoDB.Entities.ModifiedBy
     name: ModifiedBy
-  - uid: MongoDB.Entities.NameAttribute
-    name: NameAttribute
   - uid: MongoDB.Entities.ObjectIdAttribute
     name: ObjectIdAttribute
   - uid: MongoDB.Entities.One`1

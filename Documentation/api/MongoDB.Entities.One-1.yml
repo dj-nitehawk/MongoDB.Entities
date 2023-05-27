@@ -6,9 +6,9 @@ items:
   parent: MongoDB.Entities
   children:
   - MongoDB.Entities.One`1.#ctor
+  - MongoDB.Entities.One`1.#ctor(`0)
+  - MongoDB.Entities.One`1.#ctor(System.String)
   - MongoDB.Entities.One`1.ID
-  - MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
-  - MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
   - MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.One`1.ToEntityAsync(System.Func{MongoDB.Driver.ProjectionDefinitionBuilder{`0},MongoDB.Driver.ProjectionDefinition{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   - MongoDB.Entities.One`1.ToEntityAsync(System.Linq.Expressions.Expression{System.Func{`0,`0}},MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -129,84 +129,74 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: MongoDB.Entities.One(Of T).One()
-- uid: MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
-  commentId: M:MongoDB.Entities.One`1.op_Implicit(System.String)~MongoDB.Entities.One{`0}
-  id: op_Implicit(System.String)~MongoDB.Entities.One{`0}
+- uid: MongoDB.Entities.One`1.#ctor(`0)
+  commentId: M:MongoDB.Entities.One`1.#ctor(`0)
+  id: '#ctor(`0)'
   parent: MongoDB.Entities.One`1
   langs:
   - csharp
   - vb
-  name: Implicit(String to One<T>)
-  nameWithType: One<T>.Implicit(String to One<T>)
-  fullName: MongoDB.Entities.One<T>.Implicit(System.String to MongoDB.Entities.One<T>)
-  type: Operator
+  name: One(T)
+  nameWithType: One<T>.One(T)
+  fullName: MongoDB.Entities.One<T>.One(T)
+  type: Constructor
   source:
-    id: op_Implicit
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
+    startLine: 28
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\nInitializes a reference to an entity in MongoDB.\n"
+  example: []
+  syntax:
+    content: public One(T entity)
+    parameters:
+    - id: entity
+      type: '{T}'
+      description: The actual entity this reference represents.
+    content.vb: Public Sub New(entity As T)
+  overload: MongoDB.Entities.One`1.#ctor*
+  nameWithType.vb: One(Of T).One(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: MongoDB.Entities.One(Of T).One(T)
+- uid: MongoDB.Entities.One`1.#ctor(System.String)
+  commentId: M:MongoDB.Entities.One`1.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: MongoDB.Entities.One`1
+  langs:
+  - csharp
+  - vb
+  name: One(String)
+  nameWithType: One<T>.One(String)
+  fullName: MongoDB.Entities.One<T>.One(System.String)
+  type: Constructor
+  source:
+    id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
     startLine: 38
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
-  summary: "\nOperator for returning a new One&lt;T> object from a string ID\n"
+  summary: "\nInitializes a reference to an entity in MongoDB.\n"
   example: []
   syntax:
-    content: public static implicit operator One<T>(string id)
+    content: public One(string id)
     parameters:
     - id: id
       type: System.String
-      description: The ID to create a new One&lt;T> with
-    return:
-      type: MongoDB.Entities.One{{T}}
-    content.vb: Public Shared Widening Operator CType(id As String) As One(Of T)
-  overload: MongoDB.Entities.One`1.op_Implicit*
-  nameWithType.vb: One(Of T).Widening(String to One(Of T))
+      description: the ID of the referenced entity
+    content.vb: Public Sub New(id As String)
+  overload: MongoDB.Entities.One`1.#ctor*
+  nameWithType.vb: One(Of T).One(String)
   modifiers.csharp:
   - public
-  - static
   modifiers.vb:
   - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.One(Of T).Widening(System.String to MongoDB.Entities.One(Of T))
-  name.vb: Widening(String to One(Of T))
-- uid: MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
-  commentId: M:MongoDB.Entities.One`1.op_Implicit(`0)~MongoDB.Entities.One{`0}
-  id: op_Implicit(`0)~MongoDB.Entities.One{`0}
-  parent: MongoDB.Entities.One`1
-  langs:
-  - csharp
-  - vb
-  name: Implicit(T to One<T>)
-  nameWithType: One<T>.Implicit(T to One<T>)
-  fullName: MongoDB.Entities.One<T>.Implicit(T to MongoDB.Entities.One<T>)
-  type: Operator
-  source:
-    id: op_Implicit
-    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
-    startLine: 47
-  assemblies:
-  - MongoDB.Entities
-  namespace: MongoDB.Entities
-  summary: "\nOperator for returning a new One&lt;T> object from an entity\n"
-  example: []
-  syntax:
-    content: public static implicit operator One<T>(T entity)
-    parameters:
-    - id: entity
-      type: '{T}'
-      description: The entity to make a reference to
-    return:
-      type: MongoDB.Entities.One{{T}}
-    content.vb: Public Shared Widening Operator CType(entity As T) As One(Of T)
-  overload: MongoDB.Entities.One`1.op_Implicit*
-  nameWithType.vb: One(Of T).Widening(T to One(Of T))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.One(Of T).Widening(T to MongoDB.Entities.One(Of T))
-  name.vb: Widening(T to One(Of T))
+  fullName.vb: MongoDB.Entities.One(Of T).One(System.String)
 - uid: MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   commentId: M:MongoDB.Entities.One`1.ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
   id: ToEntityAsync(MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken)
@@ -221,7 +211,7 @@ items:
   source:
     id: ToEntityAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
-    startLine: 58
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -261,7 +251,7 @@ items:
   source:
     id: ToEntityAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
-    startLine: 70
+    startLine: 58
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -306,7 +296,7 @@ items:
   source:
     id: ToEntityAsync
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Relationships\One.cs
-    startLine: 86
+    startLine: 74
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -656,88 +646,6 @@ references:
   fullName: MongoDB.Entities.One<T>.One
   nameWithType.vb: One(Of T).One
   fullName.vb: MongoDB.Entities.One(Of T).One
-- uid: MongoDB.Entities.One`1.op_Implicit*
-  commentId: Overload:MongoDB.Entities.One`1.op_Implicit
-  name: Implicit
-  nameWithType: One<T>.Implicit
-  fullName: MongoDB.Entities.One<T>.Implicit
-  nameWithType.vb: One(Of T).Widening
-  fullName.vb: MongoDB.Entities.One(Of T).Widening
-  name.vb: Widening
-- uid: MongoDB.Entities.One{{T}}
-  commentId: T:MongoDB.Entities.One{``0}
-  parent: MongoDB.Entities
-  definition: MongoDB.Entities.One`1
-  name: One<T>
-  nameWithType: One<T>
-  fullName: MongoDB.Entities.One<T>
-  nameWithType.vb: One(Of T)
-  fullName.vb: MongoDB.Entities.One(Of T)
-  name.vb: One(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.One`1
-    name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.One`1
-    name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: MongoDB.Entities.One`1
-  commentId: T:MongoDB.Entities.One`1
-  name: One<T>
-  nameWithType: One<T>
-  fullName: MongoDB.Entities.One<T>
-  nameWithType.vb: One(Of T)
-  fullName.vb: MongoDB.Entities.One(Of T)
-  name.vb: One(Of T)
-  spec.csharp:
-  - uid: MongoDB.Entities.One`1
-    name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: MongoDB.Entities.One`1
-    name: One
-    nameWithType: One
-    fullName: MongoDB.Entities.One
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: '{T}'
   commentId: '!:T'
   definition: T

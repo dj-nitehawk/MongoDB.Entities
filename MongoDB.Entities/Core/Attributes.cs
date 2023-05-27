@@ -41,14 +41,6 @@ public class OwnerSideAttribute : Attribute { }
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
 public class InverseSideAttribute : Attribute { }
 
-//todo: remove this attribute in the next major version jump
-[Obsolete("Please use the [Collection(\"...\")] attribute instead")]
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public class NameAttribute : CollectionAttribute
-{
-    public NameAttribute(string name) : base(name) { }
-}
-
 /// <summary>
 /// Specifies a custom MongoDB collection name for an entity type.
 /// </summary>

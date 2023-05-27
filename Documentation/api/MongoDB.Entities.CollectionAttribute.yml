@@ -17,7 +17,7 @@ items:
   source:
     id: CollectionAttribute
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 54
+    startLine: 46
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -37,8 +37,6 @@ items:
   inheritance:
   - System.Object
   - System.Attribute
-  derivedClasses:
-  - MongoDB.Entities.NameAttribute
   inheritedMembers:
   - System.Attribute.Equals(System.Object)
   - System.Attribute.GetCustomAttribute(System.Reflection.Assembly,System.Type)
@@ -112,7 +110,7 @@ items:
   source:
     id: Name
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 57
+    startLine: 49
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
@@ -143,7 +141,7 @@ items:
   source:
     id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Attributes.cs
-    startLine: 59
+    startLine: 51
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
