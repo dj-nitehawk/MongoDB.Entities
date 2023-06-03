@@ -2503,6 +2503,94 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
   </table>
 
 
+  <a id="MongoDB_Entities_Extensions_ToDate_" data-uid="MongoDB.Entities.Extensions.ToDate*"></a>
+  <h4 id="MongoDB_Entities_Extensions_ToDate_System_DateTime_" data-uid="MongoDB.Entities.Extensions.ToDate(System.DateTime)">ToDate(DateTime)</h4>
+  <div class="markdown level1 summary"><p>converts a <span class="xref">System.DateTime</span> instance to a <a class="xref" href="MongoDB.Entities.Date.html">Date</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Date ToDate(this DateTime dateTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.DateTime</span></td>
+        <td><span class="parametername">dateTime</span></td>
+        <td><p>the <span class="xref">System.DateTime</span> instance to convert</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Date.html">Date</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_Extensions_ToDate_" data-uid="MongoDB.Entities.Extensions.ToDate*"></a>
+  <h4 id="MongoDB_Entities_Extensions_ToDate_System_Int64_" data-uid="MongoDB.Entities.Extensions.ToDate(System.Int64)">ToDate(Int64)</h4>
+  <div class="markdown level1 summary"><p>converts ticks to a <a class="xref" href="MongoDB.Entities.Date.html">Date</a> instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Date ToDate(this long ticks)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">ticks</span></td>
+        <td><p>the ticks to convert</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.Date.html">Date</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
   <a id="MongoDB_Entities_Extensions_ToDocument_" data-uid="MongoDB.Entities.Extensions.ToDocument*"></a>
   <h4 id="MongoDB_Entities_Extensions_ToDocument__1___0_" data-uid="MongoDB.Entities.Extensions.ToDocument``1(``0)">ToDocument&lt;T&gt;(T)</h4>
   <div class="markdown level1 summary"><p>Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.</p>
@@ -2718,6 +2806,50 @@ The properties to be excluded can be specified using the [Preserve] attribute.</
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_Extensions_ToFuzzy_" data-uid="MongoDB.Entities.Extensions.ToFuzzy*"></a>
+  <h4 id="MongoDB_Entities_Extensions_ToFuzzy_System_String_" data-uid="MongoDB.Entities.Extensions.ToFuzzy(System.String)">ToFuzzy(String)</h4>
+  <div class="markdown level1 summary"><p>converts a string value to a FuzzyString</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static FuzzyString ToFuzzy(this string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>the string to convert</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></td>
         <td></td>
       </tr>
     </tbody>

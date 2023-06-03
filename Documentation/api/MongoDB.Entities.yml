@@ -38,7 +38,6 @@ items:
   - MongoDB.Entities.ManyBase
   - MongoDB.Entities.Migration
   - MongoDB.Entities.ModifiedBy
-  - MongoDB.Entities.NameAttribute
   - MongoDB.Entities.ObjectIdAttribute
   - MongoDB.Entities.One`1
   - MongoDB.Entities.Order
@@ -555,11 +554,6 @@ references:
   name: InverseSideAttribute
   nameWithType: InverseSideAttribute
   fullName: MongoDB.Entities.InverseSideAttribute
-- uid: MongoDB.Entities.NameAttribute
-  commentId: T:MongoDB.Entities.NameAttribute
-  name: NameAttribute
-  nameWithType: NameAttribute
-  fullName: MongoDB.Entities.NameAttribute
 - uid: MongoDB.Entities.CollectionAttribute
   commentId: T:MongoDB.Entities.CollectionAttribute
   parent: MongoDB.Entities

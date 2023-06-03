@@ -140,6 +140,52 @@ You can increase the limit by sacrificing performance/resource utilization by se
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class FuzzyString</code></pre>
   </div>
+  <h3 id="constructors">Constructors
+</h3>
+
+
+  <a id="MongoDB_Entities_FuzzyString__ctor_" data-uid="MongoDB.Entities.FuzzyString.#ctor*"></a>
+  <h4 id="MongoDB_Entities_FuzzyString__ctor" data-uid="MongoDB.Entities.FuzzyString.#ctor">FuzzyString()</h4>
+  <div class="markdown level1 summary"><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
+<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.
+If you exceed the default limit, an exception will be thrown.
+You can increase the limit by sacrificing performance/resource utilization by setting the static property
+<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FuzzyString()</code></pre>
+  </div>
+
+
+  <a id="MongoDB_Entities_FuzzyString__ctor_" data-uid="MongoDB.Entities.FuzzyString.#ctor*"></a>
+  <h4 id="MongoDB_Entities_FuzzyString__ctor_System_String_" data-uid="MongoDB.Entities.FuzzyString.#ctor(System.String)">FuzzyString(String)</h4>
+  <div class="markdown level1 summary"><p>instantiate a FuzzyString object with a given string</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FuzzyString(string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>the string value to create the FuzzyString with</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
 </h3>
 
@@ -198,102 +244,6 @@ You can increase the limit by sacrificing performance/resource utilization by se
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="operators">Operators
-</h3>
-
-
-  <a id="MongoDB_Entities_FuzzyString_op_Implicit_" data-uid="MongoDB.Entities.FuzzyString.op_Implicit*"></a>
-  <h4 id="MongoDB_Entities_FuzzyString_op_Implicit_MongoDB_Entities_FuzzyString__System_String" data-uid="MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String">Implicit(FuzzyString to String)</h4>
-  <div class="markdown level1 summary"><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
-<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.
-If you exceed the default limit, an exception will be thrown.
-You can increase the limit by sacrificing performance/resource utilization by setting the static property
-<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator string (FuzzyString fuzzyString)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></td>
-        <td><span class="parametername">fuzzyString</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="MongoDB_Entities_FuzzyString_op_Implicit_" data-uid="MongoDB.Entities.FuzzyString.op_Implicit*"></a>
-  <h4 id="MongoDB_Entities_FuzzyString_op_Implicit_System_String__MongoDB_Entities_FuzzyString" data-uid="MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString">Implicit(String to FuzzyString)</h4>
-  <div class="markdown level1 summary"><p>Use this type to store strings if you need fuzzy text searching with MongoDB</p>
-<p>TIP: There&apos;s a default limit of 250 characters for ensuring best performance.
-If you exceed the default limit, an exception will be thrown.
-You can increase the limit by sacrificing performance/resource utilization by setting the static property
-<code>FuzzyString.CharacterLimit = 500</code> at startup.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator FuzzyString(string value)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.FuzzyString.html">FuzzyString</a></td>
         <td></td>
       </tr>
     </tbody>

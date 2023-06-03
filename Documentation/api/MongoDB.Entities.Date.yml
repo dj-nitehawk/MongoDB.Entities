@@ -5,9 +5,10 @@ items:
   id: Date
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.Date.#ctor
+  - MongoDB.Entities.Date.#ctor(System.DateTime)
+  - MongoDB.Entities.Date.#ctor(System.Int64)
   - MongoDB.Entities.Date.DateTime
-  - MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
-  - MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
   - MongoDB.Entities.Date.Ticks
   langs:
   - csharp
@@ -106,78 +107,96 @@ items:
   - set
   modifiers.vb:
   - Public
-- uid: MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
-  commentId: M:MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date
-  id: op_Implicit(System.DateTime)~MongoDB.Entities.Date
+- uid: MongoDB.Entities.Date.#ctor
+  commentId: M:MongoDB.Entities.Date.#ctor
+  id: '#ctor'
   parent: MongoDB.Entities.Date
   langs:
   - csharp
   - vb
-  name: Implicit(DateTime to Date)
-  nameWithType: Date.Implicit(DateTime to Date)
-  fullName: MongoDB.Entities.Date.Implicit(System.DateTime to MongoDB.Entities.Date)
-  type: Operator
+  name: Date()
+  nameWithType: Date.Date()
+  fullName: MongoDB.Entities.Date.Date()
+  type: Constructor
   source:
-    id: op_Implicit
+    id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
     startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: public static implicit operator Date(DateTime datetime)
-    parameters:
-    - id: datetime
-      type: System.DateTime
-    return:
-      type: MongoDB.Entities.Date
-    content.vb: Public Shared Widening Operator CType(datetime As Date) As Date
-  overload: MongoDB.Entities.Date.op_Implicit*
-  nameWithType.vb: Date.Widening(DateTime to Date)
+    content: public Date()
+    content.vb: Public Sub New
+  overload: MongoDB.Entities.Date.#ctor*
   modifiers.csharp:
   - public
-  - static
   modifiers.vb:
   - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Date.Widening(System.DateTime to MongoDB.Entities.Date)
-  name.vb: Widening(DateTime to Date)
-- uid: MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
-  commentId: M:MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime
-  id: op_Implicit(MongoDB.Entities.Date)~System.DateTime
+- uid: MongoDB.Entities.Date.#ctor(System.Int64)
+  commentId: M:MongoDB.Entities.Date.#ctor(System.Int64)
+  id: '#ctor(System.Int64)'
   parent: MongoDB.Entities.Date
   langs:
   - csharp
   - vb
-  name: Implicit(Date to DateTime)
-  nameWithType: Date.Implicit(Date to DateTime)
-  fullName: MongoDB.Entities.Date.Implicit(MongoDB.Entities.Date to System.DateTime)
-  type: Operator
+  name: Date(Int64)
+  nameWithType: Date.Date(Int64)
+  fullName: MongoDB.Entities.Date.Date(System.Int64)
+  type: Constructor
   source:
-    id: op_Implicit
+    id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
-    startLine: 102
+    startLine: 103
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
+  summary: "\ninstantiate a Date with ticks\n"
+  example: []
   syntax:
-    content: public static implicit operator DateTime(Date date)
+    content: public Date(long ticks)
     parameters:
-    - id: date
-      type: MongoDB.Entities.Date
-    return:
-      type: System.DateTime
-    content.vb: Public Shared Widening Operator CType(date As Date) As Date
-  overload: MongoDB.Entities.Date.op_Implicit*
-  nameWithType.vb: Date.Widening(Date to DateTime)
+    - id: ticks
+      type: System.Int64
+      description: the ticks
+    content.vb: Public Sub New(ticks As Long)
+  overload: MongoDB.Entities.Date.#ctor*
   modifiers.csharp:
   - public
-  - static
   modifiers.vb:
   - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.Date.Widening(MongoDB.Entities.Date to System.DateTime)
-  name.vb: Widening(Date to DateTime)
+- uid: MongoDB.Entities.Date.#ctor(System.DateTime)
+  commentId: M:MongoDB.Entities.Date.#ctor(System.DateTime)
+  id: '#ctor(System.DateTime)'
+  parent: MongoDB.Entities.Date
+  langs:
+  - csharp
+  - vb
+  name: Date(DateTime)
+  nameWithType: Date.Date(DateTime)
+  fullName: MongoDB.Entities.Date.Date(System.DateTime)
+  type: Constructor
+  source:
+    id: .ctor
+    path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\Date.cs
+    startLine: 109
+  assemblies:
+  - MongoDB.Entities
+  namespace: MongoDB.Entities
+  summary: "\ninstantiate a Date with a DateTime\n"
+  example: []
+  syntax:
+    content: public Date(DateTime dateTime)
+    parameters:
+    - id: dateTime
+      type: System.DateTime
+      description: the DateTime
+    content.vb: Public Sub New(dateTime As Date)
+  overload: MongoDB.Entities.Date.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
@@ -500,17 +519,8 @@ references:
   name: DateTime
   nameWithType: DateTime
   fullName: System.DateTime
-- uid: MongoDB.Entities.Date.op_Implicit*
-  commentId: Overload:MongoDB.Entities.Date.op_Implicit
-  name: Implicit
-  nameWithType: Date.Implicit
-  fullName: MongoDB.Entities.Date.Implicit
-  nameWithType.vb: Date.Widening
-  fullName.vb: MongoDB.Entities.Date.Widening
-  name.vb: Widening
-- uid: MongoDB.Entities.Date
-  commentId: T:MongoDB.Entities.Date
-  parent: MongoDB.Entities
+- uid: MongoDB.Entities.Date.#ctor*
+  commentId: Overload:MongoDB.Entities.Date.#ctor
   name: Date
-  nameWithType: Date
-  fullName: MongoDB.Entities.Date
+  nameWithType: Date.Date
+  fullName: MongoDB.Entities.Date.Date

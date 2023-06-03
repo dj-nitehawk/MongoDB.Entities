@@ -3,7 +3,7 @@ there's a special `Date` type you can use to store date/time values in mongodb i
 - preserves date/time precision
 - can query using ticks
 - can extend it by inheriting
-- implicitly assignable to and from _System.DateTime_
+
 ## Examples
 ```csharp
 // define the entity
@@ -28,12 +28,6 @@ there's a special `Date` type you can use to store date/time values in mongodb i
     var book = await DB.Find<Book>()
                        .Match(b => b.PublishedOn.DateTime < DateTime.UtcNow)
                        .ExecuteFirstAsync();
-
-// assign to 'DateTime' from 'Date'
-    DateTime dt = book.PublishedOn;
-
-// assign from 'DateTime' to 'Date'
-    Date date = dt;
 
 // set/change value with 'Ticks'
     date.Ticks = DateTime.UtcNow.Ticks;

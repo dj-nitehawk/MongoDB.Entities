@@ -136,6 +136,77 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class Date</code></pre>
   </div>
+  <h3 id="constructors">Constructors
+</h3>
+
+
+  <a id="MongoDB_Entities_Date__ctor_" data-uid="MongoDB.Entities.Date.#ctor*"></a>
+  <h4 id="MongoDB_Entities_Date__ctor" data-uid="MongoDB.Entities.Date.#ctor">Date()</h4>
+  <div class="markdown level1 summary"><p>A custom date/time type for precision datetime handling</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Date()</code></pre>
+  </div>
+
+
+  <a id="MongoDB_Entities_Date__ctor_" data-uid="MongoDB.Entities.Date.#ctor*"></a>
+  <h4 id="MongoDB_Entities_Date__ctor_System_DateTime_" data-uid="MongoDB.Entities.Date.#ctor(System.DateTime)">Date(DateTime)</h4>
+  <div class="markdown level1 summary"><p>instantiate a Date with a DateTime</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Date(DateTime dateTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.DateTime</span></td>
+        <td><span class="parametername">dateTime</span></td>
+        <td><p>the DateTime</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <a id="MongoDB_Entities_Date__ctor_" data-uid="MongoDB.Entities.Date.#ctor*"></a>
+  <h4 id="MongoDB_Entities_Date__ctor_System_Int64_" data-uid="MongoDB.Entities.Date.#ctor(System.Int64)">Date(Int64)</h4>
+  <div class="markdown level1 summary"><p>instantiate a Date with ticks</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Date(long ticks)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td><span class="parametername">ticks</span></td>
+        <td><p>the ticks</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
 </h3>
 
@@ -186,94 +257,6 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Int64</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="operators">Operators
-</h3>
-
-
-  <a id="MongoDB_Entities_Date_op_Implicit_" data-uid="MongoDB.Entities.Date.op_Implicit*"></a>
-  <h4 id="MongoDB_Entities_Date_op_Implicit_MongoDB_Entities_Date__System_DateTime" data-uid="MongoDB.Entities.Date.op_Implicit(MongoDB.Entities.Date)~System.DateTime">Implicit(Date to DateTime)</h4>
-  <div class="markdown level1 summary"><p>A custom date/time type for precision datetime handling</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator DateTime(Date date)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Date.html">Date</a></td>
-        <td><span class="parametername">date</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.DateTime</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <a id="MongoDB_Entities_Date_op_Implicit_" data-uid="MongoDB.Entities.Date.op_Implicit*"></a>
-  <h4 id="MongoDB_Entities_Date_op_Implicit_System_DateTime__MongoDB_Entities_Date" data-uid="MongoDB.Entities.Date.op_Implicit(System.DateTime)~MongoDB.Entities.Date">Implicit(DateTime to Date)</h4>
-  <div class="markdown level1 summary"><p>A custom date/time type for precision datetime handling</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator Date(DateTime datetime)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.DateTime</span></td>
-        <td><span class="parametername">datetime</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="MongoDB.Entities.Date.html">Date</a></td>
         <td></td>
       </tr>
     </tbody>

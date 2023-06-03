@@ -26,7 +26,7 @@ A light-weight .net standard library with [barely any overhead](wiki/Performance
 - GeoSpatial search.
 - Global filters.
 - Stream files in chunks to and from mongodb (GridFS alternative).
-- Project types supported: .Net Standard 2.0 (.Net Core 2.0 & .Net Framework 4.6.1 or higher)
+- Project types supported: .Net Standard 2.1 (.Net Core 3.0 onwards only).
 
 ---
 

@@ -5,9 +5,9 @@ items:
   id: FuzzyString
   parent: MongoDB.Entities
   children:
+  - MongoDB.Entities.FuzzyString.#ctor
+  - MongoDB.Entities.FuzzyString.#ctor(System.String)
   - MongoDB.Entities.FuzzyString.CharacterLimit
-  - MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
-  - MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
   - MongoDB.Entities.FuzzyString.Value
   langs:
   - csharp
@@ -108,78 +108,64 @@ items:
   - set
   modifiers.vb:
   - Public
-- uid: MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
-  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(System.String)~MongoDB.Entities.FuzzyString
-  id: op_Implicit(System.String)~MongoDB.Entities.FuzzyString
+- uid: MongoDB.Entities.FuzzyString.#ctor
+  commentId: M:MongoDB.Entities.FuzzyString.#ctor
+  id: '#ctor'
   parent: MongoDB.Entities.FuzzyString
   langs:
   - csharp
   - vb
-  name: Implicit(String to FuzzyString)
-  nameWithType: FuzzyString.Implicit(String to FuzzyString)
-  fullName: MongoDB.Entities.FuzzyString.Implicit(System.String to MongoDB.Entities.FuzzyString)
-  type: Operator
+  name: FuzzyString()
+  nameWithType: FuzzyString.FuzzyString()
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString()
+  type: Constructor
   source:
-    id: op_Implicit
+    id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
     startLine: 91
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
   syntax:
-    content: public static implicit operator FuzzyString(string value)
-    parameters:
-    - id: value
-      type: System.String
-    return:
-      type: MongoDB.Entities.FuzzyString
-    content.vb: Public Shared Widening Operator CType(value As String) As FuzzyString
-  overload: MongoDB.Entities.FuzzyString.op_Implicit*
-  nameWithType.vb: FuzzyString.Widening(String to FuzzyString)
+    content: public FuzzyString()
+    content.vb: Public Sub New
+  overload: MongoDB.Entities.FuzzyString.#ctor*
   modifiers.csharp:
   - public
-  - static
   modifiers.vb:
   - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening(System.String to MongoDB.Entities.FuzzyString)
-  name.vb: Widening(String to FuzzyString)
-- uid: MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
-  commentId: M:MongoDB.Entities.FuzzyString.op_Implicit(MongoDB.Entities.FuzzyString)~System.String
-  id: op_Implicit(MongoDB.Entities.FuzzyString)~System.String
+- uid: MongoDB.Entities.FuzzyString.#ctor(System.String)
+  commentId: M:MongoDB.Entities.FuzzyString.#ctor(System.String)
+  id: '#ctor(System.String)'
   parent: MongoDB.Entities.FuzzyString
   langs:
   - csharp
   - vb
-  name: Implicit(FuzzyString to String)
-  nameWithType: FuzzyString.Implicit(FuzzyString to String)
-  fullName: MongoDB.Entities.FuzzyString.Implicit(MongoDB.Entities.FuzzyString to System.String)
-  type: Operator
+  name: FuzzyString(String)
+  nameWithType: FuzzyString.FuzzyString(String)
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString(System.String)
+  type: Constructor
   source:
-    id: op_Implicit
+    id: .ctor
     path: D:\SOURCE-CONTROL\MongoDB.Entities\Documentation\src\Core\FuzzyString.cs
-    startLine: 96
+    startLine: 97
   assemblies:
   - MongoDB.Entities
   namespace: MongoDB.Entities
+  summary: "\ninstantiate a FuzzyString object with a given string\n"
+  example: []
   syntax:
-    content: public static implicit operator string (FuzzyString fuzzyString)
+    content: public FuzzyString(string value)
     parameters:
-    - id: fuzzyString
-      type: MongoDB.Entities.FuzzyString
-    return:
+    - id: value
       type: System.String
-    content.vb: Public Shared Widening Operator CType(fuzzyString As FuzzyString) As String
-  overload: MongoDB.Entities.FuzzyString.op_Implicit*
-  nameWithType.vb: FuzzyString.Widening(FuzzyString to String)
+      description: the string value to create the FuzzyString with
+    content.vb: Public Sub New(value As String)
+  overload: MongoDB.Entities.FuzzyString.#ctor*
   modifiers.csharp:
   - public
-  - static
   modifiers.vb:
   - Public
-  - Shared
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening(MongoDB.Entities.FuzzyString to System.String)
-  name.vb: Widening(FuzzyString to String)
 references:
 - uid: MongoDB.Entities
   commentId: N:MongoDB.Entities
@@ -502,17 +488,8 @@ references:
   name: String
   nameWithType: String
   fullName: System.String
-- uid: MongoDB.Entities.FuzzyString.op_Implicit*
-  commentId: Overload:MongoDB.Entities.FuzzyString.op_Implicit
-  name: Implicit
-  nameWithType: FuzzyString.Implicit
-  fullName: MongoDB.Entities.FuzzyString.Implicit
-  nameWithType.vb: FuzzyString.Widening
-  fullName.vb: MongoDB.Entities.FuzzyString.Widening
-  name.vb: Widening
-- uid: MongoDB.Entities.FuzzyString
-  commentId: T:MongoDB.Entities.FuzzyString
-  parent: MongoDB.Entities
+- uid: MongoDB.Entities.FuzzyString.#ctor*
+  commentId: Overload:MongoDB.Entities.FuzzyString.#ctor
   name: FuzzyString
-  nameWithType: FuzzyString
-  fullName: MongoDB.Entities.FuzzyString
+  nameWithType: FuzzyString.FuzzyString
+  fullName: MongoDB.Entities.FuzzyString.FuzzyString

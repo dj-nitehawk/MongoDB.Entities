@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
+using System;
 
 namespace MongoDB.Entities;
 
@@ -11,10 +12,15 @@ namespace MongoDB.Entities;
 public class Coordinates2D
 {
     [BsonElement("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = "Point";
 
     [BsonElement("coordinates")]
-    public double[] Coordinates { get; set; }
+    public double[] Coordinates { get; set; } = Array.Empty<double>();
+
+    /// <summary>
+    /// Instantiate a new Coordinates2D instance with default values
+    /// </summary>
+    public Coordinates2D() { }
 
     /// <summary>
     /// Instantiate a new Coordinates2D instance with the supplied longtitude and latitude
