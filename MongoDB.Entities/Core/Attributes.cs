@@ -186,9 +186,9 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                 case BsonType.ObjectId:
                     if (args.NominalType == typeof(string))
                         return ctx.Reader.ReadObjectId().ToString();
-                    if (args.NominalType == typeof(ObjectId))
-                        return ctx.Reader.ReadObjectId();
-                    throw new BsonSerializationException($"'{args.NominalType}' values are not valid on properties decorated with an [AsBsonId] attribute!");
+//                    if (args.NominalType == typeof(ObjectId))
+                    return ctx.Reader.ReadObjectId();
+//                    throw new BsonSerializationException($"'{args.NominalType}' values are not valid on properties decorated with an [AsBsonId] attribute!");
 
                 case BsonType.Null:
                     ctx.Reader.ReadNull();

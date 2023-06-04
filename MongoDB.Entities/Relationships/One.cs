@@ -16,6 +16,7 @@ public class One<T> where T : IEntity
     /// <summary>
     /// The Id of the entity referenced by this instance.
     /// </summary>
+    [AsBsonId]
     public object? ID { get; set; }
 
     public One()
