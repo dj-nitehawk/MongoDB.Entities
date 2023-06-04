@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities;
 
@@ -14,11 +15,13 @@ namespace MongoDB.Entities;
 public class One<T> where T : IEntity
 {
     /// <summary>
-    /// The Id of the entity referenced by this instance.
+    /// The entity referenced by this instance.
     /// </summary>
-    [AsBsonId]
-    public object? ID { get; set; }
+   public T Entity { get; set; } = default!;
 
+    [AsBsonId]
+    public object? ID => Entity.GetId();
+    
     public One()
     { }
 
@@ -29,23 +32,8 @@ public class One<T> where T : IEntity
     public One(T entity)
     {
         entity.ThrowIfUnsaved();
-        ID = entity.GetId();
+        Entity = entity;
     }
-
-    /// <summary>
-    /// Operator for returning a new One&lt;T&gt; object from a object ID
-    /// </summary>
-    /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
-    public static One<T> FromObject(object? id)
-    {
-        return new One<T> { ID = id };
-    }
-
-    /// <summary>
-    /// Initializes a reference to an entity in MongoDB.
-    /// </summary>
-    /// <param name="id">the ID of the referenced entity</param>
-    public One(string id) => ID = id;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
@@ -55,7 +43,7 @@ public class One<T> where T : IEntity
     /// <returns>A Task containing the actual entity</returns>
     public Task<T?> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return new Find<T>(session, null).OneAsync(ID, cancellation);
+        return new Find<T>(session, null).OneAsync(Entity.GetId(), cancellation);
     }
 
     /// <summary>
@@ -68,7 +56,7 @@ public class One<T> where T : IEntity
     public async Task<T?> ToEntityAsync(Expression<Func<T, T?>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
-                    .Match(ID)
+                    .Match(Entity.GetId())
                     .Project(projection)
                     .ExecuteAsync(cancellation).ConfigureAwait(false))
                .SingleOrDefault();
@@ -84,7 +72,7 @@ public class One<T> where T : IEntity
     public async Task<T?> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T?>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
-                    .Match(ID)
+                    .Match(Entity.GetId())
                     .Project(projection)
                     .ExecuteAsync(cancellation).ConfigureAwait(false))
                .SingleOrDefault();

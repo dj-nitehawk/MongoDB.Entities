@@ -295,7 +295,7 @@ public class Saving
             Title = "original", //dontpreserve
             Price = 100, //dontpreserve
             PriceDbl = 666,
-            MainAuthor = new(ObjectId.GenerateNewId().ToString())
+            MainAuthor = new(new Author{ ID = ObjectId.GenerateNewId().ToString() })
         };
         await book.SaveAsync();
 
@@ -331,7 +331,7 @@ public class Saving
         author.Age2 = 400; //preserve
         author.Birthday = new(DateTime.MinValue); //preserve
         author.FullName = null;
-        author.BestSeller = new(ObjectId.GenerateNewId().ToString());
+        author.BestSeller = new(new Book{ ID = ObjectId.GenerateNewId().ToString()});
 
         await author.SavePreservingAsync();
 
