@@ -172,7 +172,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                 ctx.Writer.WriteString(vStr);
                 return;
             }
-            
+
             throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
         }
 
@@ -184,11 +184,9 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                     return ctx.Reader.ReadString();
 
                 case BsonType.ObjectId:
-                    if (args.NominalType == typeof(string))
-                        return ctx.Reader.ReadObjectId().ToString();
                     if (args.NominalType == typeof(ObjectId))
                         return ctx.Reader.ReadObjectId();
-                    throw new BsonSerializationException($"'{args.NominalType}' values are not valid on properties decorated with an [AsBsonId] attribute!");
+                    return ctx.Reader.ReadObjectId().ToString();
 
                 case BsonType.Null:
                     ctx.Reader.ReadNull();

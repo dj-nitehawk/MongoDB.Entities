@@ -334,7 +334,11 @@ public class Templates
         var author = new Author { Name = guid };
         await author.SaveAsync();
 
-        var book = new Book { Title = guid, MainAuthor = new(author) };
+        var book = new Book
+        {
+            Title = guid,
+            MainAuthor = new(author)
+        };
         await book.SaveAsync();
 
         var pipeline = new Template<Book, Author>(@"

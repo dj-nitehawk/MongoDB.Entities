@@ -13,7 +13,6 @@ public static partial class Extensions
         return new One<T>(entity);
     }
 
-
     /// <summary>
     /// Initializes supplied property with a new One-To-Many relationship.
     /// </summary>
