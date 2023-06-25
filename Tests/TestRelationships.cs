@@ -326,28 +326,28 @@ public class Relationships
         await book.Genres.AddAsync(genre1);
 
         var books = await book.Genres
-                        .ParentsFluent<Book>(genre.ID)
+                        .ParentsFluent(genre.ID)
                         .ToListAsync();
 
         Assert.AreEqual(1, books.Count);
         Assert.AreEqual(book.Title, books.Single().Title);
 
         books = await book.Genres
-                        .ParentsFluent<Book>(genre.Fluent().Match(g => g.Name.Contains(guid)))
+                        .ParentsFluent(genre.Fluent().Match(g => g.Name.Contains(guid)))
                         .ToListAsync();
 
         Assert.AreEqual(1, books.Count);
         Assert.AreEqual(book.Title, books.Single().Title);
 
         var genres = await genre.Books
-                          .ParentsFluent<Genre>(new[] { book.ID })
+                          .ParentsFluent(new[] { book.ID })
                           .ToListAsync();
 
         Assert.AreEqual(2, genres.Count);
         Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
 
         genres = await genre.Books
-                .ParentsFluent<Genre>(book.Fluent().Match(b => b.ID == book.ID))
+                .ParentsFluent(book.Fluent().Match(b => b.ID == book.ID))
                 .ToListAsync();
 
         Assert.AreEqual(1, books.Count);

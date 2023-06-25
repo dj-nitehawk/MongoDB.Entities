@@ -6,24 +6,39 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson;
 
 namespace MongoDB.Entities;
 
 internal static class Cache<T> where T : IEntity
 {
-    internal static IMongoDatabase Database { get; private set; } = null!;
-    internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string DBName { get; private set; } = null!;
+    internal static IMongoDatabase Database { get; private set; } = null!;
+
+    internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
+
     internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
+
     internal static bool HasCreatedOn { get; private set; }
+
     internal static bool HasModifiedOn { get; private set; }
     internal static string ModifiedOnPropName { get; private set; } = null!;
     internal static PropertyInfo? ModifiedByProp { get; private set; }
+
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
 
+    internal static PropertyInfo IdProp { get; private set; } = null!;
+    internal static string IdPropName { get; private set; } = null!;
+    internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
+    internal static Func<T, object?> IdSelector { get; private set; } = null!;
+    internal static Action<object, object?> IdSetter { get; private set; } = null!;
+    internal static Func<object, object?> IdGetter { get; private set; } = null!;
+
     private static PropertyInfo[] updatableProps = null!;
+
     private static ProjectionDefinition<T> requiredPropsProjection = null!;
 
     static Cache()
@@ -35,6 +50,21 @@ internal static class Cache<T> where T : IEntity
     private static void Initialize()
     {
         var type = typeof(T);
+
+        var propertyInfo = type.GetIdPropertyInfo();
+        if (propertyInfo != null)
+        {
+            IdProp = propertyInfo;
+            IdPropName = propertyInfo.Name;
+            IdExpression = SelectIdExpression(propertyInfo);
+            IdSelector = IdExpression.Compile();
+            IdGetter = type.GetterForProp(IdPropName);
+            IdSetter = type.SetterForProp(IdPropName);
+        }
+        else
+        {
+            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
+        }
 
         Database = TypeMap.GetDatabase(type);
         DBName = Database.DatabaseNamespace.DatabaseName;
@@ -123,5 +153,13 @@ internal static class Cache<T> where T : IEntity
             requiredPropsProjection,
             userProj
         });
+    }
+
+    private static Expression<Func<T, object?>> SelectIdExpression(PropertyInfo idProp)
+    {
+        var parameter = Expression.Parameter(typeof(T), "t");
+        var property = Expression.Property(parameter, idProp);
+        Expression conversion = Expression.Convert(property, typeof(object));
+        return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
 }

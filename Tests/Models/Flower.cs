@@ -14,7 +14,7 @@ public class Flower : BaseEntity, ISoftDeleted
 {
     public string Name { get; set; }
     public string Color { get; set; }
-    public Many<CustomerWithCustomID> Customers { get; set; }
+    public Many<CustomerWithCustomID, Flower> Customers { get; set; }
     public bool IsDeleted { get; set; }
     public Flower NestedFlower { get; set; }
 

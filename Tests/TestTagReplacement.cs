@@ -33,7 +33,7 @@ public class Templates
             .Tag("user", "$user")
             .Tag("missing", "blah");
 
-        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]
@@ -59,7 +59,7 @@ public class Templates
             }]").Tag("size", "$size")
             .Tag("user", "$user");
 
-        Assert.ThrowsException<InvalidOperationException>(() => template.RenderToString());
+        Assert.ThrowsException<InvalidOperationException>(template.RenderToString);
     }
 
     [TestMethod]
@@ -334,7 +334,11 @@ public class Templates
         var author = new Author { Name = guid };
         await author.SaveAsync();
 
-        var book = new Book { Title = guid, MainAuthor = new(author) };
+        var book = new Book
+        {
+            Title = guid,
+            MainAuthor = new(author)
+        };
         await book.SaveAsync();
 
         var pipeline = new Template<Book, Author>(@"

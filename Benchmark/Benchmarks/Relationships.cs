@@ -78,7 +78,7 @@ public class Relationships : BenchBase
             FirstName = author?.FirstName,
             LastName = author?.LastName,
             ID = author?.ID,
-            BookList = await DB.Find<Book>().ManyAsync(b => b.Author.ID == (author != null ? author.ID : null))
+            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author != null ? author.ID : null))
         };
     }
 

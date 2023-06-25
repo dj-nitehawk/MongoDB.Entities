@@ -24,7 +24,7 @@ public class Author : Entity, IModifiedOn, ICreatedOn
     [Bson.Serialization.Attributes.BsonIgnoreIfDefault]
     public One<Book> BestSeller { get; set; }
 
-    public Many<Book> Books { get; set; }
+    public Many<Book, Author> Books { get; set; }
 
     [ObjectId]
     public string BookIDs { get; set; }

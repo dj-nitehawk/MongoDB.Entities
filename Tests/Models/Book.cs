@@ -24,11 +24,11 @@ public class Book : Entity, IModifiedOn
     public One<Author> MainAuthor { get; set; }
 
     public One<CustomerWithCustomID> Customer { get; set; }
-    public Many<Author> GoodAuthors { get; set; }
-    public Many<Author> BadAuthors { get; set; }
+    public Many<Author, Book> GoodAuthors { get; set; }
+    public Many<Author, Book> BadAuthors { get; set; }
 
     [OwnerSide]
-    public Many<Genre> Genres { get; set; }
+    public Many<Genre, Book> Genres { get; set; }
 
     [Ignore]
     public int DontSaveThis { get; set; }

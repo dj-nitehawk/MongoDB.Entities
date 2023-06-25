@@ -15,7 +15,7 @@ public abstract class ManyBase
 {
     //shared state for all Many<T> instances
     internal static ConcurrentBag<string> indexedCollections = new();
-    internal static string PropTypeName = typeof(Many<Entity>).Name;
+    internal static string PropTypeName = typeof(Many<Entity, Entity>).Name;
 }
 
 /// <summary>
@@ -26,15 +26,16 @@ public abstract class ManyBase
 /// <para><c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c></para>
 /// </summary>
 /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
-public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
+/// <typeparam name="TParent">The type of the parent</typeparam>
+public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEntity where TParent : IEntity
 {
     private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
     private bool isInverse;
-    private IEntity parent = null!;
+    private TParent parent = default!;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
-    /// <para>TIP: Try never to use this unless really neccessary.</para>
+    /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     public IMongoCollection<JoinRecord> JoinCollection { get; private set; } = null!;
 
@@ -50,11 +51,11 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
 
         return isInverse
             ? session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.ID, options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.ID, options, cancellation)
+                   ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.GetId(), options, cancellation)
+                   : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.GetId(), options, cancellation)
             : session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.ID, options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.ID, options, cancellation);
+                   ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.GetId(), options, cancellation)
+                   : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.GetId(), options, cancellation);
     }
 
     /// <summary>
@@ -69,7 +70,7 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
         Init((dynamic)parent, property);
     }
 
-    private void Init<TParent>(TParent parent, string property) where TParent : IEntity
+    private void Init(TParent parent, string property)
     {
         if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
             throw new NotSupportedException("Cross database relationships are not supported!");
@@ -83,10 +84,9 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <summary>
     /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent</typeparam>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="property">Function(x) x.PropName</param>
-    public void VB_InitOneToMany<TParent>(TParent parent, Expression<Func<TParent, object?>> property) where TParent : IEntity
+    public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object?>> property)
     {
         Init(parent, Prop.Property(property));
     }
@@ -98,7 +98,7 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
         Init((dynamic)parent, propertyParent, propertyChild, isInverse);
     }
 
-    private void Init<TParent>(TParent parent, string propertyParent, string propertyChild, bool isInverse) where TParent : IEntity
+    private void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
     {
         this.parent = parent;
         this.isInverse = isInverse;
@@ -113,16 +113,15 @@ public sealed partial class Many<TChild> : ManyBase where TChild : IEntity
     /// <summary>
     /// Use this method to initialize the Many&lt;TChild&gt; properties with VB.Net
     /// </summary>
-    /// <typeparam name="TParent">The type of the parent</typeparam>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="propertyParent">Function(x) x.ParentProp</param>
     /// <param name="propertyChild">Function(x) x.ChildProp</param>
     /// <param name="isInverse">Specify if this is the inverse side of the relationship or not</param>
-    public void VB_InitManyToMany<TParent>(
+    public void VB_InitManyToMany(
         TParent parent,
         Expression<Func<TParent, object?>> propertyParent,
         Expression<Func<TChild, object?>> propertyChild,
-        bool isInverse) where TParent : IEntity
+        bool isInverse)
     {
         Init(parent, Prop.Property(propertyParent), Prop.Property(propertyChild), isInverse);
     }

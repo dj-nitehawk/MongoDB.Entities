@@ -132,3 +132,71 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
         public IBsonSerializer WithRepresentation(BsonType representation) => throw new NotImplementedException();
     }
 }
+
+/// <summary>
+/// Use this attribute to mark an object property to store the value in MongoDB as ObjectID if it is a valid ObjectId string. 
+/// If it is not a valid ObjectId string, it will be stored as string. This is needed for the join record so that the queryables
+/// query based on the stored type of the field
+/// </summary>
+[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+public class AsBsonIdAttribute : BsonSerializerAttribute
+{
+    public AsBsonIdAttribute() : base(typeof(ObjectIdSerializer)) { }
+
+    private class ObjectIdSerializer : SerializerBase<object?>, IRepresentationConfigurable
+    {
+        public BsonType Representation { get; set; }
+
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, object? value)
+        {
+            if (value == null)
+            {
+                ctx.Writer.WriteNull();
+                return;
+            }
+
+            if (value is ObjectId oId)
+            {
+                ctx.Writer.WriteObjectId(oId);
+                return;
+            }
+
+            if (value is string vStr)
+            {
+                if (vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID))
+                {
+                    ctx.Writer.WriteObjectId(oID);
+                    return;
+                }
+
+                ctx.Writer.WriteString(vStr);
+                return;
+            }
+
+            throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
+        }
+
+        public override object? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+        {
+            switch (ctx.Reader.CurrentBsonType)
+            {
+                case BsonType.String:
+                    return ctx.Reader.ReadString();
+
+                case BsonType.ObjectId:
+                    if (args.NominalType == typeof(ObjectId))
+                        return ctx.Reader.ReadObjectId();
+                    return ctx.Reader.ReadObjectId().ToString();
+
+                case BsonType.Null:
+                    ctx.Reader.ReadNull();
+                    return null;
+
+                default:
+                    throw new BsonSerializationException($"'{ctx.Reader.CurrentBsonType}' values are not valid on properties decorated with an [AsBsonId] attribute!");
+            }
+        }
+
+        public IBsonSerializer WithRepresentation(BsonType representation) => throw new NotImplementedException();
+    }
+}

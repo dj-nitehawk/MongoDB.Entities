@@ -60,7 +60,7 @@ internal class FileChunk : IEntity
 
     public byte[] Data { get; set; } = Array.Empty<byte>();
 
-    public string GenerateNewID()
+    public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
 }
 
@@ -259,7 +259,7 @@ public class DataStreamer
 
         if (streamInfo.DataChunk.Count >= streamInfo.ChunkSize || isLastChunk)
         {
-            streamInfo.Doc.ID = streamInfo.Doc.GenerateNewID();
+            streamInfo.Doc.ID = (string)streamInfo.Doc.GenerateNewID();
             streamInfo.Doc.Data = streamInfo.DataChunk.ToArray();
             streamInfo.DataChunk.Clear();
             parent.ChunkCount++;

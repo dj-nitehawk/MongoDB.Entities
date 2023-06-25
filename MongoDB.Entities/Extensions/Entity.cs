@@ -32,15 +32,15 @@ public static partial class Extensions
             new Holder<T>(source).ToBson()).Data;
     }
 
-    internal static void ThrowIfUnsaved(this string? entityID)
+    internal static void ThrowIfUnsaved(this object? entityID)
     {
-        if (string.IsNullOrWhiteSpace(entityID))
+        if (entityID == null)
             throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
-    internal static void ThrowIfUnsaved(this IEntity entity)
+    internal static void ThrowIfUnsaved<T>(this T entity) where T : IEntity
     {
-        ThrowIfUnsaved(entity.ID);
+        ThrowIfUnsaved(entity.GetId());
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public static partial class Extensions
     public static T ToDocument<T>(this T entity) where T : IEntity
     {
         var res = entity.Duplicate();
-        res.ID = res.GenerateNewID();
+        res.SetId(res.GenerateNewID());
         return res;
     }
 
@@ -100,7 +100,7 @@ public static partial class Extensions
     {
         var res = entities.Duplicate();
         foreach (var e in res)
-            e.ID = e.GenerateNewID();
+            e.SetId(e.GenerateNewID());
         return res;
     }
 
@@ -111,7 +111,7 @@ public static partial class Extensions
     {
         var res = entities.Duplicate();
         foreach (var e in res)
-            e.ID = e.GenerateNewID();
+            e.SetId(e.GenerateNewID());
         return res;
     }
 

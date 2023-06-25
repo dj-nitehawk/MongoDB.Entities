@@ -53,9 +53,9 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public UpdateAndGet<T, TProjection> MatchID(string? ID)
+    public UpdateAndGet<T, TProjection> MatchID(object? ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
