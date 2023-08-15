@@ -159,6 +159,17 @@ internal class Key<T> where T : IEntity
             return;
         }
 
+        if (expression.Body is MethodCallExpression methodCallExpression
+            && methodCallExpression.Method.DeclaringType.GetGenericTypeDefinition() == typeof(Dictionary<,>)
+            && methodCallExpression.Arguments.Count == 1
+            && methodCallExpression.Arguments[0].Type == typeof(string)
+            && methodCallExpression.Arguments[0] is ConstantExpression constantExpression
+            && methodCallExpression.Object is MemberExpression memberExpression)
+        {
+            PropertyName = $"{memberExpression.Member.Name}.{constantExpression.Value}";
+            return;
+        }
+
         PropertyName = expression.FullPath();
     }
 }
