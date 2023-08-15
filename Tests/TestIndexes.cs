@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -185,5 +186,24 @@ public class Indexes
         await DB.Index<Author>()
             .Key(x => x.Age, KeyType.Descending)
             .CreateAsync();
+    }
+
+    [TestMethod]
+    public async Task dictionary_item_index_should_use_key_value()
+    {
+        await DB.DropCollectionAsync<TestModel>();
+
+        var index = await DB.Index<TestModel>()
+          .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
+          .Key(a => a.EndDate, KeyType.Ascending)
+          .CreateAsync();
+
+        Assert.AreEqual("Metadata.AnotherKey(Asc) | EndDate(Asc)", index);
+    }
+
+    public class TestModel : Entity
+    {
+        public DateTime EndDate { get; set; }
+        public Dictionary<string, object> Metadata { get; set; } = new();
     }
 }
