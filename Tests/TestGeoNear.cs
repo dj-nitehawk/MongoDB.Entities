@@ -25,7 +25,34 @@ public class GeoNearTest
                                 new PlaceEntity{ Name = "Versailles " + guid, Location = new Coordinates2D(48.796964, 2.137456) },
                                 new PlaceEntity{ Name = "Poissy " + guid, Location = new Coordinates2D(48.928860, 2.046889) }
                             }
-                    }
+                    },
+                    new object[]
+                    {
+                            guid,
+                            new Place[]{
+                                    new PlaceGuid{ Name = "Paris " + guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+                                    new PlaceGuid{ Name = "Versailles " + guid, Location = new Coordinates2D(48.796964, 2.137456) },
+                                    new PlaceGuid{ Name = "Poissy " + guid, Location = new Coordinates2D(48.928860, 2.046889) }
+                            }
+                    },
+                    new object[]
+                    {
+                            guid,
+                            new Place[]{
+                                    new PlaceInt64{ Name = "Paris " + guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+                                    new PlaceInt64{ Name = "Versailles " + guid, Location = new Coordinates2D(48.796964, 2.137456) },
+                                    new PlaceInt64{ Name = "Poissy " + guid, Location = new Coordinates2D(48.928860, 2.046889) }
+                            }
+                    },
+                    new object[]
+                    {
+                            guid,
+                            new Place[]{
+                                    new PlaceObjectId{ Name = "Paris " + guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+                                    new PlaceObjectId{ Name = "Versailles " + guid, Location = new Coordinates2D(48.796964, 2.137456) },
+                                    new PlaceObjectId{ Name = "Poissy " + guid, Location = new Coordinates2D(48.928860, 2.046889) }
+                            }
+                    },
             };
         }
     }
