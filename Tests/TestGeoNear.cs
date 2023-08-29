@@ -61,7 +61,7 @@ public class GeoNearTest
     [DynamicData(nameof(PlaceData))]
     public async Task find_match_geo_method(string guid, Place[] places)
     {
-        await DB.Index<Place>()
+        await DB.Index(places[0])
           .Key(x => x.Location, KeyType.Geo2DSphere)
           .Option(x => x.Background = false)
           .CreateAsync();
