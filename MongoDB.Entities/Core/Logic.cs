@@ -14,7 +14,7 @@ internal static class Logic
         if (entity == null)
             throw new ArgumentException("The supplied entity cannot be null!");
 
-        var props = Cache<T>.UpdatableProps(entity);
+        var props = Cache<T>.Get(entity).UpdatableProps(entity);
 
         return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
     }
@@ -36,7 +36,7 @@ internal static class Logic
         if (!propNames.Any())
             throw new ArgumentException("Unable to get any properties from the members expression!");
 
-        var props = Cache<T>.UpdatableProps(entity);
+        var props = Cache<T>.Get(entity).UpdatableProps(entity);
 
         props = excludeMode ? props.Where(p => !propNames.Contains(p.Name)) : props.Where(p => propNames.Contains(p.Name));
 

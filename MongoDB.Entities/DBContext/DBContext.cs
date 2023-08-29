@@ -293,10 +293,11 @@ public partial class DBContext
 
     private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
     {
-        if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
+        var cacheT = Cache<T>.Get(typeof(T));
+        if (cacheT.ModifiedByProp != null && ModifiedBy is null)
         {
             throw new InvalidOperationException(
-                $"A value for [{Cache<T>.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{Cache<T>.CollectionName}]");
+                $"A value for [{cacheT.ModifiedByProp.Name}] must be specified when saving/updating entities of type [{cacheT.CollectionName}]");
         }
     }
 

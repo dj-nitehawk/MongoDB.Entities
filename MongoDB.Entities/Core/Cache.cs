@@ -12,45 +12,76 @@ using MongoDB.Bson;
 
 namespace MongoDB.Entities;
 
-internal static class Cache<T> where T : IEntity
+internal class Cache<T> where T : IEntity
 {
-    internal static string DBName { get; private set; } = null!;
-    internal static IMongoDatabase Database { get; private set; } = null!;
+    private static readonly IDictionary<string, Cache<T>> TCache = new Dictionary<string, Cache<T>>();
+    
+    internal string DBName { get; private set; } = null!;
+    internal IMongoDatabase Database { get; private set; } = null!;
 
-    internal static IMongoCollection<T> Collection { get; private set; } = null!;
-    internal static string CollectionName { get; private set; } = null!;
+    internal IMongoCollection<T> Collection { get; private set; } = null!;
+    internal string CollectionName { get; private set; } = null!;
 
-    internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
+    internal ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
 
-    internal static bool HasCreatedOn { get; private set; }
+    internal bool HasCreatedOn { get; private set; }
 
-    internal static bool HasModifiedOn { get; private set; }
-    internal static string ModifiedOnPropName { get; private set; } = null!;
-    internal static PropertyInfo? ModifiedByProp { get; private set; }
+    internal bool HasModifiedOn { get; private set; }
+    internal string ModifiedOnPropName { get; private set; } = null!;
+    internal PropertyInfo? ModifiedByProp { get; private set; }
 
-    internal static bool HasIgnoreIfDefaultProps { get; private set; }
+    internal bool HasIgnoreIfDefaultProps { get; private set; }
 
-    internal static PropertyInfo IdProp { get; private set; } = null!;
-    internal static string IdPropName { get; private set; } = null!;
-    internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
-    internal static Func<T, object?> IdSelector { get; private set; } = null!;
-    internal static Action<object, object?> IdSetter { get; private set; } = null!;
-    internal static Func<object, object?> IdGetter { get; private set; } = null!;
+    internal PropertyInfo IdProp { get; private set; } = null!;
+    internal string IdPropName { get; private set; } = null!;
+    internal Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
+    internal Func<T, object?> IdSelector { get; private set; } = null!;
+    internal Action<object, object?> IdSetter { get; private set; } = null!;
+    internal Func<object, object?> IdGetter { get; private set; } = null!;
 
-    private static PropertyInfo[] updatableProps = null!;
+    private PropertyInfo[] updatableProps = null!;
 
-    private static ProjectionDefinition<T> requiredPropsProjection = null!;
+    private ProjectionDefinition<T> requiredPropsProjection = null!;
 
-    static Cache()
+    // static Cache()
+    // {
+    //     Initialize();
+    //     DB.DefaultDbChanged += Initialize;
+    // }
+
+    private Cache(Type type)
     {
-        Initialize();
-        DB.DefaultDbChanged += Initialize;
+        Initialize(type);
     }
 
-    private static void Initialize()
+    /// <summary>
+    /// Gets the Cache object for a given IEntity instance.
+    /// </summary>
+    /// <param name="entity">Any class that implements IEntity</param>
+    internal static Cache<T> Get(T entity)
     {
-        var type = typeof(T);
+        return Get(entity.GetType());
+    }
 
+    internal static Cache<T> Get(Type type)
+    {
+        try
+        {
+            return TCache[type.FullName];
+        }
+        catch (KeyNotFoundException)
+        {
+            if (typeof(IEntity).IsAssignableFrom(type))
+            {
+                TCache[type.FullName] = new Cache<T>(type);
+                return TCache[type.FullName];
+            }
+            throw new InvalidOperationException($"Type {type.FullName} must be an IEntity and specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
+        }
+    }
+    
+    private void Initialize(Type type)
+    {
         var propertyInfo = type.GetIdPropertyInfo();
         if (propertyInfo != null)
         {
@@ -109,7 +140,7 @@ internal static class Cache<T> where T : IEntity
         }
     }
 
-    internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
+    internal IEnumerable<PropertyInfo> UpdatableProps(T entity)
     {
         return HasIgnoreIfDefaultProps
             ? updatableProps.Where(p =>
@@ -118,7 +149,7 @@ internal static class Cache<T> where T : IEntity
             : updatableProps;
     }
 
-    internal static ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
+    internal ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
     {
         if (userProjection == null)
             throw new InvalidOperationException("Please use .Project() method before .IncludeRequiredProps()");
@@ -162,4 +193,5 @@ internal static class Cache<T> where T : IEntity
         Expression conversion = Expression.Convert(property, typeof(object));
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
     }
+
 }

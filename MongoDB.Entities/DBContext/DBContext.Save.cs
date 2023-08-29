@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -192,23 +193,26 @@ public partial class DBContext
     private void SetModifiedBySingle<T>(T entity) where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
-        Cache<T>.ModifiedByProp?.SetValue(
+        var cacheT = Cache<T>.Get(typeof(T));
+        
+        cacheT.ModifiedByProp?.SetValue(
             entity,
-            BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+            BsonSerializer.Deserialize(ModifiedBy.ToBson(), cacheT.ModifiedByProp.PropertyType));
         //note: we can't use an IModifiedBy interface because the above line needs a concrete type
         //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.
     }
 
     private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
     {
-        if (Cache<T>.ModifiedByProp is null)
+        var cacheT = entities.Any()?Cache<T>.Get(entities.First()):Cache<T>.Get(typeof(T));
+        if (cacheT.ModifiedByProp is null)
             return;
 
         ThrowIfModifiedByIsEmpty<T>();
 
-        var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType);
+        var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), cacheT.ModifiedByProp.PropertyType);
 
         foreach (var e in entities)
-            Cache<T>.ModifiedByProp.SetValue(e, val);
+            cacheT.ModifiedByProp.SetValue(e, val);
     }
 }

@@ -86,7 +86,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Update<T> MatchID(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
+        return Match(f => f.Eq(Cache<T>.Get(typeof(T)).IdPropName, ID));
     }
 
     /// <summary>
@@ -250,7 +250,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="entity">The entity instance to read the property values from</param>
     public Update<T> ModifyWith(T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.Get(entity).HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity));
         return this;
     }
@@ -262,7 +262,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="entity">The entity instance to read the corresponding values from</param>
     public Update<T> ModifyOnly(Expression<Func<T, object?>> members, T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.Get(entity).HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
         return this;
     }
@@ -274,7 +274,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="entity">The entity instance to read the corresponding values from</param>
     public Update<T> ModifyExcept(Expression<Func<T, object?>> members, T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.Get(entity).HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
         return this;
     }
@@ -385,7 +385,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
         if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Get(typeof(T)).ModifiedOnPropName));
         onUpdateAction?.Invoke(this);
         models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
         {
@@ -426,7 +426,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
             if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
             if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
             if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.Get(typeof(T)).ModifiedOnPropName));
             onUpdateAction?.Invoke(this);
             return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
         }
@@ -442,7 +442,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
         if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
         if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-        if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+        if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.Get(typeof(T)).ModifiedOnPropName}': new Date() }} }}");
 
         return UpdateAsync(
             mergedFilter,
@@ -455,13 +455,13 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     private bool ShouldSetModDate()
     {
         //only set mod date by library if user hasn't done anything with the ModifiedOn property
-
+        var cacheT = Cache<T>.Get(typeof(T));
         return
-            Cache<T>.HasModifiedOn &&
+                cacheT.HasModifiedOn &&
             !defs.Any(d => d
                    .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
                    .ToString()
-                   .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
+                   .Contains($"\"{cacheT.ModifiedOnPropName}\""));
     }
 
     private Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)

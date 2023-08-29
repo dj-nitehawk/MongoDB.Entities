@@ -89,7 +89,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Find<T, TProjection> MatchID(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
+        return Match(f => f.Eq(Cache<T>.Get(typeof(T)).IdPropName, ID));
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Find<T, TProjection> Match(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
+        return Match(f => f.Eq(Cache<T>.Get(typeof(T)).IdPropName, ID));
     }
 
     /// <summary>
@@ -340,7 +340,7 @@ public class Find<T, TProjection> where T : IEntity
         if (typeof(T) != typeof(TProjection))
             throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
-        options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
+        options.Projection = Cache<T>.Get(typeof(T)).CombineWithRequiredProps(options.Projection);
         return this;
     }
 
@@ -411,7 +411,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     {
-        Project(b => b.Include(Cache<T>.IdExpression));
+        Project(b => b.Include(Cache<T>.Get(typeof(T)).IdExpression));
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);

@@ -43,7 +43,7 @@ public static partial class DB
                 : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
         }
 
-        var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
+        var filter = Builders<T>.Filter.In(Cache<T>.Get(typeof(T)).IdPropName, IDs);
 
         var delResTask =
                 session == null
@@ -156,14 +156,16 @@ public static partial class DB
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
+        var cacheT = Cache<T>.Get(typeof(T));
+        
         //workaround for the newly added implicit operator in driver which matches all strings as json filters
         var jsonFilter = filter as JsonFilterDefinition<T>;
         if (jsonFilter?.Json.StartsWith("{") is false)
-            filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
+            filter = Builders<T>.Filter.Eq(cacheT.IdExpression, jsonFilter.Json);
 
         var cursor = await new Find<T, object?>(session, null)
                            .Match(_ => filter)
-                           .Project(p => p.Include(Cache<T>.IdPropName))
+                           .Project(p => p.Include(cacheT.IdPropName))
                            .Option(o => o.BatchSize = deleteBatchSize)
                            .Option(o => o.Collation = collation)
                            .ExecuteCursorAsync(cancellation)
