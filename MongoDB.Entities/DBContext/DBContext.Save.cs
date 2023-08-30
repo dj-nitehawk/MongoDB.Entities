@@ -3,7 +3,6 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -193,7 +192,6 @@ public partial class DBContext
     private void SetModifiedBySingle<T>(T entity) where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
-        
         Cache<T>.ModifiedByProp?.SetValue(
             entity,
             BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));

@@ -410,8 +410,9 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     private bool ShouldSetModDate()
     {
         //only set mod date by library if user hasn't done anything with the ModifiedOn property
+
         return
-                Cache<T>.HasModifiedOn &&
+            Cache<T>.HasModifiedOn &&
             !defs.Any(d => d
                    .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
                    .ToString()

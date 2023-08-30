@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MongoDB.Entities;
+﻿namespace MongoDB.Entities;
 
 public static partial class DB
 {
