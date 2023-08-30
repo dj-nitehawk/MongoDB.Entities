@@ -127,7 +127,7 @@ public static partial class DB
     /// <typeparam name="T">The type of entity</typeparam>
     public static IMongoDatabase Database<T>() where T : IEntity
     {
-        return Cache<T>.Get(typeof(T)).Database;
+        return Cache<T>.Database;
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static string DatabaseName<T>() where T : IEntity
     {
-        return Cache<T>.Get(typeof(T)).DBName;
+        return Cache<T>.DBName;
     }
 
     /// <summary>

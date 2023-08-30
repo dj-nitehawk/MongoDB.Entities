@@ -29,8 +29,6 @@ public static partial class Extensions
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        var cacheT = entities.Any() ? Cache<T>.Get(entities.First()) : Cache<T>.Get(typeof(T));
-        
-        return DB.DeleteAsync<T>(entities.Select(cacheT.IdSelector), session, cancellation);
+        return DB.DeleteAsync<T>(entities.Select(Cache<T>.IdSelector), session, cancellation);
     }
 }

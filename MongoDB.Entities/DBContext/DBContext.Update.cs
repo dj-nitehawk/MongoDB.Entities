@@ -9,11 +9,10 @@ public partial class DBContext
     public Update<T> Update<T>() where T : IEntity
     {
         var cmd = new Update<T>(Session, globalFilters, OnBeforeUpdate<T>());
-        var cacheT = Cache<T>.Get(typeof(T));
-        if (cacheT.ModifiedByProp != null)
+        if (Cache<T>.ModifiedByProp != null)
         {
             ThrowIfModifiedByIsEmpty<T>();
-            cmd.Modify(b => b.Set(cacheT.ModifiedByProp.Name, ModifiedBy));
+            cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
         }
         return cmd;
     }
@@ -35,11 +34,10 @@ public partial class DBContext
     public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
     {
         var cmd = new UpdateAndGet<T, TProjection>(Session, globalFilters, OnBeforeUpdate<T>());
-        var cacheT = Cache<T>.Get(typeof(T));
-        if (cacheT.ModifiedByProp != null)
+        if (Cache<T>.ModifiedByProp != null)
         {
             ThrowIfModifiedByIsEmpty<T>();
-            cmd.Modify(b => b.Set(cacheT.ModifiedByProp.Name, ModifiedBy));
+            cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
         }
         return cmd;
     }

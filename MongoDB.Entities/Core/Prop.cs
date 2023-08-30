@@ -65,7 +65,7 @@ public static class Prop
     /// <typeparam name="T">The type of the entity to get the collection name of</typeparam>
     public static string Collection<T>() where T : IEntity
     {
-        return Cache<T>.Get(typeof(T)).CollectionName;
+        return Cache<T>.CollectionName;
     }
 
     /// <summary>

@@ -48,7 +48,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ChildID,
-                       Cache<TParent>.Get(typeof(TParent)).IdExpression,
+                       Cache<TParent>.IdExpression,
                        (_, p) => p)
                    .Distinct()
             : JoinQueryable(session, options)
@@ -56,7 +56,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
                    .Join(
                        DB.Queryable<TParent>(),
                        j => j.ParentID,
-                       Cache<TParent>.Get(typeof(TParent)).IdExpression,
+                       Cache<TParent>.IdExpression,
                        (_, p) => p)
                    .Distinct();
     }
@@ -115,14 +115,14 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ParentID,
-                       Cache<TChild>.Get(typeof(TChild)).IdExpression,
+                       Cache<TChild>.IdExpression,
                        (_, c) => c)
             : JoinQueryable(session, options)
                    .Where(j => Equals(j.ParentID, parent.GetId()))
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ChildID,
-                       Cache<TChild>.Get(typeof(TChild)).IdExpression,
+                       Cache<TChild>.IdExpression,
                        (_, c) => c);
     }
 

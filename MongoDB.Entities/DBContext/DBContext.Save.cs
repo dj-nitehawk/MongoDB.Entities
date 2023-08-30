@@ -193,26 +193,24 @@ public partial class DBContext
     private void SetModifiedBySingle<T>(T entity) where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
-        var cacheT = Cache<T>.Get(typeof(T));
         
-        cacheT.ModifiedByProp?.SetValue(
+        Cache<T>.ModifiedByProp?.SetValue(
             entity,
-            BsonSerializer.Deserialize(ModifiedBy.ToBson(), cacheT.ModifiedByProp.PropertyType));
+            BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
         //note: we can't use an IModifiedBy interface because the above line needs a concrete type
         //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.
     }
 
     private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
     {
-        var cacheT = entities.Any()?Cache<T>.Get(entities.First()):Cache<T>.Get(typeof(T));
-        if (cacheT.ModifiedByProp is null)
+        if (Cache<T>.ModifiedByProp is null)
             return;
 
         ThrowIfModifiedByIsEmpty<T>();
 
-        var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), cacheT.ModifiedByProp.PropertyType);
+        var val = BsonSerializer.Deserialize(ModifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType);
 
         foreach (var e in entities)
-            cacheT.ModifiedByProp.SetValue(e, val);
+            Cache<T>.ModifiedByProp.SetValue(e, val);
     }
 }

@@ -45,7 +45,7 @@ public class Replace<T> where T : IEntity
     /// <param name="ID">A unique IEntity ID</param>
     public Replace<T> MatchID(object? ID)
     {
-        return Match(f => f.Eq(Cache<T>.Get(typeof(T)).IdPropName, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
@@ -255,13 +255,12 @@ public class Replace<T> where T : IEntity
 
     private void SetModOnAndByValues()
     {
-        var cacheT = Cache<T>.Get(typeof(T));
-        if (cacheT.HasModifiedOn && entity != null) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        if (cacheT.ModifiedByProp != null && modifiedBy != null)
+        if (Cache<T>.HasModifiedOn && entity != null) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
         {
-            cacheT.ModifiedByProp.SetValue(
+            Cache<T>.ModifiedByProp.SetValue(
                 entity,
-                BsonSerializer.Deserialize(modifiedBy.ToBson(), cacheT.ModifiedByProp.PropertyType));
+                BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
         }
     }
 }

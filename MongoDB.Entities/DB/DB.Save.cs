@@ -23,7 +23,7 @@ public static partial class DB
     /// <param name="cancellation">And optional cancellation token</param>
     public static Task SaveAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        var filter = Builders<T>.Filter.Eq(Cache<T>.Get(entity).IdPropName, entity.GetId());
+        var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
         return PrepAndCheckIfInsert(entity)
             ? session == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)
@@ -204,9 +204,7 @@ public static partial class DB
     {
         entity.ThrowIfUnsaved();
 
-        var cacheT = Cache<T>.Get(entity);
-
-        var propsToUpdate = cacheT.UpdatableProps(entity);
+        var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
         IEnumerable<string> propsToPreserve = new string[0];
 
@@ -236,8 +234,8 @@ public static partial class DB
 
         foreach (var p in propsToUpdate)
         {
-            if (p.Name == cacheT.ModifiedOnPropName)
-                defs.Add(Builders<T>.Update.CurrentDate(cacheT.ModifiedOnPropName));
+            if (p.Name == Cache<T>.ModifiedOnPropName)
+                defs.Add(Builders<T>.Update.CurrentDate(Cache<T>.ModifiedOnPropName));
             else
                 defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
@@ -280,17 +278,15 @@ public static partial class DB
 
     private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
     {
-        var cacheT = Cache<T>.Get(entity);
-
         if (entity.GetId() == null || string.IsNullOrEmpty(entity.GetId()!.ToString()))
         {
             entity.SetId(entity.GenerateNewID());
-            if (cacheT.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
-            if (cacheT.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+            if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
+            if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             return true;
         }
 
-        if (cacheT.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         return false;
     }
 }

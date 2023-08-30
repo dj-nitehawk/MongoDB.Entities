@@ -7,7 +7,7 @@ namespace MongoDB.Entities.Tests;
 [Collection("PlaceObjectId")]
 public class PlaceObjectId : Place
 {
-  [BsonId, AsObjectId]
+  [BsonId]
   public ObjectId? Id { get; set; }
   public override object GenerateNewID()
     => ObjectId.GenerateNewId();

@@ -20,7 +20,7 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static IMongoCollection<T> Collection<T>() where T : IEntity
     {
-        return Cache<T>.Get(typeof(T)).Collection;
+        return Cache<T>.Collection;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static partial class DB
     /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
     public static string CollectionName<T>() where T : IEntity
     {
-        return Cache<T>.Get(typeof(T)).CollectionName;
+        return Cache<T>.CollectionName;
     }
 
     /// <summary>
@@ -43,10 +43,9 @@ public static partial class DB
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);
-        var cacheT = Cache<T>.Get(typeof(T));
         return session == null
-               ? cacheT.Collection.Database.CreateCollectionAsync(cacheT.CollectionName, opts, cancellation)
-               : cacheT.Collection.Database.CreateCollectionAsync(session, cacheT.CollectionName, opts, cancellation);
+               ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+               : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
     }
 
     /// <summary>
