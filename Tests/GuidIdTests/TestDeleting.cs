@@ -14,9 +14,9 @@ public class DeletingGuid
     [TestMethod]
     public async Task delete_by_id_removes_Guid_from_collectionAsync()
     {
-        var author1 = new AuthorGuid { Name = "auth1" };
-        var author2 = new AuthorGuid { Name = "auth2" };
-        var author3 = new AuthorGuid { Name = "auth3" };
+        var author1 = new AuthorUuid { Name = "auth1" };
+        var author2 = new AuthorUuid { Name = "auth2" };
+        var author3 = new AuthorUuid { Name = "auth3" };
 
         await new[] { author1, author2, author3 }.SaveAsync();
 
@@ -37,9 +37,9 @@ public class DeletingGuid
     [TestMethod]
     public async Task deleting_Guid_removes_all_refs_to_itselfAsync()
     {
-        var author = new AuthorGuid { Name = "author" };
-        var book1 = new BookGuid { Title = "derarti1" };
-        var book2 = new BookGuid { Title = "derarti2" };
+        var author = new AuthorUuid { Name = "author" };
+        var book1 = new BookUuid { Title = "derarti1" };
+        var book2 = new BookUuid { Title = "derarti2" };
 
         await book1.SaveAsync();
         await book2.SaveAsync();
@@ -61,11 +61,11 @@ public class DeletingGuid
     [TestMethod]
     public async Task deleteall_removes_Guid_and_refs_to_itselfAsync()
     {
-        var book = new BookGuid { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorGuid { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "ewtrcd2" }; await author2.SaveAsync();
+        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
+        var author1 = new AuthorUuid { Name = "ewtrcd1" }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "ewtrcd2" }; await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new AuthorGuid[] { author1, author2 });
+        book.OtherAuthors = (new AuthorUuid[] { author1, author2 });
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -75,8 +75,8 @@ public class DeletingGuid
     [TestMethod]
     public async Task deleting_a_one2many_ref_Guid_makes_parent_nullAsync()
     {
-        var book = new BookGuid { Title = "Test" }; await book.SaveAsync();
-        var author = new AuthorGuid { Name = "ewtrcd1" }; await author.SaveAsync();
+        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
+        var author = new AuthorUuid { Name = "ewtrcd1" }; await author.SaveAsync();
         book.MainAuthor = author.ToReference();
         await book.SaveAsync();
         await author.DeleteAsync();
@@ -86,12 +86,12 @@ public class DeletingGuid
     [TestMethod]
     public async Task delete_by_expression_deletes_all_matchesAsync()
     {
-        var author1 = new AuthorGuid { Name = "xxx" }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "xxx" }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = "xxx" }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "xxx" }; await author2.SaveAsync();
 
-        await DB.DeleteAsync<AuthorGuid>(x => x.Name == "xxx");
+        await DB.DeleteAsync<AuthorUuid>(x => x.Name == "xxx");
 
-        var count = await DB.Queryable<AuthorGuid>()
+        var count = await DB.Queryable<AuthorUuid>()
                       .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
@@ -140,16 +140,16 @@ public class DeletingGuid
     {
         var db = new MyDBGuid();
 
-        var a1 = new AuthorGuid { Age = 10 };
-        var a2 = new AuthorGuid { Age = 111 };
-        var a3 = new AuthorGuid { Age = 111 };
+        var a1 = new AuthorUuid { Age = 10 };
+        var a2 = new AuthorUuid { Age = 111 };
+        var a3 = new AuthorUuid { Age = 111 };
 
         await new[] { a1, a2, a3 }.SaveAsync();
 
         var IDs = new[] { a1.ID, a2.ID, a3.ID };
 
-        var res = await db.DeleteAsync<AuthorGuid>(IDs);
-        var notDeletedIDs = await DB.Find<AuthorGuid, string?>()
+        var res = await db.DeleteAsync<AuthorUuid>(IDs);
+        var notDeletedIDs = await DB.Find<AuthorUuid, string?>()
                                     .Match(a => IDs.Contains(a.ID))
                                     .Project(a => a.ID)
                                     .ExecuteAsync();

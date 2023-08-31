@@ -70,7 +70,7 @@ public class TemplatesGuid
                $match: { '<OtherAuthors.Name>': /<search_term>/is }
             }")
 
-        .Path<BookGuid>(b => b.OtherAuthors[0].Name)
+        .Path<BookUuid>(b => b.OtherAuthors[0].Name)
         .Tag("search_term", "Eckhart Tolle");
 
         const string expectation = @"
@@ -84,15 +84,15 @@ public class TemplatesGuid
     [TestMethod]
     public void tag_replacement_works_for_collection()
     {
-        var template = new Template<AuthorGuid>(@"
+        var template = new Template<AuthorUuid>(@"
             {
-               $match: { '<BookGuid>': /search_term/is }
+               $match: { '<BookUuid>': /search_term/is }
             }")
-        .Collection<BookGuid>();
+        .Collection<BookUuid>();
 
         const string expectation = @"
             {
-               $match: { 'BookGuid': /search_term/is }
+               $match: { 'BookUuid': /search_term/is }
             }";
 
         Assert.AreEqual(expectation.Trim(), template.RenderToString());
@@ -101,7 +101,7 @@ public class TemplatesGuid
     [TestMethod]
     public void tag_replacement_works_for_property()
     {
-        var template = new Template<BookGuid, AuthorGuid>(@"
+        var template = new Template<BookUuid, AuthorUuid>(@"
             {
                $match: { '<Name>': /search_term/is }
             }")
@@ -118,7 +118,7 @@ public class TemplatesGuid
     [TestMethod]
     public void tag_replacement_works_for_properties()
     {
-        var template = new Template<BookGuid, AuthorGuid>(@"
+        var template = new Template<BookUuid, AuthorUuid>(@"
             {
                $match: { 
                     '<Name>': /search_term/is ,
@@ -153,7 +153,7 @@ public class TemplatesGuid
                     '<ReviewList.Books.Review>: null'
                 }
             }")
-        .Paths<BookGuid>(b => new
+        .Paths<BookUuid>(b => new
         {
             b.OtherAuthors[0].Name,
             b.OtherAuthors[1].Age2,
@@ -176,11 +176,11 @@ public class TemplatesGuid
     public async Task tag_replacement_with_db_pipeline()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid, Age = 54 };
-        var author2 = new AuthorGuid { Name = guid, Age = 53 };
+        var author1 = new AuthorUuid { Name = guid, Age = 54 };
+        var author2 = new AuthorUuid { Name = guid, Age = 53 };
         await DB.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -212,11 +212,11 @@ public class TemplatesGuid
         var db = new MyDBGuid(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid, Age = 111 };
-        var author2 = new AuthorGuid { Name = guid, Age = 53 };
+        var author1 = new AuthorUuid { Name = guid, Age = 111 };
+        var author2 = new AuthorUuid { Name = guid, Age = 53 };
         await DB.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -242,11 +242,11 @@ public class TemplatesGuid
         var db = new MyDBGuid(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid, Age = 111 };
-        var author2 = new AuthorGuid { Name = guid, Age = 53 };
+        var author1 = new AuthorUuid { Name = guid, Age = 111 };
+        var author2 = new AuthorUuid { Name = guid, Age = 53 };
         await DB.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -272,11 +272,11 @@ public class TemplatesGuid
         var db = new MyDBTemplatesGuid(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid, Age = 111 };
-        var author2 = new AuthorGuid { Name = guid, Age = 53 };
+        var author1 = new AuthorUuid { Name = guid, Age = 111 };
+        var author2 = new AuthorUuid { Name = guid, Age = 53 };
         await DB.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -302,11 +302,11 @@ public class TemplatesGuid
         var db = new MyDBTemplatesGuid(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid, Age = 111 };
-        var author2 = new AuthorGuid { Name = guid, Age = 53 };
+        var author1 = new AuthorUuid { Name = guid, Age = 111 };
+        var author2 = new AuthorUuid { Name = guid, Age = 53 };
         await DB.SaveAsync(new[] { author1, author2 });
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
                 {
                   $match: { <Name>: '<author_name>' }
@@ -331,17 +331,17 @@ public class TemplatesGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        var author = new AuthorGuid { Name = guid };
+        var author = new AuthorUuid { Name = guid };
         await author.SaveAsync();
 
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = guid,
             MainAuthor = new(author)
         };
         await book.SaveAsync();
 
-        var pipeline = new Template<BookGuid, AuthorGuid>(@"
+        var pipeline = new Template<BookUuid, AuthorUuid>(@"
                 [
                     {
                         $match: { _id: <book_id> }
@@ -363,7 +363,7 @@ public class TemplatesGuid
                     }
                 ]"
         ).Tag("book_id", $"'{book.ID}'")
-         .Tag("author_collection", DB.Entity<AuthorGuid>().CollectionName())
+         .Tag("author_collection", DB.Entity<AuthorUuid>().CollectionName())
          .Path(b => b.MainAuthor.ID)
          .PathOfResult(a => a.Surname)
          .PathOfResult(a => a.Name);
@@ -379,7 +379,7 @@ public class TemplatesGuid
     [TestMethod]
     public void throws_when_template_not_a_stage_array()
     {
-        var pipeline = new Template<BookGuid>("{$match:{<Title>:'test'}}");
+        var pipeline = new Template<BookUuid>("{$match:{<Title>:'test'}}");
 
         Assert.ThrowsException<InvalidOperationException>(() => pipeline.AppendStage(""));
     }
@@ -387,7 +387,7 @@ public class TemplatesGuid
     [TestMethod]
     public void throws_when_added_stage_not_json_object()
     {
-        var pipeline = new Template<BookGuid>("[]");
+        var pipeline = new Template<BookUuid>("[]");
 
         Assert.ThrowsException<ArgumentException>(() => pipeline.AppendStage("bleh"));
     }
@@ -395,7 +395,7 @@ public class TemplatesGuid
     [TestMethod]
     public void appending_pipeline_stages()
     {
-        var pipeline = new Template<BookGuid>("[{$match:{<Title>:'test'}}]");
+        var pipeline = new Template<BookUuid>("[{$match:{<Title>:'test'}}]");
         pipeline.AppendStage("{$match:{<Title>:'test'}}");
         pipeline.Property(b => b.Title);
         var res = pipeline.RenderToString();
@@ -406,7 +406,7 @@ public class TemplatesGuid
     [TestMethod]
     public void appending_pipeline_stages_with_empty_pipeline()
     {
-        var pipeline = new Template<BookGuid>("[]");
+        var pipeline = new Template<BookUuid>("[]");
         pipeline.AppendStage("{$match:{<Title>:'test'}}");
         pipeline.AppendStage("{$match:{<Title>:'test'}}");
         pipeline.Property(b => b.Title);

@@ -14,16 +14,16 @@ public class CountingGuid
     {
         db = new MyDBGuid();
 
-        var list = new List<AuthorGuid>();
+        var list = new List<AuthorUuid>();
 
         for (int i = 1; i <= 25; i++)
         {
-            list.Add(new AuthorGuid { Name = guid, Age = 111 });
+            list.Add(new AuthorUuid { Name = guid, Age = 111 });
         }
 
         for (int i = 1; i <= 10; i++)
         {
-            list.Add(new AuthorGuid { Name = guid, Age = 222 });
+            list.Add(new AuthorUuid { Name = guid, Age = 222 });
         }
 
         return list.SaveAsync();
@@ -35,7 +35,7 @@ public class CountingGuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountEstimatedAsync<AuthorGuid>();
+        var count = await db.CountEstimatedAsync<AuthorUuid>();
 
         Assert.IsTrue(count > 0);
     }
@@ -46,7 +46,7 @@ public class CountingGuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorGuid>(a => a.Name == guid);
+        var count = await db.CountAsync<AuthorUuid>(a => a.Name == guid);
 
         Assert.AreEqual(25, count);
     }
@@ -57,7 +57,7 @@ public class CountingGuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorGuid>(a => a.Name == guid);
+        var count = await db.CountAsync<AuthorUuid>(a => a.Name == guid);
 
         Assert.AreEqual(25, count);
     }
@@ -68,7 +68,7 @@ public class CountingGuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DB.Filter<AuthorGuid>()
+        var filter = DB.Filter<AuthorUuid>()
                         .Eq(a => a.Name, guid);
 
         var count = await db.CountAsync(filter);
@@ -82,7 +82,7 @@ public class CountingGuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var count = await db.CountAsync<AuthorGuid>(b => b.Eq(a => a.Name, guid));
+        var count = await db.CountAsync<AuthorUuid>(b => b.Eq(a => a.Name, guid));
 
         Assert.AreEqual(25, count);
     }

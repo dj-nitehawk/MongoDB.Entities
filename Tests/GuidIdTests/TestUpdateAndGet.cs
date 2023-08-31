@@ -12,11 +12,11 @@ public class UpdateAndGetGuid
     public async Task updating_modifies_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorGuid { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
+        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorGuid, string>()
+        var res = await DB.UpdateAndGet<AuthorUuid, string>()
                     .Match(a => a.Surname == guid)
                     .Modify(a => a.Name, guid)
                     .Modify(a => a.Surname, author1.Name)
@@ -31,11 +31,11 @@ public class UpdateAndGetGuid
     public async Task update_by_def_builder_mods_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = "bumcda1", Surname = "surname1", Age = 1 }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "bumcda2", Surname = guid, Age = 1 }; await author2.SaveAsync();
-        var author3 = new AuthorGuid { Name = "bumcda3", Surname = guid, Age = 1 }; await author3.SaveAsync();
+        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1", Age = 1 }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid, Age = 1 }; await author2.SaveAsync();
+        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid, Age = 1 }; await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorGuid>()
+        var res = await DB.UpdateAndGet<AuthorUuid>()
                       .Match(a => a.Surname == guid)
                       .Modify(b => b.Inc(a => a.Age, 1))
                       .Modify(b => b.Set(a => a.Name, guid))
@@ -50,10 +50,10 @@ public class UpdateAndGetGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        var author = new AuthorGuid { Name = "uwput", Surname = guid, Age = 666 };
+        var author = new AuthorUuid { Name = "uwput", Surname = guid, Age = 666 };
         await author.SaveAsync();
 
-        var pipeline = new Template<AuthorGuid>(@"
+        var pipeline = new Template<AuthorUuid>(@"
             [
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
@@ -63,7 +63,7 @@ public class UpdateAndGetGuid
             .Path(a => a.Surname)
             .Path(a => a.Age);
 
-        var res = await DB.UpdateAndGet<AuthorGuid>()
+        var res = await DB.UpdateAndGet<AuthorUuid>()
                       .Match(a => a.ID == author.ID)
                       .WithPipeline(pipeline)
                       .ExecutePipelineAsync();
@@ -76,16 +76,16 @@ public class UpdateAndGetGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        var author = new AuthorGuid { Name = "uwapw", Surname = guid };
+        var author = new AuthorUuid { Name = "uwapw", Surname = guid };
         await author.SaveAsync();
 
-        var stage = new Template<AuthorGuid>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
+        var stage = new Template<AuthorUuid>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
             .Path(a => a.FullName)
             .Path(a => a.Name)
             .Path(a => a.Surname)
             .RenderToString();
 
-        var res = await DB.UpdateAndGet<AuthorGuid>()
+        var res = await DB.UpdateAndGet<AuthorUuid>()
                       .Match(a => a.ID == author.ID)
                       .WithPipelineStage(stage)
                       .ExecutePipelineAsync();
@@ -97,20 +97,20 @@ public class UpdateAndGetGuid
     public async Task update_with_array_filters_using_templates_work()
     {
         var guid = Guid.NewGuid().ToString();
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 123
                 },
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 123
                 },
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 100
                 },
@@ -118,7 +118,7 @@ public class UpdateAndGetGuid
         };
         await book.SaveAsync();
 
-        var filters = new Template<AuthorGuid>(@"
+        var filters = new Template<AuthorUuid>(@"
             [
                 { '<a.Age>': { $gte: <age> } },
                 { '<b.Name>': 'name' }
@@ -127,7 +127,7 @@ public class UpdateAndGetGuid
             .Tag("age", "120")
             .Elements(1, author => author.Name);
 
-        var update = new Template<BookGuid>(@"
+        var update = new Template<BookUuid>(@"
             { $set: { 
                 '<OtherAuthors.$[a].Age>': <age>,
                 '<OtherAuthors.$[b].Name>': '<value>'
@@ -138,7 +138,7 @@ public class UpdateAndGetGuid
             .Tag("age", "321")
             .Tag("value", "updated");
 
-        var res = await DB.UpdateAndGet<BookGuid>()
+        var res = await DB.UpdateAndGet<BookUuid>()
 
           .Match(b => b.ID == book.ID)
 
@@ -154,20 +154,20 @@ public class UpdateAndGetGuid
     public async Task update_with_array_filters_work()
     {
         var guid = Guid.NewGuid().ToString();
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 123
                 },
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 123
                 },
-                new AuthorGuid{
+                new AuthorUuid{
                     Name ="name",
                     Age = 100
                 },
@@ -175,19 +175,19 @@ public class UpdateAndGetGuid
         };
         await book.SaveAsync();
 
-        var arrFil = new Template<AuthorGuid>("{ '<a.Age>': { $gte: <age> } }")
+        var arrFil = new Template<AuthorUuid>("{ '<a.Age>': { $gte: <age> } }")
                             .Elements(0, author => author.Age)
                             .Tag("age", "120");
 
-        var prop1 = new Template<BookGuid>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
+        var prop1 = new Template<BookUuid>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
                             .PosFiltered(b => b.OtherAuthors[0].Age)
                             .Tag("age", "321")
                             .RenderToString();
 
-        var filt2 = Prop.Elements<AuthorGuid>(1, a => a.Name);
-        var prop2 = Prop.PosFiltered<BookGuid>(b => b.OtherAuthors[1].Name);
+        var filt2 = Prop.Elements<AuthorUuid>(1, a => a.Name);
+        var prop2 = Prop.PosFiltered<BookUuid>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.UpdateAndGet<BookGuid>()
+        var res = await DB.UpdateAndGet<BookUuid>()
 
           .Match(b => b.ID == book.ID)
 
@@ -205,7 +205,7 @@ public class UpdateAndGetGuid
     [TestMethod]
     public async Task next_sequential_number_for_entities()
     {
-        var book = new BookGuid();
+        var book = new BookUuid();
 
         var lastNum = await book.NextSequentialNumberAsync();
 
@@ -220,7 +220,7 @@ public class UpdateAndGetGuid
     {
         await DB.InitAsync("mongodb-entities-test-multi");
 
-        var book = new BookGuid();
+        var book = new BookUuid();
 
         var lastNum = await book.NextSequentialNumberAsync();
 
@@ -235,12 +235,12 @@ public class UpdateAndGetGuid
     {
         var db = new MyDBGuid();
 
-        var flower = new FlowerGuid { Name = "flower" };
+        var flower = new FlowerUuid { Name = "flower" };
         await db.SaveAsync(flower);
         Assert.AreEqual("God", flower.CreatedBy);
 
         var res = await db
-            .UpdateAndGet<FlowerGuid>()
+            .UpdateAndGet<FlowerUuid>()
             .MatchID(flower.Id)
             .ModifyWith(flower)
             .ExecuteAsync();

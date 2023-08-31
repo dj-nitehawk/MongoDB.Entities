@@ -16,7 +16,7 @@ public class SavingGuid
     [TestMethod]
     public async Task saving_new_document_returns_an_id()
     {
-        var book = new BookGuid { Title = "Test" };
+        var book = new BookUuid { Title = "Test" };
         await book.SaveAsync();
         var idEmpty = book.ID==null||book.ID==Guid.Empty.ToString();
         Assert.IsFalse(idEmpty);
@@ -25,7 +25,7 @@ public class SavingGuid
     [TestMethod]
     public async Task saved_book_has_correct_title()
     {
-        var book = new BookGuid { Title = "Test" };
+        var book = new BookUuid { Title = "Test" };
         await book.SaveAsync();
         var title = book.Queryable().Where(b => b.ID == book.ID).Select(b => b.Title).SingleOrDefault();
         Assert.AreEqual("Test", title);
@@ -36,10 +36,10 @@ public class SavingGuid
     {
         var db = new DBContext(modifiedBy: new());
 
-        var author = new AuthorGuid { Name = "test" };
+        var author = new AuthorUuid { Name = "test" };
         await db.InsertAsync(author);
 
-        var res = await db.Find<AuthorGuid>().MatchID(author.ID).ExecuteAnyAsync();
+        var res = await db.Find<AuthorUuid>().MatchID(author.ID).ExecuteAnyAsync();
 
         Assert.IsTrue(res);
     }
@@ -51,12 +51,12 @@ public class SavingGuid
 
         var db = new DBContext(modifiedBy: new());
 
-        var author1 = new AuthorGuid { Name = guid };
-        var author2 = new AuthorGuid { Name = guid };
+        var author1 = new AuthorUuid { Name = guid };
+        var author2 = new AuthorUuid { Name = guid };
 
         await db.InsertAsync(new[] { author1, author2 });
 
-        var res = await db.Find<AuthorGuid>()
+        var res = await db.Find<AuthorUuid>()
             .Match(a => a.Name == guid)
             .ExecuteAsync();
 
@@ -66,10 +66,10 @@ public class SavingGuid
     [TestMethod]
     public async Task created_on_property_works()
     {
-        var author = new AuthorGuid { Name = "test" };
+        var author = new AuthorUuid { Name = "test" };
         await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorGuid, DateTime>()
+        var res = (await DB.Find<AuthorUuid, DateTime>()
                     .Match(a => a.ID == author.ID)
                     .Project(a => a.CreatedOn)
                     .ExecuteAsync())
@@ -82,11 +82,11 @@ public class SavingGuid
     [TestMethod]
     public async Task save_partially_single_include()
     {
-        var book = new BookGuid { Title = "test book", Price = 100 };
+        var book = new BookUuid { Title = "test book", Price = 100 };
 
         await book.SaveOnlyAsync(b => new { b.Title });
 
-        var res = await DB.Find<BookGuid>().MatchID(book.ID).ExecuteSingleAsync();
+        var res = await DB.Find<BookUuid>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
@@ -95,7 +95,7 @@ public class SavingGuid
 
         await res.SaveOnlyAsync(b => new { b.Price });
 
-        res = await DB.Find<BookGuid>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await DB.Find<BookUuid>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(200, res!.Price);
     }
@@ -103,11 +103,11 @@ public class SavingGuid
     [TestMethod]
     public async Task save_partially_single_include_string()
     {
-        var book = new BookGuid { Title = "test book", Price = 100 };
+        var book = new BookUuid { Title = "test book", Price = 100 };
 
         await book.SaveOnlyAsync(new List<string> { "Title" });
 
-        var res = await DB.Find<BookGuid>().MatchID(book.ID).ExecuteSingleAsync();
+        var res = await DB.Find<BookUuid>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
@@ -116,7 +116,7 @@ public class SavingGuid
 
         await res.SaveOnlyAsync(new List<string> { "Price" });
 
-        res = await DB.Find<BookGuid>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await DB.Find<BookUuid>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(200, res!.Price);
     }
@@ -125,14 +125,14 @@ public class SavingGuid
     public async Task save_partially_batch_include()
     {
         var books = new[] {
-            new BookGuid{ Title = "one", Price = 100},
-            new BookGuid{ Title = "two", Price = 200}
+            new BookUuid{ Title = "one", Price = 100},
+            new BookUuid{ Title = "two", Price = 200}
         };
 
         await books.SaveOnlyAsync(b => new { b.Title });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookGuid>()
+        var res = await DB.Find<BookUuid>()
             .Match(b => ids.Contains(b.ID))
             .Sort(b => b.ID, Order.Ascending)
             .ExecuteAsync();
@@ -147,14 +147,14 @@ public class SavingGuid
     public async Task save_partially_batch_include_string()
     {
         var books = new[] {
-            new BookGuid{ Title = "one", Price = 100},
-            new BookGuid{ Title = "two", Price = 200}
+            new BookUuid{ Title = "one", Price = 100},
+            new BookUuid{ Title = "two", Price = 200}
         };
 
         await books.SaveOnlyAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookGuid>()
+        var res = await DB.Find<BookUuid>()
             .Match(b => ids.Contains(b.ID))
             .Sort(b => b.ID, Order.Ascending)
             .ExecuteAsync();
@@ -168,11 +168,11 @@ public class SavingGuid
     [TestMethod]
     public async Task save_partially_single_exclude()
     {
-        var book = new BookGuid { Title = "test book", Price = 100 };
+        var book = new BookUuid { Title = "test book", Price = 100 };
 
         await book.SaveExceptAsync(b => new { b.Title });
 
-        var res = await DB.Find<BookGuid>().MatchID(book.ID).ExecuteSingleAsync();
+        var res = await DB.Find<BookUuid>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
@@ -181,7 +181,7 @@ public class SavingGuid
 
         await res.SaveExceptAsync(b => new { b.Price });
 
-        res = await DB.Find<BookGuid>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await DB.Find<BookUuid>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual("updated", res!.Title);
     }
@@ -189,11 +189,11 @@ public class SavingGuid
     [TestMethod]
     public async Task save_partially_single_exclude_string()
     {
-        var book = new BookGuid { Title = "test book", Price = 100 };
+        var book = new BookUuid { Title = "test book", Price = 100 };
 
         await book.SaveExceptAsync(new List<string> { "Title" });
 
-        var res = await DB.Find<BookGuid>().MatchID(book.ID).ExecuteSingleAsync();
+        var res = await DB.Find<BookUuid>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
@@ -202,7 +202,7 @@ public class SavingGuid
 
         await res.SaveExceptAsync(new List<string> { "Price" });
 
-        res = await DB.Find<BookGuid>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await DB.Find<BookUuid>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual("updated", res!.Title);
     }
@@ -211,14 +211,14 @@ public class SavingGuid
     public async Task save_partially_batch_exclude()
     {
         var books = new[] {
-            new BookGuid{ Title = "one", Price = 100},
-            new BookGuid{ Title = "two", Price = 200}
+            new BookUuid{ Title = "one", Price = 100},
+            new BookUuid{ Title = "two", Price = 200}
         };
 
         await books.SaveExceptAsync(b => new { b.Title });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookGuid>()
+        var res = await DB.Find<BookUuid>()
             .Match(b => ids.Contains(b.ID))
             .Sort(b => b.ID, Order.Ascending)
             .ExecuteAsync();
@@ -233,14 +233,14 @@ public class SavingGuid
     public async Task save_partially_batch_exclude_string()
     {
         var books = new[] {
-            new BookGuid{ Title = "one", Price = 100},
-            new BookGuid{ Title = "two", Price = 200}
+            new BookUuid{ Title = "one", Price = 100},
+            new BookUuid{ Title = "two", Price = 200}
         };
 
         await books.SaveExceptAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookGuid>()
+        var res = await DB.Find<BookUuid>()
             .Match(b => ids.Contains(b.ID))
             .Sort(b => b.ID, Order.Ascending)
             .ExecuteAsync();
@@ -254,7 +254,7 @@ public class SavingGuid
     [TestMethod]
     public async Task save_preserving_upsert()
     {
-        var book = new BookGuid { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
+        var book = new BookUuid { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
 
         book.ID = (string)book.GenerateNewID();
         book.Title = "updated title";
@@ -262,7 +262,7 @@ public class SavingGuid
 
         await book.SavePreservingAsync();
 
-        book = await DB.Find<BookGuid>().OneAsync(book.ID);
+        book = await DB.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
@@ -272,7 +272,7 @@ public class SavingGuid
     [TestMethod]
     public async Task save_preserving()
     {
-        var book = new BookGuid { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
+        var book = new BookUuid { Title = "Original Title", Price = 123.45m, DontSaveThis = 111 };
         await book.SaveAsync();
 
         book.Title = "updated title";
@@ -280,7 +280,7 @@ public class SavingGuid
 
         await book.SavePreservingAsync();
 
-        book = await DB.Find<BookGuid>().OneAsync(book.ID);
+        book = await DB.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
@@ -290,7 +290,7 @@ public class SavingGuid
     [TestMethod]
     public async Task save_preserving_inverse_attribute()
     {
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "original", //dontpreserve
             Price = 100, //dontpreserve
@@ -306,7 +306,7 @@ public class SavingGuid
 
         await book.SavePreservingAsync();
 
-        var res = await DB.Find<BookGuid>().OneAsync(book.ID);
+        var res = await DB.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
@@ -317,7 +317,7 @@ public class SavingGuid
     [TestMethod]
     public async Task save_preserving_attribute()
     {
-        var author = new AuthorGuid
+        var author = new AuthorUuid
         {
             Age = 123,
             Name = "initial name",
@@ -335,7 +335,7 @@ public class SavingGuid
 
         await author.SavePreservingAsync();
 
-        var res = await DB.Find<AuthorGuid>().OneAsync(author.ID);
+        var res = await DB.Find<AuthorUuid>().OneAsync(author.ID);
 
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
@@ -348,10 +348,10 @@ public class SavingGuid
     [TestMethod]
     public async Task embedding_non_Guid_returns_correct_document()
     {
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "Test",
-            Review = new ReviewGuid { Stars = 5, Reviewer = "enercd" }
+            Review = new ReviewUuid { Stars = 5, Reviewer = "enercd" }
         };
         await book.SaveAsync();
         var res = book.Queryable()
@@ -364,8 +364,8 @@ public class SavingGuid
     [TestMethod]
     public async Task embedding_with_ToDocument_returns_correct_doc()
     {
-        var book = new BookGuid { Title = "Test" };
-        var author = new AuthorGuid { Name = "ewtdrcd" };
+        var book = new BookUuid { Title = "Test" };
+        var author = new AuthorUuid { Name = "ewtdrcd" };
         book.RelatedAuthor = author.ToDocument();
         await book.SaveAsync();
         var res = book.Queryable()
@@ -378,8 +378,8 @@ public class SavingGuid
     [TestMethod]
     public async Task embedding_with_ToDocument_returns_blank_id()
     {
-        var book = new BookGuid { Title = "Test" };
-        var author = new AuthorGuid { Name = "Test Author" };
+        var book = new BookUuid { Title = "Test" };
+        var author = new AuthorUuid { Name = "Test Author" };
         book.RelatedAuthor = author.ToDocument();
         await book.SaveAsync();
         var res = book.Queryable()
@@ -392,10 +392,10 @@ public class SavingGuid
     [TestMethod]
     public async Task embedding_with_ToDocuments_Arr_returns_correct_docs()
     {
-        var book = new BookGuid { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorGuid { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "ewtrcd2" }; await author2.SaveAsync();
-        book.OtherAuthors = (new AuthorGuid[] { author1, author2 }).ToDocuments();
+        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
+        var author1 = new AuthorUuid { Name = "ewtrcd1" }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "ewtrcd2" }; await author2.SaveAsync();
+        book.OtherAuthors = (new AuthorUuid[] { author1, author2 }).ToDocuments();
         await book.SaveAsync();
         var authors = book.Queryable()
                           .Where(b => b.ID == book.ID)
@@ -408,10 +408,10 @@ public class SavingGuid
     [TestMethod]
     public async Task embedding_with_ToDocuments_IEnumerable_returns_correct_docs()
     {
-        var book = new BookGuid { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorGuid { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = "ewtrcd2" }; await author2.SaveAsync();
-        var list = new List<AuthorGuid>() { author1, author2 };
+        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
+        var author1 = new AuthorUuid { Name = "ewtrcd1" }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "ewtrcd2" }; await author2.SaveAsync();
+        var list = new List<AuthorUuid>() { author1, author2 };
         book.OtherAuthors = list.ToDocuments().ToArray();
         await book.SaveAsync();
         var authors = book.Queryable()
@@ -430,12 +430,12 @@ public class SavingGuid
         var guid = Guid.NewGuid().ToString();
 
         await new[] {
-            new AuthorGuid { Name = guid, Age = 200},
-            new AuthorGuid { Name = guid, Age = 200},
-            new AuthorGuid { Name = guid, Age = 111},
+            new AuthorUuid { Name = guid, Age = 200},
+            new AuthorUuid { Name = guid, Age = 200},
+            new AuthorUuid { Name = guid, Age = 111},
         }.SaveAsync();
 
-        var res = await db.Find<AuthorGuid>()
+        var res = await db.Find<AuthorUuid>()
                     .Match(a => a.Name == guid)
                     .IgnoreGlobalFilters()
                     .ExecuteAsync();
@@ -451,12 +451,12 @@ public class SavingGuid
         var guid = Guid.NewGuid().ToString();
 
         await new[] {
-            new AuthorGuid { Name = guid, Age = 200},
-            new AuthorGuid { Name = guid, Age = 200},
-            new AuthorGuid { Name = guid, Age = 111},
+            new AuthorUuid { Name = guid, Age = 200},
+            new AuthorUuid { Name = guid, Age = 200},
+            new AuthorUuid { Name = guid, Age = 111},
         }.SaveAsync();
 
-        var res = await db.Queryable<AuthorGuid>()
+        var res = await db.Queryable<AuthorUuid>()
                     .Where(a => a.Name == guid)
                     .ToListAsync();
 
@@ -471,14 +471,14 @@ public class SavingGuid
         var db = new MyBaseEntityDB();
 
         var flowers = new[] {
-            new FlowerGuid{ Name = guid, CreatedBy = "xyz"},
-            new FlowerGuid{ Name = guid },
-            new FlowerGuid{ Name = guid }
+            new FlowerUuid{ Name = guid, CreatedBy = "xyz"},
+            new FlowerUuid{ Name = guid },
+            new FlowerUuid{ Name = guid }
         };
 
         await db.SaveAsync(flowers);
 
-        var res = await db.Find<FlowerGuid>().Match(f => f.Name == guid).ExecuteAsync();
+        var res = await db.Find<FlowerUuid>().Match(f => f.Name == guid).ExecuteAsync();
 
         Assert.AreEqual(1, res.Count);
     }
@@ -491,14 +491,14 @@ public class SavingGuid
         var guid = Guid.NewGuid().ToString();
 
         var flowers = new[] {
-            new FlowerGuid{ Name = guid, IsDeleted = true},
-            new FlowerGuid{ Name = guid },
-            new FlowerGuid{ Name = guid }
+            new FlowerUuid{ Name = guid, IsDeleted = true},
+            new FlowerUuid{ Name = guid },
+            new FlowerUuid{ Name = guid }
         };
 
         await db.SaveAsync(flowers);
 
-        var res = await db.Find<FlowerGuid>().Match(f => f.Name == guid).ExecuteAsync();
+        var res = await db.Find<FlowerUuid>().Match(f => f.Name == guid).ExecuteAsync();
 
         Assert.AreEqual(2, res.Count);
     }
@@ -507,10 +507,10 @@ public class SavingGuid
     public async Task find_by_lambda_returns_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = guid }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = guid }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = guid }; await author2.SaveAsync();
 
-        var res = await DB.Find<AuthorGuid>().ManyAsync(a => a.Name == guid);
+        var res = await DB.Find<AuthorUuid>().ManyAsync(a => a.Name == guid);
 
         Assert.AreEqual(2, res.Count);
     }
@@ -518,11 +518,11 @@ public class SavingGuid
     [TestMethod]
     public async Task find_by_id_returns_correct_document()
     {
-        var book1 = new BookGuid { Title = "fbircdb1" }; await book1.SaveAsync();
-        var book2 = new BookGuid { Title = "fbircdb2" }; await book2.SaveAsync();
+        var book1 = new BookUuid { Title = "fbircdb1" }; await book1.SaveAsync();
+        var book2 = new BookUuid { Title = "fbircdb2" }; await book2.SaveAsync();
 
-        var res1 = await DB.Find<BookGuid>().OneAsync(ObjectId.GenerateNewId());
-        var res2 = await DB.Find<BookGuid>().OneAsync(book2.ID);
+        var res1 = await DB.Find<BookUuid>().OneAsync(ObjectId.GenerateNewId());
+        var res2 = await DB.Find<BookUuid>().OneAsync(book2.ID);
 
         Assert.AreEqual(null, res1);
         Assert.AreEqual(book2.ID, res2!.ID);
@@ -532,10 +532,10 @@ public class SavingGuid
     public async Task find_by_filter_basic_returns_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = guid }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = guid }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = guid }; await author2.SaveAsync();
 
-        var res = await DB.Find<AuthorGuid>().ManyAsync(f => f.Eq(a => a.Name, guid));
+        var res = await DB.Find<AuthorUuid>().ManyAsync(f => f.Eq(a => a.Name, guid));
 
         Assert.AreEqual(2, res.Count);
     }
@@ -544,11 +544,11 @@ public class SavingGuid
     public async Task find_by_filter_single()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = guid }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = guid }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = guid }; await author2.SaveAsync();
 
         var res = await DB
-            .Find<AuthorGuid>()
+            .Find<AuthorUuid>()
             .Match(f => f.Eq(a => a.Name, guid))
             .ExecuteFirstAsync();
 
@@ -559,11 +559,11 @@ public class SavingGuid
     public async Task find_by_filter_any()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorGuid { Name = guid }; await author1.SaveAsync();
-        var author2 = new AuthorGuid { Name = guid }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = guid }; await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = guid }; await author2.SaveAsync();
 
         var res = await DB
-            .Find<AuthorGuid>()
+            .Find<AuthorUuid>()
             .Match(f => f.Eq(a => a.Name, guid))
             .ExecuteAnyAsync();
 
@@ -574,12 +574,12 @@ public class SavingGuid
     public async Task find_by_multiple_match_methods()
     {
         var guid = Guid.NewGuid().ToString();
-        var one = new AuthorGuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
-        var two = new AuthorGuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
-        var three = new AuthorGuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
-        var four = new AuthorGuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
+        var one = new AuthorUuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
+        var two = new AuthorUuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
+        var three = new AuthorUuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
+        var four = new AuthorUuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
 
-        var res = await DB.Find<AuthorGuid>()
+        var res = await DB.Find<AuthorUuid>()
                     .Match(a => a.Age > 10)
                     .Match(a => a.Surname == guid)
                     .ExecuteAsync();
@@ -592,12 +592,12 @@ public class SavingGuid
     public async Task find_by_filter_returns_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var one = new AuthorGuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
-        var two = new AuthorGuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
-        var three = new AuthorGuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
-        var four = new AuthorGuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
+        var one = new AuthorUuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
+        var two = new AuthorUuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
+        var three = new AuthorUuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
+        var four = new AuthorUuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
 
-        var res = await DB.Find<AuthorGuid>()
+        var res = await DB.Find<AuthorUuid>()
                     .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
                     .Sort(a => a.Age, Order.Descending)
                     .Sort(a => a.Name, Order.Descending)
@@ -615,12 +615,12 @@ public class SavingGuid
     public async Task find_with_projection_to_custom_type_works()
     {
         var guid = Guid.NewGuid().ToString();
-        var one = new AuthorGuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
-        var two = new AuthorGuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
-        var three = new AuthorGuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
-        var four = new AuthorGuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
+        var one = new AuthorUuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
+        var two = new AuthorUuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
+        var three = new AuthorUuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
+        var four = new AuthorUuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
 
-        var res = (await DB.Find<AuthorGuid, Test>()
+        var res = (await DB.Find<AuthorUuid, Test>()
                     .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
                     .Sort(a => a.Age, Order.Descending)
                     .Sort(a => a.Name, Order.Descending)
@@ -637,7 +637,7 @@ public class SavingGuid
     [TestMethod]
     public async Task find_with_exclusion_projection_works()
     {
-        var author = new AuthorGuid
+        var author = new AuthorUuid
         {
             Name = "name",
             Surname = "sername",
@@ -646,7 +646,7 @@ public class SavingGuid
         };
         await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorGuid>()
+        var res = (await DB.Find<AuthorUuid>()
                     .Match(a => a.ID == author.ID)
                     .ProjectExcluding(a => new { a.Age, a.Name })
                     .ExecuteAsync())
@@ -662,12 +662,12 @@ public class SavingGuid
     public async Task find_with_aggregation_pipeline_returns_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var one = new AuthorGuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
-        var two = new AuthorGuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
-        var three = new AuthorGuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
-        var four = new AuthorGuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
+        var one = new AuthorUuid { Name = "a", Age = 10, Surname = guid }; await one.SaveAsync();
+        var two = new AuthorUuid { Name = "b", Age = 20, Surname = guid }; await two.SaveAsync();
+        var three = new AuthorUuid { Name = "c", Age = 30, Surname = guid }; await three.SaveAsync();
+        var four = new AuthorUuid { Name = "d", Age = 40, Surname = guid }; await four.SaveAsync();
 
-        var res = await DB.Fluent<AuthorGuid>()
+        var res = await DB.Fluent<AuthorUuid>()
                     .Match(a => a.Surname == guid && a.Age > 10)
                     .SortByDescending(a => a.Age)
                     .ThenByDescending(a => a.Name)
@@ -683,9 +683,9 @@ public class SavingGuid
     public async Task find_with_aggregation_expression_works()
     {
         var guid = Guid.NewGuid().ToString();
-        var author = new AuthorGuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
+        var author = new AuthorUuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorGuid>()
+        var res = (await DB.Find<AuthorUuid>()
                     .MatchExpression("{$and:[{$gt:['$Age2','$Age']},{$eq:['$Surname','" + guid + "']}]}")
                     .ExecuteAsync())
                     .Single();
@@ -697,15 +697,15 @@ public class SavingGuid
     public async Task find_with_aggregation_expression_using_template_works()
     {
         var guid = Guid.NewGuid().ToString();
-        var author = new AuthorGuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
+        var author = new AuthorUuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
 
-        var template = new Template<AuthorGuid>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<guid>']}]}")
+        var template = new Template<AuthorUuid>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<guid>']}]}")
                 .Path(a => a.Age2)
                 .Path(a => a.Age)
                 .Path(a => a.Surname)
                 .Tag("guid", guid);
 
-        var res = (await DB.Find<AuthorGuid>()
+        var res = (await DB.Find<AuthorUuid>()
                     .MatchExpression(template)
                     .ExecuteAsync())
                     .Single();
@@ -717,9 +717,9 @@ public class SavingGuid
     public async Task find_fluent_with_aggregation_expression_works()
     {
         var guid = Guid.NewGuid().ToString();
-        var author = new AuthorGuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
+        var author = new AuthorUuid { Name = "a", Age = 10, Age2 = 11, Surname = guid }; await author.SaveAsync();
 
-        var res = await DB.Fluent<AuthorGuid>()
+        var res = await DB.Fluent<AuthorUuid>()
                     .Match(a => a.Surname == guid)
                     .MatchExpression("{$gt:['$Age2','$Age']}")
                     .SingleAsync();
@@ -730,7 +730,7 @@ public class SavingGuid
     [TestMethod]
     public async Task find_with_include_required_props()
     {
-        var review = new ReviewGuid
+        var review = new ReviewUuid
         {
             Stars = 5, //req
             Reviewer = "test", //req
@@ -738,9 +738,9 @@ public class SavingGuid
         };
         await review.SaveAsync();
 
-        var res = await DB.Find<ReviewGuid>()
+        var res = await DB.Find<ReviewUuid>()
                     .MatchID(review.Id)
-                    .Project(r => new ReviewGuid { Rating = r.Rating })
+                    .Project(r => new ReviewUuid { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteSingleAsync();
 
@@ -752,7 +752,7 @@ public class SavingGuid
     [TestMethod]
     public async Task update_and_get_with_include_required_props()
     {
-        var review = new ReviewGuid
+        var review = new ReviewUuid
         {
             Stars = 5, //req
             Reviewer = "test", //req
@@ -760,10 +760,10 @@ public class SavingGuid
         };
         await review.SaveAsync();
 
-        var res = await DB.UpdateAndGet<ReviewGuid>()
+        var res = await DB.UpdateAndGet<ReviewUuid>()
                     .MatchID(review.Id)
                     .Modify(r => r.Rating, 10)
-                    .Project(r => new ReviewGuid { Rating = r.Rating })
+                    .Project(r => new ReviewUuid { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
@@ -776,10 +776,10 @@ public class SavingGuid
     public async Task decimal_properties_work_correctly()
     {
         var guid = Guid.NewGuid().ToString();
-        var book1 = new BookGuid { Title = guid, Price = 100.123m }; await book1.SaveAsync();
-        var book2 = new BookGuid { Title = guid, Price = 100.123m }; await book2.SaveAsync();
+        var book1 = new BookUuid { Title = guid, Price = 100.123m }; await book1.SaveAsync();
+        var book2 = new BookUuid { Title = guid, Price = 100.123m }; await book2.SaveAsync();
 
-        var res = DB.Queryable<BookGuid>()
+        var res = DB.Queryable<BookUuid>()
                     .Where(b => b.Title == guid)
                     .GroupBy(b => b.Title)
                     .Select(g => new
@@ -794,13 +794,13 @@ public class SavingGuid
     [TestMethod]
     public async Task ignore_if_defaults_convention_works()
     {
-        var author = new AuthorGuid
+        var author = new AuthorUuid
         {
             Name = "test"
         };
         await author.SaveAsync();
 
-        var res = await DB.Find<AuthorGuid>().OneAsync(author.ID);
+        var res = await DB.Find<AuthorUuid>().OneAsync(author.ID);
 
         Assert.IsTrue(res!.Age == 0);
         Assert.IsTrue(res.Birthday == null);
@@ -823,13 +823,13 @@ public class SavingGuid
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var book = new BookGuid { Title = "ciuiar", Customer = customer.ToReference() };
+        var book = new BookUuid { Title = "ciuiar", Customer = customer.ToReference() };
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();
         Assert.AreEqual(res!.ID, customer.ID);
 
-        var cus = await DB.Queryable<BookGuid>()
+        var cus = await DB.Queryable<BookUuid>()
                           .Where(b => Equals(b.Customer.ID, customer.ID))
                           .Select(b => b.Customer)
                           .SingleOrDefaultAsync();

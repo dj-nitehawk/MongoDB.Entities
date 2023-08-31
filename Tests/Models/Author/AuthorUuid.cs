@@ -4,8 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
 
-[Collection("AuthorGuid")]
-public class AuthorGuid : Author
+[Collection("AuthorUuid")]
+public class AuthorUuid : Author
 {
   [BsonId]
   public string? ID { get; set; }
@@ -13,12 +13,12 @@ public class AuthorGuid : Author
       => Uuid7.NewUuid7().ToString();
   
   [BsonIgnoreIfDefault]
-  public One<BookGuid> BestSeller { get; set; }
+  public One<BookUuid> BestSeller { get; set; }
 
-  public Many<BookGuid, AuthorGuid> Books { get; set; }
+  public Many<BookUuid, AuthorUuid> Books { get; set; }
 
   [ObjectId]
   public string BookIDs { get; set; }
 
-  public AuthorGuid() => this.InitOneToMany(() => Books!);
+  public AuthorUuid() => this.InitOneToMany(() => Books!);
 }

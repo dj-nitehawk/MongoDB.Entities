@@ -4,8 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
 
-[Collection("GenreGuid")]
-public class GenreGuid : Genre
+[Collection("GenreUuid")]
+public class GenreUuid : Genre
 {
   [BsonId]
   public string? ID { get; set; }
@@ -13,8 +13,8 @@ public class GenreGuid : Genre
     => Uuid7.NewUuid7().ToString();
 
   [InverseSide]
-  public Many<BookGuid, GenreGuid> Books { get; set; }
+  public Many<BookUuid, GenreUuid> Books { get; set; }
 
-  public GenreGuid() => this.InitManyToMany(() => Books, b => b.Genres);
+  public GenreUuid() => this.InitManyToMany(() => Books, b => b.Genres);
 
 }

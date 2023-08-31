@@ -10,11 +10,11 @@ public class SortingGuid
     public void sorting_lists_by_levenshtein_distance_works()
     {
         var books = new[] {
-            new BookGuid { Title = "One", Review = new ReviewGuid { Fuzzy = new("one two three four five six seven") } },
-            new BookGuid { Title = "Two", Review = new ReviewGuid { Fuzzy = new("one two three four five six") } },
-            new BookGuid { Title = "Three", Review = new ReviewGuid { Fuzzy = new("one two three four five") } },
-            new BookGuid { Title = "Four", Review = new ReviewGuid { Fuzzy = new("one two three four") } },
-            new BookGuid { Title = "Five", Review = new ReviewGuid { Fuzzy = new("one two three") } }
+            new BookUuid { Title = "One", Review = new ReviewUuid { Fuzzy = new("one two three four five six seven") } },
+            new BookUuid { Title = "Two", Review = new ReviewUuid { Fuzzy = new("one two three four five six") } },
+            new BookUuid { Title = "Three", Review = new ReviewUuid { Fuzzy = new("one two three four five") } },
+            new BookUuid { Title = "Four", Review = new ReviewUuid { Fuzzy = new("one two three four") } },
+            new BookUuid { Title = "Five", Review = new ReviewUuid { Fuzzy = new("one two three") } }
         };
 
         var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!);
@@ -28,11 +28,11 @@ public class SortingGuid
     public void sorting_lists_by_levenshtein_distance_specify_max_distance()
     {
         var books = new[] {
-            new BookGuid { Title = "One", Review = new ReviewGuid { Fuzzy = new("one two three four five six seven") } },
-            new BookGuid { Title = "Two", Review = new ReviewGuid { Fuzzy = new("one two three four five six") } },
-            new BookGuid { Title = "Three", Review = new ReviewGuid { Fuzzy = new("one two three four five") } },
-            new BookGuid { Title = "Four", Review = new ReviewGuid { Fuzzy = new("one two three four") } },
-            new BookGuid { Title = "Five", Review = new ReviewGuid { Fuzzy = new("one two three") } }
+            new BookUuid { Title = "One", Review = new ReviewUuid { Fuzzy = new("one two three four five six seven") } },
+            new BookUuid { Title = "Two", Review = new ReviewUuid { Fuzzy = new("one two three four five six") } },
+            new BookUuid { Title = "Three", Review = new ReviewUuid { Fuzzy = new("one two three four five") } },
+            new BookUuid { Title = "Four", Review = new ReviewUuid { Fuzzy = new("one two three four") } },
+            new BookUuid { Title = "Five", Review = new ReviewUuid { Fuzzy = new("one two three") } }
         };
 
         var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!, 10).ToArray();

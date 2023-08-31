@@ -13,24 +13,24 @@ public class IndexesGuid
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()
     {
-        await DB.DropCollectionAsync<AuthorGuid>();
+        await DB.DropCollectionAsync<AuthorUuid>();
 
-        await DB.Index<AuthorGuid>()
+        await DB.Index<AuthorUuid>()
           .Option(o => o.Background = false)
           .Key(a => a.Name, KeyType.Text)
           .Key(a => a.Surname, KeyType.Text)
           .CreateAsync();
 
-        var author1 = new AuthorGuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
+        var author1 = new AuthorUuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
 
-        var author2 = new AuthorGuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
+        var author2 = new AuthorUuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author2.SaveAsync();
 
-        var res = DB.FluentTextSearch<AuthorGuid>(Search.Full, author1.Surname).ToList();
+        var res = DB.FluentTextSearch<AuthorUuid>(Search.Full, author1.Surname).ToList();
         Assert.AreEqual(author1.Surname, res[0].Surname);
 
-        var res2 = await DB.Find<AuthorGuid>()
+        var res2 = await DB.Find<AuthorUuid>()
                      .Match(Search.Full, author1.Surname)
                      .ExecuteAsync();
         Assert.AreEqual(author1.Surname, res2[0].Surname);
@@ -39,18 +39,18 @@ public class IndexesGuid
     [TestMethod]
     public async Task full_text_search_with_wilcard_text_index_works()
     {
-        await DB.Index<AuthorGuid>()
+        await DB.Index<AuthorUuid>()
           .Option(o => o.Background = false)
           .Key(a => a, KeyType.Text)
           .CreateAsync();
 
-        var author1 = new AuthorGuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
+        var author1 = new AuthorUuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author1.SaveAsync();
 
-        var author2 = new AuthorGuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
+        var author2 = new AuthorUuid { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author2.SaveAsync();
 
-        var res = await DB.FluentTextSearch<AuthorGuid>(Search.Full, author1.Surname).ToListAsync();
+        var res = await DB.FluentTextSearch<AuthorUuid>(Search.Full, author1.Surname).ToListAsync();
 
         Assert.AreEqual(author1.Surname, res[0].Surname);
     }
@@ -58,30 +58,30 @@ public class IndexesGuid
     [TestMethod]
     public async Task fuzzy_text_search_with_text_index_works()
     {
-        await DB.Index<BookGuid>()
+        await DB.Index<BookUuid>()
           .Option(o => o.Background = false)
           .Key(b => b.Review.Fuzzy, KeyType.Text)
           .Key(b => b.Title, KeyType.Text)
           .CreateAsync();
 
-        var b1 = new BookGuid { Title = "One", Review = new ReviewGuid { Fuzzy = new("Katherine Zeta Jones") } };
-        var b2 = new BookGuid { Title = "Two", Review = new ReviewGuid { Fuzzy = new("Katheryne Zeta Jones") } };
-        var b3 = new BookGuid { Title = "Three", Review = new ReviewGuid { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b4 = new BookGuid { Title = "Four", Review = new ReviewGuid { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b5 = new BookGuid { Title = "Five", Review = new ReviewGuid { Fuzzy = new("Katya Bykova Jhohanes") } };
-        var b6 = new BookGuid { Title = "Five", Review = new ReviewGuid { Fuzzy = " ".ToFuzzy() } };
+        var b1 = new BookUuid { Title = "One", Review = new ReviewUuid { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new BookUuid { Title = "Two", Review = new ReviewUuid { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new BookUuid { Title = "Three", Review = new ReviewUuid { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new BookUuid { Title = "Four", Review = new ReviewUuid { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new BookUuid { Title = "Five", Review = new ReviewUuid { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new BookUuid { Title = "Five", Review = new ReviewUuid { Fuzzy = " ".ToFuzzy() } };
 
         await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
-        var res = await DB.Find<BookGuid>()
+        var res = await DB.Find<BookUuid>()
                     .Match(Search.Fuzzy, "catherine jones")
-                    .Project(b => new BookGuid { ID = b.ID, Title = b.Title })
+                    .Project(b => new BookUuid { ID = b.ID, Title = b.Title })
                     .SortByTextScore()
                     .Skip(0)
                     .Limit(6)
                     .ExecuteAsync();
 
-        await DB.DeleteAsync<BookGuid>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+        await DB.DeleteAsync<BookUuid>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
         Assert.AreEqual(4, res.Count);
         Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
@@ -90,9 +90,9 @@ public class IndexesGuid
     [TestMethod]
     public async Task sort_by_meta_text_score_dont_retun_the_score()
     {
-        await DB.DropCollectionAsync<GenreGuid>();
+        await DB.DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreGuid>()
+        await DB.Index<GenreUuid>()
           .Key(g => g.Name, KeyType.Text)
           .Option(o => o.Background = false)
           .CreateAsync();
@@ -100,18 +100,18 @@ public class IndexesGuid
         var guid = Guid.NewGuid();
 
         var list = new[] {
-            new GenreGuid{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreGuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreGuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreGuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreGuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            new GenreUuid{ GuidID = guid, Position = 0, Name = "this should not match"},
+            new GenreUuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+            new GenreUuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+            new GenreUuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+            new GenreUuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
         };
 
         await list.SaveAsync();
 
-        var res = await DB.Find<GenreGuid>()
+        var res = await DB.Find<GenreUuid>()
                     .Match(Search.Full, "one eight nine")
-                    .Project(p => new GenreGuid { Name = p.Name, Position = p.Position })
+                    .Project(p => new GenreUuid { Name = p.Name, Position = p.Position })
                     .SortByTextScore()
                     .ExecuteAsync();
 
@@ -125,9 +125,9 @@ public class IndexesGuid
     [TestMethod]
     public async Task sort_by_meta_text_score_retun_the_score()
     {
-        await DB.DropCollectionAsync<GenreGuid>();
+        await DB.DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreGuid>()
+        await DB.Index<GenreUuid>()
           .Key(g => g.Name, KeyType.Text)
           .Option(o => o.Background = false)
           .CreateAsync();
@@ -135,16 +135,16 @@ public class IndexesGuid
         var guid = Guid.NewGuid();
 
         var list = new[] {
-            new GenreGuid{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreGuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreGuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreGuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreGuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            new GenreUuid{ GuidID = guid, Position = 0, Name = "this should not match"},
+            new GenreUuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+            new GenreUuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+            new GenreUuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+            new GenreUuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
         };
 
         await list.SaveAsync();
 
-        var res = await DB.Find<GenreGuid>()
+        var res = await DB.Find<GenreUuid>()
                     .Match(Search.Full, "one eight nine")
                     .SortByTextScore(g => g.SortScore)
                     .Sort(g => g.Position, Order.Ascending)
@@ -161,29 +161,29 @@ public class IndexesGuid
     [TestMethod]
     public async Task creating_compound_index_works()
     {
-        await DB.Index<BookGuid>()
+        await DB.Index<BookUuid>()
           .Key(x => x.Genres, KeyType.Geo2D)
           .Key(x => x.Title, KeyType.Descending)
           .Key(x => x.ModifiedOn, KeyType.Descending)
           .Option(o => o.Background = true)
           .CreateAsync();
 
-        await DB.Index<BookGuid>()
+        await DB.Index<BookUuid>()
           .Key(x => x.Genres, KeyType.Geo2D)
           .Key(x => x.Title, KeyType.Descending)
           .Key(x => x.ModifiedOn, KeyType.Ascending)
           .Option(o => o.Background = true)
           .CreateAsync();
 
-        await DB.Index<AuthorGuid>()
+        await DB.Index<AuthorUuid>()
           .Key(x => x.Age, KeyType.Hashed)
           .CreateAsync();
 
-        await DB.Index<AuthorGuid>()
+        await DB.Index<AuthorUuid>()
             .Key(x => x.Age, KeyType.Ascending)
             .CreateAsync();
 
-        await DB.Index<AuthorGuid>()
+        await DB.Index<AuthorUuid>()
             .Key(x => x.Age, KeyType.Descending)
             .CreateAsync();
     }

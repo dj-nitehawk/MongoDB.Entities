@@ -15,7 +15,7 @@ public class PagedSearchGuid
         var guid = Guid.Empty.ToString();
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<BookGuid>()
+            .PagedSearch<BookUuid>()
             .Match(b => b.ID == guid)
             .Sort(b => b.ID, Order.Ascending)
             .PageNumber(1)
@@ -28,11 +28,11 @@ public class PagedSearchGuid
 
     private static Task SeedData(string guid)
     {
-        var list = new List<BookGuid>(10);
+        var list = new List<BookUuid>(10);
 
         for (int i = 1; i <= 10; i++)
         {
-            list.Add(new BookGuid { Title = guid });
+            list.Add(new BookUuid { Title = guid });
         }
 
         return list.SaveAsync();
@@ -46,7 +46,7 @@ public class PagedSearchGuid
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<BookGuid>()
+            .PagedSearch<BookUuid>()
             .Match(b => b.Title == guid)
             .Sort(b => b.ID, Order.Ascending)
             .PageNumber(2)
@@ -65,7 +65,7 @@ public class PagedSearchGuid
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<BookGuid>()
+            .PagedSearch<BookUuid>()
             .Match(b => b.Title == guid)
             .Sort(b => b.ID, Order.Ascending)
             .PageNumber(1)
@@ -83,11 +83,11 @@ public class PagedSearchGuid
 
         await SeedData(guid);
 
-        var pipeline = DB.Fluent<BookGuid>()
+        var pipeline = DB.Fluent<BookUuid>()
                          .Match(b => b.Title == guid);
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<BookGuid>()
+            .PagedSearch<BookUuid>()
             .WithFluent(pipeline)
             .Sort(b => b.ID, Order.Ascending)
             .PageNumber(2)
@@ -112,7 +112,7 @@ public class PagedSearchGuid
         await SeedData(guid);
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<BookGuid, BookResult>()
+            .PagedSearch<BookUuid, BookResult>()
             .Match(b => b.Title == guid)
             .Sort(b => b.ID, Order.Ascending)
             .Project(b => new BookResult { BookID = b.ID, BookTitle = b.Title })
@@ -124,9 +124,9 @@ public class PagedSearchGuid
     [TestMethod]
     public async Task sort_by_meta_text_score_with_projection()
     {
-        await DB.DropCollectionAsync<GenreGuid>();
+        await DB.DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreGuid>()
+        await DB.Index<GenreUuid>()
           .Key(g => g.Name, KeyType.Text)
           .Option(o => o.Background = false)
           .CreateAsync();
@@ -134,19 +134,19 @@ public class PagedSearchGuid
         var guid = Guid.NewGuid();
 
         var list = new[] {
-            new GenreGuid{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreGuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreGuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreGuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreGuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            new GenreUuid{ GuidID = guid, Position = 0, Name = "this should not match"},
+            new GenreUuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+            new GenreUuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+            new GenreUuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+            new GenreUuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
         };
 
         await list.SaveAsync();
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<GenreGuid>()
+            .PagedSearch<GenreUuid>()
             .Match(Search.Full, "one eight nine")
-            .Project(p => new GenreGuid { Name = p.Name, Position = p.Position })
+            .Project(p => new GenreUuid { Name = p.Name, Position = p.Position })
             .SortByTextScore()
             .ExecuteAsync();
 
@@ -158,9 +158,9 @@ public class PagedSearchGuid
     [TestMethod]
     public async Task sort_by_meta_text_score_no_projection()
     {
-        await DB.DropCollectionAsync<GenreGuid>();
+        await DB.DropCollectionAsync<GenreUuid>();
 
-        await DB.Index<GenreGuid>()
+        await DB.Index<GenreUuid>()
           .Key(g => g.Name, KeyType.Text)
           .Option(o => o.Background = false)
           .CreateAsync();
@@ -168,17 +168,17 @@ public class PagedSearchGuid
         var guid = Guid.NewGuid();
 
         var list = new[] {
-            new GenreGuid{ GuidID = guid, Position = 0, Name = "this should not match"},
-            new GenreGuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
-            new GenreGuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
-            new GenreGuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
-            new GenreGuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
+            new GenreUuid{ GuidID = guid, Position = 0, Name = "this should not match"},
+            new GenreUuid{ GuidID = guid, Position = 3, Name = "one two three four five six"},
+            new GenreUuid{ GuidID = guid, Position = 4, Name = "one two three four five six seven"},
+            new GenreUuid{ GuidID = guid, Position = 2, Name = "one two three four five six seven eight"},
+            new GenreUuid{ GuidID = guid, Position = 1, Name = "one two three four five six seven eight nine"}
         };
 
         await list.SaveAsync();
 
         var (Results, _, PageCount) = await DB
-            .PagedSearch<GenreGuid>()
+            .PagedSearch<GenreUuid>()
             .Match(Search.Full, "one eight nine")
             .SortByTextScore()
             .ExecuteAsync();
@@ -191,7 +191,7 @@ public class PagedSearchGuid
     [TestMethod]
     public async Task exclusion_projection_works()
     {
-        var author = new AuthorGuid
+        var author = new AuthorUuid
         {
             Name = "name",
             Surname = "sername",
@@ -200,7 +200,7 @@ public class PagedSearchGuid
         };
         await author.SaveAsync();
 
-        var (res, _, _) = await DB.PagedSearch<AuthorGuid>()
+        var (res, _, _) = await DB.PagedSearch<AuthorUuid>()
                     .Match(a => a.ID == author.ID)
                     .Sort(a => a.ID, Order.Ascending)
                     .ProjectExcluding(a => new { a.Age, a.Name })

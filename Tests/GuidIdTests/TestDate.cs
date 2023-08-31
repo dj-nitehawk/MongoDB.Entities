@@ -13,10 +13,10 @@ public class DatesGuid
     [TestMethod]
     public async Task not_setting_date_doesnt_cause_issuesAsync()
     {
-        var book = new BookGuid { Title = "nsddci" };
+        var book = new BookUuid { Title = "nsddci" };
         await book.SaveAsync();
 
-        var res = await DB.Find<BookGuid>().OneAsync(book.ID);
+        var res = await DB.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.Title, book.Title);
         Assert.IsNull(res.PublishedOn);
@@ -27,14 +27,14 @@ public class DatesGuid
     {
         var pubDate = DateTime.UtcNow;
 
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "dpccv",
             PublishedOn = pubDate.ToDate()
         };
         await book.SaveAsync();
 
-        var res = await DB.Find<BookGuid>().OneAsync(book.ID);
+        var res = await DB.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual(pubDate.Ticks, res!.PublishedOn!.Ticks);
         Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
@@ -45,13 +45,13 @@ public class DatesGuid
     [TestMethod]
     public async Task querying_on_ticks_when_null()
     {
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "qotwn",
         };
         await book.SaveAsync();
 
-        var res = await DB.Queryable<BookGuid>()
+        var res = await DB.Queryable<BookUuid>()
                     .Where(b => b.ID == book.ID && b.PublishedOn!.Ticks > 0)
                     .SingleOrDefaultAsync();
 
@@ -63,21 +63,21 @@ public class DatesGuid
     {
         var pubDate = DateTime.UtcNow;
 
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "qotw",
             PublishedOn = new(pubDate)
         };
         await book.SaveAsync();
 
-        var res = (await DB.Find<BookGuid>()
+        var res = (await DB.Find<BookUuid>()
                     .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
                     .ExecuteAsync())
                     .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await DB.Find<BookGuid>()
+        res = (await DB.Find<BookUuid>()
                 .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
                 .ExecuteAsync())
                 .Single();
@@ -90,21 +90,21 @@ public class DatesGuid
     {
         var pubDate = DateTime.UtcNow;
 
-        var book = new BookGuid
+        var book = new BookUuid
         {
             Title = "qodtpw",
             PublishedOn = new(pubDate)
         };
         await book.SaveAsync();
 
-        var res = (await DB.Find<BookGuid>()
+        var res = (await DB.Find<BookUuid>()
         .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
         .ExecuteAsync())
         .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await DB.Find<BookGuid>()
+        res = (await DB.Find<BookUuid>()
                 .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
                 .ExecuteAsync())
                 .Single();

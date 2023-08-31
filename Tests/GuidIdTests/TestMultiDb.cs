@@ -137,10 +137,10 @@ public class MultiDbGuid
     {
         var db = new DBContext(dbName, "localhost", modifiedBy: new());
 
-        var author = new AuthorGuid { Name = "test" };
+        var author = new AuthorUuid { Name = "test" };
         await db.SaveAsync(author);
 
-        var res = await db.Find<AuthorGuid>().OneAsync(author.ID);
+        var res = await db.Find<AuthorUuid>().OneAsync(author.ID);
 
         Assert.AreEqual(author.ID, res!.ID);
     }

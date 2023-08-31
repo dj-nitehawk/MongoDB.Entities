@@ -13,9 +13,9 @@ public class FuzzyStringTestGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookGuid { Title = "fstsarw", Review = new ReviewGuid { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
+        await new BookUuid { Title = "fstsarw", Review = new ReviewUuid { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
-        var res = await DB.Queryable<BookGuid>()
+        var res = await DB.Queryable<BookUuid>()
                     .Where(b => b.Review.Fuzzy!.Value == guid)
                     .SingleAsync();
 
@@ -27,9 +27,9 @@ public class FuzzyStringTestGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookGuid { Title = guid, Review = new ReviewGuid { Fuzzy = null } }.SaveAsync();
+        await new BookUuid { Title = guid, Review = new ReviewUuid { Fuzzy = null } }.SaveAsync();
 
-        var res = await DB.Queryable<BookGuid>()
+        var res = await DB.Queryable<BookUuid>()
                     .Where(b => b.Title == guid)
                     .SingleAsync();
 

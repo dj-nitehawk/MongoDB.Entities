@@ -13,8 +13,8 @@ public class WatcherGuid
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Watcher<FlowerGuid>("test");
-        var allFlowers = new List<FlowerGuid>();
+        var watcher = DB.Watcher<FlowerUuid>("test");
+        var allFlowers = new List<FlowerUuid>();
 
         watcher.Start(
             EventType.Created | EventType.Updated,
@@ -26,12 +26,12 @@ public class WatcherGuid
             allFlowers.AddRange;
 
         await new[] {
-            new FlowerGuid { Name = "test" },
-            new FlowerGuid { Name = "test" },
-            new FlowerGuid { Name = "test" }
+            new FlowerUuid { Name = "test" },
+            new FlowerUuid { Name = "test" },
+            new FlowerUuid { Name = "test" }
         }.SaveAsync();
 
-        var flower = new FlowerGuid { Name = "test" };
+        var flower = new FlowerUuid { Name = "test" };
         await flower.SaveAsync();
 
         await flower.DeleteAsync();
@@ -44,12 +44,12 @@ public class WatcherGuid
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var watcher = DB.Watcher<FlowerGuid>("test-with-projection");
-        var allFlowers = new List<FlowerGuid>();
+        var watcher = DB.Watcher<FlowerUuid>("test-with-projection");
+        var allFlowers = new List<FlowerUuid>();
 
         watcher.Start(
             EventType.Created | EventType.Updated,
-            f => new FlowerGuid { Color = f.Color, NestedFlower = f.NestedFlower },
+            f => new FlowerUuid { Color = f.Color, NestedFlower = f.NestedFlower },
             f => f.FullDocument.Color == "red");
 
         await Task.Delay(500);
@@ -61,12 +61,12 @@ public class WatcherGuid
         };
 
         await new[] {
-            new FlowerGuid { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
-            new FlowerGuid { Name = "test", Color = "red" },
-            new FlowerGuid { Name = "test", Color = "red" }
+            new FlowerUuid { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
+            new FlowerUuid { Name = "test", Color = "red" },
+            new FlowerUuid { Name = "test", Color = "red" }
         }.SaveAsync();
 
-        var flower = new FlowerGuid { Name = "test" };
+        var flower = new FlowerUuid { Name = "test" };
         await flower.SaveAsync();
 
         await flower.DeleteAsync();
@@ -85,8 +85,8 @@ public class WatcherGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerGuid>("test-with-filter-builders");
-        var allFlowers = new List<FlowerGuid>();
+        var watcher = DB.Watcher<FlowerUuid>("test-with-filter-builders");
+        var allFlowers = new List<FlowerUuid>();
 
         watcher.Start(
             EventType.Created | EventType.Updated,
@@ -98,12 +98,12 @@ public class WatcherGuid
             allFlowers.AddRange;
 
         await new[] {
-            new FlowerGuid { Name = guid },
-            new FlowerGuid { Name = guid },
-            new FlowerGuid { Name = guid }
+            new FlowerUuid { Name = guid },
+            new FlowerUuid { Name = guid },
+            new FlowerUuid { Name = guid }
         }.SaveAsync();
 
-        var flower = new FlowerGuid { Name = guid };
+        var flower = new FlowerUuid { Name = guid };
         await flower.SaveAsync();
 
         await flower.DeleteAsync();
@@ -118,8 +118,8 @@ public class WatcherGuid
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerGuid>("test-with-filter-builders-csd");
-        var allFlowers = new List<FlowerGuid>();
+        var watcher = DB.Watcher<FlowerUuid>("test-with-filter-builders-csd");
+        var allFlowers = new List<FlowerUuid>();
 
         watcher.Start(
             EventType.Created | EventType.Updated,
@@ -134,13 +134,13 @@ public class WatcherGuid
         };
 
         await new[] {
-            new FlowerGuid { Name = guid },
-            new FlowerGuid { Name = "exclude me" },
-            new FlowerGuid { Name = guid },
-            new FlowerGuid { Name = guid },
+            new FlowerUuid { Name = guid },
+            new FlowerUuid { Name = "exclude me" },
+            new FlowerUuid { Name = guid },
+            new FlowerUuid { Name = guid },
         }.SaveAsync();
 
-        var flower = new FlowerGuid { Name = guid };
+        var flower = new FlowerUuid { Name = guid };
         await flower.SaveAsync();
 
         await flower.DeleteAsync();

@@ -17,13 +17,13 @@ public class DistinctGuid
         var guids = new[] { guid1, guid2 };
 
         await new[] {
-            new AuthorGuid{ Name = guid1 },
-            new AuthorGuid{ Name = guid1 },
-            new AuthorGuid{ Name = guid2 },
-            new AuthorGuid{ Name = guid2 },
+            new AuthorUuid{ Name = guid1 },
+            new AuthorUuid{ Name = guid1 },
+            new AuthorUuid{ Name = guid2 },
+            new AuthorUuid{ Name = guid2 },
         }.SaveAsync();
 
-        var res = await DB.Distinct<AuthorGuid, string>()
+        var res = await DB.Distinct<AuthorUuid, string>()
             .Match(a => guids.Contains(a.Name))
             .Property(a => a.Name)
             .ExecuteAsync();

@@ -30,7 +30,7 @@ public class DefaultDatabaseChangingGuid
 
         DB.ChangeDefaultDatabase("test2");
 
-        var bookDb = DB.Database<BookGuid>();
+        var bookDb = DB.Database<BookUuid>();
 
         Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
 
@@ -43,11 +43,11 @@ public class DefaultDatabaseChangingGuid
         await DB.InitAsync("test1");
 
         var defaultDb = DB.Database(default);
-        var defaultDbName = DB.DatabaseName<AuthorGuid>();
+        var defaultDbName = DB.DatabaseName<AuthorUuid>();
 
         DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DB.Database<BookGuid>();
+        var bookDb = DB.Database<BookUuid>();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

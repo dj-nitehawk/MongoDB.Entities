@@ -13,7 +13,7 @@ public class ModifiedByGuid
     {
         var db = new DBContext();
         await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-            async () => await db.SaveAsync(new AuthorGuid()));
+            async () => await db.SaveAsync(new AuthorUuid()));
     }
 
     [TestMethod]
@@ -28,10 +28,10 @@ public class ModifiedByGuid
                 UserName = "TestUser"
             });
 
-        var author = new AuthorGuid();
+        var author = new AuthorUuid();
         await db.SaveAsync(author);
 
-        var res = await db.Find<AuthorGuid>().OneAsync(author.ID);
+        var res = await db.Find<AuthorUuid>().OneAsync(author.ID);
 
         Assert.AreEqual(res!.UpdatedBy.UserID, userID);
         Assert.AreEqual(res.UpdatedBy.UserName, "TestUser");
@@ -50,10 +50,10 @@ public class ModifiedByGuid
                 UserType = "TEST"
             });
 
-        var author = new BookGuid();
+        var author = new BookUuid();
         await db.SaveAsync(author);
 
-        var res = await db.Find<BookGuid>().OneAsync(author.ID)!;
+        var res = await db.Find<BookUuid>().OneAsync(author.ID)!;
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
@@ -71,7 +71,7 @@ public class ModifiedByGuid
                 UserName = "TestUser",
                 UserType = "TEST"
             });
-        var book = new BookGuid();
+        var book = new BookUuid();
         await db.SaveAsync(book);
 
         userID = ObjectId.GenerateNewId().ToString();
@@ -85,12 +85,12 @@ public class ModifiedByGuid
         book.Title = "TEST().BOOK";
 
         await db
-            .Replace<BookGuid>()
+            .Replace<BookUuid>()
             .MatchID(book.ID)
             .WithEntity(book)
             .ExecuteAsync();
 
-        var res = await db.Find<BookGuid>().OneAsync(book.ID)!;
+        var res = await db.Find<BookUuid>().OneAsync(book.ID)!;
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
@@ -109,7 +109,7 @@ public class ModifiedByGuid
                 UserName = "TestUser",
                 UserType = "TEST"
             });
-        var book = new BookGuid();
+        var book = new BookUuid();
         await db.SaveAsync(book);
 
         userID = ObjectId.GenerateNewId().ToString();
@@ -120,12 +120,12 @@ public class ModifiedByGuid
             UserType = "TEST-UPDATED"
         };
         await db
-            .Update<BookGuid>()
+            .Update<BookUuid>()
             .MatchID(book.ID)
             .Modify(b => b.Title, "TEST().BOOK")
             .ExecuteAsync();
 
-        var res = await db.Find<BookGuid>().OneAsync(book.ID);
+        var res = await db.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
@@ -144,7 +144,7 @@ public class ModifiedByGuid
                 UserName = "TestUser",
                 UserType = "TEST"
             });
-        var book = new BookGuid();
+        var book = new BookUuid();
         await db.SaveAsync(book);
 
         userID = ObjectId.GenerateNewId().ToString();
@@ -158,12 +158,12 @@ public class ModifiedByGuid
         book.Title = "TEST().BOOK";
 
         await db
-            .Update<BookGuid>()
+            .Update<BookUuid>()
             .MatchID(book.ID)
             .ModifyOnly(x => new { x.Title }, book)
             .ExecuteAsync();
 
-        var res = await db.Find<BookGuid>().OneAsync(book.ID);
+        var res = await db.Find<BookUuid>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");

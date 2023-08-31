@@ -5,17 +5,17 @@ using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
-[Collection("FlowerGuid")]
-public class FlowerGuid : Flower
+[Collection("FlowerUuid")]
+public class FlowerUuid : Flower
 {
   [BsonId]
   public string? Id { get; set; }
   public override object GenerateNewID()
     => Uuid7.NewUuid7().ToString();
   
-  public FlowerGuid NestedFlower { get; set; }
-  public Many<CustomerWithCustomID, FlowerGuid> Customers { get; set; }
-  public FlowerGuid()
+  public FlowerUuid NestedFlower { get; set; }
+  public Many<CustomerWithCustomID, FlowerUuid> Customers { get; set; }
+  public FlowerUuid()
   {
     this.InitOneToMany(() => Customers!);
   }

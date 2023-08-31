@@ -12,7 +12,7 @@ public class GeoNearGuidTest
     [TestMethod]
     public async Task find_match_geo_method()
     {
-        await DB.Index<PlaceGuid>()
+        await DB.Index<PlaceUuid>()
           .Key(x => x.Location, KeyType.Geo2DSphere)
           .Option(x => x.Background = false)
           .CreateAsync();
@@ -21,12 +21,12 @@ public class GeoNearGuidTest
 
         await new[]
         {
-            new PlaceGuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceGuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceGuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceUuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+            new PlaceUuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
+            new PlaceUuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var res = (await DB.Find<PlaceGuid>()
+        var res = (await DB.Find<PlaceUuid>()
                     .Match(p => p.Location, new Coordinates2D(48.857908, 2.295243), 20000) //20km from eiffel tower
                     .Sort(p => p.ModifiedOn, Order.Descending)
                     .Limit(20)
@@ -40,7 +40,7 @@ public class GeoNearGuidTest
     [TestMethod]
     public async Task geo_near_fluent_interface()
     {
-        await DB.Index<PlaceGuid>()
+        await DB.Index<PlaceUuid>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();
@@ -49,12 +49,12 @@ public class GeoNearGuidTest
 
         await new[]
         {
-            new PlaceGuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceGuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceGuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceUuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+            new PlaceUuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
+            new PlaceUuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var qry = DB.FluentGeoNear<PlaceGuid>(
+        var qry = DB.FluentGeoNear<PlaceUuid>(
                      NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
@@ -69,7 +69,7 @@ public class GeoNearGuidTest
     [TestMethod]
     public async Task geo_near_transaction_returns_correct_results()
     {
-        await DB.Index<PlaceGuid>()
+        await DB.Index<PlaceUuid>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();
@@ -80,12 +80,12 @@ public class GeoNearGuidTest
 
         await new[]
         {
-            new PlaceGuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceGuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceGuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceUuid { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
+            new PlaceUuid { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
+            new PlaceUuid { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var qry = TN.GeoNear<PlaceGuid>(
+        var qry = TN.GeoNear<PlaceUuid>(
                      NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
