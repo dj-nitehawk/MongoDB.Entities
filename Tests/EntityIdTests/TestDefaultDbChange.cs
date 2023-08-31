@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class DefaultDatabaseChanging
+public class DefaultDatabaseChangingEntity
 {
     [TestMethod]
     public void throw_argument_null_exception()

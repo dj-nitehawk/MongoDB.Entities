@@ -4,7 +4,7 @@ using System.Linq;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Sorting
+public class SortingEntity
 {
     [TestMethod]
     public void sorting_lists_by_levenshtein_distance_works()

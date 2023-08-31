@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class PagedSearch
+public class PagedSearchEntity
 {
     [TestMethod]
     public async Task empty_results()

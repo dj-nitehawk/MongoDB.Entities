@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Counting
+public class CountingEntity
 {
     private DBContext db;
 
     private Task Init(string guid)
     {
-        db = new MyDB();
+        db = new MyDBEntity();
 
         var list = new List<AuthorEntity>();
 

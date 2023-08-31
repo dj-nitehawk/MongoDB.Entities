@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
 
+[Collection("ReviewObjectId")]
 public class ReviewObjectId : Review
 {
   [BsonId]

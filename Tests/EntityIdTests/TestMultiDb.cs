@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class MultiDb
+public class MultiDbEntity
 {
     private const string dbName = "mongodb-entities-test-multi";
 

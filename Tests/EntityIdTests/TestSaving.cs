@@ -425,7 +425,7 @@ public class SavingEntity
     [TestMethod]
     public async Task find_with_ignore_global_filter()
     {
-        var db = new MyDB();
+        var db = new MyDBEntity();
 
         var guid = Guid.NewGuid().ToString();
 
@@ -446,7 +446,7 @@ public class SavingEntity
     [TestMethod]
     public async Task queryable_with_global_filter()
     {
-        var db = new MyDB();
+        var db = new MyDBEntity();
 
         var guid = Guid.NewGuid().ToString();
 

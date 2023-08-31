@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Medo;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
 
+[Collection("ReviewGuid")]
 public class ReviewGuid : Review
 {
   [BsonId]
-  public Guid? Id { get; set; }
+  public string? Id { get; set; }
   public override object GenerateNewID()
-    => Guid.NewGuid();
+    => Uuid7.NewUuid7().ToString();
   
   public Collection<BookGuid> Books { get; set; }
 }

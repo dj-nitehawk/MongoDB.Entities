@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Indexes
+public class IndexesEntity
 {
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()

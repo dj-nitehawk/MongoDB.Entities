@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Replace
+public class ReplaceEntity
 {
     [TestMethod]
     public async Task correct_doc_is_replaced()
@@ -56,7 +56,7 @@ public class Replace
     [TestMethod]
     public async Task on_before_update_for_replace()
     {
-        var db = new MyDB();
+        var db = new MyDBEntity();
 
         var flower = new FlowerEntity { Name = "flower" };
         await db.SaveAsync(flower);

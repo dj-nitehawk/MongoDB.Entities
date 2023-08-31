@@ -11,7 +11,12 @@ public class FlowerInt64 : Flower
   public Int64? Id { get; set; }
   public override object GenerateNewID()
     => Convert.ToInt64(DateTime.UtcNow.Ticks);
-    
+  
   public FlowerInt64 NestedFlower { get; set; }
-
+  public Many<CustomerWithCustomID, FlowerInt64> Customers { get; set; }
+  public FlowerInt64()
+  {
+    this.InitOneToMany(() => Customers!);
+  }
+  
 }

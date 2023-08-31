@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
+using SharpCompress.Readers;
 
 namespace MongoDB.Entities;
 
@@ -173,6 +174,12 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                 return;
             }
 
+            if (value is Int64 int64)
+            {
+                ctx.Writer.WriteInt64(int64);
+                return;
+            }
+
             throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
         }
 
@@ -191,6 +198,9 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                 case BsonType.Null:
                     ctx.Reader.ReadNull();
                     return null;
+                
+                case BsonType.Int64:
+                    return ctx.Reader.ReadInt64();
 
                 default:
                     throw new BsonSerializationException($"'{ctx.Reader.CurrentBsonType}' values are not valid on properties decorated with an [AsBsonId] attribute!");

@@ -1,4 +1,5 @@
 ﻿using System;
+using Medo;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
@@ -7,7 +8,17 @@ namespace MongoDB.Entities.Tests;
 public class AuthorGuid : Author
 {
   [BsonId]
-  public Guid? ID { get; set; }
+  public string? ID { get; set; }
   public override object GenerateNewID()
-      => Guid.NewGuid();
+      => Uuid7.NewUuid7().ToString();
+  
+  [BsonIgnoreIfDefault]
+  public One<BookGuid> BestSeller { get; set; }
+
+  public Many<BookGuid, AuthorGuid> Books { get; set; }
+
+  [ObjectId]
+  public string BookIDs { get; set; }
+
+  public AuthorGuid() => this.InitOneToMany(() => Books!);
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Deleting
+public class DeletingEntity
 {
     [TestMethod]
     public async Task delete_by_id_removes_entity_from_collectionAsync()
@@ -137,7 +137,7 @@ public class Deleting
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDB();
+        var db = new MyDBEntity();
 
         var a1 = new AuthorEntity { Age = 10 };
         var a2 = new AuthorEntity { Age = 111 };

@@ -3,17 +3,17 @@ using System;
 
 namespace MongoDB.Entities.Tests;
 
-public class MyDBTemplates : DBContext
+public class MyDBTemplatesEntity : DBContext
 {
-    public MyDBTemplates(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBTemplatesEntity(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
     {
         SetGlobalFilter(typeof(AuthorEntity), "{ Age: {$eq: 111 } }", prepend);
     }
 }
 
-public class MyDB : DBContext
+public class MyDBEntity : DBContext
 {
-    public MyDB(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBEntity(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
     {
         SetGlobalFilter<AuthorEntity>(a => a.Age == 111, prepend);
     }

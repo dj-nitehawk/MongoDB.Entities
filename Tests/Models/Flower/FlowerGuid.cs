@@ -1,4 +1,5 @@
 ﻿using System;
+using Medo;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Entities.Tests.Models;
 
@@ -8,9 +9,15 @@ namespace MongoDB.Entities.Tests;
 public class FlowerGuid : Flower
 {
   [BsonId]
-  public Guid? Id { get; set; }
+  public string? Id { get; set; }
   public override object GenerateNewID()
-      => Guid.NewGuid();
+    => Uuid7.NewUuid7().ToString();
   
   public FlowerGuid NestedFlower { get; set; }
+  public Many<CustomerWithCustomID, FlowerGuid> Customers { get; set; }
+  public FlowerGuid()
+  {
+    this.InitOneToMany(() => Customers!);
+  }
+  
 }

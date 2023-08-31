@@ -1,4 +1,5 @@
 ﻿using System;
+using Medo;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
@@ -7,7 +8,7 @@ namespace MongoDB.Entities.Tests;
 public class PlaceGuid : Place
 {
   [BsonId]
-  public Guid? Id { get; set; }
+  public string? Id { get; set; }
   public override object GenerateNewID()
-    => Guid.NewGuid();
+    => Uuid7.NewUuid7().ToString();
 }

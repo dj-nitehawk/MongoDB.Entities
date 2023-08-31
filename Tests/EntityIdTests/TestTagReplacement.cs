@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class Templates
+public class TemplatesEntity
 {
     [TestMethod]
     public void missing_tags_throws()
@@ -209,7 +209,7 @@ public class Templates
     [TestMethod]
     public async Task tag_replacement_with_global_filter_prepend()
     {
-        var db = new MyDB(prepend: true);
+        var db = new MyDBEntity(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
@@ -239,7 +239,7 @@ public class Templates
     [TestMethod]
     public async Task tag_replacement_with_global_filter_append()
     {
-        var db = new MyDB(prepend: false);
+        var db = new MyDBEntity(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
@@ -269,7 +269,7 @@ public class Templates
     [TestMethod]
     public async Task tag_replacement_with_global_filter_append_string_filter()
     {
-        var db = new MyDBTemplates(prepend: false);
+        var db = new MyDBTemplatesEntity(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };
@@ -299,7 +299,7 @@ public class Templates
     [TestMethod]
     public async Task tag_replacement_with_global_filter_prepend_string_filter()
     {
-        var db = new MyDBTemplates(prepend: true);
+        var db = new MyDBTemplatesEntity(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorEntity { Name = guid, Age = 111 };

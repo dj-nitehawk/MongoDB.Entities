@@ -14,4 +14,10 @@ public class FlowerObjectId : Flower
     => ObjectId.GenerateNewId();
   
   public FlowerObjectId NestedFlower { get; set; }
+  public Many<CustomerWithCustomID, FlowerObjectId> Customers { get; set; }
+  public FlowerObjectId()
+  {
+    this.InitOneToMany(() => Customers!);
+  }
+  
 }
