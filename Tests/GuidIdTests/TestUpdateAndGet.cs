@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class UpdateAndGetGuid
+public class UpdateAndGetUuid
 {
     [TestMethod]
     public async Task updating_modifies_correct_documents()
@@ -233,7 +233,7 @@ public class UpdateAndGetGuid
     [TestMethod]
     public async Task on_before_update_for_updateandget()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var flower = new FlowerUuid { Name = "flower" };
         await db.SaveAsync(flower);

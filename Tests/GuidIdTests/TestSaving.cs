@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class SavingGuid
+public class SavingUuid
 {
     [TestMethod]
     public async Task saving_new_document_returns_an_id()
@@ -425,7 +425,7 @@ public class SavingGuid
     [TestMethod]
     public async Task find_with_ignore_global_filter()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var guid = Guid.NewGuid().ToString();
 
@@ -446,7 +446,7 @@ public class SavingGuid
     [TestMethod]
     public async Task queryable_with_global_filter()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var guid = Guid.NewGuid().ToString();
 

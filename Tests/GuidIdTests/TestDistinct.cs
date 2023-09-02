@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class DistinctGuid
+public class DistinctUuid
 {
     [TestMethod]
     public async Task distinct_works()

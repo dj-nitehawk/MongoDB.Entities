@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class ModifiedByGuid
+public class ModifiedByUuid
 {
     [TestMethod]
     public async Task throw_if_mod_by_not_supplied()

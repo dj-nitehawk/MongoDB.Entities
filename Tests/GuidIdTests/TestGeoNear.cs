@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class GeoNearGuidTest
+public class GeoNearUuidTest
 {
     [TestMethod]
     public async Task find_match_geo_method()

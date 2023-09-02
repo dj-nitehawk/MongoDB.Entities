@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class WatcherGuid
+public class WatcherUuid
 {
     [TestMethod]
     public async Task watching_works()

@@ -10,7 +10,7 @@ namespace MongoDB.Entities.Tests;
 //      then run rs.initiate() in a mongo console
 
 [TestClass]
-public class TransactionsGuid
+public class TransactionsUuid
 {
     [TestMethod]
     public async Task not_commiting_and_aborting_update_transaction_doesnt_modify_docs()

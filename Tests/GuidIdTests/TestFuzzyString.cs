@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class FuzzyStringTestGuid
+public class FuzzyStringTesUuid
 {
     [TestMethod]
     public async Task fuzzystring_type_saving_and_retrieval_worksAsync()

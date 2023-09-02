@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class RelationshipsGuid
+public class RelationshipsUuid
 {
     [TestMethod]
     public async Task setting_one_to_one_reference_returns_correct_Guid()

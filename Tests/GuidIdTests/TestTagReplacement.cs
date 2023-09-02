@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class TemplatesGuid
+public class TemplatesUuid
 {
     [TestMethod]
     public void missing_tags_throws()
@@ -209,7 +209,7 @@ public class TemplatesGuid
     [TestMethod]
     public async Task tag_replacement_with_global_filter_prepend()
     {
-        var db = new MyDBGuid(prepend: true);
+        var db = new MyDBUuid(prepend: true);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };
@@ -239,7 +239,7 @@ public class TemplatesGuid
     [TestMethod]
     public async Task tag_replacement_with_global_filter_append()
     {
-        var db = new MyDBGuid(prepend: false);
+        var db = new MyDBUuid(prepend: false);
 
         var guid = Guid.NewGuid().ToString();
         var author1 = new AuthorUuid { Name = guid, Age = 111 };

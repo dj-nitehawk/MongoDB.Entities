@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class UpdateGuid
+public class UpdateUuid
 {
     [TestMethod]
     public async Task updating_modifies_correct_documents()
@@ -506,7 +506,7 @@ public class UpdateGuid
     [TestMethod]
     public async Task update_with_global_filter()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var guid = Guid.NewGuid().ToString();
 
@@ -528,7 +528,7 @@ public class UpdateGuid
     [TestMethod]
     public async Task on_before_update_for_update()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var flower = new FlowerUuid { Name = "flower" };
         await db.SaveAsync(flower);

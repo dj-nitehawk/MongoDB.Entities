@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class PropsGuid
+public class PropsUuid
 {
     [TestMethod]
     public void prop_dotted()

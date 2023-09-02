@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class DatesGuid
+public class DatesUuid
 {
     [TestMethod]
     public async Task not_setting_date_doesnt_cause_issuesAsync()

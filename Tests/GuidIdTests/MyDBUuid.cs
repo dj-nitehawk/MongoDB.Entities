@@ -11,9 +11,9 @@ public class MyDBTemplatesGuid : DBContext
     }
 }
 
-public class MyDBGuid : DBContext
+public class MyDBUuid : DBContext
 {
-    public MyDBGuid(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBUuid(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
     {
         SetGlobalFilter<AuthorUuid>(a => a.Age == 111, prepend);
     }

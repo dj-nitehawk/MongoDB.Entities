@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities.Tests;
 
 [TestClass]
-public class DeletingGuid
+public class DeletingUuid
 {
     [TestMethod]
     public async Task delete_by_id_removes_Guid_from_collectionAsync()
@@ -138,7 +138,7 @@ public class DeletingGuid
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDBGuid();
+        var db = new MyDBUuid();
 
         var a1 = new AuthorUuid { Age = 10 };
         var a2 = new AuthorUuid { Age = 111 };
