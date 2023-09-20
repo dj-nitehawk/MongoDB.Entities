@@ -21,7 +21,7 @@ public partial class FileStorageRead : BenchBase
         gridFSId = WriteFileGridFS().GetAwaiter().GetResult();
     }
 
-    public async Task<string?> WriteFileME()
+    public async Task<string> WriteFileME()
     {
         memStream.Position = 0;
         var file = new File { Name = "file name here" };
