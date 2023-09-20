@@ -27,7 +27,7 @@ public class FuzzyStringTestObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookObjectId { Title = guid, Review = new ReviewObjectId { Fuzzy = null } }.SaveAsync();
+        await new BookObjectId { Title = guid, Review = new ReviewObjectId { Fuzzy = null! } }.SaveAsync();
 
         var res = await DB.Queryable<BookObjectId>()
                     .Where(b => b.Title == guid)

@@ -124,10 +124,7 @@ public class RelationshipsEntity
 
         List<BookEntity> booklist = new();
 
-        foreach (var book in books)
-        {
-            booklist.Add(book);
-        }
+        booklist.AddRange(books);
 
         Assert.AreEqual(2, booklist.Count);
     }

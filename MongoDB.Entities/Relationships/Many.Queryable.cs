@@ -131,5 +131,4 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
 
     /// <inheritdoc/>
     IEnumerator IEnumerable.GetEnumerator() => ChildrenQueryable().GetEnumerator();
-
 }

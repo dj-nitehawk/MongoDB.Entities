@@ -18,7 +18,7 @@ public class SavingUuid
     {
         var book = new BookUuid { Title = "Test" };
         await book.SaveAsync();
-        var idEmpty = book.ID==null||book.ID==Guid.Empty.ToString();
+        var idEmpty = book.ID == null || book.ID == Guid.Empty.ToString();
         Assert.IsFalse(idEmpty);
     }
 
@@ -767,7 +767,7 @@ public class SavingUuid
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
-        Assert.AreEqual(5, res.Stars);
+        Assert.AreEqual(5, res!.Stars);
         Assert.AreEqual("test", res.Reviewer);
         Assert.AreEqual(10, res.Rating);
     }

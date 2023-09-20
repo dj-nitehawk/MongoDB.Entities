@@ -6,13 +6,13 @@ namespace MongoDB.Entities.Tests;
 [Collection("GenreEntity")]
 public class GenreEntity : Genre
 {
-  [BsonId, AsObjectId]
-  public string? ID { get; set; }
-  public override object GenerateNewID()
-      => ObjectId.GenerateNewId().ToString()!;
+    [BsonId, AsObjectId]
+    public string ID { get; set; }
+    public override object GenerateNewID()
+        => ObjectId.GenerateNewId().ToString()!;
 
-  [InverseSide]
-  public Many<BookEntity, GenreEntity> Books { get; set; }
+    [InverseSide]
+    public Many<BookEntity, GenreEntity> Books { get; set; } = null!;
 
-  public GenreEntity() => this.InitManyToMany(() => Books, b => b.Genres);
+    public GenreEntity() => this.InitManyToMany(() => Books, b => b.Genres);
 }

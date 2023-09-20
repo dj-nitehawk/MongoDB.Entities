@@ -1,5 +1,4 @@
-﻿using System;
-using Medo;
+﻿using Medo;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities.Tests;
@@ -7,18 +6,18 @@ namespace MongoDB.Entities.Tests;
 [Collection("AuthorUuid")]
 public class AuthorUuid : Author
 {
-  [BsonId]
-  public string? ID { get; set; }
-  public override object GenerateNewID()
-      => Uuid7.NewUuid7().ToString();
-  
-  [BsonIgnoreIfDefault]
-  public One<BookUuid> BestSeller { get; set; }
+    [BsonId]
+    public string ID { get; set; }
+    public override object GenerateNewID()
+        => Uuid7.NewUuid7().ToString();
 
-  public Many<BookUuid, AuthorUuid> Books { get; set; }
+    [BsonIgnoreIfDefault]
+    public One<BookUuid> BestSeller { get; set; }
 
-  [ObjectId]
-  public string BookIDs { get; set; }
+    public Many<BookUuid, AuthorUuid> Books { get; set; }
 
-  public AuthorUuid() => this.InitOneToMany(() => Books!);
+    [ObjectId]
+    public string BookIDs { get; set; }
+
+    public AuthorUuid() => this.InitOneToMany(() => Books!);
 }

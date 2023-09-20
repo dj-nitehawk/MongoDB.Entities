@@ -16,10 +16,8 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class PagedSearch<T> : PagedSearch<T, T> where T : IEntity
 {
-    internal PagedSearch(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
-    : base(session, globalFilters) { }
+    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+        : base(session, globalFilters) { }
 }
 
 /// <summary>
@@ -39,9 +37,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     private bool ignoreGlobalFilters;
     private int pageNumber = 1, pageSize = 100;
 
-    internal PagedSearch(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+    internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
         var type = typeof(TProjection);
         if (type.IsPrimitive || type.IsValueType || (type == typeof(string)))
@@ -141,7 +137,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public PagedSearch<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public PagedSearch<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -181,7 +177,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// </summary>
     /// <param name="propertyToSortBy">x => x.Prop</param>
     /// <param name="sortOrder">The sort order</param>
-    public PagedSearch<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
+    public PagedSearch<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
     {
         return sortOrder switch
         {
@@ -205,7 +201,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     /// <param name="scoreProperty">x => x.TextScoreProp</param>
-    public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
+    public PagedSearch<T, TProjection> SortByTextScore(Expression<Func<T, object>>? scoreProperty)
     {
         switch (scoreProperty)
         {
@@ -291,7 +287,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// Specify how to project the results using an exclusion projection expression.
     /// </summary>
     /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
-    public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object?>> exclusion)
+    public PagedSearch<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
     {
         var props = (exclusion.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);

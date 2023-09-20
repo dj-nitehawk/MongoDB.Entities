@@ -48,4 +48,3 @@ public class MyDBInt64 : DBContext
         return (action as Action<UpdateBase<T>>)!;
     }
 }
-

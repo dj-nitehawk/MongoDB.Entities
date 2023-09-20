@@ -1,5 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.ObjectModel;
 
 namespace MongoDB.Entities.Tests;
 
@@ -12,6 +11,6 @@ public abstract class Review : IEntity
     public string Reviewer { get; set; }
 
     public double Rating { get; set; }
-    public FuzzyString? Fuzzy { get; set; }
+    public FuzzyString Fuzzy { get; set; }
     public abstract object GenerateNewID();
 }

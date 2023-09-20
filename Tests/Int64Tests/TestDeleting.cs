@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -146,7 +146,7 @@ public class DeletingInt64
 
         await new[] { a1, a2, a3 }.SaveAsync();
 
-        var IDs = new object?[] { a1.ID, a2.ID, a3.ID };
+        var IDs = new object[] { a1.ID, a2.ID, a3.ID };
 
         var res = await db.DeleteAsync<AuthorInt64>(IDs);
         var notDeletedIDs = await DB.Find<AuthorInt64, Int64?>()

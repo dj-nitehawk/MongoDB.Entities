@@ -48,4 +48,3 @@ public class MyDBUuid : DBContext
         return (action as Action<UpdateBase<T>>)!;
     }
 }
-

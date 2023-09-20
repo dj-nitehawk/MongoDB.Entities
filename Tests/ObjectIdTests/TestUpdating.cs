@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver.Linq;
-using MongoDB.Entities.Tests.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -141,7 +140,7 @@ public class UpdateObjectId
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-            .Path(a => a.FullName)
+            .Path(a => a.FullName!)
             .Path(a => a.Name)
             .Path(a => a.Surname)
             .Path(a => a.Age);

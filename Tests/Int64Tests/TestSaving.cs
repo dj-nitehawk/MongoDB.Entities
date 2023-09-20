@@ -18,7 +18,7 @@ public class SavingInt64
     {
         var book = new BookInt64 { Title = "Test" };
         await book.SaveAsync();
-        var idEmpty = book.ID==null||book.ID==0L;
+        var idEmpty = book.ID == 0L;
         Assert.IsFalse(idEmpty);
     }
 
@@ -767,7 +767,7 @@ public class SavingInt64
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
-        Assert.AreEqual(5, res.Stars);
+        Assert.AreEqual(5, res!.Stars);
         Assert.AreEqual("test", res.Reviewer);
         Assert.AreEqual(10, res.Rating);
     }

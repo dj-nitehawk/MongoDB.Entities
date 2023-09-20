@@ -25,7 +25,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">The ID of the child Entity to remove the reference of.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task RemoveAsync(object? childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task RemoveAsync(object childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return RemoveAsync(new[] { childID }, session, cancellation);
     }
@@ -47,7 +47,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task RemoveAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task RemoveAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         var filter =
             isInverse

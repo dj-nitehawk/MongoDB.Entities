@@ -81,7 +81,7 @@ public class IndexesInt64
                     .Limit(6)
                     .ExecuteAsync();
 
-        await DB.DeleteAsync<BookInt64>(new object?[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+        await DB.DeleteAsync<BookInt64>(new object[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
         Assert.AreEqual(4, res.Count);
         Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));

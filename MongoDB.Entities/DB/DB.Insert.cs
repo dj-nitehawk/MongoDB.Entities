@@ -8,7 +8,6 @@ namespace MongoDB.Entities;
 
 public static partial class DB
 {
-
     /// <summary>
     /// Inserts a new entity into the colleciton.
     /// </summary>

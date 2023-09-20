@@ -27,7 +27,7 @@ public class FuzzyStringTestInt64
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookInt64 { Title = guid, Review = new ReviewInt64 { Fuzzy = null } }.SaveAsync();
+        await new BookInt64 { Title = guid, Review = new ReviewInt64 { Fuzzy = null! } }.SaveAsync();
 
         var res = await DB.Queryable<BookInt64>()
                     .Where(b => b.Title == guid)

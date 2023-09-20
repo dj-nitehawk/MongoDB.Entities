@@ -70,7 +70,7 @@ public class RelationshipsObjectId
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(a => new AuthorObjectId { Name = a.Name });
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.AreEqual(null, res.ID);
+        Assert.IsNull(res.ID);
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ public class RelationshipsObjectId
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.AreEqual(null, res.ID);
+        Assert.IsNull(res.ID);
     }
 
     [TestMethod]
@@ -124,10 +124,7 @@ public class RelationshipsObjectId
 
         List<BookObjectId> booklist = new();
 
-        foreach (var book in books)
-        {
-            booklist.Add(book);
-        }
+        booklist.AddRange(books);
 
         Assert.AreEqual(2, booklist.Count);
     }
@@ -326,7 +323,7 @@ public class RelationshipsObjectId
         await book.Genres.AddAsync(genre1);
 
         var books = await book.Genres
-                        .ParentsFluent(genre.ID)
+                        .ParentsFluent(genre.ID!.Value)
                         .ToListAsync();
 
         Assert.AreEqual(1, books.Count);
@@ -340,7 +337,7 @@ public class RelationshipsObjectId
         Assert.AreEqual(book.Title, books.Single().Title);
 
         var genres = await genre.Books
-                          .ParentsFluent(book.ID)
+                          .ParentsFluent(book.ID!.Value)
                           .ToListAsync();
 
         Assert.AreEqual(2, genres.Count);
@@ -362,8 +359,8 @@ public class RelationshipsObjectId
         var b1 = new BookObjectId { Title = "book1" }; await b1.SaveAsync();
         var b2 = new BookObjectId { Title = "book2" }; await b2.SaveAsync();
 
-        await author.Books.AddAsync(b1.ID);
-        await author.Books.AddAsync(b2.ID);
+        await author.Books.AddAsync(b1.ID!);
+        await author.Books.AddAsync(b2.ID!);
 
         var books = await author.Books
                           .ChildrenQueryable()
@@ -405,11 +402,11 @@ public class RelationshipsObjectId
         var b1 = new BookObjectId { Title = "book1" }; await b1.SaveAsync();
         var b2 = new BookObjectId { Title = "book2" }; await b2.SaveAsync();
 
-        await author.Books.AddAsync(b1.ID);
-        await author.Books.AddAsync(b2.ID);
+        await author.Books.AddAsync(b1.ID!);
+        await author.Books.AddAsync(b2.ID!);
 
-        await author.Books.RemoveAsync(b1.ID);
-        await author.Books.RemoveAsync(b2.ID);
+        await author.Books.RemoveAsync(b1.ID!);
+        await author.Books.RemoveAsync(b2.ID!);
 
         var count = await author.Books
                           .ChildrenQueryable()
@@ -427,7 +424,7 @@ public class RelationshipsObjectId
         var b2 = new BookObjectId { Title = "book2" }; await b2.SaveAsync();
 
         await author.Books.AddAsync(b1);
-        await author.Books.AddAsync(b2.ID);
+        await author.Books.AddAsync(b2.ID!);
 
         var books = await author.Books
                           .ChildrenQueryable()
@@ -448,10 +445,10 @@ public class RelationshipsObjectId
         var b2 = new BookObjectId { Title = "book2" }; await b2.SaveAsync();
 
         await author.Books.AddAsync(b1);
-        await author.Books.AddAsync(b2.ID);
+        await author.Books.AddAsync(b2.ID!);
 
         await author.Books.RemoveAsync(b1);
-        await author.Books.RemoveAsync(b2.ID);
+        await author.Books.RemoveAsync(b2.ID!);
 
         var count = await author.Books
                           .ChildrenQueryable()

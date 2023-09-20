@@ -6,19 +6,18 @@ namespace MongoDB.Entities.Tests;
 [Collection("AuthorEntity")]
 public class AuthorEntity : Author
 {
-  [BsonId, AsObjectId]
-  public string? ID { get; set; }
-  public override object GenerateNewID()
-      => ObjectId.GenerateNewId().ToString()!;
-  
-  [BsonIgnoreIfDefault]
-  public One<BookEntity> BestSeller { get; set; }
+    [BsonId, AsObjectId]
+    public string ID { get; set; }
+    public override object GenerateNewID()
+        => ObjectId.GenerateNewId().ToString()!;
 
-  public Many<BookEntity, AuthorEntity> Books { get; set; }
+    [BsonIgnoreIfDefault]
+    public One<BookEntity> BestSeller { get; set; }
 
-  [ObjectId]
-  public string BookIDs { get; set; }
+    public Many<BookEntity, AuthorEntity> Books { get; set; }
 
-  public AuthorEntity() => this.InitOneToMany(() => Books!);
+    [ObjectId]
+    public string BookIDs { get; set; }
 
+    public AuthorEntity() => this.InitOneToMany(() => Books!);
 }

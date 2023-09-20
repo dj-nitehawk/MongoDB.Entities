@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Entities.Tests.Models;
 using System;
 using System.Threading.Tasks;
 
@@ -42,7 +41,7 @@ public class UpdateAndGetUuid
                       .Modify(b => b.CurrentDate(a => a.ModifiedOn))
                       .ExecuteAsync();
 
-        Assert.AreEqual(2, res.Age);
+        Assert.AreEqual(2, res!.Age);
     }
 
     [TestMethod]
@@ -58,7 +57,7 @@ public class UpdateAndGetUuid
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-            .Path(a => a.FullName)
+            .Path(a => a.FullName!)
             .Path(a => a.Name)
             .Path(a => a.Surname)
             .Path(a => a.Age);
@@ -68,7 +67,7 @@ public class UpdateAndGetUuid
                       .WithPipeline(pipeline)
                       .ExecutePipelineAsync();
 
-        Assert.AreEqual(author.Name + " " + author.Surname, res.FullName);
+        Assert.AreEqual(author.Name + " " + author.Surname, res!.FullName);
     }
 
     [TestMethod]
@@ -80,7 +79,7 @@ public class UpdateAndGetUuid
         await author.SaveAsync();
 
         var stage = new Template<AuthorUuid>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName)
+            .Path(a => a.FullName!)
             .Path(a => a.Name)
             .Path(a => a.Surname)
             .RenderToString();
@@ -90,7 +89,7 @@ public class UpdateAndGetUuid
                       .WithPipelineStage(stage)
                       .ExecutePipelineAsync();
 
-        Assert.AreEqual(author.Name + "-" + author.Surname, res.FullName);
+        Assert.AreEqual(author.Name + "-" + author.Surname, res!.FullName);
     }
 
     [TestMethod]
@@ -147,7 +146,7 @@ public class UpdateAndGetUuid
 
           .ExecuteAsync();
 
-        Assert.AreEqual(321, res.OtherAuthors[0].Age);
+        Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
 
     [TestMethod]
@@ -199,7 +198,7 @@ public class UpdateAndGetUuid
 
           .ExecuteAsync();
 
-        Assert.AreEqual(321, res.OtherAuthors[0].Age);
+        Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
 
     [TestMethod]
@@ -245,6 +244,6 @@ public class UpdateAndGetUuid
             .ModifyWith(flower)
             .ExecuteAsync();
 
-        Assert.AreEqual("Human", res.UpdatedBy);
+        Assert.AreEqual("Human", res!.UpdatedBy);
     }
 }

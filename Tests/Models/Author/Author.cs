@@ -23,7 +23,7 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
 
     public DateTime ModifiedOn { get; set; }
 
-    public Entities.ModifiedBy UpdatedBy { get; set; }
+    public ModifiedBy UpdatedBy { get; set; }
 
     public DateTime CreatedOn { get; set; }
 

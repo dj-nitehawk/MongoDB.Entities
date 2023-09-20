@@ -25,11 +25,11 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 {
     public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<string?>, IRepresentationConfigurable
+    private class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
 
-        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string? value)
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
         {
             if (value == null)
             {
@@ -46,7 +46,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
             ctx.Writer.WriteString(value);
         }
 
-        public override string? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+        public override string Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
         {
             switch (ctx.Reader.CurrentBsonType)
             {
@@ -58,7 +58,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 
                 case BsonType.Null:
                     ctx.Reader.ReadNull();
-                    return null;
+                    return null!;
 
                 default:
                     throw new BsonSerializationException($"'{ctx.Reader.CurrentBsonType}' values are not valid on properties decorated with an [AsObjectId] attribute!");
@@ -79,11 +79,11 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
 {
     public AsBsonIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<object?>, IRepresentationConfigurable
+    private class ObjectIdSerializer : SerializerBase<object>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
 
-        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, object? value)
+        public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, object value)
         {
             if (value == null)
             {
@@ -118,7 +118,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
             throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
         }
 
-        public override object? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+        public override object Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
         {
             switch (ctx.Reader.CurrentBsonType)
             {
@@ -132,7 +132,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
 
                 case BsonType.Null:
                     ctx.Reader.ReadNull();
-                    return null;
+                    return null!;
 
                 case BsonType.Int64:
                     return ctx.Reader.ReadInt64();

@@ -64,7 +64,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(string? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return ParentsFluent(new[] { childID }, session, options);
     }
@@ -75,9 +75,9 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(ObjectId? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(ObjectId childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        return ParentsFluent(new object?[] { childID }, session, options);
+        return ParentsFluent(new object[] { childID }, session, options);
     }
 
     /// <summary>
@@ -86,29 +86,29 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(Guid? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(Guid childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        return ParentsFluent(new object?[] { childID }, session, options);
+        return ParentsFluent(new object[] { childID }, session, options);
     }
-    
+
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(Int64? childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(Int64 childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        return ParentsFluent(new object?[] { childID }, session, options);
+        return ParentsFluent(new object[] { childID }, session, options);
     }
-    
+
     /// <summary>
     /// Get an IAggregateFluent of parents matching multiple child IDs for this relationship.
     /// </summary>
     /// <param name="childIDs">An IEnumerable of child IDs</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(IEnumerable<object> childIDs, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")

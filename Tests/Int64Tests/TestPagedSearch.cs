@@ -12,12 +12,12 @@ public class PagedSearchInt64
     [TestMethod]
     public async Task empty_results()
     {
-        var intId = 0L;
+        const long intId = 0L;
 
         var (Results, _, PageCount) = await DB
             .PagedSearch<BookInt64>()
             .Match(b => b.ID == intId)
-            .Sort(b => b.ID, Order.Ascending)
+            .Sort(b => b.ID!, Order.Ascending)
             .PageNumber(1)
             .PageSize(200)
             .ExecuteAsync();
@@ -48,7 +48,7 @@ public class PagedSearchInt64
         var (Results, _, PageCount) = await DB
             .PagedSearch<BookInt64>()
             .Match(b => b.Title == guid)
-            .Sort(b => b.ID, Order.Ascending)
+            .Sort(b => b.ID!, Order.Ascending)
             .PageNumber(2)
             .PageSize(5)
             .ExecuteAsync();
@@ -67,7 +67,7 @@ public class PagedSearchInt64
         var (Results, _, PageCount) = await DB
             .PagedSearch<BookInt64>()
             .Match(b => b.Title == guid)
-            .Sort(b => b.ID, Order.Ascending)
+            .Sort(b => b.ID!, Order.Ascending)
             .PageNumber(1)
             .PageSize(3)
             .ExecuteAsync();
@@ -89,7 +89,7 @@ public class PagedSearchInt64
         var (Results, _, PageCount) = await DB
             .PagedSearch<BookInt64>()
             .WithFluent(pipeline)
-            .Sort(b => b.ID, Order.Ascending)
+            .Sort(b => b.ID!, Order.Ascending)
             .PageNumber(2)
             .PageSize(5)
             .ExecuteAsync();
@@ -114,7 +114,7 @@ public class PagedSearchInt64
         var (Results, _, PageCount) = await DB
             .PagedSearch<BookInt64, BookResult>()
             .Match(b => b.Title == guid)
-            .Sort(b => b.ID, Order.Ascending)
+            .Sort(b => b.ID!, Order.Ascending)
             .Project(b => new BookResult { BookID = b.ID, BookTitle = b.Title })
             .PageNumber(1)
             .PageSize(5)
@@ -202,7 +202,7 @@ public class PagedSearchInt64
 
         var (res, _, _) = await DB.PagedSearch<AuthorInt64>()
                     .Match(a => a.ID == author.ID)
-                    .Sort(a => a.ID, Order.Ascending)
+                    .Sort(a => a.ID!, Order.Ascending)
                     .ProjectExcluding(a => new { a.Age, a.Name })
                     .ExecuteAsync();
 

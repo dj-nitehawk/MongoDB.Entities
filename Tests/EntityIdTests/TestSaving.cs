@@ -767,7 +767,7 @@ public class SavingEntity
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
-        Assert.AreEqual(5, res.Stars);
+        Assert.AreEqual(5, res!.Stars);
         Assert.AreEqual("test", res.Reviewer);
         Assert.AreEqual(10, res.Rating);
     }

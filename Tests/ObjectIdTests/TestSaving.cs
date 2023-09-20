@@ -18,7 +18,7 @@ public class SavingObjectId
     {
         var book = new BookObjectId { Title = "Test" };
         await book.SaveAsync();
-        var idEmpty = book.ID==null||book.ID==ObjectId.Empty;
+        var idEmpty = book.ID == ObjectId.Empty;
         Assert.IsFalse(idEmpty);
     }
 
@@ -767,7 +767,7 @@ public class SavingObjectId
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
-        Assert.AreEqual(5, res.Stars);
+        Assert.AreEqual(5, res!.Stars);
         Assert.AreEqual("test", res.Reviewer);
         Assert.AreEqual(10, res.Rating);
     }
