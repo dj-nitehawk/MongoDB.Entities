@@ -205,7 +205,6 @@ public static partial class DB
         }
 
         return idObjects;
-
     }
 
     private static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)

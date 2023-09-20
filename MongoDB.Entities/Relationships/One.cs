@@ -18,7 +18,7 @@ public class One<T> where T : IEntity
     /// The Id of the entity referenced by this instance.
     /// </summary>
     [AsBsonId]
-    public object ID { get; set; }
+    public object ID { get; set; } = null!;
 
     public One()
     { }
@@ -56,7 +56,7 @@ public class One<T> where T : IEntity
     /// <returns>A Task containing the actual entity</returns>
     public Task<T> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return new Find<T>(session, null).OneAsync(TransformID(), cancellation);
+        return new Find<T>(session, null).OneAsync(TransformID(), cancellation)!;
     }
 
     /// <summary>

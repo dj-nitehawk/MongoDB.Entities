@@ -15,6 +15,5 @@ public class Migration : Entity
         Number = number;
         Name = name;
         TimeTakenSeconds = timeTakenSeconds;
-
     }
 }

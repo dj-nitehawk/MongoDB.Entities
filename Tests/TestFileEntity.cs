@@ -132,8 +132,11 @@ public class FileEntities
 
         Assert.AreEqual(img.ChunkCount, countBefore);
 
-        await img.DeleteAsync();
+        var deleteResult = await img.DeleteAsync();
 
+        Assert.IsTrue(deleteResult.IsAcknowledged);
+        Assert.AreEqual(1, deleteResult.DeletedCount);
+        
         var countAfter =
             await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
               .Where(c => c.FileID == img.ID)
