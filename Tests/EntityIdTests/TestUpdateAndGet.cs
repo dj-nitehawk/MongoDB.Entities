@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Entities.Tests.Models;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests;
@@ -210,7 +210,8 @@ public class UpdateAndGetEntity
         var lastNum = await book.NextSequentialNumberAsync();
 
         var bookNum = 0ul;
-        Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumberAsync().GetAwaiter().GetResult());
+
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => bookNum = await book.NextSequentialNumberAsync(ct));
 
         Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
     }
@@ -225,7 +226,8 @@ public class UpdateAndGetEntity
         var lastNum = await book.NextSequentialNumberAsync();
 
         var bookNum = 0ul;
-        Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumberAsync().GetAwaiter().GetResult());
+
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => bookNum = await book.NextSequentialNumberAsync(ct));
 
         Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
