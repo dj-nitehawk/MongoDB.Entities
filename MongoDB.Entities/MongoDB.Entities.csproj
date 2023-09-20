@@ -26,9 +26,6 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <PropertyGroup>
         <NoWarn>CS1591</NoWarn>
     </PropertyGroup>
 
@@ -39,9 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\README.md" Pack="true" PackagePath="\" />
-        <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" />
-        <None Include="..\changelog.md" Pack="false" />
+        <None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
+        <None Include="..\Artwork\icon.png" Pack="true" PackagePath="\" Visible="false" />
+        <None Remove="mongod.cfg" />
     </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities;
 
 public delegate Task AsyncEventHandler<TEventArgs>(TEventArgs args);
+
 public static class AsyncEventHandlerExtensions
 {
     public static IEnumerable<AsyncEventHandler<TEventArgs>> GetHandlers<TEventArgs>(this AsyncEventHandler<TEventArgs> handler)

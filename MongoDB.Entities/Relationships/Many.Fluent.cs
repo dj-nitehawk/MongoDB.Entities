@@ -1,7 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using MongoDB.Bson;
 
 namespace MongoDB.Entities;
 
@@ -79,7 +79,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     {
         return ParentsFluent(new object?[] { childID }, session, options);
     }
-    
+
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
