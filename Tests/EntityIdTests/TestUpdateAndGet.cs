@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
@@ -221,15 +222,15 @@ public class UpdateAndGetEntity
     {
         await DB.InitAsync("mongodb-entities-test-multi");
 
-        var book = new BookEntity();
+        var img = new Image();
 
-        var lastNum = await book.NextSequentialNumberAsync();
+        var lastNum = await img.NextSequentialNumberAsync();
 
-        var bookNum = 0ul;
+        var imgNum = 0ul;
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => bookNum = await book.NextSequentialNumberAsync(ct));
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => imgNum = await img.NextSequentialNumberAsync(ct));
 
-        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
+        Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
     }
 
     [TestMethod]
