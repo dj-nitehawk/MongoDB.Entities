@@ -149,7 +149,7 @@ public class ObjectIdRelationships
                           .ChildrenFluent().ToListAsync();
         Assert.AreEqual(model2.Name, models[1].Name);
     }
-    
+
     [TestMethod]
     public async Task many_children_count()
     {
@@ -217,7 +217,7 @@ public class ObjectIdRelationships
         Assert.AreEqual(1, await color1.Models.ChildrenQueryable().CountAsync());
         Assert.AreEqual(model2.Name, (await color1.Models.ChildrenQueryable().FirstAsync()).Name);
     }
-    
+
     [TestMethod]
     public async Task getting_parents_of_a_relationship_fluent_works()
     {
@@ -250,7 +250,7 @@ public class ObjectIdRelationships
         Assert.AreEqual(model.Name, models.Single().Name);
 
         var colors = await color.Models
-                          .ParentsFluent(new object [] { model.Id! })
+                          .ParentsFluent(new object[] { model.Id! })
                           .ToListAsync();
 
         Assert.AreEqual(2, colors.Count);

@@ -93,9 +93,6 @@ public class One<T> where T : IEntity
 
     private object? TransformID()
     {
-        if (ID is string vStr && vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID))
-            return oID;
-
-        return ID;
+        return ID is string vStr && vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID) ? oID : ID;
     }
 }
