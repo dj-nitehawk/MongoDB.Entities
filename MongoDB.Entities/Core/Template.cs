@@ -49,19 +49,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the given member expression (of input type) into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.RootProp.SomeProp</param>
-    public Template<TInput, TResult> Property(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Property(expression);
+    public Template<TInput, TResult> Property(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Property(expression);
 
     /// <summary>
     /// Turns the given member expression (of output type) into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.RootProp.SomeProp</param>
-    public Template<TInput, TResult> PropertyOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Property(expression);
+    public Template<TInput, TResult> PropertyOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Property(expression);
 
     /// <summary>
     /// Turns the given member expression (of any type) into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.RootProp.SomeProp</param>
-    public new Template<TInput, TResult> Property<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Property(expression);
+    public new Template<TInput, TResult> Property<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Property(expression);
 
 
 
@@ -69,19 +69,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the property paths in the given `new` expression (of input type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template<TInput, TResult> Properties(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public Template<TInput, TResult> Properties(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of output type) into names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public Template<TInput, TResult> PropertiesOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of any type) into paths like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public new Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Properties(expression);
+    public new Template<TInput, TResult> Properties<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Properties(expression);
 
 
 
@@ -89,19 +89,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the given expression (of input type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> Path(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Path(expression);
+    public Template<TInput, TResult> Path(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Path(expression);
 
     /// <summary>
     /// Turns the given expression (of output type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PathOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Path(expression);
+    public Template<TInput, TResult> PathOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Path(expression);
 
     /// <summary>
     /// Turns the given expression (of any type) to a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public new Template<TInput, TResult> Path<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Path(expression);
+    public new Template<TInput, TResult> Path<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Path(expression);
 
 
 
@@ -109,19 +109,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the property paths in the given `new` expression (of input type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template<TInput, TResult> Paths(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public Template<TInput, TResult> Paths(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of output type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template<TInput, TResult> PathsOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public Template<TInput, TResult> PathsOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
     /// <summary>
     /// Turns the property paths in the given `new` expression (of any type) into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public new Template<TInput, TResult> Paths<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Paths(expression);
+    public new Template<TInput, TResult> Paths<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Paths(expression);
 
 
 
@@ -130,21 +130,21 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosFiltered(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
+    public Template<TInput, TResult> PosFiltered(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
 
     /// <summary>
     /// Turns the given expression (of output type) to a positional filtered path like "Authors.$[a].Name" and replaces matching tags in the template such as "&lt;Authors.$[a].Name&gt;"
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosFilteredOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
+    public Template<TInput, TResult> PosFilteredOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
 
     /// <summary>
     /// Turns the given expression (of any type) to a positional filtered path like "Authors.$[a].Name" and replaces matching tags in the template such as "&lt;Authors.$[a].Name&gt;"
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public new Template<TInput, TResult> PosFiltered<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
+    public new Template<TInput, TResult> PosFiltered<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.PosFiltered(expression);
 
 
 
@@ -152,19 +152,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the given expression (of input type) to a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosAll(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
+    public Template<TInput, TResult> PosAll(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
 
     /// <summary>
     /// Turns the given expression (of output type) to a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosAllOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
+    public Template<TInput, TResult> PosAllOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
 
     /// <summary>
     /// Turns the given expression (of any type) to a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public new Template<TInput, TResult> PosAll<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
+    public new Template<TInput, TResult> PosAll<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.PosAll(expression);
 
 
 
@@ -172,19 +172,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the given expression (of input type) to a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosFirst(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
+    public Template<TInput, TResult> PosFirst(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
 
     /// <summary>
     /// Turns the given expression (of output type) to a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template<TInput, TResult> PosFirstOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
+    public Template<TInput, TResult> PosFirstOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
 
     /// <summary>
     /// Turns the given expression (of any type) to a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public new Template<TInput, TResult> PosFirst<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
+    public new Template<TInput, TResult> PosFirst<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.PosFirst(expression);
 
 
 
@@ -192,19 +192,19 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// Turns the given expression (of input type) to a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template<TInput, TResult> Elements(Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Elements(expression);
+    public Template<TInput, TResult> Elements(Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Elements(expression);
 
     /// <summary>
     /// Turns the given expression (of output type) to a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template<TInput, TResult> ElementsOfResult(Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Elements(expression);
+    public Template<TInput, TResult> ElementsOfResult(Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Elements(expression);
 
     /// <summary>
     /// Turns the given expression (of any type) to a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public new Template<TInput, TResult> Elements<TOther>(Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Elements(expression);
+    public new Template<TInput, TResult> Elements<TOther>(Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Elements(expression);
 
 
 
@@ -213,21 +213,21 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template<TInput, TResult> Elements(int index, Expression<Func<TInput, object?>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
+    public Template<TInput, TResult> Elements(int index, Expression<Func<TInput, object>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
 
     /// <summary>
     /// Turns the given index and expression (of output type) to a path with the filtered positional identifier prepended to the property path like "a.Name" and replaces matching tags in the template such as "&lt;a.Name&gt;"
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template<TInput, TResult> ElementsOfResult(int index, Expression<Func<TResult, object?>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
+    public Template<TInput, TResult> ElementsOfResult(int index, Expression<Func<TResult, object>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
 
     /// <summary>
     /// Turns the given index and expression (of any type) to a path with the filtered positional identifier prepended to the property path like "a.Name" and replaces matching tags in the template such as "&lt;a.Name&gt;"
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public new Template<TInput, TResult> Elements<TOther>(int index, Expression<Func<TOther, object?>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
+    public new Template<TInput, TResult> Elements<TOther>(int index, Expression<Func<TOther, object>> expression) => (Template<TInput, TResult>)base.Elements(index, expression);
 
 
 
@@ -370,7 +370,7 @@ public class Template
     /// Turns the given member expression into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.RootProp.SomeProp</param>
-    public Template Property<T>(Expression<Func<T, object?>> expression)
+    public Template Property<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.Property(expression));
     }
@@ -379,7 +379,7 @@ public class Template
     /// Turns the property paths in the given `new` expression into property names like "PropX &amp; PropY" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.PropX, x.Prop2.PropY }</param>
-    public Template Properties<T>(Expression<Func<T, object?>> expression)
+    public Template Properties<T>(Expression<Func<T, object>> expression)
     {
         if (cacheHit) return this;
 
@@ -402,7 +402,7 @@ public class Template
     /// Turns the given expression into a dotted path like "SomeList.SomeProp" and replaces matching tags in the template such as "&lt;SomeList.SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template Path<T>(Expression<Func<T, object?>> expression)
+    public Template Path<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.Path(expression));
     }
@@ -411,7 +411,7 @@ public class Template
     /// Turns the property paths in the given `new` expression into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
     /// </summary>
     /// <param name="expression">x => new { x.Prop1.Child1, x.Prop2.Child2 }</param>
-    public Template Paths<T>(Expression<Func<T, object?>> expression)
+    public Template Paths<T>(Expression<Func<T, object>> expression)
     {
         if (cacheHit) return this;
 
@@ -434,7 +434,7 @@ public class Template
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template PosFiltered<T>(Expression<Func<T, object?>> expression)
+    public Template PosFiltered<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.PosFiltered(expression));
     }
@@ -443,7 +443,7 @@ public class Template
     /// Turns the given expression into a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template PosAll<T>(Expression<Func<T, object?>> expression)
+    public Template PosAll<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.PosAll(expression));
     }
@@ -452,7 +452,7 @@ public class Template
     /// Turns the given expression into a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public Template PosFirst<T>(Expression<Func<T, object?>> expression)
+    public Template PosFirst<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.PosFirst(expression));
     }
@@ -461,7 +461,7 @@ public class Template
     /// Turns the given expression into a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template Elements<T>(Expression<Func<T, object?>> expression)
+    public Template Elements<T>(Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.Elements(expression));
     }
@@ -471,7 +471,7 @@ public class Template
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public Template Elements<T>(int index, Expression<Func<T, object?>> expression)
+    public Template Elements<T>(int index, Expression<Func<T, object>> expression)
     {
         return cacheHit ? this : ReplacePath(Prop.Elements(index, expression));
     }

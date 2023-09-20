@@ -53,10 +53,10 @@ public abstract class FileEntity : Entity
 internal class FileChunk : IEntity
 {
     [BsonId, ObjectId]
-    public string? ID { get; set; }
+    public string ID { get; set; } = null!;
 
     [AsObjectId]
-    public string? FileID { get; set; }
+    public string FileID { get; set; } = null!;
 
     public byte[] Data { get; set; } = Array.Empty<byte>();
 

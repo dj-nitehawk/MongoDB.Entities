@@ -39,7 +39,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">The ID of the child Entity to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(object? childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task AddAsync(object childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return AddAsync(new[] { childID }, session, cancellation);
     }
@@ -51,7 +51,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">The IDs of the child Entities to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task AddAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         parent.ThrowIfUnsaved();
 

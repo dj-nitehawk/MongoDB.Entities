@@ -6,11 +6,11 @@ using System;
 
 namespace MongoDB.Entities;
 
-internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSerializer
+internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
 {
     private static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
 
-    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
+    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
     {
         if (fString == null || string.IsNullOrWhiteSpace(fString.Value))
         {
@@ -28,7 +28,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
         }
     }
 
-    public override FuzzyString? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+    public override FuzzyString Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
     {
         var bsonType = ctx.Reader.GetCurrentBsonType();
 
@@ -55,7 +55,7 @@ internal class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocume
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
-                return null;
+                return null!;
 
             default:
                 throw new FormatException($"Cannot deserialize a FuzzyString value from a [{bsonType}]");
@@ -87,7 +87,7 @@ public class FuzzyString
 {
     public static int CharacterLimit { get; set; } = 250;
 
-    public string? Value { get; set; }
+    public string Value { get; set; } = null!;
 
     public FuzzyString() { }
 
@@ -95,5 +95,5 @@ public class FuzzyString
     /// instantiate a FuzzyString object with a given string
     /// </summary>
     /// <param name="value">the string value to create the FuzzyString with</param>
-    public FuzzyString(string? value) => Value = value;
+    public FuzzyString(string value) => Value = value;
 }

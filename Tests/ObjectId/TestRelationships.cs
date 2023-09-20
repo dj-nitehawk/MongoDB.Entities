@@ -70,7 +70,7 @@ public class ObjectIdRelationships
                       .SingleAsync())
                       .Make.ToEntityAsync(a => new CarMake { Name = a.Name });
         Assert.AreEqual(make.Name, res!.Name);
-        Assert.AreEqual(null, res.Id);
+        Assert.IsNull(res.Id);
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ public class ObjectIdRelationships
                       .SingleAsync())
                       .Make.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.Id));
         Assert.AreEqual(make.Name, res!.Name);
-        Assert.AreEqual(null, res.Id);
+        Assert.IsNull(res.Id);
     }
 
     [TestMethod]
@@ -236,7 +236,7 @@ public class ObjectIdRelationships
         await model.Colors.AddAsync(color1);
 
         var models = await model.Colors
-                        .ParentsFluent(color.Id)
+                        .ParentsFluent(color.Id!.Value)
                         .ToListAsync();
 
         Assert.AreEqual(1, models.Count);

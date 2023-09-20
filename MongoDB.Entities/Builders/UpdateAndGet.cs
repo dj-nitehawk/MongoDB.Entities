@@ -16,10 +16,9 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 {
-    internal UpdateAndGet(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-        Action<UpdateBase<T>>? onUpdateAction)
+    internal UpdateAndGet(IClientSessionHandle? session,
+                          Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+                          Action<UpdateBase<T>>? onUpdateAction)
         : base(session, globalFilters, onUpdateAction) { }
 }
 
@@ -39,10 +38,9 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
-    internal UpdateAndGet(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-        Action<UpdateBase<T>>? onUpdateAction)
+    internal UpdateAndGet(IClientSessionHandle? session,
+                          Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+                          Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -53,7 +51,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public UpdateAndGet<T, TProjection> MatchID(object? ID)
+    public UpdateAndGet<T, TProjection> MatchID(object ID)
     {
         return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
@@ -136,7 +134,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public UpdateAndGet<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -228,7 +226,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object?>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
@@ -240,7 +238,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object?>> members, T entity)
+    public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
@@ -356,7 +354,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     }
 
     /// <summary>
-    /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection. 
+    /// Specify to automatically include all properties marked with [BsonRequired] attribute on the entity in the final projection.
     /// <para>HINT: this method should only be called after the .Project() method.</para>
     /// </summary>
     public UpdateAndGet<T, TProjection> IncludeRequiredProps()
@@ -381,7 +379,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// Run the update command in MongoDB and retrieve the first document modified
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public async Task<TProjection> ExecuteAsync(CancellationToken cancellation = default)
+    public async Task<TProjection?> ExecuteAsync(CancellationToken cancellation = default)
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
@@ -396,7 +394,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// Run the update command with pipeline stages and retrieve the first document modified
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<TProjection> ExecutePipelineAsync(CancellationToken cancellation = default)
+    public async Task<TProjection?> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
@@ -404,7 +402,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
         if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
-        return UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
     }
 
     private bool ShouldSetModDate()

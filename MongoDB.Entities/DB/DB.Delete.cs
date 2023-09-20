@@ -13,10 +13,9 @@ public static partial class DB
 {
     private static readonly int deleteBatchSize = 100000;
 
-    private static async Task<DeleteResult> DeleteCascadingAsync<T>(
-        IEnumerable<object?> IDs,
-        IClientSessionHandle? session = null,
-        CancellationToken cancellation = default) where T : IEntity
+    private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object> IDs,
+                                                                    IClientSessionHandle? session = null,
+                                                                    CancellationToken cancellation = default) where T : IEntity
     {
         // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
         //       and premature cancellation could cause data inconsistencies.
@@ -73,7 +72,7 @@ public static partial class DB
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name = "session" >An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(object? ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(object ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
         return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
@@ -88,7 +87,7 @@ public static partial class DB
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name = "session" > An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -161,7 +160,7 @@ public static partial class DB
         if (jsonFilter?.Json.StartsWith("{") is false)
             filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
 
-        var cursor = await new Find<T, object?>(session, null)
+        var cursor = await new Find<T, object>(session, null)
                            .Match(_ => filter)
                            .Project(p => p.Include(Cache<T>.IdPropName))
                            .Option(o => o.BatchSize = deleteBatchSize)

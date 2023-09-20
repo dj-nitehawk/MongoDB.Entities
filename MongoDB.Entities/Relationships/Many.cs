@@ -86,7 +86,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// </summary>
     /// <param name="parent">The parent entity instance</param>
     /// <param name="property">Function(x) x.PropName</param>
-    public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object?>> property)
+    public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object>> property)
     {
         Init(parent, Prop.Property(property));
     }
@@ -119,8 +119,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <param name="isInverse">Specify if this is the inverse side of the relationship or not</param>
     public void VB_InitManyToMany(
         TParent parent,
-        Expression<Func<TParent, object?>> propertyParent,
-        Expression<Func<TChild, object?>> propertyChild,
+        Expression<Func<TParent, object>> propertyParent,
+        Expression<Func<TChild, object>> propertyChild,
         bool isInverse)
     {
         Init(parent, Prop.Property(propertyParent), Prop.Property(propertyChild), isInverse);
