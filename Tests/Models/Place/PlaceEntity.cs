@@ -10,4 +10,6 @@ public class PlaceEntity : Place
   public string? Id { get; set; }
   public override object GenerateNewID()
       => ObjectId.GenerateNewId().ToString()!;
+  public override bool IsSetID()
+    => !string.IsNullOrEmpty(Id);
 }

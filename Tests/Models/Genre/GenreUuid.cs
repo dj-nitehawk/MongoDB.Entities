@@ -10,6 +10,9 @@ public class GenreUuid : Genre
     public string ID { get; set; }
     public override object GenerateNewID()
       => Uuid7.NewUuid7().ToString();
+    public override bool IsSetID()
+      => !string.IsNullOrEmpty(ID);
+
 
     [InverseSide]
     public Many<BookUuid, GenreUuid> Books { get; set; } = null!;

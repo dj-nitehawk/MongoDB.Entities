@@ -19,4 +19,11 @@ public abstract class Entity : IEntity
     /// </summary>
     public virtual object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
+
+    /// <summary>
+    /// Used to check if the ID has been set to a valid value. The default value of the ID should return false.
+    /// </summary>
+    /// <returns>true if the ID has been set</returns>
+    public bool IsSetID()
+        => !string.IsNullOrEmpty(ID);
 }

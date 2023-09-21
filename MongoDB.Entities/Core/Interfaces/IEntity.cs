@@ -11,4 +11,10 @@ public interface IEntity
     /// If you're not doing custom ID generation, simply do <c>return ObjectId.GenerateNewId().ToString()</c>
     /// </summary>
     object GenerateNewID();
+    
+    /// <summary>
+    /// Used to check if the ID has been set to a valid value. The default value of the ID should return false.
+    /// </summary>
+    bool IsSetID();
+    
 }

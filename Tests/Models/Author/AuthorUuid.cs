@@ -10,6 +10,9 @@ public class AuthorUuid : Author
     public string ID { get; set; }
     public override object GenerateNewID()
         => Uuid7.NewUuid7().ToString();
+    public override bool IsSetID()
+        => !string.IsNullOrEmpty(ID);
+
 
     [BsonIgnoreIfDefault]
     public One<BookUuid> BestSeller { get; set; }

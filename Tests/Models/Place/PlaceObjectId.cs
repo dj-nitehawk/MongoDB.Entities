@@ -8,7 +8,9 @@ namespace MongoDB.Entities.Tests;
 public class PlaceObjectId : Place
 {
   [BsonId]
-  public ObjectId? Id { get; set; }
+  public ObjectId Id { get; set; }
   public override object GenerateNewID()
     => ObjectId.GenerateNewId();
+  public override bool IsSetID()
+    => ObjectId.Empty != Id;
 }

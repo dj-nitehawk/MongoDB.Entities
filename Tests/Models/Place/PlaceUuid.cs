@@ -8,7 +8,10 @@ namespace MongoDB.Entities.Tests;
 public class PlaceUuid : Place
 {
   [BsonId]
-  public string? Id { get; set; }
+  public string Id { get; set; }
   public override object GenerateNewID()
     => Uuid7.NewUuid7().ToString();
+  public override bool IsSetID()
+    => !string.IsNullOrEmpty(Id);
+
 }

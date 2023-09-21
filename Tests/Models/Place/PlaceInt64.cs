@@ -7,6 +7,9 @@ namespace MongoDB.Entities.Tests;
 public class PlaceInt64 : Place
 {
   [BsonId]
-  public Int64? Id { get; set; }
+  public Int64 Id { get; set; }
   public override object GenerateNewID()
-    => Convert.ToInt64(DateTime.UtcNow.Ticks);}
+    => Convert.ToInt64(DateTime.UtcNow.Ticks);
+  public override bool IsSetID()
+    => Id!=0;
+}

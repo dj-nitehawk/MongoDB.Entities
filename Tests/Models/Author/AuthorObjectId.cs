@@ -7,9 +7,11 @@ namespace MongoDB.Entities.Tests;
 public class AuthorObjectId : Author
 {
     [BsonId]
-    public ObjectId? ID { get; set; }
+    public ObjectId ID { get; set; }
     public override object GenerateNewID()
       => ObjectId.GenerateNewId();
+    public override bool IsSetID()
+      => ObjectId.Empty != ID;
 
     [BsonIgnoreIfDefault]
     public One<BookObjectId> BestSeller { get; set; }

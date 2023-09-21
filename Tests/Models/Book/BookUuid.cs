@@ -11,6 +11,9 @@ public class BookUuid : Book
     public string ID { get; set; }
     public override object GenerateNewID()
       => Uuid7.NewUuid7().ToString();
+    public override bool IsSetID()
+      => !string.IsNullOrEmpty(ID);
+
 
     public ReviewUuid Review { get; set; }
     public ReviewUuid[] ReviewArray { get; set; }

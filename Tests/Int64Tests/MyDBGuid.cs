@@ -22,7 +22,7 @@ public class MyDBInt64 : DBContext
     {
         Action<FlowerInt64> action = f =>
         {
-            if (f.Id == null)
+            if (!f.IsSetID())
             {
                 f.CreatedBy = "God";
                 f.CreatedDate = DateTime.MinValue;

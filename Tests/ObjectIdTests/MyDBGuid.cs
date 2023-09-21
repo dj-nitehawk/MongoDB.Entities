@@ -21,7 +21,7 @@ public class MyDBObjectId : DBContext
     {
         Action<FlowerObjectId> action = f =>
         {
-            if (f.Id == null)
+            if (!f.IsSetID())
             {
                 f.CreatedBy = "God";
                 f.CreatedDate = DateTime.MinValue;

@@ -11,6 +11,8 @@ public class BookEntity : Book
     public string ID { get; set; }
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString()!;
+    public override bool IsSetID()
+        => !string.IsNullOrEmpty(ID);
 
     public ReviewEntity Review { get; set; }
     public ReviewEntity[] ReviewArray { get; set; }

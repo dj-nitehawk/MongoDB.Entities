@@ -25,6 +25,7 @@ public abstract class Book : IEntity, IModifiedOn
     public UpdatedBy ModifiedBy { get; set; }
 
     public abstract object GenerateNewID();
+    public abstract bool IsSetID();
 }
 
 public class UpdatedBy : Entities.ModifiedBy

@@ -10,6 +10,8 @@ public class GenreEntity : Genre
     public string ID { get; set; }
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString()!;
+    public override bool IsSetID()
+        => !string.IsNullOrEmpty(ID);
 
     [InverseSide]
     public Many<BookEntity, GenreEntity> Books { get; set; } = null!;

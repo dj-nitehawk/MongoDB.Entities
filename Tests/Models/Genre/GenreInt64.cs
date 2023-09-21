@@ -7,9 +7,11 @@ namespace MongoDB.Entities.Tests;
 public class GenreInt64 : Genre
 {
     [BsonId]
-    public Int64? ID { get; set; }
+    public Int64 ID { get; set; }
     public override object GenerateNewID()
       => Convert.ToInt64(DateTime.UtcNow.Ticks);
+    public override bool IsSetID()
+      => ID!=0;
 
     [InverseSide]
     public Many<BookInt64, GenreInt64> Books { get; set; } = null!;
