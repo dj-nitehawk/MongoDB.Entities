@@ -12,11 +12,11 @@ public abstract class ObjectIdEntity : IEntity
     /// This property is auto managed. A new ID will be assigned for new entities upon saving.
     /// </summary>
     [BsonId]
-    public ObjectId? Id { get; set; }
+    public ObjectId Id { get; set; }
 
-    /// <summary>
-    /// Override this method in order to control the generation of IDs for new entities.
-    /// </summary>
-    public virtual object GenerateNewID()
-      => ObjectId.GenerateNewId();
+    public object GenerateNewID()
+        => ObjectId.GenerateNewId();
+
+    public bool HasDefaultID()
+        => Id == ObjectId.Empty;
 }

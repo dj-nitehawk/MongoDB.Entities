@@ -8,8 +8,12 @@ public class AuthorUuid : Author
 {
     [BsonId]
     public string ID { get; set; }
+
     public override object GenerateNewID()
         => Uuid7.NewUuid7().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
 
     [BsonIgnoreIfDefault]
     public One<BookUuid> BestSeller { get; set; }

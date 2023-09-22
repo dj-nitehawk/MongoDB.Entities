@@ -13,4 +13,5 @@ public abstract class Review : IEntity
     public double Rating { get; set; }
     public FuzzyString Fuzzy { get; set; }
     public abstract object GenerateNewID();
+    public abstract bool HasDefaultID();
 }

@@ -34,13 +34,14 @@ public static partial class Extensions
 
     internal static void ThrowIfUnsaved(this object entityID)
     {
-        if (entityID == null)
+        if (entityID == default)
             throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
     internal static void ThrowIfUnsaved<T>(this T entity) where T : IEntity
     {
-        ThrowIfUnsaved(entity.GetId());
+        if (entity.HasDefaultID())
+            throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
     /// <summary>

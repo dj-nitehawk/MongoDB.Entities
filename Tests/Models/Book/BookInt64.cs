@@ -8,9 +8,13 @@ namespace MongoDB.Entities.Tests;
 public class BookInt64 : Book
 {
     [BsonId]
-    public Int64? ID { get; set; }
+    public Int64 ID { get; set; }
+
     public override object GenerateNewID()
-      => Convert.ToInt64(DateTime.UtcNow.Ticks);
+        => Convert.ToInt64(DateTime.UtcNow.Ticks);
+
+    public override bool HasDefaultID()
+        => ID == 0;
 
     public ReviewInt64 Review { get; set; }
     public ReviewInt64[] ReviewArray { get; set; }

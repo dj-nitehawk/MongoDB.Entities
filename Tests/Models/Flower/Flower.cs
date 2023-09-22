@@ -9,6 +9,7 @@ public abstract class BaseEntity : IEntity
     public DateTime UpdateDate { get; set; }
     public string UpdatedBy { get; set; }
     public abstract object GenerateNewID();
+    public abstract bool HasDefaultID();
 }
 
 public abstract class Flower : BaseEntity, ISoftDeleted

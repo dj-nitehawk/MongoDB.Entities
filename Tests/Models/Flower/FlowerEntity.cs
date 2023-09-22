@@ -9,11 +9,16 @@ public class FlowerEntity : Flower
 {
     [BsonId, AsObjectId]
     public string Id { get; set; }
+
     public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString()!;
+        => ObjectId.GenerateNewId().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(Id);
 
     public FlowerEntity NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerEntity> Customers { get; set; }
+
     public FlowerEntity()
     {
         this.InitOneToMany(() => Customers!);

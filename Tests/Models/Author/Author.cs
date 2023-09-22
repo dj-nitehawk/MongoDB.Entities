@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace MongoDB.Entities.Tests;
 
@@ -8,7 +9,7 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
     public string Name { get; set; }
     public string Surname { get; set; }
 
-    [Bson.Serialization.Attributes.BsonIgnoreIfNull]
+    [BsonIgnoreIfNull]
     public string? FullName { get; set; }
 
     [Preserve]
@@ -17,7 +18,7 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
     [Preserve]
     public int Age { get; set; }
 
-    [Bson.Serialization.Attributes.BsonIgnoreIfDefault]
+    [BsonIgnoreIfDefault]
     [Preserve]
     public int Age2 { get; set; }
 
@@ -28,4 +29,5 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
     public DateTime CreatedOn { get; set; }
 
     public abstract object GenerateNewID();
+    public abstract bool HasDefaultID();
 }

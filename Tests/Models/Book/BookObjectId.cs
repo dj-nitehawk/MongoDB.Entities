@@ -8,9 +8,13 @@ namespace MongoDB.Entities.Tests;
 public class BookObjectId : Book
 {
     [BsonId]
-    public ObjectId? ID { get; set; }
+    public ObjectId ID { get; set; }
+
     public override object GenerateNewID()
-      => ObjectId.GenerateNewId();
+        => ObjectId.GenerateNewId();
+
+    public override bool HasDefaultID()
+        => ObjectId.Empty == ID;
 
     public ReviewObjectId Review { get; set; }
     public ReviewObjectId[] ReviewArray { get; set; }

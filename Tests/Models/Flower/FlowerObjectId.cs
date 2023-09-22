@@ -8,12 +8,16 @@ namespace MongoDB.Entities.Tests;
 public class FlowerObjectId : Flower
 {
     [BsonId]
-    public ObjectId? Id { get; set; }
-    public override object GenerateNewID()
-      => ObjectId.GenerateNewId();
-
+    public ObjectId Id { get; set; }
     public FlowerObjectId NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerObjectId> Customers { get; set; }
+
+    public override object GenerateNewID()
+        => ObjectId.GenerateNewId();
+
+    public override bool HasDefaultID()
+        => ObjectId.Empty == Id;
+
     public FlowerObjectId()
     {
         this.InitOneToMany(() => Customers!);

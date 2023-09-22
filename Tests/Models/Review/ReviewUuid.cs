@@ -9,8 +9,12 @@ public class ReviewUuid : Review
 {
     [BsonId]
     public string Id { get; set; }
+
     public override object GenerateNewID()
-      => Uuid7.NewUuid7().ToString();
+        => Uuid7.NewUuid7().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(Id);
 
     public Collection<BookUuid> Books { get; set; }
 }

@@ -7,9 +7,13 @@ namespace MongoDB.Entities.Tests;
 public class GenreObjectId : Genre
 {
     [BsonId]
-    public ObjectId? ID { get; set; }
+    public ObjectId ID { get; set; }
+
     public override object GenerateNewID()
-      => ObjectId.GenerateNewId();
+        => ObjectId.GenerateNewId();
+
+    public override bool HasDefaultID()
+        => ObjectId.Empty == ID;
 
     [InverseSide]
     public Many<BookObjectId, GenreObjectId> Books { get; set; } = null!;

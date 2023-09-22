@@ -70,7 +70,7 @@ public class RelationshipsInt64
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(a => new AuthorInt64 { Name = a.Name });
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.IsNull(res.ID);
+        Assert.IsTrue(res.HasDefaultID());
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ public class RelationshipsInt64
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.IsNull(res.ID);
+        Assert.IsTrue(res.HasDefaultID());
     }
 
     [TestMethod]
@@ -323,7 +323,7 @@ public class RelationshipsInt64
         await book.Genres.AddAsync(genre1);
 
         var books = await book.Genres
-                        .ParentsFluent(genre.ID!.Value)
+                        .ParentsFluent(genre.ID)
                         .ToListAsync();
 
         Assert.AreEqual(1, books.Count);
@@ -337,7 +337,7 @@ public class RelationshipsInt64
         Assert.AreEqual(book.Title, books.Single().Title);
 
         var genres = await genre.Books
-                          .ParentsFluent(book.ID!.Value)
+                          .ParentsFluent(book.ID)
                           .ToListAsync();
 
         Assert.AreEqual(2, genres.Count);

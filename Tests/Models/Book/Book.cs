@@ -1,6 +1,5 @@
 ﻿using MongoDB.Entities.Tests.Models;
 using System;
-using System.Collections.Generic;
 
 namespace MongoDB.Entities.Tests;
 
@@ -17,17 +16,17 @@ public abstract class Book : IEntity, IModifiedOn
     public float PriceFloat { get; set; }
     public string[] Tags { get; set; }
     public One<CustomerWithCustomID> Customer { get; set; }
+    public DateTime ModifiedOn { get; set; }
+    public UpdatedBy ModifiedBy { get; set; }
+
     [Ignore]
     public int DontSaveThis { get; set; }
 
-    public DateTime ModifiedOn { get; set; }
-
-    public UpdatedBy ModifiedBy { get; set; }
-
     public abstract object GenerateNewID();
+    public abstract bool HasDefaultID();
 }
 
-public class UpdatedBy : Entities.ModifiedBy
+public class UpdatedBy : ModifiedBy
 {
     public string UserType { get; set; }
 }

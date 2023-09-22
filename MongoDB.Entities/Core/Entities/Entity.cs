@@ -19,4 +19,8 @@ public abstract class Entity : IEntity
     /// </summary>
     public virtual object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
+
+    ///<inheritdoc/>
+    public virtual bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
 }

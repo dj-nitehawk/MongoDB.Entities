@@ -8,8 +8,13 @@ public class GenreUuid : Genre
 {
     [BsonId]
     public string ID { get; set; }
+
     public override object GenerateNewID()
-      => Uuid7.NewUuid7().ToString();
+        => Uuid7.NewUuid7().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
+
 
     [InverseSide]
     public Many<BookUuid, GenreUuid> Books { get; set; } = null!;
