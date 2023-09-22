@@ -6,12 +6,14 @@ namespace MongoDB.Entities.Tests;
 [Collection("AuthorInt64")]
 public class AuthorInt64 : Author
 {
-    [BsonId] 
+    [BsonId]
     public Int64 ID { get; set; }
+
     public override object GenerateNewID()
-      => Convert.ToInt64(DateTime.UtcNow.Ticks);
-    public override bool IsSetID()
-      => ID!=0;
+        => Convert.ToInt64(DateTime.UtcNow.Ticks);
+
+    public override bool HasDefaultID()
+        => ID == 0;
 
     [BsonIgnoreIfDefault]
     public One<BookInt64> BestSeller { get; set; }

@@ -70,7 +70,7 @@ public class RelationshipsInt64
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(a => new AuthorInt64 { Name = a.Name });
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.IsFalse(res.IsSetID());
+        Assert.IsTrue(res.HasDefaultID());
     }
 
     [TestMethod]
@@ -86,7 +86,7 @@ public class RelationshipsInt64
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
         Assert.AreEqual(author.Name, res!.Name);
-        Assert.IsFalse(res.IsSetID());
+        Assert.IsTrue(res.HasDefaultID());
     }
 
     [TestMethod]

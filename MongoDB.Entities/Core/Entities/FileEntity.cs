@@ -62,9 +62,9 @@ internal class FileChunk : IEntity
 
     public object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
-    
-    public bool IsSetID()
-        => !string.IsNullOrEmpty(ID);
+
+    public bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
 }
 
 /// <summary>

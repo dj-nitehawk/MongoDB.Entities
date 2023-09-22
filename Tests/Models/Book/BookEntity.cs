@@ -9,10 +9,12 @@ public class BookEntity : Book
 {
     [BsonId, AsObjectId]
     public string ID { get; set; }
+
     public override object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString()!;
-    public override bool IsSetID()
-        => !string.IsNullOrEmpty(ID);
+        => ObjectId.GenerateNewId().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
 
     public ReviewEntity Review { get; set; }
     public ReviewEntity[] ReviewArray { get; set; }

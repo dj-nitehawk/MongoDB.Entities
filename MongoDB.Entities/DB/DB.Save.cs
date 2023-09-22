@@ -278,7 +278,7 @@ public static partial class DB
 
     private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
     {
-        if (!entity.IsSetID())
+        if (entity.HasDefaultID())
         {
             entity.SetId(entity.GenerateNewID());
             if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;

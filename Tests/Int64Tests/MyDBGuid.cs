@@ -1,5 +1,4 @@
-﻿using MongoDB.Entities.Tests.Models;
-using System;
+﻿using System;
 
 namespace MongoDB.Entities.Tests;
 
@@ -22,7 +21,7 @@ public class MyDBInt64 : DBContext
     {
         Action<FlowerInt64> action = f =>
         {
-            if (!f.IsSetID())
+            if (f.HasDefaultID())
             {
                 f.CreatedBy = "God";
                 f.CreatedDate = DateTime.MinValue;

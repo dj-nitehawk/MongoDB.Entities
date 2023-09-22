@@ -11,5 +11,5 @@ public abstract class Genre : IEntity
     public Review Review { get; set; }
 
     public abstract object GenerateNewID();
-    public abstract bool IsSetID();
+    public abstract bool HasDefaultID();
 }

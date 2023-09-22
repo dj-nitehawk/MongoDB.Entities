@@ -8,10 +8,12 @@ public class GenreUuid : Genre
 {
     [BsonId]
     public string ID { get; set; }
+
     public override object GenerateNewID()
-      => Uuid7.NewUuid7().ToString();
-    public override bool IsSetID()
-      => !string.IsNullOrEmpty(ID);
+        => Uuid7.NewUuid7().ToString();
+
+    public override bool HasDefaultID()
+        => string.IsNullOrEmpty(ID);
 
 
     [InverseSide]

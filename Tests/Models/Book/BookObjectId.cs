@@ -9,10 +9,12 @@ public class BookObjectId : Book
 {
     [BsonId]
     public ObjectId ID { get; set; }
+
     public override object GenerateNewID()
-      => ObjectId.GenerateNewId();
-    public override bool IsSetID()
-      => ObjectId.Empty != ID;
+        => ObjectId.GenerateNewId();
+
+    public override bool HasDefaultID()
+        => ObjectId.Empty == ID;
 
     public ReviewObjectId Review { get; set; }
     public ReviewObjectId[] ReviewArray { get; set; }

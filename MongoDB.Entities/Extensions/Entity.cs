@@ -40,7 +40,7 @@ public static partial class Extensions
 
     internal static void ThrowIfUnsaved<T>(this T entity) where T : IEntity
     {
-        if (!entity.IsSetID())
+        if (entity.HasDefaultID())
             throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
