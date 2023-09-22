@@ -45,7 +45,7 @@ public class Update100 : BenchBase
     public Update100()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()

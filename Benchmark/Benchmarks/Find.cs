@@ -16,7 +16,7 @@ public class FindOne : BenchBase
     public FindOne()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()
@@ -58,7 +58,7 @@ public class Find100 : BenchBase
     public Find100()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()
@@ -100,7 +100,7 @@ public class FindFirst : BenchBase
     public FindFirst()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()
@@ -142,7 +142,7 @@ public class FindAny : BenchBase
     public FindAny()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()
@@ -184,7 +184,7 @@ public class FindSingle : BenchBase
     public FindSingle()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync()
           .GetAwaiter()
