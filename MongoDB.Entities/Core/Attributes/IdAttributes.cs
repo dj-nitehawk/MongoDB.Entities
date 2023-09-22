@@ -109,7 +109,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
                 return;
             }
 
-            if (value is Int64 int64)
+            if (value is long int64)
             {
                 ctx.Writer.WriteInt64(int64);
                 return;

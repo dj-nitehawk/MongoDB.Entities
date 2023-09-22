@@ -83,14 +83,12 @@ public class Date
     private long ticks;
     private DateTime date = new();
 
-    public long Ticks
-    {
+    public long Ticks {
         get => ticks;
         set { date = new DateTime(value); ticks = value; }
     }
 
-    public DateTime DateTime
-    {
+    public DateTime DateTime {
         get => date;
         set { date = value; ticks = value.Ticks; }
     }

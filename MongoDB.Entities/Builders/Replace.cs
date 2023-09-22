@@ -172,7 +172,7 @@ public class Replace<T> where T : IEntity
 
         onSaveAction?.Invoke(entity);
 
-        this.Entity = entity;
+        Entity = entity;
 
         return this;
     }

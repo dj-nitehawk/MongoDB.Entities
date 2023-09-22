@@ -128,8 +128,7 @@ public static partial class Extensions
     {
         var lev = new Levenshtein(searchTerm);
 
-        var res = objects.Select(o => new
-        {
+        var res = objects.Select(o => new {
             score = lev.DistanceFrom(propertyToSortBy(o)),
             obj = o
         });

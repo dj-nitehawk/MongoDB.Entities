@@ -97,7 +97,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childID">An child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
-    public IAggregateFluent<TParent> ParentsFluent(Int64 childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
+    public IAggregateFluent<TParent> ParentsFluent(long childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
         return ParentsFluent(new object[] { childID }, session, options);
     }
