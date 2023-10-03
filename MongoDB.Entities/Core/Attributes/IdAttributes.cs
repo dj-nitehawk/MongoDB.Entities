@@ -85,37 +85,28 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
 
         public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, object value)
         {
-            if (value == null)
+            switch (value)
             {
-                ctx.Writer.WriteNull();
-                return;
-            }
-
-            if (value is ObjectId oId)
-            {
-                ctx.Writer.WriteObjectId(oId);
-                return;
-            }
-
-            if (value is string vStr)
-            {
-                if (vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID))
-                {
-                    ctx.Writer.WriteObjectId(oID);
+                case null:
+                    ctx.Writer.WriteNull();
                     return;
-                }
-
-                ctx.Writer.WriteString(vStr);
-                return;
+                case ObjectId oId:
+                    ctx.Writer.WriteObjectId(oId);
+                    return;
+                case string val:
+                    if (val.Length == 24 && ObjectId.TryParse(val, out var oID))
+                    {
+                        ctx.Writer.WriteObjectId(oID);
+                        return;
+                    }
+                    ctx.Writer.WriteString(val);
+                    return;
+                case long int64:
+                    ctx.Writer.WriteInt64(int64);
+                    return;
+                default:
+                    throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
             }
-
-            if (value is long int64)
-            {
-                ctx.Writer.WriteInt64(int64);
-                return;
-            }
-
-            throw new BsonSerializationException($"'{value.GetType()}' values are not valid on properties decorated with an [AsBsonId] attribute!");
         }
 
         public override object Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
