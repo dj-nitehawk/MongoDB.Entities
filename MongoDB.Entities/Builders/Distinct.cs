@@ -21,9 +21,7 @@ public class Distinct<T, TProperty> where T : IEntity
     private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
     private bool ignoreGlobalFilters;
 
-    internal Distinct(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+    internal Distinct(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -43,7 +41,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// Specify the property you want to get the unique values for (as a member expression)
     /// </summary>
     /// <param name="property">x => x.Address.Street</param>
-    public Distinct<T, TProperty> Property(Expression<Func<T, object?>> property)
+    public Distinct<T, TProperty> Property(Expression<Func<T, object>> property)
     {
         field = property.FullPath();
         return this;
@@ -117,7 +115,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Distinct<T, TProperty> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }

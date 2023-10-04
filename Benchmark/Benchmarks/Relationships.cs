@@ -16,7 +16,7 @@ public class Relationships : BenchBase
     public Relationships()
     {
         DB.Index<Author>()
-          .Key(a => a.FirstName, KeyType.Ascending)
+          .Key(a => a.FirstName!, KeyType.Ascending)
           .Option(o => o.Background = false)
           .CreateAsync().GetAwaiter().GetResult();
 
@@ -74,11 +74,11 @@ public class Relationships : BenchBase
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         var res = new AuthorWithBooksDTO
         {
-            Birthday = author?.Birthday,
-            FirstName = author?.FirstName,
-            LastName = author?.LastName,
-            ID = author?.ID,
-            BookList = await DB.Find<Book>().ManyAsync(b => b.Author.ID == (author != null ? author.ID : null))
+            Birthday = author!.Birthday,
+            FirstName = author.FirstName,
+            LastName = author.LastName,
+            ID = author.ID,
+            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author != null ? author.ID : null))
         };
     }
 
@@ -88,10 +88,10 @@ public class Relationships : BenchBase
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         var res = new AuthorWithBooksDTO
         {
-            Birthday = author?.Birthday,
-            FirstName = author?.FirstName,
-            LastName = author?.LastName,
-            ID = author?.ID,
+            Birthday = author!.Birthday,
+            FirstName = author.FirstName,
+            LastName = author.LastName,
+            ID = author.ID,
             BookList = author is null ? new List<Book>() : await author.Books.ChildrenFluent().ToListAsync()
         };
     }
@@ -102,10 +102,10 @@ public class Relationships : BenchBase
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
         var res = new AuthorWithBooksDTO
         {
-            Birthday = author?.Birthday,
-            FirstName = author?.FirstName,
-            LastName = author?.LastName,
-            ID = author?.ID,
+            Birthday = author!.Birthday,
+            FirstName = author.FirstName,
+            LastName = author.LastName,
+            ID = author.ID,
             BookList = author is null ? new List<Book>() : await author.Books.ChildrenQueryable().ToListAsync()
         };
     }

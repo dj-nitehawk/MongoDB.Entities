@@ -72,14 +72,14 @@ public class DBContextVsStaticSave : BenchBase
     [Benchmark]
     public Task DB_Context()
     {
-        author.ID = null;
+        author.ID = null!;
         return new DBContext().SaveAsync(author);
     }
 
     [Benchmark(Baseline = true)]
     public Task DB_Static()
     {
-        author.ID = null;
+        author.ID = null!;
         return DB.SaveAsync(author);
     }
 

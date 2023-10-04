@@ -11,7 +11,7 @@ namespace MongoDB.Entities;
 
 public abstract class UpdateBase<T> where T : IEntity
 {
-    //note: this base class exists for facilating the OnBeforeUpdate custom hook of DBContext class
+    //note: this base class exists for facilitating the OnBeforeUpdate custom hook of DBContext class
     //      there's no other purpose for this.
 
     protected readonly List<UpdateDefinition<T>> defs = new();
@@ -70,10 +70,9 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     private readonly Action<UpdateBase<T>>? onUpdateAction;
     private bool ignoreGlobalFilters;
 
-    internal Update(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-        Action<UpdateBase<T>>? onUpdateAction)
+    internal Update(IClientSessionHandle? session,
+                    Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+                    Action<UpdateBase<T>>? onUpdateAction)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -84,9 +83,9 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Update<T> MatchID(string? ID)
+    public Update<T> MatchID(object ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
@@ -167,7 +166,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Update<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -260,7 +259,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyOnly(Expression<Func<T, object?>> members, T entity)
+    public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members));
@@ -272,7 +271,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyExcept(Expression<Func<T, object?>> members, T entity)
+    public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));

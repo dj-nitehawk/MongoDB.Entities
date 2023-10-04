@@ -49,7 +49,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<TResult?> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
@@ -64,7 +64,7 @@ public partial class DBContext
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<TResult?> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
     {
         return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }

@@ -19,12 +19,8 @@ public partial class DBContext
     /// </summary>
     public ModifiedBy? ModifiedBy { get; set; }
 
-
-
     private static Type[]? allEntitiyTypes;
     private Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-
-
 
     /// <summary>
     /// Initializes a DBContext instance with the given connection parameters.
@@ -79,8 +75,6 @@ public partial class DBContext
     public DBContext(ModifiedBy? modifiedBy = null)
         => ModifiedBy = modifiedBy;
 
-
-
     /// <summary>
     /// Returns the session object used for transactions
     /// </summary>
@@ -132,8 +126,6 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AbortAsync(CancellationToken cancellation = default) => Session?.AbortTransactionAsync(cancellation) ?? Task.CompletedTask;
 
-
-
     /// <summary>
     /// This event hook will be trigged right before an entity is persisted
     /// </summary>
@@ -151,8 +143,6 @@ public partial class DBContext
     {
         return null;
     }
-
-
 
     /// <summary>
     /// Specify a global filter to be applied to all operations performed with this DBContext
@@ -198,8 +188,6 @@ public partial class DBContext
         AddFilter(type, (jsonString, prepend));
     }
 
-
-
     /// <summary>
     /// Specify a global filter to be applied to all operations performed with this DBContext
     /// </summary>
@@ -243,8 +231,6 @@ public partial class DBContext
         }
     }
 
-
-
     /// <summary>
     /// Specify a global filter for all entity types that implements a given interface
     /// </summary>
@@ -264,8 +250,6 @@ public partial class DBContext
             AddFilter(entType, (jsonString, prepend));
         }
     }
-
-
 
     private static Type[] GetAllEntityTypes()
     {

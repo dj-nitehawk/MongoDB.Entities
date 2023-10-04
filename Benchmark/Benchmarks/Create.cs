@@ -56,7 +56,7 @@ public class CreateBulk : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        foreach (var author in list) author.ID = null;
+        foreach (var author in list) author.ID = null!;
         return DB.SaveAsync(list);
     }
 
@@ -66,7 +66,7 @@ public class CreateBulk : BenchBase
         var models = new List<WriteModel<Author>>(list.Count);
         foreach (var author in list)
         {
-            author.ID = author.GenerateNewID();
+            author.ID = (string)author.GenerateNewID();
             models.Add(new InsertOneModel<Author>(author));
         }
         return AuthorCollection.BulkWriteAsync(models);

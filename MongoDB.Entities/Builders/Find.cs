@@ -18,9 +18,7 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Find<T> : Find<T, T> where T : IEntity
 {
-    internal Find(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
         : base(session, globalFilters) { }
 }
 
@@ -39,9 +37,7 @@ public class Find<T, TProjection> where T : IEntity
     private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
     private bool ignoreGlobalFilters;
 
-    internal Find(
-        IClientSessionHandle? session,
-        Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
+    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
         this.session = session;
         this.globalFilters = globalFilters;
@@ -53,7 +49,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="ID">The unique ID of an IEntity</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A single entity or null if not found</returns>
-    public Task<TProjection?> OneAsync(string? ID, CancellationToken cancellation = default)
+    public Task<TProjection?> OneAsync(object ID, CancellationToken cancellation = default)
     {
         Match(ID);
         return ExecuteSingleAsync(cancellation);
@@ -87,18 +83,18 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Find<T, TProjection> MatchID(string? ID)
+    public Find<T, TProjection> MatchID(object ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
     /// Specify an IEntity ID as the matching criteria
     /// </summary>
     /// <param name="ID">A unique IEntity ID</param>
-    public Find<T, TProjection> Match(string? ID)
+    public Find<T, TProjection> Match(object ID)
     {
-        return Match(f => f.Eq(t => t.ID, ID));
+        return Match(f => f.Eq(Cache<T>.IdPropName, ID));
     }
 
     /// <summary>
@@ -179,7 +175,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Find<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -219,7 +215,7 @@ public class Find<T, TProjection> where T : IEntity
     /// </summary>
     /// <param name="propertyToSortBy">x => x.Prop</param>
     /// <param name="sortOrder">The sort order</param>
-    public Find<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
+    public Find<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
     {
         return sortOrder switch
         {
@@ -243,7 +239,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     /// <param name="scoreProperty">x => x.TextScoreProp</param>
-    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
+    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>>? scoreProperty)
     {
         switch (scoreProperty)
         {
@@ -292,7 +288,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify how to project the results using a lambda expression
     /// </summary>
     /// <param name="expression">x => new Test { PropName = x.Prop }</param>
-    public Find<T, TProjection> Project(Expression<Func<T, TProjection?>> expression)
+    public Find<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
     {
         return Project(p => p.Expression(expression));
     }
@@ -301,7 +297,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify how to project the results using a projection expression
     /// </summary>
     /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
-    public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection?>> projection)
+    public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     {
         options.Projection = projection(Builders<T>.Projection)!;
         return this;
@@ -311,7 +307,7 @@ public class Find<T, TProjection> where T : IEntity
     /// Specify how to project the results using an exclusion projection expression.
     /// </summary>
     /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
-    public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object?>> exclusion)
+    public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
     {
         var props = (exclusion.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]);
@@ -411,7 +407,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<bool> ExecuteAnyAsync(CancellationToken cancellation = default)
     {
-        Project(b => b.Include(x => x.ID));
+        Project(b => b.Include(Cache<T>.IdExpression));
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);

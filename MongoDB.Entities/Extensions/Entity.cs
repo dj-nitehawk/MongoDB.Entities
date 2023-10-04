@@ -32,15 +32,16 @@ public static partial class Extensions
             new Holder<T>(source).ToBson()).Data;
     }
 
-    internal static void ThrowIfUnsaved(this string? entityID)
+    internal static void ThrowIfUnsaved(this object entityID)
     {
-        if (string.IsNullOrWhiteSpace(entityID))
+        if (entityID == default)
             throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
-    internal static void ThrowIfUnsaved(this IEntity entity)
+    internal static void ThrowIfUnsaved<T>(this T entity) where T : IEntity
     {
-        ThrowIfUnsaved(entity.ID);
+        if (entity.HasDefaultID())
+            throw new InvalidOperationException("Please save the entity before performing this operation!");
     }
 
     /// <summary>
@@ -70,7 +71,7 @@ public static partial class Extensions
     /// Returns the full dotted path of a property for the given expression
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static string FullPath<T>(this Expression<Func<T, object?>> expression)
+    public static string FullPath<T>(this Expression<Func<T, object>> expression)
     {
         return Prop.Path(expression);
     }
@@ -89,7 +90,7 @@ public static partial class Extensions
     public static T ToDocument<T>(this T entity) where T : IEntity
     {
         var res = entity.Duplicate();
-        res.ID = res.GenerateNewID();
+        res.SetId(res.GenerateNewID());
         return res;
     }
 
@@ -100,7 +101,7 @@ public static partial class Extensions
     {
         var res = entities.Duplicate();
         foreach (var e in res)
-            e.ID = e.GenerateNewID();
+            e.SetId(e.GenerateNewID());
         return res;
     }
 
@@ -111,7 +112,7 @@ public static partial class Extensions
     {
         var res = entities.Duplicate();
         foreach (var e in res)
-            e.ID = e.GenerateNewID();
+            e.SetId(e.GenerateNewID());
         return res;
     }
 
@@ -127,8 +128,7 @@ public static partial class Extensions
     {
         var lev = new Levenshtein(searchTerm);
 
-        var res = objects.Select(o => new
-        {
+        var res = objects.Select(o => new {
             score = lev.DistanceFrom(propertyToSortBy(o)),
             obj = o
         });

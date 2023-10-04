@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,8 +17,8 @@ public class One<T> where T : IEntity
     /// <summary>
     /// The Id of the entity referenced by this instance.
     /// </summary>
-    [AsObjectId]
-    public string? ID { get; set; }
+    [AsBsonId]
+    public object ID { get; set; } = null!;
 
     public One()
     { }
@@ -29,7 +30,16 @@ public class One<T> where T : IEntity
     public One(T entity)
     {
         entity.ThrowIfUnsaved();
-        ID = entity.ID;
+        ID = entity.GetId();
+    }
+
+    /// <summary>
+    /// Operator for returning a new One&lt;T&gt; object from a object ID
+    /// </summary>
+    /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
+    public static One<T> FromObject(object id)
+    {
+        return new One<T> { ID = id };
     }
 
     /// <summary>
@@ -44,9 +54,9 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
-    public Task<T?> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task<T> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        return new Find<T>(session, null).OneAsync(ID, cancellation);
+        return new Find<T>(session, null).OneAsync(TransformID(), cancellation)!;
     }
 
     /// <summary>
@@ -56,10 +66,10 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name = "cancellation" > An optional cancellation token</param>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T?> ToEntityAsync(Expression<Func<T, T?>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
-                    .Match(ID)
+                    .Match(TransformID())
                     .Project(projection)
                     .ExecuteAsync(cancellation).ConfigureAwait(false))
                .SingleOrDefault();
@@ -72,12 +82,17 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name = "cancellation" > An optional cancellation token</param>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T?> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T?>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return (await new Find<T>(session, null)
-                    .Match(ID)
+                    .Match(TransformID())
                     .Project(projection)
                     .ExecuteAsync(cancellation).ConfigureAwait(false))
                .SingleOrDefault();
+    }
+
+    private object TransformID()
+    {
+        return ID is string vStr && vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID) ? oID : ID;
     }
 }

@@ -23,13 +23,14 @@ public static partial class DB
     /// <param name="cancellation">And optional cancellation token</param>
     public static Task SaveAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
+        var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
         return PrepAndCheckIfInsert(entity)
             ? session == null
                    ? Collection<T>().InsertOneAsync(entity, null, cancellation)
                    : Collection<T>().InsertOneAsync(session, entity, null, cancellation)
             : session == null
-               ? Collection<T>().ReplaceOneAsync(x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
-               : Collection<T>().ReplaceOneAsync(session, x => x.ID == entity.ID, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
+               ? Collection<T>().ReplaceOneAsync(filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation)
+               : Collection<T>().ReplaceOneAsync(session, filter, entity, new ReplaceOptions { IsUpsert = true }, cancellation);
     }
 
     /// <summary>
@@ -53,7 +54,7 @@ public static partial class DB
             else
             {
                 models.Add(new ReplaceOneModel<T>(
-                    filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                    filter: Builders<T>.Filter.Eq(ent.GetIdName(), ent.GetId()),
                     replacement: ent)
                 { IsUpsert = true });
             }
@@ -74,7 +75,7 @@ public static partial class DB
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<UpdateResult> SaveOnlyAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation);
     }
@@ -106,7 +107,7 @@ public static partial class DB
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation);
     }
@@ -138,7 +139,7 @@ public static partial class DB
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return SavePartial(entity, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
     }
@@ -170,7 +171,7 @@ public static partial class DB
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
     }
@@ -239,19 +240,21 @@ public static partial class DB
                 defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
         }
 
+        var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
         return
             session == null
-            ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
-            : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
+            ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
+            : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
     }
 
     private static Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
     {
         PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
+        var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
         return
             session == null
-            ? Collection<T>().UpdateOneAsync(e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation)
-            : Collection<T>().UpdateOneAsync(session, e => e.ID == entity.ID, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation);
+            ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation)
+            : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation);
     }
 
     private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
@@ -263,7 +266,7 @@ public static partial class DB
             PrepAndCheckIfInsert(ent); //just prep. we don't care about inserts here
             models.Add(
                 new UpdateOneModel<T>(
-                        filter: Builders<T>.Filter.Eq(e => e.ID, ent.ID),
+                        filter: Builders<T>.Filter.Eq(ent.GetIdName(), ent.GetId()),
                         update: Builders<T>.Update.Combine(Logic.BuildUpdateDefs(ent, propNames, excludeMode)))
                 { IsUpsert = true });
         }
@@ -275,9 +278,9 @@ public static partial class DB
 
     private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
     {
-        if (string.IsNullOrEmpty(entity.ID))
+        if (entity.HasDefaultID())
         {
-            entity.ID = entity.GenerateNewID();
+            entity.SetId(entity.GenerateNewID());
             if (Cache<T>.HasCreatedOn) ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
             if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
             return true;
