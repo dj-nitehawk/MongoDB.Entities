@@ -222,15 +222,16 @@ public class UpdateAndGetEntity
     {
         await DB.InitAsync("mongodb-entities-test-multi");
 
-        var img = new Image();
+        var book = new BookEntity();
 
-        var lastNum = await img.NextSequentialNumberAsync();
+        var lastNum = await book.NextSequentialNumberAsync();
 
-        var imgNum = 0ul;
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) =>
+        {
+            await book.NextSequentialNumberAsync(ct);
+        });
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => imgNum = await img.NextSequentialNumberAsync(ct));
-
-        Assert.AreEqual(lastNum + 10, await img.NextSequentialNumberAsync() - 1);
+        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
 
     [TestMethod]
