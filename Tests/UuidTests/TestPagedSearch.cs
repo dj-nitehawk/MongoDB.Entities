@@ -26,7 +26,7 @@ public class PagedSearchUuid
         Assert.IsTrue(Results.Count == 0);
     }
 
-    private static Task SeedData(string guid)
+    static Task SeedData(string guid)
     {
         var list = new List<BookUuid>(10);
 
@@ -98,7 +98,7 @@ public class PagedSearchUuid
         Assert.IsTrue(Results.Count > 0);
     }
 
-    private class BookResult
+    class BookResult
     {
         public string BookTitle { get; set; }
         public string? BookID { get; set; }

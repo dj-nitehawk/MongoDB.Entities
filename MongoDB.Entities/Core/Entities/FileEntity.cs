@@ -17,7 +17,7 @@ namespace MongoDB.Entities;
 /// </summary>
 public abstract class FileEntity : Entity
 {
-    private DataStreamer? streamer;
+    DataStreamer? streamer;
 
     /// <summary>
     /// The total amount of data in bytes that has been uploaded so far
@@ -50,7 +50,7 @@ public abstract class FileEntity : Entity
 }
 
 [Collection("[BINARY_CHUNKS]")]
-internal class FileChunk : IEntity
+class FileChunk : IEntity
 {
     [BsonId, ObjectId]
     public string ID { get; set; } = null!;
@@ -72,12 +72,12 @@ internal class FileChunk : IEntity
 /// </summary>
 public class DataStreamer
 {
-    private static readonly HashSet<string> indexedDBs = new();
+    static readonly HashSet<string> indexedDBs = new();
 
-    private readonly FileEntity parent;
-    private readonly Type parentType;
-    private readonly IMongoDatabase db;
-    private readonly IMongoCollection<FileChunk> chunkCollection;
+    readonly FileEntity parent;
+    readonly Type parentType;
+    readonly IMongoDatabase db;
+    readonly IMongoCollection<FileChunk> chunkCollection;
 
     internal DataStreamer(FileEntity parent)
     {
@@ -242,7 +242,7 @@ public class DataStreamer
             : CleanUpAsync(session, cancellation);
     }
 
-    private Task CleanUpAsync(IClientSessionHandle? session, CancellationToken cancellation = default)
+    Task CleanUpAsync(IClientSessionHandle? session, CancellationToken cancellation = default)
     {
         parent.FileSize = 0;
         parent.ChunkCount = 0;
@@ -252,7 +252,7 @@ public class DataStreamer
                : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID, null, cancellation);
     }
 
-    private Task FlushToDBAsync(IClientSessionHandle? session, StreamInfo streamInfo, bool isLastChunk = false, CancellationToken cancellation = default)
+    Task FlushToDBAsync(IClientSessionHandle? session, StreamInfo streamInfo, bool isLastChunk = false, CancellationToken cancellation = default)
     {
         if (!isLastChunk)
         {
@@ -274,7 +274,7 @@ public class DataStreamer
         return Task.CompletedTask;
     }
 
-    private Task UpdateMetaDataAsync(IClientSessionHandle? session)
+    Task UpdateMetaDataAsync(IClientSessionHandle? session)
     {
         var collection = db.GetCollection<FileEntity>(TypeMap.GetCollectionName(parentType));
         var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
@@ -288,7 +288,7 @@ public class DataStreamer
                : collection.UpdateOneAsync(session, filter, update);
     }
 
-    private struct StreamInfo
+    struct StreamInfo
     {
         public FileChunk Doc { get; set; }
         public int ChunkSize { get; set; }

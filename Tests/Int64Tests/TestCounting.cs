@@ -8,9 +8,9 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class CountingInt64
 {
-    private DBContext db;
+    DBContext db;
 
-    private Task Init(string Int64)
+    Task Init(string Int64)
     {
         db = new MyDBInt64();
 

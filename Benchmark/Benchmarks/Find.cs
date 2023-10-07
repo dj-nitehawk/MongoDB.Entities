@@ -10,8 +10,8 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class FindOne : BenchBase
 {
-    private readonly List<Author> list = new(1000);
-    private readonly string guid = Guid.NewGuid().ToString();
+    readonly List<Author> list = new(1000);
+    readonly string guid = Guid.NewGuid().ToString();
 
     public FindOne()
     {
@@ -52,8 +52,8 @@ public class FindOne : BenchBase
 [MemoryDiagnoser]
 public class Find100 : BenchBase
 {
-    private readonly List<Author> list = new(1000);
-    private readonly string guid = Guid.NewGuid().ToString();
+    readonly List<Author> list = new(1000);
+    readonly string guid = Guid.NewGuid().ToString();
 
     public Find100()
     {
@@ -94,8 +94,8 @@ public class Find100 : BenchBase
 [MemoryDiagnoser]
 public class FindFirst : BenchBase
 {
-    private readonly List<Author> list = new(1000);
-    private readonly string guid = Guid.NewGuid().ToString();
+    readonly List<Author> list = new(1000);
+    readonly string guid = Guid.NewGuid().ToString();
 
     public FindFirst()
     {
@@ -136,8 +136,8 @@ public class FindFirst : BenchBase
 [MemoryDiagnoser]
 public class FindAny : BenchBase
 {
-    private readonly List<Author> list = new(1000);
-    private readonly string guid = Guid.NewGuid().ToString();
+    readonly List<Author> list = new(1000);
+    readonly string guid = Guid.NewGuid().ToString();
 
     public FindAny()
     {
@@ -178,8 +178,8 @@ public class FindAny : BenchBase
 [MemoryDiagnoser]
 public class FindSingle : BenchBase
 {
-    private readonly List<Author> list = new(1000);
-    private readonly string guid = Guid.NewGuid().ToString();
+    readonly List<Author> list = new(1000);
+    readonly string guid = Guid.NewGuid().ToString();
 
     public FindSingle()
     {

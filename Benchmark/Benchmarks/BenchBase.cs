@@ -7,7 +7,7 @@ namespace Benchmark;
 
 public abstract class BenchBase
 {
-    private const string DBName = "mongodb-entities-benchmark";
+    const string DBName = "mongodb-entities-benchmark";
     protected static IMongoCollection<Author> AuthorCollection { get; }
     protected static IMongoCollection<Book> BookCollection { get; }
     protected static IMongoDatabase Database { get; }

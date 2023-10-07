@@ -189,7 +189,7 @@ public partial class DBContext
         return DB.SavePreservingAsync(entity, Session, cancellation);
     }
 
-    private void SetModifiedBySingle<T>(T entity) where T : IEntity
+    void SetModifiedBySingle<T>(T entity) where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
         Cache<T>.ModifiedByProp?.SetValue(
@@ -199,7 +199,7 @@ public partial class DBContext
         //      to be able to correctly deserialize a user supplied derived/sub class of ModifiedOn.
     }
 
-    private void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
+    void SetModifiedByMultiple<T>(IEnumerable<T> entities) where T : IEntity
     {
         if (Cache<T>.ModifiedByProp is null)
             return;

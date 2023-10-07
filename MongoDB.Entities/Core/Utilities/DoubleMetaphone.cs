@@ -5,105 +5,105 @@ using System.Text.RegularExpressions;
 
 namespace MongoDB.Entities;
 
-internal static class DoubleMetaphone
+static class DoubleMetaphone
 {
-    private static readonly string[] GN_KN_PN_WR_PS = new[] { "GN", "KN", "PN", "WR", "PS" };
-    private static readonly string[] ACH = new[] { "ACH" };
-    private static readonly string[] BACHER_MACHER = new[] { "BACHER", "MACHER" };
-    private static readonly string[] CAESAR = new[] { "CAESAR" };
-    private static readonly string[] CHIA = new[] { "CHIA" };
-    private static readonly string[] CH = new[] { "CH" };
-    private static readonly string[] CHAE = new[] { "CHAE" };
-    private static readonly string[] HARAC_HARIS_HOR_HYM_HIA_HEM = new[] { "HARAC", "HARIS", "HOR", "HYM", "HIA", "HEM" };
-    private static readonly string[] CHORE = new[] { "CHORE" };
-    private static readonly string[] SCH = new[] { "SCH" };
-    private static readonly string[] VAN__VON__SCH = new[] { "VAN ", "VON ", "SCH" };
-    private static readonly string[] ORCHES_ARCHIT_ORCHID = new[] { "ORCHES", "ARCHIT", "ORCHID" };
-    private static readonly string[] T_S = new[] { "T", "S" };
-    private static readonly string[] A_O = new[] { "A", "O" };
-    private static readonly string[] A_O_U_E = new[] { "A", "O", "U", "E" };
-    private static readonly string[] L_R_N_M_B_H_F_V_W__ = new[] { "L", "R", "N", "M", "B", "H", "F", "V", "W", " " };
-    private static readonly string[] MC = new[] { "MC" };
-    private static readonly string[] CZ = new[] { "CZ" };
-    private static readonly string[] WICZ = new[] { "WICZ" };
-    private static readonly string[] CIA = new[] { "CIA" };
-    private static readonly string[] CC = new[] { "CC" };
-    private static readonly string[] I_E_H = new[] { "I", "E", "H" };
-    private static readonly string[] HU = new[] { "HU" };
-    private static readonly string[] UCCEE_UCCES = new[] { "UCCEE", "UCCES" };
-    private static readonly string[] CK_CG_CQ = new[] { "CK", "CG", "CQ" };
-    private static readonly string[] CI_CE_CY = new[] { "CI", "CE", "CY" };
-    private static readonly string[] CIO_CIE_CIA = new[] { "CIO", "CIE", "CIA" };
-    private static readonly string[] _C__Q__G = new[] { " C", " Q", " G" };
-    private static readonly string[] C_K_Q = new[] { "C", "K", "Q" };
-    private static readonly string[] CE_CI = new[] { "CE", "CI" };
-    private static readonly string[] DG = new[] { "DG" };
-    private static readonly string[] I_E_Y = new[] { "I", "E", "Y" };
-    private static readonly string[] DT_DD = new[] { "DT", "DD" };
-    private static readonly string[] B_H_D = new[] { "B", "H", "D" };
-    private static readonly string[] B_H = new[] { "B", "H" };
-    private static readonly string[] C_G_L_R_T = new[] { "C", "G", "L", "R", "T" };
-    private static readonly string[] EY = new[] { "EY" };
-    private static readonly string[] LI = new[] { "LI" };
-    private static readonly string[] Y_ES_EP_EB_EL_EY_IB_IL_IN_IE_EI_ER = new[] { "Y", "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER" };
-    private static readonly string[] Y_ER = new[] { "Y", "ER" };
-    private static readonly string[] DANGER_RANGER_MANGER = new[] { "DANGER", "RANGER", "MANGER" };
-    private static readonly string[] E_I = new[] { "E", "I" };
-    private static readonly string[] RGY_OGY = new[] { "RGY", "OGY" };
-    private static readonly string[] E_I_Y = new[] { "E", "I", "Y" };
-    private static readonly string[] AGGI_OGGI = new[] { "AGGI", "OGGI" };
-    private static readonly string[] ET = new[] { "ET" };
-    private static readonly string[] JOSE = new[] { "JOSE" };
-    private static readonly string[] SAN_ = new[] { "SAN " };
-    private static readonly string[] L_T_K_S_N_M_B_Z = new[] { "L", "T", "K", "S", "N", "M", "B", "Z" };
-    private static readonly string[] S_K_L = new[] { "S", "K", "L" };
-    private static readonly string[] ILLO_ILLA_ALLE = new[] { "ILLO", "ILLA", "ALLE" };
-    private static readonly string[] AS_OS = new[] { "AS", "OS" };
-    private static readonly string[] ALLE = new[] { "ALLE" };
-    private static readonly string[] UMB = new[] { "UMB" };
-    private static readonly string[] P_B = new[] { "P", "B" };
-    private static readonly string[] IE = new[] { "IE" };
-    private static readonly string[] IER = new[] { "IER" };
-    private static readonly string[] ER = new[] { "ER" };
-    private static readonly string[] ME_MA = new[] { "ME", "MA" };
-    private static readonly string[] ISL_YSL = new[] { "ISL", "YSL" };
-    private static readonly string[] SUGAR = new[] { "SUGAR" };
-    private static readonly string[] SH = new[] { "SH" };
-    private static readonly string[] HEIM_HOEK_HOLM_HOLZ = new[] { "HEIM", "HOEK", "HOLM", "HOLZ" };
-    private static readonly string[] SIO_SIA = new[] { "SIO", "SIA" };
-    private static readonly string[] SIAN = new[] { "SIAN" };
-    private static readonly string[] M_N_L_W = new[] { "M", "N", "L", "W" };
-    private static readonly string[] SC = new[] { "SC" };
-    private static readonly string[] OO_ER_EN_UY_ED_EM = new[] { "OO", "ER", "EN", "UY", "ED", "EM" };
-    private static readonly string[] ER_EN = new[] { "ER", "EN" };
-    private static readonly string[] AI_OI = new[] { "AI", "OI" };
-    private static readonly string[] S_Z = new[] { "S", "Z" };
-    private static readonly string[] TION = new[] { "TION" };
-    private static readonly string[] TIA_TCH = new[] { "TIA", "TCH" };
-    private static readonly string[] TH_TTH = new[] { "TH", "TTH" };
-    private static readonly string[] OM_AM = new[] { "OM", "AM" };
-    private static readonly string[] T_D = new[] { "T", "D" };
-    private static readonly string[] WR = new[] { "WR" };
-    private static readonly string[] WH = new[] { "WH" };
-    private static readonly string[] EWSKI_EWSKY_OWSKI_OWSKY = new[] { "EWSKI", "EWSKY", "OWSKI", "OWSKY" };
-    private static readonly string[] WICZ_WITZ = new[] { "WICZ", "WITZ" };
-    private static readonly string[] IAU_EAU = new[] { "IAU", "EAU" };
-    private static readonly string[] AU_OU = new[] { "AU", "OU" };
-    private static readonly string[] C_X = new[] { "C", "X" };
-    private static readonly string[] ZO_ZI_ZA = new[] { "ZO", "ZI", "ZA" };
+    static readonly string[] GN_KN_PN_WR_PS = new[] { "GN", "KN", "PN", "WR", "PS" };
+    static readonly string[] ACH = new[] { "ACH" };
+    static readonly string[] BACHER_MACHER = new[] { "BACHER", "MACHER" };
+    static readonly string[] CAESAR = new[] { "CAESAR" };
+    static readonly string[] CHIA = new[] { "CHIA" };
+    static readonly string[] CH = new[] { "CH" };
+    static readonly string[] CHAE = new[] { "CHAE" };
+    static readonly string[] HARAC_HARIS_HOR_HYM_HIA_HEM = new[] { "HARAC", "HARIS", "HOR", "HYM", "HIA", "HEM" };
+    static readonly string[] CHORE = new[] { "CHORE" };
+    static readonly string[] SCH = new[] { "SCH" };
+    static readonly string[] VAN__VON__SCH = new[] { "VAN ", "VON ", "SCH" };
+    static readonly string[] ORCHES_ARCHIT_ORCHID = new[] { "ORCHES", "ARCHIT", "ORCHID" };
+    static readonly string[] T_S = new[] { "T", "S" };
+    static readonly string[] A_O = new[] { "A", "O" };
+    static readonly string[] A_O_U_E = new[] { "A", "O", "U", "E" };
+    static readonly string[] L_R_N_M_B_H_F_V_W__ = new[] { "L", "R", "N", "M", "B", "H", "F", "V", "W", " " };
+    static readonly string[] MC = new[] { "MC" };
+    static readonly string[] CZ = new[] { "CZ" };
+    static readonly string[] WICZ = new[] { "WICZ" };
+    static readonly string[] CIA = new[] { "CIA" };
+    static readonly string[] CC = new[] { "CC" };
+    static readonly string[] I_E_H = new[] { "I", "E", "H" };
+    static readonly string[] HU = new[] { "HU" };
+    static readonly string[] UCCEE_UCCES = new[] { "UCCEE", "UCCES" };
+    static readonly string[] CK_CG_CQ = new[] { "CK", "CG", "CQ" };
+    static readonly string[] CI_CE_CY = new[] { "CI", "CE", "CY" };
+    static readonly string[] CIO_CIE_CIA = new[] { "CIO", "CIE", "CIA" };
+    static readonly string[] _C__Q__G = new[] { " C", " Q", " G" };
+    static readonly string[] C_K_Q = new[] { "C", "K", "Q" };
+    static readonly string[] CE_CI = new[] { "CE", "CI" };
+    static readonly string[] DG = new[] { "DG" };
+    static readonly string[] I_E_Y = new[] { "I", "E", "Y" };
+    static readonly string[] DT_DD = new[] { "DT", "DD" };
+    static readonly string[] B_H_D = new[] { "B", "H", "D" };
+    static readonly string[] B_H = new[] { "B", "H" };
+    static readonly string[] C_G_L_R_T = new[] { "C", "G", "L", "R", "T" };
+    static readonly string[] EY = new[] { "EY" };
+    static readonly string[] LI = new[] { "LI" };
+    static readonly string[] Y_ES_EP_EB_EL_EY_IB_IL_IN_IE_EI_ER = new[] { "Y", "ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER" };
+    static readonly string[] Y_ER = new[] { "Y", "ER" };
+    static readonly string[] DANGER_RANGER_MANGER = new[] { "DANGER", "RANGER", "MANGER" };
+    static readonly string[] E_I = new[] { "E", "I" };
+    static readonly string[] RGY_OGY = new[] { "RGY", "OGY" };
+    static readonly string[] E_I_Y = new[] { "E", "I", "Y" };
+    static readonly string[] AGGI_OGGI = new[] { "AGGI", "OGGI" };
+    static readonly string[] ET = new[] { "ET" };
+    static readonly string[] JOSE = new[] { "JOSE" };
+    static readonly string[] SAN_ = new[] { "SAN " };
+    static readonly string[] L_T_K_S_N_M_B_Z = new[] { "L", "T", "K", "S", "N", "M", "B", "Z" };
+    static readonly string[] S_K_L = new[] { "S", "K", "L" };
+    static readonly string[] ILLO_ILLA_ALLE = new[] { "ILLO", "ILLA", "ALLE" };
+    static readonly string[] AS_OS = new[] { "AS", "OS" };
+    static readonly string[] ALLE = new[] { "ALLE" };
+    static readonly string[] UMB = new[] { "UMB" };
+    static readonly string[] P_B = new[] { "P", "B" };
+    static readonly string[] IE = new[] { "IE" };
+    static readonly string[] IER = new[] { "IER" };
+    static readonly string[] ER = new[] { "ER" };
+    static readonly string[] ME_MA = new[] { "ME", "MA" };
+    static readonly string[] ISL_YSL = new[] { "ISL", "YSL" };
+    static readonly string[] SUGAR = new[] { "SUGAR" };
+    static readonly string[] SH = new[] { "SH" };
+    static readonly string[] HEIM_HOEK_HOLM_HOLZ = new[] { "HEIM", "HOEK", "HOLM", "HOLZ" };
+    static readonly string[] SIO_SIA = new[] { "SIO", "SIA" };
+    static readonly string[] SIAN = new[] { "SIAN" };
+    static readonly string[] M_N_L_W = new[] { "M", "N", "L", "W" };
+    static readonly string[] SC = new[] { "SC" };
+    static readonly string[] OO_ER_EN_UY_ED_EM = new[] { "OO", "ER", "EN", "UY", "ED", "EM" };
+    static readonly string[] ER_EN = new[] { "ER", "EN" };
+    static readonly string[] AI_OI = new[] { "AI", "OI" };
+    static readonly string[] S_Z = new[] { "S", "Z" };
+    static readonly string[] TION = new[] { "TION" };
+    static readonly string[] TIA_TCH = new[] { "TIA", "TCH" };
+    static readonly string[] TH_TTH = new[] { "TH", "TTH" };
+    static readonly string[] OM_AM = new[] { "OM", "AM" };
+    static readonly string[] T_D = new[] { "T", "D" };
+    static readonly string[] WR = new[] { "WR" };
+    static readonly string[] WH = new[] { "WH" };
+    static readonly string[] EWSKI_EWSKY_OWSKI_OWSKY = new[] { "EWSKI", "EWSKY", "OWSKI", "OWSKY" };
+    static readonly string[] WICZ_WITZ = new[] { "WICZ", "WITZ" };
+    static readonly string[] IAU_EAU = new[] { "IAU", "EAU" };
+    static readonly string[] AU_OU = new[] { "AU", "OU" };
+    static readonly string[] C_X = new[] { "C", "X" };
+    static readonly string[] ZO_ZI_ZA = new[] { "ZO", "ZI", "ZA" };
 
-    private static readonly string[] EmptyKeys = new string[0];
-    private const int MaxLength = 4;
+    static readonly string[] EmptyKeys = new string[0];
+    const int MaxLength = 4;
 
-    private static readonly Regex regex = new(@"\w(?<!\d)[\w'-]*", RegexOptions.Compiled);
+    static readonly Regex regex = new(@"\w(?<!\d)[\w'-]*", RegexOptions.Compiled);
 
-    private static void Add(string main, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary)
+    static void Add(string main, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary)
     {
         sbPrimary.Append(main);
         sbSecondary.Append(main);
     }
 
-    private static void Add(string main, string alternate, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary, ref bool hasAlternate)
+    static void Add(string main, string alternate, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary, ref bool hasAlternate)
     {
         sbPrimary.Append(main);
         if (alternate.Length > 0)
@@ -119,7 +119,7 @@ internal static class DoubleMetaphone
         }
     }
 
-    private static bool Match(string stringRenamed, int pos, string[] strings)
+    static bool Match(string stringRenamed, int pos, string[] strings)
     {
         if (0 <= pos && pos < stringRenamed.Length)
         {
@@ -132,17 +132,17 @@ internal static class DoubleMetaphone
         return false;
     }
 
-    private static bool Match(string stringRenamed, int pos, char c)
+    static bool Match(string stringRenamed, int pos, char c)
     {
         return 0 <= pos && pos < stringRenamed.Length && stringRenamed[pos] == c;
     }
 
-    private static bool IsSlavoGermanic(string stringRenamed)
+    static bool IsSlavoGermanic(string stringRenamed)
     {
         return (stringRenamed.IndexOf('W') >= 0) || (stringRenamed.IndexOf('K') >= 0) || (stringRenamed.IndexOf("CZ", StringComparison.Ordinal) >= 0) || (stringRenamed.IndexOf("WITZ", StringComparison.Ordinal) >= 0);
     }
 
-    private static bool IsVowel(string stringRenamed, int pos)
+    static bool IsVowel(string stringRenamed, int pos)
     {
         if (pos < 0 || stringRenamed.Length <= pos)
             return false;
@@ -151,7 +151,7 @@ internal static class DoubleMetaphone
         return c is 'A' or 'E' or 'I' or 'O' or 'U';
     }
 
-    private static string[] BuildKeys(string word)
+    static string[] BuildKeys(string word)
     {
         if (string.IsNullOrEmpty(word))
             return EmptyKeys;

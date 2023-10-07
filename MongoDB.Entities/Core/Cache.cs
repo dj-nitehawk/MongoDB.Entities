@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace MongoDB.Entities;
 
-internal static class Cache<T> where T : IEntity
+static class Cache<T> where T : IEntity
 {
     internal static string DBName { get; private set; } = null!;
     internal static IMongoDatabase Database { get; private set; } = null!;
@@ -29,8 +29,8 @@ internal static class Cache<T> where T : IEntity
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
 
-    private static PropertyInfo[] updatableProps = null!;
-    private static ProjectionDefinition<T> requiredPropsProjection = null!;
+    static PropertyInfo[] updatableProps = null!;
+    static ProjectionDefinition<T> requiredPropsProjection = null!;
 
     static Cache()
     {
@@ -38,7 +38,7 @@ internal static class Cache<T> where T : IEntity
         DB.DefaultDbChanged += Initialize;
     }
 
-    private static void Initialize()
+    static void Initialize()
     {
         var type = typeof(T);
 
@@ -145,7 +145,7 @@ internal static class Cache<T> where T : IEntity
         });
     }
 
-    private static Expression<Func<T, object>> SelectIdExpression(PropertyInfo idProp)
+    static Expression<Func<T, object>> SelectIdExpression(PropertyInfo idProp)
     {
         var parameter = Expression.Parameter(typeof(T), "t");
         var property = Expression.Property(parameter, idProp);

@@ -26,7 +26,7 @@ public class PagedSearchInt64
         Assert.IsTrue(Results.Count == 0);
     }
 
-    private static Task SeedData(string Int64)
+    static Task SeedData(string Int64)
     {
         var list = new List<BookInt64>(10);
 
@@ -98,7 +98,7 @@ public class PagedSearchInt64
         Assert.IsTrue(Results.Count > 0);
     }
 
-    private class BookResult
+    class BookResult
     {
         public string BookTitle { get; set; }
         public Int64? BookID { get; set; }

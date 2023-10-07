@@ -29,9 +29,9 @@ public abstract class ManyBase
 /// <typeparam name="TParent">The type of the parent</typeparam>
 public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEntity where TParent : IEntity
 {
-    private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
-    private bool isInverse;
-    private TParent parent = default!;
+    static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
+    bool isInverse;
+    TParent parent = default!;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -70,7 +70,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         Init((dynamic)parent, property);
     }
 
-    private void Init(TParent parent, string property)
+    void Init(TParent parent, string property)
     {
         if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
             throw new NotSupportedException("Cross database relationships are not supported!");
@@ -98,7 +98,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         Init((dynamic)parent, propertyParent, propertyChild, isInverse);
     }
 
-    private void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
+    void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
     {
         this.parent = parent;
         this.isInverse = isInverse;
@@ -127,7 +127,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     }
     #endregion
 
-    private static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
+    static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
     {
         //only create indexes once (best effort) per unique ref collection
         if (!indexedCollections.Contains(collection.CollectionNamespace.CollectionName))

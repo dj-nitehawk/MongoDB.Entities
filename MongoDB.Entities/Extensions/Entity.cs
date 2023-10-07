@@ -18,7 +18,7 @@ namespace MongoDB.Entities;
 /// </summary>
 public static partial class Extensions
 {
-    private class Holder<T>
+    class Holder<T>
     {
         public T Data { get; set; }
 
@@ -26,7 +26,7 @@ public static partial class Extensions
             => Data = data;
     }
 
-    private static T Duplicate<T>(this T source)
+    static T Duplicate<T>(this T source)
     {
         return BsonSerializer.Deserialize<Holder<T>>(
             new Holder<T>(source).ToBson()).Data;

@@ -14,7 +14,7 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class FileEntities
 {
-    private const string dbName = "mongodb-entities-test-multi";
+    const string dbName = "mongodb-entities-test-multi";
 
     [TestCategory("SkipWhenLiveUnitTesting")]
     //[TestMethod]

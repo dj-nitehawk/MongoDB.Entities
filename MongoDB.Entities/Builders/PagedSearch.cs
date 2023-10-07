@@ -27,15 +27,15 @@ public class PagedSearch<T> : PagedSearch<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
 public class PagedSearch<T, TProjection> where T : IEntity
 {
-    private IAggregateFluent<T>? fluentPipeline;
-    private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    private readonly List<SortDefinition<T>> sorts = new();
-    private readonly AggregateOptions options = new();
-    private PipelineStageDefinition<T, TProjection>? projectionStage;
-    private readonly IClientSessionHandle? session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    private bool ignoreGlobalFilters;
-    private int pageNumber = 1, pageSize = 100;
+    IAggregateFluent<T>? fluentPipeline;
+    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    readonly List<SortDefinition<T>> sorts = new();
+    readonly AggregateOptions options = new();
+    PipelineStageDefinition<T, TProjection>? projectionStage;
+    readonly IClientSessionHandle? session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    bool ignoreGlobalFilters;
+    int pageNumber = 1, pageSize = 100;
 
     internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
@@ -215,7 +215,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
         }
     }
 
-    private void AddTxtScoreToProjection(string fieldName)
+    void AddTxtScoreToProjection(string fieldName)
     {
         if (projectionStage == null)
         {

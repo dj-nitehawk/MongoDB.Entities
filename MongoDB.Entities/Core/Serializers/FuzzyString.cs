@@ -6,9 +6,9 @@ using System;
 
 namespace MongoDB.Entities;
 
-internal class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
+class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
 {
-    private static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
+    static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
     {

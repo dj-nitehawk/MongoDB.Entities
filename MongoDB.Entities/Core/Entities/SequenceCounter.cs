@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace MongoDB.Entities;
 
 [Collection("[SEQUENCE_COUNTERS]")]
-internal class SequenceCounter : IEntity
+class SequenceCounter : IEntity
 {
     [BsonId] public string ID { get; set; } = null!;
 

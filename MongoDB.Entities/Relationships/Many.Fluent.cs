@@ -161,7 +161,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                     .ReplaceRoot(j => j.Results[0]);
     }
 
-    private class Joined<T> : JoinRecord
+    class Joined<T> : JoinRecord
     {
         public T[] Results { get; set; } = null!;
     }

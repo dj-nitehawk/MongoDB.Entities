@@ -38,7 +38,7 @@ public class CreateOne : BenchBase
 [MemoryDiagnoser]
 public class CreateBulk : BenchBase
 {
-    private readonly List<Author> list = new(1000);
+    readonly List<Author> list = new(1000);
 
     public CreateBulk()
     {

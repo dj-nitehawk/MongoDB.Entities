@@ -69,7 +69,7 @@ public partial class DBContext
         return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
     }
 
-    private Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
+    Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
     {
         //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
         //         if the following logic changes, update the other method also

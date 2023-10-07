@@ -19,8 +19,8 @@ public partial class DBContext
     /// </summary>
     public ModifiedBy? ModifiedBy { get; set; }
 
-    private static Type[]? allEntitiyTypes;
-    private Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    static Type[]? allEntitiyTypes;
+    Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
 
     /// <summary>
     /// Initializes a DBContext instance with the given connection parameters.
@@ -251,7 +251,7 @@ public partial class DBContext
         }
     }
 
-    private static Type[] GetAllEntityTypes()
+    static Type[] GetAllEntityTypes()
     {
         var excludes = new[]
             {
@@ -275,7 +275,7 @@ public partial class DBContext
             .ToArray();
     }
 
-    private void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
+    void ThrowIfModifiedByIsEmpty<T>() where T : IEntity
     {
         if (Cache<T>.ModifiedByProp != null && ModifiedBy is null)
         {
@@ -284,7 +284,7 @@ public partial class DBContext
         }
     }
 
-    private void AddFilter(Type type, (object filterDef, bool prepend) filter)
+    void AddFilter(Type type, (object filterDef, bool prepend) filter)
     {
         globalFilters ??= new Dictionary<Type, (object filterDef, bool prepend)>();
 

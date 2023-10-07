@@ -10,8 +10,8 @@ namespace MongoDB.Entities;
 
 public static partial class DB
 {
-    private static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
-    private static readonly UpdateOptions updateOptions = new() { IsUpsert = true };
+    static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
+    static readonly UpdateOptions updateOptions = new() { IsUpsert = true };
 
     /// <summary>
     /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist. 
@@ -247,7 +247,7 @@ public static partial class DB
             : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
     }
 
-    private static Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
+    static Task<UpdateResult> SavePartial<T>(T entity, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
     {
         PrepAndCheckIfInsert(entity); //just prep. we don't care about inserts here
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
@@ -257,7 +257,7 @@ public static partial class DB
             : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation);
     }
 
-    private static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
+    static Task<BulkWriteResult<T>> SavePartial<T>(IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle? session, CancellationToken cancellation, bool excludeMode = false) where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
 
@@ -276,7 +276,7 @@ public static partial class DB
             : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
     }
 
-    private static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
+    static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity
     {
         if (entity.HasDefaultID())
         {

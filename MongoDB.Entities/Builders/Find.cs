@@ -30,12 +30,12 @@ public class Find<T> : Find<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
 public class Find<T, TProjection> where T : IEntity
 {
-    private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    private readonly List<SortDefinition<T>> sorts = new();
-    private readonly FindOptions<T, TProjection> options = new();
-    private readonly IClientSessionHandle? session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    private bool ignoreGlobalFilters;
+    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    readonly List<SortDefinition<T>> sorts = new();
+    readonly FindOptions<T, TProjection> options = new();
+    readonly IClientSessionHandle? session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    bool ignoreGlobalFilters;
 
     internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
@@ -430,7 +430,7 @@ public class Find<T, TProjection> where T : IEntity
                : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
     }
 
-    private void AddTxtScoreToProjection(string propName)
+    void AddTxtScoreToProjection(string propName)
     {
         options.Projection ??= "{}";
 

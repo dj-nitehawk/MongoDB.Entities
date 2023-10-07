@@ -10,8 +10,8 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class Relationships : BenchBase
 {
-    private const string bookTitle = "BOOKTITLE";
-    private const string authorName = "AUTHORNAME";
+    const string bookTitle = "BOOKTITLE";
+    const string authorName = "AUTHORNAME";
 
     public Relationships()
     {

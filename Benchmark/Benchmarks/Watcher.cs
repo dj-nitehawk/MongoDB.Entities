@@ -63,7 +63,7 @@ public class Watcher : BenchBase
         cts.Dispose();
     }
 
-    private Task InsertAnEntity()
+    Task InsertAnEntity()
     {
         return new Book { Title = "book name" }.SaveAsync();
     }

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace MongoDB.Entities;
 
-internal static class Logic
+static class Logic
 {
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity) where T : IEntity
     {

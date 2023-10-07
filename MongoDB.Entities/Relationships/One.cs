@@ -91,7 +91,7 @@ public class One<T> where T : IEntity
                .SingleOrDefault();
     }
 
-    private object TransformID()
+    object TransformID()
     {
         return ID is string vStr && vStr.Length == 24 && ObjectId.TryParse(vStr, out var oID) ? oID : ID;
     }

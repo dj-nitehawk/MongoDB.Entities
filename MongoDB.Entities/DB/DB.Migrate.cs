@@ -38,7 +38,7 @@ public static partial class DB
         return Execute(migrations);
     }
 
-    private static Task Migrate(Type? targetType)
+    static Task Migrate(Type? targetType)
     {
         IEnumerable<Assembly> assemblies;
 
@@ -76,7 +76,7 @@ public static partial class DB
             : Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
     }
 
-    private static async Task Execute(IEnumerable<IMigration> migrations)
+    static async Task Execute(IEnumerable<IMigration> migrations)
     {
         var lastMigNum = await
             Find<Migration, int>()

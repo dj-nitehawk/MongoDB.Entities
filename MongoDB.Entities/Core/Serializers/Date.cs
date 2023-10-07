@@ -6,10 +6,10 @@ using System;
 
 namespace MongoDB.Entities;
 
-internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
+class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 {
-    private static readonly IBsonSerializer<long> longSerializer = BsonSerializer.LookupSerializer<long>();
-    private static readonly IBsonSerializer<DateTime> dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
+    static readonly IBsonSerializer<long> longSerializer = BsonSerializer.LookupSerializer<long>();
+    static readonly IBsonSerializer<DateTime> dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
     {
@@ -80,8 +80,8 @@ internal class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 /// </summary>
 public class Date
 {
-    private long ticks;
-    private DateTime date = new();
+    long ticks;
+    DateTime date = new();
 
     public long Ticks {
         get => ticks;

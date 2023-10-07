@@ -4,10 +4,10 @@ using System.Collections.Concurrent;
 
 namespace MongoDB.Entities;
 
-internal static class TypeMap
+static class TypeMap
 {
-    private static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new();
-    private static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new();
+    static readonly ConcurrentDictionary<Type, IMongoDatabase> TypeToDBMap = new();
+    static readonly ConcurrentDictionary<Type, string> TypeToCollMap = new();
 
     internal static void AddCollectionMapping(Type entityType, string collectionName)
         => TypeToCollMap[entityType] = collectionName;

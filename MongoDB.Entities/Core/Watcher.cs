@@ -78,10 +78,10 @@ public class Watcher<T> where T : IEntity
     /// </summary>
     public BsonDocument? ResumeToken => options?.StartAfter;
 
-    private PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline = null!;
-    private ChangeStreamOptions? options;
-    private bool resume;
-    private CancellationToken cancelToken;
+    PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline = null!;
+    ChangeStreamOptions? options;
+    bool resume;
+    CancellationToken cancelToken;
 
     internal Watcher(string name) => Name = name;
 
@@ -229,7 +229,7 @@ public class Watcher<T> where T : IEntity
         CancellationToken cancellation = default)
     => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
 
-    private void Init(
+    void Init(
         BsonDocument? resumeToken,
         EventType eventTypes,
         FilterDefinition<ChangeStreamDocument<T>> filter,
@@ -313,7 +313,7 @@ public class Watcher<T> where T : IEntity
         StartWatching();
     }
 
-    private static ProjectionDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> BuildProjection(Expression<Func<T, T>> projection)
+    static ProjectionDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> BuildProjection(Expression<Func<T, T>> projection)
     {
         var rendered = Builders<T>.Projection
             .Expression(projection)
@@ -368,7 +368,7 @@ public class Watcher<T> where T : IEntity
         StartWatching();
     }
 
-    private void StartWatching()
+    void StartWatching()
     {
         //note  : don't use Task.Factory.StartNew with long running option
         //reason: http://blog.i3arnon.com/2015/07/02/task-run-long-running/

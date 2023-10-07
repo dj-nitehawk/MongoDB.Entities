@@ -9,7 +9,7 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class FileStorageWrite : BenchBase
 {
-    private static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
+    static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
 
     [Benchmark]
     public override async Task MongoDB_Entities()

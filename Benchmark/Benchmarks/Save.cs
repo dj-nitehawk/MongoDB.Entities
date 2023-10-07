@@ -9,7 +9,7 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class SavePartialVsUpdate : BenchBase
 {
-    private readonly Author author;
+    readonly Author author;
 
     public SavePartialVsUpdate()
     {
@@ -57,7 +57,7 @@ public class SavePartialVsUpdate : BenchBase
 [MemoryDiagnoser]
 public class DBContextVsStaticSave : BenchBase
 {
-    private readonly Author author;
+    readonly Author author;
 
     public DBContextVsStaticSave()
     {

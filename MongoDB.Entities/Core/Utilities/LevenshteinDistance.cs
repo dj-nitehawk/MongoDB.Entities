@@ -1,9 +1,9 @@
 ﻿namespace MongoDB.Entities;
 
-internal class Levenshtein
+class Levenshtein
 {
-    private readonly string storedValue;
-    private readonly int[] costs;
+    readonly string storedValue;
+    readonly int[] costs;
 
     public Levenshtein(string value)
     {

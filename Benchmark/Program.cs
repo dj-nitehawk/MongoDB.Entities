@@ -4,7 +4,7 @@ namespace Benchmark;
 
 public static class Program
 {
-    private static void Main()
+    static void Main()
     {
         BenchmarkRunner.Run(typeof(Program).Assembly);
     }

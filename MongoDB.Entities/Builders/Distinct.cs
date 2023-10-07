@@ -14,12 +14,12 @@ namespace MongoDB.Entities;
 /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
 public class Distinct<T, TProperty> where T : IEntity
 {
-    private FieldDefinition<T, TProperty>? field;
-    private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    private readonly DistinctOptions options = new();
-    private readonly IClientSessionHandle? session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    private bool ignoreGlobalFilters;
+    FieldDefinition<T, TProperty>? field;
+    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    readonly DistinctOptions options = new();
+    readonly IClientSessionHandle? session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    bool ignoreGlobalFilters;
 
     internal Distinct(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {

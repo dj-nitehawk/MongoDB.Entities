@@ -9,12 +9,12 @@ namespace MongoDB.Entities;
 /// </summary>
 public static class Prop
 {
-    private static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
-    private static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
-    private static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
-    private static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
+    static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
+    static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
+    static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
+    static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
-    private static string ToLowerCaseLetter(long n)
+    static string ToLowerCaseLetter(long n)
     {
         if (n < 0)
             throw new NotSupportedException("Value must be greater than 0!");
@@ -31,7 +31,7 @@ public static class Prop
         return val!;
     }
 
-    private static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
+    static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
     {
         if (expression == null)
             throw new ArgumentNullException(nameof(expression), "The supplied expression is null!");
@@ -40,7 +40,7 @@ public static class Prop
             throw new ArgumentException("Cannot generate property path from lambda parameter!");
     }
 
-    private static string GetPath<T>(Expression<Func<T, object>> expression)
+    static string GetPath<T>(Expression<Func<T, object>> expression)
     {
         ThrowIfInvalid(expression);
 

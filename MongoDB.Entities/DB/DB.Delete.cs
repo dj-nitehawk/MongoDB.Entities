@@ -11,9 +11,9 @@ namespace MongoDB.Entities;
 
 public static partial class DB
 {
-    private static readonly int deleteBatchSize = 100000;
+    static readonly int deleteBatchSize = 100000;
 
-    private static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object> IDs,
+    static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object> IDs,
                                                                     IClientSessionHandle? session = null,
                                                                     CancellationToken cancellation = default) where T : IEntity
     {
@@ -192,7 +192,7 @@ public static partial class DB
         return res;
     }
 
-    private static List<object> ValidateCursor(List<object> idObjects)
+    static List<object> ValidateCursor(List<object> idObjects)
     {
         if (idObjects.Any() && idObjects[0] is ExpandoObject)
         {
@@ -207,7 +207,7 @@ public static partial class DB
         return idObjects;
     }
 
-    private static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         if (cancellation != default && session == null)
             throw new NotSupportedException("Cancellation is only supported within transactions for delete operations!");

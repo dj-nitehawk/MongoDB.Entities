@@ -610,7 +610,7 @@ public class SavingInt64
         Assert.AreEqual(three.Name, res[0].Name);
     }
 
-    private class Test { public string Tester { get; set; } }
+    class Test { public string Tester { get; set; } }
     [TestMethod]
     public async Task find_with_projection_to_custom_type_works()
     {

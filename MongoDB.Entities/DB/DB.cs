@@ -34,8 +34,8 @@ public static partial class DB
 
     internal static event Action? DefaultDbChanged;
 
-    private static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
-    private static IMongoDatabase? defaultDb;
+    static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
+    static IMongoDatabase? defaultDb;
 
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.

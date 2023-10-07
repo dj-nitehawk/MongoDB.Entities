@@ -25,7 +25,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 {
     public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
+    class ObjectIdSerializer : SerializerBase<string>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
 
@@ -79,7 +79,7 @@ public class AsBsonIdAttribute : BsonSerializerAttribute
 {
     public AsBsonIdAttribute() : base(typeof(ObjectIdSerializer)) { }
 
-    private class ObjectIdSerializer : SerializerBase<object>, IRepresentationConfigurable
+    class ObjectIdSerializer : SerializerBase<object>, IRepresentationConfigurable
     {
         public BsonType Representation { get; set; }
 

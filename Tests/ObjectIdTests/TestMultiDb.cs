@@ -10,7 +10,7 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class MultiDbObjectId
 {
-    private const string dbName = "mongodb-entities-test-multi";
+    const string dbName = "mongodb-entities-test-multi";
 
     [TestMethod]
     public async Task save_ObjectId_works()

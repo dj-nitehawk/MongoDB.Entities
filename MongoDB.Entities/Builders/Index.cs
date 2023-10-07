@@ -15,7 +15,7 @@ namespace MongoDB.Entities;
 public class Index<T> where T : IEntity
 {
     internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
-    private readonly CreateIndexOptions<T> options = new() { Background = true };
+    readonly CreateIndexOptions<T> options = new() { Background = true };
 
     /// <summary>
     /// Call this method to finalize defining the index after setting the index keys and options.
@@ -132,13 +132,13 @@ public class Index<T> where T : IEntity
         await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
     }
 
-    private Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
+    Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
     {
         return DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
     }
 }
 
-internal class Key<T> where T : IEntity
+class Key<T> where T : IEntity
 {
     internal string PropertyName { get; set; }
     internal KeyType Type { get; set; }

@@ -236,16 +236,16 @@ public class Template<TInput, TResult> : Template where TInput : IEntity
 /// </summary>
 public class Template
 {
-    private static readonly Regex regex = new("<.*?>", RegexOptions.Compiled);
-    private static readonly ConcurrentDictionary<int, string> cache = new();
+    static readonly Regex regex = new("<.*?>", RegexOptions.Compiled);
+    static readonly ConcurrentDictionary<int, string> cache = new();
 
     internal readonly StringBuilder builder;
-    private bool cacheHit, hasAppendedStages;
-    private readonly int cacheKey;
-    private readonly HashSet<string> goalTags = new();
-    private readonly HashSet<string> missingTags = new();
-    private readonly HashSet<string> replacedTags = new();
-    private readonly Dictionary<string, string> valueTags = new();
+    bool cacheHit, hasAppendedStages;
+    readonly int cacheKey;
+    readonly HashSet<string> goalTags = new();
+    readonly HashSet<string> missingTags = new();
+    readonly HashSet<string> replacedTags = new();
+    readonly Dictionary<string, string> valueTags = new();
 
     /// <summary>
     /// Initialize a command builder with the supplied template string.
@@ -280,7 +280,7 @@ public class Template
         }
     }
 
-    private Template ReplacePath(string path)
+    Template ReplacePath(string path)
     {
         var tag = $"<{path}>";
 

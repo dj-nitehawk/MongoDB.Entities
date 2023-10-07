@@ -28,7 +28,7 @@ public class Transaction : DBContext, IDisposable
 
     #region IDisposable Support
 
-    private bool disposedValue;
+    bool disposedValue;
 
     protected virtual void Dispose(bool disposing)
     {

@@ -16,14 +16,14 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Replace<T> where T : IEntity
 {
-    private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    private ReplaceOptions options = new();
-    private readonly IClientSessionHandle? session;
-    private readonly List<ReplaceOneModel<T>> models = new();
-    private readonly ModifiedBy? modifiedBy;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    private readonly Action<T>? onSaveAction;
-    private bool ignoreGlobalFilters;
+    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    ReplaceOptions options = new();
+    readonly IClientSessionHandle? session;
+    readonly List<ReplaceOneModel<T>> models = new();
+    readonly ModifiedBy? modifiedBy;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    readonly Action<T>? onSaveAction;
+    bool ignoreGlobalFilters;
 
     internal Replace(IClientSessionHandle? session,
                      ModifiedBy? modifiedBy,
@@ -36,7 +36,7 @@ public class Replace<T> where T : IEntity
         this.onSaveAction = onSaveAction;
     }
 
-    private T? Entity { get; set; }
+    T? Entity { get; set; }
 
     /// <summary>
     /// Specify an IEntity ID as the matching criteria
@@ -252,7 +252,7 @@ public class Replace<T> where T : IEntity
         }
     }
 
-    private void SetModOnAndByValues()
+    void SetModOnAndByValues()
     {
         if (Cache<T>.HasModifiedOn && Entity != null) ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
         if (Cache<T>.ModifiedByProp != null && modifiedBy != null)

@@ -8,9 +8,9 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public class CountingObjectId
 {
-    private DBContext db;
+    DBContext db;
 
-    private Task Init(string ObjectId)
+    Task Init(string ObjectId)
     {
         db = new MyDBObjectId();
 

@@ -30,13 +30,13 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type to project to</typeparam>
 public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
 {
-    private readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
-    private FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
+    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
     protected private readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
-    private readonly IClientSessionHandle? session;
-    private readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    private readonly Action<UpdateBase<T>>? onUpdateAction;
-    private bool ignoreGlobalFilters;
+    readonly IClientSessionHandle? session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    readonly Action<UpdateBase<T>>? onUpdateAction;
+    bool ignoreGlobalFilters;
 
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
@@ -405,7 +405,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
     }
 
-    private bool ShouldSetModDate()
+    bool ShouldSetModDate()
     {
         //only set mod date by library if user hasn't done anything with the ModifiedOn property
 
@@ -417,7 +417,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    private Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
             ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)

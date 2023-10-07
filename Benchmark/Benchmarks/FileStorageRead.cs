@@ -10,10 +10,10 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public partial class FileStorageRead : BenchBase
 {
-    private static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
+    static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
 
-    private readonly string fEntityID;
-    private readonly ObjectId gridFSId;
+    readonly string fEntityID;
+    readonly ObjectId gridFSId;
 
     public FileStorageRead()
     {
