@@ -53,14 +53,14 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
-        parent.ThrowIfUnsaved();
+        _parent.ThrowIfUnsaved();
 
         var models = new List<WriteModel<JoinRecord>>(childIDs.Count());
         foreach (var cid in childIDs)
         {
             cid.ThrowIfUnsaved();
-            var parentID = isInverse ? cid : parent.GetId();
-            var childID = isInverse ? parent.GetId() : cid;
+            var parentID = _isInverse ? cid : _parent.GetId();
+            var childID = _isInverse ? _parent.GetId() : cid;
 
             var filter = Builders<JoinRecord>.Filter.Where(
                 j => j.ParentID == parentID &&
@@ -74,7 +74,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
         }
 
         return session == null
-               ? JoinCollection.BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-               : JoinCollection.BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+               ? JoinCollection.BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+               : JoinCollection.BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
     }
 }

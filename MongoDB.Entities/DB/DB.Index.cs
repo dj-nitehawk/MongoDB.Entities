@@ -9,6 +9,6 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static Index<T> Index<T>() where T : IEntity
     {
-        return new Index<T>();
+        return new();
     }
 }

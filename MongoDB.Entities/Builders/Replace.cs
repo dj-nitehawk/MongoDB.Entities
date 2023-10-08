@@ -97,13 +97,21 @@ public class Replace<T> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -167,7 +175,7 @@ public class Replace<T> where T : IEntity
     /// <param name="entity"></param>
     public Replace<T> WithEntity(T entity)
     {
-        if (entity.GetId() == null || string.IsNullOrEmpty(entity.GetId()!.ToString()))
+        if (string.IsNullOrEmpty(entity.GetId().ToString()))
             throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
         onSaveAction?.Invoke(entity);
@@ -207,7 +215,7 @@ public class Replace<T> where T : IEntity
         if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
         SetModOnAndByValues();
 
-        models.Add(new ReplaceOneModel<T>(mergedFilter, Entity)
+        models.Add(new(mergedFilter, Entity)
         {
             Collation = options.Collation,
             Hint = options.Hint,
@@ -215,7 +223,7 @@ public class Replace<T> where T : IEntity
         });
         filter = Builders<T>.Filter.Empty;
         Entity = default;
-        options = new ReplaceOptions();
+        options = new();
         return this;
     }
 
@@ -239,17 +247,15 @@ public class Replace<T> where T : IEntity
                 ? ReplaceOneResult.Unacknowledged.Instance
                 : new ReplaceOneResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
-        else
-        {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
-            SetModOnAndByValues();
 
-            return session == null
-                   ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
-                   : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
-        }
+        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+        if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+        SetModOnAndByValues();
+
+        return session == null
+            ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
+            : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
     }
 
     void SetModOnAndByValues()

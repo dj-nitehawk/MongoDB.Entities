@@ -20,21 +20,21 @@ class Levenshtein
             return value.Length;
         }
 
-        for (int i = 0; i < costs.Length;)
+        for (var i = 0; i < costs.Length;)
         {
             costs[i] = ++i;
         }
 
-        for (int i = 0; i < value.Length; i++)
+        for (var i = 0; i < value.Length; i++)
         {
-            int cost = i;
-            int addationCost = i;
+            var cost = i;
+            var addationCost = i;
 
-            char value1Char = value[i];
+            var value1Char = value[i];
 
-            for (int j = 0; j < storedValue.Length; j++)
+            for (var j = 0; j < storedValue.Length; j++)
             {
-                int insertionCost = cost;
+                var insertionCost = cost;
 
                 cost = addationCost;
 

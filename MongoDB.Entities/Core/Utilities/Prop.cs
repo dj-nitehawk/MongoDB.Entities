@@ -23,7 +23,7 @@ public static class Prop
         const char c = 'a';
         while (n >= 0)
         {
-            val = (char)(c + (n % 26)) + val;
+            val = (char)(c + n % 26) + val;
             n /= 26;
             n--;
         }

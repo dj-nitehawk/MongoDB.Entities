@@ -51,7 +51,7 @@ public class Update100 : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {

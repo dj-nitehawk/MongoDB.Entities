@@ -30,7 +30,7 @@ public class Relationships : BenchBase
           .Option(o => o.Background = false)
           .CreateAsync().GetAwaiter().GetResult();
 
-        for (int x = 1; x <= 1000; x++)
+        for (var x = 1; x <= 1000; x++)
         {
             var author = new Author
             {
@@ -40,7 +40,7 @@ public class Relationships : BenchBase
             };
             author.SaveAsync().GetAwaiter().GetResult();
 
-            for (int y = 1; y <= 10; y++)
+            for (var y = 1; y <= 10; y++)
             {
                 var book = new Book
                 {

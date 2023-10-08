@@ -101,7 +101,7 @@ public class DeletingEntity
     {
         var IDs = new List<string>(100100);
 
-        for (int i = 0; i < 100100; i++)
+        for (var i = 0; i < 100100; i++)
         {
             IDs.Add(ObjectId.GenerateNewId().ToString());
         }
@@ -117,7 +117,7 @@ public class DeletingEntity
         await DB.DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
-        for (int i = 0; i < 100100; i++)
+        for (var i = 0; i < 100100; i++)
         {
             list.Add(new Blank());
         }

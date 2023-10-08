@@ -16,12 +16,12 @@ public class CountingUuid
 
         var list = new List<AuthorUuid>();
 
-        for (int i = 1; i <= 25; i++)
+        for (var i = 1; i <= 25; i++)
         {
             list.Add(new AuthorUuid { Name = guid, Age = 111 });
         }
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new AuthorUuid { Name = guid, Age = 222 });
         }

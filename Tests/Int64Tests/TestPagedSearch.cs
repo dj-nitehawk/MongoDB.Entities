@@ -30,7 +30,7 @@ public class PagedSearchInt64
     {
         var list = new List<BookInt64>(10);
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new BookInt64 { Title = Int64 });
         }

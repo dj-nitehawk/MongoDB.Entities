@@ -14,6 +14,6 @@ public static partial class DB
     {
         return !ObjectId.TryParse(ID, out _)
             ? throw new ArgumentException("The ID passed in is not of the correct format!")
-            : new DataStreamer(new T() { ID = ID, UploadSuccessful = true });
+            : new DataStreamer(new T { ID = ID, UploadSuccessful = true });
     }
 }

@@ -30,7 +30,7 @@ public class PagedSearchUuid
     {
         var list = new List<BookUuid>(10);
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new BookUuid { Title = guid });
         }

@@ -21,7 +21,7 @@ static class Logic
 
     internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
     {
-        return (expression?.Body as NewExpression)?.Arguments
+        return (expression.Body as NewExpression)?.Arguments
             .Select(a => a.ToString().Split('.')[1]) ?? Enumerable.Empty<string>();
     }
 
@@ -48,20 +48,15 @@ static class Logic
         //WARNING: this has to do the same thing as DBContext.Pipeline.MergeWithGlobalFilter method
         //         if the following logic changes, update the other method also
 
-        if (!ignoreGlobalFilters && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+        if (ignoreGlobalFilters || !(globalFilters?.Count > 0) || !globalFilters.TryGetValue(typeof(T), out var gFilter))
+            return filter;
+
+        return gFilter.filterDef switch
         {
-            switch (gFilter.filterDef)
-            {
-                case FilterDefinition<T> definition:
-                    return gFilter.prepend ? definition & filter : filter & definition;
-
-                case BsonDocument bsonDoc:
-                    return gFilter.prepend ? bsonDoc & filter : filter & bsonDoc;
-
-                case string jsonString:
-                    return gFilter.prepend ? jsonString & filter : filter & jsonString;
-            }
-        }
-        return filter;
+            FilterDefinition<T> definition => gFilter.prepend ? definition & filter : filter & definition,
+            BsonDocument bsonDoc => gFilter.prepend ? bsonDoc & filter : filter & bsonDoc,
+            string jsonString => gFilter.prepend ? jsonString & filter : filter & jsonString,
+            _ => filter
+        };
     }
 }

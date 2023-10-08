@@ -40,7 +40,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
         var type = typeof(TProjection);
-        if (type.IsPrimitive || type.IsValueType || (type == typeof(string)))
+        if (type.IsPrimitive || type.IsValueType || type == typeof(string))
             throw new NotSupportedException("Projecting to primitive types is not supported!");
 
         this.session = session;
@@ -109,13 +109,21 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public PagedSearch<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -183,7 +191,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
         {
             Order.Ascending => Sort(s => s.Ascending(propertyToSortBy)),
             Order.Descending => Sort(s => s.Descending(propertyToSortBy)),
-            _ => this,
+            _ => this
         };
     }
 
@@ -296,11 +304,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
             throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
         var defs = new List<ProjectionDefinition<T>>(props.Count());
-
-        foreach (var prop in props)
-        {
-            defs.Add(Builders<T>.Projection.Exclude(prop));
-        }
+        defs.AddRange(props.Select(prop => Builders<T>.Projection.Exclude(prop)));
 
         projectionStage = PipelineStageDefinitionBuilder.Project<T, TProjection>(Builders<T>.Projection.Combine(defs));
 
@@ -339,9 +343,8 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
         if (sorts.Count == 0)
             throw new InvalidOperationException("Paging without sorting is a sin!");
-        else
-            pipelineStages.Add(PipelineStageDefinitionBuilder.Sort(Builders<T>.Sort.Combine(sorts)));
 
+        pipelineStages.Add(PipelineStageDefinitionBuilder.Sort(Builders<T>.Sort.Combine(sorts)));
         pipelineStages.Add(PipelineStageDefinitionBuilder.Skip<T>((pageNumber - 1) * pageSize));
         pipelineStages.Add(PipelineStageDefinitionBuilder.Limit<T>(pageSize));
 
@@ -375,13 +378,11 @@ public class PagedSearch<T, TProjection> where T : IEntity
                 .ConfigureAwait(false);
         }
 
-        long matchCount = (
-            facetResult.Facets
-                       .Single(x => x.Name == "_count")
-                       .Output<AggregateCountResult>().FirstOrDefault()?.Count
-        ) ?? 0;
+        var matchCount = facetResult.Facets
+            .Single(x => x.Name == "_count")
+            .Output<AggregateCountResult>().FirstOrDefault()?.Count ?? 0;
 
-        int pageCount =
+        var pageCount =
              matchCount > 0 && matchCount <= pageSize
              ? 1
              : (int)Math.Ceiling((double)matchCount / pageSize);

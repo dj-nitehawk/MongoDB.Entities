@@ -50,13 +50,13 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     public Task RemoveAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         var filter =
-            isInverse
+            _isInverse
             ? Builders<JoinRecord>.Filter.And(
-                Builders<JoinRecord>.Filter.Eq(j => j.ChildID, parent.GetId()),
+                Builders<JoinRecord>.Filter.Eq(j => j.ChildID, _parent.GetId()),
                 Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
 
             : Builders<JoinRecord>.Filter.And(
-                Builders<JoinRecord>.Filter.Eq(j => j.ParentID, parent.GetId()),
+                Builders<JoinRecord>.Filter.Eq(j => j.ParentID, _parent.GetId()),
                 Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
 
         return session == null

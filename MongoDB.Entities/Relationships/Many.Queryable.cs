@@ -42,7 +42,7 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
-            : isInverse
+            : _isInverse
             ? JoinQueryable(session, options)
                    .Where(j => childIDs.Contains(j.ParentID))
                    .Join(
@@ -107,18 +107,18 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <param name="options">An optional AggregateOptions object</param>
     public IMongoQueryable<TChild> ChildrenQueryable(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        parent.ThrowIfUnsaved();
+        _parent.ThrowIfUnsaved();
 
-        return isInverse
+        return _isInverse
             ? JoinQueryable(session, options)
-                   .Where(j => Equals(j.ChildID, parent.GetId()))
+                   .Where(j => Equals(j.ChildID, _parent.GetId()))
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ParentID,
                        Cache<TChild>.IdExpression,
                        (_, c) => c)
             : JoinQueryable(session, options)
-                   .Where(j => Equals(j.ParentID, parent.GetId()))
+                   .Where(j => Equals(j.ParentID, _parent.GetId()))
                    .Join(
                        DB.Collection<TChild>(),
                        j => j.ChildID,

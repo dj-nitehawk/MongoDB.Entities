@@ -74,31 +74,21 @@ public partial class DBContext
         //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
         //         if the following logic changes, update the other method also
 
-        if (!ignoreGlobalFilters && globalFilters?.Count > 0 && globalFilters.TryGetValue(typeof(T), out var gFilter))
+        if (ignoreGlobalFilters || !(globalFilters?.Count > 0) || !globalFilters.TryGetValue(typeof(T), out var gFilter))
+            return template;
+
+        var filter = gFilter.filterDef switch
         {
-            BsonDocument? filter = null;
+            FilterDefinition<T> def => def.Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3),
+            BsonDocument doc => doc,
+            string jsonString => BsonDocument.Parse(jsonString),
+            _ => null
+        };
 
-            switch (gFilter.filterDef)
-            {
-                case FilterDefinition<T> def:
-                    filter = def.Render(
-                        BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-                        BsonSerializer.SerializerRegistry,
-                        Driver.Linq.LinqProvider.V3);
-                    break;
-
-                case BsonDocument doc:
-                    filter = doc;
-                    break;
-
-                case string jsonString:
-                    filter = BsonDocument.Parse(jsonString);
-                    break;
-            }
-
-            if (gFilter.prepend) template.builder.Insert(1, $"{{$match:{filter}}},");
-            else template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
-        }
+        if (gFilter.prepend)
+            template.builder.Insert(1, $"{{$match:{filter}}},");
+        else
+            template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
         return template;
     }
 }

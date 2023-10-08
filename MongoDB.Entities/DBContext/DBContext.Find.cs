@@ -8,7 +8,7 @@ public partial class DBContext
     /// <typeparam name="T">The type of entity</typeparam>
     public Find<T> Find<T>() where T : IEntity
     {
-        return new Find<T>(Session, globalFilters);
+        return new(Session, globalFilters);
     }
 
     /// <summary>
@@ -18,6 +18,6 @@ public partial class DBContext
     /// <typeparam name="TProjection">The type of the end result</typeparam>
     public Find<T, TProjection> Find<T, TProjection>() where T : IEntity
     {
-        return new Find<T, TProjection>(Session, globalFilters);
+        return new(Session, globalFilters);
     }
 }

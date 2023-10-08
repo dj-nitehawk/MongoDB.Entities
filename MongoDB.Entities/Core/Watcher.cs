@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
-public delegate Task AsyncEventHandler<TEventArgs>(TEventArgs args);
+public delegate Task AsyncEventHandler<in TEventArgs>(TEventArgs args);
 
 public static class AsyncEventHandlerExtensions
 {
@@ -71,7 +71,7 @@ public class Watcher<T> where T : IEntity
     /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
     /// Will always return false after cancellation is requested via the cancellation token.
     /// </summary>
-    public bool CanRestart { get => !cancelToken.IsCancellationRequested; }
+    public bool CanRestart => !cancelToken.IsCancellationRequested;
 
     /// <summary>
     /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
@@ -83,7 +83,10 @@ public class Watcher<T> where T : IEntity
     bool resume;
     CancellationToken cancelToken;
 
-    internal Watcher(string name) => Name = name;
+    internal Watcher(string name)
+    {
+        Name = name;
+    }
 
     /// <summary>
     /// Starts the watcher instance with the supplied parameters
@@ -285,14 +288,16 @@ public class Watcher<T> where T : IEntity
 
         var stages = new List<IPipelineStageDefinition>(3) {
             PipelineStageDefinitionBuilder.Match(filters),
-            PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(@"
+            PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(
+                """
                 {
                     _id: 1,
                     operationType: 1,
                     documentKey: 1,
                     updateDescription: 1,
                     fullDocument: { $ifNull: ['$fullDocument', '$documentKey'] }
-                }")
+                }
+                """)
         };
 
         if (projection != null)
@@ -300,8 +305,7 @@ public class Watcher<T> where T : IEntity
 
         pipeline = stages;
 
-        options = new ChangeStreamOptions
-        {
+        options = new() {
             StartAfter = resumeToken,
             BatchSize = batchSize,
             FullDocument = onlyGetIDs ? ChangeStreamFullDocumentOption.Default : ChangeStreamFullDocumentOption.UpdateLookup,
@@ -332,11 +336,11 @@ public class Watcher<T> where T : IEntity
 
         foreach (var element in rendered.Document.Elements)
         {
-            if (element.Name != "_id")
-            {
-                var val = element.Value.ToString();
-                doc["fullDocument." + element.Name] = val.Insert(1, "fullDocument.");
-            }
+            if (element.Name == "_id")
+                continue;
+
+            var val = element.Value.ToString();
+            doc["fullDocument." + element.Name] = val.Insert(1, "fullDocument.");
         }
 
         return doc;
@@ -373,7 +377,7 @@ public class Watcher<T> where T : IEntity
         //note  : don't use Task.Factory.StartNew with long running option
         //reason: http://blog.i3arnon.com/2015/07/02/task-run-long-running/
         //        StartNew creates an unnecessary dedicated thread which gets released upon reaching first await.
-        //        continuations will be run on differnt threadpool threads upon re-entry.
+        //        continuations will be run on different thread-pool threads upon re-entry.
         //        i.e. long running thread creation is useless/wasteful for async delegates.
 
         _ = IterateCursorAsync();
@@ -385,30 +389,30 @@ public class Watcher<T> where T : IEntity
                 using var cursor = await DB.Collection<T>().WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false);
                 while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
                 {
-                    if (cursor.Current.Any())
+                    if (!cursor.Current.Any())
+                        continue;
+
+                    if (resume && options != null)
+                        options.StartAfter = cursor.Current.Last().ResumeToken;
+
+                    if (OnChangesAsync != null)
                     {
-                        if (resume && options != null)
-                            options.StartAfter = cursor.Current.Last().ResumeToken;
-
-                        if (OnChangesAsync != null)
-                        {
-                            await OnChangesAsync.InvokeAllAsync(
-                                cursor.Current
-                                      .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                                      .Select(d => d.FullDocument)
-                            ).ConfigureAwait(false);
-                        }
-
-                        OnChanges?.Invoke(
-                                cursor.Current
-                                      .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                                      .Select(d => d.FullDocument));
-
-                        if (OnChangesCSDAsync != null)
-                            await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);
-
-                        OnChangesCSD?.Invoke(cursor.Current);
+                        await OnChangesAsync.InvokeAllAsync(
+                            cursor.Current
+                                .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                .Select(d => d.FullDocument)
+                        ).ConfigureAwait(false);
                     }
+
+                    OnChanges?.Invoke(
+                        cursor.Current
+                            .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                            .Select(d => d.FullDocument));
+
+                    if (OnChangesCSDAsync != null)
+                        await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);
+
+                    OnChangesCSD?.Invoke(cursor.Current);
                 }
 
                 OnStop?.Invoke();

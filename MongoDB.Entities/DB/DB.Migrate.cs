@@ -94,7 +94,7 @@ public static partial class DB
             if (nameParts == null)
                 throw new InvalidOperationException("Please use the correct naming format for migration classes!");
 
-            if (!int.TryParse(nameParts[1], out int migNumber))
+            if (!int.TryParse(nameParts[1], out var migNumber))
                 throw new InvalidOperationException("Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");
 
             var name = string.Join(" ", nameParts.Skip(2));

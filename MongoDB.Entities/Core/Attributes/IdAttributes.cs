@@ -9,7 +9,7 @@ namespace MongoDB.Entities;
 /// <summary>
 /// Use this attribute to mark a property in order to save it in MongoDB server as ObjectId
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Property)]
 public class ObjectIdAttribute : BsonRepresentationAttribute
 {
     public ObjectIdAttribute() : base(BsonType.ObjectId)
@@ -20,7 +20,7 @@ public class ObjectIdAttribute : BsonRepresentationAttribute
 /// Use this attribute to mark a string property to store the value in MongoDB as ObjectID if it is a valid ObjectId string. 
 /// If it is not a valid ObjectId string, it will be stored as string. This is useful when using custom formats for the ID field.
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Property)]
 public class AsObjectIdAttribute : BsonSerializerAttribute
 {
     public AsObjectIdAttribute() : base(typeof(ObjectIdSerializer)) { }
@@ -31,7 +31,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 
         public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, string value)
         {
-            if (value == null)
+            if (string.IsNullOrEmpty(value))
             {
                 ctx.Writer.WriteNull();
                 return;
@@ -74,7 +74,7 @@ public class AsObjectIdAttribute : BsonSerializerAttribute
 /// If it is not a valid ObjectId string, it will be stored as string. This is needed for the join record so that the queryables
 /// query based on the stored type of the field
 /// </summary>
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Property)]
 public class AsBsonIdAttribute : BsonSerializerAttribute
 {
     public AsBsonIdAttribute() : base(typeof(ObjectIdSerializer)) { }

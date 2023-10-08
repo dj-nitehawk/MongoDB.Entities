@@ -9,6 +9,6 @@ public partial class DBContext
     /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
     public Distinct<T, TProperty> Distinct<T, TProperty>() where T : IEntity
     {
-        return new Distinct<T, TProperty>(Session, globalFilters);
+        return new(Session, globalFilters);
     }
 }

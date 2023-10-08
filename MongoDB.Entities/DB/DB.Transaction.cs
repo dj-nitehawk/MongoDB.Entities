@@ -12,7 +12,7 @@ public static partial class DB
     /// <param name="modifiedBy"></param>
     public static Transaction Transaction(string? database = default, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
     {
-        return new Transaction(database, options, modifiedBy);
+        return new(database, options, modifiedBy);
     }
 
     /// <summary>
@@ -23,6 +23,6 @@ public static partial class DB
     /// <param name="modifiedBy"></param>
     public static Transaction Transaction<T>(ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null) where T : IEntity
     {
-        return new Transaction(DatabaseName<T>(), options, modifiedBy);
+        return new(DatabaseName<T>(), options, modifiedBy);
     }
 }

@@ -35,7 +35,7 @@ public static partial class DB
             distanceMultiplier = DistanceMultiplier,
             limit = Limit,
             includeLocs = IncludeLocations?.FullPath(),
-            key = IndexKey,
+            key = IndexKey
         }
         .ToFluent(options, session);
     }

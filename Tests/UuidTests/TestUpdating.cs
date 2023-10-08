@@ -103,7 +103,7 @@ public class UpdateUuid
         var title = "bumcd " + Guid.NewGuid().ToString();
         var books = new Collection<BookUuid>();
 
-        for (int i = 1; i <= 5; i++)
+        for (var i = 1; i <= 5; i++)
         {
             books.Add(new BookUuid { Title = title, Price = i });
         }

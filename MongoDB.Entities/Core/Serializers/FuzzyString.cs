@@ -12,7 +12,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializ
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
     {
-        if (fString == null || string.IsNullOrWhiteSpace(fString.Value))
+        if (fString is null || string.IsNullOrWhiteSpace(fString.Value))
         {
             ctx.Writer.WriteNull();
         }
@@ -67,7 +67,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializ
         switch (memberName)
         {
             case "Value":
-                serializationInfo = new BsonSerializationInfo("Value", strSerializer, typeof(string));
+                serializationInfo = new("Value", strSerializer, typeof(string));
                 return true;
             default:
                 serializationInfo = null!;

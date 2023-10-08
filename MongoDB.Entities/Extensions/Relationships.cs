@@ -10,7 +10,7 @@ public static partial class Extensions
     /// </summary>
     public static One<T> ToReference<T>(this T entity) where T : IEntity
     {
-        return new One<T>(entity);
+        return new(entity);
     }
 
     /// <summary>
@@ -33,19 +33,30 @@ public static partial class Extensions
     public static void InitManyToMany<TChild, TParent>(this IEntity parent, Expression<Func<Many<TChild, TParent>>> propertyToInit, Expression<Func<TChild, object>> propertyOtherSide) where TChild : IEntity where TParent : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        var hasOwnerAttrib = property?.IsDefined(typeof(OwnerSideAttribute), false) ?? false;
-        var hasInverseAttrib = property?.IsDefined(typeof(InverseSideAttribute), false) ?? false;
-        if (hasOwnerAttrib && hasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
-        if (!hasOwnerAttrib && !hasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
+        var hasOwnerAttrib = property.IsDefined(typeof(OwnerSideAttribute), false);
+        var hasInverseAttrib = property.IsDefined(typeof(InverseSideAttribute), false);
+        switch (hasOwnerAttrib)
+        {
+            case true when hasInverseAttrib:
+                throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
+            case false when !hasInverseAttrib:
+                throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
+        }
 
         var osProperty = propertyOtherSide.MemberInfo();
         var osHasOwnerAttrib = osProperty.IsDefined(typeof(OwnerSideAttribute), false);
         var osHasInverseAttrib = osProperty.IsDefined(typeof(InverseSideAttribute), false);
-        if (osHasOwnerAttrib && osHasInverseAttrib) throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
-        if (!osHasOwnerAttrib && !osHasInverseAttrib) throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
+        switch (osHasOwnerAttrib)
+        {
+            case true when osHasInverseAttrib:
+                throw new InvalidOperationException("Only one type of relationship side attribute is allowed on a property");
+            case false when !osHasInverseAttrib:
+                throw new InvalidOperationException("Missing attribute for determining relationship side of a many-to-many relationship");
+        }
 
-        if ((hasOwnerAttrib == osHasOwnerAttrib) || (hasInverseAttrib == osHasInverseAttrib)) throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
+        if (hasOwnerAttrib == osHasOwnerAttrib || hasInverseAttrib == osHasInverseAttrib)
+            throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
 
-        property?.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, osProperty.Name, hasInverseAttrib));
+        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, osProperty.Name, hasInverseAttrib));
     }
 }

@@ -16,12 +16,12 @@ public class CountingInt64
 
         var list = new List<AuthorInt64>();
 
-        for (int i = 1; i <= 25; i++)
+        for (var i = 1; i <= 25; i++)
         {
             list.Add(new AuthorInt64 { Name = Int64, Age = 111 });
         }
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new AuthorInt64 { Name = Int64, Age = 222 });
         }

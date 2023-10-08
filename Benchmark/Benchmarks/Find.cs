@@ -22,7 +22,7 @@ public class FindOne : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {
@@ -64,7 +64,7 @@ public class Find100 : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {
@@ -106,7 +106,7 @@ public class FindFirst : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {
@@ -148,7 +148,7 @@ public class FindAny : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {
@@ -190,7 +190,7 @@ public class FindSingle : BenchBase
           .GetAwaiter()
           .GetResult();
 
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {

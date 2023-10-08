@@ -27,7 +27,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
-            : isInverse
+            : _isInverse
             ? children
                    .Lookup<TChild, JoinRecord, Joined<JoinRecord>>(
                         JoinCollection,
@@ -112,7 +112,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     {
         return typeof(TParent) == typeof(TChild)
             ? throw new InvalidOperationException("Both parent and child types cannot be the same")
-            : isInverse
+            : _isInverse
             ? JoinFluent(session, options)
                    .Match(f => f.In(j => j.ParentID, childIDs))
                    .Lookup<JoinRecord, TParent, Joined<TParent>>(
@@ -140,11 +140,11 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TChild> ChildrenFluent(IClientSessionHandle? session = null, AggregateOptions? options = null)
     {
-        parent.ThrowIfUnsaved();
+        _parent.ThrowIfUnsaved();
 
-        return isInverse
+        return _isInverse
             ? JoinFluent(session, options)
-                    .Match(f => f.Eq(r => r.ChildID, parent.GetId()))
+                    .Match(f => f.Eq(r => r.ChildID, _parent.GetId()))
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ParentID,
@@ -152,7 +152,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
                         j => j.Results)
                     .ReplaceRoot(j => j.Results[0])
             : JoinFluent(session, options)
-                    .Match(f => f.Eq(r => r.ParentID, parent.GetId()))
+                    .Match(f => f.Eq(r => r.ParentID, _parent.GetId()))
                     .Lookup<JoinRecord, TChild, Joined<TChild>>(
                         DB.Collection<TChild>(),
                         r => r.ChildID,

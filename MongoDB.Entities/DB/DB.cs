@@ -48,7 +48,7 @@ public static partial class DB
     public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
     {
         return Initialize(
-            new MongoClientSettings { Server = new(host, port) },
+            new() { Server = new(host, port) },
             database);
     }
 
@@ -97,7 +97,7 @@ public static partial class DB
     /// <param name="port">Port number of the server</param>
     public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
     {
-        return AllDatabaseNamesAsync(new MongoClientSettings { Server = new MongoServerAddress(host, port) });
+        return AllDatabaseNamesAsync(new() { Server = new(host, port) });
     }
 
     /// <summary>
@@ -139,13 +139,13 @@ public static partial class DB
     {
         IMongoDatabase? db = null;
 
-        if (dbs.Count > 0)
-        {
-            if (string.IsNullOrEmpty(name))
-                db = defaultDb;
-            else
-                dbs.TryGetValue(name!, out db);
-        }
+        if (dbs.Count == 0)
+            return db ?? throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+
+        if (string.IsNullOrEmpty(name))
+            db = defaultDb;
+        else
+            dbs.TryGetValue(name, out db);
 
         return db ?? throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
     }
@@ -156,7 +156,7 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static string DatabaseName<T>() where T : IEntity
     {
-        return Cache<T>.DBName;
+        return Cache<T>.DbName;
     }
 
     /// <summary>
@@ -210,7 +210,7 @@ public static partial class DB
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static T Entity<T>() where T : IEntity, new()
     {
-        return new T();
+        return new();
     }
 
     /// <summary>

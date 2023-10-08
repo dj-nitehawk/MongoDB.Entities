@@ -46,7 +46,7 @@ public abstract class FileEntity : Entity
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer Data => streamer ??= new DataStreamer(this);
+    public DataStreamer Data => streamer ??= new(this);
 }
 
 [Collection("[BINARY_CHUNKS]")]
@@ -95,7 +95,7 @@ public class DataStreamer
             _ = chunkCollection.Indexes.CreateOneAsync(
                 new CreateIndexModel<FileChunk>(
                     Builders<FileChunk>.IndexKeys.Ascending(c => c.FileID),
-                    new CreateIndexOptions { Background = true, Name = $"{nameof(FileChunk.FileID)}(Asc)" }));
+                    new() { Background = true, Name = $"{nameof(FileChunk.FileID)}(Asc)" }));
         }
     }
 
@@ -181,11 +181,11 @@ public class DataStreamer
 
         var chunkSize = chunkSizeKB * 1024;
         var streamInfo = new StreamInfo(
-            new FileChunk { FileID = parent.ID },
+            new() { FileID = parent.ID },
             chunkSize,
             0,
             new byte[64 * 1024],
-            new List<byte>(chunkSize)
+            new(chunkSize)
         );
 
         if (!string.IsNullOrEmpty(parent.MD5))
@@ -193,7 +193,8 @@ public class DataStreamer
 
         try
         {
-            if (stream.CanSeek && stream.Position > 0) stream.Position = 0;
+            if (stream is { CanSeek: true, Position: > 0 })
+                stream.Position = 0;
 
             while ((streamInfo.ReadCount = await stream.ReadAsync(streamInfo.Buffer, 0, streamInfo.Buffer.Length, cancellation).ConfigureAwait(false)) > 0)
             {
@@ -260,18 +261,18 @@ public class DataStreamer
             parent.FileSize += streamInfo.ReadCount;
         }
 
-        if (streamInfo.DataChunk.Count >= streamInfo.ChunkSize || isLastChunk)
-        {
-            streamInfo.Doc.ID = (string)streamInfo.Doc.GenerateNewID();
-            streamInfo.Doc.Data = streamInfo.DataChunk.ToArray();
-            streamInfo.DataChunk.Clear();
-            parent.ChunkCount++;
-            return session == null
-                   ? chunkCollection.InsertOneAsync(streamInfo.Doc, null, cancellation)
-                   : chunkCollection.InsertOneAsync(session, streamInfo.Doc, null, cancellation);
-        }
+        if (streamInfo.DataChunk.Count < streamInfo.ChunkSize && !isLastChunk)
+            return Task.CompletedTask;
 
-        return Task.CompletedTask;
+        streamInfo.Doc.ID = (string)streamInfo.Doc.GenerateNewID();
+        streamInfo.Doc.Data = streamInfo.DataChunk.ToArray();
+        streamInfo.DataChunk.Clear();
+        parent.ChunkCount++;
+
+        return session == null
+            ? chunkCollection.InsertOneAsync(streamInfo.Doc, null, cancellation)
+            : chunkCollection.InsertOneAsync(session, streamInfo.Doc, null, cancellation);
+
     }
 
     Task UpdateMetaDataAsync(IClientSessionHandle? session)

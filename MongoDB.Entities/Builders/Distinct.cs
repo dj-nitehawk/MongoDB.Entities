@@ -87,13 +87,21 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public Distinct<T, TProperty> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -192,13 +200,11 @@ public class Distinct<T, TProperty> where T : IEntity
     public async Task<List<TProperty>> ExecuteAsync(CancellationToken cancellation = default)
     {
         var list = new List<TProperty>();
-        using (var csr = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-        {
-            while (await csr.MoveNextAsync(cancellation).ConfigureAwait(false))
-            {
-                list.AddRange(csr.Current);
-            }
-        }
+        using var csr = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
+
+        while (await csr.MoveNextAsync(cancellation).ConfigureAwait(false))
+            list.AddRange(csr.Current);
+
         return list;
     }
 }

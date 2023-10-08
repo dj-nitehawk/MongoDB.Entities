@@ -14,7 +14,7 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Index<T> where T : IEntity
 {
-    internal List<Key<T>> Keys { get; set; } = new List<Key<T>>();
+    internal List<Key<T>> Keys { get; set; } = new();
     readonly CreateIndexOptions<T> options = new() { Background = true };
 
     /// <summary>
@@ -32,7 +32,7 @@ public class Index<T> where T : IEntity
 
         foreach (var key in Keys)
         {
-            string keyType = string.Empty;
+            var keyType = string.Empty;
 
             switch (key.Type)
             {
@@ -109,7 +109,7 @@ public class Index<T> where T : IEntity
     /// <param name="type">The type of the key</param>
     public Index<T> Key(Expression<Func<T, object>> propertyToIndex, KeyType type)
     {
-        Keys.Add(new Key<T>(propertyToIndex, type));
+        Keys.Add(new(propertyToIndex, type));
         return this;
     }
 
@@ -132,7 +132,7 @@ public class Index<T> where T : IEntity
         await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
     }
 
-    Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
+    static Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
     {
         return DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
     }
@@ -147,20 +147,18 @@ class Key<T> where T : IEntity
     {
         Type = type;
 
-        if (expression.Body.NodeType == ExpressionType.Parameter && type == KeyType.Text)
+        switch (expression.Body.NodeType)
         {
-            PropertyName = "$**";
-            return;
-        }
-
-        if (expression.Body.NodeType == ExpressionType.MemberAccess && type == KeyType.Text)
-        {
-            PropertyName = expression.PropertyInfo().PropertyType == typeof(FuzzyString) ? expression.FullPath() + ".Hash" : expression.FullPath();
-            return;
+            case ExpressionType.Parameter when type == KeyType.Text:
+                PropertyName = "$**";
+                return;
+            case ExpressionType.MemberAccess when type == KeyType.Text:
+                PropertyName = expression.PropertyInfo().PropertyType == typeof(FuzzyString) ? expression.FullPath() + ".Hash" : expression.FullPath();
+                return;
         }
 
         if (expression.Body is MethodCallExpression methodCallExpression
-            && methodCallExpression.Method.DeclaringType.GetGenericTypeDefinition() == typeof(Dictionary<,>)
+            && methodCallExpression.Method.DeclaringType?.GetGenericTypeDefinition() == typeof(Dictionary<,>)
             && methodCallExpression.Arguments.Count == 1
             && methodCallExpression.Arguments[0].Type == typeof(string)
             && methodCallExpression.Arguments[0] is ConstantExpression constantExpression

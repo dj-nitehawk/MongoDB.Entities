@@ -23,22 +23,26 @@ public static partial class Extensions
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static IAggregateFluent<T> Distinct<T>(this IAggregateFluent<T> aggregate) where T : IEntity
     {
-        PipelineStageDefinition<T, T> groupStage = @"
-                                                        {
-                                                            $group: {
-                                                                _id: '$_id',
-                                                                doc: {
-                                                                    $first: '$$ROOT'
-                                                                }
-                                                            }
-                                                        }";
+        PipelineStageDefinition<T, T> groupStage =
+            """
+               {
+                   $group: {
+                       _id: '$_id',
+                       doc: {
+                           $first: '$$ROOT'
+                       }
+                   }
+               }
+            """;
 
-        PipelineStageDefinition<T, T> rootStage = @"
-                                                        {
-                                                            $replaceRoot: {
-                                                                newRoot: '$doc'
-                                                            }
-                                                        }";
+        PipelineStageDefinition<T, T> rootStage =
+            """
+              {
+                  $replaceRoot: {
+                      newRoot: '$doc'
+                  }
+              }
+            """;
 
         return aggregate.AppendStage(groupStage).AppendStage(rootStage);
     }

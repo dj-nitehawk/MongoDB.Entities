@@ -42,7 +42,7 @@ public class CreateBulk : BenchBase
 
     public CreateBulk()
     {
-        for (int i = 1; i <= 1000; i++)
+        for (var i = 1; i <= 1000; i++)
         {
             list.Add(new Author
             {

@@ -30,7 +30,7 @@ public class PagedSearchEntity
     {
         var list = new List<BookEntity>(10);
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new BookEntity { Title = guid });
         }

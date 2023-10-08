@@ -30,21 +30,21 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type to project to</typeparam>
 public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
 {
-    readonly List<PipelineStageDefinition<T, TProjection>> stages = new();
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
+    readonly List<PipelineStageDefinition<T, TProjection>> _stages = new();
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
     protected private readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
-    readonly IClientSessionHandle? session;
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    readonly Action<UpdateBase<T>>? onUpdateAction;
-    bool ignoreGlobalFilters;
+    readonly IClientSessionHandle? _session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    readonly Action<UpdateBase<T>>? _onUpdateAction;
+    bool _ignoreGlobalFilters;
 
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                           Action<UpdateBase<T>>? onUpdateAction)
     {
-        this.session = session;
-        this.globalFilters = globalFilters;
-        this.onUpdateAction = onUpdateAction;
+        this._session = session;
+        this._globalFilters = globalFilters;
+        this._onUpdateAction = onUpdateAction;
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public UpdateAndGet<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        this._filter &= filter(Builders<T>.Filter);
         return this;
     }
 
@@ -81,7 +81,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="filterDefinition">A filter definition</param>
     public UpdateAndGet<T, TProjection> Match(FilterDefinition<T> filterDefinition)
     {
-        filter &= filterDefinition;
+        _filter &= filterDefinition;
         return this;
     }
 
@@ -91,7 +91,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public UpdateAndGet<T, TProjection> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
         return this;
     }
 
@@ -106,13 +106,21 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -145,7 +153,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public UpdateAndGet<T, TProjection> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
         return this;
     }
 
@@ -155,7 +163,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public UpdateAndGet<T, TProjection> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
         return this;
     }
 
@@ -165,7 +173,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="template">A Template object</param>
     public UpdateAndGet<T, TProjection> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
         return this;
     }
 
@@ -217,7 +225,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     public UpdateAndGet<T, TProjection> ModifyWith(T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity));
         return this;
     }
 
@@ -229,7 +237,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     public UpdateAndGet<T, TProjection> ModifyOnly(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity, members));
         return this;
     }
 
@@ -241,7 +249,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     public UpdateAndGet<T, TProjection> ModifyExcept(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
         return this;
     }
 
@@ -254,7 +262,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
         foreach (var stage in template.ToStages())
         {
-            stages.Add(stage);
+            _stages.Add(stage);
         }
 
         return this;
@@ -267,7 +275,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
     public UpdateAndGet<T, TProjection> WithPipelineStage(string stage)
     {
-        stages.Add(stage);
+        _stages.Add(stage);
         return this;
     }
 
@@ -371,7 +379,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     public UpdateAndGet<T, TProjection> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
         return this;
     }
 
@@ -381,13 +389,13 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<TProjection?> ExecuteAsync(CancellationToken cancellation = default)
     {
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-        if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+        if (Defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+        if (_stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
         if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-        onUpdateAction?.Invoke(this);
-        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
+        _onUpdateAction?.Invoke(this);
+        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(Defs), options, _session, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -396,13 +404,13 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<TProjection?> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
-        if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+        if (_stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
+        if (Defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
         if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
-        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(stages.ToArray()), options, session, cancellation);
+        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(_stages.ToArray()), options, _session, cancellation);
     }
 
     bool ShouldSetModDate()
@@ -411,13 +419,13 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
 
         return
             Cache<T>.HasModifiedOn &&
-            !defs.Any(d => d
+            !Defs.Any(d => d
                    .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
                    .ToString()
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    static Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
             ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)

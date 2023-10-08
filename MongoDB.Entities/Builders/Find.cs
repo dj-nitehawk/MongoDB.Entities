@@ -147,13 +147,21 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -221,7 +229,7 @@ public class Find<T, TProjection> where T : IEntity
         {
             Order.Ascending => Sort(s => s.Ascending(propertyToSortBy)),
             Order.Descending => Sort(s => s.Descending(propertyToSortBy)),
-            _ => this,
+            _ => this
         };
     }
 
@@ -316,11 +324,7 @@ public class Find<T, TProjection> where T : IEntity
             throw new ArgumentException("Unable to get any properties from the exclusion expression!");
 
         var defs = new List<ProjectionDefinition<T>>(props.Count());
-
-        foreach (var prop in props)
-        {
-            defs.Add(Builders<T>.Projection.Exclude(prop));
-        }
+        defs.AddRange(props.Select(prop => Builders<T>.Projection.Exclude(prop)));
 
         options.Projection = Builders<T>.Projection.Combine(defs);
 
@@ -366,13 +370,11 @@ public class Find<T, TProjection> where T : IEntity
     public async Task<List<TProjection>> ExecuteAsync(CancellationToken cancellation = default)
     {
         var list = new List<TProjection>();
-        using (var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false))
-        {
-            while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
-            {
-                list.AddRange(cursor.Current);
-            }
-        }
+        using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
+
+        while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
+            list.AddRange(cursor.Current);
+
         return list;
     }
 

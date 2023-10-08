@@ -54,15 +54,17 @@ public static partial class Extensions
     {
         var batch = new List<T>(batchSize);
 
-        foreach (T item in collection)
+        foreach (var item in collection)
         {
             batch.Add(item);
-            if (batch.Count == batchSize)
-            {
-                yield return batch;
-                batch.Clear();
-            }
+
+            if (batch.Count != batchSize)
+                continue;
+
+            yield return batch;
+            batch.Clear();
         }
+
         if (batch.Count > 0)
             yield return batch;
     }
@@ -151,10 +153,10 @@ public static partial class Extensions
         static string RemoveDiacritics(string text)
         {
             var sb = new StringBuilder();
-            string str = text.Normalize(NormalizationForm.FormD);
-            for (int i = 0; i < str.Length; i++)
+            var str = text.Normalize(NormalizationForm.FormD);
+            for (var i = 0; i < str.Length; i++)
             {
-                char c = str[i];
+                var c = str[i];
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
                     sb.Append(c);
             }

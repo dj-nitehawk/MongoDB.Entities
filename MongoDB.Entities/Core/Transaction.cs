@@ -32,15 +32,13 @@ public class Transaction : DBContext, IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                Session?.Dispose();
-            }
+        if (disposedValue)
+            return;
 
-            disposedValue = true;
-        }
+        if (disposing)
+            Session?.Dispose();
+
+        disposedValue = true;
     }
 
     public void Dispose()

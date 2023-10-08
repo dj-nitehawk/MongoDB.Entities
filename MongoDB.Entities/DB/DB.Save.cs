@@ -109,7 +109,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation);
+        return SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation);
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entity, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
+        return SavePartial(entity, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
     }
 
     /// <summary>
@@ -173,7 +173,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        return SavePartial(entities, Logic.GetPropNamesFromExpression(members) ?? new string[] { }, session, cancellation, true);
+        return SavePartial(entities, Logic.GetPropNamesFromExpression(members), session, cancellation, true);
     }
 
     /// <summary>
@@ -206,13 +206,13 @@ public static partial class DB
 
         var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
-        IEnumerable<string> propsToPreserve = new string[0];
+        IEnumerable<string> propsToPreserve = Array.Empty<string>();
 
         var dontProps = propsToUpdate.Where(p => p.IsDefined(typeof(DontPreserveAttribute), false)).Select(p => p.Name);
         var presProps = propsToUpdate.Where(p => p.IsDefined(typeof(PreserveAttribute), false)).Select(p => p.Name);
 
         if (dontProps.Any() && presProps.Any())
-            throw new NotSupportedException("[Preseve] and [DontPreserve] attributes cannot be used together on the same entity!");
+            throw new NotSupportedException("[Preserve] and [DontPreserve] attributes cannot be used together on the same entity!");
 
         if (dontProps.Any())
             propsToPreserve = propsToUpdate.Where(p => !dontProps.Contains(p.Name)).Select(p => p.Name);
@@ -231,16 +231,13 @@ public static partial class DB
             throw new ArgumentException("At least one property must be not preserved!");
 
         var defs = new List<UpdateDefinition<T>>(propsToUpdateCount);
-
-        foreach (var p in propsToUpdate)
-        {
-            if (p.Name == Cache<T>.ModifiedOnPropName)
-                defs.Add(Builders<T>.Update.CurrentDate(Cache<T>.ModifiedOnPropName));
-            else
-                defs.Add(Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
-        }
+        defs.AddRange(
+            propsToUpdate.Select(p => p.Name == Cache<T>.ModifiedOnPropName
+                ? Builders<T>.Update.CurrentDate(Cache<T>.ModifiedOnPropName)
+                : Builders<T>.Update.Set(p.Name, p.GetValue(entity))));
 
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
+
         return
             session == null
             ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation)

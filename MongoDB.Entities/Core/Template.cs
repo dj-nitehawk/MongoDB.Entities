@@ -263,21 +263,21 @@ public class Template
         if (cachedTemplate != null)
         {
             cacheHit = true;
-            builder = new StringBuilder(cachedTemplate);
+            builder = new(cachedTemplate);
         }
         else
         {
-            builder = new StringBuilder(template.Trim());
+            builder = new(template.Trim());
         }
 
-        if (!(builder[0] == '[' && builder[1] == ']')) //not an empty array
-        {
-            foreach (var match in regex.Matches(cacheHit ? cachedTemplate : template).Cast<Match>())
-                goalTags.Add(match.Value);
+        if (builder[0] == '[' && builder[1] == ']') 
+            return; //not an empty array
+        
+        foreach (var match in regex.Matches(cacheHit ? cachedTemplate! : template).Cast<Match>())
+            goalTags.Add(match.Value);
 
-            if (!cacheHit && goalTags.Count == 0)
-                throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
-        }
+        if (!cacheHit && goalTags.Count == 0)
+            throw new ArgumentException("No replacement tags such as '<tagname>' were found in the supplied template string");
     }
 
     Template ReplacePath(string path)
@@ -308,8 +308,8 @@ public class Template
     {
         hasAppendedStages = true;
 
-        int pipelineEndPos = 0;
-        int lastCharPos = builder.Length - 1;
+        var pipelineEndPos = 0;
+        var lastCharPos = builder.Length - 1;
 
         if (builder[lastCharPos] == ']')
             pipelineEndPos = lastCharPos;

@@ -14,8 +14,8 @@ namespace MongoDB.Entities;
 public abstract class ManyBase
 {
     //shared state for all Many<T> instances
-    internal static ConcurrentBag<string> indexedCollections = new();
-    internal static string PropTypeName = typeof(Many<Entity, Entity>).Name;
+    internal static readonly ConcurrentBag<string> indexedCollections = new();
+    internal static readonly string PropTypeName = typeof(Many<Entity, Entity>).Name;
 }
 
 /// <summary>
@@ -29,9 +29,9 @@ public abstract class ManyBase
 /// <typeparam name="TParent">The type of the parent</typeparam>
 public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEntity where TParent : IEntity
 {
-    static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
-    bool isInverse;
-    TParent parent = default!;
+    static readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
+    bool _isInverse;
+    TParent _parent = default!;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -47,15 +47,15 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> ChildrenCountAsync(IClientSessionHandle? session = null, CountOptions? options = null, CancellationToken cancellation = default)
     {
-        parent.ThrowIfUnsaved();
+        _parent.ThrowIfUnsaved();
 
-        return isInverse
+        return _isInverse
             ? session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ChildID == parent.GetId(), options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == parent.GetId(), options, cancellation)
+                   ? JoinCollection.CountDocumentsAsync(j => j.ChildID == _parent.GetId(), options, cancellation)
+                   : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == _parent.GetId(), options, cancellation)
             : session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ParentID == parent.GetId(), options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == parent.GetId(), options, cancellation);
+                   ? JoinCollection.CountDocumentsAsync(j => j.ParentID == _parent.GetId(), options, cancellation)
+                   : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == _parent.GetId(), options, cancellation);
     }
 
     /// <summary>
@@ -75,8 +75,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
             throw new NotSupportedException("Cross database relationships are not supported!");
 
-        this.parent = parent;
-        isInverse = false;
+        this._parent = parent;
+        _isInverse = false;
         JoinCollection = DB.GetRefCollection<TParent>($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
         CreateIndexesAsync(JoinCollection);
     }
@@ -100,8 +100,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
     void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
     {
-        this.parent = parent;
-        this.isInverse = isInverse;
+        this._parent = parent;
+        this._isInverse = isInverse;
 
         JoinCollection = isInverse
             ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
@@ -130,28 +130,27 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
     {
         //only create indexes once (best effort) per unique ref collection
-        if (!indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
-        {
-            indexedCollections.Add(collection.CollectionNamespace.CollectionName);
-            collection.Indexes.CreateManyAsync(
-                new[] {
-                    new CreateIndexModel<JoinRecord>(
-                        Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
-                        new CreateIndexOptions
-                        {
-                            Background = true,
-                            Name = "[ParentID]"
-                        })
-                    ,
-                    new CreateIndexModel<JoinRecord>(
-                        Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
-                        new CreateIndexOptions
-                        {
-                            Background = true,
-                            Name = "[ChildID]"
-                        })
-                });
-        }
+        if (indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
+            return Task.CompletedTask;
+
+        indexedCollections.Add(collection.CollectionNamespace.CollectionName);
+        collection.Indexes.CreateManyAsync(
+            new[]
+            {
+                new CreateIndexModel<JoinRecord>(
+                    Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
+                    new() {
+                        Background = true,
+                        Name = "[ParentID]"
+                    })
+                ,
+                new CreateIndexModel<JoinRecord>(
+                    Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
+                    new() {
+                        Background = true,
+                        Name = "[ChildID]"
+                    })
+            });
         return Task.CompletedTask;
     }
 }

@@ -13,7 +13,7 @@ namespace MongoDB.Entities;
 
 static class Cache<T> where T : IEntity
 {
-    internal static string DBName { get; private set; } = null!;
+    internal static string DbName { get; private set; } = null!;
     internal static IMongoDatabase Database { get; private set; } = null!;
     internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
@@ -29,8 +29,8 @@ static class Cache<T> where T : IEntity
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
 
-    static PropertyInfo[] updatableProps = null!;
-    static ProjectionDefinition<T> requiredPropsProjection = null!;
+    static PropertyInfo[] _updatableProps  =  Array.Empty<PropertyInfo>();
+    static ProjectionDefinition<T>? _requiredPropsProjection;
 
     static Cache()
     {
@@ -57,7 +57,7 @@ static class Cache<T> where T : IEntity
         }
 
         Database = TypeMap.GetDatabase(type);
-        DBName = Database.DatabaseNamespace.DatabaseName;
+        DbName = Database.DatabaseNamespace.DatabaseName;
 
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
@@ -69,27 +69,27 @@ static class Cache<T> where T : IEntity
         Collection = Database.GetCollection<T>(CollectionName);
         TypeMap.AddCollectionMapping(type, CollectionName);
 
-        Watchers = new ConcurrentDictionary<string, Watcher<T>>();
+        Watchers = new();
 
         var interfaces = type.GetInterfaces();
         HasCreatedOn = interfaces.Any(i => i == typeof(ICreatedOn));
         HasModifiedOn = interfaces.Any(i => i == typeof(IModifiedOn));
         ModifiedOnPropName = nameof(IModifiedOn.ModifiedOn);
 
-        updatableProps = type.GetProperties()
+        _updatableProps = type.GetProperties()
             .Where(p =>
                    p.PropertyType.Name != ManyBase.PropTypeName &&
                   !p.IsDefined(typeof(BsonIdAttribute), false) &&
                   !p.IsDefined(typeof(BsonIgnoreAttribute), false))
             .ToArray();
 
-        HasIgnoreIfDefaultProps = updatableProps.Any(p =>
+        HasIgnoreIfDefaultProps = _updatableProps.Any(p =>
                 p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) ||
                 p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false));
 
         try
         {
-            ModifiedByProp = updatableProps.SingleOrDefault(p =>
+            ModifiedByProp = _updatableProps.SingleOrDefault(p =>
                             p.PropertyType == typeof(ModifiedBy) ||
                             p.PropertyType.IsSubclassOf(typeof(ModifiedBy)));
         }
@@ -102,10 +102,10 @@ static class Cache<T> where T : IEntity
     internal static IEnumerable<PropertyInfo> UpdatableProps(T entity)
     {
         return HasIgnoreIfDefaultProps
-            ? updatableProps.Where(p =>
+            ? _updatableProps.Where(p =>
                 !(p.IsDefined(typeof(BsonIgnoreIfDefaultAttribute), false) && p.GetValue(entity) == default) &&
                 !(p.IsDefined(typeof(BsonIgnoreIfNullAttribute), false) && p.GetValue(entity) == null))
-            : updatableProps;
+            : _updatableProps;
     }
 
     internal static ProjectionDefinition<T, TProjection> CombineWithRequiredProps<TProjection>(ProjectionDefinition<T, TProjection> userProjection)
@@ -113,9 +113,9 @@ static class Cache<T> where T : IEntity
         if (userProjection == null)
             throw new InvalidOperationException("Please use .Project() method before .IncludeRequiredProps()");
 
-        if (requiredPropsProjection is null)
+        if (_requiredPropsProjection is null)
         {
-            requiredPropsProjection = "{_id:1}";
+            _requiredPropsProjection = "{_id:1}";
 
             var props = typeof(T)
                 .GetProperties()
@@ -124,12 +124,10 @@ static class Cache<T> where T : IEntity
             if (!props.Any())
                 throw new InvalidOperationException("Unable to find any entity properties marked with [BsonRequired] attribute!");
 
-            FieldAttribute attr;
             foreach (var p in props)
             {
-                attr = p.GetCustomAttribute<FieldAttribute>();
-
-                requiredPropsProjection = attr is null ? requiredPropsProjection.Include(p.Name) : requiredPropsProjection.Include(attr.ElementName);
+                var attr = p.GetCustomAttribute<FieldAttribute>();
+                _requiredPropsProjection = attr is null ? _requiredPropsProjection.Include(p.Name) : _requiredPropsProjection.Include(attr.ElementName);
             }
         }
 
@@ -138,11 +136,7 @@ static class Cache<T> where T : IEntity
             BsonSerializer.SerializerRegistry,
             LinqProvider.V3).Document;
 
-        return Builders<T>.Projection.Combine(new[]
-        {
-            requiredPropsProjection,
-            userProj
-        });
+        return Builders<T>.Projection.Combine(_requiredPropsProjection, userProj);
     }
 
     static Expression<Func<T, object>> SelectIdExpression(PropertyInfo idProp)

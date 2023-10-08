@@ -103,7 +103,7 @@ public class UpdateInt64
         var title = "bumcd " + Guid.NewGuid().ToString();
         var books = new Collection<BookInt64>();
 
-        for (int i = 1; i <= 5; i++)
+        for (var i = 1; i <= 5; i++)
         {
             books.Add(new BookInt64 { Title = title, Price = i });
         }

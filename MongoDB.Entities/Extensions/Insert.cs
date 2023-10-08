@@ -8,7 +8,7 @@ namespace MongoDB.Entities;
 public static partial class Extensions
 {
     /// <summary>
-    /// Inserts a new entity into the colleciton.
+    /// Inserts a new entity into the collection.
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="session">An optional session if using within a transaction</param>

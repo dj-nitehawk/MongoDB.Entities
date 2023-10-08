@@ -14,7 +14,7 @@ public abstract class UpdateBase<T> where T : IEntity
     //note: this base class exists for facilitating the OnBeforeUpdate custom hook of DBContext class
     //      there's no other purpose for this.
 
-    protected readonly List<UpdateDefinition<T>> defs = new();
+    protected readonly List<UpdateDefinition<T>> Defs = new();
 
     /// <summary>
     /// Specify the property and it's value to modify (use multiple times if needed)
@@ -23,7 +23,7 @@ public abstract class UpdateBase<T> where T : IEntity
     /// <param name="value">The value to set on the property</param>
     public void AddModification<TProp>(Expression<Func<T, TProp>> property, TProp value)
     {
-        defs.Add(Builders<T>.Update.Set(property, value));
+        Defs.Add(Builders<T>.Update.Set(property, value));
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public abstract class UpdateBase<T> where T : IEntity
     /// <param name="operation">b => b.Inc(x => x.PropName, Value)</param>
     public void AddModification(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
     {
-        defs.Add(operation(Builders<T>.Update));
+        Defs.Add(operation(Builders<T>.Update));
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public abstract class UpdateBase<T> where T : IEntity
     /// <param name="update">{ $set: { 'RootProp.$[x].SubProp' : 321 } }</param>
     public void AddModification(string update)
     {
-        defs.Add(update);
+        Defs.Add(update);
     }
 
     /// <summary>
@@ -138,13 +138,21 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="language">The language for the search (optional)</param>
     public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
-        if (searchType == Search.Fuzzy)
-        {
-            searchTerm = searchTerm.ToDoubleMetaphoneHash();
-            caseSensitive = false;
-            diacriticSensitive = false;
-            language = null;
-        }
+        if (searchType != Search.Fuzzy)
+            return Match(
+                f => f.Text(
+                    searchTerm,
+                    new TextSearchOptions
+                    {
+                        CaseSensitive = caseSensitive,
+                        DiacriticSensitive = diacriticSensitive,
+                        Language = language
+                    }));
+
+        searchTerm = searchTerm.ToDoubleMetaphoneHash();
+        caseSensitive = false;
+        diacriticSensitive = false;
+        language = null;
 
         return Match(
             f => f.Text(
@@ -250,7 +258,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> ModifyWith(T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity));
         return this;
     }
 
@@ -262,7 +270,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity, members));
         return this;
     }
 
@@ -274,7 +282,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
     {
         if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
-        defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
+        Defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
         return this;
     }
 
@@ -383,10 +391,10 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
+        if (Defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
         if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
         onUpdateAction?.Invoke(this);
-        models.Add(new UpdateManyModel<T>(mergedFilter, Builders<T>.Update.Combine(defs))
+        models.Add(new(mergedFilter, Builders<T>.Update.Combine(Defs))
         {
             ArrayFilters = options.ArrayFilters,
             Collation = options.Collation,
@@ -394,8 +402,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
             IsUpsert = options.IsUpsert
         });
         filter = Builders<T>.Filter.Empty;
-        defs.Clear();
-        options = new UpdateOptions();
+        Defs.Clear();
+        options = new();
         return this;
     }
 
@@ -419,16 +427,14 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                 ? UpdateResult.Unacknowledged.Instance
                 : new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
-        else
-        {
-            var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-            if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-            if (defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
-            if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-            if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-            onUpdateAction?.Invoke(this);
-            return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(defs), options, session, cancellation).ConfigureAwait(false);
-        }
+
+        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
+        if (Defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
+        if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+        onUpdateAction?.Invoke(this);
+        return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(Defs), options, session, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -440,7 +446,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
         if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
         if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
-        if (defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+        if (Defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
         if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
         return UpdateAsync(
@@ -457,13 +463,13 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         return
             Cache<T>.HasModifiedOn &&
-            !defs.Any(d => d
+            !Defs.Any(d => d
                    .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
                    .ToString()
                    .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         return session == null
                ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)

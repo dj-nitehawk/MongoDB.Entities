@@ -31,7 +31,7 @@ public class PagedSearchObjectId
     {
         var list = new List<BookObjectId>(10);
 
-        for (int i = 1; i <= 10; i++)
+        for (var i = 1; i <= 10; i++)
         {
             list.Add(new BookObjectId { Title = ObjectId });
         }

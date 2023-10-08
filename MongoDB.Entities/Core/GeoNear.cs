@@ -23,7 +23,7 @@ public class Coordinates2D
     public Coordinates2D() { }
 
     /// <summary>
-    /// Instantiate a new Coordinates2D instance with the supplied longtitude and latitude
+    /// Instantiate a new Coordinates2D instance with the supplied longitude and latitude
     /// </summary>
     public Coordinates2D(double longitude, double latitude)
     {

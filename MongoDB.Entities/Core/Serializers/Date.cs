@@ -8,21 +8,21 @@ namespace MongoDB.Entities;
 
 class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 {
-    static readonly IBsonSerializer<long> longSerializer = BsonSerializer.LookupSerializer<long>();
-    static readonly IBsonSerializer<DateTime> dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
+    static readonly IBsonSerializer<long> _longSerializer = BsonSerializer.LookupSerializer<long>();
+    static readonly IBsonSerializer<DateTime> _dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
     {
-        if (date == null)
+        if (date is null)
         {
             ctx.Writer.WriteNull();
         }
         else
         {
-            var dtUTC = BsonUtils.ToUniversalTime(date.DateTime);
+            var dtUtc = BsonUtils.ToUniversalTime(date.DateTime);
             ctx.Writer.WriteStartDocument();
-            ctx.Writer.WriteDateTime("DateTime", BsonUtils.ToMillisecondsSinceEpoch(dtUTC));
-            ctx.Writer.WriteInt64("Ticks", dtUTC.Ticks);
+            ctx.Writer.WriteDateTime("DateTime", BsonUtils.ToMillisecondsSinceEpoch(dtUtc));
+            ctx.Writer.WriteInt64("Ticks", dtUtc.Ticks);
             ctx.Writer.WriteEndDocument();
         }
     }
@@ -47,7 +47,7 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
                 }
                 ctx.Reader.ReadEndDocument();
 
-                return new Date() { DateTime = new DateTime(ticks, DateTimeKind.Utc) };
+                return new() { DateTime = new(ticks, DateTimeKind.Utc) };
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
@@ -63,10 +63,10 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
         switch (memberName)
         {
             case "Ticks":
-                serializationInfo = new BsonSerializationInfo("Ticks", longSerializer, typeof(long));
+                serializationInfo = new("Ticks", _longSerializer, typeof(long));
                 return true;
             case "DateTime":
-                serializationInfo = new BsonSerializationInfo("DateTime", dtSerializer, typeof(DateTime));
+                serializationInfo = new("DateTime", _dtSerializer, typeof(DateTime));
                 return true;
             default:
                 serializationInfo = null!;
@@ -80,17 +80,17 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 /// </summary>
 public class Date
 {
-    long ticks;
-    DateTime date = new();
+    long _ticks;
+    DateTime _date;
 
     public long Ticks {
-        get => ticks;
-        set { date = new DateTime(value); ticks = value; }
+        get => _ticks;
+        set { _date = new(value); _ticks = value; }
     }
 
     public DateTime DateTime {
-        get => date;
-        set { date = value; ticks = value.Ticks; }
+        get => _date;
+        set { _date = value; _ticks = value.Ticks; }
     }
 
     public Date() { }

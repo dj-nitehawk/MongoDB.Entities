@@ -12,9 +12,9 @@ static class TypeMap
     internal static void AddCollectionMapping(Type entityType, string collectionName)
         => TypeToCollMap[entityType] = collectionName;
 
-    internal static string GetCollectionName(Type entityType)
+    internal static string? GetCollectionName(Type entityType)
     {
-        TypeToCollMap.TryGetValue(entityType, out string name);
+        TypeToCollMap.TryGetValue(entityType, out var name);
         return name;
     }
 
@@ -29,7 +29,7 @@ static class TypeMap
 
     internal static IMongoDatabase GetDatabase(Type entityType)
     {
-        TypeToDBMap.TryGetValue(entityType, out IMongoDatabase db);
+        TypeToDBMap.TryGetValue(entityType, out var db);
         return db ?? DB.Database(default);
     }
 }

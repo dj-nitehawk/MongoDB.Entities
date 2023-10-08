@@ -36,13 +36,11 @@ public static partial class DB
     public static async Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         var list = new List<TResult>();
-        using (var cursor = await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false))
-        {
-            while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
-            {
-                list.AddRange(cursor.Current);
-            }
-        }
+        using var cursor = await PipelineCursorAsync(template, options, session, cancellation).ConfigureAwait(false);
+
+        while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
+            list.AddRange(cursor.Current);
+
         return list;
     }
 
@@ -58,7 +56,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static async Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        AggregateOptions opts = options ?? new AggregateOptions();
+        var opts = options ?? new AggregateOptions();
         opts.BatchSize = 2;
 
         using var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false);
@@ -77,7 +75,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     public static async Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        AggregateOptions opts = options ?? new AggregateOptions();
+        var opts = options ?? new AggregateOptions();
         opts.BatchSize = 1;
 
         using var cursor = await PipelineCursorAsync(template, opts, session, cancellation).ConfigureAwait(false);

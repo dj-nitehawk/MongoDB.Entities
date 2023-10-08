@@ -103,7 +103,7 @@ public class UpdateEntity
         var title = "bumcd " + Guid.NewGuid().ToString();
         var books = new Collection<BookEntity>();
 
-        for (int i = 1; i <= 5; i++)
+        for (var i = 1; i <= 5; i++)
         {
             books.Add(new BookEntity { Title = title, Price = i });
         }

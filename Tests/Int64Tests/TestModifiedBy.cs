@@ -19,7 +19,7 @@ public class ModifiedByInt64
     [TestMethod]
     public async Task base_mod_by_save()
     {
-        string userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString();
 
         var db = new DBContext(
             modifiedBy: new Entities.ModifiedBy
@@ -40,7 +40,7 @@ public class ModifiedByInt64
     [TestMethod]
     public async Task derived_mod_by_save()
     {
-        string userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString();
 
         var db = new DBContext(
             modifiedBy: new UpdatedBy
@@ -63,7 +63,7 @@ public class ModifiedByInt64
     [TestMethod]
     public async Task mod_by_replace()
     {
-        string userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString();
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {
@@ -101,7 +101,7 @@ public class ModifiedByInt64
     [TestMethod]
     public async Task mod_by_update()
     {
-        string userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString();
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {
@@ -136,7 +136,7 @@ public class ModifiedByInt64
     [TestMethod]
     public async Task mod_by_update_using_modifyonly()
     {
-        string userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString();
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {

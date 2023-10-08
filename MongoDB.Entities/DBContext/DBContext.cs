@@ -36,7 +36,7 @@ public partial class DBContext
     public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
     {
         DB.Initialize(
-            new MongoClientSettings { Server = new MongoServerAddress(host, port) },
+            new() { Server = new(host, port) },
             database,
             true)
           .GetAwaiter()
@@ -90,15 +90,13 @@ public partial class DBContext
     /// <param name="options">Client session options for this transaction</param>
     public IClientSessionHandle Transaction(string? database = default, ClientSessionOptions? options = null)
     {
-        if (Session is null)
-        {
-            Session = DB.Database(database).Client.StartSession(options);
-            Session.StartTransaction();
-            return Session;
-        }
+        if (Session is not null)
+            throw new NotSupportedException("Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
 
-        throw new NotSupportedException(
-            "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
+        Session = DB.Database(database).Client.StartSession(options);
+        Session.StartTransaction();
+        return Session;
+
     }
 
     /// <summary>
@@ -127,7 +125,7 @@ public partial class DBContext
     public Task AbortAsync(CancellationToken cancellation = default) => Session?.AbortTransactionAsync(cancellation) ?? Task.CompletedTask;
 
     /// <summary>
-    /// This event hook will be trigged right before an entity is persisted
+    /// This event hook will be triggered right before an entity is persisted
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
@@ -241,7 +239,7 @@ public partial class DBContext
     {
         var targetType = typeof(TInterface);
 
-        if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", "TInterface");
+        if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", nameof(TInterface));
 
         allEntitiyTypes ??= GetAllEntityTypes();
 
@@ -286,7 +284,7 @@ public partial class DBContext
 
     void AddFilter(Type type, (object filterDef, bool prepend) filter)
     {
-        globalFilters ??= new Dictionary<Type, (object filterDef, bool prepend)>();
+        globalFilters ??= new();
 
         globalFilters[type] = filter;
     }

@@ -9,7 +9,7 @@ namespace MongoDB.Entities;
 public static partial class DB
 {
     /// <summary>
-    /// Inserts a new entity into the colleciton.
+    /// Inserts a new entity into the collection.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="entity">The instance to persist</param>

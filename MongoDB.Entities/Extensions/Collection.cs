@@ -7,7 +7,7 @@ public static partial class Extensions
 {
     /// <summary>
     /// Gets the IMongoCollection for a given IEntity type.
-    /// <para>TIP: Try never to use this unless really neccessary.</para>
+    /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity => DB.Collection<T>();

@@ -64,18 +64,20 @@ public static partial class DB
             Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
         };
 
-        foreach (var cName in await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false))
+        var list = await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false);
+        for (var i = 0; i < list.Count; i++)
         {
+            var cName = list[i];
             tasks.Add(
                 session == null
-                ? db.DropCollectionAsync(cName)
-                : db.DropCollectionAsync(session, cName));
+                    ? db.DropCollectionAsync(cName)
+                    : db.DropCollectionAsync(session, cName));
         }
 
         tasks.Add(
             session == null
-            ? db.DropCollectionAsync(collName)
-            : db.DropCollectionAsync(session, collName));
+                ? db.DropCollectionAsync(collName)
+                : db.DropCollectionAsync(session, collName));
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
     }

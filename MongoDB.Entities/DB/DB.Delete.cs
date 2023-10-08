@@ -34,12 +34,14 @@ public static partial class DB
         //       so don't add session support here.
         var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
 
-        foreach (var cName in await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false))
+        var list = await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false);
+        for (var i = 0; i < list.Count; i++)
         {
+            var cName = list[i];
             tasks.Add(
                 session == null
-                ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
+                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(session, r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID), null, cancellation));
         }
 
         var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
@@ -175,12 +177,12 @@ public static partial class DB
         {
             while (await cursor.MoveNextAsync(cancellation).ConfigureAwait(false))
             {
-                if (cursor.Current.Any())
-                {
-                    var idObjects = ValidateCursor((List<object>)cursor.Current);
-                    res = await DeleteCascadingAsync<T>(idObjects, session, cancellation).ConfigureAwait(false);
-                    deletedCount += res.DeletedCount;
-                }
+                if (!cursor.Current.Any())
+                    continue;
+
+                var idObjects = ValidateCursor((List<object>)cursor.Current);
+                res = await DeleteCascadingAsync<T>(idObjects, session, cancellation).ConfigureAwait(false);
+                deletedCount += res.DeletedCount;
             }
         }
 
@@ -192,19 +194,17 @@ public static partial class DB
         return res;
     }
 
-    static List<object> ValidateCursor(List<object> idObjects)
+    static IEnumerable<object> ValidateCursor(IReadOnlyList<object> idObjects)
     {
-        if (idObjects.Any() && idObjects[0] is ExpandoObject)
-        {
-            List<object> ids = new();
-            foreach (dynamic id in idObjects)
-            {
-                ids.Add(id._id);
-            }
-            return ids;
-        }
+        if (!idObjects.Any() || idObjects[0] is not ExpandoObject)
+            return idObjects;
 
-        return idObjects;
+        List<object> ids = new();
+        for (var i = 0; i < idObjects.Count; i++)
+            ids.Add(((dynamic)idObjects[i])._id);
+
+        return ids;
+
     }
 
     static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
