@@ -42,9 +42,9 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                           Action<UpdateBase<T>>? onUpdateAction)
     {
-        this._session = session;
-        this._globalFilters = globalFilters;
-        this._onUpdateAction = onUpdateAction;
+        _session = session;
+        _globalFilters = globalFilters;
+        _onUpdateAction = onUpdateAction;
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public UpdateAndGet<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this._filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
         return this;
     }
 

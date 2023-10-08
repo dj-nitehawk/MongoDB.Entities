@@ -59,7 +59,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     }
 
     /// <summary>
-    /// Creates an instance of Many&lt;TChild&gt; 
+    /// Creates an instance of Many&lt;TChild&gt;
     /// This is only needed in VB.Net
     /// </summary>
     public Many() { }
@@ -75,7 +75,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         if (DB.DatabaseName<TParent>() != DB.DatabaseName<TChild>())
             throw new NotSupportedException("Cross database relationships are not supported!");
 
-        this._parent = parent;
+        _parent = parent;
         _isInverse = false;
         JoinCollection = DB.GetRefCollection<TParent>($"[{DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({property})]");
         CreateIndexesAsync(JoinCollection);
@@ -87,9 +87,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <param name="parent">The parent entity instance</param>
     /// <param name="property">Function(x) x.PropName</param>
     public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object>> property)
-    {
-        Init(parent, Prop.Property(property));
-    }
+        => Init(parent, Prop.Property(property));
     #endregion
 
     #region many-to-many initializers
@@ -100,8 +98,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
     void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
     {
-        this._parent = parent;
-        this._isInverse = isInverse;
+        _parent = parent;
+        _isInverse = isInverse;
 
         JoinCollection = isInverse
             ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
