@@ -6,6 +6,7 @@
 ### IMPROVEMENTS
 - `Entity.ID` property has been made non-nullable
 - support for dictionary based index keys #206
+- various internal code refactors and optimizations
 - upgrade mongodb driver to v2.21.0
 
 ### MINOR BREAKING
