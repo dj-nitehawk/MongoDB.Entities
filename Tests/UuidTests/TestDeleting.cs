@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver.Linq;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ public class DeletingUuid
         var author1 = new AuthorUuid { Name = "ewtrcd1" }; await author1.SaveAsync();
         var author2 = new AuthorUuid { Name = "ewtrcd2" }; await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new AuthorUuid[] { author1, author2 });
+        book.OtherAuthors = (new[] { author1, author2 });
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -120,7 +119,7 @@ public class DeletingUuid
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
         {
-            list.Add(new Blank());
+            list.Add(new());
         }
         await list.SaveAsync();
 

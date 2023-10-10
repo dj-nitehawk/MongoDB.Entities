@@ -20,7 +20,7 @@ public class TransactionsEntity
         var author2 = new AuthorEntity { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
         var author3 = new AuthorEntity { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorEntity>()
               .Match(a => a.Surname == guid)
@@ -45,7 +45,7 @@ public class TransactionsEntity
         var author2 = new AuthorEntity { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
         var author3 = new AuthorEntity { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorEntity>()
               .Match(a => a.Surname == guid)
@@ -71,13 +71,13 @@ public class TransactionsEntity
 
         var db = new DBContext(modifiedBy: new());
 
-        using (var session = db.Transaction())
+        using (db.Transaction())
         {
             await db.Update<AuthorEntity>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .ExecuteAsync();
+                    .Match(a => a.Surname == guid)
+                    .Modify(a => a.Name, guid)
+                    .Modify(a => a.Surname, author1.Name)
+                    .ExecuteAsync();
 
             await db.CommitAsync();
         }
@@ -96,15 +96,15 @@ public class TransactionsEntity
         BookEntity? res;
         BookEntity fnt;
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.SaveAsync(book1);
             await TN.SaveAsync(book2);
 
-            res = await TN.Find<BookEntity>().OneAsync(book1.ID);
+            _ = await TN.Find<BookEntity>().OneAsync(book1.ID);
             res = book1.Fluent(TN.Session).Match(f => f.Eq(b => b.ID, book1.ID)).SingleOrDefault();
-            fnt = TN.Fluent<BookEntity>().FirstOrDefault();
-            fnt = TN.Fluent<BookEntity>().Match(b => b.ID == book2.ID).SingleOrDefault();
+            _ = TN.Fluent<BookEntity>().FirstOrDefault();
+            _ = TN.Fluent<BookEntity>().Match(b => b.ID == book2.ID).SingleOrDefault();
             fnt = TN.Fluent<BookEntity>().Match(f => f.Eq(b => b.ID, book2.ID)).SingleOrDefault();
 
             await TN.CommitAsync();
@@ -163,7 +163,7 @@ public class TransactionsEntity
             new BookEntity{Title="thr "+guid}
         };
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.SaveAsync(entities);
             await TN.CommitAsync();

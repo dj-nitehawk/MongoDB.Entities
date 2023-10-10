@@ -46,11 +46,9 @@ public static partial class DB
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
     public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
-    {
-        return Initialize(
+        => Initialize(
             new() { Server = new(host, port) },
             database);
-    }
 
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
@@ -60,9 +58,7 @@ public static partial class DB
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
     public static Task InitAsync(string database, MongoClientSettings settings)
-    {
-        return Initialize(settings, database);
-    }
+        => Initialize(settings, database);
 
     internal static async Task Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
     {
@@ -96,21 +92,17 @@ public static partial class DB
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
     public static Task<IEnumerable<string>> AllDatabaseNamesAsync(string host = "127.0.0.1", int port = 27017)
-    {
-        return AllDatabaseNamesAsync(new() { Server = new(host, port) });
-    }
+        => AllDatabaseNamesAsync(new() { Server = new(host, port) });
 
     /// <summary>
     /// Gets a list of all database names from the server
     /// </summary>
     /// <param name="settings">A MongoClientSettings object</param>
     public static async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
-    {
-        return await (await
-            new MongoClient(settings)
-            .ListDatabaseNamesAsync().ConfigureAwait(false))
-            .ToListAsync().ConfigureAwait(false);
-    }
+        => await (await
+                      new MongoClient(settings)
+                         .ListDatabaseNamesAsync().ConfigureAwait(false))
+                .ToListAsync().ConfigureAwait(false);
 
     /// <summary>
     /// Specifies the database that a given entity type should be stored in. 
@@ -126,9 +118,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
     public static IMongoDatabase Database<T>() where T : IEntity
-    {
-        return Cache<T>.Database;
-    }
+        => Cache<T>.Database;
 
     /// <summary>
     /// Gets the IMongoDatabase for a given database name if it has been previously initialized.
@@ -155,9 +145,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static string DatabaseName<T>() where T : IEntity
-    {
-        return Cache<T>.DbName;
-    }
+        => Cache<T>.DbName;
 
     /// <summary>
     /// Switches the default database at runtime
@@ -182,36 +170,28 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static FilterDefinitionBuilder<T> Filter<T>() where T : IEntity
-    {
-        return Builders<T>.Filter;
-    }
+        => Builders<T>.Filter;
 
     /// <summary>
     /// Exposes the mongodb Sort Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static SortDefinitionBuilder<T> Sort<T>() where T : IEntity
-    {
-        return Builders<T>.Sort;
-    }
+        => Builders<T>.Sort;
 
     /// <summary>
     /// Exposes the mongodb Projection Definition Builder for a given type.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static ProjectionDefinitionBuilder<T> Projection<T>() where T : IEntity
-    {
-        return Builders<T>.Projection;
-    }
+        => Builders<T>.Projection;
 
     /// <summary>
     /// Returns a new instance of the supplied IEntity type
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static T Entity<T>() where T : IEntity, new()
-    {
-        return new();
-    }
+        => new();
 
     /// <summary>
     /// Returns a new instance of the supplied IEntity type with the ID set to the supplied value

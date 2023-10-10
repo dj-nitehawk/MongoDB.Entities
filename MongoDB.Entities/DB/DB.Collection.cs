@@ -9,9 +9,7 @@ namespace MongoDB.Entities;
 public static partial class DB
 {
     internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
-    {
-        return Database<T>().GetCollection<JoinRecord>(name);
-    }
+        => Database<T>().GetCollection<JoinRecord>(name);
 
     /// <summary>
     /// Gets the IMongoCollection for a given IEntity type.
@@ -19,18 +17,14 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static IMongoCollection<T> Collection<T>() where T : IEntity
-    {
-        return Cache<T>.Collection;
-    }
+        => Cache<T>.Collection;
 
     /// <summary>
     /// Gets the collection name for a given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
     public static string CollectionName<T>() where T : IEntity
-    {
-        return Cache<T>.CollectionName;
-    }
+        => Cache<T>.CollectionName;
 
     /// <summary>
     /// Creates a collection for an Entity type explicitly using the given options

@@ -64,9 +64,7 @@ public static class Prop
     /// </summary>
     /// <typeparam name="T">The type of the entity to get the collection name of</typeparam>
     public static string Collection<T>() where T : IEntity
-    {
-        return Cache<T>.CollectionName;
-    }
+        => Cache<T>.CollectionName;
 
     /// <summary>
     /// Returns the name of the property for a given expression.
@@ -85,9 +83,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string Path<T>(Expression<Func<T, object>> expression)
-    {
-        return rxThree.Replace(GetPath(expression), "");
-    }
+        => rxThree.Replace(GetPath(expression), "");
 
     /// <summary>
     /// Returns a path with filtered positional identifiers $[x] for a given expression.
@@ -110,9 +106,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string PosAll<T>(Expression<Func<T, object>> expression)
-    {
-        return rxThree.Replace(GetPath(expression), ".$[]");
-    }
+        => rxThree.Replace(GetPath(expression), ".$[]");
 
     /// <summary>
     /// Returns a path with the first positional operator $ for a given expression.
@@ -120,9 +114,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string PosFirst<T>(Expression<Func<T, object>> expression)
-    {
-        return rxThree.Replace(GetPath(expression), ".$");
-    }
+        => rxThree.Replace(GetPath(expression), ".$");
 
     /// <summary>
     /// Returns a path without any filtered positional identifier prepended to it.
@@ -130,9 +122,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
     public static string Elements<T>(Expression<Func<T, object>> expression)
-    {
-        return Path(expression);
-    }
+        => Path(expression);
 
     /// <summary>
     /// Returns a path with the filtered positional identifier prepended to the property path.
@@ -143,7 +133,5 @@ public static class Prop
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
     public static string Elements<T>(int index, Expression<Func<T, object>> expression)
-    {
-        return $"{ToLowerCaseLetter(index)}.{Path(expression)}";
-    }
+        => $"{ToLowerCaseLetter(index)}.{Path(expression)}";
 }

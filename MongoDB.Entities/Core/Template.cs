@@ -342,18 +342,14 @@ public class Template
     /// </summary>
     /// <typeparam name="TEntity">The type of entity to get the collection name of</typeparam>
     public Template Collection<TEntity>() where TEntity : IEntity
-    {
-        return cacheHit ? this : ReplacePath(Prop.Collection<TEntity>());
-    }
+        => cacheHit ? this : ReplacePath(Prop.Collection<TEntity>());
 
     /// <summary>
     /// Turns the given member expression into a property name like "SomeProp" and replaces matching tags in the template such as "&lt;SomeProp&gt;"
     /// </summary>
     /// <param name="expression">x => x.RootProp.SomeProp</param>
     public Template Property<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.Property(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.Property(expression));
 
     /// <summary>
     /// Turns the property paths in the given `new` expression into property names like "PropX &amp; PropY" and replaces matching tags in the template.
@@ -383,9 +379,7 @@ public class Template
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public Template Path<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.Path(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.Path(expression));
 
     /// <summary>
     /// Turns the property paths in the given `new` expression into paths like "Prop1.Child1 &amp; Prop2.Child2" and replaces matching tags in the template.
@@ -415,36 +409,28 @@ public class Template
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public Template PosFiltered<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.PosFiltered(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.PosFiltered(expression));
 
     /// <summary>
     /// Turns the given expression into a path with the all positional operator like "Authors.$[].Name" and replaces matching tags in the template such as "&lt;Authors.$[].Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public Template PosAll<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.PosAll(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.PosAll(expression));
 
     /// <summary>
     /// Turns the given expression into a path with the first positional operator like "Authors.$.Name" and replaces matching tags in the template such as "&lt;Authors.$.Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public Template PosFirst<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.PosFirst(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.PosFirst(expression));
 
     /// <summary>
     /// Turns the given expression into a path without any filtered positional identifier prepended to it like "Name" and replaces matching tags in the template such as "&lt;Name&gt;"
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
     public Template Elements<T>(Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.Elements(expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.Elements(expression));
 
     /// <summary>
     /// Turns the given index and expression into a path with the filtered positional identifier prepended to the property path like "a.Name" and replaces matching tags in the template such as "&lt;a.Name&gt;"
@@ -452,9 +438,7 @@ public class Template
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
     public Template Elements<T>(int index, Expression<Func<T, object>> expression)
-    {
-        return cacheHit ? this : ReplacePath(Prop.Elements(index, expression));
-    }
+        => cacheHit ? this : ReplacePath(Prop.Elements(index, expression));
 
     /// <summary>
     /// Replaces the given tag in the template like "&lt;search_term&gt;" with the supplied value.
@@ -507,9 +491,7 @@ public class Template
 
     [Obsolete("Please use the `RenderToString` method instead of `ToString`", true)]
     public new string ToString()
-    {
-        throw new InvalidOperationException("Please use the `RenderToString` method instead of `ToString`");
-    }
+        => throw new InvalidOperationException("Please use the `RenderToString` method instead of `ToString`");
 
     /// <summary>
     /// Executes the tag replacement and returns the pipeline stages as an array of BsonDocuments.
@@ -529,9 +511,7 @@ public class Template
     /// <typeparam name="TInput">The input type</typeparam>
     /// <typeparam name="TOutput">The output type</typeparam>
     public PipelineDefinition<TInput, TOutput> ToPipeline<TInput, TOutput>()
-    {
-        return ToStages().ToArray();
-    }
+        => ToStages().ToArray();
 
     /// <summary>
     /// Executes the tag replacement and returns array filter definitions.

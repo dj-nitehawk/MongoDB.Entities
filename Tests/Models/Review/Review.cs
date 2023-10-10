@@ -11,7 +11,7 @@ public abstract class Review : IEntity
     public string Reviewer { get; set; }
 
     public double Rating { get; set; }
-    public FuzzyString Fuzzy { get; set; }
+    public FuzzyString? Fuzzy { get; set; }
     public abstract object GenerateNewID();
     public abstract bool HasDefaultID();
 }

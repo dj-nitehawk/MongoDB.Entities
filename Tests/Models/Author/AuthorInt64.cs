@@ -23,5 +23,8 @@ public class AuthorInt64 : Author
     [ObjectId]
     public string BookIDs { get; set; }
 
-    public AuthorInt64() => this.InitOneToMany(() => Books!);
+    public AuthorInt64()
+    {
+        this.InitOneToMany(() => Books!);
+    }
 }

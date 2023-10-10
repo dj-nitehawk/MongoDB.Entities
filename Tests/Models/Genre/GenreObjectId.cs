@@ -18,5 +18,8 @@ public class GenreObjectId : Genre
     [InverseSide]
     public Many<BookObjectId, GenreObjectId> Books { get; set; } = null!;
 
-    public GenreObjectId() => this.InitManyToMany(() => Books, b => b.Genres);
+    public GenreObjectId()
+    {
+        this.InitManyToMany(() => Books, b => b.Genres);
+    }
 }

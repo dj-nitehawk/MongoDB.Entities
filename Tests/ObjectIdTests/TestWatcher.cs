@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Entities.Tests.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +48,7 @@ public class WatcherObjectId
 
         watcher.Start(
             EventType.Created | EventType.Updated,
-            f => new FlowerObjectId { Color = f.Color, NestedFlower = f.NestedFlower },
+            f => new() { Color = f.Color, NestedFlower = f.NestedFlower },
             f => f.FullDocument.Color == "red");
 
         await Task.Delay(500);

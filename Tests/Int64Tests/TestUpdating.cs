@@ -83,7 +83,7 @@ public class UpdateInt64
         var book = new BookInt64
         {
             Title = "mnpuc title " + guid,
-            Review = new ReviewInt64 { Rating = 10.10 }
+            Review = new() { Rating = 10.10 }
         };
         await book.SaveAsync();
 
@@ -105,7 +105,7 @@ public class UpdateInt64
 
         for (var i = 1; i <= 5; i++)
         {
-            books.Add(new BookInt64 { Title = title, Price = i });
+            books.Add(new() { Title = title, Price = i });
         }
         await books.SaveAsync();
 
@@ -191,7 +191,7 @@ public class UpdateInt64
             { 
                 _id: <ID> 
             }")
-            .Tag("ID", author.ID.ToString()!);
+            .Tag("ID", author.ID.ToString());
 
         var stage = new Template<AuthorInt64>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
             .Path(a => a.FullName!)

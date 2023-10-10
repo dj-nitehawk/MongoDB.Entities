@@ -124,9 +124,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
-    {
-        return DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation);
-    }
+        => DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation);
 
     /// <summary>
     /// Deletes matching entities with a filter expression
@@ -139,9 +137,7 @@ public static partial class DB
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
     public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
-    {
-        return DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation);
-    }
+        => DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation);
 
     /// <summary>
     /// Deletes matching entities with a filter definition

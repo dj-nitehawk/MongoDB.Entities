@@ -24,7 +24,7 @@ public class RelationshipsEntity
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -39,7 +39,7 @@ public class RelationshipsEntity
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -54,7 +54,7 @@ public class RelationshipsEntity
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -68,8 +68,8 @@ public class RelationshipsEntity
         var res = await (await book.Queryable()
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
-                      .MainAuthor.ToEntityAsync(a => new AuthorEntity { Name = a.Name });
-        Assert.AreEqual(author.Name, res!.Name);
+                      .MainAuthor.ToEntityAsync(a => new() { Name = a.Name });
+        Assert.AreEqual(author.Name, res.Name);
         Assert.AreEqual(null, res.ID);
     }
 
@@ -85,7 +85,7 @@ public class RelationshipsEntity
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
         Assert.AreEqual(null, res.ID);
     }
 
@@ -343,7 +343,7 @@ public class RelationshipsEntity
         Assert.AreEqual(2, genres.Count);
         Assert.AreEqual(genre.Name, genres.Single(g => g.ID == genre.ID).Name);
 
-        genres = await genre.Books
+        _ = await genre.Books
                 .ParentsFluent(book.Fluent().Match(b => b.ID == book.ID))
                 .ToListAsync();
 
@@ -378,7 +378,7 @@ public class RelationshipsEntity
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var flower = new FlowerEntity() { Name = customer.ID! };
+        var flower = new FlowerEntity() { Name = customer.ID };
         await flower.SaveAsync();
 
         var flower2 = new FlowerEntity();

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Entities.Tests.Models;
 using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests;
@@ -38,7 +37,7 @@ public class ReplaceEntity
 
         foreach (var book in books)
         {
-            book.Title = book.ID!;
+            book.Title = book.ID;
             cmd.Match(b => b.ID == book.ID)
                .WithEntity(book)
                .AddToQueue();

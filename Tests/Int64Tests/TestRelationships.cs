@@ -24,7 +24,7 @@ public class RelationshipsInt64
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -39,7 +39,7 @@ public class RelationshipsInt64
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -54,7 +54,7 @@ public class RelationshipsInt64
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync();
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
     }
 
     [TestMethod]
@@ -68,8 +68,8 @@ public class RelationshipsInt64
         var res = await (await book.Queryable()
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
-                      .MainAuthor.ToEntityAsync(a => new AuthorInt64 { Name = a.Name });
-        Assert.AreEqual(author.Name, res!.Name);
+                      .MainAuthor.ToEntityAsync(a => new() { Name = a.Name });
+        Assert.AreEqual(author.Name, res.Name);
         Assert.IsTrue(res.HasDefaultID());
     }
 
@@ -85,7 +85,7 @@ public class RelationshipsInt64
                       .Where(b => b.ID == book.ID)
                       .SingleAsync())
                       .MainAuthor.ToEntityAsync(p => p.Include(a => a.Name).Exclude(a => a.ID));
-        Assert.AreEqual(author.Name, res!.Name);
+        Assert.AreEqual(author.Name, res.Name);
         Assert.IsTrue(res.HasDefaultID());
     }
 
@@ -359,8 +359,8 @@ public class RelationshipsInt64
         var b1 = new BookInt64 { Title = "book1" }; await b1.SaveAsync();
         var b2 = new BookInt64 { Title = "book2" }; await b2.SaveAsync();
 
-        await author.Books.AddAsync(b1.ID!);
-        await author.Books.AddAsync(b2.ID!);
+        await author.Books.AddAsync(b1.ID);
+        await author.Books.AddAsync(b2.ID);
 
         var books = await author.Books
                           .ChildrenQueryable()
@@ -378,7 +378,7 @@ public class RelationshipsInt64
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var flower = new FlowerInt64() { Name = customer.ID! };
+        var flower = new FlowerInt64() { Name = customer.ID };
         await flower.SaveAsync();
 
         var flower2 = new FlowerInt64();
@@ -402,11 +402,11 @@ public class RelationshipsInt64
         var b1 = new BookInt64 { Title = "book1" }; await b1.SaveAsync();
         var b2 = new BookInt64 { Title = "book2" }; await b2.SaveAsync();
 
-        await author.Books.AddAsync(b1.ID!);
-        await author.Books.AddAsync(b2.ID!);
+        await author.Books.AddAsync(b1.ID);
+        await author.Books.AddAsync(b2.ID);
 
-        await author.Books.RemoveAsync(b1.ID!);
-        await author.Books.RemoveAsync(b2.ID!);
+        await author.Books.RemoveAsync(b1.ID);
+        await author.Books.RemoveAsync(b2.ID);
 
         var count = await author.Books
                           .ChildrenQueryable()
@@ -424,7 +424,7 @@ public class RelationshipsInt64
         var b2 = new BookInt64 { Title = "book2" }; await b2.SaveAsync();
 
         await author.Books.AddAsync(b1);
-        await author.Books.AddAsync(b2.ID!);
+        await author.Books.AddAsync(b2.ID);
 
         var books = await author.Books
                           .ChildrenQueryable()
@@ -445,10 +445,10 @@ public class RelationshipsInt64
         var b2 = new BookInt64 { Title = "book2" }; await b2.SaveAsync();
 
         await author.Books.AddAsync(b1);
-        await author.Books.AddAsync(b2.ID!);
+        await author.Books.AddAsync(b2.ID);
 
         await author.Books.RemoveAsync(b1);
-        await author.Books.RemoveAsync(b2.ID!);
+        await author.Books.RemoveAsync(b2.ID);
 
         var count = await author.Books
                           .ChildrenQueryable()

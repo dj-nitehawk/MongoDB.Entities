@@ -19,10 +19,10 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task base_mod_by_save()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
 
         var db = new DBContext(
-            modifiedBy: new Entities.ModifiedBy
+            modifiedBy: new()
             {
                 UserID = userID,
                 UserName = "TestUser"
@@ -40,7 +40,7 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task derived_mod_by_save()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
 
         var db = new DBContext(
             modifiedBy: new UpdatedBy
@@ -53,7 +53,7 @@ public class ModifiedByEntity
         var author = new BookEntity();
         await db.SaveAsync(author);
 
-        var res = await db.Find<BookEntity>().OneAsync(author.ID)!;
+        var res = await db.Find<BookEntity>().OneAsync(author.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
@@ -63,7 +63,7 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task mod_by_replace()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {
@@ -74,7 +74,7 @@ public class ModifiedByEntity
         var book = new BookEntity();
         await db.SaveAsync(book);
 
-        userID = ObjectId.GenerateNewId().ToString();
+        userID = ObjectId.GenerateNewId().ToString()!;
         db.ModifiedBy = new UpdatedBy
         {
             UserID = userID,
@@ -90,7 +90,7 @@ public class ModifiedByEntity
             .WithEntity(book)
             .ExecuteAsync();
 
-        var res = await db.Find<BookEntity>().OneAsync(book.ID)!;
+        var res = await db.Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");
@@ -101,7 +101,7 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task mod_by_update()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {
@@ -112,7 +112,7 @@ public class ModifiedByEntity
         var book = new BookEntity();
         await db.SaveAsync(book);
 
-        userID = ObjectId.GenerateNewId().ToString();
+        userID = ObjectId.GenerateNewId().ToString()!;
         db.ModifiedBy = new UpdatedBy
         {
             UserID = userID,
@@ -136,7 +136,7 @@ public class ModifiedByEntity
     [TestMethod]
     public async Task mod_by_update_using_modifyonly()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
         var db = new DBContext(
             modifiedBy: new UpdatedBy
             {
@@ -147,7 +147,7 @@ public class ModifiedByEntity
         var book = new BookEntity();
         await db.SaveAsync(book);
 
-        userID = ObjectId.GenerateNewId().ToString();
+        userID = ObjectId.GenerateNewId().ToString()!;
         db.ModifiedBy = new UpdatedBy
         {
             UserID = userID,

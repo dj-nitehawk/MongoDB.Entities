@@ -13,9 +13,7 @@ public static partial class DB
     /// <typeparam name="T">The type of entity to get the next sequential number for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<ulong> NextSequentialNumberAsync<T>(CancellationToken cancellation = default) where T : IEntity
-    {
-        return NextSequentialNumberAsync(CollectionName<T>(), cancellation);
-    }
+        => NextSequentialNumberAsync(CollectionName<T>(), cancellation);
 
     /// <summary>
     /// Returns an atomically generated sequential number for the given sequence name everytime the method is called

@@ -20,9 +20,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
-    }
+        => DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -35,9 +33,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<List<TResult>> PipelineAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
-    }
+        => DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -50,9 +46,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<TResult> PipelineSingleAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
-    }
+        => DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -65,9 +59,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<TResult> PipelineFirstAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
-    }
+        => DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
     {

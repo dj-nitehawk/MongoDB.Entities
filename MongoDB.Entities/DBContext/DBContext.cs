@@ -73,7 +73,9 @@ public partial class DBContext
     /// You can even inherit from the ModifiedBy class and add your own properties to it. 
     /// Only one ModifiedBy property is allowed on a single entity type.</param>
     public DBContext(ModifiedBy? modifiedBy = null)
-        => ModifiedBy = modifiedBy;
+    {
+        ModifiedBy = modifiedBy;
+    }
 
     /// <summary>
     /// Returns the session object used for transactions
@@ -108,9 +110,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
     public IClientSessionHandle Transaction<T>(ClientSessionOptions? options = null) where T : IEntity
-    {
-        return Transaction(DB.DatabaseName<T>(), options);
-    }
+        => Transaction(DB.DatabaseName<T>(), options);
 
     /// <summary>
     /// Commits a transaction to MongoDB
@@ -129,18 +129,14 @@ public partial class DBContext
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     protected virtual Action<T>? OnBeforeSave<T>() where T : IEntity
-    {
-        return null;
-    }
+        => null;
 
     /// <summary>
     /// This event hook will be triggered right before an update/replace command is executed
     /// </summary>
     /// <typeparam name="T">Any entity that implements IEntity</typeparam>
     protected virtual Action<UpdateBase<T>>? OnBeforeUpdate<T>() where T : IEntity
-    {
-        return null;
-    }
+        => null;
 
     /// <summary>
     /// Specify a global filter to be applied to all operations performed with this DBContext

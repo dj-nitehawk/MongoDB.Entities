@@ -65,7 +65,7 @@ public class DeletingInt64
         var author1 = new AuthorInt64 { Name = "ewtrcd1" }; await author1.SaveAsync();
         var author2 = new AuthorInt64 { Name = "ewtrcd2" }; await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new AuthorInt64[] { author1, author2 });
+        book.OtherAuthors = (new[] { author1, author2 });
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -104,7 +104,7 @@ public class DeletingInt64
 
         for (var i = 0; i < 100100; i++)
         {
-            IDs.Add(ObjectId.GenerateNewId().ToString());
+            IDs.Add(ObjectId.GenerateNewId().ToString()!);
         }
 
         await DB.DeleteAsync<Blank>(IDs);
@@ -120,7 +120,7 @@ public class DeletingInt64
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
         {
-            list.Add(new Blank());
+            list.Add(new());
         }
         await list.SaveAsync();
 

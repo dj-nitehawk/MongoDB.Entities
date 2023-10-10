@@ -6,29 +6,29 @@ using System;
 
 namespace MongoDB.Entities;
 
-class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializer
+class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSerializer
 {
     static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
 
-    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString fString)
+    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
     {
-        if (fString is null || string.IsNullOrWhiteSpace(fString.Value))
+        if (string.IsNullOrWhiteSpace(fString?.Value))
         {
             ctx.Writer.WriteNull();
         }
         else
         {
-            if (fString.Value?.Length > FuzzyString.CharacterLimit)
+            if (fString.Value.Length > FuzzyString.CharacterLimit)
                 throw new NotSupportedException($"FuzzyString can only hold a maximum of {FuzzyString.CharacterLimit} characters!");
 
             ctx.Writer.WriteStartDocument();
             ctx.Writer.WriteString("Value", fString.Value);
-            ctx.Writer.WriteString("Hash", fString.Value?.ToDoubleMetaphoneHash());
+            ctx.Writer.WriteString("Hash", fString.Value.ToDoubleMetaphoneHash());
             ctx.Writer.WriteEndDocument();
         }
     }
 
-    public override FuzzyString Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
+    public override FuzzyString? Deserialize(BsonDeserializationContext ctx, BsonDeserializationArgs args)
     {
         var bsonType = ctx.Reader.GetCurrentBsonType();
 
@@ -55,7 +55,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString>, IBsonDocumentSerializ
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
-                return null!;
+                return null;
 
             default:
                 throw new FormatException($"Cannot deserialize a FuzzyString value from a [{bsonType}]");
@@ -95,5 +95,8 @@ public class FuzzyString
     /// instantiate a FuzzyString object with a given string
     /// </summary>
     /// <param name="value">the string value to create the FuzzyString with</param>
-    public FuzzyString(string value) => Value = value;
+    public FuzzyString(string value)
+    {
+        Value = value;
+    }
 }

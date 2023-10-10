@@ -18,7 +18,7 @@ public abstract class Entity : IEntity
     /// Override this method in order to control the generation of IDs for new entities.
     /// </summary>
     public virtual object GenerateNewID()
-        => ObjectId.GenerateNewId().ToString();
+        => ObjectId.GenerateNewId().ToString()!;
 
     ///<inheritdoc/>
     public virtual bool HasDefaultID()

@@ -11,9 +11,7 @@ public static partial class DB
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
     public static Transaction Transaction(string? database = default, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
-    {
-        return new(database, options, modifiedBy);
-    }
+        => new(database, options, modifiedBy);
 
     /// <summary>
     /// Gets a transaction context/scope for a given entity type's database
@@ -22,7 +20,5 @@ public static partial class DB
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
     public static Transaction Transaction<T>(ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null) where T : IEntity
-    {
-        return new(DatabaseName<T>(), options, modifiedBy);
-    }
+        => new(DatabaseName<T>(), options, modifiedBy);
 }

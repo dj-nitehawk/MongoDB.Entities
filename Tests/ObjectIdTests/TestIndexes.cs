@@ -64,18 +64,18 @@ public class IndexesObjectId
           .Key(b => b.Title, KeyType.Text)
           .CreateAsync();
 
-        var b1 = new BookObjectId { Title = "One", Review = new ReviewObjectId { Fuzzy = new("Katherine Zeta Jones") } };
-        var b2 = new BookObjectId { Title = "Two", Review = new ReviewObjectId { Fuzzy = new("Katheryne Zeta Jones") } };
-        var b3 = new BookObjectId { Title = "Three", Review = new ReviewObjectId { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b4 = new BookObjectId { Title = "Four", Review = new ReviewObjectId { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b5 = new BookObjectId { Title = "Five", Review = new ReviewObjectId { Fuzzy = new("Katya Bykova Jhohanes") } };
-        var b6 = new BookObjectId { Title = "Five", Review = new ReviewObjectId { Fuzzy = " ".ToFuzzy() } };
+        var b1 = new BookObjectId { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new BookObjectId { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new BookObjectId { Title = "Three", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new BookObjectId { Title = "Four", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new BookObjectId { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new BookObjectId { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
         await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
         var res = await DB.Find<BookObjectId>()
                     .Match(Search.Fuzzy, "catherine jones")
-                    .Project(b => new BookObjectId { ID = b.ID, Title = b.Title })
+                    .Project(b => new() { ID = b.ID, Title = b.Title })
                     .SortByTextScore()
                     .Skip(0)
                     .Limit(6)
@@ -111,7 +111,7 @@ public class IndexesObjectId
 
         var res = await DB.Find<GenreObjectId>()
                     .Match(Search.Full, "one eight nine")
-                    .Project(p => new GenreObjectId { Name = p.Name, Position = p.Position })
+                    .Project(p => new() { Name = p.Name, Position = p.Position })
                     .SortByTextScore()
                     .ExecuteAsync();
 

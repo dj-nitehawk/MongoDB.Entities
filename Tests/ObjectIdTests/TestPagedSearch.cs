@@ -33,7 +33,7 @@ public class PagedSearchObjectId
 
         for (var i = 1; i <= 10; i++)
         {
-            list.Add(new BookObjectId { Title = ObjectId });
+            list.Add(new() { Title = ObjectId });
         }
 
         return list.SaveAsync();
@@ -112,14 +112,14 @@ public class PagedSearchObjectId
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DB
-            .PagedSearch<BookObjectId, BookResult>()
-            .Match(b => b.Title == guid)
-            .Sort(b => b.ID, Order.Ascending)
-            .Project(b => new BookResult { BookID = b.ID, BookTitle = b.Title })
-            .PageNumber(1)
-            .PageSize(5)
-            .ExecuteAsync();
+        var (_, _, _) = await DB
+                             .PagedSearch<BookObjectId, BookResult>()
+                             .Match(b => b.Title == guid)
+                             .Sort(b => b.ID, Order.Ascending)
+                             .Project(b => new() { BookID = b.ID, BookTitle = b.Title })
+                             .PageNumber(1)
+                             .PageSize(5)
+                             .ExecuteAsync();
     }
 
     [TestMethod]
@@ -144,12 +144,12 @@ public class PagedSearchObjectId
 
         await list.SaveAsync();
 
-        var (Results, _, PageCount) = await DB
-            .PagedSearch<GenreObjectId>()
-            .Match(Search.Full, "one eight nine")
-            .Project(p => new GenreObjectId { Name = p.Name, Position = p.Position })
-            .SortByTextScore()
-            .ExecuteAsync();
+        var (Results, _, _) = await DB
+                                   .PagedSearch<GenreObjectId>()
+                                   .Match(Search.Full, "one eight nine")
+                                   .Project(p => new() { Name = p.Name, Position = p.Position })
+                                   .SortByTextScore()
+                                   .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);
@@ -178,11 +178,11 @@ public class PagedSearchObjectId
 
         await list.SaveAsync();
 
-        var (Results, _, PageCount) = await DB
-            .PagedSearch<GenreObjectId>()
-            .Match(Search.Full, "one eight nine")
-            .SortByTextScore()
-            .ExecuteAsync();
+        var (Results, _, _) = await DB
+                                   .PagedSearch<GenreObjectId>()
+                                   .Match(Search.Full, "one eight nine")
+                                   .SortByTextScore()
+                                   .ExecuteAsync();
 
         Assert.AreEqual(4, Results.Count);
         Assert.AreEqual(1, Results[0].Position);

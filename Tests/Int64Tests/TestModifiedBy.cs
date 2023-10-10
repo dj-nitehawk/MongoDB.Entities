@@ -22,7 +22,7 @@ public class ModifiedByInt64
         var userID = ObjectId.GenerateNewId().ToString();
 
         var db = new DBContext(
-            modifiedBy: new Entities.ModifiedBy
+            modifiedBy: new()
             {
                 UserID = userID,
                 UserName = "TestUser"
@@ -53,7 +53,7 @@ public class ModifiedByInt64
         var author = new BookInt64();
         await db.SaveAsync(author);
 
-        var res = await db.Find<BookInt64>().OneAsync(author.ID)!;
+        var res = await db.Find<BookInt64>().OneAsync(author.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUser");
@@ -90,7 +90,7 @@ public class ModifiedByInt64
             .WithEntity(book)
             .ExecuteAsync();
 
-        var res = await db.Find<BookInt64>().OneAsync(book.ID)!;
+        var res = await db.Find<BookInt64>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.ModifiedBy.UserID, userID);
         Assert.AreEqual(res.ModifiedBy.UserName, "TestUserUPDATED");

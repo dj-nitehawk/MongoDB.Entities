@@ -35,17 +35,13 @@ public class Coordinates2D
     /// Converts a Coordinates2D instance to a GeoJsonPoint of GeoJson2DGeographicCoordinates 
     /// </summary>
     public GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint()
-    {
-        return GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
-    }
+        => GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
 
     /// <summary>
     /// Create a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
     /// </summary>
     public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
-    {
-        return GeoJson.Point(GeoJson.Geographic(longitude, latitude));
-    }
+        => GeoJson.Point(GeoJson.Geographic(longitude, latitude));
 }
 
 /// <summary>

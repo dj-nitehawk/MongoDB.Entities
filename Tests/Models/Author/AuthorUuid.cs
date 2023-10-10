@@ -23,5 +23,8 @@ public class AuthorUuid : Author
     [ObjectId]
     public string BookIDs { get; set; }
 
-    public AuthorUuid() => this.InitOneToMany(() => Books!);
+    public AuthorUuid()
+    {
+        this.InitOneToMany(() => Books!);
+    }
 }

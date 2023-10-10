@@ -37,7 +37,7 @@ public class ReplaceUuid
 
         foreach (var book in books)
         {
-            book.Title = book.ID!;
+            book.Title = book.ID;
             cmd.Match(b => b.ID == book.ID)
                .WithEntity(book)
                .AddToQueue();

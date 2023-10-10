@@ -11,11 +11,9 @@ public static partial class DB
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     public static IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
-    {
-        return session == null
+        => session == null
                ? Collection<T>().Aggregate(options)
                : Collection<T>().Aggregate(session, options);
-    }
 
     /// <summary>
     /// Start a fluent aggregation pipeline with a $text stage with the supplied parameters.

@@ -13,13 +13,13 @@ public class FuzzyStringTestObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookObjectId { Title = "fstsarw", Review = new ReviewObjectId { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
+        await new BookObjectId { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
         var res = await DB.Queryable<BookObjectId>()
-                    .Where(b => b.Review.Fuzzy!.Value == guid)
+                    .Where(b => b.Review.Fuzzy.Value == guid)
                     .SingleAsync();
 
-        Assert.AreEqual(guid, res.Review.Fuzzy!.Value);
+        Assert.AreEqual(guid, res.Review.Fuzzy.Value);
     }
 
     [TestMethod]
@@ -27,7 +27,7 @@ public class FuzzyStringTestObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookObjectId { Title = guid, Review = new ReviewObjectId { Fuzzy = null! } }.SaveAsync();
+        await new BookObjectId { Title = guid, Review = new() { Fuzzy = null! } }.SaveAsync();
 
         var res = await DB.Queryable<BookObjectId>()
                     .Where(b => b.Title == guid)

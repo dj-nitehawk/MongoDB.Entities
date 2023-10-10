@@ -19,7 +19,7 @@ public class Watcher : BenchBase
 
         watcher.OnChangesCSD += csDocs =>
         {
-            foreach (var csd in csDocs)
+            foreach (var _ in csDocs)
             {
                 //Console.WriteLine(csd.FullDocument.Title);
                 cts.Cancel();
@@ -43,11 +43,11 @@ public class Watcher : BenchBase
     {
         var cts = new CancellationTokenSource();
         var filter = Builders<ChangeStreamDocument<Book>>.Filter.Where(x => x.OperationType == ChangeStreamOperationType.Insert);
-        var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<Book>>(null).Match(filter);
+        var pipeline = new EmptyPipelineDefinition<ChangeStreamDocument<Book>>().Match(filter);
 
         var cursor = await BookCollection.WatchAsync(pipeline, cancellationToken: cts.Token);
 
-        _ = cursor.ForEachAsync(csd =>
+        _ = cursor.ForEachAsync(_ =>
          {
              //Console.WriteLine(csd.FullDocument.Title);
              cts.Cancel();
@@ -64,7 +64,5 @@ public class Watcher : BenchBase
     }
 
     Task InsertAnEntity()
-    {
-        return new Book { Title = "book name" }.SaveAsync();
-    }
+        => new Book { Title = "book name" }.SaveAsync();
 }

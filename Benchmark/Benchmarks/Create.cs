@@ -13,26 +13,22 @@ public class CreateOne : BenchBase
 {
     [Benchmark]
     public override Task MongoDB_Entities()
-    {
-        return DB.SaveAsync(new Author
+        => DB.SaveAsync(new Author
         {
             FirstName = "test",
             LastName = "test",
             Birthday = DateTime.UtcNow,
         });
-    }
 
     [Benchmark(Baseline = true)]
     public override Task Official_Driver()
-    {
-        return AuthorCollection.InsertOneAsync(new Author
+        => AuthorCollection.InsertOneAsync(new()
         {
             ID = ObjectId.GenerateNewId().ToString(),
             FirstName = "test",
             LastName = "test",
             Birthday = DateTime.UtcNow,
         });
-    }
 }
 
 [MemoryDiagnoser]
@@ -44,7 +40,7 @@ public class CreateBulk : BenchBase
     {
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = "test",
                 LastName = "test",

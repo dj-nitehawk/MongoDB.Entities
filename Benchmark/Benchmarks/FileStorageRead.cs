@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Benchmark;
 
 [MemoryDiagnoser]
-public partial class FileStorageRead : BenchBase
+public class FileStorageRead : BenchBase
 {
     static readonly MemoryStream memStream = new(new byte[32 * 1024 * 1024]);
 
@@ -33,7 +33,7 @@ public partial class FileStorageRead : BenchBase
     public Task<ObjectId> WriteFileGridFS()
     {
         memStream.Position = 0;
-        var bucket = new GridFSBucket(Database, new GridFSBucketOptions
+        var bucket = new GridFSBucket(Database, new()
         {
             BucketName = "benchmark",
             ChunkSizeBytes = 4 * 1024 * 1024
@@ -52,7 +52,7 @@ public partial class FileStorageRead : BenchBase
     public override Task Official_Driver()
     {
         memStream.Position = 0;
-        var bucket = new GridFSBucket(Database, new GridFSBucketOptions
+        var bucket = new GridFSBucket(Database, new()
         {
             BucketName = "benchmark",
             ChunkSizeBytes = 4 * 1024 * 1024

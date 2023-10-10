@@ -64,18 +64,18 @@ public class IndexesEntity
           .Key(b => b.Title, KeyType.Text)
           .CreateAsync();
 
-        var b1 = new BookEntity { Title = "One", Review = new ReviewEntity { Fuzzy = new("Katherine Zeta Jones") } };
-        var b2 = new BookEntity { Title = "Two", Review = new ReviewEntity { Fuzzy = new("Katheryne Zeta Jones") } };
-        var b3 = new BookEntity { Title = "Three", Review = new ReviewEntity { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b4 = new BookEntity { Title = "Four", Review = new ReviewEntity { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b5 = new BookEntity { Title = "Five", Review = new ReviewEntity { Fuzzy = new("Katya Bykova Jhohanes") } };
-        var b6 = new BookEntity { Title = "Five", Review = new ReviewEntity { Fuzzy = " ".ToFuzzy() } };
+        var b1 = new BookEntity { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new BookEntity { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new BookEntity { Title = "Three", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new BookEntity { Title = "Four", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new BookEntity { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new BookEntity { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
         await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
         var res = await DB.Find<BookEntity>()
                     .Match(Search.Fuzzy, "catherine jones")
-                    .Project(b => new BookEntity { ID = b.ID, Title = b.Title })
+                    .Project(b => new() { ID = b.ID, Title = b.Title })
                     .SortByTextScore()
                     .Skip(0)
                     .Limit(6)
@@ -111,7 +111,7 @@ public class IndexesEntity
 
         var res = await DB.Find<GenreEntity>()
                     .Match(Search.Full, "one eight nine")
-                    .Project(p => new GenreEntity { Name = p.Name, Position = p.Position })
+                    .Project(p => new() { Name = p.Name, Position = p.Position })
                     .SortByTextScore()
                     .ExecuteAsync();
 

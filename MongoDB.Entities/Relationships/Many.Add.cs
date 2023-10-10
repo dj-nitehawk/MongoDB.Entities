@@ -16,9 +16,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(TChild child, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return AddAsync(child.GetId(), session, cancellation);
-    }
+        => AddAsync(child.GetId(), session, cancellation);
 
     /// <summary>
     /// Adds multiple child references in a single bulk operation
@@ -28,9 +26,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return AddAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
-    }
+        => AddAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
 
     /// <summary>
     /// Adds a new child reference.

@@ -1,11 +1,10 @@
-﻿using MongoDB.Entities.Tests.Models;
-using System;
+﻿using System;
 
 namespace MongoDB.Entities.Tests;
 
 public class MyDBTemplatesGuid : DBContext
 {
-    public MyDBTemplatesGuid(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBTemplatesGuid(bool prepend) : base(modifiedBy: new())
     {
         SetGlobalFilter(typeof(AuthorUuid), "{ Age: {$eq: 111 } }", prepend);
     }
@@ -13,7 +12,7 @@ public class MyDBTemplatesGuid : DBContext
 
 public class MyDBUuid : DBContext
 {
-    public MyDBUuid(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBUuid(bool prepend = false) : base(modifiedBy: new())
     {
         SetGlobalFilter<AuthorUuid>(a => a.Age == 111, prepend);
     }

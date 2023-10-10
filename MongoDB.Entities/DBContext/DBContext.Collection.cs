@@ -14,9 +14,7 @@ public partial class DBContext
     /// <param name="options">The options to use for collection creation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.CreateCollectionAsync(options, cancellation, Session);
-    }
+        => DB.CreateCollectionAsync(options, cancellation, Session);
 
     /// <summary>
     /// Deletes the collection of a given entity type as well as the join collections for that entity.
@@ -24,7 +22,5 @@ public partial class DBContext
     /// </summary>
     /// <typeparam name="T">The entity type to drop the collection of</typeparam>
     public Task DropCollectionAsync<T>() where T : IEntity
-    {
-        return DB.DropCollectionAsync<T>(Session);
-    }
+        => DB.DropCollectionAsync<T>(Session);
 }

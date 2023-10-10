@@ -24,7 +24,7 @@ public class FindOne : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i == 500 ? guid : "test",
             });
@@ -66,7 +66,7 @@ public class Find100 : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i is > 500 and <= 600 ? guid : "test",
             });
@@ -108,7 +108,7 @@ public class FindFirst : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i is > 500 and <= 600 ? guid : "test",
             });
@@ -150,7 +150,7 @@ public class FindAny : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i is > 500 and <= 600 ? guid : "test",
             });
@@ -192,7 +192,7 @@ public class FindSingle : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i == 500 ? guid : "test",
             });

@@ -134,14 +134,10 @@ static class DoubleMetaphone
     }
 
     static bool Match(string stringRenamed, int pos, char c)
-    {
-        return 0 <= pos && pos < stringRenamed.Length && stringRenamed[pos] == c;
-    }
+        => 0 <= pos && pos < stringRenamed.Length && stringRenamed[pos] == c;
 
     static bool IsSlavoGermanic(string stringRenamed)
-    {
-        return stringRenamed.IndexOf('W') >= 0 || stringRenamed.IndexOf('K') >= 0 || stringRenamed.IndexOf("CZ", StringComparison.Ordinal) >= 0 || stringRenamed.IndexOf("WITZ", StringComparison.Ordinal) >= 0;
-    }
+        => stringRenamed.IndexOf('W') >= 0 || stringRenamed.IndexOf('K') >= 0 || stringRenamed.IndexOf("CZ", StringComparison.Ordinal) >= 0 || stringRenamed.IndexOf("WITZ", StringComparison.Ordinal) >= 0;
 
     static bool IsVowel(string stringRenamed, int pos)
     {

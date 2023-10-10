@@ -5,7 +5,7 @@ namespace MongoDB.Entities.Tests;
 
 public class MyDBTemplatesEntity : DBContext
 {
-    public MyDBTemplatesEntity(bool prepend) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBTemplatesEntity(bool prepend) : base(modifiedBy: new())
     {
         SetGlobalFilter(typeof(AuthorEntity), "{ Age: {$eq: 111 } }", prepend);
     }
@@ -13,7 +13,7 @@ public class MyDBTemplatesEntity : DBContext
 
 public class MyDBEntity : DBContext
 {
-    public MyDBEntity(bool prepend = false) : base(modifiedBy: new Entities.ModifiedBy())
+    public MyDBEntity(bool prepend = false) : base(modifiedBy: new())
     {
         SetGlobalFilter<AuthorEntity>(a => a.Age == 111, prepend);
     }

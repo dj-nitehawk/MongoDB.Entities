@@ -20,7 +20,7 @@ public class TransactionsObjectId
         var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
         var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorObjectId>()
               .Match(a => a.Surname == guid)
@@ -45,7 +45,7 @@ public class TransactionsObjectId
         var author2 = new AuthorObjectId { Name = "uwtrcd2", Surname = guid }; await author2.SaveAsync();
         var author3 = new AuthorObjectId { Name = "uwtrcd3", Surname = guid }; await author3.SaveAsync();
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.Update<AuthorObjectId>()
               .Match(a => a.Surname == guid)
@@ -71,13 +71,13 @@ public class TransactionsObjectId
 
         var db = new DBContext(modifiedBy: new());
 
-        using (var session = db.Transaction())
+        using (db.Transaction())
         {
             await db.Update<AuthorObjectId>()
-              .Match(a => a.Surname == guid)
-              .Modify(a => a.Name, guid)
-              .Modify(a => a.Surname, author1.Name)
-              .ExecuteAsync();
+                    .Match(a => a.Surname == guid)
+                    .Modify(a => a.Name, guid)
+                    .Modify(a => a.Surname, author1.Name)
+                    .ExecuteAsync();
 
             await db.CommitAsync();
         }
@@ -96,7 +96,7 @@ public class TransactionsObjectId
         BookObjectId? res;
         BookObjectId fnt;
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.SaveAsync(book1);
             await TN.SaveAsync(book2);
@@ -163,7 +163,7 @@ public class TransactionsObjectId
             new BookObjectId{Title="thr "+guid}
         };
 
-        using (var TN = new Transaction(modifiedBy: new Entities.ModifiedBy()))
+        using (var TN = new Transaction(modifiedBy: new()))
         {
             await TN.SaveAsync(entities);
             await TN.CommitAsync();

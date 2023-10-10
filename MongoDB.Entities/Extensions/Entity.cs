@@ -23,14 +23,14 @@ public static partial class Extensions
         public T Data { get; set; }
 
         public Holder(T data)
-            => Data = data;
+        {
+            Data = data;
+        }
     }
 
     static T Duplicate<T>(this T source)
-    {
-        return BsonSerializer.Deserialize<Holder<T>>(
+        => BsonSerializer.Deserialize<Holder<T>>(
             new Holder<T>(source).ToBson()).Data;
-    }
 
     internal static void ThrowIfUnsaved(this object entityID)
     {
@@ -74,17 +74,13 @@ public static partial class Extensions
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public static string FullPath<T>(this Expression<Func<T, object>> expression)
-    {
-        return Prop.Path(expression);
-    }
+        => Prop.Path(expression);
 
     /// <summary>
     /// An IQueryable collection of sibling Entities.
     /// </summary>
     public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
-    {
-        return DB.Queryable<T>(options);
-    }
+        => DB.Queryable<T>(options);
 
     /// <summary>
     /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
@@ -170,7 +166,5 @@ public static partial class Extensions
     /// <param name="_"></param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<ulong> NextSequentialNumberAsync<T>(this T _, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.NextSequentialNumberAsync<T>(cancellation);
-    }
+        => DB.NextSequentialNumberAsync<T>(cancellation);
 }

@@ -14,9 +14,7 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">A type that is from the same assembly as the migrations you want to run</typeparam>
     public static Task MigrateAsync<T>() where T : class
-    {
-        return Migrate(typeof(T));
-    }
+        => Migrate(typeof(T));
 
     /// <summary>
     /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
@@ -25,18 +23,14 @@ public static partial class DB
     /// Call this method at the startup of the application in order to run the migrations.</para>
     /// </summary>
     public static Task MigrateAsync()
-    {
-        return Migrate(null);
-    }
+        => Migrate(null);
 
     /// <summary>
     /// Executes the given collection of IMigrations in the correct order to transform the database.
     /// </summary>
     /// <param name="migrations">The collection of migrations to execute</param>
     public static Task MigrationsAsync(IEnumerable<IMigration> migrations)
-    {
-        return Execute(migrations);
-    }
+        => Execute(migrations);
 
     static Task Migrate(Type? targetType)
     {

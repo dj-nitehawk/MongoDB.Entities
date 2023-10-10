@@ -18,12 +18,12 @@ public class CountingObjectId
 
         for (var i = 1; i <= 25; i++)
         {
-            list.Add(new AuthorObjectId { Name = ObjectId, Age = 111 });
+            list.Add(new() { Name = ObjectId, Age = 111 });
         }
 
         for (var i = 1; i <= 10; i++)
         {
-            list.Add(new AuthorObjectId { Name = ObjectId, Age = 222 });
+            list.Add(new() { Name = ObjectId, Age = 222 });
         }
 
         return list.SaveAsync();

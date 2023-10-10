@@ -15,9 +15,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to get the count for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.CountEstimatedAsync<T>(cancellation);
-    }
+        => DB.CountEstimatedAsync<T>(cancellation);
 
     /// <summary>
     /// Gets an accurate count of how many entities are matched for a given expression/filter
@@ -28,13 +26,11 @@ public partial class DBContext
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.CountAsync(
+        => DB.CountAsync(
             Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, globalFilters, expression),
             Session,
             cancellation,
             options);
-    }
 
     /// <summary>
     /// Gets an accurate count of how many total entities are in the collection for a given entity type
@@ -42,9 +38,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to get the count for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.CountAsync<T>(Session, cancellation);
-    }
+        => DB.CountAsync<T>(Session, cancellation);
 
     /// <summary>
     /// Gets an accurate count of how many total entities are in the collection for a given entity type
@@ -55,13 +49,11 @@ public partial class DBContext
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.CountAsync(
+        => DB.CountAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
             Session,
             cancellation,
             options);
-    }
 
     /// <summary>
     /// Gets an accurate count of how many total entities are in the collection for a given entity type
@@ -72,11 +64,9 @@ public partial class DBContext
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.CountAsync(
+        => DB.CountAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
             Session,
             cancellation,
             options);
-    }
 }

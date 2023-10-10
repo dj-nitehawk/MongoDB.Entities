@@ -99,11 +99,17 @@ public class Date
     /// instantiate a Date with ticks
     /// </summary>
     /// <param name="ticks">the ticks</param>
-    public Date(long ticks) => Ticks = ticks;
+    public Date(long ticks)
+    {
+        Ticks = ticks;
+    }
 
     /// <summary>
     /// instantiate a Date with a DateTime
     /// </summary>
     /// <param name="dateTime">the DateTime</param>
-    public Date(DateTime dateTime) => DateTime = dateTime;
+    public Date(DateTime dateTime)
+    {
+        DateTime = dateTime;
+    }
 }

@@ -64,7 +64,7 @@ public class DeletingEntity
         var author1 = new AuthorEntity { Name = "ewtrcd1" }; await author1.SaveAsync();
         var author2 = new AuthorEntity { Name = "ewtrcd2" }; await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new AuthorEntity[] { author1, author2 });
+        book.OtherAuthors = (new[] { author1, author2 });
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -103,7 +103,7 @@ public class DeletingEntity
 
         for (var i = 0; i < 100100; i++)
         {
-            IDs.Add(ObjectId.GenerateNewId().ToString());
+            IDs.Add(ObjectId.GenerateNewId().ToString()!);
         }
 
         await DB.DeleteAsync<Blank>(IDs);
@@ -119,7 +119,7 @@ public class DeletingEntity
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
         {
-            list.Add(new Blank());
+            list.Add(new());
         }
         await list.SaveAsync();
 

@@ -83,7 +83,7 @@ public class UpdateEntity
         var book = new BookEntity
         {
             Title = "mnpuc title " + guid,
-            Review = new ReviewEntity { Rating = 10.10 }
+            Review = new() { Rating = 10.10 }
         };
         await book.SaveAsync();
 
@@ -105,7 +105,7 @@ public class UpdateEntity
 
         for (var i = 1; i <= 5; i++)
         {
-            books.Add(new BookEntity { Title = title, Price = i });
+            books.Add(new() { Title = title, Price = i });
         }
         await books.SaveAsync();
 
@@ -191,7 +191,7 @@ public class UpdateEntity
             { 
                 _id: ObjectId('<ID>') 
             }")
-            .Tag("ID", author.ID!);
+            .Tag("ID", author.ID);
 
         var stage = new Template<AuthorEntity>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
             .Path(a => a.FullName!)

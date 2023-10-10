@@ -18,12 +18,10 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(object ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.DeleteAsync(
+        => DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Eq(Cache<T>.IdPropName, ID)),
             Session,
             cancellation);
-    }
 
     /// <summary>
     /// Deletes matching entities from MongoDB
@@ -35,12 +33,10 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(IEnumerable<object> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.DeleteAsync(
+        => DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.In(Cache<T>.IdPropName, IDs)),
             Session,
             cancellation);
-    }
 
     /// <summary>
     /// Deletes matching entities from MongoDB
@@ -53,13 +49,11 @@ public partial class DBContext
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.DeleteAsync(
+        => DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Where(expression)),
             Session,
             cancellation,
             collation);
-    }
 
     /// <summary>
     /// Deletes matching entities with a filter expression
@@ -72,13 +66,11 @@ public partial class DBContext
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.DeleteAsync(
+        => DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
             Session,
             cancellation,
             collation);
-    }
 
     /// <summary>
     /// Deletes matching entities with a filter definition
@@ -91,11 +83,9 @@ public partial class DBContext
     /// <param name="collation">An optional collation object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, Collation? collation = null, bool ignoreGlobalFilters = false) where T : IEntity
-    {
-        return DB.DeleteAsync(
+        => DB.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
             Session,
             cancellation,
             collation);
-    }
 }

@@ -10,14 +10,14 @@ public class SortingEntity
     public void sorting_lists_by_levenshtein_distance_works()
     {
         var books = new[] {
-            new BookEntity { Title = "One", Review = new ReviewEntity { Fuzzy = new("one two three four five six seven") } },
-            new BookEntity { Title = "Two", Review = new ReviewEntity { Fuzzy = new("one two three four five six") } },
-            new BookEntity { Title = "Three", Review = new ReviewEntity { Fuzzy = new("one two three four five") } },
-            new BookEntity { Title = "Four", Review = new ReviewEntity { Fuzzy = new("one two three four") } },
-            new BookEntity { Title = "Five", Review = new ReviewEntity { Fuzzy = new("one two three") } }
+            new BookEntity { Title = "One", Review = new() { Fuzzy = new("one two three four five six seven") } },
+            new BookEntity { Title = "Two", Review = new() { Fuzzy = new("one two three four five six") } },
+            new BookEntity { Title = "Three", Review = new() { Fuzzy = new("one two three four five") } },
+            new BookEntity { Title = "Four", Review = new() { Fuzzy = new("one two three four") } },
+            new BookEntity { Title = "Five", Review = new() { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!);
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy.Value);
 
         Assert.AreEqual(5, res.Count());
         Assert.AreEqual("Five", res.First().Title);
@@ -28,14 +28,14 @@ public class SortingEntity
     public void sorting_lists_by_levenshtein_distance_specify_max_distance()
     {
         var books = new[] {
-            new BookEntity { Title = "One", Review = new ReviewEntity { Fuzzy = new("one two three four five six seven") } },
-            new BookEntity { Title = "Two", Review = new ReviewEntity { Fuzzy = new("one two three four five six") } },
-            new BookEntity { Title = "Three", Review = new ReviewEntity { Fuzzy = new("one two three four five") } },
-            new BookEntity { Title = "Four", Review = new ReviewEntity { Fuzzy = new("one two three four") } },
-            new BookEntity { Title = "Five", Review = new ReviewEntity { Fuzzy = new("one two three") } }
+            new BookEntity { Title = "One", Review = new() { Fuzzy = new("one two three four five six seven") } },
+            new BookEntity { Title = "Two", Review = new() { Fuzzy = new("one two three four five six") } },
+            new BookEntity { Title = "Three", Review = new() { Fuzzy = new("one two three four five") } },
+            new BookEntity { Title = "Four", Review = new() { Fuzzy = new("one two three four") } },
+            new BookEntity { Title = "Five", Review = new() { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value!, 10).ToArray();
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy.Value, 10).ToArray();
 
         Assert.AreEqual(3, res.Length);
         Assert.AreEqual("Five", res[0].Title);

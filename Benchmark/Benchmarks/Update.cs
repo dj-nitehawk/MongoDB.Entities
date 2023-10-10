@@ -11,7 +11,7 @@ namespace Benchmark;
 [MemoryDiagnoser]
 public class UpdateOne : BenchBase
 {
-    readonly string id = ObjectId.GenerateNewId().ToString();
+    readonly string id = ObjectId.GenerateNewId().ToString()!;
 
     public UpdateOne()
     {
@@ -53,7 +53,7 @@ public class Update100 : BenchBase
 
         for (var i = 1; i <= 1000; i++)
         {
-            list.Add(new Author
+            list.Add(new()
             {
                 FirstName = i is > 500 and <= 600 ? guid : "test",
             });

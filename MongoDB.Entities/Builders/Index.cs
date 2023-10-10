@@ -133,9 +133,7 @@ public class Index<T> where T : IEntity
     }
 
     static Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
-    {
-        return DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
-    }
+        => DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
 }
 
 class Key<T> where T : IEntity

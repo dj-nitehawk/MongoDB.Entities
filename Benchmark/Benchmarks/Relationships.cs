@@ -57,28 +57,28 @@ public class Relationships : BenchBase
     [Benchmark(Baseline = true)]
     public async Task Lookup()
     {
-        var res = (await DB
-            .Fluent<Author>()
-            .Match(a => a.FirstName == authorName)
-            .Lookup<Author, Book, AuthorWithBooksDTO>(
-                DB.Collection<Book>(),
-                a => a.ID,
-                b => b.Author.ID,
-                dto => dto.BookList)
-            .ToListAsync())[0];
+        _ = (await DB
+                  .Fluent<Author>()
+                  .Match(a => a.FirstName == authorName)
+                  .Lookup<Author, Book, AuthorWithBooksDTO>(
+                       DB.Collection<Book>(),
+                       a => a.ID,
+                       b => b.Author.ID,
+                       dto => dto.BookList)
+                  .ToListAsync())[0];
     }
 
     [Benchmark]
     public async Task Clientside_Join()
     {
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
-        var res = new AuthorWithBooksDTO
+        _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author != null ? author.ID : null))
+            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID,  author.ID))
         };
     }
 
@@ -86,13 +86,13 @@ public class Relationships : BenchBase
     public async Task Children_Fluent()
     {
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
-        var res = new AuthorWithBooksDTO
+       _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList = author is null ? new List<Book>() : await author.Books.ChildrenFluent().ToListAsync()
+            BookList = await author.Books.ChildrenFluent().ToListAsync()
         };
     }
 
@@ -100,13 +100,13 @@ public class Relationships : BenchBase
     public async Task Children_Queryable()
     {
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
-        var res = new AuthorWithBooksDTO
+        _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList = author is null ? new List<Book>() : await author.Books.ChildrenQueryable().ToListAsync()
+            BookList =  await author.Books.ChildrenQueryable().ToListAsync()
         };
     }
 
@@ -116,12 +116,8 @@ public class Relationships : BenchBase
     }
 
     public override Task MongoDB_Entities()
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 
     public override Task Official_Driver()
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 }

@@ -15,11 +15,9 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IMongoQueryable<JoinRecord> JoinQueryable(IClientSessionHandle? session = null, AggregateOptions? options = null)
-    {
-        return session == null
+        => session == null
                ? JoinCollection.AsQueryable(options)
                : JoinCollection.AsQueryable(session, options);
-    }
 
     /// <summary>
     /// Get an IQueryable of parents matching a single child ID for this relationship.
@@ -69,37 +67,35 @@ public sealed partial class Many<TChild, TParent> : IEnumerable<TChild> where TC
     /// <param name="options">An optional AggregateOptions object</param>
     [Obsolete("This method is no longer supported due to incompatibilities with LINQ3 translation engine!", true)]
     public IMongoQueryable<TParent> ParentsQueryable(IMongoQueryable<TChild> children, IClientSessionHandle? session = null, AggregateOptions? options = null)
-    {
-        throw new NotSupportedException();
-        //return typeof(TParent) == typeof(TChild)
-        //    ? throw new InvalidOperationException("Both parent and child types cannot be the same")
-        //    : isInverse
-        //    ? children
-        //            .Join(
-        //                JoinQueryable(session, options),
-        //                c => c.ID,
-        //                j => j.ParentID,
-        //                (_, j) => j)
-        //            .Join(
-        //                DB.Queryable<TParent>(),
-        //                j => j.ChildID,
-        //                p => p.ID,
-        //                (_, p) => p)
-        //            .Distinct()
-        //    : children
-        //           .Join(
-        //                JoinQueryable(session, options),
-        //                c => c.ID,
-        //                j => j.ChildID,
-        //                (_, j) => j)
-        //           .Join(
-        //                DB.Queryable<TParent>(),
-        //                j => j.ParentID,
-        //                p => p.ID,
-        //                (_, p) => p)
-        //           .Distinct();
-    }
+        => throw new NotSupportedException();
 
+    //return typeof(TParent) == typeof(TChild)
+    //    ? throw new InvalidOperationException("Both parent and child types cannot be the same")
+    //    : isInverse
+    //    ? children
+    //            .Join(
+    //                JoinQueryable(session, options),
+    //                c => c.ID,
+    //                j => j.ParentID,
+    //                (_, j) => j)
+    //            .Join(
+    //                DB.Queryable<TParent>(),
+    //                j => j.ChildID,
+    //                p => p.ID,
+    //                (_, p) => p)
+    //            .Distinct()
+    //    : children
+    //           .Join(
+    //                JoinQueryable(session, options),
+    //                c => c.ID,
+    //                j => j.ChildID,
+    //                (_, j) => j)
+    //           .Join(
+    //                DB.Queryable<TParent>(),
+    //                j => j.ParentID,
+    //                p => p.ID,
+    //                (_, p) => p)
+    //           .Distinct();
     /// <summary>
     /// An IQueryable of child Entities for the parent.
     /// </summary>

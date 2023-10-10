@@ -340,7 +340,7 @@ public class SavingObjectId
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
         Assert.AreEqual(default, res.Age2);
-        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday.DateTime);
+        Assert.AreNotEqual(DateTime.MinValue, res.Birthday.DateTime);
         Assert.AreEqual("initial fullname", res.FullName);
         Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
     }
@@ -351,7 +351,7 @@ public class SavingObjectId
         var book = new BookObjectId
         {
             Title = "Test",
-            Review = new ReviewObjectId { Stars = 5, Reviewer = "enercd" }
+            Review = new() { Stars = 5, Reviewer = "enercd" }
         };
         await book.SaveAsync();
         var res = book.Queryable()
@@ -395,7 +395,7 @@ public class SavingObjectId
         var book = new BookObjectId { Title = "Test" }; await book.SaveAsync();
         var author1 = new AuthorObjectId { Name = "ewtrcd1" }; await author1.SaveAsync();
         var author2 = new AuthorObjectId { Name = "ewtrcd2" }; await author2.SaveAsync();
-        book.OtherAuthors = (new AuthorObjectId[] { author1, author2 }).ToDocuments();
+        book.OtherAuthors = (new[] { author1, author2 }).ToDocuments();
         await book.SaveAsync();
         var authors = book.Queryable()
                           .Where(b => b.ID == book.ID)
@@ -626,7 +626,7 @@ public class SavingObjectId
                     .Sort(a => a.Name, Order.Descending)
                     .Skip(1)
                     .Limit(1)
-                    .Project(a => new Test { Tester = a.Name })
+                    .Project(a => new() { Tester = a.Name })
                     .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                     .ExecuteAsync())
                     .FirstOrDefault();
@@ -740,7 +740,7 @@ public class SavingObjectId
 
         var res = await DB.Find<ReviewObjectId>()
                     .MatchID(review.Id)
-                    .Project(r => new ReviewObjectId { Rating = r.Rating })
+                    .Project(r => new() { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteSingleAsync();
 
@@ -763,7 +763,7 @@ public class SavingObjectId
         var res = await DB.UpdateAndGet<ReviewObjectId>()
                     .MatchID(review.Id)
                     .Modify(r => r.Rating, 10)
-                    .Project(r => new ReviewObjectId { Rating = r.Rating })
+                    .Project(r => new() { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
@@ -827,7 +827,7 @@ public class SavingObjectId
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();
-        Assert.AreEqual(res!.ID, customer.ID);
+        Assert.AreEqual(res.ID, customer.ID);
 
         var cus = await DB.Queryable<BookObjectId>()
                           .Where(b => Equals(b.Customer.ID, customer.ID))
@@ -843,7 +843,7 @@ public class SavingObjectId
         await DB.SaveAsync(e);
         await Task.Delay(100);
 
-        var creationTime = new DateTime(long.Parse(e.ID!));
+        var creationTime = new DateTime(long.Parse(e.ID));
 
         Assert.IsTrue(creationTime < DateTime.UtcNow);
     }

@@ -27,9 +27,7 @@ static class Logic
 
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members,
         bool excludeMode = false) where T : IEntity
-    {
-        return BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
-    }
+        => BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
 
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
     {

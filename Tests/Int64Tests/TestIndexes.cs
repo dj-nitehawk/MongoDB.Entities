@@ -64,18 +64,18 @@ public class IndexesInt64
           .Key(b => b.Title, KeyType.Text)
           .CreateAsync();
 
-        var b1 = new BookInt64 { Title = "One", Review = new ReviewInt64 { Fuzzy = new("Katherine Zeta Jones") } };
-        var b2 = new BookInt64 { Title = "Two", Review = new ReviewInt64 { Fuzzy = new("Katheryne Zeta Jones") } };
-        var b3 = new BookInt64 { Title = "Three", Review = new ReviewInt64 { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b4 = new BookInt64 { Title = "Four", Review = new ReviewInt64 { Fuzzy = new("Katheryne Jones Abigale") } };
-        var b5 = new BookInt64 { Title = "Five", Review = new ReviewInt64 { Fuzzy = new("Katya Bykova Jhohanes") } };
-        var b6 = new BookInt64 { Title = "Five", Review = new ReviewInt64 { Fuzzy = " ".ToFuzzy() } };
+        var b1 = new BookInt64 { Title = "One", Review = new() { Fuzzy = new("Katherine Zeta Jones") } };
+        var b2 = new BookInt64 { Title = "Two", Review = new() { Fuzzy = new("Katheryne Zeta Jones") } };
+        var b3 = new BookInt64 { Title = "Three", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b4 = new BookInt64 { Title = "Four", Review = new() { Fuzzy = new("Katheryne Jones Abigale") } };
+        var b5 = new BookInt64 { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
+        var b6 = new BookInt64 { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
         await DB.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
         var res = await DB.Find<BookInt64>()
                     .Match(Search.Fuzzy, "catherine jones")
-                    .Project(b => new BookInt64 { ID = b.ID, Title = b.Title })
+                    .Project(b => new() { ID = b.ID, Title = b.Title })
                     .SortByTextScore()
                     .Skip(0)
                     .Limit(6)
@@ -111,7 +111,7 @@ public class IndexesInt64
 
         var res = await DB.Find<GenreInt64>()
                     .Match(Search.Full, "one eight nine")
-                    .Project(p => new GenreInt64 { Name = p.Name, Position = p.Position })
+                    .Project(p => new() { Name = p.Name, Position = p.Position })
                     .SortByTextScore()
                     .ExecuteAsync();
 

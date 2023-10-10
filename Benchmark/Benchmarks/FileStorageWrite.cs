@@ -26,7 +26,7 @@ public class FileStorageWrite : BenchBase
     {
         memStream.Position = 0;
 
-        var bucket = new GridFSBucket(Database, new GridFSBucketOptions
+        var bucket = new GridFSBucket(Database, new()
         {
             BucketName = "benchmark",
             ChunkSizeBytes = 4 * 1024 * 1024

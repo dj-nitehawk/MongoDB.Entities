@@ -295,7 +295,7 @@ public class SavingEntity
             Title = "original", //dontpreserve
             Price = 100, //dontpreserve
             PriceDbl = 666,
-            MainAuthor = new(ObjectId.GenerateNewId().ToString())
+            MainAuthor = new(ObjectId.GenerateNewId().ToString()!)
         };
         await book.SaveAsync();
 
@@ -331,7 +331,7 @@ public class SavingEntity
         author.Age2 = 400; //preserve
         author.Birthday = new(DateTime.MinValue); //preserve
         author.FullName = null;
-        author.BestSeller = new(ObjectId.GenerateNewId().ToString());
+        author.BestSeller = new(ObjectId.GenerateNewId().ToString()!);
 
         await author.SavePreservingAsync();
 
@@ -340,7 +340,7 @@ public class SavingEntity
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
         Assert.AreEqual(default, res.Age2);
-        Assert.AreNotEqual<DateTime>(DateTime.MinValue, res.Birthday.DateTime);
+        Assert.AreNotEqual(DateTime.MinValue, res.Birthday.DateTime);
         Assert.AreEqual("initial fullname", res.FullName);
         Assert.AreEqual(author.BestSeller.ID, res.BestSeller.ID);
     }
@@ -351,7 +351,7 @@ public class SavingEntity
         var book = new BookEntity
         {
             Title = "Test",
-            Review = new ReviewEntity { Stars = 5, Reviewer = "enercd" }
+            Review = new() { Stars = 5, Reviewer = "enercd" }
         };
         await book.SaveAsync();
         var res = book.Queryable()
@@ -395,7 +395,7 @@ public class SavingEntity
         var book = new BookEntity { Title = "Test" }; await book.SaveAsync();
         var author1 = new AuthorEntity { Name = "ewtrcd1" }; await author1.SaveAsync();
         var author2 = new AuthorEntity { Name = "ewtrcd2" }; await author2.SaveAsync();
-        book.OtherAuthors = (new AuthorEntity[] { author1, author2 }).ToDocuments();
+        book.OtherAuthors = (new[] { author1, author2 }).ToDocuments();
         await book.SaveAsync();
         var authors = book.Queryable()
                           .Where(b => b.ID == book.ID)
@@ -521,7 +521,7 @@ public class SavingEntity
         var book1 = new BookEntity { Title = "fbircdb1" }; await book1.SaveAsync();
         var book2 = new BookEntity { Title = "fbircdb2" }; await book2.SaveAsync();
 
-        var res1 = await DB.Find<BookEntity>().OneAsync(ObjectId.GenerateNewId().ToString());
+        var res1 = await DB.Find<BookEntity>().OneAsync(ObjectId.GenerateNewId().ToString()!);
         var res2 = await DB.Find<BookEntity>().OneAsync(book2.ID);
 
         Assert.AreEqual(null, res1);
@@ -626,7 +626,7 @@ public class SavingEntity
                     .Sort(a => a.Name, Order.Descending)
                     .Skip(1)
                     .Limit(1)
-                    .Project(a => new Test { Tester = a.Name })
+                    .Project(a => new() { Tester = a.Name })
                     .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                     .ExecuteAsync())
                     .FirstOrDefault();
@@ -740,7 +740,7 @@ public class SavingEntity
 
         var res = await DB.Find<ReviewEntity>()
                     .MatchID(review.Id)
-                    .Project(r => new ReviewEntity { Rating = r.Rating })
+                    .Project(r => new() { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteSingleAsync();
 
@@ -763,7 +763,7 @@ public class SavingEntity
         var res = await DB.UpdateAndGet<ReviewEntity>()
                     .MatchID(review.Id)
                     .Modify(r => r.Rating, 10)
-                    .Project(r => new ReviewEntity { Rating = r.Rating })
+                    .Project(r => new() { Rating = r.Rating })
                     .IncludeRequiredProps()
                     .ExecuteAsync();
 
@@ -827,7 +827,7 @@ public class SavingEntity
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();
-        Assert.AreEqual(res!.ID, customer.ID);
+        Assert.AreEqual(res.ID, customer.ID);
 
         var cus = await DB.Queryable<BookEntity>()
                           .Where(b => Equals(b.Customer.ID, customer.ID))
@@ -843,7 +843,7 @@ public class SavingEntity
         await DB.SaveAsync(e);
         await Task.Delay(100);
 
-        var creationTime = new DateTime(long.Parse(e.ID!));
+        var creationTime = new DateTime(long.Parse(e.ID));
 
         Assert.IsTrue(creationTime < DateTime.UtcNow);
     }
@@ -853,7 +853,7 @@ public class SavingEntity
     {
         var x = new CustomIDOverride
         {
-            ID = ObjectId.GenerateNewId().ToString()
+            ID = ObjectId.GenerateNewId().ToString()!
         };
         await x.SaveAsync();
 

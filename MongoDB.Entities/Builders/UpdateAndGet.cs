@@ -285,9 +285,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="template">A Template object containing a pipeline stage</param>
     public UpdateAndGet<T, TProjection> WithPipelineStage(Template template)
-    {
-        return WithPipelineStage(template.RenderToString());
-    }
+        => WithPipelineStage(template.RenderToString());
 
     /// <summary>
     /// Specify an array filter to target nested entities for updates (use multiple times if needed).
@@ -426,9 +424,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     }
 
     static Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, FindOneAndUpdateOptions<T, TProjection> options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return session == null
-            ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
-            : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
-    }
+        => session == null
+               ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
+               : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
 }

@@ -13,7 +13,7 @@ public class FuzzyStringTestEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookEntity { Title = "fstsarw", Review = new ReviewEntity { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
+        await new BookEntity { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
         var res = await DB.Queryable<BookEntity>()
                     .Where(b => b.Review.Fuzzy!.Value == guid)
@@ -27,13 +27,17 @@ public class FuzzyStringTestEntity
     {
         var guid = Guid.NewGuid().ToString();
 
-        await new BookEntity { Title = guid, Review = new ReviewEntity { Fuzzy = null! } }.SaveAsync();
+        await new BookEntity
+        {
+            Title = guid,
+            Review = new() { Fuzzy = null }
+        }.SaveAsync();
 
         var res = await DB.Queryable<BookEntity>()
                     .Where(b => b.Title == guid)
                     .SingleAsync();
 
-        Assert.AreEqual(null, res.Review.Fuzzy?.Value);
+        Assert.IsNull(res.Review.Fuzzy?.Value);
     }
 
     [TestMethod]

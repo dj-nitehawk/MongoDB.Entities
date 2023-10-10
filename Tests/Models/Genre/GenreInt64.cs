@@ -18,5 +18,8 @@ public class GenreInt64 : Genre
     [InverseSide]
     public Many<BookInt64, GenreInt64> Books { get; set; } = null!;
 
-    public GenreInt64() => this.InitManyToMany(() => Books, b => b.Genres);
+    public GenreInt64()
+    {
+        this.InitManyToMany(() => Books, b => b.Genres);
+    }
 }

@@ -83,7 +83,7 @@ public class UpdateObjectId
         var book = new BookObjectId
         {
             Title = "mnpuc title " + guid,
-            Review = new ReviewObjectId { Rating = 10.10 }
+            Review = new() { Rating = 10.10 }
         };
         await book.SaveAsync();
 
@@ -105,7 +105,7 @@ public class UpdateObjectId
 
         for (var i = 1; i <= 5; i++)
         {
-            books.Add(new BookObjectId { Title = title, Price = i });
+            books.Add(new() { Title = title, Price = i });
         }
         await books.SaveAsync();
 

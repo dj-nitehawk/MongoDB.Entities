@@ -15,7 +15,7 @@ public class SavePartialVsUpdate : BenchBase
     {
         author = new()
         {
-            ID = ObjectId.GenerateNewId().ToString(),
+            ID = ObjectId.GenerateNewId().ToString()!,
             FirstName = "Test",
             LastName = "Test",
             Birthday = DateTime.UtcNow
@@ -44,14 +44,10 @@ public class SavePartialVsUpdate : BenchBase
     }
 
     public override Task MongoDB_Entities()
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 
     public override Task Official_Driver()
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 }
 
 [MemoryDiagnoser]

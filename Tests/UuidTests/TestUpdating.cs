@@ -83,7 +83,7 @@ public class UpdateUuid
         var book = new BookUuid
         {
             Title = "mnpuc title " + guid,
-            Review = new ReviewUuid { Rating = 10.10 }
+            Review = new() { Rating = 10.10 }
         };
         await book.SaveAsync();
 
@@ -105,7 +105,7 @@ public class UpdateUuid
 
         for (var i = 1; i <= 5; i++)
         {
-            books.Add(new BookUuid { Title = title, Price = i });
+            books.Add(new() { Title = title, Price = i });
         }
         await books.SaveAsync();
 
@@ -191,7 +191,7 @@ public class UpdateUuid
             { 
                 _id: '<ID>' 
             }")
-            .Tag("ID", author.ID!);
+            .Tag("ID", author.ID);
 
         var stage = new Template<AuthorUuid>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
             .Path(a => a.FullName!)

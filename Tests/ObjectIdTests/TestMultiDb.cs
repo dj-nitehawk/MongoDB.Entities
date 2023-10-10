@@ -63,7 +63,7 @@ public class MultiDbObjectId
 
         Assert.AreEqual(cover.BookName, res.BookName);
 
-        Assert.AreEqual((await res!.BookCover.ToEntityAsync())!.ID, cover.ID);
+        Assert.AreEqual((await res.BookCover.ToEntityAsync()).ID, cover.ID);
     }
 
     [TestMethod]

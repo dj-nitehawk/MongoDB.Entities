@@ -17,9 +17,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task SaveAsync<T>(this T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveAsync(entity, session, cancellation);
-    }
+        => DB.SaveAsync(entity, session, cancellation);
 
     /// <summary>
     /// Saves a batch of complete entities replacing existing ones or creating new ones if they do not exist. 
@@ -29,9 +27,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveAsync(entities, session, cancellation);
-    }
+        => DB.SaveAsync(entities, session, cancellation);
 
     /// <summary>
     /// Saves an entity partially with only the specified subset of properties. 
@@ -45,9 +41,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveOnlyAsync(entity, members, session, cancellation);
-    }
+        => DB.SaveOnlyAsync(entity, members, session, cancellation);
 
     /// <summary>
     /// Saves an entity partially with only the specified subset of properties. 
@@ -61,9 +55,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveOnlyAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveOnlyAsync(entity, propNames, session, cancellation);
-    }
+        => DB.SaveOnlyAsync(entity, propNames, session, cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties. 
@@ -77,9 +69,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveOnlyAsync(entities, members, session, cancellation);
-    }
+        => DB.SaveOnlyAsync(entities, members, session, cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially with only the specified subset of properties. 
@@ -93,9 +83,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveOnlyAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveOnlyAsync(entities, propNames, session, cancellation);
-    }
+        => DB.SaveOnlyAsync(entities, propNames, session, cancellation);
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties. 
@@ -109,9 +97,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveExceptAsync(entity, members, session, cancellation);
-    }
+        => DB.SaveExceptAsync(entity, members, session, cancellation);
 
     /// <summary>
     /// Saves an entity partially excluding the specified subset of properties. 
@@ -125,9 +111,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SaveExceptAsync<T>(this T entity, IEnumerable<string> propNames, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveExceptAsync(entity, propNames, session, cancellation);
-    }
+        => DB.SaveExceptAsync(entity, propNames, session, cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties. 
@@ -141,9 +125,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, Expression<Func<T, object>> members, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveExceptAsync(entities, members, session, cancellation);
-    }
+        => DB.SaveExceptAsync(entities, members, session, cancellation);
 
     /// <summary>
     /// Saves a batch of entities partially excluding the specified subset of properties. 
@@ -157,9 +139,7 @@ public static partial class Extensions
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> SaveExceptAsync<T>(this IEnumerable<T> entities, IEnumerable<string> propNames, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SaveExceptAsync(entities, propNames, session, cancellation);
-    }
+        => DB.SaveExceptAsync(entities, propNames, session, cancellation);
 
     /// <summary>
     /// Saves an entity partially while excluding some properties. 
@@ -170,7 +150,5 @@ public static partial class Extensions
     /// <param name="session"></param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<UpdateResult> SavePreservingAsync<T>(this T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return DB.SavePreservingAsync(entity, session, cancellation);
-    }
+        => DB.SavePreservingAsync(entity, session, cancellation);
 }

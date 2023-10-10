@@ -19,5 +19,8 @@ public class GenreUuid : Genre
     [InverseSide]
     public Many<BookUuid, GenreUuid> Books { get; set; } = null!;
 
-    public GenreUuid() => this.InitManyToMany(() => Books, b => b.Genres);
+    public GenreUuid()
+    {
+        this.InitManyToMany(() => Books, b => b.Genres);
+    }
 }

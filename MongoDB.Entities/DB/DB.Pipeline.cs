@@ -18,11 +18,9 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<IAsyncCursor<TResult>> PipelineCursorAsync<T, TResult>(Template<T, TResult> template, AggregateOptions? options = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-    {
-        return session == null
+        => session == null
                ? Collection<T>().AggregateAsync(template.ToPipeline(), options, cancellation)
                : Collection<T>().AggregateAsync(session, template.ToPipeline(), options, cancellation);
-    }
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object and get a list of results

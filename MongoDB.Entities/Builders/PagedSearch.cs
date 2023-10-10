@@ -200,9 +200,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     public PagedSearch<T, TProjection> SortByTextScore()
-    {
-        return SortByTextScore(null);
-    }
+        => SortByTextScore(null);
 
     /// <summary>
     /// Sort the results of a text search by the MetaTextScore and get back the score as well

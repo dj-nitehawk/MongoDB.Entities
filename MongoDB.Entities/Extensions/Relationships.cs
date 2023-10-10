@@ -9,9 +9,7 @@ public static partial class Extensions
     /// Returns a reference to this entity.
     /// </summary>
     public static One<T> ToReference<T>(this T entity) where T : IEntity
-    {
-        return new(entity);
-    }
+        => new(entity);
 
     /// <summary>
     /// Initializes supplied property with a new One-To-Many relationship.

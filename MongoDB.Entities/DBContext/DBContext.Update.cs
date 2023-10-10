@@ -23,9 +23,7 @@ public partial class DBContext
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
     public UpdateAndGet<T, T> UpdateAndGet<T>() where T : IEntity
-    {
-        return UpdateAndGet<T, T>();
-    }
+        => UpdateAndGet<T, T>();
 
     /// <summary>
     /// Starts an update-and-get command with projection support for the given entity type

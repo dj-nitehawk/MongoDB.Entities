@@ -13,11 +13,9 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<JoinRecord> JoinFluent(IClientSessionHandle? session = null, AggregateOptions? options = null)
-    {
-        return session == null
-            ? JoinCollection.Aggregate(options)
-            : JoinCollection.Aggregate(session, options);
-    }
+        => session == null
+               ? JoinCollection.Aggregate(options)
+               : JoinCollection.Aggregate(session, options);
 
     /// <summary>
     /// Get an IAggregateFluent of parents matching a supplied IAggregateFluent of children for this relationship.

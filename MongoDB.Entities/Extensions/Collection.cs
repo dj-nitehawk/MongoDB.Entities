@@ -16,16 +16,12 @@ public static partial class Extensions
     /// Gets the collection name for this entity
     /// </summary>
     public static string CollectionName<T>(this T _) where T : IEntity
-    {
-        return DB.CollectionName<T>();
-    }
+        => DB.CollectionName<T>();
 
     /// <summary>
     /// Drops a join collection
     /// </summary>
     /// <param name="collection"></param>
     public static Task DropAsync(this IMongoCollection<JoinRecord> collection)
-    {
-        return collection.Database.DropCollectionAsync(collection.CollectionNamespace.CollectionName);
-    }
+        => collection.Database.DropCollectionAsync(collection.CollectionNamespace.CollectionName);
 }

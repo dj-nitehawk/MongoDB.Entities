@@ -15,9 +15,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task RemoveAsync(TChild child, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return RemoveAsync(child.GetId(), session, cancellation);
-    }
+        => RemoveAsync(child.GetId(), session, cancellation);
 
     /// <summary>
     /// Removes a child reference.
@@ -37,9 +35,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task RemoveAsync(IEnumerable<TChild> children, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return RemoveAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
-    }
+        => RemoveAsync(children.Select(Cache<TChild>.IdSelector), session, cancellation);
 
     /// <summary>
     /// Removes child references.

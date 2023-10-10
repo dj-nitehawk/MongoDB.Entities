@@ -318,9 +318,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="template">A Template object containing a pipeline stage</param>
     public Update<T> WithPipelineStage(Template template)
-    {
-        return WithPipelineStage(template.RenderToString());
-    }
+        => WithPipelineStage(template.RenderToString());
 
     /// <summary>
     /// Specify an array filter to target nested entities for updates (use multiple times if needed).
@@ -470,9 +468,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     }
 
     static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return session == null
+        => session == null
                ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
                : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
-    }
 }

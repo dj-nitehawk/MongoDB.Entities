@@ -107,9 +107,7 @@ public class DataStreamer
     /// <param name="batchSize"></param>
     /// <param name="session"></param>
     public Task DownloadWithTimeoutAsync(Stream stream, int timeOutSeconds, int batchSize = 1, IClientSessionHandle? session = null)
-    {
-        return DownloadAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
-    }
+        => DownloadAsync(stream, batchSize, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
 
     /// <summary>
     /// Download binary data for this file entity from mongodb in chunks into a given stream.
@@ -160,9 +158,7 @@ public class DataStreamer
     /// <param name="chunkSizeKB">The 'average' size of one chunk in KiloBytes</param>
     /// <param name="session">An optional session if using within a transaction</param>
     public Task UploadWithTimeoutAsync(Stream stream, int timeOutSeconds, int chunkSizeKB = 256, IClientSessionHandle? session = null)
-    {
-        return UploadAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
-    }
+        => UploadAsync(stream, chunkSizeKB, new CancellationTokenSource(timeOutSeconds * 1000).Token, session);
 
     /// <summary>
     /// Upload binary data for this file entity into mongodb in chunks from a given stream.

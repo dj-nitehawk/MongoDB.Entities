@@ -18,12 +18,12 @@ public class CountingEntity
 
         for (var i = 1; i <= 25; i++)
         {
-            list.Add(new AuthorEntity { Name = guid, Age = 111 });
+            list.Add(new() { Name = guid, Age = 111 });
         }
 
         for (var i = 1; i <= 10; i++)
         {
-            list.Add(new AuthorEntity { Name = guid, Age = 222 });
+            list.Add(new() { Name = guid, Age = 222 });
         }
 
         return list.SaveAsync();

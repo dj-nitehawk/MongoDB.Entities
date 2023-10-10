@@ -21,13 +21,13 @@ public class GeoNearObjectIdTest
 
         await new[]
         {
-            new PlaceObjectId { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceObjectId { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceObjectId { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceObjectId { Name = "Paris "+ guid, Location = new(48.8539241, 2.2913515) },
+            new PlaceObjectId { Name = "Versailles "+ guid, Location = new(48.796964, 2.137456) },
+            new PlaceObjectId { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
         var res = (await DB.Find<PlaceObjectId>()
-                    .Match(p => p.Location, new Coordinates2D(48.857908, 2.295243), 20000) //20km from eiffel tower
+                    .Match(p => p.Location, new(48.857908, 2.295243), 20000) //20km from eiffel tower
                     .Sort(p => p.ModifiedOn, Order.Descending)
                     .Limit(20)
                     .ExecuteAsync())
@@ -49,13 +49,13 @@ public class GeoNearObjectIdTest
 
         await new[]
         {
-            new PlaceObjectId { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceObjectId { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceObjectId { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceObjectId { Name = "Paris "+ guid, Location = new(48.8539241, 2.2913515) },
+            new PlaceObjectId { Name = "Versailles "+ guid, Location = new(48.796964, 2.137456) },
+            new PlaceObjectId { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
         var qry = DB.FluentGeoNear<PlaceObjectId>(
-                     NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
+                     NearCoordinates: new(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
 
@@ -80,13 +80,13 @@ public class GeoNearObjectIdTest
 
         await new[]
         {
-            new PlaceObjectId { Name = "Paris "+ guid, Location = new Coordinates2D(48.8539241, 2.2913515) },
-            new PlaceObjectId { Name = "Versailles "+ guid, Location = new Coordinates2D(48.796964, 2.137456) },
-            new PlaceObjectId { Name = "Poissy "+ guid, Location = new Coordinates2D(48.928860, 2.046889) }
+            new PlaceObjectId { Name = "Paris "+ guid, Location = new(48.8539241, 2.2913515) },
+            new PlaceObjectId { Name = "Versailles "+ guid, Location = new(48.796964, 2.137456) },
+            new PlaceObjectId { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
         var qry = TN.GeoNear<PlaceObjectId>(
-                     NearCoordinates: new Coordinates2D(48.857908, 2.295243), //eiffel tower
+                     NearCoordinates: new(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
 

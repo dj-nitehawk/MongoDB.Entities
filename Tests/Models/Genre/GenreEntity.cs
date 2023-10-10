@@ -18,5 +18,8 @@ public class GenreEntity : Genre
     [InverseSide]
     public Many<BookEntity, GenreEntity> Books { get; set; } = null!;
 
-    public GenreEntity() => this.InitManyToMany(() => Books, b => b.Genres);
+    public GenreEntity()
+    {
+        this.InitManyToMany(() => Books, b => b.Genres);
+    }
 }
