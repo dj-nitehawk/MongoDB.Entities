@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="BenchmarkDotNet" Version="0.13.8" />
-        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.21.0" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.9" />
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.22.0" />
     </ItemGroup>
 
     <ItemGroup>
