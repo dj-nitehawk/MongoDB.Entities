@@ -26,8 +26,8 @@ public static partial class DB
             "DefaultConventions",
             new ConventionPack
             {
-                    new IgnoreExtraElementsConvention(true),
-                    new IgnoreManyPropsConvention()
+                new IgnoreExtraElementsConvention(true),
+                new IgnoreManyPropsConvention()
             },
             _ => true);
     }
@@ -40,7 +40,8 @@ public static partial class DB
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
     /// <para>WARNING: will throw an error if server is not reachable!</para>
-    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
+    /// duplicated.
     /// </summary>
     /// <param name="database">Name of the database</param>
     /// <param name="host">Address of the MongoDB server</param>
@@ -53,7 +54,8 @@ public static partial class DB
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
     /// <para>WARNING: will throw an error if server is not reachable!</para>
-    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get duplicated.
+    /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
+    /// duplicated.
     /// </summary>
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
@@ -82,6 +84,7 @@ public static partial class DB
         catch (Exception)
         {
             dbs.TryRemove(dbName, out _);
+
             throw;
         }
     }
@@ -105,7 +108,7 @@ public static partial class DB
                 .ToListAsync().ConfigureAwait(false);
 
     /// <summary>
-    /// Specifies the database that a given entity type should be stored in. 
+    /// Specifies the database that a given entity type should be stored in.
     /// Only needed for entity types you want stored in a db other than the default db.
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
@@ -130,14 +133,19 @@ public static partial class DB
         IMongoDatabase? db = null;
 
         if (dbs.Count == 0)
-            return db ?? throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+        {
+            return db ??
+                   throw new InvalidOperationException(
+                       $"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+        }
 
         if (string.IsNullOrEmpty(name))
             db = defaultDb;
         else
             dbs.TryGetValue(name, out db);
 
-        return db ?? throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+        return db ??
+               throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
     }
 
     /// <summary>
@@ -202,6 +210,7 @@ public static partial class DB
     {
         var newT = new T();
         newT.SetId(ID);
+
         return newT;
     }
 }

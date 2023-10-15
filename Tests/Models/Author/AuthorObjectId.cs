@@ -25,6 +25,6 @@ public class AuthorObjectId : Author
 
     public AuthorObjectId()
     {
-        this.InitOneToMany(() => Books!);
+        this.InitOneToMany(() => Books);
     }
 }

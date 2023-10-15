@@ -25,6 +25,6 @@ public class AuthorEntity : Author
 
     public AuthorEntity()
     {
-        this.InitOneToMany(() => Books!);
+        this.InitOneToMany(() => Books);
     }
 }

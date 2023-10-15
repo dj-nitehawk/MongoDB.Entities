@@ -7,7 +7,7 @@ namespace MongoDB.Entities.Tests;
 public class AuthorInt64 : Author
 {
     [BsonId]
-    public Int64 ID { get; set; }
+    public long ID { get; set; }
 
     public override object GenerateNewID()
         => Convert.ToInt64(DateTime.UtcNow.Ticks);
@@ -25,6 +25,6 @@ public class AuthorInt64 : Author
 
     public AuthorInt64()
     {
-        this.InitOneToMany(() => Books!);
+        this.InitOneToMany(() => Books);
     }
 }

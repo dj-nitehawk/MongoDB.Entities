@@ -25,6 +25,6 @@ public class AuthorUuid : Author
 
     public AuthorUuid()
     {
-        this.InitOneToMany(() => Books!);
+        this.InitOneToMany(() => Books);
     }
 }

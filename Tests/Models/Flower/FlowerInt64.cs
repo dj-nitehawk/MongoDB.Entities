@@ -8,7 +8,7 @@ namespace MongoDB.Entities.Tests;
 public class FlowerInt64 : Flower
 {
     [BsonId]
-    public Int64 Id { get; set; }
+    public long Id { get; set; }
 
     public override object GenerateNewID()
         => Convert.ToInt64(DateTime.UtcNow.Ticks);
@@ -21,6 +21,6 @@ public class FlowerInt64 : Flower
 
     public FlowerInt64()
     {
-        this.InitOneToMany(() => Customers!);
+        this.InitOneToMany(() => Customers);
     }
 }

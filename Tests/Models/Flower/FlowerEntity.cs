@@ -21,6 +21,6 @@ public class FlowerEntity : Flower
 
     public FlowerEntity()
     {
-        this.InitOneToMany(() => Customers!);
+        this.InitOneToMany(() => Customers);
     }
 }

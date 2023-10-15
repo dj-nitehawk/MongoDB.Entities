@@ -9,6 +9,7 @@ public class FlowerObjectId : Flower
 {
     [BsonId]
     public ObjectId Id { get; set; }
+
     public FlowerObjectId NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerObjectId> Customers { get; set; }
 
@@ -20,6 +21,6 @@ public class FlowerObjectId : Flower
 
     public FlowerObjectId()
     {
-        this.InitOneToMany(() => Customers!);
+        this.InitOneToMany(() => Customers);
     }
 }
