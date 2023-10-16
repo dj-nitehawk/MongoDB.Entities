@@ -20,8 +20,7 @@ public class One<T> where T : IEntity
     [AsBsonId]
     public object ID { get; set; } = null!;
 
-    public One()
-    { }
+    public One() { }
 
     /// <summary>
     /// Initializes a reference to an entity in MongoDB.
@@ -63,9 +62,11 @@ public class One<T> where T : IEntity
     /// </summary>
     /// <param name="projection">x => new Test { PropName = x.Prop }</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    /// <param name = "cancellation" > An optional cancellation token</param>
-    /// <exception cref="InvalidOperationException">thrown if the entity cannot be found in the database or more than one
-    /// entity matching the ID is found.</exception>
+    /// <param name="cancellation"> An optional cancellation token</param>
+    /// <exception cref="InvalidOperationException">
+    /// thrown if the entity cannot be found in the database or more than one
+    /// entity matching the ID is found.
+    /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
     public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         => (await new Find<T>(session, null)
@@ -79,11 +80,15 @@ public class One<T> where T : IEntity
     /// </summary>
     /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    /// <param name = "cancellation" > An optional cancellation token</param>
-    /// <exception cref="InvalidOperationException">thrown if the entity cannot be found in the database or more than one
-    /// entity matching the ID is found.</exception>
+    /// <param name="cancellation"> An optional cancellation token</param>
+    /// <exception cref="InvalidOperationException">
+    /// thrown if the entity cannot be found in the database or more than one
+    /// entity matching the ID is found.
+    /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection,
+                                       IClientSessionHandle? session = null,
+                                       CancellationToken cancellation = default)
         => (await new Find<T>(session, null)
                  .Match(TransformID())
                  .Project(projection)

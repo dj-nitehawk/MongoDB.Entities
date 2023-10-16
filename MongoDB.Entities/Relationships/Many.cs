@@ -22,8 +22,12 @@ public abstract class ManyBase
 /// Represents a one-to-many/many-to-many relationship between two Entities.
 /// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
 /// <para>Initialize from the constructor of the parent entity as follows:</para>
-/// <para><c>this.InitOneToMany(() => Property);</c></para>
-/// <para><c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c></para>
+/// <para>
+///     <c>this.InitOneToMany(() => Property);</c>
+/// </para>
+/// <para>
+///     <c>this.InitManyToMany(() => Property, x => x.OtherProperty);</c>
+/// </para>
 /// </summary>
 /// <typeparam name="TChild">Type of the child IEntity.</typeparam>
 /// <typeparam name="TParent">The type of the parent</typeparam>
@@ -50,12 +54,12 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         _parent.ThrowIfUnsaved();
 
         return _isInverse
-            ? session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ChildID == _parent.GetId(), options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == _parent.GetId(), options, cancellation)
-            : session == null
-                   ? JoinCollection.CountDocumentsAsync(j => j.ParentID == _parent.GetId(), options, cancellation)
-                   : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == _parent.GetId(), options, cancellation);
+                   ? session == null
+                         ? JoinCollection.CountDocumentsAsync(j => j.ChildID == _parent.GetId(), options, cancellation)
+                         : JoinCollection.CountDocumentsAsync(session, j => j.ChildID == _parent.GetId(), options, cancellation)
+                   : session == null
+                       ? JoinCollection.CountDocumentsAsync(j => j.ParentID == _parent.GetId(), options, cancellation)
+                       : JoinCollection.CountDocumentsAsync(session, j => j.ParentID == _parent.GetId(), options, cancellation);
     }
 
     /// <summary>
@@ -64,7 +68,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// </summary>
     public Many() { }
 
-    #region one-to-many-initializers
+#region one-to-many-initializers
+
     internal Many(object parent, string property)
     {
         Init((dynamic)parent, property);
@@ -88,9 +93,11 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <param name="property">Function(x) x.PropName</param>
     public void VB_InitOneToMany(TParent parent, Expression<Func<TParent, object>> property)
         => Init(parent, Prop.Property(property));
-    #endregion
 
-    #region many-to-many initializers
+#endregion
+
+#region many-to-many initializers
+
     internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
     {
         Init((dynamic)parent, propertyParent, propertyChild, isInverse);
@@ -102,8 +109,8 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         _isInverse = isInverse;
 
         JoinCollection = isInverse
-            ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
-            : DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
+                             ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
+                             : DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
 
         CreateIndexesAsync(JoinCollection);
     }
@@ -115,15 +122,15 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// <param name="propertyParent">Function(x) x.ParentProp</param>
     /// <param name="propertyChild">Function(x) x.ChildProp</param>
     /// <param name="isInverse">Specify if this is the inverse side of the relationship or not</param>
-    public void VB_InitManyToMany(
-        TParent parent,
-        Expression<Func<TParent, object>> propertyParent,
-        Expression<Func<TChild, object>> propertyChild,
-        bool isInverse)
+    public void VB_InitManyToMany(TParent parent,
+                                  Expression<Func<TParent, object>> propertyParent,
+                                  Expression<Func<TChild, object>> propertyChild,
+                                  bool isInverse)
     {
         Init(parent, Prop.Property(propertyParent), Prop.Property(propertyChild), isInverse);
     }
-    #endregion
+
+#endregion
 
     static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
     {
@@ -137,18 +144,20 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
             {
                 new CreateIndexModel<JoinRecord>(
                     Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
-                    new() {
+                    new()
+                    {
                         Background = true,
                         Name = "[ParentID]"
-                    })
-                ,
+                    }),
                 new CreateIndexModel<JoinRecord>(
                     Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
-                    new() {
+                    new()
+                    {
                         Background = true,
                         Name = "[ChildID]"
                     })
             });
+
         return Task.CompletedTask;
     }
 }
