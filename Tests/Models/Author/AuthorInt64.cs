@@ -16,7 +16,7 @@ public class AuthorInt64 : Author
         => ID == 0;
 
     [BsonIgnoreIfDefault]
-    public One<BookInt64> BestSeller { get; set; }
+    public One<BookInt64, long> BestSeller { get; set; }
 
     public Many<BookInt64, AuthorInt64> Books { get; set; }
 

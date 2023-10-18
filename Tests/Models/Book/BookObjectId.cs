@@ -19,7 +19,7 @@ public class BookObjectId : Book
     public ReviewObjectId Review { get; set; }
     public ReviewObjectId[] ReviewArray { get; set; }
     public IList<ReviewObjectId> ReviewList { get; set; }
-    public One<AuthorObjectId> MainAuthor { get; set; }
+    public One<AuthorObjectId, ObjectId> MainAuthor { get; set; }
 
     public AuthorObjectId RelatedAuthor { get; set; }
     public AuthorObjectId[] OtherAuthors { get; set; }

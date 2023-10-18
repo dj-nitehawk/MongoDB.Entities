@@ -73,7 +73,7 @@ public class SavingInt64
                            .Match(a => a.ID == author.ID)
                            .Project(a => a.CreatedOn)
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.ToLongTimeString(), author.CreatedOn.ToLongTimeString());
         Assert.IsTrue(DateTime.UtcNow.Subtract(res).TotalSeconds <= 5);
@@ -299,7 +299,7 @@ public class SavingInt64
             Title = "original", //dontpreserve
             Price = 100,        //dontpreserve
             PriceDbl = 666,
-            MainAuthor = new(ObjectId.GenerateNewId().ToString())
+            MainAuthor = new(ObjectId.GenerateNewId().Timestamp)
         };
         await book.SaveAsync();
 
@@ -335,7 +335,7 @@ public class SavingInt64
         author.Age2 = 400;                        //preserve
         author.Birthday = new(DateTime.MinValue); //preserve
         author.FullName = null;
-        author.BestSeller = new(ObjectId.GenerateNewId().ToString());
+        author.BestSeller = new(ObjectId.GenerateNewId().Timestamp);
 
         await author.SavePreservingAsync();
 
@@ -570,9 +570,9 @@ public class SavingInt64
         await author2.SaveAsync();
 
         var res = await DB
-                       .Find<AuthorInt64>()
-                       .Match(f => f.Eq(a => a.Name, guid))
-                       .ExecuteFirstAsync();
+                        .Find<AuthorInt64>()
+                        .Match(f => f.Eq(a => a.Name, guid))
+                        .ExecuteFirstAsync();
 
         Assert.AreEqual(author1.ID, res!.ID);
     }
@@ -587,9 +587,9 @@ public class SavingInt64
         await author2.SaveAsync();
 
         var res = await DB
-                       .Find<AuthorInt64>()
-                       .Match(f => f.Eq(a => a.Name, guid))
-                       .ExecuteAnyAsync();
+                        .Find<AuthorInt64>()
+                        .Match(f => f.Eq(a => a.Name, guid))
+                        .ExecuteAnyAsync();
 
         Assert.IsTrue(res);
     }
@@ -669,7 +669,7 @@ public class SavingInt64
                            .Project(a => new() { Tester = a.Name })
                            .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                            .ExecuteAsync())
-           .FirstOrDefault();
+            .FirstOrDefault();
 
         Assert.AreEqual(three.Name, res!.Tester);
     }
@@ -690,7 +690,7 @@ public class SavingInt64
                            .Match(a => a.ID == author.ID)
                            .ProjectExcluding(a => new { a.Age, a.Name })
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(author.FullName, res.FullName);
         Assert.AreEqual(author.Surname, res.Surname);
@@ -733,7 +733,7 @@ public class SavingInt64
         var res = (await DB.Find<AuthorInt64>()
                            .MatchExpression("{$and:[{$gt:['$Age2','$Age']},{$eq:['$Surname','" + guid + "']}]}")
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.Surname, guid);
     }
@@ -746,15 +746,15 @@ public class SavingInt64
         await author.SaveAsync();
 
         var template = new Template<AuthorInt64>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<Int64>']}]}")
-                      .Path(a => a.Age2)
-                      .Path(a => a.Age)
-                      .Path(a => a.Surname)
-                      .Tag("Int64", guid);
+                       .Path(a => a.Age2)
+                       .Path(a => a.Age)
+                       .Path(a => a.Surname)
+                       .Tag("Int64", guid);
 
         var res = (await DB.Find<AuthorInt64>()
                            .MatchExpression(template)
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.Surname, guid);
     }
@@ -832,11 +832,11 @@ public class SavingInt64
                     .Where(b => b.Title == guid)
                     .GroupBy(b => b.Title)
                     .Select(
-                         g => new
-                         {
-                             Title = g.Key,
-                             Sum = g.Sum(b => b.Price)
-                         }).Single();
+                        g => new
+                        {
+                            Title = g.Key,
+                            Sum = g.Sum(b => b.Price)
+                        }).Single();
 
         Assert.AreEqual(book1.Price + book2.Price, res.Sum);
     }

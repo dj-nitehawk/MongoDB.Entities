@@ -73,7 +73,7 @@ public class SavingEntity
                            .Match(a => a.ID == author.ID)
                            .Project(a => a.CreatedOn)
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.ToLongTimeString(), author.CreatedOn.ToLongTimeString());
         Assert.IsTrue(DateTime.UtcNow.Subtract(res).TotalSeconds <= 5);
@@ -570,9 +570,9 @@ public class SavingEntity
         await author2.SaveAsync();
 
         var res = await DB
-                       .Find<AuthorEntity>()
-                       .Match(f => f.Eq(a => a.Name, guid))
-                       .ExecuteFirstAsync();
+                        .Find<AuthorEntity>()
+                        .Match(f => f.Eq(a => a.Name, guid))
+                        .ExecuteFirstAsync();
 
         Assert.AreEqual(author1.ID, res!.ID);
     }
@@ -587,9 +587,9 @@ public class SavingEntity
         await author2.SaveAsync();
 
         var res = await DB
-                       .Find<AuthorEntity>()
-                       .Match(f => f.Eq(a => a.Name, guid))
-                       .ExecuteAnyAsync();
+                        .Find<AuthorEntity>()
+                        .Match(f => f.Eq(a => a.Name, guid))
+                        .ExecuteAnyAsync();
 
         Assert.IsTrue(res);
     }
@@ -669,7 +669,7 @@ public class SavingEntity
                            .Project(a => new() { Tester = a.Name })
                            .Option(o => o.MaxTime = TimeSpan.FromSeconds(1))
                            .ExecuteAsync())
-           .FirstOrDefault();
+            .FirstOrDefault();
 
         Assert.AreEqual(three.Name, res!.Tester);
     }
@@ -690,7 +690,7 @@ public class SavingEntity
                            .Match(a => a.ID == author.ID)
                            .ProjectExcluding(a => new { a.Age, a.Name })
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(author.FullName, res.FullName);
         Assert.AreEqual(author.Surname, res.Surname);
@@ -733,7 +733,7 @@ public class SavingEntity
         var res = (await DB.Find<AuthorEntity>()
                            .MatchExpression("{$and:[{$gt:['$Age2','$Age']},{$eq:['$Surname','" + guid + "']}]}")
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.Surname, guid);
     }
@@ -746,15 +746,15 @@ public class SavingEntity
         await author.SaveAsync();
 
         var template = new Template<AuthorEntity>("{$and:[{$gt:['$<Age2>','$<Age>']},{$eq:['$<Surname>','<guid>']}]}")
-                      .Path(a => a.Age2)
-                      .Path(a => a.Age)
-                      .Path(a => a.Surname)
-                      .Tag("guid", guid);
+                       .Path(a => a.Age2)
+                       .Path(a => a.Age)
+                       .Path(a => a.Surname)
+                       .Tag("guid", guid);
 
         var res = (await DB.Find<AuthorEntity>()
                            .MatchExpression(template)
                            .ExecuteAsync())
-           .Single();
+            .Single();
 
         Assert.AreEqual(res.Surname, guid);
     }
@@ -832,11 +832,11 @@ public class SavingEntity
                     .Where(b => b.Title == guid)
                     .GroupBy(b => b.Title)
                     .Select(
-                         g => new
-                         {
-                             Title = g.Key,
-                             Sum = g.Sum(b => b.Price)
-                         }).Single();
+                        g => new
+                        {
+                            Title = g.Key,
+                            Sum = g.Sum(b => b.Price)
+                        }).Single();
 
         Assert.AreEqual(book1.Price + book2.Price, res.Sum);
     }
@@ -873,7 +873,11 @@ public class SavingEntity
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var book = new BookEntity { Title = "ciuiar", Customer = customer.ToReference() };
+        var book = new BookEntity
+        {
+            Title = "ciuiar",
+            Customer = customer.ToReference()
+        };
         await book.SaveAsync();
 
         var res = await book.Customer.ToEntityAsync();

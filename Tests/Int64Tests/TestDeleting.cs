@@ -23,12 +23,12 @@ public class DeletingInt64
         await author2.DeleteAsync();
 
         var a1 = await author1.Queryable()
-                         .Where(a => a.ID == author1.ID)
-                         .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author1.ID)
+                              .SingleOrDefaultAsync();
 
         var a2 = await author2.Queryable()
-                          .Where(a => a.ID == author2.ID)
-                          .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author2.ID)
+                              .SingleOrDefaultAsync();
 
         Assert.AreEqual(null, a2);
         Assert.AreEqual(author1.Name, a1.Name);
@@ -61,11 +61,14 @@ public class DeletingInt64
     [TestMethod]
     public async Task deleteall_removes_Int64_and_refs_to_itselfAsync()
     {
-        var book = new BookInt64 { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorInt64 { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorInt64 { Name = "ewtrcd2" }; await author2.SaveAsync();
+        var book = new BookInt64 { Title = "Test" };
+        await book.SaveAsync();
+        var author1 = new AuthorInt64 { Name = "ewtrcd1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorInt64 { Name = "ewtrcd2" };
+        await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new[] { author1, author2 });
+        book.OtherAuthors = new[] { author1, author2 };
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -75,9 +78,11 @@ public class DeletingInt64
     [TestMethod]
     public async Task deleting_a_one2many_ref_Int64_makes_parent_nullAsync()
     {
-        var book = new BookInt64 { Title = "Test" }; await book.SaveAsync();
-        var author = new AuthorInt64 { Name = "ewtrcd1" }; await author.SaveAsync();
-        book.MainAuthor = author.ToReference();
+        var book = new BookInt64 { Title = "Test" };
+        await book.SaveAsync();
+        var author = new AuthorInt64 { Name = "ewtrcd1" };
+        await author.SaveAsync();
+        book.MainAuthor = new(author);
         await book.SaveAsync();
         await author.DeleteAsync();
         Assert.AreEqual(null, await book.MainAuthor.ToEntityAsync());
@@ -86,13 +91,15 @@ public class DeletingInt64
     [TestMethod]
     public async Task delete_by_expression_deletes_all_matchesAsync()
     {
-        var author1 = new AuthorInt64 { Name = "xxx" }; await author1.SaveAsync();
-        var author2 = new AuthorInt64 { Name = "xxx" }; await author2.SaveAsync();
+        var author1 = new AuthorInt64 { Name = "xxx" };
+        await author1.SaveAsync();
+        var author2 = new AuthorInt64 { Name = "xxx" };
+        await author2.SaveAsync();
 
         await DB.DeleteAsync<AuthorInt64>(x => x.Name == "xxx");
 
         var count = await DB.Queryable<AuthorInt64>()
-                      .CountAsync(a => a.Name == "xxx");
+                            .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
     }
@@ -103,15 +110,12 @@ public class DeletingInt64
         var IDs = new List<string>(100100);
 
         for (var i = 0; i < 100100; i++)
-        {
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
-        }
 
         await DB.DeleteAsync<Blank>(IDs);
     }
 
-    [TestCategory("SkipWhenLiveUnitTesting")]
-    [TestMethod]
+    [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
         //start with clean collection
@@ -119,9 +123,7 @@ public class DeletingInt64
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
-        {
             list.Add(new());
-        }
         await list.SaveAsync();
 
         Assert.AreEqual(100100, DB.Queryable<Blank>().Count());
@@ -149,7 +151,7 @@ public class DeletingInt64
         var IDs = new object[] { a1.ID, a2.ID, a3.ID };
 
         var res = await db.DeleteAsync<AuthorInt64>(IDs);
-        var notDeletedIDs = await DB.Find<AuthorInt64, Int64?>()
+        var notDeletedIDs = await DB.Find<AuthorInt64, long?>()
                                     .Match(a => IDs.Contains(a.ID))
                                     .Project(a => a.ID)
                                     .ExecuteAsync();

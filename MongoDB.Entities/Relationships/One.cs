@@ -11,14 +11,25 @@ namespace MongoDB.Entities;
 /// <summary>
 /// Represents a one-to-one relationship with an IEntity.
 /// </summary>
-/// <typeparam name="T">Any type that implements IEntity</typeparam>
-public class One<T> where T : IEntity
+/// <typeparam name="TEntity">Any type that implements IEntity</typeparam>
+public class One<TEntity> : One<TEntity, string> where TEntity : IEntity
+{
+    public One() { }
+    public One(TEntity entity) : base(entity) { }
+    public One(string id) : base(id) { }
+}
+
+/// <summary>
+/// Represents a one-to-one relationship with an IEntity.
+/// </summary>
+/// <typeparam name="TEntity">Any type that implements IEntity</typeparam>
+/// <typeparam name="TIdentity">The type of the <see cref="ID" /> property</typeparam>
+public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : notnull
 {
     /// <summary>
     /// The Id of the entity referenced by this instance.
     /// </summary>
-    [AsBsonId]
-    public object ID { get; set; } = null!;
+    public TIdentity ID { get; set; } = default!;
 
     public One() { }
 
@@ -26,27 +37,27 @@ public class One<T> where T : IEntity
     /// Initializes a reference to an entity in MongoDB.
     /// </summary>
     /// <param name="entity">The actual entity this reference represents.</param>
-    public One(T entity)
+    public One(TEntity entity)
     {
         entity.ThrowIfUnsaved();
-        ID = entity.GetId();
+        ID = (TIdentity)entity.GetId();
+    }
+
+    /// <summary>
+    /// Initializes a reference to an entity in MongoDB.
+    /// </summary>
+    /// <param name="id">the ID of the referenced entity</param>
+    public One(TIdentity id)
+    {
+        ID = id;
     }
 
     /// <summary>
     /// Operator for returning a new One&lt;T&gt; object from a object ID
     /// </summary>
     /// <param name="id">The ID to create a new One&lt;T&gt; with</param>
-    public static One<T> FromObject(object id)
+    public static One<TEntity, TIdentity> FromObject(TIdentity id)
         => new() { ID = id };
-
-    /// <summary>
-    /// Initializes a reference to an entity in MongoDB.
-    /// </summary>
-    /// <param name="id">the ID of the referenced entity</param>
-    public One(string id)
-    {
-        ID = id;
-    }
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
@@ -54,8 +65,8 @@ public class One<T> where T : IEntity
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
-    public Task<T> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => new Find<T>(session, null).OneAsync(TransformID(), cancellation)!;
+    public Task<TEntity> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        => new Find<TEntity>(session, null).OneAsync(TransformID(), cancellation)!;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
@@ -68,12 +79,14 @@ public class One<T> where T : IEntity
     /// entity matching the ID is found.
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T> ToEntityAsync(Expression<Func<T, T>> projection, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => (await new Find<T>(session, null)
-                 .Match(TransformID())
-                 .Project(projection)
-                 .ExecuteAsync(cancellation)
-                 .ConfigureAwait(false)).Single();
+    public async Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection,
+                                             IClientSessionHandle? session = null,
+                                             CancellationToken cancellation = default)
+        => (await new Find<TEntity>(session, null)
+                  .Match(TransformID())
+                  .Project(projection)
+                  .ExecuteAsync(cancellation)
+                  .ConfigureAwait(false)).Single();
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
@@ -86,13 +99,13 @@ public class One<T> where T : IEntity
     /// entity matching the ID is found.
     /// </exception>
     /// <returns>A Task containing the actual projected entity</returns>
-    public async Task<T> ToEntityAsync(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, T>> projection,
-                                       IClientSessionHandle? session = null,
-                                       CancellationToken cancellation = default)
-        => (await new Find<T>(session, null)
-                 .Match(TransformID())
-                 .Project(projection)
-                 .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();
+    public async Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection,
+                                             IClientSessionHandle? session = null,
+                                             CancellationToken cancellation = default)
+        => (await new Find<TEntity>(session, null)
+                  .Match(TransformID())
+                  .Project(projection)
+                  .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();
 
     object TransformID()
         => ID is string { Length: 24 } vStr && ObjectId.TryParse(vStr, out var oID) ? oID : ID;

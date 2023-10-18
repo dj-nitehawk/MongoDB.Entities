@@ -16,7 +16,7 @@ public class AuthorObjectId : Author
         => ObjectId.Empty == ID;
 
     [BsonIgnoreIfDefault]
-    public One<BookObjectId> BestSeller { get; set; }
+    public One<BookObjectId, ObjectId> BestSeller { get; set; }
 
     public Many<BookObjectId, AuthorObjectId> Books { get; set; }
 

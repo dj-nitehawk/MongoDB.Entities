@@ -8,7 +8,7 @@ namespace MongoDB.Entities.Tests;
 public class ReviewInt64 : Review
 {
     [BsonId]
-    public Int64 Id { get; set; }
+    public long Id { get; set; }
 
     public override object GenerateNewID()
         => Convert.ToInt64(DateTime.UtcNow.Ticks);

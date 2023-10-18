@@ -8,7 +8,7 @@ namespace MongoDB.Entities.Tests;
 public class BookInt64 : Book
 {
     [BsonId]
-    public Int64 ID { get; set; }
+    public long ID { get; set; }
 
     public override object GenerateNewID()
         => Convert.ToInt64(DateTime.UtcNow.Ticks);
@@ -19,7 +19,7 @@ public class BookInt64 : Book
     public ReviewInt64 Review { get; set; }
     public ReviewInt64[] ReviewArray { get; set; }
     public IList<ReviewInt64> ReviewList { get; set; }
-    public One<AuthorInt64> MainAuthor { get; set; }
+    public One<AuthorInt64, long> MainAuthor { get; set; }
 
     public AuthorInt64 RelatedAuthor { get; set; }
     public AuthorInt64[] OtherAuthors { get; set; }
