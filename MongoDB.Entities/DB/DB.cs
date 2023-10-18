@@ -47,9 +47,7 @@ public static partial class DB
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
     public static Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
-        => Initialize(
-            new() { Server = new(host, port) },
-            database);
+        => Initialize(new() { Server = new(host, port) }, database);
 
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
@@ -102,10 +100,7 @@ public static partial class DB
     /// </summary>
     /// <param name="settings">A MongoClientSettings object</param>
     public static async Task<IEnumerable<string>> AllDatabaseNamesAsync(MongoClientSettings settings)
-        => await (await
-                      new MongoClient(settings)
-                         .ListDatabaseNamesAsync().ConfigureAwait(false))
-                .ToListAsync().ConfigureAwait(false);
+        => await (await new MongoClient(settings).ListDatabaseNamesAsync().ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
 
     /// <summary>
     /// Specifies the database that a given entity type should be stored in.
@@ -135,8 +130,7 @@ public static partial class DB
         if (dbs.Count == 0)
         {
             return db ??
-                   throw new InvalidOperationException(
-                       $"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
+                   throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
         }
 
         if (string.IsNullOrEmpty(name))
@@ -167,9 +161,7 @@ public static partial class DB
             throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
         defaultDb = Database(name);
-
         TypeMap.Clear();
-
         DefaultDbChanged?.Invoke();
     }
 
