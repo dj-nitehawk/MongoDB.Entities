@@ -18,8 +18,7 @@ public abstract class Author : IEntity, IModifiedOn, ICreatedOn
     [Preserve]
     public int Age { get; set; }
 
-    [BsonIgnoreIfDefault]
-    [Preserve]
+    [BsonIgnoreIfDefault, Preserve]
     public int Age2 { get; set; }
 
     public DateTime ModifiedOn { get; set; }

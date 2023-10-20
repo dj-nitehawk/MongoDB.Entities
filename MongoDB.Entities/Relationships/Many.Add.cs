@@ -47,11 +47,12 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">The IDs of the child Entities to add.</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AddAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task AddAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         _parent.ThrowIfUnsaved();
 
         var models = new List<WriteModel<JoinRecord>>(childIDs.Count());
+
         foreach (var cid in childIDs)
         {
             cid.ThrowIfUnsaved();
@@ -60,17 +61,17 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
 
             var filter = Builders<JoinRecord>.Filter.Where(
                 j => j.ParentID == parentID &&
-                j.ChildID == childID);
+                     j.ChildID == childID);
 
             var update = Builders<JoinRecord>.Update
-                .Set(j => j.ParentID, parentID)
-                .Set(j => j.ChildID, childID);
+                                             .Set(j => j.ParentID, parentID)
+                                             .Set(j => j.ChildID, childID);
 
             models.Add(new UpdateOneModel<JoinRecord>(filter, update) { IsUpsert = true });
         }
 
         return session == null
-               ? JoinCollection.BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
-               : JoinCollection.BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
+                   ? JoinCollection.BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+                   : JoinCollection.BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
     }
 }

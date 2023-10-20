@@ -5,12 +5,12 @@ using System.Text.RegularExpressions;
 namespace MongoDB.Entities;
 
 /// <summary>
-/// This class provides methods to generate property path strings from lambda expression. 
+/// This class provides methods to generate property path strings from lambda expression.
 /// </summary>
 public static class Prop
 {
-    static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled);//matched result: One.Two[1].Three.get_Item(2).Four
-    static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);//replaced result: One.Two[1].Three[2].Four
+    static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled); //matched result: One.Two[1].Three.get_Item(2).Four
+    static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);              //replaced result: One.Two[1].Three[2].Four
     static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
     static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
@@ -21,6 +21,7 @@ public static class Prop
 
         string? val = null;
         const char c = 'a';
+
         while (n >= 0)
         {
             val = (char)(c + n % 26) + val;
@@ -31,7 +32,7 @@ public static class Prop
         return val!;
     }
 
-    static void ThrowIfInvalid<T>(Expression<Func<T, object>> expression)
+    static void ThrowIfInvalid<T>(Expression<Func<T, object?>> expression)
     {
         if (expression == null)
             throw new ArgumentNullException(nameof(expression), "The supplied expression is null!");
@@ -40,7 +41,7 @@ public static class Prop
             throw new ArgumentException("Cannot generate property path from lambda parameter!");
     }
 
-    static string GetPath<T>(Expression<Func<T, object>> expression)
+    static string GetPath<T>(Expression<Func<T, object?>> expression)
     {
         ThrowIfInvalid(expression);
 
@@ -71,9 +72,10 @@ public static class Prop
     /// <para>EX: Authors[0].Books[0].Title > Title</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string Property<T>(Expression<Func<T, object>> expression)
+    public static string Property<T>(Expression<Func<T, object?>> expression)
     {
         ThrowIfInvalid(expression);
+
         return expression.MemberInfo().Name;
     }
 
@@ -82,7 +84,7 @@ public static class Prop
     /// <para>EX: Authors[0].Books[0].Title > Authors.Books.Title</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string Path<T>(Expression<Func<T, object>> expression)
+    public static string Path<T>(Expression<Func<T, object?>> expression)
         => rxThree.Replace(GetPath(expression), "");
 
     /// <summary>
@@ -93,11 +95,11 @@ public static class Prop
     /// <para>TIP: Index positions start from [0] which is converted to $[a] and so on.</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosFiltered<T>(Expression<Func<T, object>> expression)
+    public static string PosFiltered<T>(Expression<Func<T, object?>> expression)
     {
         return rxFour.Replace(
-                        GetPath(expression),
-                        m => ".$[" + ToLowerCaseLetter(int.Parse(m.Groups[1].Value)) + "]");
+            GetPath(expression),
+            m => ".$[" + ToLowerCaseLetter(int.Parse(m.Groups[1].Value)) + "]");
     }
 
     /// <summary>
@@ -105,7 +107,7 @@ public static class Prop
     /// <para>EX: Authors[0].Name > Authors.$[].Name</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosAll<T>(Expression<Func<T, object>> expression)
+    public static string PosAll<T>(Expression<Func<T, object?>> expression)
         => rxThree.Replace(GetPath(expression), ".$[]");
 
     /// <summary>
@@ -113,7 +115,7 @@ public static class Prop
     /// <para>EX: Authors[0].Name > Authors.$.Name</para>
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
-    public static string PosFirst<T>(Expression<Func<T, object>> expression)
+    public static string PosFirst<T>(Expression<Func<T, object?>> expression)
         => rxThree.Replace(GetPath(expression), ".$");
 
     /// <summary>
@@ -121,7 +123,7 @@ public static class Prop
     /// <para>EX: b => b.Tags > Tags</para>
     /// </summary>
     /// <param name="expression">x => x.SomeProp</param>
-    public static string Elements<T>(Expression<Func<T, object>> expression)
+    public static string Elements<T>(Expression<Func<T, object?>> expression)
         => Path(expression);
 
     /// <summary>
@@ -132,6 +134,6 @@ public static class Prop
     /// </summary>
     /// <param name="index">0=a 1=b 2=c 3=d and so on...</param>
     /// <param name="expression">x => x.SomeProp</param>
-    public static string Elements<T>(int index, Expression<Func<T, object>> expression)
+    public static string Elements<T>(int index, Expression<Func<T, object?>> expression)
         => $"{ToLowerCaseLetter(index)}.{Path(expression)}";
 }

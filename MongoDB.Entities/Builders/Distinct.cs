@@ -34,6 +34,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> Property(string property)
     {
         field = property;
+
         return this;
     }
 
@@ -41,9 +42,10 @@ public class Distinct<T, TProperty> where T : IEntity
     /// Specify the property you want to get the unique values for (as a member expression)
     /// </summary>
     /// <param name="property">x => x.Address.Street</param>
-    public Distinct<T, TProperty> Property(Expression<Func<T, object>> property)
+    public Distinct<T, TProperty> Property(Expression<Func<T, object?>> property)
     {
         field = property.FullPath();
+
         return this;
     }
 
@@ -54,6 +56,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
         this.filter &= filter(Builders<T>.Filter);
+
         return this;
     }
 
@@ -73,6 +76,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> Match(Template template)
     {
         filter &= template.RenderToString();
+
         return this;
     }
 
@@ -88,6 +92,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType != Search.Fuzzy)
+        {
             return Match(
                 f => f.Text(
                     searchTerm,
@@ -97,6 +102,7 @@ public class Distinct<T, TProperty> where T : IEntity
                         DiacriticSensitive = diacriticSensitive,
                         Language = language
                     }));
+        }
 
         searchTerm = searchTerm.ToDoubleMetaphoneHash();
         caseSensitive = false;
@@ -123,7 +129,10 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Distinct<T, TProperty> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Distinct<T, TProperty> Match(Expression<Func<T, object?>> coordinatesProperty,
+                                        Coordinates2D nearCoordinates,
+                                        double? maxDistance = null,
+                                        double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -135,6 +144,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> MatchString(string jsonString)
     {
         filter &= jsonString;
+
         return this;
     }
 
@@ -145,6 +155,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> MatchExpression(string expression)
     {
         filter &= "{$expr:" + expression + "}";
+
         return this;
     }
 
@@ -155,6 +166,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> MatchExpression(Template template)
     {
         filter &= "{$expr:" + template.RenderToString() + "}";
+
         return this;
     }
 
@@ -165,6 +177,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> Option(Action<DistinctOptions> option)
     {
         option(options);
+
         return this;
     }
 
@@ -174,6 +187,7 @@ public class Distinct<T, TProperty> where T : IEntity
     public Distinct<T, TProperty> IgnoreGlobalFilters()
     {
         ignoreGlobalFilters = true;
+
         return this;
     }
 
@@ -189,8 +203,8 @@ public class Distinct<T, TProperty> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
         return session == null
-               ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)
-               : DB.Collection<T>().DistinctAsync(session, field, mergedFilter, options, cancellation);
+                   ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)
+                   : DB.Collection<T>().DistinctAsync(session, field, mergedFilter, options, cancellation);
     }
 
     /// <summary>

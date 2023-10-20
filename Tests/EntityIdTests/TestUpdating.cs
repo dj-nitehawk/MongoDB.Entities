@@ -14,16 +14,19 @@ public class UpdateEntity
     public async Task updating_modifies_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         await DB.Update<AuthorEntity>()
-          .Match(a => a.Surname == guid)
-          .Modify(a => a.Name, guid)
-          .Modify(a => a.Surname, author1.Name)
-          .Option(o => o.BypassDocumentValidation = true)
-          .ExecuteAsync();
+                .Match(a => a.Surname == guid)
+                .Modify(a => a.Name, guid)
+                .Modify(a => a.Surname, author1.Name)
+                .Option(o => o.BypassDocumentValidation = true)
+                .ExecuteAsync();
 
         var count = author1.Queryable().Where(a => a.Name == guid && a.Surname == author1.Name).Count();
         Assert.AreEqual(2, count);
@@ -39,16 +42,19 @@ public class UpdateEntity
     public async Task updating_returns_correct_result()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         var res = await DB.Update<AuthorEntity>()
-          .Match(a => a.Surname == guid)
-          .Modify(a => a.Name, guid)
-          .Modify(a => a.Surname, author1.Name)
-          .Option(o => o.BypassDocumentValidation = true)
-          .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(a => a.Name, guid)
+                          .Modify(a => a.Surname, author1.Name)
+                          .Option(o => o.BypassDocumentValidation = true)
+                          .ExecuteAsync();
 
         Assert.AreEqual(2, res.MatchedCount);
         Assert.AreEqual(2, res.ModifiedCount);
@@ -58,16 +64,19 @@ public class UpdateEntity
     public async Task update_by_def_builder_mods_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         await DB.Update<AuthorEntity>()
-          .Match(a => a.Surname == guid)
-          .Modify(b => b.Inc(a => a.Age, 10))
-          .Modify(b => b.Set(a => a.Name, guid))
-          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-          .ExecuteAsync();
+                .Match(a => a.Surname == guid)
+                .Modify(b => b.Inc(a => a.Age, 10))
+                .Modify(b => b.Set(a => a.Name, guid))
+                .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                .ExecuteAsync();
 
         var res = await DB.Find<AuthorEntity>().ManyAsync(a => a.Surname == guid && a.Age == 10);
 
@@ -88,9 +97,9 @@ public class UpdateEntity
         await book.SaveAsync();
 
         await DB.Update<BookEntity>()
-            .Match(b => b.Review.Rating == 10.10)
-            .Modify(b => b.Review.Rating, 22.22)
-            .ExecuteAsync();
+                .Match(b => b.Review.Rating == 10.10)
+                .Modify(b => b.Review.Rating, 22.22)
+                .ExecuteAsync();
 
         var res = await DB.Find<BookEntity>().OneAsync(book.ID);
 
@@ -100,13 +109,11 @@ public class UpdateEntity
     [TestMethod]
     public async Task bulk_update_modifies_correct_documents()
     {
-        var title = "bumcd " + Guid.NewGuid().ToString();
+        var title = "bumcd " + Guid.NewGuid();
         var books = new Collection<BookEntity>();
 
         for (var i = 1; i <= 5; i++)
-        {
             books.Add(new() { Title = title, Price = i });
-        }
         await books.SaveAsync();
 
         var bulk = DB.Update<BookEntity>();
@@ -121,7 +128,7 @@ public class UpdateEntity
         await bulk.ExecuteAsync();
 
         var res = await DB.Find<BookEntity>()
-                    .ManyAsync(b => b.Title == title);
+                          .ManyAsync(b => b.Title == title);
 
         Assert.AreEqual(5, res.Count);
         Assert.AreEqual(5, res.Count(b => b.Price == 100));
@@ -135,20 +142,22 @@ public class UpdateEntity
         var author = new AuthorEntity { Name = "uwput", Surname = guid, Age = 666 };
         await author.SaveAsync();
 
-        var pipeline = new Template<AuthorEntity>(@"
-            [
-              { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
-              { $unset: '<Age>'}
-            ]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .Path(a => a.Age);
+        var pipeline = new Template<AuthorEntity>(
+                           """
+                           [
+                             { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
+                             { $unset: '<Age>'}
+                           ]
+                           """)
+                       .Path(a => a.FullName)
+                       .Path(a => a.Name)
+                       .Path(a => a.Surname)
+                       .Path(a => a.Age);
 
         await DB.Update<AuthorEntity>()
-          .Match(a => a.ID == author.ID)
-          .WithPipeline(pipeline)
-          .ExecutePipelineAsync();
+                .Match(a => a.ID == author.ID)
+                .WithPipeline(pipeline)
+                .ExecutePipelineAsync();
 
         var res = await DB.Find<AuthorEntity>().OneAsync(author.ID);
 
@@ -165,15 +174,15 @@ public class UpdateEntity
         await author.SaveAsync();
 
         var stage = new Template<AuthorEntity>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .RenderToString();
+                    .Path(a => a.FullName)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname)
+                    .RenderToString();
 
         await DB.Update<AuthorEntity>()
-          .Match(a => a.ID == author.ID)
-          .WithPipelineStage(stage)
-          .ExecutePipelineAsync();
+                .Match(a => a.ID == author.ID)
+                .WithPipelineStage(stage)
+                .ExecutePipelineAsync();
 
         var fullname = (await DB.Find<AuthorEntity>().OneAsync(author.ID))?.FullName;
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
@@ -187,25 +196,27 @@ public class UpdateEntity
         var author = new AuthorEntity { Name = "uwtm", Surname = guid };
         await author.SaveAsync();
 
-        var filter = new Template(@"
-            { 
-                _id: ObjectId('<ID>') 
-            }")
+        var filter = new Template(
+                """
+                {
+                    _id: ObjectId('<ID>')
+                }
+                """)
             .Tag("ID", author.ID);
 
         var stage = new Template<AuthorEntity>("[{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname);
+                    .Path(a => a.FullName)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname);
 
         await DB.Update<AuthorEntity>()
-          .Match(filter)
-          .WithPipeline(stage)
-          .ExecutePipelineAsync();
+                .Match(filter)
+                .WithPipeline(stage)
+                .ExecutePipelineAsync();
 
         var fullname = (await DB.Find<AuthorEntity>()
-                         .OneAsync(author.ID))?
-                         .FullName;
+                                .OneAsync(author.ID))?
+            .FullName;
 
         Assert.AreEqual(author.Name + "-" + author.Surname, fullname);
     }
@@ -219,50 +230,52 @@ public class UpdateEntity
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
-        var filters = new Template<AuthorEntity>(@"
+        var filters = new Template<AuthorEntity>(
+                          @"
             [
                 { '<a.Age>': { $gte: <age> } },
                 { '<b.Name>': 'name' }
             ]")
-            .Elements(0, author => author.Age)
-            .Tag("age", "120")
-            .Elements(1, author => author.Name);
+                      .Elements(0, author => author.Age)
+                      .Tag("age", "120")
+                      .Elements(1, author => author.Name);
 
-        var update = new Template<BookEntity>(@"
+        var update = new Template<BookEntity>(
+                         @"
             { $set: { 
                 '<OtherAuthors.$[a].Age>': <age>,
                 '<OtherAuthors.$[b].Name>': '<value>'
               } 
             }")
-            .PosFiltered(b => b.OtherAuthors[0].Age)
-            .PosFiltered(b => b.OtherAuthors[1].Name)
-            .Tag("age", "321")
-            .Tag("value", "updated");
+                     .PosFiltered(b => b.OtherAuthors[0].Age)
+                     .PosFiltered(b => b.OtherAuthors[1].Name)
+                     .Tag("age", "321")
+                     .Tag("value", "updated");
 
         await DB.Update<BookEntity>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilters(filters)
-          .Modify(update)
-
-          .ExecuteAsync();
+                .Match(b => b.ID == book.ID)
+                .WithArrayFilters(filters)
+                .Modify(update)
+                .ExecuteAsync();
 
         var res = DB.Queryable<BookEntity>()
                     .Where(b => b.ID == book.ID)
@@ -282,45 +295,44 @@ public class UpdateEntity
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
         var arrFil = new Template<AuthorEntity>("{ '<a.Age>': { $gte: <age> } }")
-                            .Elements(0, author => author.Age)
-                            .Tag("age", "120");
+                     .Elements(0, author => author.Age)
+                     .Tag("age", "120");
 
         var prop1 = new Template<BookEntity>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
-                            .PosFiltered(b => b.OtherAuthors[0].Age)
-                            .Tag("age", "321")
-                            .RenderToString();
+                    .PosFiltered(b => b.OtherAuthors[0].Age)
+                    .Tag("age", "321")
+                    .RenderToString();
 
         var filt2 = Prop.Elements<AuthorEntity>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookEntity>(b => b.OtherAuthors[1].Name);
 
         await DB.Update<BookEntity>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilter(arrFil)
-          .Modify(prop1)
-
-          .WithArrayFilter("{'" + filt2 + "':'name'}")
-          .Modify("{$set:{'" + prop2 + "':'updated'}}")
-
-          .ExecuteAsync();
+                .Match(b => b.ID == book.ID)
+                .WithArrayFilter(arrFil)
+                .Modify(prop1)
+                .WithArrayFilter("{'" + filt2 + "':'name'}")
+                .Modify("{$set:{'" + prop2 + "':'updated'}}")
+                .ExecuteAsync();
 
         var res = DB.Queryable<BookEntity>()
                     .Where(b => b.ID == book.ID)
@@ -343,10 +355,10 @@ public class UpdateEntity
         var targetDate = DateTime.UtcNow.AddDays(100);
 
         await DB
-            .Update<BookEntity>()
-            .MatchID(book.ID)
-            .Modify(b => b.ModifiedOn, targetDate)
-            .ExecuteAsync();
+              .Update<BookEntity>()
+              .MatchID(book.ID)
+              .Modify(b => b.ModifiedOn, targetDate)
+              .ExecuteAsync();
 
         book = await DB.Find<BookEntity>().OneAsync(book.ID);
         Assert.AreEqual(targetDate.ToShortDateString(), book!.ModifiedOn.ToShortDateString());
@@ -369,9 +381,9 @@ public class UpdateEntity
         book.PublishedOn = null;
 
         await DB.Update<BookEntity>()
-            .MatchID(book.ID)
-            .ModifyOnly(x => new { x.Title, x.PublishedOn }, book)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .ModifyOnly(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
 
         var res = await DB.Find<BookEntity>().OneAsync(book.ID);
 
@@ -394,9 +406,9 @@ public class UpdateEntity
         flower.Name = "daisy";
 
         await DB.Update<FlowerEntity>()
-            .MatchID(flower.Id)
-            .ModifyWith(flower)
-            .ExecuteAsync();
+                .MatchID(flower.Id)
+                .ModifyWith(flower)
+                .ExecuteAsync();
 
         var res = await DB.Find<FlowerEntity>().OneAsync(flower.Id);
 
@@ -407,9 +419,10 @@ public class UpdateEntity
     [TestMethod]
     public async Task bulk_update_with_modifywith()
     {
-        var books = new[] {
-            new BookEntity{ Title ="one"},
-            new BookEntity{ Title ="two"},
+        var books = new[]
+        {
+            new BookEntity { Title = "one" },
+            new BookEntity { Title = "two" }
         };
 
         await books.SaveAsync();
@@ -417,10 +430,10 @@ public class UpdateEntity
         foreach (var book in books)
         {
             await DB
-                .Update<BookEntity>()
-                .MatchID(book.ID)
-                .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
-                .ExecuteAsync();
+                  .Update<BookEntity>()
+                  .MatchID(book.ID)
+                  .Modify(b => b.ModifiedOn, DateTime.UtcNow.AddDays(-100))
+                  .ExecuteAsync();
         }
 
         var bulkUpdate = DB.Update<BookEntity>();
@@ -439,8 +452,8 @@ public class UpdateEntity
         var bIDs = books.Select(b => b.ID).ToArray();
 
         var res = await DB.Find<BookEntity>()
-            .Match(b => bIDs.Contains(b.ID))
-            .ExecuteAsync();
+                          .Match(b => bIDs.Contains(b.ID))
+                          .ExecuteAsync();
 
         Assert.AreEqual("updated!", res[0].Title);
         Assert.AreEqual("updated!", res[1].Title);
@@ -464,9 +477,9 @@ public class UpdateEntity
         book.PublishedOn = null;
 
         await DB.Update<BookEntity>()
-            .MatchID(book.ID)
-            .ModifyExcept(x => new { x.Title, x.PublishedOn }, book)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .ModifyExcept(x => new { x.Title, x.PublishedOn }, book)
+                .ExecuteAsync();
 
         var res = await DB.Find<BookEntity>().OneAsync(book.ID);
 
@@ -482,9 +495,9 @@ public class UpdateEntity
         await book.SaveAsync();
 
         await DB.Update<BookEntity>()
-            .MatchID(book.ID)
-            .Modify(b => b.ModifiedOn, DateTime.MinValue)
-            .ExecuteAsync();
+                .MatchID(book.ID)
+                .Modify(b => b.ModifiedOn, DateTime.MinValue)
+                .ExecuteAsync();
 
         book.ModifiedOn = DateTime.MinValue;
         book.Title = "updated";
@@ -509,17 +522,18 @@ public class UpdateEntity
 
         var guid = Guid.NewGuid().ToString();
 
-        await new[] {
-            new AuthorEntity { Name = guid, Age = 111},
-            new AuthorEntity { Name = guid, Age = 200},
-            new AuthorEntity { Name = guid, Age = 111},
+        await new[]
+        {
+            new AuthorEntity { Name = guid, Age = 111 },
+            new AuthorEntity { Name = guid, Age = 200 },
+            new AuthorEntity { Name = guid, Age = 111 }
         }.SaveAsync();
 
         var res = await db
-            .Update<AuthorEntity>()
-            .Match(a => a.Name == guid)
-            .Modify(a => a.Surname, "surname")
-            .ExecuteAsync();
+                        .Update<AuthorEntity>()
+                        .Match(a => a.Name == guid)
+                        .Modify(a => a.Surname, "surname")
+                        .ExecuteAsync();
 
         Assert.AreEqual(2, res.ModifiedCount);
     }

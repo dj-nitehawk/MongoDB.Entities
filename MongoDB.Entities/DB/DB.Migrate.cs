@@ -18,9 +18,11 @@ public static partial class DB
 
     /// <summary>
     /// Executes migration classes that implement the IMigration interface in the correct order to transform the database.
-    /// <para>TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc. 
-    /// and implement IMigration interface on them. 
-    /// Call this method at the startup of the application in order to run the migrations.</para>
+    /// <para>
+    /// TIP: Write classes with names such as: _001_rename_a_field.cs, _002_delete_a_field.cs, etc.
+    /// and implement IMigration interface on them.
+    /// Call this method at the startup of the application in order to run the migrations.
+    /// </para>
     /// </summary>
     public static Task MigrateAsync()
         => Migrate(null);
@@ -51,33 +53,32 @@ public static partial class DB
             };
 
             assemblies = AppDomain.CurrentDomain
-                .GetAssemblies()
-                .Where(a =>
-                      (!a.IsDynamic && !excludes.Any(n => a.FullName.StartsWith(n))) ||
-                      a.FullName.StartsWith("MongoDB.Entities.Tests"));
+                                  .GetAssemblies()
+                                  .Where(
+                                      a =>
+                                          (!a.IsDynamic && !excludes.Any(n => a.FullName.StartsWith(n))) ||
+                                          a.FullName.StartsWith("MongoDB.Entities.Tests"));
         }
         else
-        {
             assemblies = new[] { targetType.Assembly };
-        }
 
         var types = assemblies
-            .SelectMany(a => a.GetTypes())
-            .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
+                    .SelectMany(a => a.GetTypes())
+                    .Where(t => t.GetInterfaces().Contains(typeof(IMigration)));
 
         return !types.Any()
-            ? throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.")
-            : Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
+                   ? throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.")
+                   : Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
     }
 
     static async Task Execute(IEnumerable<IMigration> migrations)
     {
         var lastMigNum = await
-            Find<Migration, int>()
-            .Sort(m => m.Number, Order.Descending)
-            .Project(m => m.Number)
-            .ExecuteFirstAsync()
-            .ConfigureAwait(false);
+                             Find<Migration, int>()
+                                 .Sort(m => m.Number, Order.Descending)
+                                 .Project(m => m.Number)
+                                 .ExecuteFirstAsync()
+                                 .ConfigureAwait(false);
 
         var dic = new SortedDictionary<int, (string name, IMigration migration)>();
 
@@ -89,7 +90,8 @@ public static partial class DB
                 throw new InvalidOperationException("Please use the correct naming format for migration classes!");
 
             if (!int.TryParse(nameParts[1], out var migNumber))
-                throw new InvalidOperationException("Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");
+                throw new InvalidOperationException(
+                    "Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");
 
             var name = string.Join(" ", nameParts.Skip(2));
 

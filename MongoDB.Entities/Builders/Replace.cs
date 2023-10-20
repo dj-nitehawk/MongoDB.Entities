@@ -63,6 +63,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
         this.filter &= filter(Builders<T>.Filter);
+
         return this;
     }
 
@@ -73,6 +74,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> Match(FilterDefinition<T> filterDefinition)
     {
         filter &= filterDefinition;
+
         return this;
     }
 
@@ -83,6 +85,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> Match(Template template)
     {
         filter &= template.RenderToString();
+
         return this;
     }
 
@@ -98,6 +101,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType != Search.Fuzzy)
+        {
             return Match(
                 f => f.Text(
                     searchTerm,
@@ -107,6 +111,7 @@ public class Replace<T> where T : IEntity
                         DiacriticSensitive = diacriticSensitive,
                         Language = language
                     }));
+        }
 
         searchTerm = searchTerm.ToDoubleMetaphoneHash();
         caseSensitive = false;
@@ -133,7 +138,7 @@ public class Replace<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Replace<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Replace<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -145,6 +150,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> MatchString(string jsonString)
     {
         filter &= jsonString;
+
         return this;
     }
 
@@ -155,6 +161,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> MatchExpression(string expression)
     {
         filter &= "{$expr:" + expression + "}";
+
         return this;
     }
 
@@ -165,6 +172,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> MatchExpression(Template template)
     {
         filter &= "{$expr:" + template.RenderToString() + "}";
+
         return this;
     }
 
@@ -193,6 +201,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> Option(Action<ReplaceOptions> option)
     {
         option(options);
+
         return this;
     }
 
@@ -202,6 +211,7 @@ public class Replace<T> where T : IEntity
     public Replace<T> IgnoreGlobalFilters()
     {
         ignoreGlobalFilters = true;
+
         return this;
     }
 
@@ -211,19 +221,25 @@ public class Replace<T> where T : IEntity
     public Replace<T> AddToQueue()
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+
+        if (mergedFilter == Builders<T>.Filter.Empty)
+            throw new ArgumentException("Please use Match() method first!");
+        if (Entity == null)
+            throw new ArgumentException("Please use WithEntity() method first!");
+
         SetModOnAndByValues();
 
-        models.Add(new(mergedFilter, Entity)
-        {
-            Collation = options.Collation,
-            Hint = options.Hint,
-            IsUpsert = options.IsUpsert
-        });
+        models.Add(
+            new(mergedFilter, Entity)
+            {
+                Collation = options.Collation,
+                Hint = options.Hint,
+                IsUpsert = options.IsUpsert
+            });
         filter = Builders<T>.Filter.Empty;
         Entity = default;
         options = new();
+
         return this;
     }
 
@@ -236,31 +252,37 @@ public class Replace<T> where T : IEntity
         if (models.Count > 0)
         {
             var bulkWriteResult = await (
-                session == null
-                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
-            ).ConfigureAwait(false);
+                                            session == null
+                                                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
+                                                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                                        ).ConfigureAwait(false);
 
             models.Clear();
 
             return !bulkWriteResult.IsAcknowledged
-                ? ReplaceOneResult.Unacknowledged.Instance
-                : new ReplaceOneResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
+                       ? ReplaceOneResult.Unacknowledged.Instance
+                       : new ReplaceOneResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
 
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (Entity == null) throw new ArgumentException("Please use WithEntity() method first!");
+
+        if (mergedFilter == Builders<T>.Filter.Empty)
+            throw new ArgumentException("Please use Match() method first!");
+        if (Entity == null)
+            throw new ArgumentException("Please use WithEntity() method first!");
+
         SetModOnAndByValues();
 
         return session == null
-            ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
-            : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
+                   ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
+                   : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
     }
 
     void SetModOnAndByValues()
     {
-        if (Cache<T>.HasModifiedOn && Entity != null) ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn && Entity != null)
+            ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
+
         if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
         {
             Cache<T>.ModifiedByProp.SetValue(

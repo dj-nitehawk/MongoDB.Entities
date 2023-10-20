@@ -12,14 +12,13 @@ public class ModifiedByUuid
     public async Task throw_if_mod_by_not_supplied()
     {
         var db = new DBContext();
-        await Assert.ThrowsExceptionAsync<InvalidOperationException>(
-            async () => await db.SaveAsync(new AuthorUuid()));
+        await Assert.ThrowsExceptionAsync<InvalidOperationException>(async () => await db.SaveAsync(new AuthorUuid()));
     }
 
     [TestMethod]
     public async Task base_mod_by_save()
     {
-        var userID = ObjectId.GenerateNewId().ToString();
+        var userID = ObjectId.GenerateNewId().ToString()!;
 
         var db = new DBContext(
             modifiedBy: new()
@@ -85,10 +84,10 @@ public class ModifiedByUuid
         book.Title = "TEST().BOOK";
 
         await db
-            .Replace<BookUuid>()
-            .MatchID(book.ID)
-            .WithEntity(book)
-            .ExecuteAsync();
+              .Replace<BookUuid>()
+              .MatchID(book.ID)
+              .WithEntity(book)
+              .ExecuteAsync();
 
         var res = await db.Find<BookUuid>().OneAsync(book.ID);
 
@@ -120,10 +119,10 @@ public class ModifiedByUuid
             UserType = "TEST-UPDATED"
         };
         await db
-            .Update<BookUuid>()
-            .MatchID(book.ID)
-            .Modify(b => b.Title, "TEST().BOOK")
-            .ExecuteAsync();
+              .Update<BookUuid>()
+              .MatchID(book.ID)
+              .Modify(b => b.Title, "TEST().BOOK")
+              .ExecuteAsync();
 
         var res = await db.Find<BookUuid>().OneAsync(book.ID);
 
@@ -158,10 +157,10 @@ public class ModifiedByUuid
         book.Title = "TEST().BOOK";
 
         await db
-            .Update<BookUuid>()
-            .MatchID(book.ID)
-            .ModifyOnly(x => new { x.Title }, book)
-            .ExecuteAsync();
+              .Update<BookUuid>()
+              .MatchID(book.ID)
+              .ModifyOnly(x => new { x.Title }, book)
+              .ExecuteAsync();
 
         var res = await db.Find<BookUuid>().OneAsync(book.ID);
 

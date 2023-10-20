@@ -13,10 +13,8 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
     {
-        if (date is null)
-        {
+        if (date == null)
             ctx.Writer.WriteNull();
-        }
         else
         {
             var dtUtc = BsonUtils.ToUniversalTime(date.DateTime);
@@ -38,6 +36,7 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
                 long ticks = 0;
 
                 ctx.Reader.ReadStartDocument();
+
                 while (ctx.Reader.ReadBsonType() != BsonType.EndOfDocument)
                 {
                     if (ctx.Reader.ReadName() == "Ticks")
@@ -51,6 +50,7 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
+
                 return null!;
 
             default:
@@ -64,12 +64,15 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
         {
             case "Ticks":
                 serializationInfo = new("Ticks", _longSerializer, typeof(long));
+
                 return true;
             case "DateTime":
                 serializationInfo = new("DateTime", _dtSerializer, typeof(DateTime));
+
                 return true;
             default:
                 serializationInfo = null!;
+
                 return false;
         }
     }
@@ -83,14 +86,24 @@ public class Date
     long _ticks;
     DateTime _date;
 
-    public long Ticks {
+    public long Ticks
+    {
         get => _ticks;
-        set { _date = new(value); _ticks = value; }
+        set
+        {
+            _date = new(value);
+            _ticks = value;
+        }
     }
 
-    public DateTime DateTime {
+    public DateTime DateTime
+    {
         get => _date;
-        set { _date = value; _ticks = value.Ticks; }
+        set
+        {
+            _date = value;
+            _ticks = value.Ticks;
+        }
     }
 
     public Date() { }

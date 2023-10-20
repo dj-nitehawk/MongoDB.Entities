@@ -22,7 +22,18 @@ public static partial class DB
     /// <param name="IndexKey"></param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates, Expression<Func<T, object>>? DistanceField, bool Spherical = true, double? MaxDistance = null, double? MinDistance = null, int? Limit = null, BsonDocument? Query = null, double? DistanceMultiplier = null, Expression<Func<T, object>>? IncludeLocations = null, string? IndexKey = null, AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
+    public static IAggregateFluent<T> FluentGeoNear<T>(Coordinates2D NearCoordinates,
+                                                       Expression<Func<T, object?>>? DistanceField,
+                                                       bool Spherical = true,
+                                                       double? MaxDistance = null,
+                                                       double? MinDistance = null,
+                                                       int? Limit = null,
+                                                       BsonDocument? Query = null,
+                                                       double? DistanceMultiplier = null,
+                                                       Expression<Func<T, object?>>? IncludeLocations = null,
+                                                       string? IndexKey = null,
+                                                       AggregateOptions? options = null,
+                                                       IClientSessionHandle? session = null) where T : IEntity
         => new GeoNear<T>
             {
                 near = NearCoordinates,
@@ -36,5 +47,5 @@ public static partial class DB
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey
             }
-           .ToFluent(options, session);
+            .ToFluent(options, session);
 }

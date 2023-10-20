@@ -11,17 +11,20 @@ public class UpdateAndGetUuid
     public async Task updating_modifies_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         var res = await DB.UpdateAndGet<AuthorUuid, string>()
-                    .Match(a => a.Surname == guid)
-                    .Modify(a => a.Name, guid)
-                    .Modify(a => a.Surname, author1.Name)
-                    .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
-                    .Project(a => a.Name)
-                    .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(a => a.Name, guid)
+                          .Modify(a => a.Surname, author1.Name)
+                          .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
+                          .Project(a => a.Name)
+                          .ExecuteAsync();
 
         Assert.AreEqual(guid, res);
     }
@@ -30,16 +33,19 @@ public class UpdateAndGetUuid
     public async Task update_by_def_builder_mods_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1", Age = 1 }; await author1.SaveAsync();
-        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid, Age = 1 }; await author2.SaveAsync();
-        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid, Age = 1 }; await author3.SaveAsync();
+        var author1 = new AuthorUuid { Name = "bumcda1", Surname = "surname1", Age = 1 };
+        await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "bumcda2", Surname = guid, Age = 1 };
+        await author2.SaveAsync();
+        var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid, Age = 1 };
+        await author3.SaveAsync();
 
         var res = await DB.UpdateAndGet<AuthorUuid>()
-                      .Match(a => a.Surname == guid)
-                      .Modify(b => b.Inc(a => a.Age, 1))
-                      .Modify(b => b.Set(a => a.Name, guid))
-                      .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-                      .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(b => b.Inc(a => a.Age, 1))
+                          .Modify(b => b.Set(a => a.Name, guid))
+                          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                          .ExecuteAsync();
 
         Assert.AreEqual(2, res!.Age);
     }
@@ -52,20 +58,21 @@ public class UpdateAndGetUuid
         var author = new AuthorUuid { Name = "uwput", Surname = guid, Age = 666 };
         await author.SaveAsync();
 
-        var pipeline = new Template<AuthorUuid>(@"
+        var pipeline = new Template<AuthorUuid>(
+                           @"
             [
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .Path(a => a.Age);
+                       .Path(a => a.FullName!)
+                       .Path(a => a.Name)
+                       .Path(a => a.Surname)
+                       .Path(a => a.Age);
 
         var res = await DB.UpdateAndGet<AuthorUuid>()
-                      .Match(a => a.ID == author.ID)
-                      .WithPipeline(pipeline)
-                      .ExecutePipelineAsync();
+                          .Match(a => a.ID == author.ID)
+                          .WithPipeline(pipeline)
+                          .ExecutePipelineAsync();
 
         Assert.AreEqual(author.Name + " " + author.Surname, res!.FullName);
     }
@@ -79,15 +86,15 @@ public class UpdateAndGetUuid
         await author.SaveAsync();
 
         var stage = new Template<AuthorUuid>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .RenderToString();
+                    .Path(a => a.FullName!)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname)
+                    .RenderToString();
 
         var res = await DB.UpdateAndGet<AuthorUuid>()
-                      .Match(a => a.ID == author.ID)
-                      .WithPipelineStage(stage)
-                      .ExecutePipelineAsync();
+                          .Match(a => a.ID == author.ID)
+                          .WithPipelineStage(stage)
+                          .ExecutePipelineAsync();
 
         Assert.AreEqual(author.Name + "-" + author.Surname, res!.FullName);
     }
@@ -101,50 +108,52 @@ public class UpdateAndGetUuid
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
-        var filters = new Template<AuthorUuid>(@"
+        var filters = new Template<AuthorUuid>(
+                          @"
             [
                 { '<a.Age>': { $gte: <age> } },
                 { '<b.Name>': 'name' }
             ]")
-            .Elements(0, author => author.Age)
-            .Tag("age", "120")
-            .Elements(1, author => author.Name);
+                      .Elements(0, author => author.Age)
+                      .Tag("age", "120")
+                      .Elements(1, author => author.Name);
 
-        var update = new Template<BookUuid>(@"
+        var update = new Template<BookUuid>(
+                         @"
             { $set: { 
                 '<OtherAuthors.$[a].Age>': <age>,
                 '<OtherAuthors.$[b].Name>': '<value>'
               } 
             }")
-            .PosFiltered(b => b.OtherAuthors[0].Age)
-            .PosFiltered(b => b.OtherAuthors[1].Name)
-            .Tag("age", "321")
-            .Tag("value", "updated");
+                     .PosFiltered(b => b.OtherAuthors[0].Age)
+                     .PosFiltered(b => b.OtherAuthors[1].Name)
+                     .Tag("age", "321")
+                     .Tag("value", "updated");
 
         var res = await DB.UpdateAndGet<BookUuid>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilters(filters)
-          .Modify(update)
-
-          .ExecuteAsync();
+                          .Match(b => b.ID == book.ID)
+                          .WithArrayFilters(filters)
+                          .Modify(update)
+                          .ExecuteAsync();
 
         Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
@@ -158,45 +167,44 @@ public class UpdateAndGetUuid
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorUuid{
-                    Name ="name",
+                new AuthorUuid
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
         var arrFil = new Template<AuthorUuid>("{ '<a.Age>': { $gte: <age> } }")
-                            .Elements(0, author => author.Age)
-                            .Tag("age", "120");
+                     .Elements(0, author => author.Age)
+                     .Tag("age", "120");
 
         var prop1 = new Template<BookUuid>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
-                            .PosFiltered(b => b.OtherAuthors[0].Age)
-                            .Tag("age", "321")
-                            .RenderToString();
+                    .PosFiltered(b => b.OtherAuthors[0].Age)
+                    .Tag("age", "321")
+                    .RenderToString();
 
         var filt2 = Prop.Elements<AuthorUuid>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookUuid>(b => b.OtherAuthors[1].Name);
 
         var res = await DB.UpdateAndGet<BookUuid>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilter(arrFil)
-          .Modify(prop1)
-
-          .WithArrayFilter("{'" + filt2 + "':'name'}")
-          .Modify("{$set:{'" + prop2 + "':'updated'}}")
-
-          .ExecuteAsync();
+                          .Match(b => b.ID == book.ID)
+                          .WithArrayFilter(arrFil)
+                          .Modify(prop1)
+                          .WithArrayFilter("{'" + filt2 + "':'name'}")
+                          .Modify("{$set:{'" + prop2 + "':'updated'}}")
+                          .ExecuteAsync();
 
         Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
@@ -208,10 +216,9 @@ public class UpdateAndGetUuid
 
         var lastNum = await book.NextSequentialNumberAsync();
 
-        var bookNum = 0ul;
-        Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumberAsync().GetAwaiter().GetResult());
+        Parallel.For(1, 11, _ => book.NextSequentialNumberAsync().GetAwaiter().GetResult());
 
-        Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
+        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
 
     [TestMethod]
@@ -223,8 +230,7 @@ public class UpdateAndGetUuid
 
         var lastNum = await book.NextSequentialNumberAsync();
 
-        var bookNum = 0ul;
-        Parallel.For(1, 11, _ => bookNum = book.NextSequentialNumberAsync().GetAwaiter().GetResult());
+        Parallel.For(1, 11, _ => book.NextSequentialNumberAsync().GetAwaiter().GetResult());
 
         Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
@@ -239,10 +245,10 @@ public class UpdateAndGetUuid
         Assert.AreEqual("God", flower.CreatedBy);
 
         var res = await db
-            .UpdateAndGet<FlowerUuid>()
-            .MatchID(flower.Id)
-            .ModifyWith(flower)
-            .ExecuteAsync();
+                        .UpdateAndGet<FlowerUuid>()
+                        .MatchID(flower.Id)
+                        .ModifyWith(flower)
+                        .ExecuteAsync();
 
         Assert.AreEqual("Human", res!.UpdatedBy);
     }

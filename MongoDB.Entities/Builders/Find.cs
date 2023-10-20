@@ -52,6 +52,7 @@ public class Find<T, TProjection> where T : IEntity
     public Task<TProjection?> OneAsync(object ID, CancellationToken cancellation = default)
     {
         Match(ID);
+
         return ExecuteSingleAsync(cancellation);
     }
 
@@ -64,6 +65,7 @@ public class Find<T, TProjection> where T : IEntity
     public Task<List<TProjection>> ManyAsync(Expression<Func<T, bool>> expression, CancellationToken cancellation = default)
     {
         Match(expression);
+
         return ExecuteAsync(cancellation);
     }
 
@@ -76,6 +78,7 @@ public class Find<T, TProjection> where T : IEntity
     public Task<List<TProjection>> ManyAsync(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default)
     {
         Match(filter);
+
         return ExecuteAsync(cancellation);
     }
 
@@ -113,6 +116,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
         this.filter &= filter(Builders<T>.Filter);
+
         return this;
     }
 
@@ -123,6 +127,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Match(FilterDefinition<T> filterDefinition)
     {
         filter &= filterDefinition;
+
         return this;
     }
 
@@ -133,6 +138,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Match(Template template)
     {
         filter &= template.RenderToString();
+
         return this;
     }
 
@@ -148,6 +154,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType != Search.Fuzzy)
+        {
             return Match(
                 f => f.Text(
                     searchTerm,
@@ -157,6 +164,7 @@ public class Find<T, TProjection> where T : IEntity
                         DiacriticSensitive = diacriticSensitive,
                         Language = language
                     }));
+        }
 
         searchTerm = searchTerm.ToDoubleMetaphoneHash();
         caseSensitive = false;
@@ -183,7 +191,10 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Find<T, TProjection> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Find<T, TProjection> Match(Expression<Func<T, object?>> coordinatesProperty,
+                                      Coordinates2D nearCoordinates,
+                                      double? maxDistance = null,
+                                      double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -195,6 +206,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> MatchString(string jsonString)
     {
         filter &= jsonString;
+
         return this;
     }
 
@@ -205,6 +217,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> MatchExpression(string expression)
     {
         filter &= "{$expr:" + expression + "}";
+
         return this;
     }
 
@@ -215,6 +228,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> MatchExpression(Template template)
     {
         filter &= "{$expr:" + template.RenderToString() + "}";
+
         return this;
     }
 
@@ -223,7 +237,7 @@ public class Find<T, TProjection> where T : IEntity
     /// </summary>
     /// <param name="propertyToSortBy">x => x.Prop</param>
     /// <param name="sortOrder">The sort order</param>
-    public Find<T, TProjection> Sort(Expression<Func<T, object>> propertyToSortBy, Order sortOrder)
+    public Find<T, TProjection> Sort(Expression<Func<T, object?>> propertyToSortBy, Order sortOrder)
     {
         return sortOrder switch
         {
@@ -245,16 +259,18 @@ public class Find<T, TProjection> where T : IEntity
     /// <para>TIP: Use this method after .Project() if you need to do a projection also</para>
     /// </summary>
     /// <param name="scoreProperty">x => x.TextScoreProp</param>
-    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object>>? scoreProperty)
+    public Find<T, TProjection> SortByTextScore(Expression<Func<T, object?>>? scoreProperty)
     {
         switch (scoreProperty)
         {
             case null:
                 AddTxtScoreToProjection("_Text_Match_Score_");
+
                 return Sort(s => s.MetaTextScore("_Text_Match_Score_"));
 
             default:
                 AddTxtScoreToProjection(Prop.Path(scoreProperty));
+
                 return Sort(s => s.MetaTextScore(Prop.Path(scoreProperty)));
         }
     }
@@ -267,6 +283,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
     {
         sorts.Add(sortFunction(Builders<T>.Sort));
+
         return this;
     }
 
@@ -277,6 +294,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Skip(int skipCount)
     {
         options.Skip = skipCount;
+
         return this;
     }
 
@@ -287,6 +305,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Limit(int takeCount)
     {
         options.Limit = takeCount;
+
         return this;
     }
 
@@ -306,6 +325,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     {
         options.Projection = projection(Builders<T>.Projection)!;
+
         return this;
     }
 
@@ -315,8 +335,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="exclusion">x => new { x.PropToExclude, x.AnotherPropToExclude }</param>
     public Find<T, TProjection> ProjectExcluding(Expression<Func<T, object>> exclusion)
     {
-        var props = (exclusion.Body as NewExpression)?.Arguments
-            .Select(a => a.ToString().Split('.')[1]);
+        var props = (exclusion.Body as NewExpression)?.Arguments.Select(a => a.ToString().Split('.')[1]);
 
         if (props?.Any() != true)
             throw new ArgumentException("Unable to get any properties from the exclusion expression!");
@@ -339,6 +358,7 @@ public class Find<T, TProjection> where T : IEntity
             throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
         options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
+
         return this;
     }
 
@@ -349,6 +369,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> Option(Action<FindOptions<T, TProjection>> option)
     {
         option(options);
+
         return this;
     }
 
@@ -358,6 +379,7 @@ public class Find<T, TProjection> where T : IEntity
     public Find<T, TProjection> IgnoreGlobalFilters()
     {
         ignoreGlobalFilters = true;
+
         return this;
     }
 
@@ -386,6 +408,7 @@ public class Find<T, TProjection> where T : IEntity
         Limit(2);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+
         return cursor.Current.SingleOrDefault();
     }
 
@@ -398,6 +421,7 @@ public class Find<T, TProjection> where T : IEntity
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+
         return cursor.Current.SingleOrDefault(); //because we're limiting to 1
     }
 
@@ -411,6 +435,7 @@ public class Find<T, TProjection> where T : IEntity
         Limit(1);
         using var cursor = await ExecuteCursorAsync(cancellation).ConfigureAwait(false);
         await cursor.MoveNextAsync(cancellation).ConfigureAwait(false);
+
         return cursor.Current.Any();
     }
 
@@ -426,8 +451,8 @@ public class Find<T, TProjection> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
 
         return session == null
-               ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)
-               : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
+                   ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)
+                   : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
     }
 
     void AddTxtScoreToProjection(string propName)
@@ -436,8 +461,8 @@ public class Find<T, TProjection> where T : IEntity
 
         options.Projection =
             options.Projection
-            .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
-            .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
+                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
+                   .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
     }
 }
 

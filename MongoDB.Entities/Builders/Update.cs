@@ -104,6 +104,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
         this.filter &= filter(Builders<T>.Filter);
+
         return this;
     }
 
@@ -114,6 +115,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Match(FilterDefinition<T> filterDefinition)
     {
         filter &= filterDefinition;
+
         return this;
     }
 
@@ -124,6 +126,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Match(Template template)
     {
         filter &= template.RenderToString();
+
         return this;
     }
 
@@ -139,6 +142,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
     {
         if (searchType != Search.Fuzzy)
+        {
             return Match(
                 f => f.Text(
                     searchTerm,
@@ -148,6 +152,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                         DiacriticSensitive = diacriticSensitive,
                         Language = language
                     }));
+        }
 
         searchTerm = searchTerm.ToDoubleMetaphoneHash();
         caseSensitive = false;
@@ -174,7 +179,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Update<T> Match(Expression<Func<T, object>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Update<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -186,6 +191,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> MatchString(string jsonString)
     {
         filter &= jsonString;
+
         return this;
     }
 
@@ -196,6 +202,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> MatchExpression(string expression)
     {
         filter &= "{$expr:" + expression + "}";
+
         return this;
     }
 
@@ -206,6 +213,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> MatchExpression(Template template)
     {
         filter &= "{$expr:" + template.RenderToString() + "}";
+
         return this;
     }
 
@@ -217,6 +225,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Modify<TProp>(Expression<Func<T, TProp>> property, TProp value)
     {
         AddModification(property, value);
+
         return this;
     }
 
@@ -228,6 +237,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Modify(Func<UpdateDefinitionBuilder<T>, UpdateDefinition<T>> operation)
     {
         AddModification(operation);
+
         return this;
     }
 
@@ -238,6 +248,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Modify(string update)
     {
         AddModification(update);
+
         return this;
     }
 
@@ -248,6 +259,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Modify(Template template)
     {
         AddModification(template.RenderToString());
+
         return this;
     }
 
@@ -257,8 +269,10 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="entity">The entity instance to read the property values from</param>
     public Update<T> ModifyWith(T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn)
+            ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         Defs.AddRange(Logic.BuildUpdateDefs(entity));
+
         return this;
     }
 
@@ -267,10 +281,12 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">A new expression with the properties to include. Ex: <c>x => new { x.PropOne, x.PropTwo }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyOnly(Expression<Func<T, object>> members, T entity)
+    public Update<T> ModifyOnly(Expression<Func<T, object?>> members, T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn)
+            ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         Defs.AddRange(Logic.BuildUpdateDefs(entity, members));
+
         return this;
     }
 
@@ -279,10 +295,12 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     /// <param name="members">Supply a new expression with the properties to exclude. Ex: <c>x => new { x.Prop1, x.Prop2 }</c></param>
     /// <param name="entity">The entity instance to read the corresponding values from</param>
-    public Update<T> ModifyExcept(Expression<Func<T, object>> members, T entity)
+    public Update<T> ModifyExcept(Expression<Func<T, object?>> members, T entity)
     {
-        if (Cache<T>.HasModifiedOn) ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
+        if (Cache<T>.HasModifiedOn)
+            ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
         Defs.AddRange(Logic.BuildUpdateDefs(entity, members, excludeMode: true));
+
         return this;
     }
 
@@ -294,9 +312,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> WithPipeline(Template template)
     {
         foreach (var stage in template.ToStages())
-        {
             stages.Add(stage);
-        }
 
         return this;
     }
@@ -309,6 +325,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> WithPipelineStage(string stage)
     {
         stages.Add(stage);
+
         return this;
     }
 
@@ -330,8 +347,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         options.ArrayFilters =
             options.ArrayFilters == null
-            ? new[] { def }
-            : options.ArrayFilters.Concat(new[] { def });
+                ? new[] { def }
+                : options.ArrayFilters.Concat(new[] { def });
 
         return this;
     }
@@ -343,6 +360,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> WithArrayFilter(Template template)
     {
         WithArrayFilter(template.RenderToString());
+
         return this;
     }
 
@@ -356,8 +374,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         options.ArrayFilters =
             options.ArrayFilters == null
-            ? defs
-            : options.ArrayFilters.Concat(defs);
+                ? defs
+                : options.ArrayFilters.Concat(defs);
 
         return this;
     }
@@ -370,6 +388,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> Option(Action<UpdateOptions> option)
     {
         option(options);
+
         return this;
     }
 
@@ -379,6 +398,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> IgnoreGlobalFilters()
     {
         ignoreGlobalFilters = true;
+
         return this;
     }
 
@@ -388,20 +408,27 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> AddToQueue()
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (Defs.Count == 0) throw new ArgumentException("Please use Modify() method first!");
-        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+
+        if (mergedFilter == Builders<T>.Filter.Empty)
+            throw new ArgumentException("Please use Match() method first!");
+        if (Defs.Count == 0)
+            throw new ArgumentException("Please use Modify() method first!");
+
+        if (ShouldSetModDate())
+            Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
         onUpdateAction?.Invoke(this);
-        models.Add(new(mergedFilter, Builders<T>.Update.Combine(Defs))
-        {
-            ArrayFilters = options.ArrayFilters,
-            Collation = options.Collation,
-            Hint = options.Hint,
-            IsUpsert = options.IsUpsert
-        });
+        models.Add(
+            new(mergedFilter, Builders<T>.Update.Combine(Defs))
+            {
+                ArrayFilters = options.ArrayFilters,
+                Collation = options.Collation,
+                Hint = options.Hint,
+                IsUpsert = options.IsUpsert
+            });
         filter = Builders<T>.Filter.Empty;
         Defs.Clear();
         options = new();
+
         return this;
     }
 
@@ -414,24 +441,31 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         if (models.Count > 0)
         {
             var bulkWriteResult = await (
-                session == null
-                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
-                ).ConfigureAwait(false);
+                                            session == null
+                                                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
+                                                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                                        ).ConfigureAwait(false);
 
             models.Clear();
 
             return !bulkWriteResult.IsAcknowledged
-                ? UpdateResult.Unacknowledged.Instance
-                : new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
+                       ? UpdateResult.Unacknowledged.Instance
+                       : new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
 
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (Defs.Count == 0) throw new ArgumentException("Please use a Modify() method first!");
-        if (stages.Count > 0) throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
-        if (ShouldSetModDate()) Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
+
+        if (mergedFilter == Builders<T>.Filter.Empty)
+            throw new ArgumentException("Please use Match() method first!");
+        if (Defs.Count == 0)
+            throw new ArgumentException("Please use a Modify() method first!");
+        if (stages.Count > 0)
+            throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
+
+        if (ShouldSetModDate())
+            Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
         onUpdateAction?.Invoke(this);
+
         return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(Defs), options, session, cancellation).ConfigureAwait(false);
     }
 
@@ -442,10 +476,16 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
         var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
-        if (mergedFilter == Builders<T>.Filter.Empty) throw new ArgumentException("Please use Match() method first!");
-        if (stages.Count == 0) throw new ArgumentException("Please use WithPipelineStage() method first!");
-        if (Defs.Count > 0) throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
-        if (ShouldSetModDate()) WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
+
+        if (mergedFilter == Builders<T>.Filter.Empty)
+            throw new ArgumentException("Please use Match() method first!");
+        if (stages.Count == 0)
+            throw new ArgumentException("Please use WithPipelineStage() method first!");
+        if (Defs.Count > 0)
+            throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
+
+        if (ShouldSetModDate())
+            WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
         return UpdateAsync(
             mergedFilter,
@@ -461,13 +501,18 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         return
             Cache<T>.HasModifiedOn &&
-            !Defs.Any(d => d
-                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
-                   .ToString()
-                   .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
+            !Defs.Any(
+                d => d
+                     .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
+                     .ToString()
+                     .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> definition, UpdateOptions options, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter,
+                                          UpdateDefinition<T> definition,
+                                          UpdateOptions options,
+                                          IClientSessionHandle? session = null,
+                                          CancellationToken cancellation = default)
         => session == null
                ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
                : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);

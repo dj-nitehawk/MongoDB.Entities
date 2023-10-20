@@ -16,14 +16,10 @@ class Levenshtein
         value = value.ToLower();
 
         if (costs.Length == 0)
-        {
             return value.Length;
-        }
 
         for (var i = 0; i < costs.Length;)
-        {
             costs[i] = ++i;
-        }
 
         for (var i = 0; i < value.Length; i++)
         {
@@ -43,14 +39,10 @@ class Levenshtein
                 if (value1Char != storedValue[j])
                 {
                     if (insertionCost < cost)
-                    {
                         cost = insertionCost;
-                    }
 
                     if (addationCost < cost)
-                    {
                         cost = addationCost;
-                    }
 
                     ++cost;
                 }

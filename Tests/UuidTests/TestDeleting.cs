@@ -22,12 +22,12 @@ public class DeletingUuid
         await author2.DeleteAsync();
 
         var a1 = await author1.Queryable()
-                         .Where(a => a.ID == author1.ID)
-                         .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author1.ID)
+                              .SingleOrDefaultAsync();
 
         var a2 = await author2.Queryable()
-                          .Where(a => a.ID == author2.ID)
-                          .SingleOrDefaultAsync();
+                              .Where(a => a.ID == author2.ID)
+                              .SingleOrDefaultAsync();
 
         Assert.AreEqual(null, a2);
         Assert.AreEqual(author1.Name, a1.Name);
@@ -60,11 +60,14 @@ public class DeletingUuid
     [TestMethod]
     public async Task deleteall_removes_Guid_and_refs_to_itselfAsync()
     {
-        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
-        var author1 = new AuthorUuid { Name = "ewtrcd1" }; await author1.SaveAsync();
-        var author2 = new AuthorUuid { Name = "ewtrcd2" }; await author2.SaveAsync();
+        var book = new BookUuid { Title = "Test" };
+        await book.SaveAsync();
+        var author1 = new AuthorUuid { Name = "ewtrcd1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "ewtrcd2" };
+        await author2.SaveAsync();
         await book.GoodAuthors.AddAsync(author1);
-        book.OtherAuthors = (new[] { author1, author2 });
+        book.OtherAuthors = new[] { author1, author2 };
         await book.SaveAsync();
         await book.OtherAuthors.DeleteAllAsync();
         Assert.AreEqual(0, await book.GoodAuthors.ChildrenQueryable().CountAsync());
@@ -74,8 +77,10 @@ public class DeletingUuid
     [TestMethod]
     public async Task deleting_a_one2many_ref_Guid_makes_parent_nullAsync()
     {
-        var book = new BookUuid { Title = "Test" }; await book.SaveAsync();
-        var author = new AuthorUuid { Name = "ewtrcd1" }; await author.SaveAsync();
+        var book = new BookUuid { Title = "Test" };
+        await book.SaveAsync();
+        var author = new AuthorUuid { Name = "ewtrcd1" };
+        await author.SaveAsync();
         book.MainAuthor = author.ToReference();
         await book.SaveAsync();
         await author.DeleteAsync();
@@ -85,13 +90,15 @@ public class DeletingUuid
     [TestMethod]
     public async Task delete_by_expression_deletes_all_matchesAsync()
     {
-        var author1 = new AuthorUuid { Name = "xxx" }; await author1.SaveAsync();
-        var author2 = new AuthorUuid { Name = "xxx" }; await author2.SaveAsync();
+        var author1 = new AuthorUuid { Name = "xxx" };
+        await author1.SaveAsync();
+        var author2 = new AuthorUuid { Name = "xxx" };
+        await author2.SaveAsync();
 
         await DB.DeleteAsync<AuthorUuid>(x => x.Name == "xxx");
 
         var count = await DB.Queryable<AuthorUuid>()
-                      .CountAsync(a => a.Name == "xxx");
+                            .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
     }
@@ -102,15 +109,12 @@ public class DeletingUuid
         var IDs = new List<string>(100100);
 
         for (var i = 0; i < 100100; i++)
-        {
             IDs.Add(ObjectId.GenerateNewId().ToString());
-        }
 
         await DB.DeleteAsync<Blank>(IDs);
     }
 
-    [TestCategory("SkipWhenLiveUnitTesting")]
-    [TestMethod]
+    [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
         //start with clean collection
@@ -118,9 +122,7 @@ public class DeletingUuid
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
-        {
             list.Add(new());
-        }
         await list.SaveAsync();
 
         Assert.AreEqual(100100, DB.Queryable<Blank>().Count());

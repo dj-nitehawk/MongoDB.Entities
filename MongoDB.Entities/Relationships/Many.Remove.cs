@@ -43,20 +43,19 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="childIDs">The IDs of the child Entities to remove the references of</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task RemoveAsync(IEnumerable<object> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task RemoveAsync(IEnumerable<object?> childIDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         var filter =
             _isInverse
-            ? Builders<JoinRecord>.Filter.And(
-                Builders<JoinRecord>.Filter.Eq(j => j.ChildID, _parent.GetId()),
-                Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
-
-            : Builders<JoinRecord>.Filter.And(
-                Builders<JoinRecord>.Filter.Eq(j => j.ParentID, _parent.GetId()),
-                Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
+                ? Builders<JoinRecord>.Filter.And(
+                    Builders<JoinRecord>.Filter.Eq(j => j.ChildID, _parent.GetId()),
+                    Builders<JoinRecord>.Filter.In(j => j.ParentID, childIDs))
+                : Builders<JoinRecord>.Filter.And(
+                    Builders<JoinRecord>.Filter.Eq(j => j.ParentID, _parent.GetId()),
+                    Builders<JoinRecord>.Filter.In(j => j.ChildID, childIDs));
 
         return session == null
-               ? JoinCollection.DeleteManyAsync(filter, null, cancellation)
-               : JoinCollection.DeleteManyAsync(session, filter, null, cancellation);
+                   ? JoinCollection.DeleteManyAsync(filter, null, cancellation)
+                   : JoinCollection.DeleteManyAsync(session, filter, null, cancellation);
     }
 }

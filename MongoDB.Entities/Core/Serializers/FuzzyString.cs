@@ -13,9 +13,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
     {
         if (string.IsNullOrWhiteSpace(fString?.Value))
-        {
             ctx.Writer.WriteNull();
-        }
         else
         {
             if (fString.Value.Length > FuzzyString.CharacterLimit)
@@ -39,6 +37,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
                 string? value = null;
 
                 ctx.Reader.ReadStartDocument();
+
                 while (ctx.Reader.ReadBsonType() != BsonType.EndOfDocument)
                 {
                     if (ctx.Reader.ReadName() == "Value")
@@ -55,6 +54,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
 
             case BsonType.Null:
                 ctx.Reader.ReadNull();
+
                 return null;
 
             default:
@@ -68,9 +68,11 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
         {
             case "Value":
                 serializationInfo = new("Value", strSerializer, typeof(string));
+
                 return true;
             default:
                 serializationInfo = null!;
+
                 return false;
         }
     }
@@ -78,10 +80,12 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
 
 /// <summary>
 /// Use this type to store strings if you need fuzzy text searching with MongoDB
-/// <para>TIP: There's a default limit of 250 characters for ensuring best performance.
+/// <para>
+/// TIP: There's a default limit of 250 characters for ensuring best performance.
 /// If you exceed the default limit, an exception will be thrown.
 /// You can increase the limit by sacrificing performance/resource utilization by setting the static property
-/// <c>FuzzyString.CharacterLimit = 500</c> at startup.</para>
+/// <c>FuzzyString.CharacterLimit = 500</c> at startup.
+/// </para>
 /// </summary>
 public class FuzzyString
 {

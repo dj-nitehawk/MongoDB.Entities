@@ -20,7 +20,7 @@ public static partial class Extensions
 {
     class Holder<T>
     {
-        public T Data { get; set; }
+        public T Data { get; }
 
         public Holder(T data)
         {
@@ -29,10 +29,9 @@ public static partial class Extensions
     }
 
     static T Duplicate<T>(this T source)
-        => BsonSerializer.Deserialize<Holder<T>>(
-            new Holder<T>(source).ToBson()).Data;
+        => BsonSerializer.Deserialize<Holder<T>>(new Holder<T>(source).ToBson()).Data;
 
-    internal static void ThrowIfUnsaved(this object entityID)
+    internal static void ThrowIfUnsaved(this object? entityID)
     {
         if (entityID == default)
             throw new InvalidOperationException("Please save the entity before performing this operation!");
@@ -62,6 +61,7 @@ public static partial class Extensions
                 continue;
 
             yield return batch;
+
             batch.Clear();
         }
 
@@ -73,7 +73,7 @@ public static partial class Extensions
     /// Returns the full dotted path of a property for the given expression
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static string FullPath<T>(this Expression<Func<T, object>> expression)
+    public static string FullPath<T>(this Expression<Func<T, object?>> expression)
         => Prop.Path(expression);
 
     /// <summary>
@@ -89,6 +89,7 @@ public static partial class Extensions
     {
         var res = entity.Duplicate();
         res.SetId(res.GenerateNewID());
+
         return res;
     }
 
@@ -100,17 +101,19 @@ public static partial class Extensions
         var res = entities.Duplicate();
         foreach (var e in res)
             e.SetId(e.GenerateNewID());
+
         return res;
     }
 
     /// <summary>
-    ///Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
+    /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
     public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
             e.SetId(e.GenerateNewID());
+
         return res;
     }
 
@@ -126,10 +129,12 @@ public static partial class Extensions
     {
         var lev = new Levenshtein(searchTerm);
 
-        var res = objects.Select(o => new {
-            score = lev.DistanceFrom(propertyToSortBy(o)),
-            obj = o
-        });
+        var res = objects.Select(
+            o => new
+            {
+                score = lev.DistanceFrom(propertyToSortBy(o)),
+                obj = o
+            });
 
         if (maxDistance.HasValue)
             res = res.Where(x => x.score <= maxDistance.Value);
@@ -150,12 +155,14 @@ public static partial class Extensions
         {
             var sb = new StringBuilder();
             var str = text.Normalize(NormalizationForm.FormD);
+
             for (var i = 0; i < str.Length; i++)
             {
                 var c = str[i];
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
                     sb.Append(c);
             }
+
             return sb.ToString().Normalize(NormalizationForm.FormC);
         }
     }

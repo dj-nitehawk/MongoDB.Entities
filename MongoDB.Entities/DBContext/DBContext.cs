@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities;
 
 /// <summary>
-/// This db context class can be used as an alternative entry point instead of the DB static class. 
+/// This db context class can be used as an alternative entry point instead of the DB static class.
 /// </summary>
 public partial class DBContext
 {
@@ -29,16 +29,18 @@ public partial class DBContext
     /// <param name="database">Name of the database</param>
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
-    /// <param name="modifiedBy">An optional ModifiedBy instance. 
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
-    /// You can even inherit from the ModifiedBy class and add your own properties to it. 
-    /// Only one ModifiedBy property is allowed on a single entity type.</param>
+    /// <param name="modifiedBy">
+    /// An optional ModifiedBy instance.
+    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
+    /// You can even inherit from the ModifiedBy class and add your own properties to it.
+    /// Only one ModifiedBy property is allowed on a single entity type.
+    /// </param>
     public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
     {
         DB.Initialize(
-            new() { Server = new(host, port) },
-            database,
-            true)
+              new() { Server = new(host, port) },
+              database,
+              true)
           .GetAwaiter()
           .GetResult();
 
@@ -51,10 +53,12 @@ public partial class DBContext
     /// </summary>
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
-    /// <param name="modifiedBy">An optional ModifiedBy instance. 
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
-    /// You can even inherit from the ModifiedBy class and add your own properties to it. 
-    /// Only one ModifiedBy property is allowed on a single entity type.</param>
+    /// <param name="modifiedBy">
+    /// An optional ModifiedBy instance.
+    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
+    /// You can even inherit from the ModifiedBy class and add your own properties to it.
+    /// Only one ModifiedBy property is allowed on a single entity type.
+    /// </param>
     public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
     {
         DB.Initialize(settings, database, true)
@@ -68,10 +72,12 @@ public partial class DBContext
     /// Instantiates a DBContext instance
     /// <para>TIP: will throw an error if no connections have been initialized</para>
     /// </summary>
-    /// <param name="modifiedBy">An optional ModifiedBy instance. 
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
-    /// You can even inherit from the ModifiedBy class and add your own properties to it. 
-    /// Only one ModifiedBy property is allowed on a single entity type.</param>
+    /// <param name="modifiedBy">
+    /// An optional ModifiedBy instance.
+    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
+    /// You can even inherit from the ModifiedBy class and add your own properties to it.
+    /// Only one ModifiedBy property is allowed on a single entity type.
+    /// </param>
     public DBContext(ModifiedBy? modifiedBy = null)
     {
         ModifiedBy = modifiedBy;
@@ -84,9 +90,11 @@ public partial class DBContext
 
     /// <summary>
     /// Starts a transaction and returns a session object.
-    /// <para>WARNING: Only one transaction is allowed per DBContext instance. 
-    /// Call Session.Dispose() and assign a null to it before calling this method a second time. 
-    /// Trying to start a second transaction for this DBContext instance will throw an exception.</para>
+    /// <para>
+    /// WARNING: Only one transaction is allowed per DBContext instance.
+    /// Call Session.Dispose() and assign a null to it before calling this method a second time.
+    /// Trying to start a second transaction for this DBContext instance will throw an exception.
+    /// </para>
     /// </summary>
     /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
     /// <param name="options">Client session options for this transaction</param>
@@ -97,15 +105,17 @@ public partial class DBContext
 
         Session = DB.Database(database).Client.StartSession(options);
         Session.StartTransaction();
-        return Session;
 
+        return Session;
     }
 
     /// <summary>
     /// Starts a transaction and returns a session object for a given entity type.
-    /// <para>WARNING: Only one transaction is allowed per DBContext instance. 
-    /// Call Session.Dispose() and assign a null to it before calling this method a second time. 
-    /// Trying to start a second transaction for this DBContext instance will throw an exception.</para>
+    /// <para>
+    /// WARNING: Only one transaction is allowed per DBContext instance.
+    /// Call Session.Dispose() and assign a null to it before calling this method a second time.
+    /// Trying to start a second transaction for this DBContext instance will throw an exception.
+    /// </para>
     /// </summary>
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
@@ -116,13 +126,15 @@ public partial class DBContext
     /// Commits a transaction to MongoDB
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task CommitAsync(CancellationToken cancellation = default) => Session?.CommitTransactionAsync(cancellation) ?? Task.CompletedTask;
+    public Task CommitAsync(CancellationToken cancellation = default)
+        => Session?.CommitTransactionAsync(cancellation) ?? Task.CompletedTask;
 
     /// <summary>
     /// Aborts and rolls back a transaction
     /// </summary>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task AbortAsync(CancellationToken cancellation = default) => Session?.AbortTransactionAsync(cancellation) ?? Task.CompletedTask;
+    public Task AbortAsync(CancellationToken cancellation = default)
+        => Session?.AbortTransactionAsync(cancellation) ?? Task.CompletedTask;
 
     /// <summary>
     /// This event hook will be triggered right before an entity is persisted
@@ -143,7 +155,7 @@ public partial class DBContext
     /// </summary>
     /// <typeparam name="T">The type of Entity this global filter should be applied to</typeparam>
     /// <param name="filter">x => x.Prop1 == "some value"</param>
-    /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param> 
+    /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
     protected void SetGlobalFilter<T>(Expression<Func<T, bool>> filter, bool prepend = false) where T : IEntity
     {
         SetGlobalFilter(Builders<T>.Filter.Where(filter), prepend);
@@ -235,38 +247,38 @@ public partial class DBContext
     {
         var targetType = typeof(TInterface);
 
-        if (!targetType.IsInterface) throw new ArgumentException("Only interfaces are allowed!", nameof(TInterface));
+        if (!targetType.IsInterface)
+            throw new ArgumentException("Only interfaces are allowed!", nameof(TInterface));
 
         allEntitiyTypes ??= GetAllEntityTypes();
 
         foreach (var entType in allEntitiyTypes.Where(targetType.IsAssignableFrom))
-        {
             AddFilter(entType, (jsonString, prepend));
-        }
     }
 
     static Type[] GetAllEntityTypes()
     {
         var excludes = new[]
-            {
-                "Microsoft.",
-                "System.",
-                "MongoDB.",
-                "testhost.",
-                "netstandard",
-                "Newtonsoft.",
-                "mscorlib",
-                "NuGet."
-            };
+        {
+            "Microsoft.",
+            "System.",
+            "MongoDB.",
+            "testhost.",
+            "netstandard",
+            "Newtonsoft.",
+            "mscorlib",
+            "NuGet."
+        };
 
         return AppDomain.CurrentDomain
-            .GetAssemblies()
-            .Where(a =>
-                  !a.IsDynamic &&
-                  (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
-            .SelectMany(a => a.GetTypes())
-            .Where(t => typeof(IEntity).IsAssignableFrom(t))
-            .ToArray();
+                        .GetAssemblies()
+                        .Where(
+                            a =>
+                                !a.IsDynamic &&
+                                (a.FullName.StartsWith("MongoDB.Entities.Tests") || !excludes.Any(n => a.FullName.StartsWith(n))))
+                        .SelectMany(a => a.GetTypes())
+                        .Where(t => typeof(IEntity).IsAssignableFrom(t))
+                        .ToArray();
     }
 
     void ThrowIfModifiedByIsEmpty<T>() where T : IEntity

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("MongoDB.Entities.Tests")]
+
 namespace MongoDB.Entities;
 
 /// <summary>
@@ -119,8 +120,11 @@ public class DataStreamer
     public async Task DownloadAsync(Stream stream, int batchSize = 1, CancellationToken cancellation = default, IClientSessionHandle? session = null)
     {
         parent.ThrowIfUnsaved();
-        if (!parent.UploadSuccessful) throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
-        if (!stream.CanWrite) throw new NotSupportedException("The supplied stream is not writable!");
+
+        if (!parent.UploadSuccessful)
+            throw new InvalidOperationException("Data for this file hasn't been uploaded successfully (yet)!");
+        if (!stream.CanWrite)
+            throw new NotSupportedException("The supplied stream is not writable!");
 
         var filter = Builders<FileChunk>.Filter.Eq(c => c.FileID, parent.ID);
         var options = new FindOptions<FileChunk, byte[]>
@@ -132,8 +136,8 @@ public class DataStreamer
 
         var findTask =
             session == null
-            ? chunkCollection.FindAsync(filter, options, cancellation)
-            : chunkCollection.FindAsync(session, filter, options, cancellation);
+                ? chunkCollection.FindAsync(filter, options, cancellation)
+                : chunkCollection.FindAsync(session, filter, options, cancellation);
 
         using var cursor = await findTask.ConfigureAwait(false);
         var hasChunks = false;
@@ -147,7 +151,8 @@ public class DataStreamer
             }
         }
 
-        if (!hasChunks) throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
+        if (!hasChunks)
+            throw new InvalidOperationException($"No data was found for file entity with ID: {parent.ID}");
     }
 
     /// <summary>
@@ -171,8 +176,12 @@ public class DataStreamer
     public async Task UploadAsync(Stream stream, int chunkSizeKB = 256, CancellationToken cancellation = default, IClientSessionHandle? session = null)
     {
         parent.ThrowIfUnsaved();
-        if (chunkSizeKB is < 128 or > 4096) throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
-        if (!stream.CanRead) throw new NotSupportedException("The supplied stream is not readable!");
+
+        if (chunkSizeKB is < 128 or > 4096)
+            throw new ArgumentException("Please specify a chunk size from 128KB to 4096KB");
+        if (!stream.CanRead)
+            throw new NotSupportedException("The supplied stream is not readable!");
+
         await CleanUpAsync(session).ConfigureAwait(false);
 
         var chunkSize = chunkSizeKB * 1024;
@@ -181,8 +190,7 @@ public class DataStreamer
             chunkSize,
             0,
             new byte[64 * 1024],
-            new(chunkSize)
-        );
+            new(chunkSize));
 
         if (!string.IsNullOrEmpty(parent.MD5))
             streamInfo.Md5 = MD5.Create();
@@ -201,21 +209,20 @@ public class DataStreamer
             if (parent.FileSize > 0)
             {
                 streamInfo.Md5?.TransformFinalBlock(streamInfo.Buffer, 0, streamInfo.ReadCount);
+
                 if (streamInfo.Md5 != null && !BitConverter.ToString(streamInfo.Md5.Hash).Replace("-", "").Equals(parent.MD5, StringComparison.OrdinalIgnoreCase))
-                {
                     throw new InvalidDataException("MD5 of uploaded data doesn't match with file entity MD5.");
-                }
+
                 await FlushToDBAsync(session, streamInfo, isLastChunk: true, cancellation).ConfigureAwait(false);
                 parent.UploadSuccessful = true;
             }
             else
-            {
                 throw new InvalidOperationException("The supplied stream had no data to read (probably closed)");
-            }
         }
         catch (Exception)
         {
             await CleanUpAsync(session).ConfigureAwait(false);
+
             throw;
         }
         finally
@@ -235,8 +242,8 @@ public class DataStreamer
         parent.ThrowIfUnsaved();
 
         return cancellation != default && session == null
-            ? throw new NotSupportedException("Cancellation is only supported within transactions for deleting binary chunks!")
-            : CleanUpAsync(session, cancellation);
+                   ? throw new NotSupportedException("Cancellation is only supported within transactions for deleting binary chunks!")
+                   : CleanUpAsync(session, cancellation);
     }
 
     Task CleanUpAsync(IClientSessionHandle? session, CancellationToken cancellation = default)
@@ -244,9 +251,10 @@ public class DataStreamer
         parent.FileSize = 0;
         parent.ChunkCount = 0;
         parent.UploadSuccessful = false;
+
         return session == null
-               ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID, cancellation)
-               : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID, null, cancellation);
+                   ? chunkCollection.DeleteManyAsync(c => c.FileID == parent.ID, cancellation)
+                   : chunkCollection.DeleteManyAsync(session, c => c.FileID == parent.ID, null, cancellation);
     }
 
     Task FlushToDBAsync(IClientSessionHandle? session, StreamInfo streamInfo, bool isLastChunk = false, CancellationToken cancellation = default)
@@ -266,9 +274,8 @@ public class DataStreamer
         parent.ChunkCount++;
 
         return session == null
-            ? chunkCollection.InsertOneAsync(streamInfo.Doc, null, cancellation)
-            : chunkCollection.InsertOneAsync(session, streamInfo.Doc, null, cancellation);
-
+                   ? chunkCollection.InsertOneAsync(streamInfo.Doc, null, cancellation)
+                   : chunkCollection.InsertOneAsync(session, streamInfo.Doc, null, cancellation);
     }
 
     Task UpdateMetaDataAsync(IClientSessionHandle? session)
@@ -276,22 +283,22 @@ public class DataStreamer
         var collection = db.GetCollection<FileEntity>(TypeMap.GetCollectionName(parentType));
         var filter = Builders<FileEntity>.Filter.Eq(e => e.ID, parent.ID);
         var update = Builders<FileEntity>.Update
-                        .Set(e => e.FileSize, parent.FileSize)
-                        .Set(e => e.ChunkCount, parent.ChunkCount)
-                        .Set(e => e.UploadSuccessful, parent.UploadSuccessful);
+                                         .Set(e => e.FileSize, parent.FileSize)
+                                         .Set(e => e.ChunkCount, parent.ChunkCount)
+                                         .Set(e => e.UploadSuccessful, parent.UploadSuccessful);
 
         return session == null
-               ? collection.UpdateOneAsync(filter, update)
-               : collection.UpdateOneAsync(session, filter, update);
+                   ? collection.UpdateOneAsync(filter, update)
+                   : collection.UpdateOneAsync(session, filter, update);
     }
 
     struct StreamInfo
     {
-        public FileChunk Doc { get; set; }
-        public int ChunkSize { get; set; }
+        public FileChunk Doc { get; }
+        public int ChunkSize { get; }
         public int ReadCount { get; set; }
-        public byte[] Buffer { get; set; }
-        public List<byte> DataChunk { get; set; }
+        public byte[] Buffer { get; }
+        public List<byte> DataChunk { get; }
         public MD5? Md5 { get; set; }
 
         public StreamInfo(FileChunk doc, int chunkSize, int readCount, byte[] buffer, List<byte> dataChunk, MD5? md5 = null)

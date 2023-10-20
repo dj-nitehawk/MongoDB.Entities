@@ -19,14 +19,15 @@ static class Logic
         return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
     }
 
-    internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object>> expression)
+    internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object?>> expression)
     {
-        return (expression.Body as NewExpression)?.Arguments
-            .Select(a => a.ToString().Split('.')[1]) ?? Enumerable.Empty<string>();
+        return (expression.Body as NewExpression)?.Arguments.Select(a => a.ToString().Split('.')[1]) ??
+               Enumerable.Empty<string>();
     }
 
-    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, Expression<Func<T, object>> members,
-        bool excludeMode = false) where T : IEntity
+    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity,
+                                                                        Expression<Func<T, object?>> members,
+                                                                        bool excludeMode = false) where T : IEntity
         => BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
 
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
@@ -41,7 +42,9 @@ static class Logic
         return props.Select(p => Builders<T>.Update.Set(p.Name, p.GetValue(entity)));
     }
 
-    internal static FilterDefinition<T> MergeWithGlobalFilter<T>(bool ignoreGlobalFilters, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, FilterDefinition<T> filter) where T : IEntity
+    internal static FilterDefinition<T> MergeWithGlobalFilter<T>(bool ignoreGlobalFilters,
+                                                                 Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
+                                                                 FilterDefinition<T> filter) where T : IEntity
     {
         //WARNING: this has to do the same thing as DBContext.Pipeline.MergeWithGlobalFilter method
         //         if the following logic changes, update the other method also

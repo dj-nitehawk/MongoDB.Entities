@@ -12,17 +12,20 @@ public class UpdateAndGetEntity
     public async Task updating_modifies_correct_documents()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid }; await author2.SaveAsync();
-        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid }; await author3.SaveAsync();
+        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1" };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid };
+        await author2.SaveAsync();
+        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid };
+        await author3.SaveAsync();
 
         var res = await DB.UpdateAndGet<AuthorEntity, string>()
-                    .Match(a => a.Surname == guid)
-                    .Modify(a => a.Name, guid)
-                    .Modify(a => a.Surname, author1.Name)
-                    .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
-                    .Project(a => a.Name)
-                    .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(a => a.Name, guid)
+                          .Modify(a => a.Surname, author1.Name)
+                          .Option(o => o.MaxTime = TimeSpan.FromSeconds(10))
+                          .Project(a => a.Name)
+                          .ExecuteAsync();
 
         Assert.AreEqual(guid, res);
     }
@@ -31,16 +34,19 @@ public class UpdateAndGetEntity
     public async Task update_by_def_builder_mods_correct_docs()
     {
         var guid = Guid.NewGuid().ToString();
-        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1", Age = 1 }; await author1.SaveAsync();
-        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid, Age = 1 }; await author2.SaveAsync();
-        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid, Age = 1 }; await author3.SaveAsync();
+        var author1 = new AuthorEntity { Name = "bumcda1", Surname = "surname1", Age = 1 };
+        await author1.SaveAsync();
+        var author2 = new AuthorEntity { Name = "bumcda2", Surname = guid, Age = 1 };
+        await author2.SaveAsync();
+        var author3 = new AuthorEntity { Name = "bumcda3", Surname = guid, Age = 1 };
+        await author3.SaveAsync();
 
         var res = await DB.UpdateAndGet<AuthorEntity>()
-                      .Match(a => a.Surname == guid)
-                      .Modify(b => b.Inc(a => a.Age, 1))
-                      .Modify(b => b.Set(a => a.Name, guid))
-                      .Modify(b => b.CurrentDate(a => a.ModifiedOn))
-                      .ExecuteAsync();
+                          .Match(a => a.Surname == guid)
+                          .Modify(b => b.Inc(a => a.Age, 1))
+                          .Modify(b => b.Set(a => a.Name, guid))
+                          .Modify(b => b.CurrentDate(a => a.ModifiedOn))
+                          .ExecuteAsync();
 
         Assert.AreEqual(2, res!.Age);
     }
@@ -53,20 +59,21 @@ public class UpdateAndGetEntity
         var author = new AuthorEntity { Name = "uwput", Surname = guid, Age = 666 };
         await author.SaveAsync();
 
-        var pipeline = new Template<AuthorEntity>(@"
+        var pipeline = new Template<AuthorEntity>(
+                           @"
             [
               { $set: { <FullName>: { $concat: ['$<Name>',' ','$<Surname>'] } } },
               { $unset: '<Age>'}
             ]")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .Path(a => a.Age);
+                       .Path(a => a.FullName!)
+                       .Path(a => a.Name)
+                       .Path(a => a.Surname)
+                       .Path(a => a.Age);
 
         var res = await DB.UpdateAndGet<AuthorEntity>()
-                      .Match(a => a.ID == author.ID)
-                      .WithPipeline(pipeline)
-                      .ExecutePipelineAsync();
+                          .Match(a => a.ID == author.ID)
+                          .WithPipeline(pipeline)
+                          .ExecutePipelineAsync();
 
         Assert.AreEqual(author.Name + " " + author.Surname, res!.FullName);
     }
@@ -80,15 +87,15 @@ public class UpdateAndGetEntity
         await author.SaveAsync();
 
         var stage = new Template<AuthorEntity>("{ $set: { <FullName>: { $concat: ['$<Name>','-','$<Surname>'] } } }")
-            .Path(a => a.FullName!)
-            .Path(a => a.Name)
-            .Path(a => a.Surname)
-            .RenderToString();
+                    .Path(a => a.FullName)
+                    .Path(a => a.Name)
+                    .Path(a => a.Surname)
+                    .RenderToString();
 
         var res = await DB.UpdateAndGet<AuthorEntity>()
-                      .Match(a => a.ID == author.ID)
-                      .WithPipelineStage(stage)
-                      .ExecutePipelineAsync();
+                          .Match(a => a.ID == author.ID)
+                          .WithPipelineStage(stage)
+                          .ExecutePipelineAsync();
 
         Assert.AreEqual(author.Name + "-" + author.Surname, res!.FullName);
     }
@@ -102,50 +109,52 @@ public class UpdateAndGetEntity
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
-        var filters = new Template<AuthorEntity>(@"
+        var filters = new Template<AuthorEntity>(
+                          @"
             [
                 { '<a.Age>': { $gte: <age> } },
                 { '<b.Name>': 'name' }
             ]")
-            .Elements(0, author => author.Age)
-            .Tag("age", "120")
-            .Elements(1, author => author.Name);
+                      .Elements(0, author => author.Age)
+                      .Tag("age", "120")
+                      .Elements(1, author => author.Name);
 
-        var update = new Template<BookEntity>(@"
+        var update = new Template<BookEntity>(
+                         @"
             { $set: { 
                 '<OtherAuthors.$[a].Age>': <age>,
                 '<OtherAuthors.$[b].Name>': '<value>'
               } 
             }")
-            .PosFiltered(b => b.OtherAuthors[0].Age)
-            .PosFiltered(b => b.OtherAuthors[1].Name)
-            .Tag("age", "321")
-            .Tag("value", "updated");
+                     .PosFiltered(b => b.OtherAuthors[0].Age)
+                     .PosFiltered(b => b.OtherAuthors[1].Name)
+                     .Tag("age", "321")
+                     .Tag("value", "updated");
 
         var res = await DB.UpdateAndGet<BookEntity>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilters(filters)
-          .Modify(update)
-
-          .ExecuteAsync();
+                          .Match(b => b.ID == book.ID)
+                          .WithArrayFilters(filters)
+                          .Modify(update)
+                          .ExecuteAsync();
 
         Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
@@ -159,45 +168,44 @@ public class UpdateAndGetEntity
             Title = "uwafw " + guid,
             OtherAuthors = new[]
             {
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 123
                 },
-                new AuthorEntity{
-                    Name ="name",
+                new AuthorEntity
+                {
+                    Name = "name",
                     Age = 100
-                },
+                }
             }
         };
         await book.SaveAsync();
 
         var arrFil = new Template<AuthorEntity>("{ '<a.Age>': { $gte: <age> } }")
-                            .Elements(0, author => author.Age)
-                            .Tag("age", "120");
+                     .Elements(0, author => author.Age)
+                     .Tag("age", "120");
 
         var prop1 = new Template<BookEntity>("{ $set: { '<OtherAuthors.$[a].Age>': <age> } }")
-                            .PosFiltered(b => b.OtherAuthors[0].Age)
-                            .Tag("age", "321")
-                            .RenderToString();
+                    .PosFiltered(b => b.OtherAuthors[0].Age)
+                    .Tag("age", "321")
+                    .RenderToString();
 
         var filt2 = Prop.Elements<AuthorEntity>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookEntity>(b => b.OtherAuthors[1].Name);
 
         var res = await DB.UpdateAndGet<BookEntity>()
-
-          .Match(b => b.ID == book.ID)
-
-          .WithArrayFilter(arrFil)
-          .Modify(prop1)
-
-          .WithArrayFilter("{'" + filt2 + "':'name'}")
-          .Modify("{$set:{'" + prop2 + "':'updated'}}")
-
-          .ExecuteAsync();
+                          .Match(b => b.ID == book.ID)
+                          .WithArrayFilter(arrFil)
+                          .Modify(prop1)
+                          .WithArrayFilter("{'" + filt2 + "':'name'}")
+                          .Modify("{$set:{'" + prop2 + "':'updated'}}")
+                          .ExecuteAsync();
 
         Assert.AreEqual(321, res!.OtherAuthors[0].Age);
     }
@@ -209,11 +217,9 @@ public class UpdateAndGetEntity
 
         var lastNum = await book.NextSequentialNumberAsync();
 
-        var bookNum = 0ul;
+        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => await book.NextSequentialNumberAsync(ct));
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) => bookNum = await book.NextSequentialNumberAsync(ct));
-
-        Assert.AreEqual(lastNum + 10, (await book.NextSequentialNumberAsync()) - 1);
+        Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
 
     [TestMethod]
@@ -225,10 +231,12 @@ public class UpdateAndGetEntity
 
         var lastNum = await book.NextSequentialNumberAsync();
 
-        await Parallel.ForEachAsync(Enumerable.Range(0, 10), async (_, ct) =>
-        {
-            await book.NextSequentialNumberAsync(ct);
-        });
+        await Parallel.ForEachAsync(
+            Enumerable.Range(0, 10),
+            async (_, ct) =>
+            {
+                await book.NextSequentialNumberAsync(ct);
+            });
 
         Assert.AreEqual(lastNum + 10, await book.NextSequentialNumberAsync() - 1);
     }
@@ -243,10 +251,10 @@ public class UpdateAndGetEntity
         Assert.AreEqual("God", flower.CreatedBy);
 
         var res = await db
-            .UpdateAndGet<FlowerEntity>()
-            .MatchID(flower.Id)
-            .ModifyWith(flower)
-            .ExecuteAsync();
+                        .UpdateAndGet<FlowerEntity>()
+                        .MatchID(flower.Id)
+                        .ModifyWith(flower)
+                        .ExecuteAsync();
 
         Assert.AreEqual("Human", res!.UpdatedBy);
     }

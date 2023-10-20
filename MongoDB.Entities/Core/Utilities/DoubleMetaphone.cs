@@ -107,6 +107,7 @@ static class DoubleMetaphone
     static void Add(string main, string alternate, ref StringBuilder sbPrimary, ref StringBuilder sbSecondary, ref bool hasAlternate)
     {
         sbPrimary.Append(main);
+
         if (alternate.Length > 0)
         {
             hasAlternate = true;
@@ -130,6 +131,7 @@ static class DoubleMetaphone
             if (string.Compare(stringRenamed, pos, strings[n], 0, strings[n].Length) == 0)
                 return true;
         }
+
         return false;
     }
 
@@ -137,7 +139,10 @@ static class DoubleMetaphone
         => 0 <= pos && pos < stringRenamed.Length && stringRenamed[pos] == c;
 
     static bool IsSlavoGermanic(string stringRenamed)
-        => stringRenamed.IndexOf('W') >= 0 || stringRenamed.IndexOf('K') >= 0 || stringRenamed.IndexOf("CZ", StringComparison.Ordinal) >= 0 || stringRenamed.IndexOf("WITZ", StringComparison.Ordinal) >= 0;
+        => stringRenamed.IndexOf('W') >= 0 ||
+           stringRenamed.IndexOf('K') >= 0 ||
+           stringRenamed.IndexOf("CZ", StringComparison.Ordinal) >= 0 ||
+           stringRenamed.IndexOf("WITZ", StringComparison.Ordinal) >= 0;
 
     static bool IsVowel(string stringRenamed, int pos)
     {
@@ -145,6 +150,7 @@ static class DoubleMetaphone
             return false;
 
         var c = stringRenamed[pos];
+
         return c is 'A' or 'E' or 'I' or 'O' or 'U';
     }
 
@@ -185,20 +191,28 @@ static class DoubleMetaphone
                     if (n == 0)
                         Add("A", ref sbPrimary, ref sbSecondary);
                     n++;
+
                     break;
                 case 'B':
                     Add("P", ref sbPrimary, ref sbSecondary);
                     n += Match(word, n + 1, 'B') ? 2 : 1;
+
                     break;
                 case 'Ç':
                     Add("S", ref sbPrimary, ref sbSecondary);
                     n++;
+
                     break;
                 case 'C':
-                    if (n > 1 && !IsVowel(word, n - 2) && Match(word, n - 1, ACH) && !Match(word, n + 2, 'I') && (!Match(word, n + 2, 'E') || Match(word, n - 2, BACHER_MACHER)))
+                    if (n > 1 &&
+                        !IsVowel(word, n - 2) &&
+                        Match(word, n - 1, ACH) &&
+                        !Match(word, n + 2, 'I') &&
+                        (!Match(word, n + 2, 'E') || Match(word, n - 2, BACHER_MACHER)))
                     {
                         Add("K", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -206,6 +220,7 @@ static class DoubleMetaphone
                     {
                         Add("S", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -213,6 +228,7 @@ static class DoubleMetaphone
                     {
                         Add("K", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -222,6 +238,7 @@ static class DoubleMetaphone
                         {
                             Add("K", "X", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                             n += 2;
+
                             break;
                         }
 
@@ -229,13 +246,15 @@ static class DoubleMetaphone
                         {
                             Add("K", ref sbPrimary, ref sbSecondary);
                             n += 2;
+
                             break;
                         }
 
-                        if (Match(word, 0, VAN__VON__SCH) || Match(word, n - 2, ORCHES_ARCHIT_ORCHID) || Match(word, n + 2, T_S) || ((n == 0 || Match(word, n - 1, A_O_U_E)) && Match(word, n + 2, L_R_N_M_B_H_F_V_W__)))
-                        {
+                        if (Match(word, 0, VAN__VON__SCH) ||
+                            Match(word, n - 2, ORCHES_ARCHIT_ORCHID) ||
+                            Match(word, n + 2, T_S) ||
+                            ((n == 0 || Match(word, n - 1, A_O_U_E)) && Match(word, n + 2, L_R_N_M_B_H_F_V_W__)))
                             Add("K", ref sbPrimary, ref sbSecondary);
-                        }
                         else
                         {
                             if (n > 0)
@@ -246,11 +265,10 @@ static class DoubleMetaphone
                                     Add("X", "K", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                             }
                             else
-                            {
                                 Add("X", ref sbPrimary, ref sbSecondary);
-                            }
                         }
                         n += 2;
+
                         break;
                     }
 
@@ -258,6 +276,7 @@ static class DoubleMetaphone
                     {
                         Add("S", "X", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 2;
+
                         break;
                     }
 
@@ -265,6 +284,7 @@ static class DoubleMetaphone
                     {
                         Add("X", ref sbPrimary, ref sbSecondary);
                         n += 3;
+
                         break;
                     }
 
@@ -277,10 +297,12 @@ static class DoubleMetaphone
                             else
                                 Add("X", ref sbPrimary, ref sbSecondary);
                             n += 3;
+
                             break;
                         }
                         Add("K", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -288,6 +310,7 @@ static class DoubleMetaphone
                     {
                         Add("K", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -298,6 +321,7 @@ static class DoubleMetaphone
                         else
                             Add("S", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -307,6 +331,7 @@ static class DoubleMetaphone
                         n += 3;
                     else
                         n += Match(word, n + 1, C_K_Q) && !Match(word, n + 1, CE_CI) ? 2 : 1;
+
                     break;
 
                 case 'D':
@@ -316,10 +341,12 @@ static class DoubleMetaphone
                         {
                             Add("J", ref sbPrimary, ref sbSecondary);
                             n += 3;
+
                             break;
                         }
                         Add("TK", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -327,15 +354,18 @@ static class DoubleMetaphone
                     {
                         Add("T", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
                     Add("T", ref sbPrimary, ref sbSecondary);
                     n++;
+
                     break;
                 case 'F':
                     n += Match(word, n + 1, 'F') ? 2 : 1;
                     Add("F", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'G':
                     if (Match(word, n + 1, 'H'))
@@ -344,6 +374,7 @@ static class DoubleMetaphone
                         {
                             Add("K", ref sbPrimary, ref sbSecondary);
                             n += 2;
+
                             break;
                         }
 
@@ -351,46 +382,47 @@ static class DoubleMetaphone
                         {
                             Add(Match(word, n + 2, 'I') ? "J" : "K", ref sbPrimary, ref sbSecondary);
                             n += 2;
+
                             break;
                         }
 
                         if ((n > 1 && Match(word, n - 2, B_H_D)) || (n > 2 && Match(word, n - 3, B_H_D)) || (n > 3 && Match(word, n - 4, B_H)))
                         {
                             n += 2;
+
                             break;
                         }
+
                         switch (n)
                         {
                             case > 2 when Match(word, n - 1, 'U') && Match(word, n - 3, C_G_L_R_T):
                                 Add("F", ref sbPrimary, ref sbSecondary);
+
                                 break;
                             case > 0 when !Match(word, n - 1, 'I'):
                                 Add("K", ref sbPrimary, ref sbSecondary);
+
                                 break;
                         }
 
                         n += 2;
+
                         break;
                     }
 
                     if (Match(word, n + 1, 'N'))
                     {
                         if (n == 1 && IsVowel(word, 0) && !isSlavoGermanic)
-                        {
                             Add("KN", "N", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                        }
                         else
                         {
                             if (!Match(word, n + 2, EY) && !Match(word, n + 1, 'Y') && !isSlavoGermanic)
-                            {
                                 Add("N", "KN", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                            }
                             else
-                            {
                                 Add("KN", ref sbPrimary, ref sbSecondary);
-                            }
                         }
                         n += 2;
+
                         break;
                     }
 
@@ -398,6 +430,7 @@ static class DoubleMetaphone
                     {
                         Add("KL", "L", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 2;
+
                         break;
                     }
 
@@ -405,6 +438,7 @@ static class DoubleMetaphone
                     {
                         Add("K", "J", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 2;
+
                         break;
                     }
 
@@ -412,15 +446,14 @@ static class DoubleMetaphone
                     {
                         Add("K", "J", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 2;
+
                         break;
                     }
 
                     if (Match(word, n + 1, E_I_Y) || Match(word, n - 1, AGGI_OGGI))
                     {
                         if (Match(word, 0, VAN__VON__SCH) || Match(word, n + 1, ET))
-                        {
                             Add("K", ref sbPrimary, ref sbSecondary);
-                        }
                         else
                         {
                             if (Match(word, n + 1, IER))
@@ -429,11 +462,13 @@ static class DoubleMetaphone
                                 Add("J", "K", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         }
                         n += 2;
+
                         break;
                     }
 
                     Add("K", ref sbPrimary, ref sbSecondary);
                     n += Match(word, n + 1, 'G') ? 2 : 1;
+
                     break;
                 case 'H':
                     if ((n == 0 || IsVowel(word, n - 1)) && IsVowel(word, n + 1))
@@ -442,41 +477,31 @@ static class DoubleMetaphone
                         n += 2;
                     }
                     else
-                    {
                         n++;
-                    }
+
                     break;
                 case 'J':
                     if (Match(word, n, JOSE) || Match(word, 0, SAN_))
                     {
                         if ((n == 0 && Match(word, n + 4, ' ')) || Match(word, 0, SAN_))
-                        {
                             Add("H", ref sbPrimary, ref sbSecondary);
-                        }
                         else
-                        {
                             Add("J", "H", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                        }
                         n++;
+
                         break;
                     }
 
                     if (n == 0 && !Match(word, n, JOSE))
-                    {
                         Add("J", "A", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                    }
                     else
                     {
                         if (IsVowel(word, n - 1) && !isSlavoGermanic && Match(word, n + 1, A_O))
-                        {
                             Add("J", "H", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                        }
                         else
                         {
                             if (n == last)
-                            {
                                 Add("J", " ", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                            }
                             else
                             {
                                 if (!Match(word, n + 1, L_T_K_S_N_M_B_Z) && !Match(word, n - 1, S_K_L))
@@ -486,78 +511,81 @@ static class DoubleMetaphone
                     }
 
                     n += Match(word, n + 1, 'J') ? 2 : 1;
+
                     break;
                 case 'K':
                     n += Match(word, n + 1, 'K') ? 2 : 1;
                     Add("K", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'L':
                     if (Match(word, n + 1, 'L'))
                     {
-                        if ((n == length - 3 && Match(word, n - 1, ILLO_ILLA_ALLE)) || ((Match(word, last - 1, AS_OS) || Match(word, last, A_O)) && Match(word, n - 1, ALLE)))
+                        if ((n == length - 3 && Match(word, n - 1, ILLO_ILLA_ALLE)) ||
+                            ((Match(word, last - 1, AS_OS) || Match(word, last, A_O)) && Match(word, n - 1, ALLE)))
                         {
                             Add("L", " ", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                             n += 2;
+
                             break;
                         }
                         n += 2;
                     }
                     else
-                    {
                         n++;
-                    }
                     Add("L", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'M':
                     if ((Match(word, n - 1, UMB) && (n + 1 == last || Match(word, n + 2, ER))) || Match(word, n + 1, 'M'))
-                    {
                         n += 2;
-                    }
                     else
-                    {
                         n++;
-                    }
                     Add("M", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'N':
                     n += Match(word, n + 1, 'N') ? 2 : 1;
                     Add("N", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'Ñ':
                     n++;
                     Add("N", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'P':
                     if (Match(word, n + 1, 'H'))
                     {
                         Add("F", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
                     n += Match(word, n + 1, P_B) ? 2 : 1;
                     Add("P", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'Q':
                     n += Match(word, n + 1, 'Q') ? 2 : 1;
                     Add("K", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'R':
                     if (n == last && !isSlavoGermanic && Match(word, n - 2, IE) && !Match(word, n - 4, ME_MA))
-                    {
                         Add("", "R", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                    }
                     else
-                    {
                         Add("R", ref sbPrimary, ref sbSecondary);
-                    }
 
                     n += Match(word, n + 1, 'R') ? 2 : 1;
+
                     break;
                 case 'S':
                     if (Match(word, n - 1, ISL_YSL))
                     {
                         n++;
+
                         break;
                     }
 
@@ -565,6 +593,7 @@ static class DoubleMetaphone
                     {
                         Add("X", "S", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n++;
+
                         break;
                     }
 
@@ -572,6 +601,7 @@ static class DoubleMetaphone
                     {
                         Add(Match(word, n + 1, HEIM_HOEK_HOLM_HOLZ) ? "S" : "X", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -582,6 +612,7 @@ static class DoubleMetaphone
                         else
                             Add("S", ref sbPrimary, ref sbSecondary);
                         n += 3;
+
                         break;
                     }
 
@@ -589,6 +620,7 @@ static class DoubleMetaphone
                     {
                         Add("S", "X", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += Match(word, n + 1, 'Z') ? 2 : 1;
+
                         break;
                     }
 
@@ -603,6 +635,7 @@ static class DoubleMetaphone
                                 else
                                     Add("SK", ref sbPrimary, ref sbSecondary);
                                 n += 3;
+
                                 break;
                             }
                             if (n == 0 && !IsVowel(word, 3) && !Match(word, 3, 'W'))
@@ -610,11 +643,13 @@ static class DoubleMetaphone
                             else
                                 Add("X", ref sbPrimary, ref sbSecondary);
                             n += 3;
+
                             break;
                         }
 
                         Add(Match(word, n + 2, I_E_Y) ? "S" : "SK", ref sbPrimary, ref sbSecondary);
                         n += 3;
+
                         break;
                     }
 
@@ -624,12 +659,14 @@ static class DoubleMetaphone
                         Add("S", ref sbPrimary, ref sbSecondary);
 
                     n += Match(word, n + 1, S_Z) ? 2 : 1;
+
                     break;
                 case 'T':
                     if (Match(word, n, TION))
                     {
                         Add("X", ref sbPrimary, ref sbSecondary);
                         n += 3;
+
                         break;
                     }
 
@@ -637,6 +674,7 @@ static class DoubleMetaphone
                     {
                         Add("X", ref sbPrimary, ref sbSecondary);
                         n += 3;
+
                         break;
                     }
 
@@ -647,21 +685,25 @@ static class DoubleMetaphone
                         else
                             Add("0", "T", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 2;
+
                         break;
                     }
 
                     n += Match(word, n + 1, T_D) ? 2 : 1;
                     Add("T", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'V':
                     n += Match(word, n + 1, 'V') ? 2 : 1;
                     Add("F", ref sbPrimary, ref sbSecondary);
+
                     break;
                 case 'W':
                     if (Match(word, n, WR))
                     {
                         Add("R", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
 
@@ -677,6 +719,7 @@ static class DoubleMetaphone
                     {
                         Add("", "F", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n++;
+
                         break;
                     }
 
@@ -684,37 +727,39 @@ static class DoubleMetaphone
                     {
                         Add("TS", "FX", ref sbPrimary, ref sbSecondary, ref hasAlternate);
                         n += 4;
+
                         break;
                     }
 
                     n++;
+
                     break;
                 case 'X':
                     if (!(n == last && (Match(word, n - 3, IAU_EAU) || Match(word, n - 2, AU_OU))))
                         Add("KS", ref sbPrimary, ref sbSecondary);
 
                     n += Match(word, n + 1, C_X) ? 2 : 1;
+
                     break;
                 case 'Z':
                     if (Match(word, n + 1, 'H'))
                     {
                         Add("J", ref sbPrimary, ref sbSecondary);
                         n += 2;
+
                         break;
                     }
                     if (Match(word, n + 1, ZO_ZI_ZA) || (isSlavoGermanic && n > 0 && !Match(word, n - 1, 'T')))
-                    {
                         Add("S", "TS", ref sbPrimary, ref sbSecondary, ref hasAlternate);
-                    }
                     else
-                    {
                         Add("S", ref sbPrimary, ref sbSecondary);
-                    }
 
                     n += Match(word, n + 1, 'Z') ? 2 : 1;
+
                     break;
                 default:
                     n++;
+
                     break;
             }
         }
@@ -724,6 +769,7 @@ static class DoubleMetaphone
             return new[] { sbPrimary.ToString()[..primaryLength] };
 
         var secondaryLength = Math.Min(MaxLength, sbSecondary.Length);
+
         return new[] { sbPrimary.ToString()[..primaryLength], sbSecondary.ToString()[..secondaryLength] };
     }
 
@@ -733,11 +779,11 @@ static class DoubleMetaphone
         var keys = new List<string>();
 
         foreach (Match m in regex.Matches(phrase))
-        {
-            if (m.Value.Length > 2) set.Add(m.Value);
-        }
+            if (m.Value.Length > 2)
+                set.Add(m.Value);
 
-        if (set.Count == 0) return keys;
+        if (set.Count == 0)
+            return keys;
 
         foreach (var strings in set.Select(BuildKeys))
         {

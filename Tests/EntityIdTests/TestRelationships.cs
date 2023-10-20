@@ -69,8 +69,8 @@ public class RelationshipsEntity
                                    .Where(b => b.ID == book.ID)
                                    .SingleAsync()).MainAuthor.ToEntityAsync(a => new() { Name = a.Name });
 
-        // Assert.AreEqual(author.Name, res.Name);
-        //Assert.AreEqual(null, res.ID);
+        Assert.AreEqual(author.Name, res.Name);
+        Assert.AreEqual(null, res.ID);
     }
 
     [TestMethod]

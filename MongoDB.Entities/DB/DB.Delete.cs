@@ -13,9 +13,9 @@ public static partial class DB
 {
     static readonly int deleteBatchSize = 100000;
 
-    static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object> IDs,
-                                                                    IClientSessionHandle? session = null,
-                                                                    CancellationToken cancellation = default) where T : IEntity
+    static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs,
+                                                            IClientSessionHandle? session = null,
+                                                            CancellationToken cancellation = default) where T : IEntity
     {
         // note: cancellation should not be enabled outside of transactions because multiple collections are involved 
         //       and premature cancellation could cause data inconsistencies.
@@ -35,6 +35,7 @@ public static partial class DB
         var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
 
         var list = await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false);
+
         for (var i = 0; i < list.Count; i++)
         {
             var cName = list[i];
@@ -47,7 +48,7 @@ public static partial class DB
         var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
 
         var delResTask =
-                session == null
+            session == null
                 ? Collection<T>().DeleteManyAsync(filter)
                 : Collection<T>().DeleteManyAsync(session, filter, null, cancellation);
 
@@ -57,8 +58,8 @@ public static partial class DB
         {
             tasks.Add(
                 session == null
-                ? db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
-                : db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null, cancellation));
+                    ? db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(x => IDs.Contains(x.FileID))
+                    : db.GetCollection<FileChunk>(CollectionName<FileChunk>()).DeleteManyAsync(session, x => IDs.Contains(x.FileID), null, cancellation));
         }
 
         await Task.WhenAll(tasks).ConfigureAwait(false);
@@ -72,11 +73,12 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The Id of the entity to delete</param>
-    /// <param name = "session" >An optional session if using within a transaction</param>
+    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<DeleteResult> DeleteAsync<T>(object ID, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
+
         return DeleteCascadingAsync<T>(new[] { ID }, session, cancellation);
     }
 
@@ -87,9 +89,10 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="IDs">An IEnumerable of entity IDs</param>
-    /// <param name = "session" > An optional session if using within a transaction</param>
+    /// <param name="session"> An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -106,9 +109,7 @@ public static partial class DB
         }
 
         if (res.IsAcknowledged)
-        {
             res = new DeleteResult.Acknowledged(deletedCount);
-        }
 
         return res;
     }
@@ -120,10 +121,13 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="expression">A lambda expression for matching entities to delete.</param>
-    /// <param name = "session" >An optional session if using within a transaction</param>
+    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression,
+                                                    IClientSessionHandle? session = null,
+                                                    CancellationToken cancellation = default,
+                                                    Collation? collation = null) where T : IEntity
         => DeleteAsync(Builders<T>.Filter.Where(expression), session, cancellation, collation);
 
     /// <summary>
@@ -133,10 +137,13 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-    /// <param name = "session" >An optional session if using within a transaction</param>
+    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
+                                                    IClientSessionHandle? session = null,
+                                                    CancellationToken cancellation = default,
+                                                    Collation? collation = null) where T : IEntity
         => DeleteAsync(filter(Builders<T>.Filter), session, cancellation, collation);
 
     /// <summary>
@@ -146,10 +153,13 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="filter">A filter definition for matching entities to delete.</param>
-    /// <param name = "session" >An optional session if using within a transaction</param>
+    /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, Collation? collation = null) where T : IEntity
+    public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter,
+                                                          IClientSessionHandle? session = null,
+                                                          CancellationToken cancellation = default,
+                                                          Collation? collation = null) where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
 
@@ -183,9 +193,7 @@ public static partial class DB
         }
 
         if (res.IsAcknowledged)
-        {
             res = new DeleteResult.Acknowledged(deletedCount);
-        }
 
         return res;
     }
@@ -200,7 +208,6 @@ public static partial class DB
             ids.Add(((dynamic)idObjects[i])._id);
 
         return ids;
-
     }
 
     static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
