@@ -12,7 +12,7 @@ db.Book.find(
   }
 )
 ```
-to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with `<` and `>` in order to turn them in to replacement tags/markers like this:
+to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with `<` and `>` in order to turn them into replacement tags/markers like this:
 
 ```java
 db.Book.find(
@@ -23,7 +23,7 @@ db.Book.find(
 )
 ```
 
-the templating system is based on a special class called `Template`. You simply instantiate a 'Template' object supplying the tagged/marked text query to the constructor. then you chain method calls on the Template object to replace each tag you've marked on the query like so:
+the templating system is based on a special class called `Template`. You simply instantiate a 'Template' object supplying the tagged/marked text query to the constructor. then your chain method calls on the Template object to replace each tag you've marked on the query like so:
 
 ```csharp
 var query = new Template<Book>(@"
