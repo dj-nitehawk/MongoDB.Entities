@@ -8,7 +8,7 @@ namespace MongoDB.Entities;
 
 class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSerializer
 {
-    static readonly IBsonSerializer<string> strSerializer = BsonSerializer.LookupSerializer<string>();
+    static readonly IBsonSerializer<string> _strSerializer = BsonSerializer.LookupSerializer<string>();
 
     public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, FuzzyString? fString)
     {
@@ -67,7 +67,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
         switch (memberName)
         {
             case "Value":
-                serializationInfo = new("Value", strSerializer, typeof(string));
+                serializationInfo = new("Value", _strSerializer, typeof(string));
 
                 return true;
             default:
@@ -87,7 +87,7 @@ class FuzzyStringSerializer : SerializerBase<FuzzyString?>, IBsonDocumentSeriali
 /// <c>FuzzyString.CharacterLimit = 500</c> at startup.
 /// </para>
 /// </summary>
-public class FuzzyString
+public sealed class FuzzyString
 {
     public static int CharacterLimit { get; set; } = 250;
 
@@ -99,8 +99,8 @@ public class FuzzyString
     /// instantiate a FuzzyString object with a given string
     /// </summary>
     /// <param name="value">the string value to create the FuzzyString with</param>
-    public FuzzyString(string value)
-    {
-        Value = value;
-    }
+    public FuzzyString(string value) { Value = value; }
+
+    public override string ToString()
+        => Value;
 }
