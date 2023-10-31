@@ -20,7 +20,7 @@ using (var TN = DB.Transaction())
       await TN.CommitAsync();
 }
 ```
-in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 is created within the transaction and book1 and book2 are deleted within the transaction.
+in the above code, book1 and book2 are saved before the transaction begins. author1 and author2 are created within the transaction and book1 and book2 are deleted within the transaction.
 
 a transaction is started when you instantiate a `Transaction` object either via the factory method `DB.Transaction()` or `new Transaction()`. you then perform all transaction logic using the methods supplied by that class such as `.SaveAsync()`, `.DeleteAsync()`, `.Update()`, `.Find()` instead of the methods supplied by the `DB` static class like you'd normally do.
 
