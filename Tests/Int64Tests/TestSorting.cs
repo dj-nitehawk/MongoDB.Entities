@@ -9,7 +9,8 @@ public class SortingInt64
     [TestMethod]
     public void sorting_lists_by_levenshtein_distance_works()
     {
-        var books = new[] {
+        var books = new[]
+        {
             new BookInt64 { Title = "One", Review = new() { Fuzzy = new("one two three four five six seven") } },
             new BookInt64 { Title = "Two", Review = new() { Fuzzy = new("one two three four five six") } },
             new BookInt64 { Title = "Three", Review = new() { Fuzzy = new("one two three four five") } },
@@ -17,7 +18,7 @@ public class SortingInt64
             new BookInt64 { Title = "Five", Review = new() { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy.Value);
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value);
 
         Assert.AreEqual(5, res.Count());
         Assert.AreEqual("Five", res.First().Title);
@@ -27,7 +28,8 @@ public class SortingInt64
     [TestMethod]
     public void sorting_lists_by_levenshtein_distance_specify_max_distance()
     {
-        var books = new[] {
+        var books = new[]
+        {
             new BookInt64 { Title = "One", Review = new() { Fuzzy = new("one two three four five six seven") } },
             new BookInt64 { Title = "Two", Review = new() { Fuzzy = new("one two three four five six") } },
             new BookInt64 { Title = "Three", Review = new() { Fuzzy = new("one two three four five") } },
@@ -35,7 +37,7 @@ public class SortingInt64
             new BookInt64 { Title = "Five", Review = new() { Fuzzy = new("one two three") } }
         };
 
-        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy.Value, 10).ToArray();
+        var res = books.SortByRelevance("One TWO Three", b => b.Review.Fuzzy!.Value, 10).ToArray();
 
         Assert.AreEqual(3, res.Length);
         Assert.AreEqual("Five", res[0].Title);

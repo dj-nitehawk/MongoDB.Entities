@@ -315,7 +315,7 @@ public class SavingInt64
         Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
         Assert.AreEqual(res.PriceDbl, 666);
-        Assert.IsFalse(res.MainAuthor.ID == null);
+        Assert.IsFalse(res.MainAuthor.ID == default);
     }
 
     [TestMethod]
