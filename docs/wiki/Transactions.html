@@ -176,6 +176,7 @@ using (var session = db.Transaction())
 }
 </code></pre>
 <p><strong>Note:</strong> only one active transaction is allowed per DBContext instance. if you need to start another transaction for the same instance, make sure to first commit your changes -&gt; dispose the <code>session</code> object <em>(if not wrapped in a using statement)</em> -&gt; assign a <code>null</code> to the <code>session</code> before you call <code>db.Transaction()</code> again.</p>
+
 </article>
           </div>
 
@@ -186,7 +187,7 @@ using (var session = db.Transaction())
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -208,7 +209,7 @@ using (var session = db.Transaction())
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

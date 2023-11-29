@@ -96,6 +96,7 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Template`2">
 
 
+
   <h1 id="MongoDB_Entities_Template_2" data-uid="MongoDB.Entities.Template`2" class="text-break">Class Template&lt;TInput, TResult&gt;
 </h1>
   <div class="markdown level0 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
@@ -103,7 +104,7 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><a class="xref" href="MongoDB.Entities.Template.html">Template</a></div>
     <div class="level2"><span class="xref">Template&lt;TInput, TResult&gt;</span></div>
       <div class="level3"><a class="xref" href="MongoDB.Entities.Template-1.html">Template&lt;T&gt;</a></div>
@@ -156,22 +157,22 @@
       <a class="xref" href="MongoDB.Entities.Template.html#MongoDB_Entities_Template_ToArrayFilters__1">Template.ToArrayFilters&lt;T&gt;()</a>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -181,7 +182,7 @@
     <pre><code class="lang-csharp hljs">public class Template&lt;TInput, TResult&gt; : Template where TInput : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -215,7 +216,7 @@
     <pre><code class="lang-csharp hljs">public Template(string template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -225,7 +226,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">template</span></td>
         <td><p>The template string with tags for targeting replacements such as &quot;&lt;Author.Name&gt;&quot;</p>
 </td>
@@ -247,7 +248,7 @@
     where TEntity : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -262,7 +263,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -289,7 +290,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements(int index, Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -299,13 +300,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>0=a 1=b 2=c 3=d and so on...</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -313,7 +314,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -339,7 +340,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -349,7 +350,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -357,7 +358,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -383,7 +384,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements&lt;TOther&gt;(int index, Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -393,13 +394,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>0=a 1=b 2=c 3=d and so on...</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -407,7 +408,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -422,7 +423,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -448,7 +449,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Elements&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -458,7 +459,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -466,7 +467,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -481,7 +482,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -507,7 +508,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; ElementsOfResult(int index, Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -517,13 +518,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>0=a 1=b 2=c 3=d and so on...</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -531,7 +532,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -557,7 +558,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; ElementsOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -567,7 +568,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -575,7 +576,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -601,7 +602,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Path(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -611,7 +612,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -619,7 +620,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -645,7 +646,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Path&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -655,7 +656,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -663,7 +664,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -678,7 +679,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -704,7 +705,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PathOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -714,7 +715,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -722,7 +723,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -748,7 +749,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Paths(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -758,7 +759,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
 </td>
@@ -766,7 +767,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -792,7 +793,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Paths&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -802,7 +803,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
 </td>
@@ -810,7 +811,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -825,7 +826,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -851,7 +852,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PathsOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -861,7 +862,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
 </td>
@@ -869,7 +870,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -887,7 +888,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosAll_" data-uid="MongoDB.Entities.Template`2.PosAll*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosAll_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAll(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosAll(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the all positional operator like &quot;Authors.<span class="math">\([].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -895,7 +896,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAll(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -905,7 +906,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -913,7 +914,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -931,7 +932,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosAll_" data-uid="MongoDB.Entities.Template`2.PosAll*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the all positional operator like &quot;Authors.<span class="math">\([].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -939,7 +940,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAll&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -949,7 +950,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -957,7 +958,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -972,7 +973,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -990,7 +991,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosAllOfResult_" data-uid="MongoDB.Entities.Template`2.PosAllOfResult*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosAllOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosAllOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosAllOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the all positional operator like &quot;Authors.<span class="math">\([].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -998,7 +999,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosAllOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1008,7 +1009,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1016,7 +1017,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1034,7 +1035,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFiltered_" data-uid="MongoDB.Entities.Template`2.PosFiltered*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFiltered_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFiltered(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosFiltered(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a positional filtered path like &quot;Authors.<span class="math">\([a].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1043,7 +1044,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFiltered(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1053,7 +1054,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1061,7 +1062,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1079,7 +1080,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFiltered_" data-uid="MongoDB.Entities.Template`2.PosFiltered*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a positional filtered path like &quot;Authors.<span class="math">\([a].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1088,7 +1089,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFiltered&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1098,7 +1099,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1106,7 +1107,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1121,7 +1122,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1139,7 +1140,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFilteredOfResult_" data-uid="MongoDB.Entities.Template`2.PosFilteredOfResult*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFilteredOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFilteredOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosFilteredOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a positional filtered path like &quot;Authors.<span class="math">\([a].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1148,7 +1149,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFilteredOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1158,7 +1159,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1166,7 +1167,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1184,7 +1185,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFirst_" data-uid="MongoDB.Entities.Template`2.PosFirst*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFirst_System_Linq_Expressions_Expression_System_Func__0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirst(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">PosFirst(Expression&lt;Func&lt;TInput, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of input type) to a path with the first positional operator like &quot;Authors.<span class="math">\(.Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -1192,7 +1193,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirst(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1202,7 +1203,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1210,7 +1211,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1228,7 +1229,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFirst_" data-uid="MongoDB.Entities.Template`2.PosFirst*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;TOther&gt;(Expression&lt;Func&lt;TOther, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of any type) to a path with the first positional operator like &quot;Authors.<span class="math">\(.Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -1236,7 +1237,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirst&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1246,7 +1247,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1254,7 +1255,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1269,7 +1270,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1287,7 +1288,7 @@
 
   <a id="MongoDB_Entities_Template_2_PosFirstOfResult_" data-uid="MongoDB.Entities.Template`2.PosFirstOfResult*"></a>
   <h4 id="MongoDB_Entities_Template_2_PosFirstOfResult_System_Linq_Expressions_Expression_System_Func__1_System_Object___" data-uid="MongoDB.Entities.Template`2.PosFirstOfResult(System.Linq.Expressions.Expression{System.Func{`1,System.Object}})">PosFirstOfResult(Expression&lt;Func&lt;TResult, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression (of output type) to a path with the first positional operator like &quot;Authors.<span class="math">\(.Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -1295,7 +1296,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PosFirstOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1305,7 +1306,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -1313,7 +1314,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1339,7 +1340,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Properties(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1349,7 +1350,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
 </td>
@@ -1357,7 +1358,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1383,7 +1384,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Properties&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1393,7 +1394,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
 </td>
@@ -1401,7 +1402,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1416,7 +1417,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1442,7 +1443,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PropertiesOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1452,7 +1453,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
 </td>
@@ -1460,7 +1461,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1486,7 +1487,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Property(Expression&lt;Func&lt;TInput, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1496,7 +1497,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TInput, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TInput, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.RootProp.SomeProp</p>
 </td>
@@ -1504,7 +1505,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1530,7 +1531,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Property&lt;TOther&gt;(Expression&lt;Func&lt;TOther, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1540,7 +1541,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TOther, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TOther, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.RootProp.SomeProp</p>
 </td>
@@ -1548,7 +1549,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1563,7 +1564,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1589,7 +1590,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; PropertyOfResult(Expression&lt;Func&lt;TResult, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1599,7 +1600,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TResult, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TResult, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.RootProp.SomeProp</p>
 </td>
@@ -1607,7 +1608,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1633,7 +1634,7 @@
     <pre><code class="lang-csharp hljs">public Template&lt;TInput, TResult&gt; Tag(string tagName, string replacementValue)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1643,13 +1644,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">tagName</span></td>
         <td><p>The tag name without the surrounding &lt; and &gt;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">replacementValue</span></td>
         <td><p>The value to replace with</p>
 </td>
@@ -1657,7 +1658,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1684,7 +1685,7 @@
     <pre><code class="lang-csharp hljs">public IEnumerable&lt;ArrayFilterDefinition&gt; ToArrayFilters()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1693,7 +1694,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ArrayFilterDefinition</span>&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">ArrayFilterDefinition</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -1711,7 +1712,7 @@
     <pre><code class="lang-csharp hljs">public PipelineDefinition&lt;TInput, TResult&gt; ToPipeline()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1720,11 +1721,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.PipelineDefinition</span>&lt;TInput, TResult&gt;</td>
+        <td><span class="xref">PipelineDefinition</span>&lt;TInput, TResult&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
+
 </article>
           </div>
 
@@ -1735,7 +1737,7 @@
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -1757,7 +1759,7 @@
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>
