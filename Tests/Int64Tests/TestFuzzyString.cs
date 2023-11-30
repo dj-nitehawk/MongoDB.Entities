@@ -16,10 +16,10 @@ public class FuzzyStringTestInt64
         await new BookInt64 { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
         var res = await DB.Queryable<BookInt64>()
-                          .Where(b => b.Review.Fuzzy!.Value == guid)
-                          .SingleAsync();
+                    .Where(b => b.Review.Fuzzy.Value == guid)
+                    .SingleAsync();
 
-        Assert.AreEqual(guid, res.Review.Fuzzy!.Value);
+        Assert.AreEqual(guid, res.Review.Fuzzy.Value);
     }
 
     [TestMethod]
@@ -30,8 +30,8 @@ public class FuzzyStringTestInt64
         await new BookInt64 { Title = guid, Review = new() { Fuzzy = null! } }.SaveAsync();
 
         var res = await DB.Queryable<BookInt64>()
-                          .Where(b => b.Title == guid)
-                          .SingleAsync();
+                    .Where(b => b.Title == guid)
+                    .SingleAsync();
 
         Assert.AreEqual(null, res.Review.Fuzzy?.Value);
     }
