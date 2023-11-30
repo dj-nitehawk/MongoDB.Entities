@@ -1,9 +1,11 @@
 # String templates
+
 the mongodb driver has it's limits and sometimes you need to compose queries either by hand or using a query editor/composer. to be able to run those queries and inject values from your C# code, you're required to compose `BsonDocuments` or do string concatenation which leads to an ugly, unreadable, magic string infested mess.
 
 in order to combat this problem and also to couple your C# entity schema to raw queries, this library offers a templating system based on tag replacements.
 
 take the following find query for example:
+
 ```java
 db.Book.find(
   {
@@ -12,7 +14,8 @@ db.Book.find(
   }
 )
 ```
-to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with `<` and `>` in order to turn them in to replacement tags/markers like this:
+
+to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with `<` and `>` in order to turn them into replacement tags/markers like this:
 
 ```java
 db.Book.find(
@@ -42,6 +45,7 @@ var result = await DB.Find<Book>()
 ```
 
 the resulting query sent to mongodb is this:
+
 ```java
 db.Book.find(
   {
@@ -57,7 +61,7 @@ the `.Path()` method is one of many offered by the `Prop` class you can use to g
 
 notice, that most of these 'Prop' methods only require a single parameter. whatever member expression you supply to them gets converted to a property/field path like this:
 
-> expression: x => x.Authors[0].Books[0].Title 
+> expression: x => x.Authors[0].Books[0].Title
 
 > resulting path: Authors.Books.Title
 
@@ -74,6 +78,7 @@ this kind of runtime errors are preferable than your code failing silently becau
 # Examples
 
 ### Aggregation pipeline
+
 ```csharp
 var pipeline = new Template<Book>(@"
 [
@@ -154,6 +159,7 @@ var authors = await DB.Find<Author>()
 ```
 
 ### Update with aggregation pipeline
+
 ```csharp
 var pipeline = new Template<Author>(@"
 [
@@ -172,6 +178,7 @@ await DB.Update<Author>()
 ```
 
 ### Update with array filters
+
 ```csharp
 var filters = new Template<Author>(@"
 [
@@ -201,6 +208,7 @@ await DB.Update<Book>()
 ```
 
 ### Dynamically append stages to the pipeline
+
 ```csharp 
 var pipeline = new Template<Book>("[{ $match: { <Title>: '<book_name>' }}]");
 
