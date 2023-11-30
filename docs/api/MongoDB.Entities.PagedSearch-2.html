@@ -96,6 +96,7 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.PagedSearch`2">
 
 
+
   <h1 id="MongoDB_Entities_PagedSearch_2" data-uid="MongoDB.Entities.PagedSearch`2" class="text-break">Class PagedSearch&lt;T, TProjection&gt;
 </h1>
   <div class="markdown level0 summary"><p>Represents an aggregation query that retrieves results with easy paging support.</p>
@@ -103,32 +104,32 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><span class="xref">PagedSearch&lt;T, TProjection&gt;</span></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.PagedSearch-1.html">PagedSearch&lt;T&gt;</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -139,7 +140,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -173,7 +174,7 @@
     <pre><code class="lang-csharp hljs">public async Task&lt;(IReadOnlyList&lt;TProjection&gt; Results, long TotalCount, int PageCount)&gt; ExecuteAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -183,7 +184,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -191,7 +192,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -200,7 +201,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Collections.Generic.IReadOnlyList</span>&lt;TProjection&gt;, <span class="xref">System.Int64</span>, <span class="xref">System.Int32</span>&gt;&gt;</td>
+        <td><span class="xref">Task</span>&lt;<span class="xref">(T1 Item1, T2 Item2, T3 Item3)</span>&lt;<span class="xref">IReadOnlyList</span>&lt;TProjection&gt;, <span class="xref">Int64</span>, <span class="xref">Int32</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -217,7 +218,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; IgnoreGlobalFilters()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -243,7 +244,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(FilterDefinition&lt;T&gt; filterDefinition)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -253,7 +254,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filterDefinition</span></td>
         <td><p>A filter definition</p>
 </td>
@@ -261,7 +262,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -288,7 +289,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string language = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -304,25 +305,25 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">searchTerm</span></td>
         <td><p>The search term</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">caseSensitive</span></td>
         <td><p>Case sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">diacriticSensitive</span></td>
         <td><p>Diacritic sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">language</span></td>
         <td><p>The language for the search (optional)</p>
 </td>
@@ -330,7 +331,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -356,7 +357,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Template template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -374,7 +375,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -400,7 +401,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Func&lt;FilterDefinitionBuilder&lt;T&gt;, FilterDefinition&lt;T&gt;&gt; filter)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -410,7 +411,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
 </td>
@@ -418,7 +419,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -444,7 +445,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, bool&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -454,7 +455,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.Property == Value</p>
 </td>
@@ -462,7 +463,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -490,7 +491,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Match(Expression&lt;Func&lt;T, object&gt;&gt; coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -500,7 +501,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">coordinatesProperty</span></td>
         <td><p>The property where 2DCoordinates are stored</p>
 </td>
@@ -512,13 +513,13 @@
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
         <td><span class="parametername">maxDistance</span></td>
         <td><p>Maximum distance in meters from the search point</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
+        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
         <td><span class="parametername">minDistance</span></td>
         <td><p>Minimum distance in meters from the search point</p>
 </td>
@@ -526,7 +527,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -552,7 +553,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; MatchExpression(Template template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -570,7 +571,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -596,7 +597,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; MatchExpression(string expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -606,7 +607,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">expression</span></td>
         <td><p>{ $gt: ['$Property1', '$Property2'] }</p>
 </td>
@@ -614,7 +615,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -640,7 +641,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; MatchString(string jsonString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -650,7 +651,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">jsonString</span></td>
         <td><p>{ Title : 'The Power Of Now' }</p>
 </td>
@@ -658,7 +659,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -684,7 +685,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Option(Action&lt;AggregateOptions&gt; option)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -694,7 +695,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.AggregateOptions</span>&gt;</td>
+        <td><span class="xref">Action</span>&lt;<span class="xref">AggregateOptions</span>&gt;</td>
         <td><span class="parametername">option</span></td>
         <td><p>x =&gt; x.OptionName = OptionValue</p>
 </td>
@@ -702,7 +703,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -728,7 +729,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; PageNumber(int pageNumber)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -738,7 +739,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">pageNumber</span></td>
         <td><p>The page number</p>
 </td>
@@ -746,7 +747,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -772,7 +773,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; PageSize(int pageSize)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -782,7 +783,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">pageSize</span></td>
         <td><p>The size of a page</p>
 </td>
@@ -790,7 +791,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -816,7 +817,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Project(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, TProjection&gt;&gt; projection)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -826,7 +827,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.ProjectionDefinition</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">ProjectionDefinition</span>&lt;T, TProjection&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>p =&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
 </td>
@@ -834,7 +835,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -860,7 +861,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Project(Expression&lt;Func&lt;T, TProjection&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -870,7 +871,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProjection&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, TProjection&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new Test { PropName = x.Prop }</p>
 </td>
@@ -878,7 +879,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -904,7 +905,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; ProjectExcluding(Expression&lt;Func&lt;T, object&gt;&gt; exclusion)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -914,7 +915,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">exclusion</span></td>
         <td><p>x =&gt; new { x.PropToExclude, x.AnotherPropToExclude }</p>
 </td>
@@ -922,7 +923,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -948,7 +949,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Sort(Func&lt;SortDefinitionBuilder&lt;T&gt;, SortDefinition&lt;T&gt;&gt; sortFunction)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -958,7 +959,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.SortDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.SortDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">SortDefinitionBuilder</span>&lt;T&gt;, <span class="xref">SortDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">sortFunction</span></td>
         <td><p>s =&gt; s.Ascending(&quot;Prop1&quot;).MetaTextScore(&quot;Prop2&quot;)</p>
 </td>
@@ -966,7 +967,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -992,7 +993,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; Sort(Expression&lt;Func&lt;T, object&gt;&gt; propertyToSortBy, Order sortOrder)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1002,7 +1003,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">propertyToSortBy</span></td>
         <td><p>x =&gt; x.Prop</p>
 </td>
@@ -1016,7 +1017,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1043,7 +1044,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; SortByTextScore()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1070,7 +1071,7 @@
     <pre><code class="lang-csharp hljs">public PagedSearch&lt;T, TProjection&gt; SortByTextScore(Expression&lt;Func&lt;T, object&gt;&gt; scoreProperty)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1080,7 +1081,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">scoreProperty</span></td>
         <td><p>x =&gt; x.TextScoreProp</p>
 </td>
@@ -1088,7 +1089,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1116,7 +1117,7 @@
     where TFluent : IAggregateFluent&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1134,7 +1135,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1149,7 +1150,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1164,6 +1165,7 @@
       </tr>
     </tbody>
   </table>
+
 </article>
           </div>
 
@@ -1174,7 +1176,7 @@
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -1196,7 +1198,7 @@
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

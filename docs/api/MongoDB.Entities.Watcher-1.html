@@ -96,6 +96,7 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Watcher`1">
 
 
+
   <h1 id="MongoDB_Entities_Watcher_1" data-uid="MongoDB.Entities.Watcher`1" class="text-break">Class Watcher&lt;T&gt;
 </h1>
   <div class="markdown level0 summary"><p>Watcher for subscribing to mongodb change streams.</p>
@@ -103,31 +104,31 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><span class="xref">Watcher&lt;T&gt;</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -138,7 +139,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -168,7 +169,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public bool CanRestart { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -177,7 +178,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -194,7 +195,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public bool IsInitialized { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -203,7 +204,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -220,7 +221,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -229,7 +230,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -246,7 +247,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public BsonDocument ResumeToken { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -255,7 +256,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -274,7 +275,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void ReStart(BsonDocument resumeToken = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -284,7 +285,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td><span class="parametername">resumeToken</span></td>
         <td><p>An optional resume token to restart watching with</p>
 </td>
@@ -303,7 +304,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void Start(EventType eventTypes, Func&lt;FilterDefinitionBuilder&lt;ChangeStreamDocument&lt;T&gt;&gt;, FilterDefinition&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; filter, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -319,31 +320,31 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">FilterDefinition</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(d =&gt; d.FullDocument.Prop1, &quot;value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">onlyGetIDs</span></td>
         <td><p>Set to true if you don't want the complete entity details. All properties except the ID will then be null.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">autoResume</span></td>
         <td><p>Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -362,7 +363,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void Start(EventType eventTypes, Expression&lt;Func&lt;T, T&gt;&gt; projection, Func&lt;FilterDefinitionBuilder&lt;ChangeStreamDocument&lt;T&gt;&gt;, FilterDefinition&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; filter, int batchSize = 25, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -378,31 +379,31 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>A projection expression for the entity</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">FilterDefinition</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(d =&gt; d.FullDocument.Prop1, &quot;value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">autoResume</span></td>
         <td><p>Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -421,7 +422,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void Start(EventType eventTypes, Expression&lt;Func&lt;T, T&gt;&gt; projection, Expression&lt;Func&lt;ChangeStreamDocument&lt;T&gt;, bool&gt;&gt; filter = null, int batchSize = 25, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -437,31 +438,31 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>A projection expression for the entity</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>x =&gt; x.FullDocument.Prop1 == &quot;SomeValue&quot;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">autoResume</span></td>
         <td><p>Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -480,7 +481,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void Start(EventType eventTypes, Expression&lt;Func&lt;ChangeStreamDocument&lt;T&gt;, bool&gt;&gt; filter = null, int batchSize = 25, bool onlyGetIDs = false, bool autoResume = true, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -496,31 +497,31 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>x =&gt; x.FullDocument.Prop1 == &quot;SomeValue&quot;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">onlyGetIDs</span></td>
         <td><p>Set to true if you don't want the complete entity details. All properties except the ID will then be null.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">autoResume</span></td>
         <td><p>Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -539,7 +540,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Func&lt;FilterDefinitionBuilder&lt;ChangeStreamDocument&lt;T&gt;&gt;, FilterDefinition&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; filter, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -549,7 +550,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td><span class="parametername">resumeToken</span></td>
         <td><p>A resume token to start receiving changes after some point back in time</p>
 </td>
@@ -561,25 +562,25 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">FilterDefinition</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(d =&gt; d.FullDocument.Prop1, &quot;value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">onlyGetIDs</span></td>
         <td><p>Set to true if you don't want the complete entity details. All properties except the ID will then be null.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -598,7 +599,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression&lt;Func&lt;T, T&gt;&gt; projection, Func&lt;FilterDefinitionBuilder&lt;ChangeStreamDocument&lt;T&gt;&gt;, FilterDefinition&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; filter, int batchSize = 25, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -608,7 +609,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td><span class="parametername">resumeToken</span></td>
         <td><p>A resume token to start receiving changes after some point back in time</p>
 </td>
@@ -620,25 +621,25 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>A projection expression for the entity</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;, <span class="xref">FilterDefinition</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(d =&gt; d.FullDocument.Prop1, &quot;value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -657,7 +658,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression&lt;Func&lt;T, T&gt;&gt; projection, Expression&lt;Func&lt;ChangeStreamDocument&lt;T&gt;, bool&gt;&gt; filter = null, int batchSize = 25, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -667,7 +668,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td><span class="parametername">resumeToken</span></td>
         <td><p>A resume token to start receiving changes after some point back in time</p>
 </td>
@@ -679,25 +680,25 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>A projection expression for the entity</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>x =&gt; x.FullDocument.Prop1 == &quot;SomeValue&quot;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -716,7 +717,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public void StartWithToken(BsonDocument resumeToken, EventType eventTypes, Expression&lt;Func&lt;ChangeStreamDocument&lt;T&gt;, bool&gt;&gt; filter = null, int batchSize = 25, bool onlyGetIDs = false, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -726,7 +727,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
+        <td><span class="xref">BsonDocument</span></td>
         <td><span class="parametername">resumeToken</span></td>
         <td><p>A resume token to start receiving changes after some point back in time</p>
 </td>
@@ -738,25 +739,25 @@ Will always return false after cancellation is requested via the cancellation to
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">System.Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;, <span class="xref">Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>x =&gt; x.FullDocument.Prop1 == &quot;SomeValue&quot;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">Int32</span></td>
         <td><span class="parametername">batchSize</span></td>
         <td><p>The max number of entities to receive for a single event occurence</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">onlyGetIDs</span></td>
         <td><p>Set to true if you don't want the complete entity details. All properties except the ID will then be null.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>A cancellation token for ending the watching/change stream</p>
 </td>
@@ -776,7 +777,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event Action&lt;IEnumerable&lt;T&gt;&gt; OnChanges</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -785,7 +786,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">Action</span>&lt;<span class="xref">IEnumerable</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -801,7 +802,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event AsyncEventHandler&lt;IEnumerable&lt;T&gt;&gt; OnChangesAsync</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -810,7 +811,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">IEnumerable</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -826,7 +827,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event Action&lt;IEnumerable&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; OnChangesCSD</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -835,7 +836,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><span class="xref">Action</span>&lt;<span class="xref">IEnumerable</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -851,7 +852,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event AsyncEventHandler&lt;IEnumerable&lt;ChangeStreamDocument&lt;T&gt;&gt;&gt; OnChangesCSDAsync</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -860,7 +861,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
+        <td><a class="xref" href="MongoDB.Entities.AsyncEventHandler-1.html">AsyncEventHandler</a>&lt;<span class="xref">IEnumerable</span>&lt;<span class="xref">ChangeStreamDocument</span>&lt;T&gt;&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -876,7 +877,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event Action&lt;Exception&gt; OnError</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -885,7 +886,7 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Exception</span>&gt;</td>
+        <td><span class="xref">Action</span>&lt;<span class="xref">Exception</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -901,7 +902,7 @@ Will always return false after cancellation is requested via the cancellation to
     <pre><code class="lang-csharp hljs">public event Action OnStop</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -910,11 +911,12 @@ Will always return false after cancellation is requested via the cancellation to
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span></td>
+        <td><span class="xref">Action</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+
 </article>
           </div>
 
@@ -925,7 +927,7 @@ Will always return false after cancellation is requested via the cancellation to
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -947,7 +949,7 @@ Will always return false after cancellation is requested via the cancellation to
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

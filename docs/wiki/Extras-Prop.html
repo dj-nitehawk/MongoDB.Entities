@@ -136,7 +136,7 @@
 <p>Authors[1].Age &gt; Authors.$[b].Age</p>
 </blockquote>
 <blockquote>
-<p>Authors[2].Books[3].Title &gt; Authors.$[c].Books.$[d].Title</p>
+<p>Authors[2].Books[3].Title &gt; Authors.<span class="math">\([c].Books.\)</span>[d].Title</p>
 </blockquote>
 <p>index positions start from [0] which is converted to $[a] and so on.</p>
 <pre><code class="lang-csharp">    var path = Prop.PosFiltered&lt;Book&gt;(b =&gt; b.Authors[2].Books[3].Title);
@@ -159,6 +159,7 @@
 </blockquote>
 <pre><code class="lang-csharp">    var path = Prop.Elements&lt;Book&gt;(b =&gt; b.Tags);
 </code></pre>
+
 </article>
           </div>
 
@@ -169,7 +170,7 @@
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -191,7 +192,7 @@
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

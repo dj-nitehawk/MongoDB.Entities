@@ -96,6 +96,7 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.One`1">
 
 
+
   <h1 id="MongoDB_Entities_One_1" data-uid="MongoDB.Entities.One`1" class="text-break">Class One&lt;T&gt;
 </h1>
   <div class="markdown level0 summary"><p>Represents a one-to-one relationship with an IEntity.</p>
@@ -103,31 +104,31 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><span class="xref">One&lt;T&gt;</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -138,7 +139,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -159,8 +160,7 @@
 
   <a id="MongoDB_Entities_One_1__ctor_" data-uid="MongoDB.Entities.One`1.#ctor*"></a>
   <h4 id="MongoDB_Entities_One_1__ctor" data-uid="MongoDB.Entities.One`1.#ctor">One()</h4>
-  <div class="markdown level1 summary"><p>Represents a one-to-one relationship with an IEntity.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -178,7 +178,7 @@
     <pre><code class="lang-csharp hljs">public One(T entity)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -207,7 +207,7 @@
     <pre><code class="lang-csharp hljs">public One(string id)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -217,7 +217,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">id</span></td>
         <td><p>the ID of the referenced entity</p>
 </td>
@@ -239,7 +239,7 @@
 public string ID { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -248,7 +248,7 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -267,7 +267,7 @@ public string ID { get; set; }</code></pre>
     <pre><code class="lang-csharp hljs">public Task&lt;T&gt; ToEntityAsync(IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -277,13 +277,13 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -291,7 +291,7 @@ public string ID { get; set; }</code></pre>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -300,7 +300,7 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
+        <td><span class="xref">Task</span>&lt;T&gt;</td>
         <td><p>A Task containing the actual entity</p>
 </td>
       </tr>
@@ -318,7 +318,7 @@ public string ID { get; set; }</code></pre>
     <pre><code class="lang-csharp hljs">public async Task&lt;T&gt; ToEntityAsync(Func&lt;ProjectionDefinitionBuilder&lt;T&gt;, ProjectionDefinition&lt;T, T&gt;&gt; projection, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -328,19 +328,19 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.ProjectionDefinition</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">ProjectionDefinitionBuilder</span>&lt;T&gt;, <span class="xref">ProjectionDefinition</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>p=&gt; p.Include(&quot;Prop1&quot;).Exclude(&quot;Prop2&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -348,7 +348,7 @@ public string ID { get; set; }</code></pre>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -357,7 +357,7 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
+        <td><span class="xref">Task</span>&lt;T&gt;</td>
         <td><p>A Task containing the actual projected entity</p>
 </td>
       </tr>
@@ -375,7 +375,7 @@ public string ID { get; set; }</code></pre>
     <pre><code class="lang-csharp hljs">public async Task&lt;T&gt; ToEntityAsync(Expression&lt;Func&lt;T, T&gt;&gt; projection, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -385,19 +385,19 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, T&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, T&gt;&gt;</td>
         <td><span class="parametername">projection</span></td>
         <td><p>x =&gt; new Test { PropName = x.Prop }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -405,7 +405,7 @@ public string ID { get; set; }</code></pre>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -414,12 +414,13 @@ public string ID { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;T&gt;</td>
+        <td><span class="xref">Task</span>&lt;T&gt;</td>
         <td><p>A Task containing the actual projected entity</p>
 </td>
       </tr>
     </tbody>
   </table>
+
 </article>
           </div>
 
@@ -430,7 +431,7 @@ public string ID { get; set; }</code></pre>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -452,7 +453,7 @@ public string ID { get; set; }</code></pre>
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

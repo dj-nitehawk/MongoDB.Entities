@@ -96,13 +96,14 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.UpdateBase`1">
 
 
+
   <h1 id="MongoDB_Entities_UpdateBase_1" data-uid="MongoDB.Entities.UpdateBase`1" class="text-break">Class UpdateBase&lt;T&gt;
 </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><span class="xref">UpdateBase&lt;T&gt;</span></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.Update-1.html">Update&lt;T&gt;</a></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.UpdateAndGet-2.html">UpdateAndGet&lt;T, TProjection&gt;</a></div>
@@ -110,25 +111,25 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -139,7 +140,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -165,7 +166,7 @@
     <pre><code class="lang-csharp hljs">protected readonly List&lt;UpdateDefinition&lt;T&gt;&gt; defs</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -174,7 +175,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.List</span>&lt;<span class="xref">MongoDB.Driver.UpdateDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">List</span>&lt;<span class="xref">UpdateDefinition</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -193,7 +194,7 @@
     <pre><code class="lang-csharp hljs">public void AddModification(Template template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -222,7 +223,7 @@
     <pre><code class="lang-csharp hljs">public void AddModification(Func&lt;UpdateDefinitionBuilder&lt;T&gt;, UpdateDefinition&lt;T&gt;&gt; operation)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -232,7 +233,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.UpdateDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">Func</span>&lt;<span class="xref">UpdateDefinitionBuilder</span>&lt;T&gt;, <span class="xref">UpdateDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">operation</span></td>
         <td><p>b =&gt; b.Inc(x =&gt; x.PropName, Value)</p>
 </td>
@@ -251,7 +252,7 @@
     <pre><code class="lang-csharp hljs">public void AddModification(string update)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -261,9 +262,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">update</span></td>
-        <td><p>{ $set: { 'RootProp.$[x].SubProp' : 321 } }</p>
+        <td><p>{ <span class="math">\(set: { &amp;apos;RootProp.\)</span>[x].SubProp' : 321 } }</p>
 </td>
       </tr>
     </tbody>
@@ -280,7 +281,7 @@
     <pre><code class="lang-csharp hljs">public void AddModification&lt;TProp&gt;(Expression&lt;Func&lt;T, TProp&gt;&gt; property, TProp value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -290,7 +291,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, TProp&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, TProp&gt;&gt;</td>
         <td><span class="parametername">property</span></td>
         <td><p>x =&gt; x.Property</p>
 </td>
@@ -304,7 +305,7 @@
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -318,6 +319,7 @@
       </tr>
     </tbody>
   </table>
+
 </article>
           </div>
 
@@ -328,7 +330,7 @@
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -350,7 +352,7 @@
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

@@ -260,6 +260,7 @@ foreach (var w in watchers)
 </code></pre>
 <p>in addition to persistent network connections/cursors, each watcher will use a small amount of memory for an async/await state machine that does the actual work of iterating the change-stream cursor and emitting events without blocking threads during IO.</p>
 <p>the bottom line is, change-streams can be a double-edged sword if not used sparingly. the beefier the machine that runs your app, the more change-streams you can create without affecting the performance of the rest of your application.</p>
+
 </article>
           </div>
 
@@ -270,7 +271,7 @@ foreach (var w in watchers)
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -292,7 +293,7 @@ foreach (var w in watchers)
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

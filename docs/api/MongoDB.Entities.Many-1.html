@@ -96,6 +96,7 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Many`1">
 
 
+
   <h1 id="MongoDB_Entities_Many_1" data-uid="MongoDB.Entities.Many`1" class="text-break">Class Many&lt;TChild&gt;
 </h1>
   <div class="markdown level0 summary"><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
@@ -107,37 +108,37 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level0"><span class="xref">Object</span></div>
     <div class="level1"><a class="xref" href="MongoDB.Entities.ManyBase.html">ManyBase</a></div>
     <div class="level2"><span class="xref">Many&lt;TChild&gt;</span></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TChild&gt;</div>
-    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><span class="xref">IEnumerable</span>&lt;TChild&gt;</div>
+    <div><span class="xref">IEnumerable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
+      <span class="xref">Object.Equals(Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+      <span class="xref">Object.Equals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetHashCode()</span>
+      <span class="xref">Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">System.Object.GetType()</span>
+      <span class="xref">Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
+      <span class="xref">Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
     </div>
     <div>
-      <span class="xref">System.Object.ToString()</span>
+      <span class="xref">Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -147,7 +148,7 @@
     <pre><code class="lang-csharp hljs">public sealed class Many&lt;TChild&gt; : ManyBase, IEnumerable&lt;TChild&gt;, IEnumerable where TChild : IEntity</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -191,7 +192,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public IMongoCollection&lt;JoinRecord&gt; JoinCollection { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -200,7 +201,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IMongoCollection</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
+        <td><span class="xref">IMongoCollection</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -220,7 +221,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public Task AddAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -236,13 +237,13 @@ This is only needed in VB.Net</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -250,7 +251,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -259,7 +260,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -277,7 +278,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public Task AddAsync(IEnumerable&lt;TChild&gt; children, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -287,19 +288,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>The child Entities to add</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -307,7 +308,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -316,7 +317,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -334,7 +335,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public Task AddAsync(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -344,19 +345,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>The IDs of the child Entities to add.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -364,7 +365,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -373,7 +374,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -391,7 +392,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public Task AddAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -401,19 +402,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">childID</span></td>
         <td><p>The ID of the child Entity to add.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -421,7 +422,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -430,7 +431,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -447,7 +448,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public Task&lt;long&gt; ChildrenCountAsync(IClientSessionHandle session = null, CountOptions options = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -457,19 +458,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
+        <td><span class="xref">CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -477,7 +478,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -486,7 +487,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
+        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -503,7 +504,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;TChild&gt; ChildrenFluent(IClientSessionHandle session = null, AggregateOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -513,13 +514,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -527,7 +528,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -536,7 +537,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;TChild&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -553,7 +554,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;TChild&gt; ChildrenQueryable(IClientSessionHandle session = null, AggregateOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -563,13 +564,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -577,7 +578,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -586,7 +587,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;TChild&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -595,19 +596,14 @@ This is only needed in VB.Net</p>
 
   <a id="MongoDB_Entities_Many_1_GetEnumerator_" data-uid="MongoDB.Entities.Many`1.GetEnumerator*"></a>
   <h4 id="MongoDB_Entities_Many_1_GetEnumerator" data-uid="MongoDB.Entities.Many`1.GetEnumerator">GetEnumerator()</h4>
-  <div class="markdown level1 summary"><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
-<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
-<p>Initialize from the constructor of the parent entity as follows:</p>
-<p><code>this.InitOneToMany(() => Property);</code></p>
-<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public IEnumerator&lt;TChild&gt; GetEnumerator()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -616,7 +612,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerator</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IEnumerator</span>&lt;TChild&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -633,7 +629,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public IAggregateFluent&lt;JoinRecord&gt; JoinFluent(IClientSessionHandle session = null, AggregateOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -643,13 +639,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -657,7 +653,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -666,7 +662,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -683,7 +679,7 @@ This is only needed in VB.Net</p>
     <pre><code class="lang-csharp hljs">public IMongoQueryable&lt;JoinRecord&gt; JoinQueryable(IClientSessionHandle session = null, AggregateOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -693,13 +689,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -707,7 +703,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -716,7 +712,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;<a class="xref" href="MongoDB.Entities.JoinRecord.html">JoinRecord</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -734,7 +730,7 @@ This is only needed in VB.Net</p>
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -744,7 +740,7 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>An IAggregateFluent of children</p>
 </td>
@@ -752,7 +748,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -761,13 +757,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -795,7 +791,7 @@ This is only needed in VB.Net</p>
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -805,19 +801,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>An IEnumerable of child IDs</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -825,7 +821,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -834,13 +830,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -868,7 +864,7 @@ This is only needed in VB.Net</p>
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -878,19 +874,19 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">childID</span></td>
         <td><p>An child ID</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -898,7 +894,7 @@ This is only needed in VB.Net</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -907,13 +903,13 @@ This is only needed in VB.Net</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IAggregateFluent</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -942,7 +938,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -952,19 +948,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>An IQueryable of children</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -972,7 +968,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -981,13 +977,13 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1015,7 +1011,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1025,19 +1021,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>An IEnumerable of child IDs</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -1045,7 +1041,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1054,13 +1050,13 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1088,7 +1084,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1098,19 +1094,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">childID</span></td>
         <td><p>A child ID</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
+        <td><span class="xref">AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional AggregateOptions object</p>
 </td>
@@ -1118,7 +1114,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1127,13 +1123,13 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;TParent&gt;</td>
+        <td><span class="xref">IMongoQueryable</span>&lt;TParent&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1160,7 +1156,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     <pre><code class="lang-csharp hljs">public Task RemoveAsync(TChild child, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1176,13 +1172,13 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1190,7 +1186,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1199,7 +1195,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1216,7 +1212,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     <pre><code class="lang-csharp hljs">public Task RemoveAsync(IEnumerable&lt;TChild&gt; children, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1226,19 +1222,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TChild&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;TChild&gt;</td>
         <td><span class="parametername">children</span></td>
         <td><p>The child Entities to remove the references of.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1246,7 +1242,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1255,7 +1251,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1272,7 +1268,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     <pre><code class="lang-csharp hljs">public Task RemoveAsync(IEnumerable&lt;string&gt; childIDs, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1282,19 +1278,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
         <td><span class="parametername">childIDs</span></td>
         <td><p>The IDs of the child Entities to remove the references of</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1302,7 +1298,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1311,7 +1307,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1328,7 +1324,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     <pre><code class="lang-csharp hljs">public Task RemoveAsync(string childID, IClientSessionHandle session = null, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1338,19 +1334,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.String</span></td>
+        <td><span class="xref">String</span></td>
         <td><span class="parametername">childID</span></td>
         <td><p>The ID of the child Entity to remove the reference of.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
+        <td><span class="xref">IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Threading.CancellationToken</span></td>
+        <td><span class="xref">CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1358,7 +1354,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1367,7 +1363,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><span class="xref">Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1385,7 +1381,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1401,19 +1397,19 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TParent, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TParent, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">propertyParent</span></td>
         <td><p>Function(x) x.ParentProp</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TChild, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TChild, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">propertyChild</span></td>
         <td><p>Function(x) x.ChildProp</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">Boolean</span></td>
         <td><span class="parametername">isInverse</span></td>
         <td><p>Specify if this is the inverse side of the relationship or not</p>
 </td>
@@ -1421,7 +1417,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1449,7 +1445,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     where TParent : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1465,7 +1461,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TParent, <span class="xref">System.Object</span>&gt;&gt;</td>
+        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TParent, <span class="xref">Object</span>&gt;&gt;</td>
         <td><span class="parametername">property</span></td>
         <td><p>Function(x) x.PropName</p>
 </td>
@@ -1473,7 +1469,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1494,19 +1490,14 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
 
   <a id="MongoDB_Entities_Many_1_System_Collections_IEnumerable_GetEnumerator_" data-uid="MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator*"></a>
   <h4 id="MongoDB_Entities_Many_1_System_Collections_IEnumerable_GetEnumerator" data-uid="MongoDB.Entities.Many`1.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
-  <div class="markdown level1 summary"><p>Represents a one-to-many/many-to-many relationship between two Entities.</p>
-<p>WARNING: You have to initialize all instances of this class before accessing any of it&apos;s members.</p>
-<p>Initialize from the constructor of the parent entity as follows:</p>
-<p><code>this.InitOneToMany(() => Property);</code></p>
-<p><code>this.InitManyToMany(() => Property, x => x.OtherProperty);</code></p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1515,7 +1506,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td><span class="xref">IEnumerator</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -1558,6 +1549,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
   <div>
       <a class="xref" href="MongoDB.Entities.Extensions.html#MongoDB_Entities_Extensions_ToDocuments__1_System_Collections_Generic_IEnumerable___0__">Extensions.ToDocuments&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
   </div>
+
 </article>
           </div>
 
@@ -1568,7 +1560,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In This Article</h5>
+                <h5>In this article</h5>
                 <div></div>
               </nav>
             </div>
@@ -1590,7 +1582,7 @@ public IMongoQueryable&lt;TParent&gt; ParentsQueryable&lt;TParent&gt;(IMongoQuer
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>
