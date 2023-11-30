@@ -2,7 +2,7 @@
 you can get a list of unique values for a given property of an entity with the `Distinct<T,TProperty>()` method of the `DB` entrypoint.
 
 `T` is the type of entity you want to query.
-`TProperty` is the type of the property whos unique values you want returned.
+`TProperty` is the type of property whose unique values you want returned.
 
 ### Get a list of all distinct values
 ```csharp
