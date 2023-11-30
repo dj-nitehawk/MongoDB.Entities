@@ -1,5 +1,0 @@
-[*.cs]
-dotnet_diagnostic.RCS1090.severity = none
-
-# CA1822: Mark members as static
-dotnet_diagnostic.CA1822.severity = none

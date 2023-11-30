@@ -94,15 +94,14 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="referenced-relationships">Referenced Relationships</h1>
 
-<p>referenced relationships require a bit of special handling. a <strong>one-to-one</strong> relationship is defined using the <code>One&lt;T&gt;</code> class and <strong>one-to-many</strong> as well as <strong>many-to-many</strong> relationships are defined using the <code>Many&lt;T&gt;</code> class and you have to initialize the <code>Many&lt;T&gt;</code> child properties in the constructor of the parent entity as shown below.</p>
+<p>referenced relationships require a bit of special handling. a <strong>one-to-one</strong> relationship is defined using the <code>One&lt;T&gt;</code> class and <strong>one-to-many</strong> as well as <strong>many-to-many</strong> relationships are defined using the <code>Many&lt;TChild,TParent&gt;</code> class and you have to initialize the <code>Many&lt;TChild,TParent&gt;</code> child properties in the constructor of the parent entity as shown below.</p>
 <pre><code class="lang-csharp">public class Book : Entity
 {
     public One&lt;Author&gt; MainAuthor { get; set; }
-    
-    public Many&lt;Author&gt; CoAuthors { get; set; }
-    
-    [OwnerSide] 
-    public Many&lt;Genre&gt; Genres { get; set; }
+    public Many&lt;Author, Book&gt; CoAuthors { get; set; }
+
+    [OwnerSide]
+    public Many&lt;Genre, Book&gt; Genres { get; set; }
 
     public Book()
     {
@@ -113,8 +112,8 @@
 
 public class Genre : Entity
 {
-    [InverseSide] 
-    public Many&lt;Book&gt; Books { get; set; }
+    [InverseSide]
+    public Many&lt;Book, Genre&gt; Books { get; set; }
 
     public Genre()
     {

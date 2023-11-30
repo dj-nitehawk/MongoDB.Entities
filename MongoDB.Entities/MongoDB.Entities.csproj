@@ -2,7 +2,7 @@
 
     <PropertyGroup>
 
-        <Version>22.1.0.5-beta</Version>
+        <Version>23.0.0</Version>
 
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>MongoDB.Entities</RootNamespace>
@@ -19,7 +19,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore netcore2 netcore3 dotnetstandard database persistance dal repo</PackageTags>
+        <PackageTags>mongodb mongodb-orm mongodb-repo mongodb-repository entities nosql orm linq netcore repository aspnetcore dotnetstandard database persistance dal repo</PackageTags>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <LangVersion>latest</LangVersion>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -32,7 +32,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
         <PackageReference Include="MongoDB.Driver" Version="2.22.0"/>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
     </ItemGroup>
 
     <ItemGroup>

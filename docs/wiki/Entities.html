@@ -144,28 +144,37 @@ public class Author : Entity
 <p>if for whatever reason, you're unable to inherit the <code>Entity</code> base class, you can simply implement the <code>IEntity</code> interface to make your classes compatible with the library like so:</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
-    [BsonId, ObjectId]
-    public string ID { get; set; }
-    
-    public string GenerateNewID() 
+    public string ID { get; set; } = null!;
+
+    public object GenerateNewID()
         =&gt; ObjectId.GenerateNewId().ToString();
+
+    public bool HasDefaultID()
+        =&gt; string.IsNullOrEmpty(ID);
 }
 </code></pre>
 <h1 id="customizing-the-id-format">Customizing the ID format</h1>
-<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the format of the ID, simply override the <code>GenerateNewID</code> method of the <code>Entity</code> class or implement the <code>IEntity</code> interface and place the logic for generating new IDs inside the <code>GenerateNewID</code> method.</p>
-<p>if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute.</p>
+<p>the default format of the IDs automatically generated for new entities is <code>ObjectId</code>. if you'd like to change the type/format of the ID, simply override the <code>GenerateNewID</code> and <code>HasDefaultID</code> methods of the <code>Entity</code> base class or implement the <code>IEntity</code> interface. if implementing <code>IEntity</code>, don't forget to decorate the ID property with the <code>[BsonId]</code> attribute to indicate that it's the primary key.</p>
 <pre><code class="lang-csharp">public class Book : IEntity
 {
     [BsonId]
-    public string ID { get; set; }
+    public Guid Id { get; set; } = Guid.Empty;
 
-    public string GenerateNewID()
-        =&gt; $&quot;{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}&quot;;
+    public object GenerateNewID()
+        =&gt; Guid.NewGuid();
+
+    public bool HasDefaultID()
+        =&gt; Id == Guid.Empty;
 }
 </code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>the type of the ID property cannot be changed to something other than <code>string</code>. PRs are welcome for removing this limitation.</p>
+<p>the type of the ID property can be whatever type you like (given that it can be serialized by the mongo driver). however, due to a technical constraint, only the following types are supported with the <a href="Relationships-Referenced.html">referenced relationship</a> functionality:</p>
+<ul>
+<li>string</li>
+<li>long</li>
+<li>ObjectId</li>
+</ul>
 </div>
 <!-- <h2 style="color:#cb0000">A word of warning about custom IDs</h2> -->
 <div class="WARNING">

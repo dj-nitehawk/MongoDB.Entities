@@ -1,15 +1,15 @@
 # Referenced Relationships
 
-referenced relationships require a bit of special handling. a **one-to-one** relationship is defined using the `One<T>` class and **one-to-many** as well as **many-to-many** relationships are defined using the `Many<T>` class and you have to initialize the `Many<T>` child properties in the constructor of the parent entity as shown below.
+referenced relationships require a bit of special handling. a **one-to-one** relationship is defined using the `One<T>` class and **one-to-many** as well as **many-to-many** relationships are defined using the `Many<TChild,TParent>` class and you have to initialize the `Many<TChild,TParent>` child properties in the constructor of the parent entity as shown below.
+
 ```csharp
 public class Book : Entity
 {
     public One<Author> MainAuthor { get; set; }
-    
-    public Many<Author> CoAuthors { get; set; }
-    
-    [OwnerSide] 
-    public Many<Genre> Genres { get; set; }
+    public Many<Author, Book> CoAuthors { get; set; }
+
+    [OwnerSide]
+    public Many<Genre, Book> Genres { get; set; }
 
     public Book()
     {
@@ -20,8 +20,8 @@ public class Book : Entity
 
 public class Genre : Entity
 {
-    [InverseSide] 
-    public Many<Book> Books { get; set; }
+    [InverseSide]
+    public Many<Book, Genre> Books { get; set; }
 
     public Genre()
     {
@@ -29,6 +29,7 @@ public class Genre : Entity
     }
 }
 ```
+
 notice the parameters of the `InitOneToMany` and `InitManyToMany` methods above. the first method only takes one parameter which is just a lambda pointing to the property you want to initialize.
 
 the next method takes 2 parameters. first is the property to initialize. second is the property of the other side of the relationship.
@@ -48,10 +49,12 @@ await book.SaveAsync();                 //call save on parent to store
 ```
 
 ### Reference removal
+
 ```csharp
 book.MainAuthor = null;
 await book.SaveAsync();
 ```
+
 the original `author` in the `Authors` collection is unaffected.
 
 ### Entity deletion
@@ -73,10 +76,12 @@ await bookC.MainAuthor.ToEntityAsync() //returns null
 ```
 
 ## One-to-many & many-to-many
+
 ```csharp
 await book.Authors.AddAsync(author); //one-to-many
 await book.Genres.AddAsync(genre); //many-to-many
 ```
+
 there's no need to call `book.SaveAsync()` again because references are automatically saved using special join collections. you can read more about them in the [Schema Changes](Schema-Changes.md#reference-collections) section.
 
 however, do note that both the parent entity (book) and child (author/genre) being added has to have been previously saved so that they have their `ID` values populated. otherwise, you'd get an exception instructing you to save them both before calling `AddAsync()`.
@@ -92,6 +97,7 @@ there are other *[overloads](xref:MongoDB.Entities.Many`1#methods)* for adding r
 > [click here](https://gist.github.com/dj-nitehawk/9971a57062f32fac8e7597a889d47714) to see a full example of a referenced one-to-many relationship.
 
 ### Reference removal
+
 ```csharp
 await book.Authors.RemoveAsync(author);
 await book.Genres.RemoveAsync(genre);
@@ -102,6 +108,7 @@ the original `author` in the `Authors` collection is unaffected. also the `genre
 there are other *[overloads](xref:MongoDB.Entities.Many`1.RemoveAsync(`0,MongoDB.Driver.IClientSessionHandle,System.Threading.CancellationToken))* for removing relationships with multiple entities or just the string IDs.
 
 ### Entity deletion
+
 when you delete an entity that's in a `one-to-many` or `many-to-many` relationship, all the references (join records) for the relationship in concern are automatically deleted from the join collections.
 
 for example:
@@ -135,7 +142,9 @@ a reference can be turned back in to an entity with the `ToEntityAsync()` method
 ```csharp
 var author = await book.MainAuthor.ToEntityAsync();
 ```
+
 you can also project the properties you need instead of getting back the complete entity like so:
+
 ```csharp
 var author = await book.MainAuthor
                        .ToEntityAsync(a => new Author
@@ -146,4 +155,5 @@ var author = await book.MainAuthor
 ```
 
 # Transaction support
+
 adding and removing related entities require passing in the session when used within a transaction. see [here](Transactions.md#relationship-manipulation) for an example.
