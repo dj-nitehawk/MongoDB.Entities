@@ -96,7 +96,6 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.DBContext">
 
 
-
   <h1 id="MongoDB_Entities_DBContext" data-uid="MongoDB.Entities.DBContext" class="text-break">Class DBContext
 </h1>
   <div class="markdown level0 summary"><p>This db context class can be used as an alternative entry point instead of the DB static class.</p>
@@ -104,32 +103,32 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">DBContext</span></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.Transaction.html">Transaction</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <span class="xref">System.Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <span class="xref">System.Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
+      <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.ToString()</span>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -153,7 +152,7 @@
     <pre><code class="lang-csharp hljs">public DBContext(ModifiedBy modifiedBy = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -186,7 +185,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public DBContext(string database, MongoClientSettings settings, ModifiedBy modifiedBy = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -196,13 +195,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>Name of the database</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoClientSettings</span></td>
+        <td><span class="xref">MongoDB.Driver.MongoClientSettings</span></td>
         <td><span class="parametername">settings</span></td>
         <td><p>A MongoClientSettings object</p>
 </td>
@@ -231,7 +230,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public DBContext(string database, string host = &quot;127.0.0.1&quot;, int port = 27017, ModifiedBy modifiedBy = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -241,19 +240,19 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>Name of the database</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">host</span></td>
         <td><p>Address of the MongoDB server</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Int32</span></td>
+        <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">port</span></td>
         <td><p>Port number of the server</p>
 </td>
@@ -283,7 +282,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public ModifiedBy ModifiedBy { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -309,7 +308,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public IClientSessionHandle Session { get; protected set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -318,7 +317,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -337,7 +336,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public Task AbortAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -347,7 +346,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -355,7 +354,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -364,7 +363,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -381,7 +380,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     <pre><code class="lang-csharp hljs">public Task CommitAsync(CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -391,7 +390,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -399,7 +398,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -408,7 +407,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -426,7 +425,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -436,25 +435,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -462,7 +461,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -471,13 +470,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -505,7 +504,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -515,25 +514,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -541,7 +540,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -550,13 +549,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -584,7 +583,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -594,25 +593,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>A lambda expression for getting the count for a subset of the data</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -620,7 +619,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -629,13 +628,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -663,7 +662,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -673,7 +672,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -681,7 +680,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -690,13 +689,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -725,7 +724,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -735,7 +734,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -743,7 +742,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -752,13 +751,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -786,7 +785,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -796,13 +795,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">CreateCollectionOptions</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.CreateCollectionOptions</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">options</span></td>
         <td><p>The options to use for collection creation</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -810,7 +809,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -819,13 +818,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -855,7 +854,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -865,25 +864,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition for matching entities to delete.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -891,7 +890,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -900,13 +899,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -936,7 +935,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -946,19 +945,19 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">IDs</span></td>
         <td><p>An IEnumerable of entity IDs</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -966,7 +965,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -975,13 +974,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1011,7 +1010,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1021,25 +1020,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1047,7 +1046,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1056,13 +1055,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1092,7 +1091,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1102,25 +1101,25 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>A lambda expression for matching entities to delete.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1128,7 +1127,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1137,13 +1136,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1172,7 +1171,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1182,19 +1181,19 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>The Id of the entity to delete</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1202,7 +1201,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1211,13 +1210,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1245,7 +1244,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1260,7 +1259,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1294,7 +1293,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1303,13 +1302,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1337,7 +1336,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1352,7 +1351,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1380,7 +1379,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1395,7 +1394,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1428,7 +1427,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1438,13 +1437,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1452,7 +1451,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1461,13 +1460,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1496,7 +1495,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1512,37 +1511,37 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">searchTerm</span></td>
         <td><p>The search term</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">caseSensitive</span></td>
         <td><p>Case sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">diacriticSensitive</span></td>
         <td><p>Diacritic sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">language</span></td>
         <td><p>The language for the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Options for finding documents (not required)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1550,7 +1549,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1559,13 +1558,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1592,7 +1591,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1608,66 +1607,66 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">DistanceField</span></td>
         <td><p>x =&gt; x.Distance</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">Spherical</span></td>
         <td><p>Calculate distances using spherical geometry or not</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Int32</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
         <td><span class="parametername">MaxDistance</span></td>
         <td><p>The maximum distance in meters from the center point that the documents can be</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Int32</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
         <td><span class="parametername">MinDistance</span></td>
         <td><p>The minimum distance in meters from the center point that the documents can be</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Int32</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
         <td><span class="parametername">Limit</span></td>
         <td><p>The maximum number of documents to return</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">BsonDocument</span></td>
+        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
         <td><span class="parametername">Query</span></td>
         <td><p>Limits the results to the documents that match the query</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Int32</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
         <td><span class="parametername">DistanceMultiplier</span></td>
         <td><p>The factor to multiply all distances returned by the query</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">IncludeLocations</span></td>
         <td><p>Specify the output field to store the point used to calculate the distance</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">IndexKey</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -1675,7 +1674,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1684,13 +1683,13 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1719,7 +1718,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1735,7 +1734,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -1743,7 +1742,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1752,13 +1751,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1787,7 +1786,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1797,13 +1796,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The entities to persist</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -1811,7 +1810,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1820,13 +1819,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1854,7 +1853,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1863,13 +1862,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1897,7 +1896,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1906,13 +1905,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<a class="xref" href="MongoDB.Entities.UpdateBase-1.html">UpdateBase</a>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="MongoDB.Entities.UpdateBase-1.html">UpdateBase</a>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1940,7 +1939,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1955,7 +1954,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1983,7 +1982,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1998,7 +1997,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2032,7 +2031,7 @@ Gets a list back as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2048,19 +2047,19 @@ Gets a list back as the result.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -2068,7 +2067,7 @@ Gets a list back as the result.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2077,13 +2076,13 @@ Gets a list back as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">List</span>&lt;TResult&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TResult&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2117,7 +2116,7 @@ Gets a cursor back as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2133,19 +2132,19 @@ Gets a cursor back as the result.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -2153,7 +2152,7 @@ Gets a cursor back as the result.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2162,13 +2161,13 @@ Gets a cursor back as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">IAsyncCursor</span>&lt;TResult&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.IAsyncCursor</span>&lt;TResult&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2202,7 +2201,7 @@ Gets the first or default value as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2218,19 +2217,19 @@ Gets the first or default value as the result.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -2238,7 +2237,7 @@ Gets the first or default value as the result.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2247,13 +2246,13 @@ Gets the first or default value as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TResult&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2287,7 +2286,7 @@ Gets a single or default value as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2303,19 +2302,19 @@ Gets a single or default value as the result.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -2323,7 +2322,7 @@ Gets a single or default value as the result.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2332,13 +2331,13 @@ Gets a single or default value as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TResult&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2371,7 +2370,7 @@ Gets a single or default value as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2381,13 +2380,13 @@ Gets a single or default value as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The aggregate options</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">ignoreGlobalFilters</span></td>
         <td><p>Set to true if you'd like to ignore any global filters for this operation</p>
 </td>
@@ -2395,7 +2394,7 @@ Gets a single or default value as the result.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2404,13 +2403,13 @@ Gets a single or default value as the result.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IMongoQueryable</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2439,7 +2438,7 @@ Gets a single or default value as the result.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2454,7 +2453,7 @@ Gets a single or default value as the result.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2483,7 +2482,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2499,7 +2498,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -2507,7 +2506,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2516,13 +2515,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2551,7 +2550,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2561,13 +2560,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The entities to persist</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -2575,7 +2574,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2584,13 +2583,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2621,7 +2620,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2637,13 +2636,13 @@ Property names must match exactly.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2651,7 +2650,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2660,13 +2659,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2697,7 +2696,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2713,13 +2712,13 @@ You can only specify root level properties with the expression.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2727,7 +2726,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2736,13 +2735,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2773,7 +2772,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2783,19 +2782,19 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2803,7 +2802,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2812,13 +2811,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2849,7 +2848,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2859,19 +2858,19 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2879,7 +2878,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2888,13 +2887,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2925,7 +2924,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2941,13 +2940,13 @@ Property names must match exactly.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2955,7 +2954,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2964,13 +2963,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3001,7 +3000,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3017,13 +3016,13 @@ You can only specify root level properties with the expression.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3031,7 +3030,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3040,13 +3039,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3077,7 +3076,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3087,19 +3086,19 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3107,7 +3106,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3116,13 +3115,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3153,7 +3152,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3163,19 +3162,19 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3183,7 +3182,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3192,13 +3191,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3227,7 +3226,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3243,7 +3242,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3251,7 +3250,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3260,13 +3259,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3293,7 +3292,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     <pre><code class="lang-csharp hljs">protected void SetGlobalFilter(Type type, string jsonString, bool prepend = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3303,19 +3302,19 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Type</span></td>
+        <td><span class="xref">System.Type</span></td>
         <td><span class="parametername">type</span></td>
         <td><p>The type of Entity this global filter should be applied to</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">jsonString</span></td>
         <td><p>A JSON string filter definition to be applied</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3335,7 +3334,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3345,13 +3344,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition to be applied</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3359,7 +3358,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3387,7 +3386,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3397,13 +3396,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(x =&gt; x.Prop1, &quot;some value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3411,7 +3410,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3439,7 +3438,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3449,13 +3448,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>x =&gt; x.Prop1 == &quot;some value&quot;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3463,7 +3462,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3491,7 +3490,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where TBase : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3501,13 +3500,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;TBase&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;TBase&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition to be applied</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3515,7 +3514,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3543,7 +3542,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where TBase : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3553,13 +3552,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;TBase&gt;, <span class="xref">FilterDefinition</span>&lt;TBase&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;TBase&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;TBase&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(x =&gt; x.Prop1, &quot;some value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3567,7 +3566,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3595,7 +3594,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where TBase : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3605,13 +3604,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;TBase, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;TBase, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>b =&gt; b.Eq(x =&gt; x.Prop1, &quot;some value&quot;)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3619,7 +3618,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3646,7 +3645,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     <pre><code class="lang-csharp hljs">protected void SetGlobalFilterForInterface&lt;TInterface&gt;(string jsonString, bool prepend = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3656,13 +3655,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">jsonString</span></td>
         <td><p>A JSON string filter definition to be applied</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">prepend</span></td>
         <td><p>Set to true if you want to prepend this global filter to your operation filters instead of being appended</p>
 </td>
@@ -3670,7 +3669,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3700,7 +3699,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     <pre><code class="lang-csharp hljs">public IClientSessionHandle Transaction(string database = null, ClientSessionOptions options = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3710,13 +3709,13 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>The name of the database to use for this transaction. default db is used if not specified</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">ClientSessionOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Client session options for this transaction</p>
 </td>
@@ -3724,7 +3723,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3733,7 +3732,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -3754,7 +3753,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3764,7 +3763,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ClientSessionOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Client session options (not required)</p>
 </td>
@@ -3772,7 +3771,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3781,13 +3780,13 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3815,7 +3814,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3830,7 +3829,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3858,7 +3857,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3873,7 +3872,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3901,7 +3900,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3916,7 +3915,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3936,7 +3935,6 @@ Trying to start a second transaction for this DBContext instance will throw an e
       </tr>
     </tbody>
   </table>
-
 </article>
           </div>
 
@@ -3947,7 +3945,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
+                <h5>In This Article</h5>
                 <div></div>
               </nav>
             </div>
@@ -3969,7 +3967,7 @@ Trying to start a second transaction for this DBContext instance will throw an e
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

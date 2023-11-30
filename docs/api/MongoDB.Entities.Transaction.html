@@ -96,7 +96,6 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Transaction">
 
 
-
   <h1 id="MongoDB_Entities_Transaction" data-uid="MongoDB.Entities.Transaction" class="text-break">Class Transaction
 </h1>
   <div class="markdown level0 summary"><p>Represents a transaction used to carry out inter-related write operations.</p>
@@ -106,13 +105,13 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="MongoDB.Entities.DBContext.html">DBContext</a></div>
     <div class="level2"><span class="xref">Transaction</span></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><span class="xref">IDisposable</span></div>
+    <div><span class="xref">System.IDisposable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -291,25 +290,25 @@
       <a class="xref" href="MongoDB.Entities.DBContext.html#MongoDB_Entities_DBContext_UpdateAndGet__2">DBContext.UpdateAndGet&lt;T, TProjection&gt;()</a>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <span class="xref">System.Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <span class="xref">System.Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
+      <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.ToString()</span>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -332,7 +331,7 @@
     <pre><code class="lang-csharp hljs">public Transaction(string database = null, ClientSessionOptions options = null, ModifiedBy modifiedBy = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -342,13 +341,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>The name of the database to use for this transaction. default db is used if not specified</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">ClientSessionOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Client session options for this transaction</p>
 </td>
@@ -370,7 +369,10 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
 
   <a id="MongoDB_Entities_Transaction_Dispose_" data-uid="MongoDB.Entities.Transaction.Dispose*"></a>
   <h4 id="MongoDB_Entities_Transaction_Dispose" data-uid="MongoDB.Entities.Transaction.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Represents a transaction used to carry out inter-related write operations.</p>
+<p>TIP: Remember to always call .Dispose() after use or enclose in a &apos;Using&apos; statement.</p>
+<p>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -380,14 +382,17 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
 
   <a id="MongoDB_Entities_Transaction_Dispose_" data-uid="MongoDB.Entities.Transaction.Dispose*"></a>
   <h4 id="MongoDB_Entities_Transaction_Dispose_System_Boolean_" data-uid="MongoDB.Entities.Transaction.Dispose(System.Boolean)">Dispose(Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Represents a transaction used to carry out inter-related write operations.</p>
+<p>TIP: Remember to always call .Dispose() after use or enclose in a &apos;Using&apos; statement.</p>
+<p>IMPORTANT: Use the methods on this transaction to perform operations and not the methods on the DB class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -397,7 +402,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">disposing</span></td>
         <td></td>
       </tr>
@@ -407,7 +412,6 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
   <div>
       <span class="xref">System.IDisposable</span>
   </div>
-
 </article>
           </div>
 
@@ -418,7 +422,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
+                <h5>In This Article</h5>
                 <div></div>
               </nav>
             </div>
@@ -440,7 +444,7 @@ Only one ModifiedBy property is allowed on a single entity type.</p>
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

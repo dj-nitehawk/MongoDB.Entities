@@ -96,7 +96,6 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.DB">
 
 
-
   <h1 id="MongoDB_Entities_DB" data-uid="MongoDB.Entities.DB" class="text-break">Class DB
 </h1>
   <div class="markdown level0 summary"><p>The main entrypoint for all data access methods of the library</p>
@@ -104,31 +103,31 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">DB</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <span class="xref">System.Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <span class="xref">System.Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
+      <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.ToString()</span>
+      <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -151,7 +150,7 @@
     <pre><code class="lang-csharp hljs">public static async Task&lt;IEnumerable&lt;string&gt;&gt; AllDatabaseNamesAsync(MongoClientSettings settings)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -161,7 +160,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MongoClientSettings</span></td>
+        <td><span class="xref">MongoDB.Driver.MongoClientSettings</span></td>
         <td><span class="parametername">settings</span></td>
         <td><p>A MongoClientSettings object</p>
 </td>
@@ -169,7 +168,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -178,7 +177,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -195,7 +194,7 @@
     <pre><code class="lang-csharp hljs">public static Task&lt;IEnumerable&lt;string&gt;&gt; AllDatabaseNamesAsync(string host = &quot;127.0.0.1&quot;, int port = 27017)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -205,13 +204,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">host</span></td>
         <td><p>Address of the MongoDB server</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Int32</span></td>
+        <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">port</span></td>
         <td><p>Port number of the server</p>
 </td>
@@ -219,7 +218,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -228,7 +227,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -247,7 +246,7 @@
     <pre><code class="lang-csharp hljs">public static void ChangeDefaultDatabase(string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -257,7 +256,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
         <td><p>The name of the database to mark as the new default database</p>
 </td>
@@ -278,7 +277,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -287,13 +286,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IMongoCollection</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IMongoCollection</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -321,7 +320,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -330,13 +329,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -364,7 +363,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -374,25 +373,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
@@ -400,7 +399,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -409,13 +408,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -443,7 +442,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -453,13 +452,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -467,7 +466,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -476,13 +475,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -510,7 +509,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -520,25 +519,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
@@ -546,7 +545,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -555,13 +554,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -589,7 +588,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -599,25 +598,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>A lambda expression for getting the count for a subset of the data</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CountOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.CountOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>An optional CountOptions object</p>
 </td>
@@ -625,7 +624,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -634,13 +633,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -669,7 +668,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -679,7 +678,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -687,7 +686,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -696,13 +695,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">Int64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Int64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -730,7 +729,7 @@
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -740,19 +739,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Action</span>&lt;<span class="xref">CreateCollectionOptions</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">MongoDB.Driver.CreateCollectionOptions</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">options</span></td>
         <td><p>The options to use for collection creation</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -760,7 +759,7 @@
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -769,13 +768,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -803,7 +802,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
     <pre><code class="lang-csharp hljs">public static IMongoDatabase Database(string name)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -813,7 +812,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
         <td><p>The name of the database to retrieve</p>
 </td>
@@ -821,7 +820,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -830,7 +829,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IMongoDatabase</span></td>
+        <td><span class="xref">MongoDB.Driver.IMongoDatabase</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -848,7 +847,7 @@ You can also get the default database by passing 'default' or 'null' for the nam
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -857,13 +856,13 @@ You can also get the default database by passing 'default' or 'null' for the nam
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IMongoDatabase</span></td>
+        <td><span class="xref">MongoDB.Driver.IMongoDatabase</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -892,7 +891,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -902,7 +901,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>The name of the database</p>
 </td>
@@ -910,7 +909,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -938,7 +937,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -947,13 +946,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -983,7 +982,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -993,25 +992,25 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinition</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>A filter definition for matching entities to delete.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
@@ -1019,7 +1018,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1028,13 +1027,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1064,7 +1063,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1074,19 +1073,19 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">IDs</span></td>
         <td><p>An IEnumerable of entity IDs</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1094,7 +1093,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1103,13 +1102,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1139,7 +1138,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1149,25 +1148,25 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Func</span>&lt;<span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">FilterDefinition</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;, <span class="xref">MongoDB.Driver.FilterDefinition</span>&lt;T&gt;&gt;</td>
         <td><span class="parametername">filter</span></td>
         <td><p>f =&gt; f.Eq(x =&gt; x.Prop, Value) &amp; f.Gt(x =&gt; x.Prop, Value)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
@@ -1175,7 +1174,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1184,13 +1183,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1220,7 +1219,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1230,25 +1229,25 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Boolean</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Boolean</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>A lambda expression for matching entities to delete.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Collation</span></td>
+        <td><span class="xref">MongoDB.Driver.Collation</span></td>
         <td><span class="parametername">collation</span></td>
         <td><p>An optional collation object</p>
 </td>
@@ -1256,7 +1255,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1265,13 +1264,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1300,7 +1299,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1310,19 +1309,19 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>The Id of the entity to delete</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -1330,7 +1329,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1339,13 +1338,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">DeleteResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.DeleteResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1373,7 +1372,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1383,7 +1382,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1391,7 +1390,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1406,7 +1405,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1440,7 +1439,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1450,7 +1449,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1458,7 +1457,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1467,13 +1466,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1501,7 +1500,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity, new()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1516,7 +1515,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1544,7 +1543,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1554,7 +1553,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>The ID to set on the returned instance</p>
 </td>
@@ -1562,7 +1561,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1577,7 +1576,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1605,7 +1604,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : FileEntity, new()</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1615,7 +1614,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">ID</span></td>
         <td><p>The ID of the file entity</p>
 </td>
@@ -1623,7 +1622,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1638,7 +1637,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1666,7 +1665,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1675,13 +1674,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">FilterDefinitionBuilder</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.FilterDefinitionBuilder</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1710,7 +1709,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1720,7 +1719,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1728,7 +1727,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1743,7 +1742,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1772,7 +1771,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1782,7 +1781,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1790,7 +1789,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1805,7 +1804,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1838,7 +1837,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1848,13 +1847,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1862,7 +1861,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1871,13 +1870,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -1905,7 +1904,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1921,66 +1920,66 @@ Only needed for entity types you want stored in a db other than the default db.<
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">DistanceField</span></td>
         <td><p>x =&gt; x.Distance</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">Spherical</span></td>
         <td><p>Calculate distances using spherical geometry or not</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
         <td><span class="parametername">MaxDistance</span></td>
         <td><p>The maximum distance in meters from the center point that the documents can be</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
         <td><span class="parametername">MinDistance</span></td>
         <td><p>The minimum distance in meters from the center point that the documents can be</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Int32</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
         <td><span class="parametername">Limit</span></td>
         <td><p>The maximum number of documents to return</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">BsonDocument</span></td>
+        <td><span class="xref">MongoDB.Bson.BsonDocument</span></td>
         <td><span class="parametername">Query</span></td>
         <td><p>Limits the results to the documents that match the query</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Nullable</span>&lt;<span class="xref">Double</span>&gt;</td>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Double</span>&gt;</td>
         <td><span class="parametername">DistanceMultiplier</span></td>
         <td><p>The factor to multiply all distances returned by the query</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">IncludeLocations</span></td>
         <td><p>Specify the output field to store the point used to calculate the distance</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">IndexKey</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -1988,7 +1987,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -1997,13 +1996,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2031,7 +2030,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2047,37 +2046,37 @@ Only needed for entity types you want stored in a db other than the default db.<
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">searchTerm</span></td>
         <td><p>The search term</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">caseSensitive</span></td>
         <td><p>Case sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Boolean</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">diacriticSensitive</span></td>
         <td><p>Diacritic sensitivity of the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">language</span></td>
         <td><p>The language for the search (optional)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Options for finding documents (not required)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -2085,7 +2084,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2094,13 +2093,13 @@ Only needed for entity types you want stored in a db other than the default db.<
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IAggregateFluent</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.IAggregateFluent</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2128,7 +2127,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2143,7 +2142,7 @@ Only needed for entity types you want stored in a db other than the default db.<
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2172,7 +2171,7 @@ You can call this method as many times as you want (such as in serverless functi
     <pre><code class="lang-csharp hljs">public static Task InitAsync(string database, MongoClientSettings settings)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2182,13 +2181,13 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>Name of the database</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">MongoClientSettings</span></td>
+        <td><span class="xref">MongoDB.Driver.MongoClientSettings</span></td>
         <td><span class="parametername">settings</span></td>
         <td><p>A MongoClientSettings object</p>
 </td>
@@ -2196,7 +2195,7 @@ You can call this method as many times as you want (such as in serverless functi
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2205,7 +2204,7 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -2224,7 +2223,7 @@ You can call this method as many times as you want (such as in serverless functi
     <pre><code class="lang-csharp hljs">public static Task InitAsync(string database, string host = &quot;127.0.0.1&quot;, int port = 27017)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2234,19 +2233,19 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>Name of the database</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">host</span></td>
         <td><p>Address of the MongoDB server</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Int32</span></td>
+        <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">port</span></td>
         <td><p>Port number of the server</p>
 </td>
@@ -2254,7 +2253,7 @@ You can call this method as many times as you want (such as in serverless functi
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2263,7 +2262,7 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -2281,7 +2280,7 @@ You can call this method as many times as you want (such as in serverless functi
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2297,13 +2296,13 @@ You can call this method as many times as you want (such as in serverless functi
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -2311,7 +2310,7 @@ You can call this method as many times as you want (such as in serverless functi
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2320,13 +2319,13 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2354,7 +2353,7 @@ You can call this method as many times as you want (such as in serverless functi
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2364,19 +2363,19 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The entities to persist</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -2384,7 +2383,7 @@ You can call this method as many times as you want (such as in serverless functi
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2393,13 +2392,13 @@ You can call this method as many times as you want (such as in serverless functi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2429,7 +2428,7 @@ Call this method at the startup of the application in order to run the migration
     <pre><code class="lang-csharp hljs">public static Task MigrateAsync()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2438,7 +2437,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -2456,7 +2455,7 @@ Call this method at the startup of the application in order to run the migration
     where T : class</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2465,13 +2464,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2498,7 +2497,7 @@ Call this method at the startup of the application in order to run the migration
     <pre><code class="lang-csharp hljs">public static Task MigrationsAsync(IEnumerable&lt;IMigration&gt; migrations)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2508,7 +2507,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="MongoDB.Entities.IMigration.html">IMigration</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="MongoDB.Entities.IMigration.html">IMigration</a>&gt;</td>
         <td><span class="parametername">migrations</span></td>
         <td><p>The collection of migrations to execute</p>
 </td>
@@ -2516,7 +2515,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2525,7 +2524,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -2542,7 +2541,7 @@ Call this method at the startup of the application in order to run the migration
     <pre><code class="lang-csharp hljs">public static Task&lt;ulong&gt; NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default(CancellationToken))</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2552,13 +2551,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">sequenceName</span></td>
         <td><p>The name of the sequence to get the next number for</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2566,7 +2565,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2575,7 +2574,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UInt64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.UInt64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -2593,7 +2592,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2603,7 +2602,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2611,7 +2610,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2620,13 +2619,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UInt64</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.UInt64</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2654,7 +2653,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2664,7 +2663,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -2672,7 +2671,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2687,7 +2686,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2715,7 +2714,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2725,7 +2724,7 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -2733,7 +2732,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2748,7 +2747,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2781,7 +2780,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2797,19 +2796,19 @@ Call this method at the startup of the application in order to run the migration
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2817,7 +2816,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2826,13 +2825,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">List</span>&lt;TResult&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.List</span>&lt;TResult&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2865,7 +2864,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2881,19 +2880,19 @@ Call this method at the startup of the application in order to run the migration
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2901,7 +2900,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2910,13 +2909,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">IAsyncCursor</span>&lt;TResult&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.IAsyncCursor</span>&lt;TResult&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -2949,7 +2948,7 @@ Call this method at the startup of the application in order to run the migration
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2965,19 +2964,19 @@ Call this method at the startup of the application in order to run the migration
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -2985,7 +2984,7 @@ Call this method at the startup of the application in order to run the migration
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -2994,13 +2993,13 @@ Call this method at the startup of the application in order to run the migration
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TResult&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3034,7 +3033,7 @@ If more than one entity is found, it will throw an exception.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3050,19 +3049,19 @@ If more than one entity is found, it will throw an exception.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The options for the aggregation. This is not required.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3070,7 +3069,7 @@ If more than one entity is found, it will throw an exception.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3079,13 +3078,13 @@ If more than one entity is found, it will throw an exception.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;TResult&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3118,7 +3117,7 @@ If more than one entity is found, it will throw an exception.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3127,13 +3126,13 @@ If more than one entity is found, it will throw an exception.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ProjectionDefinitionBuilder</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.ProjectionDefinitionBuilder</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3161,7 +3160,7 @@ If more than one entity is found, it will throw an exception.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3171,13 +3170,13 @@ If more than one entity is found, it will throw an exception.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">AggregateOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.AggregateOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>The aggregate options</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if used within a transaction</p>
 </td>
@@ -3185,7 +3184,7 @@ If more than one entity is found, it will throw an exception.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3194,13 +3193,13 @@ If more than one entity is found, it will throw an exception.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IMongoQueryable</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.Linq.IMongoQueryable</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3229,7 +3228,7 @@ If more than one entity is found, it will throw an exception.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3239,7 +3238,7 @@ If more than one entity is found, it will throw an exception.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -3247,7 +3246,7 @@ If more than one entity is found, it will throw an exception.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3262,7 +3261,7 @@ If more than one entity is found, it will throw an exception.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3291,7 +3290,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3307,13 +3306,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -3321,7 +3320,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3330,13 +3329,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span></td>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3365,7 +3364,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3375,19 +3374,19 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The entities to persist</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>And optional cancellation token</p>
 </td>
@@ -3395,7 +3394,7 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3404,13 +3403,13 @@ If ID value is null, a new entity is created. If ID has a value, then existing e
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3441,7 +3440,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3457,19 +3456,19 @@ Property names must match exactly.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3477,7 +3476,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3486,13 +3485,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3523,7 +3522,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3539,19 +3538,19 @@ You can only specify root level properties with the expression.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3559,7 +3558,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3568,13 +3567,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3605,7 +3604,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3615,25 +3614,25 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3641,7 +3640,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3650,13 +3649,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3687,7 +3686,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3697,25 +3696,25 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3723,7 +3722,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3732,13 +3731,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3769,7 +3768,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3785,19 +3784,19 @@ Property names must match exactly.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3805,7 +3804,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3814,13 +3813,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3851,7 +3850,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3867,19 +3866,19 @@ You can only specify root level properties with the expression.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3887,7 +3886,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3896,13 +3895,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -3933,7 +3932,7 @@ Property names must match exactly.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3943,25 +3942,25 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">String</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;</td>
         <td><span class="parametername">propNames</span></td>
         <td><p>new List { &quot;PropOne&quot;, &quot;PropTwo&quot; }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -3969,7 +3968,7 @@ Property names must match exactly.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -3978,13 +3977,13 @@ Property names must match exactly.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4015,7 +4014,7 @@ You can only specify root level properties with the expression.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4025,25 +4024,25 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
         <td><span class="parametername">entities</span></td>
         <td><p>The batch of entities to save</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">members</span></td>
         <td><p>x =&gt; new { x.PropOne, x.PropTwo }</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -4051,7 +4050,7 @@ You can only specify root level properties with the expression.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4060,13 +4059,13 @@ You can only specify root level properties with the expression.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">BulkWriteResult</span>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.BulkWriteResult</span>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4095,7 +4094,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4111,13 +4110,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
 </td>
       </tr>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="xref">System.Threading.CancellationToken</span></td>
         <td><span class="parametername">cancellation</span></td>
         <td><p>An optional cancellation token</p>
 </td>
@@ -4125,7 +4124,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4134,13 +4133,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Task</span>&lt;<span class="xref">UpdateResult</span>&gt;</td>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">MongoDB.Driver.UpdateResult</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4168,7 +4167,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4177,13 +4176,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">SortDefinitionBuilder</span>&lt;T&gt;</td>
+        <td><span class="xref">MongoDB.Driver.SortDefinitionBuilder</span>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4210,7 +4209,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     <pre><code class="lang-csharp hljs">public static Transaction Transaction(string database = null, ClientSessionOptions options = null, ModifiedBy modifiedBy = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4220,13 +4219,13 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">database</span></td>
         <td><p>The name of the database which this transaction is for (not required)</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">ClientSessionOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Client session options (not required)</p>
 </td>
@@ -4239,7 +4238,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4266,7 +4265,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4276,7 +4275,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ClientSessionOptions</span></td>
+        <td><span class="xref">MongoDB.Driver.ClientSessionOptions</span></td>
         <td><span class="parametername">options</span></td>
         <td><p>Client session options (not required)</p>
 </td>
@@ -4289,7 +4288,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4304,7 +4303,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4333,7 +4332,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4343,7 +4342,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -4351,7 +4350,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4366,7 +4365,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4395,7 +4394,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4405,7 +4404,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -4413,7 +4412,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4428,7 +4427,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4457,7 +4456,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4467,7 +4466,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IClientSessionHandle</span></td>
+        <td><span class="xref">MongoDB.Driver.IClientSessionHandle</span></td>
         <td><span class="parametername">session</span></td>
         <td><p>An optional session if using within a transaction</p>
 </td>
@@ -4475,7 +4474,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4490,7 +4489,7 @@ The properties to be excluded can be specified using the [Preserve] or [DontPres
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4525,7 +4524,7 @@ If an instance already exists, that instance will be returned.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4535,7 +4534,7 @@ If an instance already exists, that instance will be returned.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">name</span></td>
         <td><p>A unique name for the watcher of this entity type. Names can be duplicate among different entity types.</p>
 </td>
@@ -4543,7 +4542,7 @@ If an instance already exists, that instance will be returned.</p>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4558,7 +4557,7 @@ If an instance already exists, that instance will be returned.</p>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4586,7 +4585,7 @@ If an instance already exists, that instance will be returned.</p>
     where T : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -4595,13 +4594,13 @@ If an instance already exists, that instance will be returned.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<a class="xref" href="MongoDB.Entities.Watcher-1.html">Watcher</a>&lt;T&gt;&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="MongoDB.Entities.Watcher-1.html">Watcher</a>&lt;T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -4616,7 +4615,6 @@ If an instance already exists, that instance will be returned.</p>
       </tr>
     </tbody>
   </table>
-
 </article>
           </div>
 
@@ -4627,7 +4625,7 @@ If an instance already exists, that instance will be returned.</p>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
+                <h5>In This Article</h5>
                 <div></div>
               </nav>
             </div>
@@ -4649,7 +4647,7 @@ If an instance already exists, that instance will be returned.</p>
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>

@@ -96,7 +96,6 @@
             <article class="content wrap" id="_content" data-uid="MongoDB.Entities.Template">
 
 
-
   <h1 id="MongoDB_Entities_Template" data-uid="MongoDB.Entities.Template" class="text-break">Class Template
 </h1>
   <div class="markdown level0 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
@@ -104,29 +103,29 @@
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-    <div class="level0"><span class="xref">Object</span></div>
+    <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">Template</span></div>
       <div class="level2"><a class="xref" href="MongoDB.Entities.Template-2.html">Template&lt;TInput, TResult&gt;</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <span class="xref">Object.Equals(Object)</span>
+      <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.Equals(Object, Object)</span>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
     </div>
     <div>
-      <span class="xref">Object.GetHashCode()</span>
+      <span class="xref">System.Object.GetHashCode()</span>
     </div>
     <div>
-      <span class="xref">Object.GetType()</span>
+      <span class="xref">System.Object.GetType()</span>
     </div>
     <div>
-      <span class="xref">Object.MemberwiseClone()</span>
+      <span class="xref">System.Object.MemberwiseClone()</span>
     </div>
     <div>
-      <span class="xref">Object.ReferenceEquals(Object, Object)</span>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="MongoDB.Entities.html">MongoDB.Entities</a></h6>
@@ -149,7 +148,7 @@
     <pre><code class="lang-csharp hljs">public Template(string template)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -159,7 +158,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">template</span></td>
         <td><p>The template string with tags for targeting replacements such as &quot;&lt;Author.Name&gt;&quot;</p>
 </td>
@@ -183,7 +182,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public void AppendStage(string pipelineStageString)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -193,7 +192,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">pipelineStageString</span></td>
         <td><p>The pipeline stage json string to append</p>
 </td>
@@ -213,7 +212,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     where TEntity : IEntity</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -228,7 +227,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -255,7 +254,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(int index, Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -265,13 +264,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Int32</span></td>
+        <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
         <td><p>0=a 1=b 2=c 3=d and so on...</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -279,7 +278,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -294,7 +293,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -320,7 +319,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Elements&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -330,7 +329,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeProp</p>
 </td>
@@ -338,7 +337,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -353,7 +352,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -379,7 +378,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Path&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -389,7 +388,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -397,7 +396,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -412,7 +411,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -438,7 +437,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Paths&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -448,7 +447,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.Child1, x.Prop2.Child2 }</p>
 </td>
@@ -456,7 +455,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -471,7 +470,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -489,7 +488,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 
   <a id="MongoDB_Entities_Template_PosAll_" data-uid="MongoDB.Entities.Template.PosAll*"></a>
   <h4 id="MongoDB_Entities_Template_PosAll__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosAll``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosAll&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression into a path with the all positional operator like &quot;Authors.<span class="math">\([].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression into a path with the all positional operator like &quot;Authors.$[].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[].Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -497,7 +496,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template PosAll&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -507,7 +506,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -515,7 +514,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -530,7 +529,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -548,7 +547,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 
   <a id="MongoDB_Entities_Template_PosFiltered_" data-uid="MongoDB.Entities.Template.PosFiltered*"></a>
   <h4 id="MongoDB_Entities_Template_PosFiltered__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFiltered``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression into a positional filtered path like &quot;Authors.<span class="math">\([a].Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>[a].Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression into a positional filtered path like &quot;Authors.$[a].Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$[a].Name&gt;&quot;</p>
 <p>TIP: Index positions start from [0] which is converted to $[a] and so on.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -557,7 +556,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template PosFiltered&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -567,7 +566,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -575,7 +574,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -590,7 +589,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -608,7 +607,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 
   <a id="MongoDB_Entities_Template_PosFirst_" data-uid="MongoDB.Entities.Template.PosFirst*"></a>
   <h4 id="MongoDB_Entities_Template_PosFirst__1_System_Linq_Expressions_Expression_System_Func___0_System_Object___" data-uid="MongoDB.Entities.Template.PosFirst``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, Object&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Turns the given expression into a path with the first positional operator like &quot;Authors.<span class="math">\(.Name&amp;quot; and replaces matching tags in the template such as &amp;quot;&amp;lt;Authors.\)</span>.Name&gt;&quot;</p>
+  <div class="markdown level1 summary"><p>Turns the given expression into a path with the first positional operator like &quot;Authors.$.Name&quot; and replaces matching tags in the template such as &quot;&lt;Authors.$.Name&gt;&quot;</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -616,7 +615,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template PosFirst&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -626,7 +625,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.SomeList[0].SomeProp</p>
 </td>
@@ -634,7 +633,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -649,7 +648,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -675,7 +674,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Properties&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -685,7 +684,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; new { x.Prop1.PropX, x.Prop2.PropY }</p>
 </td>
@@ -693,7 +692,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -708,7 +707,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -734,7 +733,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Property&lt;T&gt;(Expression&lt;Func&lt;T, object&gt;&gt; expression)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -744,7 +743,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Expression</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">Object</span>&gt;&gt;</td>
+        <td><span class="xref">System.Linq.Expressions.Expression</span>&lt;<span class="xref">System.Func</span>&lt;T, <span class="xref">System.Object</span>&gt;&gt;</td>
         <td><span class="parametername">expression</span></td>
         <td><p>x =&gt; x.RootProp.SomeProp</p>
 </td>
@@ -752,7 +751,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -767,7 +766,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -794,7 +793,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public string RenderToString()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -803,7 +802,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -820,7 +819,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public Template Tag(string tagName, string replacementValue)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -830,13 +829,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">tagName</span></td>
         <td><p>The tag name without the surrounding &lt; and &gt;</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td><span class="parametername">replacementValue</span></td>
         <td><p>The value to replace with</p>
 </td>
@@ -844,7 +843,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -871,7 +870,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public IEnumerable&lt;ArrayFilterDefinition&gt; ToArrayFilters&lt;T&gt;()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -880,13 +879,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">ArrayFilterDefinition</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Driver.ArrayFilterDefinition</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -913,7 +912,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public PipelineDefinition&lt;TInput, TOutput&gt; ToPipeline&lt;TInput, TOutput&gt;()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -922,13 +921,13 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">PipelineDefinition</span>&lt;TInput, TOutput&gt;</td>
+        <td><span class="xref">MongoDB.Driver.PipelineDefinition</span>&lt;TInput, TOutput&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Name</th>
@@ -961,7 +960,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     <pre><code class="lang-csharp hljs">public IEnumerable&lt;BsonDocument&gt; ToStages()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -970,7 +969,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;<span class="xref">BsonDocument</span>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">MongoDB.Bson.BsonDocument</span>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -979,7 +978,8 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 
   <a id="MongoDB_Entities_Template_ToString_" data-uid="MongoDB.Entities.Template.ToString*"></a>
   <h4 id="MongoDB_Entities_Template_ToString" data-uid="MongoDB.Entities.Template.ToString">ToString()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>A helper class to build a JSON command from a string with tag replacement</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -987,7 +987,7 @@ If this is going to be the first stage of your pipeline, you must instantiate th
 public string ToString()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
+  <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
@@ -996,12 +996,11 @@ public string ToString()</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">String</span></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-
 </article>
           </div>
 
@@ -1012,7 +1011,7 @@ public string ToString()</code></pre>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-                <h5>In this article</h5>
+                <h5>In This Article</h5>
                 <div></div>
               </nav>
             </div>
@@ -1034,7 +1033,7 @@ public string ToString()</code></pre>
       </footer>
     </div>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../styles/docfx.js"></script>
     <script type="text/javascript" src="../styles/main.js"></script>
   </body>
