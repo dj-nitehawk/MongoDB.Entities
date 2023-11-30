@@ -96,7 +96,7 @@
 
 <p>you can get a list of unique values for a given property of an entity with the <code>Distinct&lt;T,TProperty&gt;()</code> method of the <code>DB</code> entrypoint.</p>
 <p><code>T</code> is the type of entity you want to query.
-<code>TProperty</code> is the type of the property whos unique values you want returned.</p>
+<code>TProperty</code> is the type of the property whose unique values you want returned.</p>
 <h3 id="get-a-list-of-all-distinct-values">Get a list of all distinct values</h3>
 <pre><code class="lang-csharp">var genres = await DB.Distinct&lt;Book, string&gt;()
                      .Property(b =&gt; b.Genre)

@@ -104,7 +104,7 @@
   }
 )
 </code></pre>
-<p>to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with <code>&lt;</code> and <code>&gt;</code> in order to turn them in to replacement tags/markers like this:</p>
+<p>to couple this text query to your C# models and pass in the values for title and price, you simply surround the parts you want replaced with <code>&lt;</code> and <code>&gt;</code> in order to turn them into replacement tags/markers like this:</p>
 <pre><code class="lang-java">db.Book.find(
   {
     &lt;Title&gt; : '&lt;book_name&gt;',
