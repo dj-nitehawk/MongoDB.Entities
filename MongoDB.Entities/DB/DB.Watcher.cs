@@ -13,12 +13,11 @@ public static partial class DB
     /// <param name="name">A unique name for the watcher of this entity type. Names can be duplicate among different entity types.</param>
     public static Watcher<T> Watcher<T>(string name) where T : IEntity
     {
-        if (Cache<T>.Watchers.TryGetValue(name.ToLower().Trim(), out var watcher))
-            return watcher;
+        // Normalize the name once
+        var normalizedName = name.ToLower().Trim();
 
-        watcher = new(name.ToLower().Trim());
-        Cache<T>.Watchers.TryAdd(name, watcher);
-        return watcher;
+        // Use GetOrAdd to ensure thread-safe retrieval or addition of the watcher.
+        return Cache<T>.Watchers.GetOrAdd(normalizedName, newName => new Watcher<T>(newName));
     }
 
     /// <summary>
