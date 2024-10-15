@@ -15,7 +15,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task save_entity_works()
     {
-        await DB.InitAsync(dbName);
+        await DB.InitAsync(dbName, InitTest.ClientSettings);
 
         DB.DatabaseFor<BookCover>(dbName);
         DB.DatabaseFor<BookMark>(dbName);
@@ -38,7 +38,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task relationships_work()
     {
-        await DB.InitAsync(dbName);
+        await DB.InitAsync(dbName, InitTest.ClientSettings);
         DB.DatabaseFor<BookCover>(dbName);
         DB.DatabaseFor<BookMark>(dbName);
 
@@ -97,7 +97,7 @@ public class MultiDbEntity
     [TestMethod]
     public async Task dropping_collections()
     {
-        await DB.InitAsync(dbName);
+        await DB.InitAsync(dbName, InitTest.ClientSettings);
         DB.DatabaseFor<BookMark>(dbName);
         DB.DatabaseFor<BookCover>(dbName);
 
