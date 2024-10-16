@@ -7,13 +7,32 @@ namespace MongoDB.Entities.Tests;
 [TestClass]
 public static class InitTest
 {
-    public static MongoClientSettings ClientSettings { get; set; }
+    private static MongoClientSettings ClientSettings { get; set; }
+    static bool UseTestContainers;
     
     [AssemblyInitialize]
     public static async Task Init(TestContext _)
     {
-        var testContainer = await TestDatabase.CreateDatabase();
-        ClientSettings = MongoClientSettings.FromConnectionString(testContainer.GetConnectionString());
-        await DB.InitAsync("mongodb-entities-test", ClientSettings);
+        UseTestContainers = System.Environment.GetEnvironmentVariable("MONGODB_ENTITIES_TESTCONTAINERS") != null;
+
+        if (UseTestContainers)
+        {
+            var testContainer = await TestDatabase.CreateDatabase();
+            ClientSettings = MongoClientSettings.FromConnectionString(testContainer.GetConnectionString());
+        }
+
+        await InitTestDatabase("mongodb-entities-test");
+    }
+
+    public static async Task InitTestDatabase(string databaseName)
+    {
+        if (UseTestContainers)
+        {
+            await DB.InitAsync(databaseName, ClientSettings);
+        }
+        else
+        {
+            await DB.InitAsync(databaseName);
+        }
     }
 }
