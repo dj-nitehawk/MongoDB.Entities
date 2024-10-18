@@ -179,7 +179,10 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Update<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Update<T> Match(Expression<Func<T, object?>> coordinatesProperty,
+                           Coordinates2D nearCoordinates,
+                           double? maxDistance = null,
+                           double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -503,7 +506,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
             Cache<T>.HasModifiedOn &&
             !Defs.Any(
                 d => d
-                     .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
+                     .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
                      .ToString()
                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }

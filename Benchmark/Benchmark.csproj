@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.14.0"/>
-        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.28.0"/>
+        <PackageReference Include="MongoDB.Driver.GridFS" Version="2.30.0"/>
     </ItemGroup>
 
     <ItemGroup>

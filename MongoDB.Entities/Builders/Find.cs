@@ -151,7 +151,11 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Find<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
+    public Find<T, TProjection> Match(Search searchType,
+                                      string searchTerm,
+                                      bool caseSensitive = false,
+                                      bool diacriticSensitive = false,
+                                      string? language = null)
     {
         if (searchType != Search.Fuzzy)
         {
@@ -461,7 +465,7 @@ public class Find<T, TProjection> where T : IEntity
 
         options.Projection =
             options.Projection
-                   .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
+                   .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
                    .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
     }
 }

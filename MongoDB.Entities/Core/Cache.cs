@@ -53,7 +53,10 @@ static class Cache<T> where T : IEntity
             IdSetter = type.SetterForProp(IdPropName);
         }
         else
-            throw new InvalidOperationException($"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
+        {
+            throw new InvalidOperationException(
+                $"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
+        }
 
         Database = TypeMap.GetDatabase(type);
         DbName = Database.DatabaseNamespace.DatabaseName;
@@ -135,9 +138,7 @@ static class Cache<T> where T : IEntity
         }
 
         ProjectionDefinition<T> userProj = userProjection.Render(
-            BsonSerializer.LookupSerializer<T>(),
-            BsonSerializer.SerializerRegistry,
-            LinqProvider.V3).Document;
+            new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry)).Document;
 
         return Builders<T>.Projection.Combine(_requiredPropsProjection, userProj);
     }

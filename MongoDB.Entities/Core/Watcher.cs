@@ -95,16 +95,18 @@ public class Watcher<T> where T : IEntity
     /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
-    /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+    /// <param name="autoResume">
+    /// Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to
+    /// retrieve a ResumeToken.
+    /// </param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void Start(
-        EventType eventTypes,
-        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
-        int batchSize = 25,
-        bool onlyGetIDs = false,
-        bool autoResume = true,
-        CancellationToken cancellation = default)
-    => Init(null, eventTypes, filter, null, batchSize, onlyGetIDs, autoResume, cancellation);
+    public void Start(EventType eventTypes,
+                      Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
+                      int batchSize = 25,
+                      bool onlyGetIDs = false,
+                      bool autoResume = true,
+                      CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter, null, batchSize, onlyGetIDs, autoResume, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied parameters. Supports projection.
@@ -113,16 +115,18 @@ public class Watcher<T> where T : IEntity
     /// <param name="projection">A projection expression for the entity</param>
     /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
-    /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+    /// <param name="autoResume">
+    /// Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to
+    /// retrieve a ResumeToken.
+    /// </param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void Start(
-        EventType eventTypes,
-        Expression<Func<T, T>> projection,
-        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
-        int batchSize = 25,
-        bool autoResume = true,
-        CancellationToken cancellation = default)
-    => Init(null, eventTypes, filter, projection, batchSize, false, autoResume, cancellation);
+    public void Start(EventType eventTypes,
+                      Expression<Func<T, T>> projection,
+                      Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
+                      int batchSize = 25,
+                      bool autoResume = true,
+                      CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter, projection, batchSize, false, autoResume, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied parameters
@@ -131,16 +135,18 @@ public class Watcher<T> where T : IEntity
     /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
-    /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+    /// <param name="autoResume">
+    /// Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to
+    /// retrieve a ResumeToken.
+    /// </param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void Start(
-        EventType eventTypes,
-        Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
-        int batchSize = 25,
-        bool onlyGetIDs = false,
-        bool autoResume = true,
-        CancellationToken cancellation = default)
-    => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, autoResume, cancellation);
+    public void Start(EventType eventTypes,
+                      Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+                      int batchSize = 25,
+                      bool onlyGetIDs = false,
+                      bool autoResume = true,
+                      CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, autoResume, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied parameters. Supports projection.
@@ -149,16 +155,18 @@ public class Watcher<T> where T : IEntity
     /// <param name="projection">A projection expression for the entity</param>
     /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
-    /// <param name="autoResume">Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to retrieve a ResumeToken.</param>
+    /// <param name="autoResume">
+    /// Set to false if you'd like to skip the changes that happened while the watching was stopped. This will also make you unable to
+    /// retrieve a ResumeToken.
+    /// </param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void Start(
-        EventType eventTypes,
-        Expression<Func<T, T>> projection,
-        Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
-        int batchSize = 25,
-        bool autoResume = true,
-        CancellationToken cancellation = default)
-    => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, autoResume, cancellation);
+    public void Start(EventType eventTypes,
+                      Expression<Func<T, T>> projection,
+                      Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+                      int batchSize = 25,
+                      bool autoResume = true,
+                      CancellationToken cancellation = default)
+        => Init(null, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, autoResume, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied configuration
@@ -169,14 +177,13 @@ public class Watcher<T> where T : IEntity
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void StartWithToken(
-        BsonDocument resumeToken,
-        EventType eventTypes,
-        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
-        int batchSize = 25,
-        bool onlyGetIDs = false,
-        CancellationToken cancellation = default)
-    => Init(resumeToken, eventTypes, filter, null, batchSize, onlyGetIDs, true, cancellation);
+    public void StartWithToken(BsonDocument resumeToken,
+                               EventType eventTypes,
+                               Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
+                               int batchSize = 25,
+                               bool onlyGetIDs = false,
+                               CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter, null, batchSize, onlyGetIDs, true, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied configuration. Supports projection.
@@ -187,14 +194,13 @@ public class Watcher<T> where T : IEntity
     /// <param name="filter">x => x.FullDocument.Prop1 == "SomeValue"</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void StartWithToken(
-        BsonDocument resumeToken,
-        EventType eventTypes,
-        Expression<Func<T, T>> projection,
-        Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
-        int batchSize = 25,
-        CancellationToken cancellation = default)
-    => Init(resumeToken, eventTypes, filter, projection, batchSize, false, true, cancellation);
+    public void StartWithToken(BsonDocument resumeToken,
+                               EventType eventTypes,
+                               Expression<Func<T, T>> projection,
+                               Expression<Func<ChangeStreamDocument<T>, bool>>? filter = null,
+                               int batchSize = 25,
+                               CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter, projection, batchSize, false, true, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied configuration
@@ -205,14 +211,13 @@ public class Watcher<T> where T : IEntity
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="onlyGetIDs">Set to true if you don't want the complete entity details. All properties except the ID will then be null.</param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void StartWithToken(
-        BsonDocument resumeToken,
-        EventType eventTypes,
-        Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
-        int batchSize = 25,
-        bool onlyGetIDs = false,
-        CancellationToken cancellation = default)
-    => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, true, cancellation);
+    public void StartWithToken(BsonDocument resumeToken,
+                               EventType eventTypes,
+                               Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+                               int batchSize = 25,
+                               bool onlyGetIDs = false,
+                               CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), null, batchSize, onlyGetIDs, true, cancellation);
 
     /// <summary>
     /// Starts the watcher instance with the supplied configuration. Supports projection.
@@ -223,24 +228,22 @@ public class Watcher<T> where T : IEntity
     /// <param name="filter">b => b.Eq(d => d.FullDocument.Prop1, "value")</param>
     /// <param name="batchSize">The max number of entities to receive for a single event occurence</param>
     /// <param name="cancellation">A cancellation token for ending the watching/change stream</param>
-    public void StartWithToken(
-        BsonDocument resumeToken,
-        EventType eventTypes,
-        Expression<Func<T, T>> projection,
-        Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
-        int batchSize = 25,
-        CancellationToken cancellation = default)
-    => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
+    public void StartWithToken(BsonDocument resumeToken,
+                               EventType eventTypes,
+                               Expression<Func<T, T>> projection,
+                               Func<FilterDefinitionBuilder<ChangeStreamDocument<T>>, FilterDefinition<ChangeStreamDocument<T>>> filter,
+                               int batchSize = 25,
+                               CancellationToken cancellation = default)
+        => Init(resumeToken, eventTypes, filter(Builders<ChangeStreamDocument<T>>.Filter), projection, batchSize, false, true, cancellation);
 
-    void Init(
-        BsonDocument? resumeToken,
-        EventType eventTypes,
-        FilterDefinition<ChangeStreamDocument<T>> filter,
-        Expression<Func<T, T>>? projection,
-        int batchSize,
-        bool onlyGetIDs,
-        bool autoResume,
-        CancellationToken cancellation)
+    void Init(BsonDocument? resumeToken,
+              EventType eventTypes,
+              FilterDefinition<ChangeStreamDocument<T>> filter,
+              Expression<Func<T, T>>? projection,
+              int batchSize,
+              bool onlyGetIDs,
+              bool autoResume,
+              CancellationToken cancellation)
     {
         if (IsInitialized)
             throw new InvalidOperationException("This watcher has already been initialized!");
@@ -267,17 +270,17 @@ public class Watcher<T> where T : IEntity
             if (filter != null)
             {
                 throw new ArgumentException(
-                "Filtering is not supported when watching for deletions " +
-                "as the entity data no longer exists in the db " +
-                "at the time of receiving the event.");
+                    "Filtering is not supported when watching for deletions " +
+                    "as the entity data no longer exists in the db " +
+                    "at the time of receiving the event.");
             }
 
             if (projection != null)
             {
                 throw new ArgumentException(
-                "Projecting is not supported when watching for deletions " +
-                "as the entity data no longer exists in the db " +
-                "at the time of receiving the event.");
+                    "Projecting is not supported when watching for deletions " +
+                    "as the entity data no longer exists in the db " +
+                    "at the time of receiving the event.");
             }
         }
 
@@ -286,9 +289,10 @@ public class Watcher<T> where T : IEntity
         if (filter != null)
             filters &= filter;
 
-        var stages = new List<IPipelineStageDefinition>(3) {
+        var stages = new List<IPipelineStageDefinition>(3)
+        {
             PipelineStageDefinitionBuilder.Match(filters),
-            PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>,ChangeStreamDocument<T>>(
+            PipelineStageDefinitionBuilder.Project<ChangeStreamDocument<T>, ChangeStreamDocument<T>>(
                 """
                 {
                     _id: 1,
@@ -305,7 +309,8 @@ public class Watcher<T> where T : IEntity
 
         pipeline = stages;
 
-        options = new() {
+        options = new()
+        {
             StartAfter = resumeToken,
             BatchSize = batchSize,
             FullDocument = onlyGetIDs ? ChangeStreamFullDocumentOption.Default : ChangeStreamFullDocumentOption.UpdateLookup,
@@ -320,10 +325,8 @@ public class Watcher<T> where T : IEntity
     static ProjectionDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> BuildProjection(Expression<Func<T, T>> projection)
     {
         var rendered = Builders<T>.Projection
-            .Expression(projection)
-            .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-                    BsonSerializer.SerializerRegistry,
-                    Driver.Linq.LinqProvider.V3);
+                                  .Expression(projection)
+                                  .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry));
 
         BsonDocument doc = new()
         {
@@ -355,9 +358,9 @@ public class Watcher<T> where T : IEntity
         if (!CanRestart)
         {
             throw new InvalidOperationException(
-                                "This watcher has been aborted/cancelled. " +
-                                "The subscribers have already been purged. " +
-                                "Please instantiate a new watcher and subscribe to the events again.");
+                "This watcher has been aborted/cancelled. " +
+                "The subscribers have already been purged. " +
+                "Please instantiate a new watcher and subscribe to the events again.");
         }
 
         if (!IsInitialized)
@@ -387,6 +390,7 @@ public class Watcher<T> where T : IEntity
             try
             {
                 using var cursor = await DB.Collection<T>().WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false);
+
                 while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
                 {
                     if (!cursor.Current.Any())
@@ -399,15 +403,14 @@ public class Watcher<T> where T : IEntity
                     {
                         await OnChangesAsync.InvokeAllAsync(
                             cursor.Current
-                                .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                                .Select(d => d.FullDocument)
-                        ).ConfigureAwait(false);
+                                  .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                                  .Select(d => d.FullDocument)).ConfigureAwait(false);
                     }
 
                     OnChanges?.Invoke(
                         cursor.Current
-                            .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
-                            .Select(d => d.FullDocument));
+                              .Where(d => d.OperationType != ChangeStreamOperationType.Invalidate)
+                              .Select(d => d.FullDocument));
 
                     if (OnChangesCSDAsync != null)
                         await OnChangesCSDAsync.InvokeAllAsync(cursor.Current).ConfigureAwait(false);

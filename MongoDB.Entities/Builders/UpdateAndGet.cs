@@ -32,7 +32,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
 {
     readonly List<PipelineStageDefinition<T, TProjection>> _stages = new();
     FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
-    protected private readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
+    private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
@@ -107,7 +107,11 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public UpdateAndGet<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
+    public UpdateAndGet<T, TProjection> Match(Search searchType,
+                                              string searchTerm,
+                                              bool caseSensitive = false,
+                                              bool diacriticSensitive = false,
+                                              string? language = null)
     {
         if (searchType != Search.Fuzzy)
         {
@@ -457,7 +461,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
             Cache<T>.HasModifiedOn &&
             !Defs.Any(
                 d => d
-                     .Render(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry, Driver.Linq.LinqProvider.V3)
+                     .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
                      .ToString()
                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
