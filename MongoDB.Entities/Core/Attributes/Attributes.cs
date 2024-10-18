@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities;
 
@@ -9,9 +9,17 @@ namespace MongoDB.Entities;
 [AttributeUsage(AttributeTargets.Property)]
 public class FieldAttribute : BsonElementAttribute
 {
-    public FieldAttribute(int fieldOrder) { Order = fieldOrder; }
+    public FieldAttribute(int fieldOrder)
+    {
+        Order = fieldOrder;
+    }
+
     public FieldAttribute(string fieldName) : base(fieldName) { }
-    public FieldAttribute(string fieldName, int fieldOrder) : base(fieldName) { Order = fieldOrder; }
+
+    public FieldAttribute(string fieldName, int fieldOrder) : base(fieldName)
+    {
+        Order = fieldOrder;
+    }
 }
 
 /// <summary>
@@ -24,7 +32,9 @@ public class CollectionAttribute : Attribute
 
     public CollectionAttribute(string name)
     {
-        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentNullException(nameof(name));
+
         Name = name;
     }
 }
@@ -33,10 +43,10 @@ public class CollectionAttribute : Attribute
 /// Use this attribute to ignore a property when persisting an entity to the database.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreAttribute : BsonIgnoreAttribute { }
+public class IgnoreAttribute : BsonIgnoreAttribute;
 
 /// <summary>
 /// Use this attribute to ignore a property when persisting an entity to the database if the value is null/default.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreDefaultAttribute : BsonIgnoreIfDefaultAttribute { }
+public class IgnoreDefaultAttribute : BsonIgnoreIfDefaultAttribute;

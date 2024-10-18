@@ -2,24 +2,24 @@
 
 class Levenshtein
 {
-    readonly string storedValue;
-    readonly int[] costs;
+    readonly string _storedValue;
+    readonly int[] _costs;
 
     public Levenshtein(string value)
     {
-        storedValue = value.ToLower();
-        costs = new int[storedValue.Length];
+        _storedValue = value.ToLower();
+        _costs = new int[_storedValue.Length];
     }
 
     public int DistanceFrom(string value)
     {
         value = value.ToLower();
 
-        if (costs.Length == 0)
+        if (_costs.Length == 0)
             return value.Length;
 
-        for (var i = 0; i < costs.Length;)
-            costs[i] = ++i;
+        for (var i = 0; i < _costs.Length;)
+            _costs[i] = ++i;
 
         for (var i = 0; i < value.Length; i++)
         {
@@ -28,15 +28,15 @@ class Levenshtein
 
             var value1Char = value[i];
 
-            for (var j = 0; j < storedValue.Length; j++)
+            for (var j = 0; j < _storedValue.Length; j++)
             {
                 var insertionCost = cost;
 
                 cost = addationCost;
 
-                addationCost = costs[j];
+                addationCost = _costs[j];
 
-                if (value1Char != storedValue[j])
+                if (value1Char != _storedValue[j])
                 {
                     if (insertionCost < cost)
                         cost = insertionCost;
@@ -47,10 +47,10 @@ class Levenshtein
                     ++cost;
                 }
 
-                costs[j] = cost;
+                _costs[j] = cost;
             }
         }
 
-        return costs[^1];
+        return _costs[^1];
     }
 }

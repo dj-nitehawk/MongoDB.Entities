@@ -1,12 +1,13 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -78,7 +79,7 @@ public partial class DBContext
         //WARNING: this has to do the same thing as Logic.MergeGlobalFilter method
         //         if the following logic changes, update the other method also
 
-        if (ignoreGlobalFilters || !(globalFilters?.Count > 0) || !globalFilters.TryGetValue(typeof(T), out var gFilter))
+        if (ignoreGlobalFilters || !(_globalFilters?.Count > 0) || !_globalFilters.TryGetValue(typeof(T), out var gFilter))
             return template;
 
         var filter = gFilter.filterDef switch
@@ -90,9 +91,9 @@ public partial class DBContext
         };
 
         if (gFilter.prepend)
-            template.builder.Insert(1, $"{{$match:{filter}}},");
+            template.Builder.Insert(1, $"{{$match:{filter}}},");
         else
-            template.builder.Insert(template.builder.Length - 1, $",{{$match:{filter}}}");
+            template.Builder.Insert(template.Builder.Length - 1, $",{{$match:{filter}}}");
 
         return template;
     }

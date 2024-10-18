@@ -9,10 +9,10 @@ namespace MongoDB.Entities;
 /// </summary>
 public static class Prop
 {
-    static readonly Regex rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled); //matched result: One.Two[1].Three.get_Item(2).Four
-    static readonly Regex rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);              //replaced result: One.Two[1].Three[2].Four
-    static readonly Regex rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
-    static readonly Regex rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
+    static readonly Regex _rxOne = new(@"(?:\.(?:\w+(?:[[(]\d+[)\]])?))+", RegexOptions.Compiled); //matched result: One.Two[1].Three.get_Item(2).Four
+    static readonly Regex _rxTwo = new(@".get_Item\((\d+)\)", RegexOptions.Compiled);              //replaced result: One.Two[1].Three[2].Four
+    static readonly Regex _rxThree = new(@"\[\d+\]", RegexOptions.Compiled);
+    static readonly Regex _rxFour = new(@"\[(\d+)\]", RegexOptions.Compiled);
 
     static string ToLowerCaseLetter(long n)
     {
@@ -45,17 +45,17 @@ public static class Prop
     {
         ThrowIfInvalid(expression);
 
-        return rxTwo.Replace(
-            rxOne.Match(expression.ToString()).Value[1..],
+        return _rxTwo.Replace(
+            _rxOne.Match(expression.ToString()).Value[1..],
             m => "[" + m.Groups[1].Value + "]");
     }
 
     internal static string GetPath(string expString)
     {
         return
-            rxThree.Replace(
-                rxTwo.Replace(
-                    rxOne.Match(expString).Value[1..],
+            _rxThree.Replace(
+                _rxTwo.Replace(
+                    _rxOne.Match(expString).Value[1..],
                     m => "[" + m.Groups[1].Value + "]"),
                 "");
     }
@@ -85,7 +85,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string Path<T>(Expression<Func<T, object?>> expression)
-        => rxThree.Replace(GetPath(expression), "");
+        => _rxThree.Replace(GetPath(expression), "");
 
     /// <summary>
     /// Returns a path with filtered positional identifiers $[x] for a given expression.
@@ -97,7 +97,7 @@ public static class Prop
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string PosFiltered<T>(Expression<Func<T, object?>> expression)
     {
-        return rxFour.Replace(
+        return _rxFour.Replace(
             GetPath(expression),
             m => ".$[" + ToLowerCaseLetter(int.Parse(m.Groups[1].Value)) + "]");
     }
@@ -108,7 +108,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string PosAll<T>(Expression<Func<T, object?>> expression)
-        => rxThree.Replace(GetPath(expression), ".$[]");
+        => _rxThree.Replace(GetPath(expression), ".$[]");
 
     /// <summary>
     /// Returns a path with the first positional operator $ for a given expression.
@@ -116,7 +116,7 @@ public static class Prop
     /// </summary>
     /// <param name="expression">x => x.SomeList[0].SomeProp</param>
     public static string PosFirst<T>(Expression<Func<T, object?>> expression)
-        => rxThree.Replace(GetPath(expression), ".$");
+        => _rxThree.Replace(GetPath(expression), ".$");
 
     /// <summary>
     /// Returns a path without any filtered positional identifier prepended to it.

@@ -2,6 +2,7 @@
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     /// <summary>

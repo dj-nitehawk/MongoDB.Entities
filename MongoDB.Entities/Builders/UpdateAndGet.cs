@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -30,9 +30,9 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type to project to</typeparam>
 public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
 {
-    readonly List<PipelineStageDefinition<T, TProjection>> _stages = new();
+    private protected readonly FindOneAndUpdateOptions<T, TProjection> Options = new() { ReturnDocument = ReturnDocument.After };
+    readonly List<PipelineStageDefinition<T, TProjection>> _stages = [];
     FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
-    private protected readonly FindOneAndUpdateOptions<T, TProjection> options = new() { ReturnDocument = ReturnDocument.After };
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
@@ -319,10 +319,10 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
         ArrayFilterDefinition<T> def = filter;
 
-        options.ArrayFilters =
-            options.ArrayFilters == null
-                ? new[] { def }
-                : options.ArrayFilters.Concat(new[] { def });
+        Options.ArrayFilters =
+            Options.ArrayFilters == null
+                ? [def]
+                : Options.ArrayFilters.Concat([def]);
 
         return this;
     }
@@ -346,10 +346,10 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     {
         var defs = template.ToArrayFilters<T>();
 
-        options.ArrayFilters =
-            options.ArrayFilters == null
+        Options.ArrayFilters =
+            Options.ArrayFilters == null
                 ? defs
-                : options.ArrayFilters.Concat(defs);
+                : Options.ArrayFilters.Concat(defs);
 
         return this;
     }
@@ -361,7 +361,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public UpdateAndGet<T, TProjection> Option(Action<FindOneAndUpdateOptions<T, TProjection>> option)
     {
-        option(options);
+        option(Options);
 
         return this;
     }
@@ -381,7 +381,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
     public UpdateAndGet<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     {
-        options.Projection = projection(Builders<T>.Projection);
+        Options.Projection = projection(Builders<T>.Projection);
 
         return this;
     }
@@ -395,7 +395,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         if (typeof(T) != typeof(TProjection))
             throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
-        options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
+        Options.Projection = Cache<T>.CombineWithRequiredProps(Options.Projection);
 
         return this;
     }
@@ -429,7 +429,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
             Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
         _onUpdateAction?.Invoke(this);
 
-        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(Defs), options, _session, cancellation).ConfigureAwait(false);
+        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Combine(Defs), Options, _session, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -450,7 +450,7 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
         if (ShouldSetModDate())
             WithPipelineStage($"{{ $set: {{ '{Cache<T>.ModifiedOnPropName}': new Date() }} }}");
 
-        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(_stages.ToArray()), options, _session, cancellation);
+        return await UpdateAndGetAsync(mergedFilter, Builders<T>.Update.Pipeline(_stages.ToArray()), Options, _session, cancellation);
     }
 
     bool ShouldSetModDate()

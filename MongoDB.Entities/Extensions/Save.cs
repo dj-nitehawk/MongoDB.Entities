@@ -1,9 +1,9 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -26,7 +26,9 @@ public static partial class Extensions
     /// <param name="entities"></param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public static Task<BulkWriteResult<T>> SaveAsync<T>(this IEnumerable<T> entities,
+                                                        IClientSessionHandle? session = null,
+                                                        CancellationToken cancellation = default)
         where T : IEntity
         => DB.SaveAsync(entities, session, cancellation);
 

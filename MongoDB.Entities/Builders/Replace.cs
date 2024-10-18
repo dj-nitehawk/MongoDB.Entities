@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -16,24 +16,24 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Replace<T> where T : IEntity
 {
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    ReplaceOptions options = new();
-    readonly IClientSessionHandle? session;
-    readonly List<ReplaceOneModel<T>> models = new();
-    readonly ModifiedBy? modifiedBy;
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    readonly Action<T>? onSaveAction;
-    bool ignoreGlobalFilters;
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
+    ReplaceOptions _options = new();
+    readonly IClientSessionHandle? _session;
+    readonly List<ReplaceOneModel<T>> _models = [];
+    readonly ModifiedBy? _modifiedBy;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    readonly Action<T>? _onSaveAction;
+    bool _ignoreGlobalFilters;
 
     internal Replace(IClientSessionHandle? session,
                      ModifiedBy? modifiedBy,
                      Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                      Action<T>? onSaveAction)
     {
-        this.session = session;
-        this.modifiedBy = modifiedBy;
-        this.globalFilters = globalFilters;
-        this.onSaveAction = onSaveAction;
+        _session = session;
+        _modifiedBy = modifiedBy;
+        _globalFilters = globalFilters;
+        _onSaveAction = onSaveAction;
     }
 
     T? Entity { get; set; }
@@ -62,7 +62,7 @@ public class Replace<T> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public Replace<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
 
         return this;
     }
@@ -73,7 +73,7 @@ public class Replace<T> where T : IEntity
     /// <param name="filterDefinition">A filter definition</param>
     public Replace<T> Match(FilterDefinition<T> filterDefinition)
     {
-        filter &= filterDefinition;
+        _filter &= filterDefinition;
 
         return this;
     }
@@ -84,7 +84,7 @@ public class Replace<T> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public Replace<T> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
 
         return this;
     }
@@ -138,7 +138,10 @@ public class Replace<T> where T : IEntity
     /// <param name="nearCoordinates">The search point</param>
     /// <param name="maxDistance">Maximum distance in meters from the search point</param>
     /// <param name="minDistance">Minimum distance in meters from the search point</param>
-    public Replace<T> Match(Expression<Func<T, object?>> coordinatesProperty, Coordinates2D nearCoordinates, double? maxDistance = null, double? minDistance = null)
+    public Replace<T> Match(Expression<Func<T, object?>> coordinatesProperty,
+                            Coordinates2D nearCoordinates,
+                            double? maxDistance = null,
+                            double? minDistance = null)
     {
         return Match(f => f.Near(coordinatesProperty, nearCoordinates.ToGeoJsonPoint(), maxDistance, minDistance));
     }
@@ -149,7 +152,7 @@ public class Replace<T> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public Replace<T> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
 
         return this;
     }
@@ -160,7 +163,7 @@ public class Replace<T> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public Replace<T> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
 
         return this;
     }
@@ -171,7 +174,7 @@ public class Replace<T> where T : IEntity
     /// <param name="template">A Template object</param>
     public Replace<T> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
 
         return this;
     }
@@ -186,7 +189,7 @@ public class Replace<T> where T : IEntity
         if (string.IsNullOrEmpty(entity.GetId().ToString()))
             throw new InvalidOperationException("Cannot replace an entity with an empty ID value!");
 
-        onSaveAction?.Invoke(entity);
+        _onSaveAction?.Invoke(entity);
 
         Entity = entity;
 
@@ -200,7 +203,7 @@ public class Replace<T> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public Replace<T> Option(Action<ReplaceOptions> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }
@@ -210,7 +213,7 @@ public class Replace<T> where T : IEntity
     /// </summary>
     public Replace<T> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
 
         return this;
     }
@@ -220,7 +223,7 @@ public class Replace<T> where T : IEntity
     /// </summary>
     public Replace<T> AddToQueue()
     {
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         if (mergedFilter == Builders<T>.Filter.Empty)
             throw new ArgumentException("Please use Match() method first!");
@@ -229,16 +232,16 @@ public class Replace<T> where T : IEntity
 
         SetModOnAndByValues();
 
-        models.Add(
+        _models.Add(
             new(mergedFilter, Entity)
             {
-                Collation = options.Collation,
-                Hint = options.Hint,
-                IsUpsert = options.IsUpsert
+                Collation = _options.Collation,
+                Hint = _options.Hint,
+                IsUpsert = _options.IsUpsert
             });
-        filter = Builders<T>.Filter.Empty;
+        _filter = Builders<T>.Filter.Empty;
         Entity = default;
-        options = new();
+        _options = new();
 
         return this;
     }
@@ -249,22 +252,22 @@ public class Replace<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<ReplaceOneResult> ExecuteAsync(CancellationToken cancellation = default)
     {
-        if (models.Count > 0)
+        if (_models.Count > 0)
         {
             var bulkWriteResult = await (
-                                            session == null
-                                                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                                                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                                            _session == null
+                                                ? DB.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : DB.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
-            models.Clear();
+            _models.Clear();
 
             return !bulkWriteResult.IsAcknowledged
                        ? ReplaceOneResult.Unacknowledged.Instance
                        : new ReplaceOneResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
 
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         if (mergedFilter == Builders<T>.Filter.Empty)
             throw new ArgumentException("Please use Match() method first!");
@@ -273,9 +276,9 @@ public class Replace<T> where T : IEntity
 
         SetModOnAndByValues();
 
-        return session == null
-                   ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, options, cancellation).ConfigureAwait(false)
-                   : await DB.Collection<T>().ReplaceOneAsync(session, mergedFilter, Entity, options, cancellation).ConfigureAwait(false);
+        return _session == null
+                   ? await DB.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, _options, cancellation).ConfigureAwait(false)
+                   : await DB.Collection<T>().ReplaceOneAsync(_session, mergedFilter, Entity, _options, cancellation).ConfigureAwait(false);
     }
 
     void SetModOnAndByValues()
@@ -283,11 +286,11 @@ public class Replace<T> where T : IEntity
         if (Cache<T>.HasModifiedOn && Entity != null)
             ((IModifiedOn)Entity).ModifiedOn = DateTime.UtcNow;
 
-        if (Cache<T>.ModifiedByProp != null && modifiedBy != null)
+        if (Cache<T>.ModifiedByProp != null && _modifiedBy != null)
         {
             Cache<T>.ModifiedByProp.SetValue(
                 Entity,
-                BsonSerializer.Deserialize(modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
+                BsonSerializer.Deserialize(_modifiedBy.ToBson(), Cache<T>.ModifiedByProp.PropertyType));
         }
     }
 }

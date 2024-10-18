@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDB.Entities;
 
@@ -11,19 +11,22 @@ public static partial class Extensions
     /// Gets the name of the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    internal static string GetIdName<T>(this T _) where T : IEntity => Cache<T>.IdPropName;
+    internal static string GetIdName<T>(this T _) where T : IEntity
+        => Cache<T>.IdPropName;
 
     /// <summary>
     /// Gets the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
-    internal static object GetId<T>(this T entity) where T : IEntity => Cache<T>.IdGetter(entity);
+    internal static object GetId<T>(this T entity) where T : IEntity
+        => Cache<T>.IdGetter(entity);
 
     /// <summary>
     /// Sets the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
-    internal static void SetId<T>(this T entity, object id) where T : IEntity => Cache<T>.IdSetter(entity, id);
+    internal static void SetId<T>(this T entity, object id) where T : IEntity
+        => Cache<T>.IdSetter(entity, id);
 
     /// <summary>
     /// Gets the PropertyInfo for the Identity object
@@ -32,10 +35,12 @@ public static partial class Extensions
     internal static PropertyInfo? GetIdPropertyInfo(this Type type)
     {
         // Let's get the identity Property based on the MongoDB identity rules
-        return Array.Find(type.GetProperties(), p =>
-            p.Name.Equals("_id", StringComparison.OrdinalIgnoreCase) ||
-            p.Name.Equals("id", StringComparison.OrdinalIgnoreCase) ||
-            p.IsDefined(typeof(BsonIdAttribute), true));
+        return Array.Find(
+            type.GetProperties(),
+            p =>
+                p.Name.Equals("_id", StringComparison.OrdinalIgnoreCase) ||
+                p.Name.Equals("id", StringComparison.OrdinalIgnoreCase) ||
+                p.IsDefined(typeof(BsonIdAttribute), true));
     }
 
     internal static Func<object, object> GetterForProp(this Type source, string propertyName)

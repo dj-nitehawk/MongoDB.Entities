@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using MongoDB.Entities.Tests.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver.Linq;
+using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 
@@ -23,7 +23,7 @@ public class MultiDbObjectId
         var cover = new BookCover
         {
             BookID = "123",
-            BookName = "test book " + Guid.NewGuid().ToString()
+            BookName = "test book " + Guid.NewGuid()
         };
 
         await cover.SaveAsync();
@@ -45,14 +45,14 @@ public class MultiDbObjectId
         var cover = new BookCover
         {
             BookID = "123",
-            BookName = "test book " + Guid.NewGuid().ToString()
+            BookName = "test book " + Guid.NewGuid()
         };
         await cover.SaveAsync();
 
         var mark = new BookMark
         {
             BookCover = cover.ToReference(),
-            BookName = cover.BookName,
+            BookName = cover.BookName
         };
 
         await mark.SaveAsync();
@@ -102,26 +102,26 @@ public class MultiDbObjectId
         DB.DatabaseFor<BookCover>(dbName);
 
         var guid = Guid.NewGuid().ToString();
-        var marks = new[] {
-            new BookMark{ BookName = guid},
-            new BookMark{ BookName = guid},
-            new BookMark{ BookName = guid},
+        var marks = new[]
+        {
+            new BookMark { BookName = guid },
+            new BookMark { BookName = guid },
+            new BookMark { BookName = guid }
         };
 
         await marks.SaveAsync();
 
-        var covers = new[] {
-            new BookCover{  BookID = guid },
-            new BookCover{  BookID = guid },
-            new BookCover{  BookID = guid }
+        var covers = new[]
+        {
+            new BookCover { BookID = guid },
+            new BookCover { BookID = guid },
+            new BookCover { BookID = guid }
         };
 
         await covers.SaveAsync();
 
         foreach (var cover in covers)
-        {
             await cover.BookMarks.AddAsync(marks);
-        }
 
         Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
 

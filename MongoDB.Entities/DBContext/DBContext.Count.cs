@@ -1,13 +1,15 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
+    // ReSharper disable once MemberCanBeMadeStatic.Global
     /// <summary>
     /// Gets a fast estimation of how many documents are in the collection using metadata.
     /// <para>HINT: The estimation may not be exactly accurate.</para>
@@ -25,9 +27,12 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<long> CountAsync<T>(Expression<Func<T, bool>> expression,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null,
+                                    bool ignoreGlobalFilters = false) where T : IEntity
         => DB.CountAsync(
-            Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, globalFilters, expression),
+            Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, _globalFilters, expression),
             Session,
             cancellation,
             options);
@@ -48,9 +53,12 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<long> CountAsync<T>(FilterDefinition<T> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<long> CountAsync<T>(FilterDefinition<T> filter,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null,
+                                    bool ignoreGlobalFilters = false) where T : IEntity
         => DB.CountAsync(
-            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter),
+            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
             Session,
             cancellation,
             options);
@@ -63,9 +71,12 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, CancellationToken cancellation = default, CountOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
+                                    CancellationToken cancellation = default,
+                                    CountOptions? options = null,
+                                    bool ignoreGlobalFilters = false) where T : IEntity
         => DB.CountAsync(
-            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter(Builders<T>.Filter)),
+            Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
             Session,
             cancellation,
             options);

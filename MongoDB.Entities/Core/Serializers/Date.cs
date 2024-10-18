@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using System.Globalization;
+using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System;
-using System.Globalization;
 
 namespace MongoDB.Entities;
 
@@ -12,9 +12,9 @@ class DateSerializer : SerializerBase<Date>, IBsonDocumentSerializer
     static readonly IBsonSerializer<long> _longSerializer = BsonSerializer.LookupSerializer<long>();
     static readonly IBsonSerializer<DateTime> _dtSerializer = BsonSerializer.LookupSerializer<DateTime>();
 
-    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date date)
+    public override void Serialize(BsonSerializationContext ctx, BsonSerializationArgs args, Date? date)
     {
-        if (date == null)
+        if (date is null)
             ctx.Writer.WriteNull();
         else
         {
@@ -113,13 +113,19 @@ public class Date
     /// instantiate a Date with ticks
     /// </summary>
     /// <param name="ticks">the ticks</param>
-    public Date(long ticks) { Ticks = ticks; }
+    public Date(long ticks)
+    {
+        Ticks = ticks;
+    }
 
     /// <summary>
     /// instantiate a Date with a DateTime
     /// </summary>
     /// <param name="dateTime">the DateTime</param>
-    public Date(DateTime dateTime) { DateTime = dateTime; }
+    public Date(DateTime dateTime)
+    {
+        DateTime = dateTime;
+    }
 
     public override string ToString()
         => _date.ToString(CultureInfo.InvariantCulture);

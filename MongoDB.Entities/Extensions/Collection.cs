@@ -1,5 +1,5 @@
-﻿using MongoDB.Driver;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -10,7 +10,8 @@ public static partial class Extensions
     /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity => DB.Collection<T>();
+    public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
+        => DB.Collection<T>();
 
     /// <summary>
     /// Gets the collection name for this entity

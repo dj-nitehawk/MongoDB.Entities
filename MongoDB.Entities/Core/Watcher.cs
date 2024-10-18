@@ -1,12 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -37,11 +37,13 @@ public class Watcher<T> where T : IEntity
     /// </summary>
     public event AsyncEventHandler<IEnumerable<T>>? OnChangesAsync;
 
+    // ReSharper disable once InconsistentNaming
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
     /// </summary>
     public event Action<IEnumerable<ChangeStreamDocument<T>>>? OnChangesCSD;
 
+    // ReSharper disable once InconsistentNaming
     /// <summary>
     /// This event is fired when the desired types of events have occured. Will have a list of 'ChangeStreamDocuments' that was received as input.
     /// </summary>
@@ -71,17 +73,17 @@ public class Watcher<T> where T : IEntity
     /// Returns true if watching can be restarted if it was stopped due to an error or invalidate event.
     /// Will always return false after cancellation is requested via the cancellation token.
     /// </summary>
-    public bool CanRestart => !cancelToken.IsCancellationRequested;
+    public bool CanRestart => !_cancelToken.IsCancellationRequested;
 
     /// <summary>
     /// The last resume token received from mongodb server. Can be used to resume watching with .StartWithToken() method.
     /// </summary>
-    public BsonDocument? ResumeToken => options?.StartAfter;
+    public BsonDocument? ResumeToken => _options?.StartAfter;
 
-    PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> pipeline = null!;
-    ChangeStreamOptions? options;
-    bool resume;
-    CancellationToken cancelToken;
+    PipelineDefinition<ChangeStreamDocument<T>, ChangeStreamDocument<T>> _pipeline = null!;
+    ChangeStreamOptions? _options;
+    bool _resume;
+    CancellationToken _cancelToken;
 
     internal Watcher(string name)
     {
@@ -248,8 +250,8 @@ public class Watcher<T> where T : IEntity
         if (IsInitialized)
             throw new InvalidOperationException("This watcher has already been initialized!");
 
-        resume = autoResume;
-        cancelToken = cancellation;
+        _resume = autoResume;
+        _cancelToken = cancellation;
 
         var ops = new List<ChangeStreamOperationType>(3) { ChangeStreamOperationType.Invalidate };
 
@@ -307,9 +309,9 @@ public class Watcher<T> where T : IEntity
         if (projection != null)
             stages.Add(PipelineStageDefinitionBuilder.Project(BuildProjection(projection)));
 
-        pipeline = stages;
+        _pipeline = stages;
 
-        options = new()
+        _options = new()
         {
             StartAfter = resumeToken,
             BatchSize = batchSize,
@@ -366,11 +368,11 @@ public class Watcher<T> where T : IEntity
         if (!IsInitialized)
             throw new InvalidOperationException("This watcher was never started. Please use .Start() first!");
 
-        if (cancelToken.IsCancellationRequested)
+        if (_cancelToken.IsCancellationRequested)
             throw new InvalidOperationException("This watcher cannot be restarted as it has been aborted/cancelled!");
 
-        if (resumeToken != null && options != null)
-            options.StartAfter = resumeToken;
+        if (resumeToken != null && _options != null)
+            _options.StartAfter = resumeToken;
 
         StartWatching();
     }
@@ -389,15 +391,15 @@ public class Watcher<T> where T : IEntity
         {
             try
             {
-                using var cursor = await DB.Collection<T>().WatchAsync(pipeline, options, cancelToken).ConfigureAwait(false);
+                using var cursor = await DB.Collection<T>().WatchAsync(_pipeline, _options, _cancelToken).ConfigureAwait(false);
 
-                while (!cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(cancelToken).ConfigureAwait(false))
+                while (!_cancelToken.IsCancellationRequested && await cursor.MoveNextAsync(_cancelToken).ConfigureAwait(false))
                 {
                     if (!cursor.Current.Any())
                         continue;
 
-                    if (resume && options != null)
-                        options.StartAfter = cursor.Current.Last().ResumeToken;
+                    if (_resume && _options != null)
+                        _options.StartAfter = cursor.Current.Last().ResumeToken;
 
                     if (OnChangesAsync != null)
                     {
@@ -420,7 +422,7 @@ public class Watcher<T> where T : IEntity
 
                 OnStop?.Invoke();
 
-                if (cancelToken.IsCancellationRequested)
+                if (_cancelToken.IsCancellationRequested)
                 {
                     if (OnChangesAsync != null)
                     {
@@ -442,18 +444,21 @@ public class Watcher<T> where T : IEntity
 
                     if (OnChangesCSD != null)
                     {
+                        // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
                         foreach (Action<IEnumerable<ChangeStreamDocument<T>>> a in OnChangesCSD.GetInvocationList())
                             OnChangesCSD -= a;
                     }
 
                     if (OnError != null)
                     {
+                        // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
                         foreach (Action<Exception> a in OnError.GetInvocationList())
                             OnError -= a;
                     }
 
                     if (OnStop != null)
                     {
+                        // ReSharper disable once PossibleInvalidCastExceptionInForeachLoop
                         foreach (Action a in OnStop.GetInvocationList())
                             OnStop -= a;
                     }

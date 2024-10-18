@@ -2,6 +2,7 @@
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     /// <summary>
@@ -26,7 +27,13 @@ public static partial class DB
     /// <param name="language">The language for the search (optional)</param>
     /// <param name="options">Options for finding documents (not required)</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, IClientSessionHandle? session = null) where T : IEntity
+    public static IAggregateFluent<T> FluentTextSearch<T>(Search searchType,
+                                                          string searchTerm,
+                                                          bool caseSensitive = false,
+                                                          bool diacriticSensitive = false,
+                                                          string? language = null,
+                                                          AggregateOptions? options = null,
+                                                          IClientSessionHandle? session = null) where T : IEntity
     {
         if (searchType == Search.Fuzzy)
         {
@@ -37,16 +44,16 @@ public static partial class DB
         }
 
         var filter = Builders<T>.Filter.Text(
-                        searchTerm,
-                        new TextSearchOptions
-                        {
-                            CaseSensitive = caseSensitive,
-                            DiacriticSensitive = diacriticSensitive,
-                            Language = language
-                        });
+            searchTerm,
+            new TextSearchOptions
+            {
+                CaseSensitive = caseSensitive,
+                DiacriticSensitive = diacriticSensitive,
+                Language = language
+            });
 
         return session == null
-               ? Collection<T>().Aggregate(options).Match(filter)
-               : Collection<T>().Aggregate(session, options).Match(filter);
+                   ? Collection<T>().Aggregate(options).Match(filter)
+                   : Collection<T>().Aggregate(session, options).Match(filter);
     }
 }

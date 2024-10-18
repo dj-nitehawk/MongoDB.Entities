@@ -1,8 +1,8 @@
-﻿using MongoDB.Driver;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -24,9 +24,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task RemoveAsync(object childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return RemoveAsync(new[] { childID }, session, cancellation);
-    }
+        => RemoveAsync([childID], session, cancellation);
 
     /// <summary>
     /// Removes child references.

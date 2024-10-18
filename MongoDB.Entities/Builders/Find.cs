@@ -1,12 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -30,17 +30,17 @@ public class Find<T> : Find<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
 public class Find<T, TProjection> where T : IEntity
 {
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    readonly List<SortDefinition<T>> sorts = new();
-    readonly FindOptions<T, TProjection> options = new();
-    readonly IClientSessionHandle? session;
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    bool ignoreGlobalFilters;
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
+    readonly List<SortDefinition<T>> _sorts = [];
+    readonly FindOptions<T, TProjection> _options = new();
+    readonly IClientSessionHandle? _session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    bool _ignoreGlobalFilters;
 
     internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
-        this.session = session;
-        this.globalFilters = globalFilters;
+        _session = session;
+        _globalFilters = globalFilters;
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public Find<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
 
         return this;
     }
@@ -126,7 +126,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="filterDefinition">A filter definition</param>
     public Find<T, TProjection> Match(FilterDefinition<T> filterDefinition)
     {
-        filter &= filterDefinition;
+        _filter &= filterDefinition;
 
         return this;
     }
@@ -137,7 +137,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public Find<T, TProjection> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
 
         return this;
     }
@@ -209,7 +209,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public Find<T, TProjection> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
 
         return this;
     }
@@ -220,7 +220,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public Find<T, TProjection> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
 
         return this;
     }
@@ -231,7 +231,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="template">A Template object</param>
     public Find<T, TProjection> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
 
         return this;
     }
@@ -286,7 +286,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <returns></returns>
     public Find<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
     {
-        sorts.Add(sortFunction(Builders<T>.Sort));
+        _sorts.Add(sortFunction(Builders<T>.Sort));
 
         return this;
     }
@@ -297,7 +297,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="skipCount">The number to skip</param>
     public Find<T, TProjection> Skip(int skipCount)
     {
-        options.Skip = skipCount;
+        _options.Skip = skipCount;
 
         return this;
     }
@@ -308,7 +308,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="takeCount">The number to limit/take</param>
     public Find<T, TProjection> Limit(int takeCount)
     {
-        options.Limit = takeCount;
+        _options.Limit = takeCount;
 
         return this;
     }
@@ -328,7 +328,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
     public Find<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     {
-        options.Projection = projection(Builders<T>.Projection)!;
+        _options.Projection = projection(Builders<T>.Projection)!;
 
         return this;
     }
@@ -347,7 +347,7 @@ public class Find<T, TProjection> where T : IEntity
         var defs = new List<ProjectionDefinition<T>>(props.Count());
         defs.AddRange(props.Select(prop => Builders<T>.Projection.Exclude(prop)));
 
-        options.Projection = Builders<T>.Projection.Combine(defs);
+        _options.Projection = Builders<T>.Projection.Combine(defs);
 
         return this;
     }
@@ -361,7 +361,7 @@ public class Find<T, TProjection> where T : IEntity
         if (typeof(T) != typeof(TProjection))
             throw new InvalidOperationException("IncludeRequiredProps() cannot be used when projecting to a different type.");
 
-        options.Projection = Cache<T>.CombineWithRequiredProps(options.Projection);
+        _options.Projection = Cache<T>.CombineWithRequiredProps(_options.Projection);
 
         return this;
     }
@@ -372,7 +372,7 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public Find<T, TProjection> Option(Action<FindOptions<T, TProjection>> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }
@@ -382,7 +382,7 @@ public class Find<T, TProjection> where T : IEntity
     /// </summary>
     public Find<T, TProjection> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
 
         return this;
     }
@@ -449,24 +449,24 @@ public class Find<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<IAsyncCursor<TProjection>> ExecuteCursorAsync(CancellationToken cancellation = default)
     {
-        if (sorts.Count > 0)
-            options.Sort = Builders<T>.Sort.Combine(sorts);
+        if (_sorts.Count > 0)
+            _options.Sort = Builders<T>.Sort.Combine(_sorts);
 
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
-        return session == null
-                   ? DB.Collection<T>().FindAsync(mergedFilter, options, cancellation)
-                   : DB.Collection<T>().FindAsync(session, mergedFilter, options, cancellation);
+        return _session == null
+                   ? DB.Collection<T>().FindAsync(mergedFilter, _options, cancellation)
+                   : DB.Collection<T>().FindAsync(_session, mergedFilter, _options, cancellation);
     }
 
     void AddTxtScoreToProjection(string propName)
     {
-        options.Projection ??= "{}";
+        _options.Projection ??= "{}";
 
-        options.Projection =
-            options.Projection
-                   .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
-                   .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
+        _options.Projection =
+            _options.Projection
+                    .Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry))
+                    .Document.Add(propName, new BsonDocument { { "$meta", "textScore" } });
     }
 }
 

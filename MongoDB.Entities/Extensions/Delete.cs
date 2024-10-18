@@ -1,8 +1,8 @@
-﻿using MongoDB.Driver;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -15,7 +15,8 @@ public static partial class Extensions
     /// <param name="entity"></param>
     /// <param name="session"></param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAsync<T>(this T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        where T : IEntity
         => DB.DeleteAsync<T>(entity.GetId(), session, cancellation);
 
     /// <summary>
@@ -25,6 +26,8 @@ public static partial class Extensions
     /// <param name="entities"></param>
     /// <param name="session"></param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities,
+                                                       IClientSessionHandle? session = null,
+                                                       CancellationToken cancellation = default) where T : IEntity
         => DB.DeleteAsync<T>(entities.Select(Cache<T>.IdSelector), session, cancellation);
 }

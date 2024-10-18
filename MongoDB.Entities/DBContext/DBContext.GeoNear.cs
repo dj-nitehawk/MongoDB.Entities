@@ -1,10 +1,11 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -36,7 +37,7 @@ public partial class DBContext
                                           AggregateOptions? options = null,
                                           bool ignoreGlobalFilters = false) where T : IEntity
     {
-        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
                    ? DB.FluentGeoNear(

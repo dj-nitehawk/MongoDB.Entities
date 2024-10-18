@@ -17,6 +17,7 @@ public class FileEntities
     const string dbName = "mongodb-entities-test-multi";
 
     [TestCategory("SkipWhenLiveUnitTesting")]
+
     //[TestMethod]
     public async Task uploading_data_from_http_stream()
     {
@@ -31,8 +32,8 @@ public class FileEntities
         await img.Data.UploadWithTimeoutAsync(stream, 30, 128).ConfigureAwait(false);
 
         var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                      .Where(c => c.FileID == img.ID)
-                      .CountAsync();
+                            .Where(c => c.FileID == img.ID)
+                            .CountAsync();
 
         Assert.AreEqual(1097221, img.FileSize);
         Assert.AreEqual(img.ChunkCount, count);
@@ -51,8 +52,8 @@ public class FileEntities
         await img.Data.UploadAsync(stream).ConfigureAwait(false);
 
         var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                      .Where(c => c.FileID == img.ID)
-                      .CountAsync();
+                            .Where(c => c.FileID == img.ID)
+                            .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
         Assert.AreEqual(img.ChunkCount, count);
@@ -64,13 +65,14 @@ public class FileEntities
         await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
-        var img = new Image { Height = 800, Width = 600, Name = "Test-bad-hash.png", MD5 = "wrong-hash" };
+        var img = new Image { Height = 800, Width = 600, Name = "Test-bad-hash.png", Md5 = "wrong-hash" };
         await img.SaveAsync().ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
 
-        await Assert.ThrowsExceptionAsync<InvalidDataException>(async ()
-            => await img.Data.UploadAsync(stream).ConfigureAwait(false));
+        await Assert.ThrowsExceptionAsync<InvalidDataException>(
+            async ()
+                => await img.Data.UploadAsync(stream).ConfigureAwait(false));
     }
 
     [TestMethod]
@@ -79,15 +81,15 @@ public class FileEntities
         await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
-        var img = new Image { Height = 800, Width = 600, Name = "Test-correct-hash.png", MD5 = "cccfa116f0acf41a217cbefbe34cd599" };
+        var img = new Image { Height = 800, Width = 600, Name = "Test-correct-hash.png", Md5 = "cccfa116f0acf41a217cbefbe34cd599" };
         await img.SaveAsync().ConfigureAwait(false);
 
         using var stream = File.OpenRead("Models/test.jpg");
         await img.Data.UploadAsync(stream).ConfigureAwait(false);
 
         var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                      .Where(c => c.FileID == img.ID)
-                      .CountAsync();
+                            .Where(c => c.FileID == img.ID)
+                            .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
         Assert.AreEqual(img.ChunkCount, count);
@@ -106,8 +108,8 @@ public class FileEntities
         await img.Data.UploadAsync(stream, 4096).ConfigureAwait(false);
 
         var count = await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-                      .Where(c => c.FileID == img.ID)
-                      .CountAsync();
+                            .Where(c => c.FileID == img.ID)
+                            .CountAsync();
 
         Assert.AreEqual(2047524, img.FileSize);
         Assert.AreEqual(img.ChunkCount, count);
@@ -127,8 +129,8 @@ public class FileEntities
 
         var countBefore =
             await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-              .Where(c => c.FileID == img.ID)
-              .CountAsync();
+                    .Where(c => c.FileID == img.ID)
+                    .CountAsync();
 
         Assert.AreEqual(img.ChunkCount, countBefore);
 
@@ -136,11 +138,11 @@ public class FileEntities
 
         Assert.IsTrue(deleteResult.IsAcknowledged);
         Assert.AreEqual(1, deleteResult.DeletedCount);
-        
+
         var countAfter =
             await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-              .Where(c => c.FileID == img.ID)
-              .CountAsync();
+                    .Where(c => c.FileID == img.ID)
+                    .CountAsync();
 
         Assert.AreEqual(0, countAfter);
     }
@@ -159,8 +161,8 @@ public class FileEntities
 
         var countBefore =
             await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-              .Where(c => c.FileID == img.ID)
-              .CountAsync();
+                    .Where(c => c.FileID == img.ID)
+                    .CountAsync();
 
         Assert.AreEqual(img.ChunkCount, countBefore);
 
@@ -170,8 +172,8 @@ public class FileEntities
 
         var countAfter =
             await DB.Database(dbName).GetCollection<FileChunk>(DB.CollectionName<FileChunk>()).AsQueryable()
-              .Where(c => c.FileID == img.ID)
-              .CountAsync();
+                    .Where(c => c.FileID == img.ID)
+                    .CountAsync();
 
         Assert.AreEqual(0, countAfter);
     }
@@ -186,14 +188,10 @@ public class FileEntities
         await img.SaveAsync().ConfigureAwait(false);
 
         using (var inStream = File.OpenRead("Models/test.jpg"))
-        {
             await img.Data.UploadAsync(inStream).ConfigureAwait(false);
-        }
 
         using (var outStream = File.OpenWrite("Models/result.jpg"))
-        {
             await img.Data.DownloadAsync(outStream, 3).ConfigureAwait(false);
-        }
 
         using var md5 = MD5.Create();
         var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));
@@ -212,14 +210,10 @@ public class FileEntities
         await img.SaveAsync().ConfigureAwait(false);
 
         using (var inStream = File.OpenRead("Models/test.jpg"))
-        {
             await img.Data.UploadAsync(inStream).ConfigureAwait(false);
-        }
 
         using (var outStream = File.OpenWrite("Models/result-direct.jpg"))
-        {
             await DB.File<Image>(img.ID).DownloadAsync(outStream).ConfigureAwait(false);
-        }
 
         using var md5 = MD5.Create();
         var oldHash = md5.ComputeHash(File.OpenRead("Models/test.jpg"));

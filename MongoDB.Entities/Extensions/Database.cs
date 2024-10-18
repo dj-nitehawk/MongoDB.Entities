@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -12,12 +12,14 @@ public static partial class Extensions
     /// Gets the IMongoDatabase for the given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
-    public static IMongoDatabase Database<T>(this T _) where T : IEntity => DB.Database<T>();
+    public static IMongoDatabase Database<T>(this T _) where T : IEntity
+        => DB.Database<T>();
 
     /// <summary>
     /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
     /// </summary>
-    public static string DatabaseName<T>(this T _) where T : IEntity => DB.DatabaseName<T>();
+    public static string DatabaseName<T>(this T _) where T : IEntity
+        => DB.DatabaseName<T>();
 
     /// <summary>
     /// Pings the mongodb server to check if it's still connectable
@@ -27,9 +29,11 @@ public static partial class Extensions
     public static async Task<bool> IsAccessibleAsync(this IMongoDatabase db, int timeoutSeconds = 5)
     {
         using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
+
         try
         {
             var res = await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}", null, cts.Token).ConfigureAwait(false);
+
             return res["ok"] == 1;
         }
         catch (Exception)
@@ -46,9 +50,11 @@ public static partial class Extensions
     public static async Task<bool> ExistsAsync(this IMongoDatabase db, int timeoutSeconds = 5)
     {
         using var cts = new CancellationTokenSource(timeoutSeconds * 1000);
+
         try
         {
-            var dbs = await (await db.Client.ListDatabaseNamesAsync(cts.Token).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
+            var dbs = await (await db.Client.ListDatabaseNamesAsync(cts.Token).ConfigureAwait(false)).ToListAsync(cts.Token).ConfigureAwait(false);
+
             return dbs.Contains(db.DatabaseNamespace.DatabaseName);
         }
         catch (Exception)

@@ -1,10 +1,11 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>

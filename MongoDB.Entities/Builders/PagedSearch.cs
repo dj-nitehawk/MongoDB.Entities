@@ -1,12 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -27,17 +27,17 @@ public class PagedSearch<T> : PagedSearch<T, T> where T : IEntity
 /// <typeparam name="TProjection">The type you'd like to project the results to.</typeparam>
 public class PagedSearch<T, TProjection> where T : IEntity
 {
-    IAggregateFluent<T>? fluentPipeline;
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    readonly List<SortDefinition<T>> sorts = new();
-    readonly AggregateOptions options = new();
-    PipelineStageDefinition<T, TProjection>? projectionStage;
-    readonly IClientSessionHandle? session;
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    bool ignoreGlobalFilters;
+    IAggregateFluent<T>? _fluentPipeline;
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
+    readonly List<SortDefinition<T>> _sorts = [];
+    readonly AggregateOptions _options = new();
+    PipelineStageDefinition<T, TProjection>? _projectionStage;
+    readonly IClientSessionHandle? _session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    bool _ignoreGlobalFilters;
 
-    int pageNumber = 1,
-        pageSize = 100;
+    int _pageNumber = 1,
+        _pageSize = 100;
 
     internal PagedSearch(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
@@ -46,8 +46,8 @@ public class PagedSearch<T, TProjection> where T : IEntity
         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
             throw new NotSupportedException("Projecting to primitive types is not supported!");
 
-        this.session = session;
-        this.globalFilters = globalFilters;
+        _session = session;
+        _globalFilters = globalFilters;
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="fluentPipeline">The input IAggregateFluent pipeline</param>
     public PagedSearch<T, TProjection> WithFluent<TFluent>(TFluent fluentPipeline) where TFluent : IAggregateFluent<T>
     {
-        this.fluentPipeline = fluentPipeline;
+        _fluentPipeline = fluentPipeline;
 
         return this;
     }
@@ -78,7 +78,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public PagedSearch<T, TProjection> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
 
         return this;
     }
@@ -89,7 +89,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="filterDefinition">A filter definition</param>
     public PagedSearch<T, TProjection> Match(FilterDefinition<T> filterDefinition)
     {
-        filter &= filterDefinition;
+        _filter &= filterDefinition;
 
         return this;
     }
@@ -100,7 +100,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public PagedSearch<T, TProjection> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
 
         return this;
     }
@@ -114,7 +114,11 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public PagedSearch<T, TProjection> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
+    public PagedSearch<T, TProjection> Match(Search searchType,
+                                             string searchTerm,
+                                             bool caseSensitive = false,
+                                             bool diacriticSensitive = false,
+                                             string? language = null)
     {
         if (searchType != Search.Fuzzy)
         {
@@ -168,7 +172,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public PagedSearch<T, TProjection> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
 
         return this;
     }
@@ -179,7 +183,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public PagedSearch<T, TProjection> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
 
         return this;
     }
@@ -190,7 +194,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="template">A Template object</param>
     public PagedSearch<T, TProjection> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
 
         return this;
     }
@@ -240,21 +244,18 @@ public class PagedSearch<T, TProjection> where T : IEntity
 
     void AddTxtScoreToProjection(string fieldName)
     {
-        if (projectionStage == null)
+        if (_projectionStage == null)
         {
-            projectionStage = $"{{ $set : {{ {fieldName} : {{ $meta : 'textScore' }}  }} }}";
+            _projectionStage = $"{{ $set : {{ {fieldName} : {{ $meta : 'textScore' }}  }} }}";
 
             return;
         }
 
-        var renderedStage = projectionStage.Render(
-            BsonSerializer.SerializerRegistry.GetSerializer<T>(),
-            BsonSerializer.SerializerRegistry,
-            Driver.Linq.LinqProvider.V3);
+        var renderedStage = _projectionStage.Render(new(BsonSerializer.SerializerRegistry.GetSerializer<T>(), BsonSerializer.SerializerRegistry));
 
         renderedStage.Document["$project"][fieldName] = new BsonDocument { { "$meta", "textScore" } };
 
-        projectionStage = renderedStage.Document;
+        _projectionStage = renderedStage.Document;
     }
 
     /// <summary>
@@ -263,7 +264,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="sortFunction">s => s.Ascending("Prop1").MetaTextScore("Prop2")</param>
     public PagedSearch<T, TProjection> Sort(Func<SortDefinitionBuilder<T>, SortDefinition<T>> sortFunction)
     {
-        sorts.Add(sortFunction(Builders<T>.Sort));
+        _sorts.Add(sortFunction(Builders<T>.Sort));
 
         return this;
     }
@@ -274,7 +275,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="pageNumber">The page number</param>
     public PagedSearch<T, TProjection> PageNumber(int pageNumber)
     {
-        this.pageNumber = pageNumber;
+        _pageNumber = pageNumber;
 
         return this;
     }
@@ -285,7 +286,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="pageSize">The size of a page</param>
     public PagedSearch<T, TProjection> PageSize(int pageSize)
     {
-        this.pageSize = pageSize;
+        _pageSize = pageSize;
 
         return this;
     }
@@ -296,7 +297,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="expression">x => new Test { PropName = x.Prop }</param>
     public PagedSearch<T, TProjection> Project(Expression<Func<T, TProjection>> expression)
     {
-        projectionStage = PipelineStageDefinitionBuilder.Project(expression);
+        _projectionStage = PipelineStageDefinitionBuilder.Project(expression);
 
         return this;
     }
@@ -307,7 +308,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="projection">p => p.Include("Prop1").Exclude("Prop2")</param>
     public PagedSearch<T, TProjection> Project(Func<ProjectionDefinitionBuilder<T>, ProjectionDefinition<T, TProjection>> projection)
     {
-        projectionStage = PipelineStageDefinitionBuilder.Project(projection(Builders<T>.Projection));
+        _projectionStage = PipelineStageDefinitionBuilder.Project(projection(Builders<T>.Projection));
 
         return this;
     }
@@ -327,7 +328,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
         var defs = new List<ProjectionDefinition<T>>(props.Count());
         defs.AddRange(props.Select(prop => Builders<T>.Projection.Exclude(prop)));
 
-        projectionStage = PipelineStageDefinitionBuilder.Project<T, TProjection>(Builders<T>.Projection.Combine(defs));
+        _projectionStage = PipelineStageDefinitionBuilder.Project<T, TProjection>(Builders<T>.Projection.Combine(defs));
 
         return this;
     }
@@ -338,7 +339,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public PagedSearch<T, TProjection> Option(Action<AggregateOptions> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }
@@ -348,7 +349,7 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// </summary>
     public PagedSearch<T, TProjection> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
 
         return this;
     }
@@ -359,46 +360,40 @@ public class PagedSearch<T, TProjection> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<(IReadOnlyList<TProjection> Results, long TotalCount, int PageCount)> ExecuteAsync(CancellationToken cancellation = default)
     {
-        if (filter != Builders<T>.Filter.Empty && fluentPipeline != null)
+        if (_filter != Builders<T>.Filter.Empty && _fluentPipeline != null)
             throw new InvalidOperationException(".Match() and .WithFluent() cannot be used together!");
 
         var pipelineStages = new List<IPipelineStageDefinition>(4);
 
-        if (sorts.Count == 0)
+        if (_sorts.Count == 0)
             throw new InvalidOperationException("Paging without sorting is a sin!");
 
-        pipelineStages.Add(PipelineStageDefinitionBuilder.Sort(Builders<T>.Sort.Combine(sorts)));
-        pipelineStages.Add(PipelineStageDefinitionBuilder.Skip<T>((pageNumber - 1) * pageSize));
-        pipelineStages.Add(PipelineStageDefinitionBuilder.Limit<T>(pageSize));
+        pipelineStages.Add(PipelineStageDefinitionBuilder.Sort(Builders<T>.Sort.Combine(_sorts)));
+        pipelineStages.Add(PipelineStageDefinitionBuilder.Skip<T>((_pageNumber - 1) * _pageSize));
+        pipelineStages.Add(PipelineStageDefinitionBuilder.Limit<T>(_pageSize));
 
-        if (projectionStage != null)
-            pipelineStages.Add(projectionStage);
+        if (_projectionStage != null)
+            pipelineStages.Add(_projectionStage);
 
         var resultsFacet = AggregateFacet.Create<T, TProjection>("_results", pipelineStages);
-
-        var countFacet = AggregateFacet.Create(
-            "_count",
-            PipelineDefinition<T, AggregateCountResult>.Create(
-                new[]
-                {
-                    PipelineStageDefinitionBuilder.Count<T>()
-                }));
+        var countFacet = AggregateFacet.Create("_count", PipelineDefinition<T, AggregateCountResult>.Create([PipelineStageDefinitionBuilder.Count<T>()]));
 
         AggregateFacetResults facetResult;
 
-        if (fluentPipeline == null) //.Match() used
+        if (_fluentPipeline == null) //.Match() used
         {
-            var filterDef = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+            var filterDef = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
             facetResult =
-                session == null
-                    ? await DB.Collection<T>().Aggregate(options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation).ConfigureAwait(false)
-                    : await DB.Collection<T>().Aggregate(session, options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
+                _session == null
+                    ? await DB.Collection<T>().Aggregate(_options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
+                              .ConfigureAwait(false)
+                    : await DB.Collection<T>().Aggregate(_session, _options).Match(filterDef).Facet(countFacet, resultsFacet).SingleAsync(cancellation)
                               .ConfigureAwait(false);
         }
         else //.WithFluent() used
         {
-            facetResult = await fluentPipeline
+            facetResult = await _fluentPipeline
                                 .Facet(countFacet, resultsFacet)
                                 .SingleAsync(cancellation)
                                 .ConfigureAwait(false);
@@ -410,9 +405,9 @@ public class PagedSearch<T, TProjection> where T : IEntity
                          0;
 
         var pageCount =
-            matchCount > 0 && matchCount <= pageSize
+            matchCount > 0 && matchCount <= _pageSize
                 ? 1
-                : (int)Math.Ceiling((double)matchCount / pageSize);
+                : (int)Math.Ceiling((double)matchCount / _pageSize);
 
         var results = facetResult.Facets
                                  .First(x => x.Name == "_results")

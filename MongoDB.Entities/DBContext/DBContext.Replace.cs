@@ -1,5 +1,6 @@
 ﻿namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -10,6 +11,7 @@ public partial class DBContext
     public Replace<T> Replace<T>() where T : IEntity
     {
         ThrowIfModifiedByIsEmpty<T>();
-        return new(Session, ModifiedBy, globalFilters, OnBeforeSave<T>());
+
+        return new(Session, ModifiedBy, _globalFilters, OnBeforeSave<T>());
     }
 }

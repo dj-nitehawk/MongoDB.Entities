@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -14,7 +14,7 @@ public abstract class UpdateBase<T> where T : IEntity
     //note: this base class exists for facilitating the OnBeforeUpdate custom hook of DBContext class
     //      there's no other purpose for this.
 
-    protected readonly List<UpdateDefinition<T>> Defs = new();
+    protected readonly List<UpdateDefinition<T>> Defs = [];
 
     /// <summary>
     /// Specify the property and it's value to modify (use multiple times if needed)
@@ -61,22 +61,22 @@ public abstract class UpdateBase<T> where T : IEntity
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Update<T> : UpdateBase<T> where T : IEntity
 {
-    readonly List<PipelineStageDefinition<T, T>> stages = new();
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    UpdateOptions options = new();
-    readonly IClientSessionHandle? session;
-    readonly List<UpdateManyModel<T>> models = new();
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    readonly Action<UpdateBase<T>>? onUpdateAction;
-    bool ignoreGlobalFilters;
+    readonly List<PipelineStageDefinition<T, T>> _stages = [];
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
+    UpdateOptions _options = new();
+    readonly IClientSessionHandle? _session;
+    readonly List<UpdateManyModel<T>> _models = [];
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    readonly Action<UpdateBase<T>>? _onUpdateAction;
+    bool _ignoreGlobalFilters;
 
     internal Update(IClientSessionHandle? session,
                     Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                     Action<UpdateBase<T>>? onUpdateAction)
     {
-        this.session = session;
-        this.globalFilters = globalFilters;
-        this.onUpdateAction = onUpdateAction;
+        _session = session;
+        _globalFilters = globalFilters;
+        _onUpdateAction = onUpdateAction;
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public Update<T> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
 
         return this;
     }
@@ -114,7 +114,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="filterDefinition">A filter definition</param>
     public Update<T> Match(FilterDefinition<T> filterDefinition)
     {
-        filter &= filterDefinition;
+        _filter &= filterDefinition;
 
         return this;
     }
@@ -125,7 +125,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public Update<T> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
 
         return this;
     }
@@ -193,7 +193,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public Update<T> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
 
         return this;
     }
@@ -204,7 +204,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public Update<T> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
 
         return this;
     }
@@ -215,7 +215,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="template">A Template object</param>
     public Update<T> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
 
         return this;
     }
@@ -315,7 +315,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     public Update<T> WithPipeline(Template template)
     {
         foreach (var stage in template.ToStages())
-            stages.Add(stage);
+            _stages.Add(stage);
 
         return this;
     }
@@ -327,7 +327,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="stage">{ $set: { FullName: { $concat: ['$Name', ' ', '$Surname'] } } }</param>
     public Update<T> WithPipelineStage(string stage)
     {
-        stages.Add(stage);
+        _stages.Add(stage);
 
         return this;
     }
@@ -348,10 +348,10 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     {
         ArrayFilterDefinition<T> def = filter;
 
-        options.ArrayFilters =
-            options.ArrayFilters == null
-                ? new[] { def }
-                : options.ArrayFilters.Concat(new[] { def });
+        _options.ArrayFilters =
+            _options.ArrayFilters == null
+                ? [def]
+                : _options.ArrayFilters.Concat([def]);
 
         return this;
     }
@@ -375,10 +375,10 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     {
         var defs = template.ToArrayFilters<T>();
 
-        options.ArrayFilters =
-            options.ArrayFilters == null
+        _options.ArrayFilters =
+            _options.ArrayFilters == null
                 ? defs
-                : options.ArrayFilters.Concat(defs);
+                : _options.ArrayFilters.Concat(defs);
 
         return this;
     }
@@ -390,7 +390,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public Update<T> Option(Action<UpdateOptions> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }
@@ -400,7 +400,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     public Update<T> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
 
         return this;
     }
@@ -410,7 +410,7 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// </summary>
     public Update<T> AddToQueue()
     {
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         if (mergedFilter == Builders<T>.Filter.Empty)
             throw new ArgumentException("Please use Match() method first!");
@@ -419,18 +419,18 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         if (ShouldSetModDate())
             Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-        onUpdateAction?.Invoke(this);
-        models.Add(
+        _onUpdateAction?.Invoke(this);
+        _models.Add(
             new(mergedFilter, Builders<T>.Update.Combine(Defs))
             {
-                ArrayFilters = options.ArrayFilters,
-                Collation = options.Collation,
-                Hint = options.Hint,
-                IsUpsert = options.IsUpsert
+                ArrayFilters = _options.ArrayFilters,
+                Collation = _options.Collation,
+                Hint = _options.Hint,
+                IsUpsert = _options.IsUpsert
             });
-        filter = Builders<T>.Filter.Empty;
+        _filter = Builders<T>.Filter.Empty;
         Defs.Clear();
-        options = new();
+        _options = new();
 
         return this;
     }
@@ -441,35 +441,35 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task<UpdateResult> ExecuteAsync(CancellationToken cancellation = default)
     {
-        if (models.Count > 0)
+        if (_models.Count > 0)
         {
             var bulkWriteResult = await (
-                                            session == null
-                                                ? DB.Collection<T>().BulkWriteAsync(models, null, cancellation)
-                                                : DB.Collection<T>().BulkWriteAsync(session, models, null, cancellation)
+                                            _session == null
+                                                ? DB.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : DB.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
-            models.Clear();
+            _models.Clear();
 
             return !bulkWriteResult.IsAcknowledged
                        ? UpdateResult.Unacknowledged.Instance
                        : new UpdateResult.Acknowledged(bulkWriteResult.MatchedCount, bulkWriteResult.ModifiedCount, null);
         }
 
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         if (mergedFilter == Builders<T>.Filter.Empty)
             throw new ArgumentException("Please use Match() method first!");
         if (Defs.Count == 0)
             throw new ArgumentException("Please use a Modify() method first!");
-        if (stages.Count > 0)
+        if (_stages.Count > 0)
             throw new ArgumentException("Regular updates and Pipeline updates cannot be used together!");
 
         if (ShouldSetModDate())
             Modify(b => b.CurrentDate(Cache<T>.ModifiedOnPropName));
-        onUpdateAction?.Invoke(this);
+        _onUpdateAction?.Invoke(this);
 
-        return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(Defs), options, session, cancellation).ConfigureAwait(false);
+        return await UpdateAsync(mergedFilter, Builders<T>.Update.Combine(Defs), _options, _session, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -478,11 +478,11 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<UpdateResult> ExecutePipelineAsync(CancellationToken cancellation = default)
     {
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         if (mergedFilter == Builders<T>.Filter.Empty)
             throw new ArgumentException("Please use Match() method first!");
-        if (stages.Count == 0)
+        if (_stages.Count == 0)
             throw new ArgumentException("Please use WithPipelineStage() method first!");
         if (Defs.Count > 0)
             throw new ArgumentException("Pipeline updates cannot be used together with regular updates!");
@@ -492,9 +492,9 @@ public class Update<T> : UpdateBase<T> where T : IEntity
 
         return UpdateAsync(
             mergedFilter,
-            Builders<T>.Update.Pipeline(stages.ToArray()),
-            options,
-            session,
+            Builders<T>.Update.Pipeline(_stages.ToArray()),
+            _options,
+            _session,
             cancellation);
     }
 

@@ -1,8 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -79,7 +78,7 @@ public static partial class Extensions
     /// <summary>
     /// An IQueryable collection of sibling Entities.
     /// </summary>
-    public static IMongoQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
+    public static IQueryable<T> Queryable<T>(this T _, AggregateOptions? options = null) where T : IEntity
         => DB.Queryable<T>(options);
 
     /// <summary>
@@ -125,7 +124,10 @@ public static partial class Extensions
     /// <param name="searchTerm">The term to measure relevance to</param>
     /// <param name="propertyToSortBy">x => x.PropertyName [the term will be matched against the value of this property]</param>
     /// <param name="maxDistance">The maximum levenstein distance to qualify an item for inclusion in the returned list</param>
-    public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects, string searchTerm, Func<T, string> propertyToSortBy, int? maxDistance = null)
+    public static IEnumerable<T> SortByRelevance<T>(this IEnumerable<T> objects,
+                                                    string searchTerm,
+                                                    Func<T, string> propertyToSortBy,
+                                                    int? maxDistance = null)
     {
         var lev = new Levenshtein(searchTerm);
 

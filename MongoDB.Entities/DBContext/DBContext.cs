@@ -1,14 +1,15 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 /// <summary>
 /// This db context class can be used as an alternative entry point instead of the DB static class.
 /// </summary>
@@ -19,8 +20,8 @@ public partial class DBContext
     /// </summary>
     public ModifiedBy? ModifiedBy { get; set; }
 
-    static Type[]? allEntitiyTypes;
-    Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
+    static Type[]? _allEntityTypes;
+    Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
 
     /// <summary>
     /// Initializes a DBContext instance with the given connection parameters.
@@ -101,7 +102,10 @@ public partial class DBContext
     public IClientSessionHandle Transaction(string? database = default, ClientSessionOptions? options = null)
     {
         if (Session is not null)
-            throw new NotSupportedException("Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
+        {
+            throw new NotSupportedException(
+                "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
+        }
 
         Session = DB.Database(database).Client.StartSession(options);
         Session.StartTransaction();
@@ -211,7 +215,8 @@ public partial class DBContext
     /// <typeparam name="TBase">The type of the base class</typeparam>
     /// <param name="filter">b => b.Eq(x => x.Prop1, "some value")</param>
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
-    protected void SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>> filter, bool prepend = false) where TBase : IEntity
+    protected void SetGlobalFilterForBaseClass<TBase>(Func<FilterDefinitionBuilder<TBase>, FilterDefinition<TBase>> filter, bool prepend = false)
+        where TBase : IEntity
     {
         SetGlobalFilterForBaseClass(filter(Builders<TBase>.Filter), prepend);
     }
@@ -224,14 +229,11 @@ public partial class DBContext
     /// <param name="prepend">Set to true if you want to prepend this global filter to your operation filters instead of being appended</param>
     protected void SetGlobalFilterForBaseClass<TBase>(FilterDefinition<TBase> filter, bool prepend = false) where TBase : IEntity
     {
-        allEntitiyTypes ??= GetAllEntityTypes();
+        _allEntityTypes ??= GetAllEntityTypes();
 
-        foreach (var entType in allEntitiyTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
+        foreach (var entType in _allEntityTypes.Where(t => t.IsSubclassOf(typeof(TBase))))
         {
-            var bsonDoc = filter.Render(
-                BsonSerializer.SerializerRegistry.GetSerializer<TBase>(),
-                BsonSerializer.SerializerRegistry,
-                Driver.Linq.LinqProvider.V3);
+            var bsonDoc = filter.Render(new(BsonSerializer.SerializerRegistry.GetSerializer<TBase>(), BsonSerializer.SerializerRegistry));
 
             AddFilter(entType, (bsonDoc, prepend));
         }
@@ -250,9 +252,9 @@ public partial class DBContext
         if (!targetType.IsInterface)
             throw new ArgumentException("Only interfaces are allowed!", nameof(TInterface));
 
-        allEntitiyTypes ??= GetAllEntityTypes();
+        _allEntityTypes ??= GetAllEntityTypes();
 
-        foreach (var entType in allEntitiyTypes.Where(targetType.IsAssignableFrom))
+        foreach (var entType in _allEntityTypes.Where(targetType.IsAssignableFrom))
             AddFilter(entType, (jsonString, prepend));
     }
 
@@ -292,8 +294,8 @@ public partial class DBContext
 
     void AddFilter(Type type, (object filterDef, bool prepend) filter)
     {
-        globalFilters ??= new();
+        _globalFilters ??= new();
 
-        globalFilters[type] = filter;
+        _globalFilters[type] = filter;
     }
 }

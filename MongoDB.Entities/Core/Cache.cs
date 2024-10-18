@@ -1,13 +1,12 @@
-﻿using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -29,7 +28,7 @@ static class Cache<T> where T : IEntity
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
 
-    static PropertyInfo[] _updatableProps = Array.Empty<PropertyInfo>();
+    static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
     static Cache()

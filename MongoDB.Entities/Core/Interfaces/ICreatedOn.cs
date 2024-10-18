@@ -7,6 +7,7 @@ namespace MongoDB.Entities;
 /// </summary>
 public interface ICreatedOn
 {
+    // ReSharper disable once UnusedMemberInSuper.Global
     /// <summary>
     /// This property will be automatically set by the library when an entity is created.
     /// <para>TIP: This property is useful when sorting by creation date.</para>

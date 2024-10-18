@@ -2,6 +2,7 @@
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -12,12 +13,12 @@ public partial class DBContext
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public IAggregateFluent<T> Fluent<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
     {
-        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-            ? DB.Fluent<T>(options, Session)
-                .Match(globalFilter)
-            : DB.Fluent<T>(options, Session);
+                   ? DB.Fluent<T>(options, Session)
+                       .Match(globalFilter)
+                   : DB.Fluent<T>(options, Session);
     }
 
     /// <summary>
@@ -31,13 +32,19 @@ public partial class DBContext
     /// <param name="language">The language for the search (optional)</param>
     /// <param name="options">Options for finding documents (not required)</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public IAggregateFluent<T> FluentTextSearch<T>(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null, AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public IAggregateFluent<T> FluentTextSearch<T>(Search searchType,
+                                                   string searchTerm,
+                                                   bool caseSensitive = false,
+                                                   bool diacriticSensitive = false,
+                                                   string? language = null,
+                                                   AggregateOptions? options = null,
+                                                   bool ignoreGlobalFilters = false) where T : IEntity
     {
-        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-            ? DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session)
-                .Match(globalFilter)
-            : DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session);
+                   ? DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session)
+                       .Match(globalFilter)
+                   : DB.FluentTextSearch<T>(searchType, searchTerm, caseSensitive, diacriticSensitive, language, options, Session);
     }
 }

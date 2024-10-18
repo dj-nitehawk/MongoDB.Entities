@@ -1,11 +1,12 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     internal static IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
@@ -33,13 +34,16 @@ public static partial class DB
     /// <param name="options">The options to use for collection creation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options, CancellationToken cancellation = default, IClientSessionHandle? session = null) where T : IEntity
+    public static Task CreateCollectionAsync<T>(Action<CreateCollectionOptions<T>> options,
+                                                CancellationToken cancellation = default,
+                                                IClientSessionHandle? session = null) where T : IEntity
     {
         var opts = new CreateCollectionOptions<T>();
         options(opts);
+
         return session == null
-               ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
-               : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
+                   ? Cache<T>.Collection.Database.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : Cache<T>.Collection.Database.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
     }
 
     /// <summary>
@@ -58,7 +62,9 @@ public static partial class DB
             Filter = "{$and:[{name:/~/},{name:/" + collName + "/}]}"
         };
 
+        // ReSharper disable once MethodHasAsyncOverload
         var list = await db.ListCollectionNames(options).ToListAsync().ConfigureAwait(false);
+
         for (var i = 0; i < list.Count; i++)
         {
             var cName = list[i];

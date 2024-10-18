@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     //NOTE: transaction support will not be added due to unpredictability with concurrency.
@@ -23,10 +24,10 @@ public static partial class DB
     public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
     {
         return new UpdateAndGet<SequenceCounter, ulong>(null, null, null)
-            .Match(s => s.ID == sequenceName)
-            .Modify(b => b.Inc(s => s.Count, 1ul))
-            .Option(o => o.IsUpsert = true)
-            .Project(s => s.Count)
-            .ExecuteAsync(cancellation);
+               .Match(s => s.ID == sequenceName)
+               .Modify(b => b.Inc(s => s.Count, 1ul))
+               .Option(o => o.IsUpsert = true)
+               .Project(s => s.Count)
+               .ExecuteAsync(cancellation);
     }
 }

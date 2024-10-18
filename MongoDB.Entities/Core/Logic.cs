@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -20,17 +20,15 @@ static class Logic
     }
 
     internal static IEnumerable<string> GetPropNamesFromExpression<T>(Expression<Func<T, object?>> expression)
-    {
-        return (expression.Body as NewExpression)?.Arguments.Select(a => a.ToString().Split('.')[1]) ??
-               Enumerable.Empty<string>();
-    }
+        => (expression.Body as NewExpression)?.Arguments.Select(a => a.ToString().Split('.')[1]) ?? [];
 
     internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity,
                                                                         Expression<Func<T, object?>> members,
                                                                         bool excludeMode = false) where T : IEntity
         => BuildUpdateDefs(entity, GetPropNamesFromExpression(members), excludeMode);
 
-    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false) where T : IEntity
+    internal static IEnumerable<UpdateDefinition<T>> BuildUpdateDefs<T>(T entity, IEnumerable<string> propNames, bool excludeMode = false)
+        where T : IEntity
     {
         if (!propNames.Any())
             throw new ArgumentException("Unable to get any properties from the members expression!");

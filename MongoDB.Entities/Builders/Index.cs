@@ -1,9 +1,9 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -14,8 +14,8 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Index<T> where T : IEntity
 {
-    internal List<Key<T>> Keys { get; set; } = new();
-    readonly CreateIndexOptions<T> options = new() { Background = true };
+    internal List<Key<T>> Keys { get; set; } = [];
+    readonly CreateIndexOptions<T> _options = new() { Background = true };
 
     /// <summary>
     /// Call this method to finalize defining the index after setting the index keys and options.
@@ -76,12 +76,12 @@ public class Index<T> where T : IEntity
             propNames.Add(key.PropertyName + keyType);
         }
 
-        if (string.IsNullOrEmpty(options.Name))
-            options.Name = isTextIndex ? "[TEXT]" : string.Join(" | ", propNames);
+        if (string.IsNullOrEmpty(_options.Name))
+            _options.Name = isTextIndex ? "[TEXT]" : string.Join(" | ", propNames);
 
         var model = new CreateIndexModel<T>(
             Builders<T>.IndexKeys.Combine(keyDefs),
-            options);
+            _options);
 
         try
         {
@@ -89,11 +89,11 @@ public class Index<T> where T : IEntity
         }
         catch (MongoCommandException x) when (x.Code is 85 or 86)
         {
-            await DropAsync(options.Name, cancellation).ConfigureAwait(false);
+            await DropAsync(_options.Name, cancellation).ConfigureAwait(false);
             await CreateAsync(model, cancellation).ConfigureAwait(false);
         }
 
-        return options.Name;
+        return _options.Name;
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public class Index<T> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public Index<T> Option(Action<CreateIndexOptions<T>> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }

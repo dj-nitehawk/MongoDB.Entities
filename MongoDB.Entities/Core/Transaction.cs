@@ -1,5 +1,5 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -15,10 +15,12 @@ public class Transaction : DBContext, IDisposable
     /// </summary>
     /// <param name="database">The name of the database to use for this transaction. default db is used if not specified</param>
     /// <param name="options">Client session options for this transaction</param>
-    /// <param name="modifiedBy">An optional ModifiedBy instance. 
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy. 
-    /// You can inherit from the ModifiedBy class and add your own properties to it. 
-    /// Only one ModifiedBy property is allowed on a single entity type.</param>
+    /// <param name="modifiedBy">
+    /// An optional ModifiedBy instance.
+    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
+    /// You can inherit from the ModifiedBy class and add your own properties to it.
+    /// Only one ModifiedBy property is allowed on a single entity type.
+    /// </param>
     public Transaction(string? database = null, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
     {
         Session = DB.Database(database).Client.StartSession(options);
@@ -26,19 +28,19 @@ public class Transaction : DBContext, IDisposable
         ModifiedBy = modifiedBy;
     }
 
-    #region IDisposable Support
+#region IDisposable Support
 
-    bool disposedValue;
+    bool _disposedValue;
 
     protected virtual void Dispose(bool disposing)
     {
-        if (disposedValue)
+        if (_disposedValue)
             return;
 
         if (disposing)
             Session?.Dispose();
 
-        disposedValue = true;
+        _disposedValue = true;
     }
 
     public void Dispose()
@@ -46,5 +48,5 @@ public class Transaction : DBContext, IDisposable
         Dispose(true);
     }
 
-    #endregion        
+#endregion
 }

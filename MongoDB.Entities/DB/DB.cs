@@ -1,15 +1,16 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 /// <summary>
 /// The main entrypoint for all data access methods of the library
 /// </summary>
@@ -34,8 +35,8 @@ public static partial class DB
 
     internal static event Action? DefaultDbChanged;
 
-    static readonly ConcurrentDictionary<string, IMongoDatabase> dbs = new();
-    static IMongoDatabase? defaultDb;
+    static readonly ConcurrentDictionary<string, IMongoDatabase> _dbs = new();
+    static IMongoDatabase? _defaultDb;
 
     /// <summary>
     /// Initializes a MongoDB connection with the given connection parameters.
@@ -65,23 +66,22 @@ public static partial class DB
         if (string.IsNullOrEmpty(dbName))
             throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-        if (dbs.ContainsKey(dbName))
+        if (_dbs.ContainsKey(dbName))
             return;
 
         try
         {
-            settings.LinqProvider = Driver.Linq.LinqProvider.V3;
             var db = new MongoClient(settings).GetDatabase(dbName);
 
-            if (dbs.Count == 0)
-                defaultDb = db;
+            if (_dbs.Count == 0)
+                _defaultDb = db;
 
-            if (dbs.TryAdd(dbName, db) && !skipNetworkPing)
+            if (_dbs.TryAdd(dbName, db) && !skipNetworkPing)
                 await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
         }
         catch (Exception)
         {
-            dbs.TryRemove(dbName, out _);
+            _dbs.TryRemove(dbName, out _);
 
             throw;
         }
@@ -127,16 +127,16 @@ public static partial class DB
     {
         IMongoDatabase? db = null;
 
-        if (dbs.Count == 0)
+        if (_dbs.Count == 0)
         {
             return db ??
                    throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
         }
 
         if (string.IsNullOrEmpty(name))
-            db = defaultDb;
+            db = _defaultDb;
         else
-            dbs.TryGetValue(name, out db);
+            _dbs.TryGetValue(name, out db);
 
         return db ??
                throw new InvalidOperationException($"Database connection is not initialized for [{(string.IsNullOrEmpty(name) ? "Default" : name)}]");
@@ -160,7 +160,7 @@ public static partial class DB
         if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
 
-        defaultDb = Database(name);
+        _defaultDb = Database(name);
         TypeMap.Clear();
         DefaultDbChanged?.Invoke();
     }

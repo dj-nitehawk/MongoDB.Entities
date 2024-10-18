@@ -1,11 +1,12 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     /// <summary>
@@ -25,7 +26,10 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
-    public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression, IClientSessionHandle? session = null, CancellationToken cancellation = default, CountOptions? options = null) where T : IEntity
+    public static Task<long> CountAsync<T>(Expression<Func<T, bool>> expression,
+                                           IClientSessionHandle? session = null,
+                                           CancellationToken cancellation = default,
+                                           CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(expression, options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, expression, options, cancellation);
@@ -38,7 +42,10 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
-    public static Task<long> CountAsync<T>(FilterDefinition<T> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, CountOptions? options = null) where T : IEntity
+    public static Task<long> CountAsync<T>(FilterDefinition<T> filter,
+                                           IClientSessionHandle? session = null,
+                                           CancellationToken cancellation = default,
+                                           CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(filter, options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, filter, options, cancellation);
@@ -51,7 +58,10 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="options">An optional CountOptions object</param>
-    public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter, IClientSessionHandle? session = null, CancellationToken cancellation = default, CountOptions? options = null) where T : IEntity
+    public static Task<long> CountAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
+                                           IClientSessionHandle? session = null,
+                                           CancellationToken cancellation = default,
+                                           CountOptions? options = null) where T : IEntity
         => session == null
                ? Collection<T>().CountDocumentsAsync(filter(Builders<T>.Filter), options, cancellation)
                : Collection<T>().CountDocumentsAsync(session, filter(Builders<T>.Filter), options, cancellation);

@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver.Linq;
-using System;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities.Tests;
 
@@ -16,8 +17,8 @@ public class FuzzyStringTestEntity
         await new BookEntity { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
         var res = await DB.Queryable<BookEntity>()
-                    .Where(b => b.Review.Fuzzy!.Value == guid)
-                    .SingleAsync();
+                          .Where(b => b.Review.Fuzzy!.Value == guid)
+                          .SingleAsync();
 
         Assert.AreEqual(guid, res.Review.Fuzzy!.Value);
     }
@@ -34,8 +35,8 @@ public class FuzzyStringTestEntity
         }.SaveAsync();
 
         var res = await DB.Queryable<BookEntity>()
-                    .Where(b => b.Title == guid)
-                    .SingleAsync();
+                          .Where(b => b.Title == guid)
+                          .SingleAsync();
 
         Assert.IsNull(res.Review.Fuzzy?.Value);
     }

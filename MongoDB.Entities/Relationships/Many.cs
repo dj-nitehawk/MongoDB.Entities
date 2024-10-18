@@ -1,10 +1,10 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -14,7 +14,7 @@ namespace MongoDB.Entities;
 public abstract class ManyBase
 {
     //shared state for all Many<T> instances
-    internal static readonly ConcurrentBag<string> indexedCollections = new();
+    internal static readonly ConcurrentBag<string> IndexedCollections = [];
     internal static readonly string PropTypeName = typeof(Many<Entity, Entity>).Name;
 }
 
@@ -72,7 +72,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
     internal Many(object parent, string property)
     {
-        Init((dynamic)parent, property);
+        Init((TParent)parent, property);
     }
 
     void Init(TParent parent, string property)
@@ -100,7 +100,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
     internal Many(object parent, string propertyParent, string propertyChild, bool isInverse)
     {
-        Init((dynamic)parent, propertyParent, propertyChild, isInverse);
+        Init((TParent)parent, propertyParent, propertyChild, isInverse);
     }
 
     void Init(TParent parent, string propertyParent, string propertyChild, bool isInverse)
@@ -109,8 +109,10 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         _isInverse = isInverse;
 
         JoinCollection = isInverse
-                             ? DB.GetRefCollection<TParent>($"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
-                             : DB.GetRefCollection<TParent>($"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
+                             ? DB.GetRefCollection<TParent>(
+                                 $"[({propertyParent}){DB.CollectionName<TChild>()}~{DB.CollectionName<TParent>()}({propertyChild})]")
+                             : DB.GetRefCollection<TParent>(
+                                 $"[({propertyChild}){DB.CollectionName<TParent>()}~{DB.CollectionName<TChild>()}({propertyParent})]");
 
         CreateIndexesAsync(JoinCollection);
     }
@@ -132,31 +134,31 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
 #endregion
 
+    // ReSharper disable once UnusedMethodReturnValue.Local
     static Task CreateIndexesAsync(IMongoCollection<JoinRecord> collection)
     {
         //only create indexes once (best effort) per unique ref collection
-        if (indexedCollections.Contains(collection.CollectionNamespace.CollectionName))
+        if (IndexedCollections.Contains(collection.CollectionNamespace.CollectionName))
             return Task.CompletedTask;
 
-        indexedCollections.Add(collection.CollectionNamespace.CollectionName);
+        IndexedCollections.Add(collection.CollectionNamespace.CollectionName);
         collection.Indexes.CreateManyAsync(
-            new[]
-            {
-                new CreateIndexModel<JoinRecord>(
-                    Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
-                    new()
-                    {
-                        Background = true,
-                        Name = "[ParentID]"
-                    }),
-                new CreateIndexModel<JoinRecord>(
-                    Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
-                    new()
-                    {
-                        Background = true,
-                        Name = "[ChildID]"
-                    })
-            });
+        [
+            new(
+                Builders<JoinRecord>.IndexKeys.Ascending(r => r.ParentID),
+                new()
+                {
+                    Background = true,
+                    Name = "[ParentID]"
+                }),
+            new(
+                Builders<JoinRecord>.IndexKeys.Ascending(r => r.ChildID),
+                new()
+                {
+                    Background = true,
+                    Name = "[ChildID]"
+                })
+        ]);
 
         return Task.CompletedTask;
     }

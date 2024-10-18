@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System;
 
 namespace MongoDB.Entities;
 
@@ -99,7 +99,10 @@ public sealed class FuzzyString
     /// instantiate a FuzzyString object with a given string
     /// </summary>
     /// <param name="value">the string value to create the FuzzyString with</param>
-    public FuzzyString(string value) { Value = value; }
+    public FuzzyString(string value)
+    {
+        Value = value;
+    }
 
     public override string ToString()
         => Value;

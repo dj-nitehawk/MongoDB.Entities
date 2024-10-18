@@ -1,8 +1,8 @@
-﻿using MongoDB.Driver;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -36,9 +36,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task AddAsync(object childID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
-    {
-        return AddAsync(new[] { childID }, session, cancellation);
-    }
+        => AddAsync([childID], session, cancellation);
 
     /// <summary>
     /// Adds multiple child references in a single bulk operation

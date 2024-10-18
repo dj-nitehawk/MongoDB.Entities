@@ -1,9 +1,10 @@
-﻿using BenchmarkDotNet.Attributes;
-using MongoDB.Driver;
-using MongoDB.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BenchmarkDotNet.Attributes;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+using MongoDB.Entities;
 
 namespace Benchmark;
 
@@ -58,14 +59,14 @@ public class Relationships : BenchBase
     public async Task Lookup()
     {
         _ = (await DB
-                  .Fluent<Author>()
-                  .Match(a => a.FirstName == authorName)
-                  .Lookup<Author, Book, AuthorWithBooksDTO>(
+                   .Fluent<Author>()
+                   .Match(a => a.FirstName == authorName)
+                   .Lookup<Author, Book, AuthorWithBooksDTO>(
                        DB.Collection<Book>(),
                        a => a.ID,
                        b => b.Author.ID,
                        dto => dto.BookList)
-                  .ToListAsync())[0];
+                   .ToListAsync())[0];
     }
 
     [Benchmark]
@@ -78,7 +79,7 @@ public class Relationships : BenchBase
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID,  author.ID))
+            BookList = await DB.Find<Book>().ManyAsync(b => Equals(b.Author.ID, author.ID))
         };
     }
 
@@ -86,7 +87,7 @@ public class Relationships : BenchBase
     public async Task Children_Fluent()
     {
         var author = await DB.Find<Author>().Match(a => a.FirstName == authorName).ExecuteSingleAsync();
-       _ = new AuthorWithBooksDTO
+        _ = new AuthorWithBooksDTO
         {
             Birthday = author!.Birthday,
             FirstName = author.FirstName,
@@ -106,7 +107,7 @@ public class Relationships : BenchBase
             FirstName = author.FirstName,
             LastName = author.LastName,
             ID = author.ID,
-            BookList =  await author.Books.ChildrenQueryable().ToListAsync()
+            BookList = await author.Books.ChildrenQueryable().ToListAsync()
         };
     }
 

@@ -1,14 +1,15 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -94,7 +95,9 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default)
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities,
+                                                     Expression<Func<T, object?>> members,
+                                                     CancellationToken cancellation = default)
         where T : IEntity
     {
         SetModifiedByMultiple(entities);
@@ -116,7 +119,8 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    public Task<BulkWriteResult<T>> SaveOnlyAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default)
+        where T : IEntity
     {
         SetModifiedByMultiple(entities);
         foreach (var ent in entities)
@@ -137,7 +141,8 @@ public partial class DBContext
     /// <param name="entity">The entity to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default) where T : IEntity
+    public Task<UpdateResult> SaveExceptAsync<T>(T entity, Expression<Func<T, object?>> members, CancellationToken cancellation = default)
+        where T : IEntity
     {
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
@@ -177,7 +182,9 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="members">x => new { x.PropOne, x.PropTwo }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, Expression<Func<T, object?>> members, CancellationToken cancellation = default)
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities,
+                                                       Expression<Func<T, object?>> members,
+                                                       CancellationToken cancellation = default)
         where T : IEntity
     {
         SetModifiedByMultiple(entities);
@@ -199,7 +206,8 @@ public partial class DBContext
     /// <param name="entities">The batch of entities to save</param>
     /// <param name="propNames">new List { "PropOne", "PropTwo" }</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default) where T : IEntity
+    public Task<BulkWriteResult<T>> SaveExceptAsync<T>(IEnumerable<T> entities, IEnumerable<string> propNames, CancellationToken cancellation = default)
+        where T : IEntity
     {
         SetModifiedByMultiple(entities);
         foreach (var ent in entities)

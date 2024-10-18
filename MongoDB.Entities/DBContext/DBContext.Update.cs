@@ -1,5 +1,6 @@
 ﻿namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -8,13 +9,14 @@ public partial class DBContext
     /// <typeparam name="T">The type of entity</typeparam>
     public Update<T> Update<T>() where T : IEntity
     {
-        var cmd = new Update<T>(Session, globalFilters, OnBeforeUpdate<T>());
+        var cmd = new Update<T>(Session, _globalFilters, OnBeforeUpdate<T>());
 
         if (Cache<T>.ModifiedByProp == null)
             return cmd;
 
         ThrowIfModifiedByIsEmpty<T>();
         cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+
         return cmd;
     }
 
@@ -32,13 +34,14 @@ public partial class DBContext
     /// <typeparam name="TProjection">The type of the end result</typeparam>
     public UpdateAndGet<T, TProjection> UpdateAndGet<T, TProjection>() where T : IEntity
     {
-        var cmd = new UpdateAndGet<T, TProjection>(Session, globalFilters, OnBeforeUpdate<T>());
+        var cmd = new UpdateAndGet<T, TProjection>(Session, _globalFilters, OnBeforeUpdate<T>());
 
         if (Cache<T>.ModifiedByProp == null)
             return cmd;
 
         ThrowIfModifiedByIsEmpty<T>();
         cmd.Modify(b => b.Set(Cache<T>.ModifiedByProp.Name, ModifiedBy));
+
         return cmd;
     }
 }

@@ -1,9 +1,9 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -14,17 +14,17 @@ namespace MongoDB.Entities;
 /// <typeparam name="TProperty">The type of the property of the entity you'd like to get unique values for</typeparam>
 public class Distinct<T, TProperty> where T : IEntity
 {
-    FieldDefinition<T, TProperty>? field;
-    FilterDefinition<T> filter = Builders<T>.Filter.Empty;
-    readonly DistinctOptions options = new();
-    readonly IClientSessionHandle? session;
-    readonly Dictionary<Type, (object filterDef, bool prepend)>? globalFilters;
-    bool ignoreGlobalFilters;
+    FieldDefinition<T, TProperty>? _field;
+    FilterDefinition<T> _filter = Builders<T>.Filter.Empty;
+    readonly DistinctOptions _options = new();
+    readonly IClientSessionHandle? _session;
+    readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
+    bool _ignoreGlobalFilters;
 
     internal Distinct(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters)
     {
-        this.session = session;
-        this.globalFilters = globalFilters;
+        _session = session;
+        _globalFilters = globalFilters;
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="property">ex: "Address.Street"</param>
     public Distinct<T, TProperty> Property(string property)
     {
-        field = property;
+        _field = property;
 
         return this;
     }
@@ -44,7 +44,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="property">x => x.Address.Street</param>
     public Distinct<T, TProperty> Property(Expression<Func<T, object?>> property)
     {
-        field = property.FullPath();
+        _field = property.FullPath();
 
         return this;
     }
@@ -55,7 +55,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
     public Distinct<T, TProperty> Match(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
     {
-        this.filter &= filter(Builders<T>.Filter);
+        _filter &= filter(Builders<T>.Filter);
 
         return this;
     }
@@ -75,7 +75,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="template">A Template with a find query</param>
     public Distinct<T, TProperty> Match(Template template)
     {
-        filter &= template.RenderToString();
+        _filter &= template.RenderToString();
 
         return this;
     }
@@ -89,7 +89,11 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="caseSensitive">Case sensitivity of the search (optional)</param>
     /// <param name="diacriticSensitive">Diacritic sensitivity of the search (optional)</param>
     /// <param name="language">The language for the search (optional)</param>
-    public Distinct<T, TProperty> Match(Search searchType, string searchTerm, bool caseSensitive = false, bool diacriticSensitive = false, string? language = null)
+    public Distinct<T, TProperty> Match(Search searchType,
+                                        string searchTerm,
+                                        bool caseSensitive = false,
+                                        bool diacriticSensitive = false,
+                                        string? language = null)
     {
         if (searchType != Search.Fuzzy)
         {
@@ -143,7 +147,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="jsonString">{ Title : 'The Power Of Now' }</param>
     public Distinct<T, TProperty> MatchString(string jsonString)
     {
-        filter &= jsonString;
+        _filter &= jsonString;
 
         return this;
     }
@@ -154,7 +158,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="expression">{ $gt: ['$Property1', '$Property2'] }</param>
     public Distinct<T, TProperty> MatchExpression(string expression)
     {
-        filter &= "{$expr:" + expression + "}";
+        _filter &= "{$expr:" + expression + "}";
 
         return this;
     }
@@ -165,7 +169,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="template">A Template object</param>
     public Distinct<T, TProperty> MatchExpression(Template template)
     {
-        filter &= "{$expr:" + template.RenderToString() + "}";
+        _filter &= "{$expr:" + template.RenderToString() + "}";
 
         return this;
     }
@@ -176,7 +180,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="option">x => x.OptionName = OptionValue</param>
     public Distinct<T, TProperty> Option(Action<DistinctOptions> option)
     {
-        option(options);
+        option(_options);
 
         return this;
     }
@@ -186,7 +190,7 @@ public class Distinct<T, TProperty> where T : IEntity
     /// </summary>
     public Distinct<T, TProperty> IgnoreGlobalFilters()
     {
-        ignoreGlobalFilters = true;
+        _ignoreGlobalFilters = true;
 
         return this;
     }
@@ -197,14 +201,14 @@ public class Distinct<T, TProperty> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<IAsyncCursor<TProperty>> ExecuteCursorAsync(CancellationToken cancellation = default)
     {
-        if (field == null)
+        if (_field == null)
             throw new InvalidOperationException("Please use the .Property() method to specify the field to use for obtaining unique values for!");
 
-        var mergedFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, filter);
+        var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
-        return session == null
-                   ? DB.Collection<T>().DistinctAsync(field, mergedFilter, options, cancellation)
-                   : DB.Collection<T>().DistinctAsync(session, field, mergedFilter, options, cancellation);
+        return _session == null
+                   ? DB.Collection<T>().DistinctAsync(_field, mergedFilter, _options, cancellation)
+                   : DB.Collection<T>().DistinctAsync(_session, _field, mergedFilter, _options, cancellation);
     }
 
     /// <summary>

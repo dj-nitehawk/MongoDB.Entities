@@ -1,5 +1,5 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
@@ -51,7 +51,8 @@ public static partial class Extensions
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="aggregate"></param>
     /// <param name="filter">f => f.Eq(x => x.Prop, Value) &amp; f.Gt(x => x.Prop, Value)</param>
-    public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter) where T : IEntity
+    public static IAggregateFluent<T> Match<T>(this IAggregateFluent<T> aggregate, Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter)
+        where T : IEntity
         => aggregate.Match(filter(Builders<T>.Filter));
 
     /// <summary>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
     /// <summary>
@@ -60,7 +61,7 @@ public static partial class DB
                                           a.FullName.StartsWith("MongoDB.Entities.Tests"));
         }
         else
-            assemblies = new[] { targetType.Assembly };
+            assemblies = [targetType.Assembly];
 
         var types = assemblies
                     .SelectMany(a => a.GetTypes())
@@ -90,8 +91,10 @@ public static partial class DB
                 throw new InvalidOperationException("Please use the correct naming format for migration classes!");
 
             if (!int.TryParse(nameParts[1], out var migNumber))
+            {
                 throw new InvalidOperationException(
                     "Failed to parse migration number from the class name. Make sure to name the migration classes like: _001_some_migration_name.cs");
+            }
 
             var name = string.Join(" ", nameParts.Skip(2));
 

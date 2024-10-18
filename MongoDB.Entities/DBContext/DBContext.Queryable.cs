@@ -1,8 +1,10 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq;
+using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public partial class DBContext
 {
     /// <summary>
@@ -11,12 +13,12 @@ public partial class DBContext
     /// <param name="options">The aggregate options</param>
     /// <typeparam name="T">The type of entity</typeparam>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
-    public IMongoQueryable<T> Queryable<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
+    public IQueryable<T> Queryable<T>(AggregateOptions? options = null, bool ignoreGlobalFilters = false) where T : IEntity
     {
-        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, globalFilters, Builders<T>.Filter.Empty);
+        var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-               ? DB.Queryable<T>(options, Session).Where(_ => globalFilter.Inject())
-               : DB.Queryable<T>(options, Session);
+                   ? DB.Queryable<T>(options, Session).Where(_ => globalFilter.Inject())
+                   : DB.Queryable<T>(options, Session);
     }
 }

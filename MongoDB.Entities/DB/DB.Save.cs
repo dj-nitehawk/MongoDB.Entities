@@ -1,17 +1,18 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
+// ReSharper disable once InconsistentNaming
 public static partial class DB
 {
-    static readonly BulkWriteOptions unOrdBlkOpts = new() { IsOrdered = false };
-    static readonly UpdateOptions updateOptions = new() { IsUpsert = true };
+    static readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
+    static readonly UpdateOptions _updateOptions = new() { IsUpsert = true };
 
     /// <summary>
     /// Saves a complete entity replacing an existing entity or creating a new one if it does not exist.
@@ -42,7 +43,9 @@ public static partial class DB
     /// <param name="entities">The entities to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public static Task<BulkWriteResult<T>> SaveAsync<T>(IEnumerable<T> entities,
+                                                        IClientSessionHandle? session = null,
+                                                        CancellationToken cancellation = default)
         where T : IEntity
     {
         var models = new List<WriteModel<T>>(entities.Count());
@@ -62,8 +65,8 @@ public static partial class DB
         }
 
         return session == null
-                   ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+                   ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
     }
 
     /// <summary>
@@ -226,7 +229,8 @@ public static partial class DB
     /// <param name="entity">The entity to save</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    public static Task<UpdateResult> SavePreservingAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+        where T : IEntity
     {
         entity.ThrowIfUnsaved();
 
@@ -267,8 +271,8 @@ public static partial class DB
 
         return
             session == null
-                ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation)
-                : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(defs), updateOptions, cancellation);
+                ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation)
+                : Collection<T>().UpdateOneAsync(session, filter, Builders<T>.Update.Combine(defs), _updateOptions, cancellation);
     }
 
     static Task<UpdateResult> SavePartial<T>(T entity,
@@ -282,12 +286,16 @@ public static partial class DB
 
         return
             session == null
-                ? Collection<T>().UpdateOneAsync(filter, Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)), updateOptions, cancellation)
+                ? Collection<T>().UpdateOneAsync(
+                    filter,
+                    Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
+                    _updateOptions,
+                    cancellation)
                 : Collection<T>().UpdateOneAsync(
                     session,
                     filter,
                     Builders<T>.Update.Combine(Logic.BuildUpdateDefs(entity, propNames, excludeMode)),
-                    updateOptions,
+                    _updateOptions,
                     cancellation);
     }
 
@@ -310,8 +318,8 @@ public static partial class DB
         }
 
         return session == null
-                   ? Collection<T>().BulkWriteAsync(models, unOrdBlkOpts, cancellation)
-                   : Collection<T>().BulkWriteAsync(session, models, unOrdBlkOpts, cancellation);
+                   ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
     }
 
     static bool PrepAndCheckIfInsert<T>(T entity) where T : IEntity

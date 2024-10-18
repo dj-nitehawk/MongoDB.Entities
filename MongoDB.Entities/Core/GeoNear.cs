@@ -1,8 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using System.Diagnostics.CodeAnalysis;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
-using System;
 
 namespace MongoDB.Entities;
 
@@ -15,7 +15,7 @@ public class Coordinates2D
     public string Type { get; set; } = "Point";
 
     [BsonElement("coordinates")]
-    public double[] Coordinates { get; set; } = Array.Empty<double>();
+    public double[] Coordinates { get; set; } = [];
 
     /// <summary>
     /// Instantiate a new Coordinates2D instance with default values
@@ -28,11 +28,11 @@ public class Coordinates2D
     public Coordinates2D(double longitude, double latitude)
     {
         Type = "Point";
-        Coordinates = new[] { longitude, latitude };
+        Coordinates = [longitude, latitude];
     }
 
     /// <summary>
-    /// Converts a Coordinates2D instance to a GeoJsonPoint of GeoJson2DGeographicCoordinates 
+    /// Converts a Coordinates2D instance to a GeoJsonPoint of GeoJson2DGeographicCoordinates
     /// </summary>
     public GeoJsonPoint<GeoJson2DGeographicCoordinates> ToGeoJsonPoint()
         => GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
@@ -48,26 +48,40 @@ public class Coordinates2D
 /// Fluent aggregation pipeline builder for GeoNear
 /// </summary>
 /// <typeparam name="T">The type of entity</typeparam>
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public class GeoNear<T> where T : IEntity
 {
-#pragma warning disable IDE1006
     public Coordinates2D? near { get; set; }
     public string? distanceField { get; set; }
     public bool spherical { get; set; }
-    [BsonIgnoreIfNull] public int? limit { get; set; }
-    [BsonIgnoreIfNull] public double? maxDistance { get; set; }
-    [BsonIgnoreIfNull] public BsonDocument? query { get; set; }
-    [BsonIgnoreIfNull] public double? distanceMultiplier { get; set; }
-    [BsonIgnoreIfNull] public string? includeLocs { get; set; }
-    [BsonIgnoreIfNull] public double? minDistance { get; set; }
-    [BsonIgnoreIfNull] public string? key { get; set; }
+
+    [BsonIgnoreIfNull]
+    public int? limit { get; set; }
+
+    [BsonIgnoreIfNull]
+    public double? maxDistance { get; set; }
+
+    [BsonIgnoreIfNull]
+    public BsonDocument? query { get; set; }
+
+    [BsonIgnoreIfNull]
+    public double? distanceMultiplier { get; set; }
+
+    [BsonIgnoreIfNull]
+    public string? includeLocs { get; set; }
+
+    [BsonIgnoreIfNull]
+    public double? minDistance { get; set; }
+
+    [BsonIgnoreIfNull]
+    public string? key { get; set; }
 
     internal IAggregateFluent<T> ToFluent(AggregateOptions? options = null, IClientSessionHandle? session = null)
     {
         var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
         return session == null
-                ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
-                : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
+                   ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
+                   : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
     }
 }
