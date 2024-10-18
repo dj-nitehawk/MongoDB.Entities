@@ -41,7 +41,7 @@ public class FileEntities
     [TestMethod]
     public async Task uploading_data_from_file_stream()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test.Png" };
@@ -61,7 +61,7 @@ public class FileEntities
     [TestMethod]
     public async Task uploading_with_wrong_hash()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test-bad-hash.png", MD5 = "wrong-hash" };
@@ -76,7 +76,7 @@ public class FileEntities
     [TestMethod]
     public async Task uploading_with_correct_hash()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 800, Width = 600, Name = "Test-correct-hash.png", MD5 = "cccfa116f0acf41a217cbefbe34cd599" };
@@ -96,7 +96,7 @@ public class FileEntities
     [TestMethod]
     public async Task file_smaller_than_chunk_size()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 100, Width = 100, Name = "Test-small.Png" };
@@ -116,7 +116,7 @@ public class FileEntities
     [TestMethod]
     public async Task deleting_entity_deletes_all_chunks()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { ID = Guid.NewGuid().ToString(), Height = 400, Width = 400, Name = "Test-Delete.Png" };
@@ -148,7 +148,7 @@ public class FileEntities
     [TestMethod]
     public async Task deleting_only_chunks()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 400, Width = 400, Name = "Test-Delete.Png" };
@@ -179,7 +179,7 @@ public class FileEntities
     [TestMethod]
     public async Task downloading_file_chunks_works()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
@@ -205,7 +205,7 @@ public class FileEntities
     [TestMethod]
     public async Task downloading_file_chunks_directly()
     {
-        await DB.InitAsync(dbName);
+        await InitTest.InitTestDatabase(dbName);
         DB.DatabaseFor<Image>(dbName);
 
         var img = new Image { Height = 500, Width = 500, Name = "Test-Download.Png" };
@@ -231,7 +231,7 @@ public class FileEntities
     [TestMethod]
     public void trying_to_download_when_no_chunks_present()
     {
-        DB.InitAsync(dbName).GetAwaiter().GetResult();
+        InitTest.InitTestDatabase(dbName).GetAwaiter().GetResult();
 
         Assert.ThrowsException<InvalidOperationException>(
             () =>
