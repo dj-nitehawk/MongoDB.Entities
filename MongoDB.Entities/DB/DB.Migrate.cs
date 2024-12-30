@@ -41,17 +41,19 @@ public static partial class DB
 
         if (targetType == null)
         {
-            var excludes = new[]
-            {
+            string[] excludes =
+            [
+                "JetBrains.",
                 "Microsoft.",
                 "System.",
                 "MongoDB.",
                 "testhost",
                 "netstandard",
                 "Newtonsoft.",
+                "NuGet",
                 "mscorlib",
                 "NuGet."
-            };
+            ];
 
             assemblies = AppDomain.CurrentDomain
                                   .GetAssemblies()
