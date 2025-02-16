@@ -2,7 +2,7 @@
 
 ### IMPROVEMENTS
 
-- exclude `JetBrains` assemblies from scanning for migration classes.
-- upgrade project dependencies to latest.
+- upgrade mongodb driver to latest.
+- upgrade testing dependencies to latest.
 
 [//]: # (### BREAKING CHANGES)
