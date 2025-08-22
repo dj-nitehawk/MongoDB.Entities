@@ -222,21 +222,4 @@ public static partial class DB
     {
         ServiceProvider = serviceProvider;
     }
-
-    /// <summary>
-    /// Registers all migration types (classes implementing IMigration).
-    /// This should be called during application startup to register migrations to the DI container.
-    /// </summary>
-    /// <param name="services">The IServiceCollection for Dependency Injection.</param>
-    public static void RegisterMigrations(IServiceCollection services)
-    {
-        var migrationTypes = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(a => a.GetTypes())
-            .Where(t => typeof(IMigration).IsAssignableFrom(t) && !t.IsAbstract);
-
-        foreach (var migrationType in migrationTypes)
-        {
-            services.AddScoped(migrationType, migrationType);
-        }
-    }
 }
