@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
@@ -32,6 +34,11 @@ public static partial class DB
             },
             _ => true);
     }
+
+    /// <summary>
+    /// Optional ASP.NET Core Dependency Injection provider.
+    /// </summary>
+    internal static IServiceProvider? ServiceProvider { get; set; }
 
     internal static event Action? DefaultDbChanged;
 
@@ -204,5 +211,32 @@ public static partial class DB
         newT.SetId(ID);
 
         return newT;
+    }
+
+    /// <summary>
+    /// Initializes the ASP.NET Core Dependency Injection provider.
+    /// Call this during application startup.
+    /// </summary>
+    /// <param name="serviceProvider">The IServiceProvider instance</param>
+    public static void SetServiceProvider(IServiceProvider serviceProvider)
+    {
+        ServiceProvider = serviceProvider;
+    }
+
+    /// <summary>
+    /// Registers all migration types (classes implementing IMigration).
+    /// This should be called during application startup to register migrations to the DI container.
+    /// </summary>
+    /// <param name="services">The IServiceCollection for Dependency Injection.</param>
+    public static void RegisterMigrations(IServiceCollection services)
+    {
+        var migrationTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .Where(t => typeof(IMigration).IsAssignableFrom(t) && !t.IsAbstract);
+
+        foreach (var migrationType in migrationTypes)
+        {
+            services.AddScoped(migrationType, migrationType);
+        }
     }
 }

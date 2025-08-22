@@ -1,4 +1,5 @@
-﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -71,7 +72,15 @@ public static partial class DB
 
         return !types.Any()
                    ? throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.")
-                   : Execute(types.Select(t => (IMigration)Activator.CreateInstance(t)));
+                   : Execute(types.Select(t =>
+                   {
+                       if (ServiceProvider != null)
+                       {
+                           return (IMigration)ActivatorUtilities.CreateInstance(ServiceProvider, t);
+                       }
+
+                       return (IMigration)Activator.CreateInstance(t);
+                   }));
     }
 
     static async Task Execute(IEnumerable<IMigration> migrations)
