@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,10 +57,7 @@ public static partial class DB
 
             assemblies = AppDomain.CurrentDomain
                                   .GetAssemblies()
-                                  .Where(
-                                      a =>
-                                          (!a.IsDynamic && !excludes.Any(n => a.FullName.StartsWith(n))) ||
-                                          a.FullName.StartsWith("MongoDB.Entities.Tests"));
+                                  .Where(a => (!a.IsDynamic && !excludes.Any(n => a.FullName.StartsWith(n))) || a.FullName.StartsWith("MongoDB.Entities.Tests"));
         }
         else
             assemblies = [targetType.Assembly];
@@ -72,25 +68,24 @@ public static partial class DB
 
         return !types.Any()
                    ? throw new InvalidOperationException("Didn't find any classes that implement IMigrate interface.")
-                   : Execute(types.Select(t =>
-                   {
-                       if (ServiceProvider != null)
-                       {
-                           return (IMigration)ActivatorUtilities.CreateInstance(ServiceProvider, t);
-                       }
+                   : Execute(
+                       types.Select(
+                           t =>
+                           {
+                               if (ServiceProvider != null)
+                                   return (IMigration)ServiceProvider.GetService(t);
 
-                       return (IMigration)Activator.CreateInstance(t);
-                   }));
+                               return (IMigration)Activator.CreateInstance(t);
+                           }));
     }
 
     static async Task Execute(IEnumerable<IMigration> migrations)
     {
-        var lastMigNum = await
-                             Find<Migration, int>()
-                                 .Sort(m => m.Number, Order.Descending)
-                                 .Project(m => m.Number)
-                                 .ExecuteFirstAsync()
-                                 .ConfigureAwait(false);
+        var lastMigNum = await Find<Migration, int>()
+                               .Sort(m => m.Number, Order.Descending)
+                               .Project(m => m.Number)
+                               .ExecuteFirstAsync()
+                               .ConfigureAwait(false);
 
         var dic = new SortedDictionary<int, (string name, IMigration migration)>();
 

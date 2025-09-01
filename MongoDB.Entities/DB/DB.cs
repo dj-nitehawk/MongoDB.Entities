@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities;
 
@@ -33,11 +33,7 @@ public static partial class DB
             _ => true);
     }
 
-    /// <summary>
-    /// Optional ASP.NET Core Dependency Injection provider.
-    /// </summary>
-    internal static IServiceProvider? ServiceProvider { get; set; }
-
+    internal static IServiceProvider? ServiceProvider { get; private set; }
     internal static event Action? DefaultDbChanged;
 
     static readonly ConcurrentDictionary<string, IMongoDatabase> _dbs = new();
@@ -215,9 +211,7 @@ public static partial class DB
     /// Initializes the ASP.NET Core Dependency Injection provider.
     /// Call this during application startup.
     /// </summary>
-    /// <param name="serviceProvider">The IServiceProvider instance</param>
+    /// <param name="serviceProvider">The <see cref="IServiceProvider" /> instance</param>
     public static void SetServiceProvider(IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
-    }
+        => ServiceProvider = serviceProvider;
 }
