@@ -1,16 +1,19 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Threading;
 
 namespace MongoDB.Entities.Tests;
 
 [Collection("GenreInt64")]
 public class GenreInt64 : Genre
 {
+    public static Int64 nextID = Int64.MaxValue;
+
     [BsonId]
     public Int64 ID { get; set; }
 
     public override object GenerateNewID()
-        => Convert.ToInt64(DateTime.UtcNow.Ticks);
+        => Interlocked.Decrement(ref nextID);
 
     public override bool HasDefaultID()
         => ID == 0;
