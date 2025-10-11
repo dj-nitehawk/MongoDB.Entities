@@ -135,7 +135,7 @@ public class SavingInt64
 
         var res = await DB.Find<BookInt64>()
                           .Match(b => ids.Contains(b.ID))
-                          .Sort(b => b.ID, Order.Ascending)
+                          .Sort(b => b.ID, Order.Descending)
                           .ExecuteAsync();
 
         Assert.AreEqual(0, res[0].Price);
@@ -158,7 +158,7 @@ public class SavingInt64
 
         var res = await DB.Find<BookInt64>()
                           .Match(b => ids.Contains(b.ID))
-                          .Sort(b => b.ID, Order.Ascending)
+                          .Sort(b => b.ID, Order.Descending)
                           .ExecuteAsync();
 
         Assert.AreEqual(0, res[0].Price);
@@ -223,7 +223,7 @@ public class SavingInt64
 
         var res = await DB.Find<BookInt64>()
                           .Match(b => ids.Contains(b.ID))
-                          .Sort(b => b.ID, Order.Ascending)
+                          .Sort(b => b.ID, Order.Descending)
                           .ExecuteAsync();
 
         Assert.AreEqual(100, res[0].Price);
@@ -246,7 +246,7 @@ public class SavingInt64
 
         var res = await DB.Find<BookInt64>()
                           .Match(b => ids.Contains(b.ID))
-                          .Sort(b => b.ID, Order.Ascending)
+                          .Sort(b => b.ID, Order.Descending)
                           .ExecuteAsync();
 
         Assert.AreEqual(100, res[0].Price);

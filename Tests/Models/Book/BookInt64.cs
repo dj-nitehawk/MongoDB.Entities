@@ -1,17 +1,20 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MongoDB.Entities.Tests;
 
 [Collection("BookInt64")]
 public class BookInt64 : Book
 {
+    public static Int64 nextID = Int64.MaxValue;
+
     [BsonId]
     public long ID { get; set; }
 
     public override object GenerateNewID()
-        => Convert.ToInt64(DateTime.UtcNow.Ticks);
+        => Interlocked.Decrement(ref nextID);
 
     public override bool HasDefaultID()
         => ID == 0;

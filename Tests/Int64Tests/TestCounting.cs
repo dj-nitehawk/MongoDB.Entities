@@ -10,7 +10,7 @@ public class CountingInt64
 {
     DBContext db;
 
-    Task Init(string Int64)
+    Task Init(string InitialName)
     {
         db = new MyDBInt64();
 
@@ -18,12 +18,12 @@ public class CountingInt64
 
         for (var i = 1; i <= 25; i++)
         {
-            list.Add(new() { Name = Int64, Age = 111 });
+            list.Add(new() { Name = InitialName, Age = 111 });
         }
 
         for (var i = 1; i <= 10; i++)
         {
-            list.Add(new() { Name = Int64, Age = 222 });
+            list.Add(new() { Name = InitialName, Age = 222 });
         }
 
         return list.SaveAsync();
@@ -39,7 +39,7 @@ public class CountingInt64
 
         Assert.IsTrue(count > 0);
     }
-
+    
     [TestMethod]
     public async Task count_with_lambda()
     {
