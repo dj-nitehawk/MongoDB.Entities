@@ -18,8 +18,9 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
 {
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                          Action<UpdateBase<T>>? onUpdateAction)
-        : base(session, globalFilters, onUpdateAction) { }
+                          Action<UpdateBase<T>>? onUpdateAction,
+                          DBInstance dbInstance)
+        : base(session, globalFilters, onUpdateAction, dbInstance) { }
 }
 
 /// <summary>
@@ -36,15 +37,18 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
+    readonly DBInstance _dbInstance;
     bool _ignoreGlobalFilters;
 
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                          Action<UpdateBase<T>>? onUpdateAction)
+                          Action<UpdateBase<T>>? onUpdateAction,
+                          DBInstance dbInstance)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
+        _dbInstance = dbInstance;
     }
 
     /// <summary>
@@ -466,12 +470,12 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    static Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter,
+    Task<TProjection> UpdateAndGetAsync(FilterDefinition<T> filter,
                                                UpdateDefinition<T> definition,
                                                FindOneAndUpdateOptions<T, TProjection> options,
                                                IClientSessionHandle? session = null,
                                                CancellationToken cancellation = default)
         => session == null
-               ? DB.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
-               : DB.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
+               ? _dbInstance.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
+               : _dbInstance.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
 }

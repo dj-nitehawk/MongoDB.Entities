@@ -6,7 +6,7 @@ namespace MongoDB.Entities;
 
 static class TypeMap
 {
-    static readonly ConcurrentDictionary<Type, IMongoDatabase> _typeToDbMap = new();
+    static readonly ConcurrentDictionary<Type, DBInstance> _typeToDbInstanceMap = new();
     static readonly ConcurrentDictionary<Type, string> _typeToCollMap = new();
 
     internal static void AddCollectionMapping(Type entityType, string collectionName)
@@ -19,19 +19,19 @@ static class TypeMap
         return name;
     }
 
-    internal static void AddDatabaseMapping(Type entityType, IMongoDatabase database)
-        => _typeToDbMap[entityType] = database;
+    internal static void AddDbInstanceMapping(Type entityType, DBInstance dbInstance)
+        => _typeToDbInstanceMap[entityType] = dbInstance;
 
     internal static void Clear()
     {
-        _typeToDbMap.Clear();
+        _typeToDbInstanceMap.Clear();
         _typeToCollMap.Clear();
     }
 
-    internal static IMongoDatabase GetDatabase(Type entityType)
+    internal static DBInstance GetDbInstance(Type entityType)
     {
-        _typeToDbMap.TryGetValue(entityType, out var db);
+        _typeToDbInstanceMap.TryGetValue(entityType, out var dbInstance);
 
-        return db ?? DB.Database(default);
+        return dbInstance ?? DB.DbInstance() ?? throw new InvalidOperationException("DB not initialized. Call DB.InitAsync(...) first!");
     }
 }

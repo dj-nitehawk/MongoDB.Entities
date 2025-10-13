@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DBInstance
 {
     /// <summary>
     /// Represents a ReplaceOne command, which can replace the first matched document with a given entity
@@ -11,6 +11,6 @@ public static partial class DB
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="session">An optional session if using within a transaction</param>
-    public static Replace<T> Replace<T>(IClientSessionHandle? session = null) where T : IEntity
-        => new(session, null, null, null, DbInstance<T>());
+    public Replace<T> Replace<T>(IClientSessionHandle? session = null) where T : IEntity
+        => new(session, null, null, null, this);
 }

@@ -10,12 +10,8 @@ using MongoDB.Driver;
 
 namespace MongoDB.Entities;
 
-static class Cache<T> where T : IEntity
+static class TypeCache<T> where T : IEntity
 {
-    internal static string DbName { get; private set; } = null!;
-    internal static DBInstance DbInstance { get; private set; } = null!;
-    internal static IMongoDatabase Database { get; private set; } = null!;
-    internal static IMongoCollection<T> Collection { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
     internal static ConcurrentDictionary<string, Watcher<T>> Watchers { get; private set; } = null!;
     internal static bool HasCreatedOn { get; private set; }
@@ -32,12 +28,11 @@ static class Cache<T> where T : IEntity
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
 
-    static Cache()
+    static TypeCache()
     {
         Initialize();
-        DB.DefaultDbChanged += Initialize;
     }
-    
+
     static void Initialize()
     {
         var type = typeof(T);
@@ -58,20 +53,13 @@ static class Cache<T> where T : IEntity
                 $"Type {type.FullName} must specify an Identity property. '_id', 'Id', 'ID', or [BsonId] annotation expected!");
         }
 
-        DbInstance = TypeMap.GetDbInstance(type);
-        Database = DbInstance.Database();
-        DbName = Database.DatabaseNamespace.DatabaseName;
-
         var collAttrb = type.GetCustomAttribute<CollectionAttribute>(false);
 
         CollectionName = collAttrb != null ? collAttrb.Name : type.Name;
 
         if (string.IsNullOrWhiteSpace(CollectionName) || CollectionName.Contains("~"))
             throw new ArgumentException($"{CollectionName} is an illegal name for a collection!");
-
-        Collection = Database.GetCollection<T>(CollectionName);
-        TypeMap.AddCollectionMapping(type, CollectionName);
-
+        
         Watchers = new();
 
         var interfaces = type.GetInterfaces();

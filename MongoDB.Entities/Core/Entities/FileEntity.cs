@@ -86,7 +86,7 @@ public class DataStreamer
         _parent = parent;
         _parentType = parent.GetType();
 
-        _db = TypeMap.GetDatabase(_parentType);
+        _db = TypeMap.GetDbInstance(_parentType).Database();
 
         _chunkCollection = _db.GetCollection<FileChunk>(DB.CollectionName<FileChunk>());
 

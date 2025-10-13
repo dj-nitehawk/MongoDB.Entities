@@ -68,15 +68,17 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     readonly List<UpdateManyModel<T>> _models = [];
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
+    readonly DBInstance _dbInstance;
     bool _ignoreGlobalFilters;
 
     internal Update(IClientSessionHandle? session,
                     Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                    Action<UpdateBase<T>>? onUpdateAction)
+                    Action<UpdateBase<T>>? onUpdateAction, DBInstance dbInstance)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
+        _dbInstance = dbInstance;
     }
 
     /// <summary>
@@ -445,8 +447,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         {
             var bulkWriteResult = await (
                                             _session == null
-                                                ? DB.Collection<T>().BulkWriteAsync(_models, null, cancellation)
-                                                : DB.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
+                                                ? _dbInstance.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : _dbInstance.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
             _models.Clear();
@@ -511,12 +513,12 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                      .Contains($"\"{Cache<T>.ModifiedOnPropName}\""));
     }
 
-    static Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter,
+    Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter,
                                           UpdateDefinition<T> definition,
                                           UpdateOptions options,
                                           IClientSessionHandle? session = null,
                                           CancellationToken cancellation = default)
         => session == null
-               ? DB.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
-               : DB.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
+               ? _dbInstance.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
+               : _dbInstance.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
 }

@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DBInstance
 {
     /// <summary>
     /// Inserts a new entity into the collection.
@@ -16,8 +16,14 @@ public static partial class DB
     /// <param name="entity">The instance to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public static Task InsertAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
-        => DbInstance<T>().InsertAsync(entity, session, cancellation);
+    public Task InsertAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
+    {
+        PrepAndCheckIfInsert(entity);
+
+        return session == null
+                   ? Collection<T>().InsertOneAsync(entity, null, cancellation)
+                   : Collection<T>().InsertOneAsync(session, entity, null, cancellation);
+    }
 
     /// <summary>
     /// Inserts a batch of new entities into the collection.
@@ -26,8 +32,20 @@ public static partial class DB
     /// <param name="entities">The entities to persist</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">And optional cancellation token</param>
-    public static Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities,
+    public Task<BulkWriteResult<T>> InsertAsync<T>(IEnumerable<T> entities,
                                                           IClientSessionHandle? session = null,
                                                           CancellationToken cancellation = default) where T : IEntity
-        => DbInstance<T>().InsertAsync(entities, session, cancellation);
+    {
+        var models = new List<WriteModel<T>>(entities.Count());
+
+        foreach (var ent in entities)
+        {
+            PrepAndCheckIfInsert(ent);
+            models.Add(new InsertOneModel<T>(ent));
+        }
+
+        return session == null
+                   ? Collection<T>().BulkWriteAsync(models, _unOrdBlkOpts, cancellation)
+                   : Collection<T>().BulkWriteAsync(session, models, _unOrdBlkOpts, cancellation);
+    }
 }

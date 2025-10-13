@@ -10,12 +10,12 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public static partial class DB
+public partial class DBInstance
 {
     const int DeleteBatchSize = 100000;
 
     // ReSharper disable once InconsistentNaming
-    static async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs,
+    async Task<DeleteResult> DeleteCascadingAsync<T>(IEnumerable<object?> IDs,
                                                             IClientSessionHandle? session = null,
                                                             CancellationToken cancellation = default) where T : IEntity
     {
@@ -53,7 +53,7 @@ public static partial class DB
                         cancellation));
         }
 
-        var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
+        var filter = Builders<T>.Filter.In(TypeCache<T>.IdPropName, IDs);
 
         var delResTask =
             session == null
@@ -87,7 +87,7 @@ public static partial class DB
     /// <param name="ID">The Id of the entity to delete</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(object ID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public Task<DeleteResult> DeleteAsync<T>(object ID, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         where T : IEntity
     {
         ThrowIfCancellationNotSupported(session, cancellation);
@@ -105,7 +105,7 @@ public static partial class DB
     /// <param name="IDs">An IEnumerable of entity IDs</param>
     /// <param name="session"> An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs,
+    public async Task<DeleteResult> DeleteAsync<T>(IEnumerable<object?> IDs,
                                                           IClientSessionHandle? session = null,
                                                           CancellationToken cancellation = default)
         where T : IEntity
@@ -140,7 +140,7 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression,
+    public Task<DeleteResult> DeleteAsync<T>(Expression<Func<T, bool>> expression,
                                                     IClientSessionHandle? session = null,
                                                     CancellationToken cancellation = default,
                                                     Collation? collation = null) where T : IEntity
@@ -156,7 +156,7 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
+    public Task<DeleteResult> DeleteAsync<T>(Func<FilterDefinitionBuilder<T>, FilterDefinition<T>> filter,
                                                     IClientSessionHandle? session = null,
                                                     CancellationToken cancellation = default,
                                                     Collation? collation = null) where T : IEntity
@@ -172,7 +172,7 @@ public static partial class DB
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="collation">An optional collation object</param>
-    public static async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter,
+    public async Task<DeleteResult> DeleteAsync<T>(FilterDefinition<T> filter,
                                                           IClientSessionHandle? session = null,
                                                           CancellationToken cancellation = default,
                                                           Collation? collation = null) where T : IEntity
@@ -182,11 +182,11 @@ public static partial class DB
         //workaround for the newly added implicit operator in driver which matches all strings as json filters
         var jsonFilter = filter as JsonFilterDefinition<T>;
         if (jsonFilter?.Json.StartsWith("{") is false)
-            filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
+            filter = Builders<T>.Filter.Eq(TypeCache<T>.IdExpression, jsonFilter.Json);
 
-        var cursor = await new Find<T, object>(session, null, DbInstance<T>())
+        var cursor = await new Find<T, object>(session, null, this)
                            .Match(_ => filter)
-                           .Project(p => p.Include(Cache<T>.IdPropName))
+                           .Project(p => p.Include(TypeCache<T>.IdPropName))
                            .Option(o => o.BatchSize = DeleteBatchSize)
                            .Option(o => o.Collation = collation)
                            .ExecuteCursorAsync(cancellation)
@@ -214,7 +214,7 @@ public static partial class DB
         return res;
     }
 
-    static IEnumerable<object> ValidateCursor(IReadOnlyList<object> idObjects)
+    IEnumerable<object> ValidateCursor(IReadOnlyList<object> idObjects)
     {
         if (!idObjects.Any() || idObjects[0] is not ExpandoObject)
             return idObjects;
@@ -230,7 +230,7 @@ public static partial class DB
         return ids;
     }
 
-    static void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    void ThrowIfCancellationNotSupported(IClientSessionHandle? session = null, CancellationToken cancellation = default)
     {
         if (cancellation != default && session == null)
             throw new NotSupportedException("Cancellation is only supported within transactions for delete operations!");

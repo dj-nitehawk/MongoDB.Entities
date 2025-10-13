@@ -24,7 +24,7 @@ public partial class DBContext
                                                                        AggregateOptions? options = null,
                                                                        CancellationToken cancellation = default,
                                                                        bool ignoreGlobalFilters = false) where T : IEntity
-        => DB.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+        => _dbInstance.PipelineCursorAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -40,7 +40,7 @@ public partial class DBContext
                                                          AggregateOptions? options = null,
                                                          CancellationToken cancellation = default,
                                                          bool ignoreGlobalFilters = false) where T : IEntity
-        => DB.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+        => _dbInstance.PipelineAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -56,7 +56,7 @@ public partial class DBContext
                                                          AggregateOptions? options = null,
                                                          CancellationToken cancellation = default,
                                                          bool ignoreGlobalFilters = false) where T : IEntity
-        => DB.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+        => _dbInstance.PipelineSingleAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     /// <summary>
     /// Executes an aggregation pipeline by supplying a 'Template' object.
@@ -72,7 +72,7 @@ public partial class DBContext
                                                         AggregateOptions? options = null,
                                                         CancellationToken cancellation = default,
                                                         bool ignoreGlobalFilters = false) where T : IEntity
-        => DB.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
+        => _dbInstance.PipelineFirstAsync(MergeGlobalFilter(template, ignoreGlobalFilters), options, Session, cancellation);
 
     Template<T, TResult> MergeGlobalFilter<T, TResult>(Template<T, TResult> template, bool ignoreGlobalFilters) where T : IEntity
     {

@@ -47,7 +47,7 @@ public class One<TEntity> where TEntity : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
     public Task<TEntity> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => new Find<TEntity>(session, null).OneAsync(ID, cancellation)!;
+        => new Find<TEntity>(session, null, Cache<TEntity>.DbInstance).OneAsync(ID, cancellation)!;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
@@ -62,7 +62,7 @@ public class One<TEntity> where TEntity : IEntity
     public async Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, Cache<TEntity>.DbInstance)
                   .MatchID(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation)
@@ -81,7 +81,7 @@ public class One<TEntity> where TEntity : IEntity
     public async Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, Cache<TEntity>.DbInstance)
                   .MatchID(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();
@@ -134,7 +134,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
     public Task<TEntity> ToEntityAsync(IClientSessionHandle? session = null, CancellationToken cancellation = default)
-        => new Find<TEntity>(session, null).OneAsync(ID, cancellation)!;
+        => new Find<TEntity>(session, null, Cache<TEntity>.DbInstance).OneAsync(ID, cancellation)!;
 
     /// <summary>
     /// Fetches the actual entity this reference represents from the database with a projection.
@@ -150,7 +150,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     public async Task<TEntity> ToEntityAsync(Expression<Func<TEntity, TEntity>> projection,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, Cache<TEntity>.DbInstance)
                   .Match(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation)
@@ -170,7 +170,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     public async Task<TEntity> ToEntityAsync(Func<ProjectionDefinitionBuilder<TEntity>, ProjectionDefinition<TEntity, TEntity>> projection,
                                              IClientSessionHandle? session = null,
                                              CancellationToken cancellation = default)
-        => (await new Find<TEntity>(session, null)
+        => (await new Find<TEntity>(session, null, Cache<TEntity>.DbInstance)
                   .Match(ID)
                   .Project(projection)
                   .ExecuteAsync(cancellation).ConfigureAwait(false)).Single();
