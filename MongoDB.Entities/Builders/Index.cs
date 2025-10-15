@@ -9,7 +9,7 @@ namespace MongoDB.Entities;
 
 /// <summary>
 /// Represents an index creation command
-/// <para>TIP: Define the keys first with .Key() method and finally call the .Create() method.</para>
+/// <para>TIP: Define the keys first with .Key() method and finally call the .InitAsync() method.</para>
 /// </summary>
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Index<T> where T : IEntity

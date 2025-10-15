@@ -20,7 +20,6 @@ public static partial class DB
     /// Returns an atomically generated sequential number for the given sequence name everytime the method is called
     /// </summary>
     /// <param name="sequenceName">The name of the sequence to get the next number for</param>
-    /// <param name="dbInstance"></param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<ulong> NextSequentialNumberAsync(string sequenceName, CancellationToken cancellation = default)
     {

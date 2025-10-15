@@ -40,7 +40,7 @@ public partial class DBContext
     /// </param>
     public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
     {
-        _dbInstance = DBInstance.Create(database, host, port).GetAwaiter().GetResult();
+        _dbInstance = DBInstance.InitAsync(database, host, port).GetAwaiter().GetResult();
 
         ModifiedBy = modifiedBy;
     }
@@ -59,7 +59,7 @@ public partial class DBContext
     /// </param>
     public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
     {
-        _dbInstance = DBInstance.Create(database, settings).GetAwaiter().GetResult();
+        _dbInstance = DBInstance.InitAsync(database, settings).GetAwaiter().GetResult();
 
         ModifiedBy = modifiedBy;
     }

@@ -32,7 +32,7 @@ public static partial class DB
     /// <param name="port">Port number of the server</param>
     public static async Task InitAsync(string database, string host = "127.0.0.1", int port = 27017)
     {
-        var dbInstance = await DBInstance.Create(database, host, port);
+        var dbInstance = await DBInstance.InitAsync(database, host, port);
         _defaultDbInstance ??= dbInstance;
     }
 
@@ -46,7 +46,7 @@ public static partial class DB
     /// <param name="settings">A MongoClientSettings object</param>
     public static async Task InitAsync(string database, MongoClientSettings settings)
     {
-        var dbInstance = await DBInstance.Create(database, settings);
+        var dbInstance = await DBInstance.InitAsync(database, settings);
         _defaultDbInstance ??= dbInstance;
     }
     

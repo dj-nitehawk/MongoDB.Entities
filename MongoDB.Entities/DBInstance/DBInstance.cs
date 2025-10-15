@@ -54,7 +54,7 @@ public partial class DBInstance
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
     /// <returns>DBInstance</returns>
-    public static Task<DBInstance> Create(string database, string host = "127.0.0.1", int port = 27017)
+    public static Task<DBInstance> InitAsync(string database, string host = "127.0.0.1", int port = 27017)
         => Initialize(new() { Server = new(host, port) }, database);
 
     /// <summary>
@@ -66,7 +66,7 @@ public partial class DBInstance
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
     /// <returns>DBInstance</returns>
-    public static Task<DBInstance> Create(string database, MongoClientSettings settings)
+    public static Task<DBInstance> InitAsync(string database, MongoClientSettings settings)
                                  => Initialize(settings, database);
 
     internal static async Task<DBInstance> Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)

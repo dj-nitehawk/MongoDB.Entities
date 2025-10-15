@@ -38,7 +38,7 @@ public class Coordinates2D
         => GeoJson.Point(GeoJson.Geographic(Coordinates[0], Coordinates[1]));
 
     /// <summary>
-    /// Create a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
+    /// InitAsync a GeoJsonPoint of GeoJson2DGeographicCoordinates with supplied longitude and latitude
     /// </summary>
     public static GeoJsonPoint<GeoJson2DGeographicCoordinates> GeoJsonPoint(double longitude, double latitude)
         => GeoJson.Point(GeoJson.Geographic(longitude, latitude));
