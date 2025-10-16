@@ -37,6 +37,8 @@ public partial class DBInstance
     internal IServiceProvider? ServiceProvider { get; private set; }
 
     static readonly ConcurrentDictionary<string, DBInstance> _instances = new();
+    static DBInstance _defaultInstance = null!; // to be set on first InitAsync call
+    
     IMongoDatabase _mongoDatabase;
     
     private DBInstance(IMongoDatabase db)
@@ -80,6 +82,9 @@ public partial class DBInstance
             {
                 var db = new MongoClient(settings).GetDatabase(dbName);
                 dbInstance = new(db);
+                
+                if (_instances.Count==0)
+                    _defaultInstance = dbInstance;
 
                 if (_instances.TryAdd(dbName, dbInstance) && !skipNetworkPing)
                     await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
@@ -130,15 +135,27 @@ public partial class DBInstance
     /// Gets the DBInstance for a given database name if it has been previously initialized.
     /// </summary>
     /// <param name="name">The name of the database to retrieve</param>
-    public static DBInstance? Instance(string? name)
+    public static DBInstance Instance(string? name=null)
     {
-        DBInstance? dbInstance = null;
+        if (string.IsNullOrEmpty(name))
+        {
+            if (_instances.Count == 0)
+                throw new InvalidOperationException("No DBInstance has been initialized yet. Please call DBInstance.InitAsync() first.");
 
-        if (!string.IsNullOrEmpty(name))
-            _instances.TryGetValue(name, out dbInstance);
+            return _defaultInstance;
+        }
+        
+        _instances.TryGetValue(name, out var dbInstance);
 
-        return dbInstance;
+        return dbInstance ?? throw new InvalidOperationException($"No DBInstance with the name '{name}' has been initialized yet. Please call DBInstance.InitAsync() first.");
     }
+
+    /// <summary>
+    /// returns the default DBInstance if null, otherwise DBInstance
+    /// </summary>
+    /// <param name="dbInstance">The DBInstance to check</param>
+    public static DBInstance InstanceOrDefault(DBInstance? dbInstance)
+        => dbInstance ?? _defaultInstance;
 
     /// <summary>
     /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.
@@ -146,6 +163,20 @@ public partial class DBInstance
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public string DatabaseName<T>() where T : IEntity
         => _mongoDatabase.DatabaseNamespace.DatabaseName;
+
+    /// <summary>
+    /// Switches the default database at runtime
+    /// <para>WARNING: Use at your own risk!!! Might result in entities getting saved in the wrong databases under high concurrency situations.</para>
+    /// <para>TIP: Make sure to cancel any watchers (change-streams) before switching the default database.</para>
+    /// </summary>
+    /// <param name="name">The name of the database to mark as the new default database</param>
+    public static void ChangeDefaultDatabase(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentNullException(nameof(name), "Database name cannot be null or empty");
+
+        _defaultInstance = Instance(name);
+    }
 
     /// <summary>
     /// Exposes the mongodb Filter Definition Builder for a given type.
@@ -172,7 +203,7 @@ public partial class DBInstance
     /// Returns a new instance of the supplied IEntity type
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static T Entity<T>() where T : IEntity, new()
+    public T Entity<T>() where T : IEntity, new()
         => new();
 
     /// <summary>
@@ -180,7 +211,7 @@ public partial class DBInstance
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     /// <param name="ID">The ID to set on the returned instance</param>
-    public static T Entity<T>(object ID) where T : IEntity, new()
+    public T Entity<T>(object ID) where T : IEntity, new()
     {
         var newT = new T();
         newT.SetId(ID);

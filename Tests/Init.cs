@@ -29,11 +29,11 @@ public static class InitTest
         await InitTestDatabase("mongodb-entities-test");
     }
 
-    public static async Task InitTestDatabase(string databaseName)
+    public static async Task<DBInstance> InitTestDatabase(string databaseName)
     {
         if (_useTestContainers)
-            await DB.InitAsync(databaseName, ClientSettings);
-        else
-            await DB.InitAsync(databaseName);
+            return await DBInstance.InitAsync(databaseName, ClientSettings);
+
+        return await DBInstance.InitAsync(databaseName);
     }
 }

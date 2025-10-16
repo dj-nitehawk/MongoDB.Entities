@@ -48,5 +48,5 @@ public partial class DBInstance
                 includeLocs = IncludeLocations?.FullPath(),
                 key = IndexKey
             }
-            .ToFluent(options, session);
+            .ToFluent(this, options, session);
 }

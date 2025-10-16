@@ -16,7 +16,13 @@ public class Index<T> where T : IEntity
 {
     internal List<Key<T>> Keys { get; set; } = [];
     readonly CreateIndexOptions<T> _options = new() { Background = true };
+    readonly DBInstance _dbInstance;
 
+    public Index(DBInstance dbInstance)
+    {
+        _dbInstance = dbInstance;
+    }
+    
     /// <summary>
     /// Call this method to finalize defining the index after setting the index keys and options.
     /// </summary>
@@ -128,7 +134,7 @@ public class Index<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task DropAsync(string name, CancellationToken cancellation = default)
     {
-        await DB.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
+        await _dbInstance.Collection<T>().Indexes.DropOneAsync(name, cancellation).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -137,11 +143,11 @@ public class Index<T> where T : IEntity
     /// <param name="cancellation">An optional cancellation token</param>
     public async Task DropAllAsync(CancellationToken cancellation = default)
     {
-        await DB.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
+        await _dbInstance.Collection<T>().Indexes.DropAllAsync(cancellation).ConfigureAwait(false);
     }
 
-    static Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
-        => DB.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
+    Task CreateAsync(CreateIndexModel<T> model, CancellationToken cancellation = default)
+        => _dbInstance.Collection<T>().Indexes.CreateOneAsync(model, cancellationToken: cancellation);
 }
 
 class Key<T> where T : IEntity

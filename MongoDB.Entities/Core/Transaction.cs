@@ -23,7 +23,7 @@ public class Transaction : DBContext, IDisposable
     /// </param>
     public Transaction(string? database = null, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
     {
-        Session = DB.Database(database).Client.StartSession(options);
+        Session = DBInstance.Instance(database).Database().Client.StartSession(options);
         Session.StartTransaction();
         ModifiedBy = modifiedBy;
     }

@@ -9,5 +9,5 @@ public partial class DBInstance
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public Index<T> Index<T>() where T : IEntity
-        => new();
+        => new(this);
 }

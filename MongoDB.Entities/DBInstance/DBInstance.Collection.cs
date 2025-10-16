@@ -18,14 +18,14 @@ public partial class DBInstance
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
     public IMongoCollection<T> Collection<T>() where T : IEntity
-        => _mongoDatabase.GetCollection<T>(TypeCache<T>.CollectionName);
+        => _mongoDatabase.GetCollection<T>(Cache<T>.CollectionName);
 
     /// <summary>
     /// Gets the collection name for a given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity to get the collection name for</typeparam>
     public string CollectionName<T>() where T : IEntity
-        => TypeCache<T>.CollectionName;
+        => Cache<T>.CollectionName;
 
     /// <summary>
     /// Creates a collection for an Entity type explicitly using the given options
@@ -42,8 +42,8 @@ public partial class DBInstance
         options(opts);
 
         return session == null
-                   ? _mongoDatabase.CreateCollectionAsync(TypeCache<T>.CollectionName, opts, cancellation)
-                   : _mongoDatabase.CreateCollectionAsync(session, TypeCache<T>.CollectionName, opts, cancellation);
+                   ? _mongoDatabase.CreateCollectionAsync(Cache<T>.CollectionName, opts, cancellation)
+                   : _mongoDatabase.CreateCollectionAsync(session, Cache<T>.CollectionName, opts, cancellation);
     }
 
     /// <summary>

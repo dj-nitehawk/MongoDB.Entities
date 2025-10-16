@@ -53,7 +53,7 @@ public partial class DBInstance
                         cancellation));
         }
 
-        var filter = Builders<T>.Filter.In(TypeCache<T>.IdPropName, IDs);
+        var filter = Builders<T>.Filter.In(Cache<T>.IdPropName, IDs);
 
         var delResTask =
             session == null
@@ -64,7 +64,7 @@ public partial class DBInstance
 
         tasks.Add(delResTask);
 
-        if (typeof(T).BaseType == typeof(FileEntity))
+        if (typeof(T).BaseType.IsGenericType && typeof(T).BaseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
         {
             tasks.Add(
                 session == null
@@ -182,11 +182,11 @@ public partial class DBInstance
         //workaround for the newly added implicit operator in driver which matches all strings as json filters
         var jsonFilter = filter as JsonFilterDefinition<T>;
         if (jsonFilter?.Json.StartsWith("{") is false)
-            filter = Builders<T>.Filter.Eq(TypeCache<T>.IdExpression, jsonFilter.Json);
+            filter = Builders<T>.Filter.Eq(Cache<T>.IdExpression, jsonFilter.Json);
 
         var cursor = await new Find<T, object>(session, null, this)
                            .Match(_ => filter)
-                           .Project(p => p.Include(TypeCache<T>.IdPropName))
+                           .Project(p => p.Include(Cache<T>.IdPropName))
                            .Option(o => o.BatchSize = DeleteBatchSize)
                            .Option(o => o.Collation = collation)
                            .ExecuteCursorAsync(cancellation)

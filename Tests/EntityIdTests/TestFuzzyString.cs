@@ -16,7 +16,7 @@ public class FuzzyStringTestEntity
 
         await new BookEntity { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
-        var res = await DB.Queryable<BookEntity>()
+        var res = await DBInstance.Instance().Queryable<BookEntity>()
                           .Where(b => b.Review.Fuzzy!.Value == guid)
                           .SingleAsync();
 
@@ -34,7 +34,7 @@ public class FuzzyStringTestEntity
             Review = new() { Fuzzy = null }
         }.SaveAsync();
 
-        var res = await DB.Queryable<BookEntity>()
+        var res = await DBInstance.Instance().Queryable<BookEntity>()
                           .Where(b => b.Title == guid)
                           .SingleAsync();
 

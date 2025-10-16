@@ -18,7 +18,7 @@ public class UpdateAndGetUuid
         var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorUuid, string>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorUuid, string>()
                           .Match(a => a.Surname == guid)
                           .Modify(a => a.Name, guid)
                           .Modify(a => a.Surname, author1.Name)
@@ -40,7 +40,7 @@ public class UpdateAndGetUuid
         var author3 = new AuthorUuid { Name = "bumcda3", Surname = guid, Age = 1 };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorUuid>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorUuid>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
@@ -69,7 +69,7 @@ public class UpdateAndGetUuid
                        .Path(a => a.Surname)
                        .Path(a => a.Age);
 
-        var res = await DB.UpdateAndGet<AuthorUuid>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorUuid>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
@@ -91,7 +91,7 @@ public class UpdateAndGetUuid
                     .Path(a => a.Surname)
                     .RenderToString();
 
-        var res = await DB.UpdateAndGet<AuthorUuid>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorUuid>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
@@ -149,7 +149,7 @@ public class UpdateAndGetUuid
                      .Tag("age", "321")
                      .Tag("value", "updated");
 
-        var res = await DB.UpdateAndGet<BookUuid>()
+        var res = await DBInstance.Instance().UpdateAndGet<BookUuid>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilters(filters)
                           .Modify(update)
@@ -198,7 +198,7 @@ public class UpdateAndGetUuid
         var filt2 = Prop.Elements<AuthorUuid>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookUuid>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.UpdateAndGet<BookUuid>()
+        var res = await DBInstance.Instance().UpdateAndGet<BookUuid>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilter(arrFil)
                           .Modify(prop1)
@@ -224,7 +224,7 @@ public class UpdateAndGetUuid
     [TestMethod]
     public async Task next_sequential_number_for_entities_multidb()
     {
-        await DB.InitAsync("mongodb-entities-test-multi");
+        await DBInstance.InitAsync("mongodb-entities-test-multi");
 
         var book = new BookUuid();
 

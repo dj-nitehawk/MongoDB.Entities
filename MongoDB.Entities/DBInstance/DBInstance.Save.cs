@@ -24,7 +24,7 @@ public partial class DBInstance
     /// <param name="cancellation">And optional cancellation token</param>
     public Task SaveAsync<T>(T entity, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
     {
-        var filter = Builders<T>.Filter.Eq(TypeCache<T>.IdPropName, entity.GetId());
+        var filter = Builders<T>.Filter.Eq(Cache<T>.IdPropName, entity.GetId());
 
         return PrepAndCheckIfInsert(entity)
                    ? session == null
@@ -234,7 +234,7 @@ public partial class DBInstance
     {
         entity.ThrowIfUnsaved();
 
-        var propsToUpdate = TypeCache<T>.UpdatableProps(entity);
+        var propsToUpdate = Cache<T>.UpdatableProps(entity);
 
         IEnumerable<string> propsToPreserve = Array.Empty<string>();
 
@@ -263,8 +263,8 @@ public partial class DBInstance
         var defs = new List<UpdateDefinition<T>>(propsToUpdateCount);
         defs.AddRange(
             propsToUpdate.Select(
-                p => p.Name == TypeCache<T>.ModifiedOnPropName
-                         ? Builders<T>.Update.CurrentDate(TypeCache<T>.ModifiedOnPropName)
+                p => p.Name == Cache<T>.ModifiedOnPropName
+                         ? Builders<T>.Update.CurrentDate(Cache<T>.ModifiedOnPropName)
                          : Builders<T>.Update.Set(p.Name, p.GetValue(entity))));
 
         var filter = Builders<T>.Filter.Eq(entity.GetIdName(), entity.GetId());
@@ -327,15 +327,15 @@ public partial class DBInstance
         if (entity.HasDefaultID())
         {
             entity.SetId(entity.GenerateNewID());
-            if (TypeCache<T>.HasCreatedOn)
+            if (Cache<T>.HasCreatedOn)
                 ((ICreatedOn)entity).CreatedOn = DateTime.UtcNow;
-            if (TypeCache<T>.HasModifiedOn)
+            if (Cache<T>.HasModifiedOn)
                 ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
 
             return true;
         }
 
-        if (TypeCache<T>.HasModifiedOn)
+        if (Cache<T>.HasModifiedOn)
             ((IModifiedOn)entity).ModifiedOn = DateTime.UtcNow;
 
         return false;

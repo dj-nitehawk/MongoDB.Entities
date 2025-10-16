@@ -12,7 +12,7 @@ public class WatcherInt64
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Watcher<FlowerInt64>("test");
+        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -43,7 +43,8 @@ public class WatcherInt64
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var watcher = DB.Watcher<FlowerInt64>("test-with-projection");
+        var dbInstance = DBInstance.Instance();
+        var watcher = dbInstance.Watcher<FlowerInt64>("test-with-projection");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -63,12 +64,12 @@ public class WatcherInt64
             new FlowerInt64 { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
             new FlowerInt64 { Name = "test", Color = "red" },
             new FlowerInt64 { Name = "test", Color = "red" }
-        }.SaveAsync();
+        }.SaveAsync(dbInstance);
 
         var flower = new FlowerInt64 { Name = "test" };
-        await flower.SaveAsync();
+        await flower.SaveAsync(dbInstance);
 
-        await flower.DeleteAsync();
+        await flower.DeleteAsync(dbInstance);
 
         await Task.Delay(500);
 
@@ -84,7 +85,7 @@ public class WatcherInt64
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerInt64>("test-with-filter-builders");
+        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test-with-filter-builders");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -117,7 +118,7 @@ public class WatcherInt64
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerInt64>("test-with-filter-builders-csd");
+        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(

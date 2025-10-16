@@ -10,14 +10,18 @@ public static partial class Extensions
     /// <para>TIP: Try never to use this unless really necessary.</para>
     /// </summary>
     /// <typeparam name="T">Any class that implements IEntity</typeparam>
-    public static IMongoCollection<T> Collection<T>(this T _) where T : IEntity
-        => DB.Collection<T>();
+    /// <param name="_"></param>
+    /// <param name="dbInstance">The DBInstance to use for this operation</param>
+    public static IMongoCollection<T> Collection<T>(this T _, DBInstance? dbInstance = null) where T : IEntity
+        => DBInstance.InstanceOrDefault(dbInstance).Collection<T>();
 
     /// <summary>
     /// Gets the collection name for this entity
     /// </summary>
-    public static string CollectionName<T>(this T _) where T : IEntity
-        => DB.CollectionName<T>();
+    /// <param name="_"></param>
+    /// <param name="dbInstance">The DBInstance to use for this operation</param>
+    public static string CollectionName<T>(this T _, DBInstance? dbInstance = null) where T : IEntity
+        => DBInstance.InstanceOrDefault(dbInstance).CollectionName<T>();
 
     /// <summary>
     /// Drops a join collection

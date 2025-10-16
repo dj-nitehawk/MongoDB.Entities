@@ -12,7 +12,7 @@ public class GeoNearUuidTest
     [TestMethod]
     public async Task find_match_geo_method()
     {
-        await DB.Index<PlaceUuid>()
+        await DBInstance.Instance().Index<PlaceUuid>()
           .Key(x => x.Location, KeyType.Geo2DSphere)
           .Option(x => x.Background = false)
           .CreateAsync();
@@ -26,7 +26,7 @@ public class GeoNearUuidTest
             new PlaceUuid { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var res = (await DB.Find<PlaceUuid>()
+        var res = (await DBInstance.Instance().Find<PlaceUuid>()
                     .Match(p => p.Location, new(48.857908, 2.295243), 20000) //20km from eiffel tower
                     .Sort(p => p.ModifiedOn, Order.Descending)
                     .Limit(20)
@@ -40,7 +40,7 @@ public class GeoNearUuidTest
     [TestMethod]
     public async Task geo_near_fluent_interface()
     {
-        await DB.Index<PlaceUuid>()
+        await DBInstance.Instance().Index<PlaceUuid>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();
@@ -54,7 +54,7 @@ public class GeoNearUuidTest
             new PlaceUuid { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var qry = DB.FluentGeoNear<PlaceUuid>(
+        var qry = DBInstance.Instance().FluentGeoNear<PlaceUuid>(
                      NearCoordinates: new(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
@@ -69,7 +69,7 @@ public class GeoNearUuidTest
     [TestMethod]
     public async Task geo_near_transaction_returns_correct_results()
     {
-        await DB.Index<PlaceUuid>()
+        await DBInstance.Instance().Index<PlaceUuid>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();

@@ -95,9 +95,9 @@ public class DeletingUuid
         var author2 = new AuthorUuid { Name = "xxx" };
         await author2.SaveAsync();
 
-        await DB.DeleteAsync<AuthorUuid>(x => x.Name == "xxx");
+        await DBInstance.Instance().DeleteAsync<AuthorUuid>(x => x.Name == "xxx");
 
-        var count = await DB.Queryable<AuthorUuid>()
+        var count = await DBInstance.Instance().Queryable<AuthorUuid>()
                             .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
@@ -111,29 +111,29 @@ public class DeletingUuid
         for (var i = 0; i < 100100; i++)
             IDs.Add(ObjectId.GenerateNewId().ToString());
 
-        await DB.DeleteAsync<Blank>(IDs);
+        await DBInstance.Instance().DeleteAsync<Blank>(IDs);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
         //start with clean collection
-        await DB.DropCollectionAsync<Blank>();
+        await DBInstance.Instance().DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
             list.Add(new());
         await list.SaveAsync();
 
-        Assert.AreEqual(100100, DB.Queryable<Blank>().Count());
+        Assert.AreEqual(100100, DBInstance.Instance().Queryable<Blank>().Count());
 
-        await DB.DeleteAsync<Blank>(_ => true);
+        await DBInstance.Instance().DeleteAsync<Blank>(_ => true);
 
-        Assert.AreEqual(0, await DB.CountAsync<Blank>());
+        Assert.AreEqual(0, await DBInstance.Instance().CountAsync<Blank>());
 
         //reclaim disk space
-        await DB.DropCollectionAsync<Blank>();
-        await DB.SaveAsync(new Blank());
+        await DBInstance.Instance().DropCollectionAsync<Blank>();
+        await DBInstance.Instance().SaveAsync(new Blank());
     }
 
     [TestMethod]
@@ -150,7 +150,7 @@ public class DeletingUuid
         var IDs = new[] { a1.ID, a2.ID, a3.ID };
 
         var res = await db.DeleteAsync<AuthorUuid>(IDs);
-        var notDeletedIDs = await DB.Find<AuthorUuid, string?>()
+        var notDeletedIDs = await DBInstance.Instance().Find<AuthorUuid, string?>()
                                     .Match(a => IDs.Contains(a.ID))
                                     .Project(a => a.ID)
                                     .ExecuteAsync();

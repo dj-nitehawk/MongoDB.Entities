@@ -18,7 +18,7 @@ public class UpdateAndGetInt64
         var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorInt64, string>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorInt64, string>()
                           .Match(a => a.Surname == guid)
                           .Modify(a => a.Name, guid)
                           .Modify(a => a.Surname, author1.Name)
@@ -40,7 +40,7 @@ public class UpdateAndGetInt64
         var author3 = new AuthorInt64 { Name = "bumcda3", Surname = guid, Age = 1 };
         await author3.SaveAsync();
 
-        var res = await DB.UpdateAndGet<AuthorInt64>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorInt64>()
                           .Match(a => a.Surname == guid)
                           .Modify(b => b.Inc(a => a.Age, 1))
                           .Modify(b => b.Set(a => a.Name, guid))
@@ -69,7 +69,7 @@ public class UpdateAndGetInt64
                        .Path(a => a.Surname)
                        .Path(a => a.Age);
 
-        var res = await DB.UpdateAndGet<AuthorInt64>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorInt64>()
                           .Match(a => a.ID == author.ID)
                           .WithPipeline(pipeline)
                           .ExecutePipelineAsync();
@@ -91,7 +91,7 @@ public class UpdateAndGetInt64
                     .Path(a => a.Surname)
                     .RenderToString();
 
-        var res = await DB.UpdateAndGet<AuthorInt64>()
+        var res = await DBInstance.Instance().UpdateAndGet<AuthorInt64>()
                           .Match(a => a.ID == author.ID)
                           .WithPipelineStage(stage)
                           .ExecutePipelineAsync();
@@ -149,7 +149,7 @@ public class UpdateAndGetInt64
                      .Tag("age", "321")
                      .Tag("value", "updated");
 
-        var res = await DB.UpdateAndGet<BookInt64>()
+        var res = await DBInstance.Instance().UpdateAndGet<BookInt64>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilters(filters)
                           .Modify(update)
@@ -198,7 +198,7 @@ public class UpdateAndGetInt64
         var filt2 = Prop.Elements<AuthorInt64>(1, a => a.Name);
         var prop2 = Prop.PosFiltered<BookInt64>(b => b.OtherAuthors[1].Name);
 
-        var res = await DB.UpdateAndGet<BookInt64>()
+        var res = await DBInstance.Instance().UpdateAndGet<BookInt64>()
                           .Match(b => b.ID == book.ID)
                           .WithArrayFilter(arrFil)
                           .Modify(prop1)
@@ -224,7 +224,7 @@ public class UpdateAndGetInt64
     [TestMethod]
     public async Task next_sequential_number_for_entities_multidb()
     {
-        await DB.InitAsync("mongodb-entities-test-multi");
+        await  DBInstance.InitAsync("mongodb-entities-test-multi");
 
         var book = new BookInt64();
 

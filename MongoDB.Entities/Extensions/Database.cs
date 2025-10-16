@@ -12,14 +12,14 @@ public static partial class Extensions
     /// Gets the IMongoDatabase for the given entity type
     /// </summary>
     /// <typeparam name="T">The type of entity</typeparam>
-    public static IMongoDatabase Database<T>(this T _) where T : IEntity
-        => DB.Database<T>();
+    public static IMongoDatabase Database<T>(this T _, DBInstance? dbInstance = null) where T : IEntity
+        => DBInstance.InstanceOrDefault(dbInstance).Database<T>();
 
     /// <summary>
     /// Gets the name of the database this entity is attached to. Returns name of default database if not specifically attached.
     /// </summary>
-    public static string DatabaseName<T>(this T _) where T : IEntity
-        => DB.DatabaseName<T>();
+    public static string DatabaseName<T>(this T _, DBInstance? dbInstance = null) where T : IEntity
+        => DBInstance.InstanceOrDefault(dbInstance).DatabaseName<T>();
 
     /// <summary>
     /// Pings the mongodb server to check if it's still connectable

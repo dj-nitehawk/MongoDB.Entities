@@ -69,7 +69,7 @@ public class SavingEntity
         var author = new AuthorEntity { Name = "test" };
         await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorEntity, DateTime>()
+        var res = (await DBInstance.Instance().Find<AuthorEntity, DateTime>()
                            .Match(a => a.ID == author.ID)
                            .Project(a => a.CreatedOn)
                            .ExecuteAsync())
@@ -86,7 +86,9 @@ public class SavingEntity
 
         await book.SaveOnlyAsync(b => new { b.Title });
 
-        var res = await DB.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
+        var dbInstance = DBInstance.Instance();
+        
+        var res = await dbInstance.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
@@ -95,7 +97,7 @@ public class SavingEntity
 
         await res.SaveOnlyAsync(b => new { b.Price });
 
-        res = await DB.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await dbInstance.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(200, res!.Price);
     }
@@ -107,7 +109,9 @@ public class SavingEntity
 
         await book.SaveOnlyAsync(new List<string> { "Title" });
 
-        var res = await DB.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
+        var dbInstance = DBInstance.Instance();
+        
+        var res = await dbInstance.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(0, res!.Price);
         Assert.AreEqual("test book", res.Title);
@@ -116,7 +120,7 @@ public class SavingEntity
 
         await res.SaveOnlyAsync(new List<string> { "Price" });
 
-        res = await DB.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await dbInstance.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(200, res!.Price);
     }
@@ -133,10 +137,12 @@ public class SavingEntity
         await books.SaveOnlyAsync(b => new { b.Title });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookEntity>()
-                          .Match(b => ids.Contains(b.ID))
-                          .Sort(b => b.ID, Order.Ascending)
-                          .ExecuteAsync();
+        var dbInstance = DBInstance.Instance();
+        
+        var res = await dbInstance.Find<BookEntity>()
+                                  .Match(b => ids.Contains(b.ID))
+                                  .Sort(b => b.ID, Order.Ascending)
+                                  .ExecuteAsync();
 
         Assert.AreEqual(0, res[0].Price);
         Assert.AreEqual(0, res[1].Price);
@@ -156,7 +162,7 @@ public class SavingEntity
         await books.SaveOnlyAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookEntity>()
+        var res = await DBInstance.Instance().Find<BookEntity>()
                           .Match(b => ids.Contains(b.ID))
                           .Sort(b => b.ID, Order.Ascending)
                           .ExecuteAsync();
@@ -174,7 +180,9 @@ public class SavingEntity
 
         await book.SaveExceptAsync(b => new { b.Title });
 
-        var res = await DB.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
+        var dbInstance = DBInstance.Instance();
+        
+        var res = await dbInstance.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
@@ -183,7 +191,7 @@ public class SavingEntity
 
         await res.SaveExceptAsync(b => new { b.Price });
 
-        res = await DB.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await dbInstance.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual("updated", res!.Title);
     }
@@ -195,7 +203,9 @@ public class SavingEntity
 
         await book.SaveExceptAsync(new List<string> { "Title" });
 
-        var res = await DB.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
+        var dbInstance = DBInstance.Instance();
+        
+        var res = await dbInstance.Find<BookEntity>().MatchID(book.ID).ExecuteSingleAsync();
 
         Assert.AreEqual(100, res!.Price);
         Assert.AreEqual(null, res.Title);
@@ -204,7 +214,7 @@ public class SavingEntity
 
         await res.SaveExceptAsync(new List<string> { "Price" });
 
-        res = await DB.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
+        res = await dbInstance.Find<BookEntity>().MatchID(res.ID).ExecuteSingleAsync();
 
         Assert.AreEqual("updated", res!.Title);
     }
@@ -221,7 +231,7 @@ public class SavingEntity
         await books.SaveExceptAsync(b => new { b.Title });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookEntity>()
+        var res = await DBInstance.Instance().Find<BookEntity>()
                           .Match(b => ids.Contains(b.ID))
                           .Sort(b => b.ID, Order.Ascending)
                           .ExecuteAsync();
@@ -244,7 +254,7 @@ public class SavingEntity
         await books.SaveExceptAsync(new List<string> { "Title" });
         var ids = books.Select(b => b.ID).ToArray();
 
-        var res = await DB.Find<BookEntity>()
+        var res = await DBInstance.Instance().Find<BookEntity>()
                           .Match(b => ids.Contains(b.ID))
                           .Sort(b => b.ID, Order.Ascending)
                           .ExecuteAsync();
@@ -266,7 +276,7 @@ public class SavingEntity
 
         await book.SavePreservingAsync();
 
-        book = await DB.Find<BookEntity>().OneAsync(book.ID);
+        book = await DBInstance.Instance().Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
@@ -284,7 +294,7 @@ public class SavingEntity
 
         await book.SavePreservingAsync();
 
-        book = await DB.Find<BookEntity>().OneAsync(book.ID);
+        book = await DBInstance.Instance().Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual("updated title", book!.Title);
         Assert.AreEqual(543.21m, book.Price);
@@ -310,7 +320,7 @@ public class SavingEntity
 
         await book.SavePreservingAsync();
 
-        var res = await DB.Find<BookEntity>().OneAsync(book.ID);
+        var res = await DBInstance.Instance().Find<BookEntity>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.Title, book.Title);
         Assert.AreEqual(res.Price, book.Price);
@@ -339,7 +349,7 @@ public class SavingEntity
 
         await author.SavePreservingAsync();
 
-        var res = await DB.Find<AuthorEntity>().OneAsync(author.ID);
+        var res = await DBInstance.Instance().Find<AuthorEntity>().OneAsync(author.ID);
 
         Assert.AreEqual("updated author name", res!.Name);
         Assert.AreEqual(123, res.Age);
@@ -526,7 +536,7 @@ public class SavingEntity
         var author2 = new AuthorEntity { Name = guid };
         await author2.SaveAsync();
 
-        var res = await DB.Find<AuthorEntity>().ManyAsync(a => a.Name == guid);
+        var res = await DBInstance.Instance().Find<AuthorEntity>().ManyAsync(a => a.Name == guid);
 
         Assert.AreEqual(2, res.Count);
     }
@@ -539,8 +549,10 @@ public class SavingEntity
         var book2 = new BookEntity { Title = "fbircdb2" };
         await book2.SaveAsync();
 
-        var res1 = await DB.Find<BookEntity>().OneAsync(ObjectId.GenerateNewId().ToString()!);
-        var res2 = await DB.Find<BookEntity>().OneAsync(book2.ID);
+        var dbInstance = new MyDBEntity();
+        
+        var res1 = await dbInstance.Find<BookEntity>().OneAsync(ObjectId.GenerateNewId().ToString()!);
+        var res2 = await dbInstance.Find<BookEntity>().OneAsync(book2.ID);
 
         Assert.AreEqual(null, res1);
         Assert.AreEqual(book2.ID, res2!.ID);
@@ -555,7 +567,7 @@ public class SavingEntity
         var author2 = new AuthorEntity { Name = guid };
         await author2.SaveAsync();
 
-        var res = await DB.Find<AuthorEntity>().ManyAsync(f => f.Eq(a => a.Name, guid));
+        var res = await DBInstance.Instance().Find<AuthorEntity>().ManyAsync(f => f.Eq(a => a.Name, guid));
 
         Assert.AreEqual(2, res.Count);
     }
@@ -569,7 +581,7 @@ public class SavingEntity
         var author2 = new AuthorEntity { Name = guid };
         await author2.SaveAsync();
 
-        var res = await DB
+        var res = await DBInstance.Instance()
                         .Find<AuthorEntity>()
                         .Match(f => f.Eq(a => a.Name, guid))
                         .ExecuteFirstAsync();
@@ -586,7 +598,7 @@ public class SavingEntity
         var author2 = new AuthorEntity { Name = guid };
         await author2.SaveAsync();
 
-        var res = await DB
+        var res = await DBInstance.Instance()
                         .Find<AuthorEntity>()
                         .Match(f => f.Eq(a => a.Name, guid))
                         .ExecuteAnyAsync();
@@ -607,7 +619,7 @@ public class SavingEntity
         var four = new AuthorEntity { Name = "d", Age = 40, Surname = guid };
         await four.SaveAsync();
 
-        var res = await DB.Find<AuthorEntity>()
+        var res = await DBInstance.Instance().Find<AuthorEntity>()
                           .Match(a => a.Age > 10)
                           .Match(a => a.Surname == guid)
                           .ExecuteAsync();
@@ -629,7 +641,7 @@ public class SavingEntity
         var four = new AuthorEntity { Name = "d", Age = 40, Surname = guid };
         await four.SaveAsync();
 
-        var res = await DB.Find<AuthorEntity>()
+        var res = await DBInstance.Instance().Find<AuthorEntity>()
                           .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
                           .Sort(a => a.Age, Order.Descending)
                           .Sort(a => a.Name, Order.Descending)
@@ -660,7 +672,7 @@ public class SavingEntity
         var four = new AuthorEntity { Name = "d", Age = 40, Surname = guid };
         await four.SaveAsync();
 
-        var res = (await DB.Find<AuthorEntity, Test>()
+        var res = (await DBInstance.Instance().Find<AuthorEntity, Test>()
                            .Match(f => f.Where(a => a.Surname == guid) & f.Gt(a => a.Age, 10))
                            .Sort(a => a.Age, Order.Descending)
                            .Sort(a => a.Name, Order.Descending)
@@ -686,7 +698,7 @@ public class SavingEntity
         };
         await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorEntity>()
+        var res = (await DBInstance.Instance().Find<AuthorEntity>()
                            .Match(a => a.ID == author.ID)
                            .ProjectExcluding(a => new { a.Age, a.Name })
                            .ExecuteAsync())
@@ -711,7 +723,7 @@ public class SavingEntity
         var four = new AuthorEntity { Name = "d", Age = 40, Surname = guid };
         await four.SaveAsync();
 
-        var res = await DB.Fluent<AuthorEntity>()
+        var res = await DBInstance.Instance().Fluent<AuthorEntity>()
                           .Match(a => a.Surname == guid && a.Age > 10)
                           .SortByDescending(a => a.Age)
                           .ThenByDescending(a => a.Name)
@@ -730,7 +742,7 @@ public class SavingEntity
         var author = new AuthorEntity { Name = "a", Age = 10, Age2 = 11, Surname = guid };
         await author.SaveAsync();
 
-        var res = (await DB.Find<AuthorEntity>()
+        var res = (await DBInstance.Instance().Find<AuthorEntity>()
                            .MatchExpression("{$and:[{$gt:['$Age2','$Age']},{$eq:['$Surname','" + guid + "']}]}")
                            .ExecuteAsync())
             .Single();
@@ -751,7 +763,7 @@ public class SavingEntity
                        .Path(a => a.Surname)
                        .Tag("guid", guid);
 
-        var res = (await DB.Find<AuthorEntity>()
+        var res = (await DBInstance.Instance().Find<AuthorEntity>()
                            .MatchExpression(template)
                            .ExecuteAsync())
             .Single();
@@ -766,7 +778,7 @@ public class SavingEntity
         var author = new AuthorEntity { Name = "a", Age = 10, Age2 = 11, Surname = guid };
         await author.SaveAsync();
 
-        var res = await DB.Fluent<AuthorEntity>()
+        var res = await DBInstance.Instance().Fluent<AuthorEntity>()
                           .Match(a => a.Surname == guid)
                           .MatchExpression("{$gt:['$Age2','$Age']}")
                           .SingleAsync();
@@ -785,7 +797,7 @@ public class SavingEntity
         };
         await review.SaveAsync();
 
-        var res = await DB.Find<ReviewEntity>()
+        var res = await DBInstance.Instance().Find<ReviewEntity>()
                           .MatchID(review.Id)
                           .Project(r => new() { Rating = r.Rating })
                           .IncludeRequiredProps()
@@ -807,7 +819,7 @@ public class SavingEntity
         };
         await review.SaveAsync();
 
-        var res = await DB.UpdateAndGet<ReviewEntity>()
+        var res = await DBInstance.Instance().UpdateAndGet<ReviewEntity>()
                           .MatchID(review.Id)
                           .Modify(r => r.Rating, 10)
                           .Project(r => new() { Rating = r.Rating })
@@ -828,7 +840,7 @@ public class SavingEntity
         var book2 = new BookEntity { Title = guid, Price = 100.123m };
         await book2.SaveAsync();
 
-        var res = DB.Queryable<BookEntity>()
+        var res = DBInstance.Instance().Queryable<BookEntity>()
                     .Where(b => b.Title == guid)
                     .GroupBy(b => b.Title)
                     .Select(
@@ -850,7 +862,7 @@ public class SavingEntity
         };
         await author.SaveAsync();
 
-        var res = await DB.Find<AuthorEntity>().OneAsync(author.ID);
+        var res = await DBInstance.Instance().Find<AuthorEntity>().OneAsync(author.ID);
 
         Assert.IsTrue(res!.Age == 0);
         Assert.IsTrue(res.Birthday == null);
@@ -862,7 +874,7 @@ public class SavingEntity
         var customer = new CustomerWithCustomID();
         await customer.SaveAsync();
 
-        var res = await DB.Find<CustomerWithCustomID>().OneAsync(customer.ID);
+        var res = await DBInstance.Instance().Find<CustomerWithCustomID>().OneAsync(customer.ID);
 
         Assert.AreEqual(res!.ID, customer.ID);
     }
@@ -883,7 +895,7 @@ public class SavingEntity
         var res = await book.Customer.ToEntityAsync();
         Assert.AreEqual(res.ID, customer.ID);
 
-        var cus = await DB.Queryable<BookEntity>()
+        var cus = await DBInstance.Instance().Queryable<BookEntity>()
                           .Where(b => b.Customer.ID == customer.ID)
                           .Select(b => b.Customer)
                           .SingleOrDefaultAsync();
@@ -894,7 +906,7 @@ public class SavingEntity
     public async Task custom_id_override_string()
     {
         var e = new CustomIDOverride();
-        await DB.SaveAsync(e);
+        await DBInstance.Instance().SaveAsync(e);
         await Task.Delay(100);
 
         var creationTime = new DateTime(long.Parse(e.ID));

@@ -22,7 +22,7 @@ public class DistinctUuid
             new AuthorUuid{ Name = guid2 },
         }.SaveAsync();
 
-        var res = await DB.Distinct<AuthorUuid, string>()
+        var res = await DBInstance.Instance().Distinct<AuthorUuid, string>()
             .Match(a => guids.Contains(a.Name))
             .Property(a => a.Name)
             .ExecuteAsync();

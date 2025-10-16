@@ -12,7 +12,7 @@ public class WatcherObjectId
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DB.Watcher<FlowerObjectId>("test");
+        var watcher = DBInstance.Instance().Watcher<FlowerObjectId>("test");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -43,7 +43,8 @@ public class WatcherObjectId
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-projection");
+        var dbInstance = DBInstance.Instance();
+        var watcher = dbInstance.Watcher<FlowerObjectId>("test-with-projection");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -63,12 +64,12 @@ public class WatcherObjectId
             new FlowerObjectId { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
             new FlowerObjectId { Name = "test", Color = "red" },
             new FlowerObjectId { Name = "test", Color = "red" }
-        }.SaveAsync();
+        }.SaveAsync(dbInstance);
 
         var flower = new FlowerObjectId { Name = "test" };
-        await flower.SaveAsync();
+        await flower.SaveAsync(dbInstance);
 
-        await flower.DeleteAsync();
+        await flower.DeleteAsync(dbInstance);
 
         await Task.Delay(500);
 
@@ -84,7 +85,7 @@ public class WatcherObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-filter-builders");
+        var watcher = DBInstance.Instance().Watcher<FlowerObjectId>("test-with-filter-builders");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(
@@ -117,7 +118,7 @@ public class WatcherObjectId
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DB.Watcher<FlowerObjectId>("test-with-filter-builders-csd");
+        var watcher = DBInstance.Instance().Watcher<FlowerObjectId>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerObjectId>();
 
         watcher.Start(

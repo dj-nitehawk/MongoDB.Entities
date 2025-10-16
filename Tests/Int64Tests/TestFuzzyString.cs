@@ -16,7 +16,7 @@ public class FuzzyStringTestInt64
 
         await new BookInt64 { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
-        var res = await DB.Queryable<BookInt64>()
+        var res = await DBInstance.Instance().Queryable<BookInt64>()
                           .Where(b => b.Review.Fuzzy!.Value == guid)
                           .SingleAsync();
 
@@ -30,7 +30,7 @@ public class FuzzyStringTestInt64
 
         await new BookInt64 { Title = guid, Review = new() { Fuzzy = null! } }.SaveAsync();
 
-        var res = await DB.Queryable<BookInt64>()
+        var res = await DBInstance.Instance().Queryable<BookInt64>()
                           .Where(b => b.Title == guid)
                           .SingleAsync();
 

@@ -76,12 +76,12 @@ public class GeoNear<T> where T : IEntity
     [BsonIgnoreIfNull]
     public string? key { get; set; }
 
-    internal IAggregateFluent<T> ToFluent(AggregateOptions? options = null, IClientSessionHandle? session = null)
+    internal IAggregateFluent<T> ToFluent(DBInstance dbInstance, AggregateOptions? options = null, IClientSessionHandle? session = null)
     {
         var stage = new BsonDocument { { "$geoNear", this.ToBsonDocument() } };
 
         return session == null
-                   ? DB.Collection<T>().Aggregate(options).AppendStage<T>(stage)
-                   : DB.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
+                   ? dbInstance.Collection<T>().Aggregate(options).AppendStage<T>(stage)
+                   : dbInstance.Collection<T>().Aggregate(session, options).AppendStage<T>(stage);
     }
 }

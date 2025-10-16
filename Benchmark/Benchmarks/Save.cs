@@ -26,11 +26,11 @@ public class SavePartialVsUpdate : BenchBase
     [Benchmark(Baseline = true)]
     public Task Update()
     {
-        return DB.Update<Author>()
-            .MatchID(author.ID)
-            .Modify(a => a.FirstName, "updated")
-            .Modify(a => a.LastName, "updated")
-            .ExecuteAsync();
+        return DBInstance.Instance().Update<Author>()
+                         .MatchID(author.ID)
+                         .Modify(a => a.FirstName, "updated")
+                         .Modify(a => a.LastName, "updated")
+                         .ExecuteAsync();
     }
 
     [Benchmark]
@@ -76,7 +76,7 @@ public class DBContextVsStaticSave : BenchBase
     public Task DB_Static()
     {
         author.ID = null!;
-        return DB.SaveAsync(author);
+        return DBInstance.Instance().SaveAsync(author);
     }
 
     public override Task MongoDB_Entities() => throw new NotImplementedException();

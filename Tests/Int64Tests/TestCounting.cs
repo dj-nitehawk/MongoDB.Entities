@@ -68,7 +68,7 @@ public class CountingInt64
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DB.Filter<AuthorInt64>()
+        var filter = DBInstance.Instance().Filter<AuthorInt64>()
                         .Eq(a => a.Name, guid);
 
         var count = await db.CountAsync(filter);

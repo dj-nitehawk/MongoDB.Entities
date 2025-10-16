@@ -15,7 +15,7 @@ public class Watcher : BenchBase
     {
         var cts = new CancellationTokenSource();
 
-        var watcher = DB.Watcher<Book>(Guid.NewGuid().ToString());
+        var watcher = DBInstance.Instance().Watcher<Book>(Guid.NewGuid().ToString());
 
         watcher.OnChangesCSD += csDocs =>
         {
