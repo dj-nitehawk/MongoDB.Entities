@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Inserts a new entity into the collection.

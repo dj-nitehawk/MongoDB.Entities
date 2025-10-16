@@ -13,24 +13,24 @@ public static partial class Extensions
     /// <para>HINT: If this entity is referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
     /// </summary>
     /// <param name="entity"></param>
-    /// <param name="dbInstance">The DBInstance to use for this operation</param>
+    /// <param name="db">The DBInstance to use for this operation</param>
     /// <param name="session"></param>
     /// <param name="cancellation">An optional cancellation token</param>
-    public static Task<DeleteResult> DeleteAsync<T>(this T entity, DBInstance? dbInstance = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
+    public static Task<DeleteResult> DeleteAsync<T>(this T entity, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default)
         where T : IEntity
-        => DBInstance.InstanceOrDefault(dbInstance).DeleteAsync<T>(entity.GetId(), session, cancellation);
+        => DB.InstanceOrDefault(db).DeleteAsync<T>(entity.GetId(), session, cancellation);
 
     /// <summary>
     /// Deletes multiple entities from the database
     /// <para>HINT: If these entities are referenced by one-to-many/many-to-many relationships, those references are also deleted.</para>
     /// </summary>
     /// <param name="entities"></param>
-    /// <param name="dbInstance">The DBInstance to use for this operation</param>
+    /// <param name="db">The DBInstance to use for this operation</param>
     /// <param name="session"></param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<DeleteResult> DeleteAllAsync<T>(this IEnumerable<T> entities,
-                                                       DBInstance? dbInstance = null,
+                                                       DB? db = null,
                                                        IClientSessionHandle? session = null,
                                                        CancellationToken cancellation = default) where T : IEntity
-        => DBInstance.InstanceOrDefault(dbInstance).DeleteAsync<T>(entities.Select(Cache<T>.IdSelector), session, cancellation);
+        => DB.InstanceOrDefault(db).DeleteAsync<T>(entities.Select(Cache<T>.IdSelector), session, cancellation);
 }

@@ -12,9 +12,9 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task find_match_geo_method()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.Index<PlaceEntity>()
+        await db.Index<PlaceEntity>()
           .Key(x => x.Location, KeyType.Geo2DSphere)
           .Option(x => x.Background = false)
           .CreateAsync();
@@ -28,7 +28,7 @@ public class GeoNearEntityTest
             new PlaceEntity { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var res = (await dbInstance.Find<PlaceEntity>()
+        var res = (await db.Find<PlaceEntity>()
                     .Match(p => p.Location, new(48.857908, 2.295243), 20000) //20km from eiffel tower
                     .Sort(p => p.ModifiedOn, Order.Descending)
                     .Limit(20)
@@ -42,9 +42,9 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task geo_near_fluent_interface()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.Index<PlaceEntity>()
+        await db.Index<PlaceEntity>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();
@@ -58,7 +58,7 @@ public class GeoNearEntityTest
             new PlaceEntity { Name = "Poissy "+ guid, Location = new(48.928860, 2.046889) }
         }.SaveAsync();
 
-        var qry = dbInstance.FluentGeoNear<PlaceEntity>(
+        var qry = db.FluentGeoNear<PlaceEntity>(
                      NearCoordinates: new(48.857908, 2.295243), //eiffel tower
                      DistanceField: x => x.DistanceKM,
                      MaxDistance: 20000);
@@ -73,7 +73,7 @@ public class GeoNearEntityTest
     [TestMethod]
     public async Task geo_near_transaction_returns_correct_results()
     {
-        await DBInstance.Instance().Index<PlaceEntity>()
+        await DB.Instance().Index<PlaceEntity>()
             .Key(x => x.Location, KeyType.Geo2DSphere)
             .Option(x => x.Background = false)
             .CreateAsync();

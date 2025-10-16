@@ -19,8 +19,8 @@ public class UpdateAndGet<T> : UpdateAndGet<T, T> where T : IEntity
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                           Action<UpdateBase<T>>? onUpdateAction,
-                          DBInstance dbInstance)
-        : base(session, globalFilters, onUpdateAction, dbInstance) { }
+                          DB db)
+        : base(session, globalFilters, onUpdateAction, db) { }
 }
 
 /// <summary>
@@ -37,18 +37,18 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal UpdateAndGet(IClientSessionHandle? session,
                           Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                           Action<UpdateBase<T>>? onUpdateAction,
-                          DBInstance dbInstance)
+                          DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
-        _dbInstance = dbInstance;
+        _db = db;
     }
 
     /// <summary>
@@ -476,6 +476,6 @@ public class UpdateAndGet<T, TProjection> : UpdateBase<T> where T : IEntity
                                                IClientSessionHandle? session = null,
                                                CancellationToken cancellation = default)
         => session == null
-               ? _dbInstance.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
-               : _dbInstance.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
+               ? _db.Collection<T>().FindOneAndUpdateAsync(filter, definition, options, cancellation)
+               : _db.Collection<T>().FindOneAndUpdateAsync(session, filter, definition, options, cancellation);
 }

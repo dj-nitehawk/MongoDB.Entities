@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Gets a transaction context/scope for a given database or the default database if not specified.

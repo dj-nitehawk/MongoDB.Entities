@@ -4,7 +4,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Exposes the MongoDB collection for the given IEntity as an IQueryable in order to facilitate LINQ queries.

@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     internal IMongoCollection<JoinRecord> GetRefCollection<T>(string name) where T : IEntity
         => Database<T>().GetCollection<JoinRecord>(name);

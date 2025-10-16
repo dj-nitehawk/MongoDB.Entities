@@ -95,9 +95,9 @@ public class DeletingInt64
         var author2 = new AuthorInt64 { Name = "xxx" };
         await author2.SaveAsync();
 
-        await DBInstance.Instance().DeleteAsync<AuthorInt64>(x => x.Name == "xxx");
+        await DB.Instance().DeleteAsync<AuthorInt64>(x => x.Name == "xxx");
 
-        var count = await DBInstance.Instance().Queryable<AuthorInt64>()
+        var count = await DB.Instance().Queryable<AuthorInt64>()
                             .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
@@ -111,29 +111,29 @@ public class DeletingInt64
         for (var i = 0; i < 100100; i++)
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
 
-        await DBInstance.Instance().DeleteAsync<Blank>(IDs);
+        await DB.Instance().DeleteAsync<Blank>(IDs);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting"), TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
         //start with clean collection
-        await DBInstance.Instance().DropCollectionAsync<Blank>();
+        await DB.Instance().DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
             list.Add(new());
         await list.SaveAsync();
 
-        Assert.AreEqual(100100, DBInstance.Instance().Queryable<Blank>().Count());
+        Assert.AreEqual(100100, DB.Instance().Queryable<Blank>().Count());
 
-        await DBInstance.Instance().DeleteAsync<Blank>(_ => true);
+        await DB.Instance().DeleteAsync<Blank>(_ => true);
 
-        Assert.AreEqual(0, await DBInstance.Instance().CountAsync<Blank>());
+        Assert.AreEqual(0, await DB.Instance().CountAsync<Blank>());
 
         //reclaim disk space
-        await DBInstance.Instance().DropCollectionAsync<Blank>();
-        await DBInstance.Instance().SaveAsync(new Blank());
+        await DB.Instance().DropCollectionAsync<Blank>();
+        await DB.Instance().SaveAsync(new Blank());
     }
 
     [TestMethod]
@@ -150,7 +150,7 @@ public class DeletingInt64
         var IDs = new object[] { a1.ID, a2.ID, a3.ID };
 
         var res = await db.DeleteAsync<AuthorInt64>(IDs);
-        var notDeletedIDs = await DBInstance.Instance().Find<AuthorInt64, long?>()
+        var notDeletedIDs = await DB.Instance().Find<AuthorInt64, long?>()
                                     .Match(a => IDs.Contains(a.ID))
                                     .Project(a => a.ID)
                                     .ExecuteAsync();

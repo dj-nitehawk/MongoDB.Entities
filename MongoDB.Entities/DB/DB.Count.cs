@@ -7,7 +7,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Gets a fast estimation of how many documents are in the collection using metadata.

@@ -14,13 +14,13 @@ public class ReplaceObjectId
 
         book.Title = "updated title";
 
-        await DBInstance.Instance().Replace<BookObjectId>()
+        await DB.Instance().Replace<BookObjectId>()
             .MatchID(book.ID)
             .Match(b => b.Title == "book title")
             .WithEntity(book)
             .ExecuteAsync();
 
-        var res = await DBInstance.Instance().Find<BookObjectId>().OneAsync(book.ID);
+        var res = await DB.Instance().Find<BookObjectId>().OneAsync(book.ID);
 
         Assert.AreEqual(book.Title, res!.Title);
     }
@@ -33,7 +33,7 @@ public class ReplaceObjectId
         var books = new[] { book1, book2 };
         await books.SaveAsync();
 
-        var cmd = DBInstance.Instance().Replace<BookObjectId>();
+        var cmd = DB.Instance().Replace<BookObjectId>();
 
         foreach (var book in books)
         {
@@ -45,8 +45,8 @@ public class ReplaceObjectId
 
         await cmd.ExecuteAsync();
 
-        var res1 = await DBInstance.Instance().Find<BookObjectId>().OneAsync(book1.ID);
-        var res2 = await DBInstance.Instance().Find<BookObjectId>().OneAsync(book2.ID);
+        var res1 = await DB.Instance().Find<BookObjectId>().OneAsync(book1.ID);
+        var res2 = await DB.Instance().Find<BookObjectId>().OneAsync(book2.ID);
 
         Assert.AreEqual(book1.ID.ToString(), res1!.Title);
         Assert.AreEqual(book2.ID.ToString(), res2!.Title);

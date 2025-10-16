@@ -14,7 +14,7 @@ public class PagedSearchUuid
     {
         var guid = Guid.Empty.ToString();
 
-        var (Results, _, PageCount) =  await DBInstance.Instance()
+        var (Results, _, PageCount) =  await DB.Instance()
                                             .PagedSearch<BookUuid>()
                                             .Match(b => b.ID == guid)
                                             .Sort(b => b.ID, Order.Ascending)
@@ -43,7 +43,7 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DBInstance.Instance()
+        var (Results, _, PageCount) = await DB.Instance()
                                                       .PagedSearch<BookUuid>()
                                                       .Match(b => b.Title == guid)
                                                       .Sort(b => b.ID, Order.Ascending)
@@ -62,7 +62,7 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var (Results, _, PageCount) = await DBInstance.Instance()
+        var (Results, _, PageCount) = await DB.Instance()
                                                       .PagedSearch<BookUuid>()
                                                       .Match(b => b.Title == guid)
                                                       .Sort(b => b.ID, Order.Ascending)
@@ -81,10 +81,10 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        var pipeline = DBInstance.Instance().Fluent<BookUuid>()
+        var pipeline = DB.Instance().Fluent<BookUuid>()
                          .Match(b => b.Title == guid);
 
-        var (Results, _, PageCount) = await DBInstance.Instance()
+        var (Results, _, PageCount) = await DB.Instance()
                                                       .PagedSearch<BookUuid>()
                                                       .WithFluent(pipeline)
                                                       .Sort(b => b.ID, Order.Ascending)
@@ -109,7 +109,7 @@ public class PagedSearchUuid
 
         await SeedData(guid);
 
-        await DBInstance.Instance()
+        await DB.Instance()
                         .PagedSearch<BookUuid, BookResult>()
                         .Match(b => b.Title == guid)
                         .Sort(b => b.ID, Order.Ascending)
@@ -122,9 +122,9 @@ public class PagedSearchUuid
     [TestMethod]
     public async Task sort_by_meta_text_score_with_projection()
     {
-        await DBInstance.Instance().DropCollectionAsync<GenreUuid>();
+        await DB.Instance().DropCollectionAsync<GenreUuid>();
 
-        await DBInstance.Instance().Index<GenreUuid>()
+        await DB.Instance().Index<GenreUuid>()
                 .Key(g => g.Name, KeyType.Text)
                 .Option(o => o.Background = false)
                 .CreateAsync();
@@ -142,7 +142,7 @@ public class PagedSearchUuid
 
         await list.SaveAsync();
 
-        var (Results, _, _) = await DBInstance.Instance()
+        var (Results, _, _) = await DB.Instance()
                                               .PagedSearch<GenreUuid>()
                                               .Match(Search.Full, "one eight nine")
                                               .Project(p => new() { Name = p.Name, Position = p.Position })
@@ -157,9 +157,9 @@ public class PagedSearchUuid
     [TestMethod]
     public async Task sort_by_meta_text_score_no_projection()
     {
-        await DBInstance.Instance().DropCollectionAsync<GenreUuid>();
+        await DB.Instance().DropCollectionAsync<GenreUuid>();
 
-        await DBInstance.Instance().Index<GenreUuid>()
+        await DB.Instance().Index<GenreUuid>()
                 .Key(g => g.Name, KeyType.Text)
                 .Option(o => o.Background = false)
                 .CreateAsync();
@@ -177,7 +177,7 @@ public class PagedSearchUuid
 
         await list.SaveAsync();
 
-        var (Results, _, _) = await DBInstance.Instance()
+        var (Results, _, _) = await DB.Instance()
                                               .PagedSearch<GenreUuid>()
                                               .Match(Search.Full, "one eight nine")
                                               .SortByTextScore()
@@ -200,7 +200,7 @@ public class PagedSearchUuid
         };
         await author.SaveAsync();
 
-        var (res, _, _) = await DBInstance.Instance().PagedSearch<AuthorUuid>()
+        var (res, _, _) = await DB.Instance().PagedSearch<AuthorUuid>()
                                   .Match(a => a.ID == author.ID)
                                   .Sort(a => a.ID, Order.Ascending)
                                   .ProjectExcluding(a => new { a.Age, a.Name })

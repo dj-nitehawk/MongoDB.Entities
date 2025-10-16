@@ -16,7 +16,7 @@ public class FuzzyStringTesUuid
 
         await new BookUuid { Title = "fstsarw", Review = new() { Fuzzy = guid.ToFuzzy() } }.SaveAsync();
 
-        var res = await DBInstance.Instance().Queryable<BookUuid>()
+        var res = await DB.Instance().Queryable<BookUuid>()
                           .Where(b => b.Review.Fuzzy!.Value == guid)
                           .SingleAsync();
 
@@ -30,7 +30,7 @@ public class FuzzyStringTesUuid
 
         await new BookUuid { Title = guid, Review = new() { Fuzzy = null! } }.SaveAsync();
 
-        var res = await DBInstance.Instance().Queryable<BookUuid>()
+        var res = await DB.Instance().Queryable<BookUuid>()
                           .Where(b => b.Title == guid)
                           .SingleAsync();
 

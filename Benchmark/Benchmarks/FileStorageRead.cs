@@ -45,7 +45,7 @@ public class FileStorageRead : BenchBase
     public override Task MongoDB_Entities()
     {
         memStream.Position = 0;
-        return DBInstance.Instance().File<File>(fEntityID).DownloadAsync(memStream);
+        return DB.Instance().File<File>(fEntityID).DownloadAsync(memStream);
     }
 
     [Benchmark(Baseline = true)]

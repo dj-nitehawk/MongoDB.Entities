@@ -68,7 +68,7 @@ public class CountingUuid
         var guid = Guid.NewGuid().ToString();
         await Init(guid);
 
-        var filter = DBInstance.Instance().Filter<AuthorUuid>()
+        var filter = DB.Instance().Filter<AuthorUuid>()
                         .Eq(a => a.Name, guid);
 
         var count = await db.CountAsync(filter);

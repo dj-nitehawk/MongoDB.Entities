@@ -15,9 +15,9 @@ namespace MongoDB.Entities;
 /// <summary>
 /// The main entrypoint for all data access methods of the library
 /// </summary>
-public partial class DBInstance
+public partial class DB
 {
-    static DBInstance()
+    static DB()
     {
         BsonSerializer.RegisterSerializer(new DateSerializer());
         BsonSerializer.RegisterSerializer(new FuzzyStringSerializer());
@@ -36,12 +36,12 @@ public partial class DBInstance
 
     internal IServiceProvider? ServiceProvider { get; private set; }
 
-    static readonly ConcurrentDictionary<string, DBInstance> _instances = new();
-    static DBInstance _defaultInstance = null!; // to be set on first InitAsync call
+    static readonly ConcurrentDictionary<string, DB> _instances = new();
+    static DB _defaultInstance = null!; // to be set on first InitAsync call
+
+    readonly IMongoDatabase _mongoDatabase;
     
-    IMongoDatabase _mongoDatabase;
-    
-    private DBInstance(IMongoDatabase db)
+    private DB(IMongoDatabase db)
     {
         _mongoDatabase = db;
     }
@@ -56,7 +56,7 @@ public partial class DBInstance
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
     /// <returns>DBInstance</returns>
-    public static Task<DBInstance> InitAsync(string database, string host = "127.0.0.1", int port = 27017)
+    public static Task<DB> InitAsync(string database, string host = "127.0.0.1", int port = 27017)
         => Initialize(new() { Server = new(host, port) }, database);
 
     /// <summary>
@@ -68,26 +68,26 @@ public partial class DBInstance
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
     /// <returns>DBInstance</returns>
-    public static Task<DBInstance> InitAsync(string database, MongoClientSettings settings)
+    public static Task<DB> InitAsync(string database, MongoClientSettings settings)
                                  => Initialize(settings, database);
 
-    internal static async Task<DBInstance> Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
+    internal static async Task<DB> Initialize(MongoClientSettings settings, string dbName, bool skipNetworkPing = false)
     {
         if (string.IsNullOrEmpty(dbName))
             throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
 
-        if (!_instances.TryGetValue(dbName, out var dbInstance))
+        if (!_instances.TryGetValue(dbName, out var db))
         {
             try
             {
-                var db = new MongoClient(settings).GetDatabase(dbName);
-                dbInstance = new(db);
+                var mongoDatabase = new MongoClient(settings).GetDatabase(dbName);
+                db = new(mongoDatabase);
                 
                 if (_instances.Count==0)
-                    _defaultInstance = dbInstance;
+                    _defaultInstance = db;
 
-                if (_instances.TryAdd(dbName, dbInstance) && !skipNetworkPing)
-                    await db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
+                if (_instances.TryAdd(dbName, db) && !skipNetworkPing)
+                    await mongoDatabase.RunCommandAsync((Command<BsonDocument>)"{ping:1}").ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -97,7 +97,7 @@ public partial class DBInstance
             }
         }
         
-        return dbInstance;
+        return db;
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public partial class DBInstance
     /// Gets the DBInstance for a given database name if it has been previously initialized.
     /// </summary>
     /// <param name="name">The name of the database to retrieve</param>
-    public static DBInstance Instance(string? name=null)
+    public static DB Instance(string? name=null)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -145,17 +145,17 @@ public partial class DBInstance
             return _defaultInstance;
         }
         
-        _instances.TryGetValue(name, out var dbInstance);
+        _instances.TryGetValue(name, out var db);
 
-        return dbInstance ?? throw new InvalidOperationException($"No DBInstance with the name '{name}' has been initialized yet. Please call DBInstance.InitAsync() first.");
+        return db ?? throw new InvalidOperationException($"No DBInstance with the name '{name}' has been initialized yet. Please call DBInstance.InitAsync() first.");
     }
 
     /// <summary>
     /// returns the default DBInstance if null, otherwise DBInstance
     /// </summary>
-    /// <param name="dbInstance">The DBInstance to check</param>
-    public static DBInstance InstanceOrDefault(DBInstance? dbInstance)
-        => dbInstance ?? _defaultInstance;
+    /// <param name="db">The DBInstance to check</param>
+    public static DB InstanceOrDefault(DB? db)
+        => db ?? _defaultInstance;
 
     /// <summary>
     /// Gets the name of the database a given entity type is attached to. Returns name of default database if not specifically attached.

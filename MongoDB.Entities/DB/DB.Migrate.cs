@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Discover and run migrations from the same assembly as the specified type.

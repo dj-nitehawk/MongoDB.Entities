@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Retrieves the 'change-stream' watcher instance for a given unique name.
@@ -22,9 +22,9 @@ public partial class DBInstance
     /// Returns all the watchers for a given entity type
     /// </summary>
     /// <typeparam name="T">The entity type to get the watcher of</typeparam>
-    public IEnumerable<Watcher<T>> Watchers<T>(DBInstance dbInstance) where T : IEntity
+    public IEnumerable<Watcher<T>> Watchers<T>(DB db) where T : IEntity
     {
-        if (Cache<T>.Watchers.TryGetValue(dbInstance, out var value))
+        if (Cache<T>.Watchers.TryGetValue(db, out var value))
         {
             return value.Values;
         }

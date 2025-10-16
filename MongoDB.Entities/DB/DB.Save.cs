@@ -9,7 +9,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
     readonly UpdateOptions _updateOptions = new() { IsUpsert = true };

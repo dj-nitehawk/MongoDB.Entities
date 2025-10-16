@@ -36,7 +36,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     static readonly BulkWriteOptions _unOrdBlkOpts = new() { IsOrdered = false };
     bool _isInverse;
     TParent _parent = default!;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
 
     /// <summary>
     /// Gets the IMongoCollection of JoinRecords for this relationship.
@@ -67,13 +67,13 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     /// Creates an instance of Many&lt;TChild&gt;
     /// This is only needed in VB.Net
     /// </summary>
-    public Many() { _dbInstance = DBInstance.Instance(); }
+    public Many() { _db = DB.Instance(); }
 
 #region one-to-many-initializers
 
-    internal Many(object parent, string property, DBInstance? dbInstance=null)
+    internal Many(object parent, string property, DB? db=null)
     {
-        _dbInstance = DBInstance.InstanceOrDefault(dbInstance);
+        _db = DB.InstanceOrDefault(db);
         Init((TParent)parent, property);
     }
 
@@ -81,7 +81,7 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
     {
         _parent = parent;
         _isInverse = false;
-        JoinCollection = _dbInstance.GetRefCollection<TParent>($"[{_dbInstance.CollectionName<TParent>()}~{_dbInstance.CollectionName<TChild>()}({property})]");
+        JoinCollection = _db.GetRefCollection<TParent>($"[{_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({property})]");
         CreateIndexesAsync(JoinCollection);
     }
 
@@ -97,9 +97,9 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
 
 #region many-to-many initializers
 
-    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse, DBInstance? dbInstance = null)
+    internal Many(object parent, string propertyParent, string propertyChild, bool isInverse, DB? db = null)
     {
-        _dbInstance = DBInstance.InstanceOrDefault(dbInstance);
+        _db = DB.InstanceOrDefault(db);
         Init((TParent)parent, propertyParent, propertyChild, isInverse);
     }
 
@@ -109,10 +109,10 @@ public sealed partial class Many<TChild, TParent> : ManyBase where TChild : IEnt
         _isInverse = isInverse;
 
         JoinCollection = isInverse
-                             ? _dbInstance.GetRefCollection<TParent>(
-                                 $"[({propertyParent}){_dbInstance.CollectionName<TChild>()}~{_dbInstance.CollectionName<TParent>()}({propertyChild})]")
-                             : _dbInstance.GetRefCollection<TParent>(
-                                 $"[({propertyChild}){_dbInstance.CollectionName<TParent>()}~{_dbInstance.CollectionName<TChild>()}({propertyParent})]");
+                             ? _db.GetRefCollection<TParent>(
+                                 $"[({propertyParent}){_db.CollectionName<TChild>()}~{_db.CollectionName<TParent>()}({propertyChild})]")
+                             : _db.GetRefCollection<TParent>(
+                                 $"[({propertyChild}){_db.CollectionName<TParent>()}~{_db.CollectionName<TChild>()}({propertyParent})]");
 
         CreateIndexesAsync(JoinCollection);
     }

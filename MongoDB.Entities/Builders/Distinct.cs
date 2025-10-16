@@ -19,14 +19,14 @@ public class Distinct<T, TProperty> where T : IEntity
     readonly DistinctOptions _options = new();
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
-    internal Distinct(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DBInstance dbInstance)
+    internal Distinct(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
-        _dbInstance = dbInstance;
+        _db = db;
     }
 
     /// <summary>
@@ -209,8 +209,8 @@ public class Distinct<T, TProperty> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         return _session == null
-                   ? _dbInstance.Collection<T>().DistinctAsync(_field, mergedFilter, _options, cancellation)
-                   : _dbInstance.Collection<T>().DistinctAsync(_session, _field, mergedFilter, _options, cancellation);
+                   ? _db.Collection<T>().DistinctAsync(_field, mergedFilter, _options, cancellation)
+                   : _db.Collection<T>().DistinctAsync(_session, _field, mergedFilter, _options, cancellation);
     }
 
     /// <summary>

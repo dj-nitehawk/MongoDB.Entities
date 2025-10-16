@@ -15,7 +15,7 @@ public class FindOne : BenchBase
 
     public FindOne()
     {
-        DBInstance.Instance().Index<Author>()
+        DB.Instance().Index<Author>()
                   .Key(a => a.FirstName!, KeyType.Ascending)
                   .Option(o => o.Background = false)
                   .CreateAsync()
@@ -35,7 +35,7 @@ public class FindOne : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DBInstance.Instance()
+        return DB.Instance()
                          .Find<Author>()
                          .Match(x => x.FirstName == guid)
                          .ExecuteAsync();
@@ -57,7 +57,7 @@ public class Find100 : BenchBase
 
     public Find100()
     {
-        DBInstance.Instance().Index<Author>()
+        DB.Instance().Index<Author>()
                   .Key(a => a.FirstName!, KeyType.Ascending)
                   .Option(o => o.Background = false)
                   .CreateAsync()
@@ -77,7 +77,7 @@ public class Find100 : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DBInstance.Instance()
+        return DB.Instance()
                          .Find<Author>()
                          .Match(x => x.FirstName == guid)
                          .ExecuteAsync();
@@ -99,7 +99,7 @@ public class FindFirst : BenchBase
 
     public FindFirst()
     {
-        DBInstance.Instance().Index<Author>()
+        DB.Instance().Index<Author>()
                   .Key(a => a.FirstName!, KeyType.Ascending)
                   .Option(o => o.Background = false)
                   .CreateAsync()
@@ -119,7 +119,7 @@ public class FindFirst : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DBInstance.Instance()
+        return DB.Instance()
                          .Find<Author>()
                          .Match(x => x.FirstName == guid)
                          .ExecuteFirstAsync();
@@ -141,7 +141,7 @@ public class FindAny : BenchBase
 
     public FindAny()
     {
-        DBInstance.Instance().Index<Author>()
+        DB.Instance().Index<Author>()
                   .Key(a => a.FirstName!, KeyType.Ascending)
                   .Option(o => o.Background = false)
                   .CreateAsync()
@@ -161,7 +161,7 @@ public class FindAny : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DBInstance.Instance()
+        return DB.Instance()
                          .Find<Author>()
                          .Match(x => x.FirstName == guid)
                          .ExecuteAnyAsync();
@@ -183,7 +183,7 @@ public class FindSingle : BenchBase
 
     public FindSingle()
     {
-        DBInstance.Instance().Index<Author>()
+        DB.Instance().Index<Author>()
                   .Key(a => a.FirstName!, KeyType.Ascending)
                   .Option(o => o.Background = false)
                   .CreateAsync()
@@ -203,7 +203,7 @@ public class FindSingle : BenchBase
     [Benchmark]
     public override Task MongoDB_Entities()
     {
-        return DBInstance.Instance()
+        return DB.Instance()
                          .Find<Author>()
                          .Match(x => x.FirstName == guid)
                          .ExecuteSingleAsync();

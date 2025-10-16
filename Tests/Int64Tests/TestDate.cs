@@ -15,7 +15,7 @@ public class DatesInt64
         var book = new BookInt64 { Title = "nsddci" };
         await book.SaveAsync();
 
-        var res = await DBInstance.Instance().Find<BookInt64>().OneAsync(book.ID);
+        var res = await DB.Instance().Find<BookInt64>().OneAsync(book.ID);
 
         Assert.AreEqual(res!.Title, book.Title);
         Assert.IsNull(res.PublishedOn);
@@ -33,7 +33,7 @@ public class DatesInt64
         };
         await book.SaveAsync();
 
-        var res = await DBInstance.Instance().Find<BookInt64>().OneAsync(book.ID);
+        var res = await DB.Instance().Find<BookInt64>().OneAsync(book.ID);
 
         Assert.AreEqual(pubDate.Ticks, res!.PublishedOn!.Ticks);
         Assert.AreEqual(pubDate.ToUniversalTime(), res.PublishedOn.DateTime);
@@ -50,7 +50,7 @@ public class DatesInt64
         };
         await book.SaveAsync();
 
-        var res = await DBInstance.Instance().Queryable<BookInt64>()
+        var res = await DB.Instance().Queryable<BookInt64>()
                     .Where(b => b.ID == book.ID && b.PublishedOn!.Ticks > 0)
                     .SingleOrDefaultAsync();
 
@@ -69,14 +69,14 @@ public class DatesInt64
         };
         await book.SaveAsync();
 
-        var res = (await DBInstance.Instance().Find<BookInt64>()
+        var res = (await DB.Instance().Find<BookInt64>()
                     .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks == pubDate.Ticks)
                     .ExecuteAsync())
                     .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await DBInstance.Instance().Find<BookInt64>()
+        res = (await DB.Instance().Find<BookInt64>()
                 .Match(b => b.ID == book.ID && b.PublishedOn!.Ticks < pubDate.Ticks + TimeSpan.FromSeconds(1).Ticks)
                 .ExecuteAsync())
                 .Single();
@@ -96,14 +96,14 @@ public class DatesInt64
         };
         await book.SaveAsync();
 
-        var res = (await DBInstance.Instance().Find<BookInt64>()
+        var res = (await DB.Instance().Find<BookInt64>()
         .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime == pubDate)
         .ExecuteAsync())
         .Single();
 
         Assert.AreEqual(book.ID, res.ID);
 
-        res = (await DBInstance.Instance().Find<BookInt64>()
+        res = (await DB.Instance().Find<BookInt64>()
                 .Match(b => b.ID == book.ID && b.PublishedOn!.DateTime < pubDate.AddSeconds(1))
                 .ExecuteAsync())
                 .Single();

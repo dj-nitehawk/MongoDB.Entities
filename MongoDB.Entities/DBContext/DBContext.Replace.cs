@@ -12,6 +12,6 @@ public partial class DBContext
     {
         ThrowIfModifiedByIsEmpty<T>();
 
-        return new(Session, ModifiedBy, _globalFilters, OnBeforeSave<T>(), _dbInstance);
+        return new(Session, ModifiedBy, _globalFilters, OnBeforeSave<T>(), _db);
     }
 }

@@ -15,7 +15,7 @@ public class MultiDbUuid
     [TestMethod]
     public async Task save_Guid_works()
     {
-        var dbInstance = await  DBInstance.InitAsync(dbName);
+        var db = await  DB.InitAsync(dbName);
 
         var cover = new BookCover
         {
@@ -23,29 +23,29 @@ public class MultiDbUuid
             BookName = "test book " + Guid.NewGuid()
         };
 
-        await cover.SaveAsync(dbInstance);
+        await cover.SaveAsync(db);
         Assert.IsNotNull(cover.ID);
 
-        var res = await dbInstance.Find<BookCover>().OneAsync(cover.ID);
+        var res = await db.Find<BookCover>().OneAsync(cover.ID);
 
         Assert.AreEqual(cover.ID, res!.ID);
         Assert.AreEqual(cover.BookName, res.BookName);
         
-        res = await DBInstance.Instance().Find<BookCover>().OneAsync(cover.ID);
+        res = await DB.Instance().Find<BookCover>().OneAsync(cover.ID);
         Assert.IsNull(res);
     }
 
     [TestMethod]
     public async Task relationships_work()
     {
-        var dbInstance = await  DBInstance.InitAsync(dbName);
+        var db = await  DB.InitAsync(dbName);
 
-        var cover = new BookCover(dbInstance)
+        var cover = new BookCover(db)
         {
             BookID = "123",
             BookName = "test book " + Guid.NewGuid()
         };
-        await cover.SaveAsync(dbInstance);
+        await cover.SaveAsync(db);
 
         var mark = new BookMark
         {
@@ -53,7 +53,7 @@ public class MultiDbUuid
             BookName = cover.BookName
         };
 
-        await mark.SaveAsync(dbInstance);
+        await mark.SaveAsync(db);
 
         await cover.BookMarks.AddAsync(mark);
 
@@ -61,16 +61,16 @@ public class MultiDbUuid
 
         Assert.AreEqual(cover.BookName, res.BookName);
 
-        Assert.AreEqual((await res.BookCover.ToEntityAsync(dbInstance)).ID, cover.ID);
+        Assert.AreEqual((await res.BookCover.ToEntityAsync(db)).ID, cover.ID);
     }
 
     [TestMethod]
     public async Task get_instance_by_db_name()
     {
-        var db1 = await DBInstance.InitAsync("test1");
-        var db2 = await DBInstance.InitAsync("test2");
+        var db1 = await DB.InitAsync("test1");
+        var db2 = await DB.InitAsync("test2");
 
-        var res = DBInstance.Instance("test2").Database();
+        var res = DB.Instance("test2").Database();
 
         Assert.AreEqual("test2", res.DatabaseNamespace.DatabaseName);
         Assert.AreEqual("test2", db2.Database().DatabaseNamespace.DatabaseName);
@@ -79,16 +79,16 @@ public class MultiDbUuid
     [TestMethod]
     public void uninitialized_get_instance_throws()
     {
-        Assert.ThrowsException<InvalidOperationException>(() => DBInstance.Instance("some-database").Database());
+        Assert.ThrowsException<InvalidOperationException>(() => DB.Instance("some-database").Database());
     }
 
     [TestMethod]
     public async Task multiple_initializations_should_not_throw()
     {
-        await DBInstance.InitAsync("multi-init");
-        await DBInstance.InitAsync("multi-init");
+        await DB.InitAsync("multi-init");
+        await DB.InitAsync("multi-init");
 
-        var db = DBInstance.Instance("multi-init").Database();
+        var db = DB.Instance("multi-init").Database();
 
         Assert.AreEqual("multi-init", db.DatabaseNamespace.DatabaseName);
     }
@@ -96,7 +96,7 @@ public class MultiDbUuid
     [TestMethod]
     public async Task dropping_collections()
     {
-        var dbInstance = await DBInstance.InitAsync(dbName);
+        var db = await DB.InitAsync(dbName);
 
         var guid = Guid.NewGuid().ToString();
         var marks = new[]
@@ -106,27 +106,27 @@ public class MultiDbUuid
             new BookMark { BookName = guid }
         };
 
-        await marks.SaveAsync(dbInstance);
+        await marks.SaveAsync(db);
 
         var covers = new[]
         {
-            new BookCover(dbInstance) { BookID = guid },
-            new BookCover(dbInstance) { BookID = guid },
-            new BookCover(dbInstance) { BookID = guid }
+            new BookCover(db) { BookID = guid },
+            new BookCover(db) { BookID = guid },
+            new BookCover(db) { BookID = guid }
         };
 
-        await covers.SaveAsync(dbInstance);
+        await covers.SaveAsync(db);
 
         foreach (var cover in covers)
             await cover.BookMarks.AddAsync(marks);
 
         Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == marks.Length));
 
-        await dbInstance.DropCollectionAsync<BookMark>();
+        await db.DropCollectionAsync<BookMark>();
 
         Assert.IsTrue(covers.Select(b => b.BookMarks.Count()).All(x => x == 0));
 
-        Assert.AreEqual(3, dbInstance.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
+        Assert.AreEqual(3, db.Queryable<BookCover>().Where(b => b.BookID == guid).Count());
     }
 
     [TestMethod]

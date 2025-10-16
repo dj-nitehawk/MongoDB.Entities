@@ -6,7 +6,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Start a fluent aggregation pipeline with a $GeoNear stage with the supplied parameters.

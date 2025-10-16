@@ -48,7 +48,7 @@ public abstract class FileEntity<T> : Entity where T : FileEntity<T>, new()
     /// <summary>
     /// Access the DataStreamer class for uploading and downloading data
     /// </summary>
-    public DataStreamer<T> Data(DBInstance? dbInstance=null) => _streamer ??= new(this, DBInstance.InstanceOrDefault(dbInstance));
+    public DataStreamer<T> Data(DB? db=null) => _streamer ??= new(this, DB.InstanceOrDefault(db));
 }
 
 [Collection("[BINARY_CHUNKS]")]
@@ -78,22 +78,22 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
 
     readonly FileEntity<T> _parent;
     readonly Type _parentType;
-    readonly IMongoDatabase _db;
-    readonly DBInstance _dbInstance;
+    readonly IMongoDatabase _mongoDatabase;
+    readonly DB _db;
     readonly IMongoCollection<FileChunk> _chunkCollection;
 
-    internal DataStreamer(FileEntity<T> parent, DBInstance dbInstance)
+    internal DataStreamer(FileEntity<T> parent, DB db)
     {
         _parent = parent;
         _parentType = parent.GetType();
 
-        _dbInstance = dbInstance;
+        _db = db;
 
-        _db = _dbInstance.Database();
+        _mongoDatabase = _db.Database();
 
-        _chunkCollection = _dbInstance.Collection<FileChunk>();
+        _chunkCollection = _db.Collection<FileChunk>();
 
-        var dbName = _db.DatabaseNamespace.DatabaseName;
+        var dbName = _mongoDatabase.DatabaseNamespace.DatabaseName;
 
         if (_indexedDBs.Add(dbName))
         {
@@ -287,7 +287,7 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
 
     Task UpdateMetaDataAsync(IClientSessionHandle? session)
     {
-        var collection = _db.GetCollection<FileEntity<T>>(_dbInstance.CollectionName<T>());
+        var collection = _mongoDatabase.GetCollection<FileEntity<T>>(_db.CollectionName<T>());
         var filter = Builders<FileEntity<T>>.Filter.Eq(e => e.ID, _parent.ID);
         var update = Builders<FileEntity<T>>.Update
                                          .Set(e => e.FileSize, _parent.FileSize)

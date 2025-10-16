@@ -1,7 +1,7 @@
 ﻿namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Represents an index for a given IEntity

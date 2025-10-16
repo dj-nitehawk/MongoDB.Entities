@@ -20,7 +20,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.InsertAsync(entity, Session, cancellation);
+        return _db.InsertAsync(entity, Session, cancellation);
     }
 
     /// <summary>
@@ -36,6 +36,6 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.InsertAsync(entities, Session, cancellation);
+        return _db.InsertAsync(entities, Session, cancellation);
     }
 }

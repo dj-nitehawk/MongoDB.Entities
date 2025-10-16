@@ -22,7 +22,7 @@ public class DistinctEntity
             new AuthorEntity{ Name = guid2 },
         }.SaveAsync();
 
-        var res = await DBInstance.Instance().Distinct<AuthorEntity, string>()
+        var res = await DB.Instance().Distinct<AuthorEntity, string>()
             .Match(a => guids.Contains(a.Name))
             .Property(a => a.Name)
             .ExecuteAsync();

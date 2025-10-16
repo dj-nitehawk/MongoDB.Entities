@@ -16,12 +16,12 @@ public static partial class Extensions
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="propertyToInit">() => PropertyName</param>
-    /// <param name="dbInstance"></param>
-    public static void InitOneToMany<TChild, TParent>(this TParent parent, Expression<Func<Many<TChild, TParent>?>> propertyToInit, DBInstance? dbInstance = null)
+    /// <param name="db"></param>
+    public static void InitOneToMany<TChild, TParent>(this TParent parent, Expression<Func<Many<TChild, TParent>?>> propertyToInit, DB? db = null)
         where TChild : IEntity where TParent : IEntity
     {
         var property = propertyToInit.PropertyInfo();
-        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, DBInstance.InstanceOrDefault(dbInstance)));
+        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, DB.InstanceOrDefault(db)));
     }
 
     /// <summary>
@@ -30,11 +30,11 @@ public static partial class Extensions
     /// <param name="parent"></param>
     /// <param name="propertyToInit">() = > PropertyName</param>
     /// <param name="propertyOtherSide">x => x.PropertyName</param>
-    /// <param name="dbInstance">The DBInstance to store this relationship</param>
+    /// <param name="db">The DBInstance to store this relationship</param>
     public static void InitManyToMany<TChild, TParent>(this IEntity parent,
                                                        Expression<Func<Many<TChild, TParent>?>> propertyToInit,
                                                        Expression<Func<TChild, object>?> propertyOtherSide,
-                                                       DBInstance? dbInstance=null)
+                                                       DB? db=null)
         where TChild : IEntity where TParent : IEntity
     {
         var property = propertyToInit.PropertyInfo();
@@ -64,6 +64,6 @@ public static partial class Extensions
         if (hasOwnerAttrib == osHasOwnerAttrib || hasInverseAttrib == osHasInverseAttrib)
             throw new InvalidOperationException("Both sides of the relationship cannot have the same attribute");
 
-        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, osProperty.Name, hasInverseAttrib, DBInstance.InstanceOrDefault(dbInstance)));
+        property.SetValue(parent, new Many<TChild, TParent>(parent, property.Name, osProperty.Name, hasInverseAttrib, DB.InstanceOrDefault(db)));
     }
 }

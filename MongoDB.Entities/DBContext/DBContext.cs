@@ -15,7 +15,7 @@ namespace MongoDB.Entities;
 /// </summary>
 public partial class DBContext
 {
-    DBInstance _dbInstance;
+    DB _db;
     
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property
@@ -40,7 +40,7 @@ public partial class DBContext
     /// </param>
     public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
     {
-        _dbInstance = DBInstance.InitAsync(database, host, port).GetAwaiter().GetResult();
+        _db = DB.InitAsync(database, host, port).GetAwaiter().GetResult();
 
         ModifiedBy = modifiedBy;
     }
@@ -59,7 +59,7 @@ public partial class DBContext
     /// </param>
     public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
     {
-        _dbInstance = DBInstance.InitAsync(database, settings).GetAwaiter().GetResult();
+        _db = DB.InitAsync(database, settings).GetAwaiter().GetResult();
 
         ModifiedBy = modifiedBy;
     }
@@ -76,7 +76,7 @@ public partial class DBContext
     /// </param>
     public DBContext(ModifiedBy? modifiedBy = null)
     {
-        _dbInstance = DBInstance.Instance();
+        _db = DB.Instance();
         ModifiedBy = modifiedBy;
     }
 
@@ -103,7 +103,7 @@ public partial class DBContext
                 "Only one transaction is allowed per DBContext instance. Dispose and nullify the Session before calling this method again!");
         }
 
-        Session = _dbInstance.Database().Client.StartSession(options);
+        Session = _db.Database().Client.StartSession(options);
         Session.StartTransaction();
 
         return Session;
@@ -120,7 +120,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to determine the database from for the transaction</typeparam>
     /// <param name="options">Client session options (not required)</param>
     public IClientSessionHandle Transaction<T>(ClientSessionOptions? options = null) where T : IEntity
-        => Transaction(_dbInstance.DatabaseName<T>(), options);
+        => Transaction(_db.DatabaseName<T>(), options);
 
     /// <summary>
     /// Commits a transaction to MongoDB

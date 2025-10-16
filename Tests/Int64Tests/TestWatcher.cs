@@ -12,7 +12,7 @@ public class WatcherInt64
     [TestMethod]
     public async Task watching_works()
     {
-        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test");
+        var watcher = DB.Instance().Watcher<FlowerInt64>("test");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -43,8 +43,8 @@ public class WatcherInt64
     [TestMethod]
     public async Task watching_with_projection_works()
     {
-        var dbInstance = DBInstance.Instance();
-        var watcher = dbInstance.Watcher<FlowerInt64>("test-with-projection");
+        var db = DB.Instance();
+        var watcher = db.Watcher<FlowerInt64>("test-with-projection");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -64,12 +64,12 @@ public class WatcherInt64
             new FlowerInt64 { Name = "test", Color = "red", NestedFlower = new() {Name = "nested" } },
             new FlowerInt64 { Name = "test", Color = "red" },
             new FlowerInt64 { Name = "test", Color = "red" }
-        }.SaveAsync(dbInstance);
+        }.SaveAsync(db);
 
         var flower = new FlowerInt64 { Name = "test" };
-        await flower.SaveAsync(dbInstance);
+        await flower.SaveAsync(db);
 
-        await flower.DeleteAsync(dbInstance);
+        await flower.DeleteAsync(db);
 
         await Task.Delay(500);
 
@@ -85,7 +85,7 @@ public class WatcherInt64
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test-with-filter-builders");
+        var watcher = DB.Instance().Watcher<FlowerInt64>("test-with-filter-builders");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(
@@ -118,7 +118,7 @@ public class WatcherInt64
     {
         var guid = Guid.NewGuid().ToString();
 
-        var watcher = DBInstance.Instance().Watcher<FlowerInt64>("test-with-filter-builders-csd");
+        var watcher = DB.Instance().Watcher<FlowerInt64>("test-with-filter-builders-csd");
         var allFlowers = new List<FlowerInt64>();
 
         watcher.Start(

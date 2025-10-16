@@ -13,11 +13,11 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_index_returns_correct_result()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.DropCollectionAsync<AuthorEntity>();
+        await db.DropCollectionAsync<AuthorEntity>();
 
-        await dbInstance.Index<AuthorEntity>()
+        await db.Index<AuthorEntity>()
                         .Option(o => o.Background = false)
                         .Key(a => a.Name, KeyType.Text)
                         .Key(a => a.Surname, KeyType.Text)
@@ -29,10 +29,10 @@ public class IndexesEntity
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author2.SaveAsync();
 
-        var res = dbInstance.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToList();
+        var res = db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToList();
         Assert.AreEqual(author1.Surname, res[0].Surname);
 
-        var res2 = await dbInstance.Find<AuthorEntity>()
+        var res2 = await db.Find<AuthorEntity>()
                                    .Match(Search.Full, author1.Surname)
                                    .ExecuteAsync();
         Assert.AreEqual(author1.Surname, res2[0].Surname);
@@ -41,9 +41,9 @@ public class IndexesEntity
     [TestMethod]
     public async Task full_text_search_with_wilcard_text_index_works()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.Index<AuthorEntity>()
+        await db.Index<AuthorEntity>()
                         .Option(o => o.Background = false)
                         .Key(a => a, KeyType.Text)
                         .CreateAsync();
@@ -54,7 +54,7 @@ public class IndexesEntity
         var author2 = new AuthorEntity { Name = "Name", Surname = Guid.NewGuid().ToString() };
         await author2.SaveAsync();
 
-        var res = await dbInstance.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToListAsync();
+        var res = await db.FluentTextSearch<AuthorEntity>(Search.Full, author1.Surname).ToListAsync();
 
         Assert.AreEqual(author1.Surname, res[0].Surname);
     }
@@ -62,9 +62,9 @@ public class IndexesEntity
     [TestMethod]
     public async Task fuzzy_text_search_with_text_index_works()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.Index<BookEntity>()
+        await db.Index<BookEntity>()
                         .Option(o => o.Background = false)
                         .Key(b => b.Review.Fuzzy, KeyType.Text)
                         .Key(b => b.Title, KeyType.Text)
@@ -77,9 +77,9 @@ public class IndexesEntity
         var b5 = new BookEntity() { Title = "Five", Review = new() { Fuzzy = new("Katya Bykova Jhohanes") } };
         var b6 = new BookEntity() { Title = "Five", Review = new() { Fuzzy = " ".ToFuzzy() } };
 
-        await dbInstance.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
+        await db.SaveAsync(new[] { b1, b2, b3, b4, b5, b6 });
 
-        var res = await dbInstance.Find<BookEntity>()
+        var res = await db.Find<BookEntity>()
                                   .Match(Search.Fuzzy, "catherine jones")
                                   .Project(b => new() { ID = b.ID, Title = b.Title })
                                   .SortByTextScore()
@@ -87,7 +87,7 @@ public class IndexesEntity
                                   .Limit(6)
                                   .ExecuteAsync();
 
-        await dbInstance.DeleteAsync<BookEntity>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
+        await db.DeleteAsync<BookEntity>(new[] { b1.ID, b2.ID, b3.ID, b4.ID, b5.ID, b6.ID });
 
         Assert.AreEqual(4, res.Count);
         Assert.IsFalse(res.Select(b => b.ID).Contains(b5.ID));
@@ -96,11 +96,11 @@ public class IndexesEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_dont_retun_the_score()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.DropCollectionAsync<GenreEntity>();
+        await db.DropCollectionAsync<GenreEntity>();
 
-        await dbInstance.Index<GenreEntity>()
+        await db.Index<GenreEntity>()
                         .Key(g => g.Name, KeyType.Text)
                         .Option(o => o.Background = false)
                         .CreateAsync();
@@ -117,7 +117,7 @@ public class IndexesEntity
 
         await list.SaveAsync();
 
-        var res = await dbInstance.Find<GenreEntity>()
+        var res = await db.Find<GenreEntity>()
                                   .Match(Search.Full, "one eight nine")
                                   .Project(p => new() { Name = p.Name, Position = p.Position })
                                   .SortByTextScore()
@@ -133,11 +133,11 @@ public class IndexesEntity
     [TestMethod]
     public async Task sort_by_meta_text_score_retun_the_score()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.DropCollectionAsync<GenreEntity>();
+        await db.DropCollectionAsync<GenreEntity>();
 
-        await dbInstance.Index<GenreEntity>()
+        await db.Index<GenreEntity>()
                         .Key(g => g.Name, KeyType.Text)
                         .Option(o => o.Background = false)
                         .CreateAsync();
@@ -154,7 +154,7 @@ public class IndexesEntity
 
         await list.SaveAsync();
 
-        var res = await dbInstance.Find<GenreEntity>()
+        var res = await db.Find<GenreEntity>()
                                   .Match(Search.Full, "one eight nine")
                                   .SortByTextScore(g => g.SortScore)
                                   .Sort(g => g.Position, Order.Ascending)
@@ -171,31 +171,31 @@ public class IndexesEntity
     [TestMethod]
     public async Task creating_compound_index_works()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.Index<BookEntity>()
+        await db.Index<BookEntity>()
                         .Key(x => x.Genres, KeyType.Geo2D)
                         .Key(x => x.Title, KeyType.Descending)
                         .Key(x => x.ModifiedOn, KeyType.Descending)
                         .Option(o => o.Background = true)
                         .CreateAsync();
 
-        await dbInstance.Index<BookEntity>()
+        await db.Index<BookEntity>()
                         .Key(x => x.Genres, KeyType.Geo2D)
                         .Key(x => x.Title, KeyType.Descending)
                         .Key(x => x.ModifiedOn, KeyType.Ascending)
                         .Option(o => o.Background = true)
                         .CreateAsync();
 
-        await dbInstance.Index<AuthorEntity>()
+        await db.Index<AuthorEntity>()
                         .Key(x => x.Age, KeyType.Hashed)
                         .CreateAsync();
 
-        await dbInstance.Index<AuthorEntity>()
+        await db.Index<AuthorEntity>()
                         .Key(x => x.Age, KeyType.Ascending)
                         .CreateAsync();
 
-        await dbInstance.Index<AuthorEntity>()
+        await db.Index<AuthorEntity>()
                         .Key(x => x.Age, KeyType.Descending)
                         .CreateAsync();
     }
@@ -203,11 +203,11 @@ public class IndexesEntity
     [TestMethod]
     public async Task dictionary_item_index_should_use_key_value()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.DropCollectionAsync<TestModel>();
+        await db.DropCollectionAsync<TestModel>();
 
-        var index = await dbInstance.Index<TestModel>()
+        var index = await db.Index<TestModel>()
                                     .Key(a => a.Metadata["AnotherKey"], KeyType.Ascending)
                                     .Key(a => a.EndDate, KeyType.Ascending)
                                     .CreateAsync();

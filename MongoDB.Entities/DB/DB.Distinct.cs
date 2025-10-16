@@ -3,7 +3,7 @@
 namespace MongoDB.Entities;
 
 // ReSharper disable once InconsistentNaming
-public partial class DBInstance
+public partial class DB
 {
     /// <summary>
     /// Represents a MongoDB Distinct command where you can get back distinct values for a given property of a given Entity.

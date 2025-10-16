@@ -40,7 +40,7 @@ public partial class DBContext
         var globalFilter = Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Empty);
 
         return globalFilter != Builders<T>.Filter.Empty
-                   ? _dbInstance.FluentGeoNear(
+                   ? _db.FluentGeoNear(
                            NearCoordinates,
                            DistanceField,
                            Spherical,
@@ -54,7 +54,7 @@ public partial class DBContext
                            options,
                            Session)
                        .Match(globalFilter)
-                   : _dbInstance.FluentGeoNear(
+                   : _db.FluentGeoNear(
                        NearCoordinates,
                        DistanceField,
                        Spherical,

@@ -17,7 +17,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to get the count for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> CountEstimatedAsync<T>(CancellationToken cancellation = default) where T : IEntity
-        => _dbInstance.CountEstimatedAsync<T>(cancellation);
+        => _db.CountEstimatedAsync<T>(cancellation);
 
     /// <summary>
     /// Gets an accurate count of how many entities are matched for a given expression/filter
@@ -31,7 +31,7 @@ public partial class DBContext
                                     CancellationToken cancellation = default,
                                     CountOptions? options = null,
                                     bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.CountAsync(
+        => _db.CountAsync(
             Logic.MergeWithGlobalFilter<T>(ignoreGlobalFilters, _globalFilters, expression),
             Session,
             cancellation,
@@ -43,7 +43,7 @@ public partial class DBContext
     /// <typeparam name="T">The entity type to get the count for</typeparam>
     /// <param name="cancellation">An optional cancellation token</param>
     public Task<long> CountAsync<T>(CancellationToken cancellation = default) where T : IEntity
-        => _dbInstance.CountAsync<T>(Session, cancellation);
+        => _db.CountAsync<T>(Session, cancellation);
 
     /// <summary>
     /// Gets an accurate count of how many total entities are in the collection for a given entity type
@@ -57,7 +57,7 @@ public partial class DBContext
                                     CancellationToken cancellation = default,
                                     CountOptions? options = null,
                                     bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.CountAsync(
+        => _db.CountAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
             Session,
             cancellation,
@@ -75,7 +75,7 @@ public partial class DBContext
                                     CancellationToken cancellation = default,
                                     CountOptions? options = null,
                                     bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.CountAsync(
+        => _db.CountAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
             Session,
             cancellation,

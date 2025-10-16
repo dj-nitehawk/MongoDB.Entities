@@ -10,44 +10,44 @@ public class DefaultDatabaseChangingEntity
     [TestMethod]
     public void throw_argument_null_exception()
     {
-        Assert.ThrowsException<ArgumentNullException>(() =>  DBInstance.ChangeDefaultDatabase(""));
+        Assert.ThrowsException<ArgumentNullException>(() =>  DB.ChangeDefaultDatabase(""));
     }
 
     [TestMethod]
     public void throw_invalid_operation_exception()
     {
-        Assert.ThrowsException<InvalidOperationException>(() =>  DBInstance.ChangeDefaultDatabase("db3"));
+        Assert.ThrowsException<InvalidOperationException>(() =>  DB.ChangeDefaultDatabase("db3"));
     }
 
     [TestMethod]
     public async Task returns_correct_database()
     {
-        await DBInstance.InitAsync("test1");
-        await DBInstance.InitAsync("test2");
+        await DB.InitAsync("test1");
+        await DB.InitAsync("test2");
 
-        var defaultDb = DBInstance.Instance().Database();
-        var database = DBInstance.Instance("test2").Database();
+        var defaultDb = DB.Instance().Database();
+        var database = DB.Instance("test2").Database();
 
-         DBInstance.ChangeDefaultDatabase("test2");
+         DB.ChangeDefaultDatabase("test2");
 
-        var bookDb = DBInstance.Instance().Database<BookEntity>();
+        var bookDb = DB.Instance().Database<BookEntity>();
 
         Assert.AreEqual(database.DatabaseNamespace.DatabaseName, bookDb.DatabaseNamespace.DatabaseName);
 
-         DBInstance.ChangeDefaultDatabase(defaultDb.DatabaseNamespace.DatabaseName);
+         DB.ChangeDefaultDatabase(defaultDb.DatabaseNamespace.DatabaseName);
     }
 
     [TestMethod]
     public async Task do_not_change_default_database_when_the_same()
     {
-        await  DBInstance.InitAsync("test1");
+        await  DB.InitAsync("test1");
 
-        var defaultDb = DBInstance.Instance().Database();
-        var defaultDbName = DBInstance.Instance().DatabaseName<AuthorEntity>();
+        var defaultDb = DB.Instance().Database();
+        var defaultDbName = DB.Instance().DatabaseName<AuthorEntity>();
 
-         DBInstance.ChangeDefaultDatabase(defaultDbName);
+         DB.ChangeDefaultDatabase(defaultDbName);
 
-        var bookDb = DBInstance.Instance().Database<BookEntity>();
+        var bookDb = DB.Instance().Database<BookEntity>();
         Assert.AreSame(defaultDb, bookDb);
     }
 }

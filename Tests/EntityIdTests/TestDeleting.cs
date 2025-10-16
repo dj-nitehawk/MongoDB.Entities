@@ -88,11 +88,11 @@ public class DeletingEntity
         var author1 = new AuthorEntity { Name = "xxx" }; await author1.SaveAsync();
         var author2 = new AuthorEntity { Name = "xxx" }; await author2.SaveAsync();
 
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        await dbInstance.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
+        await db.DeleteAsync<AuthorEntity>(x => x.Name == "xxx");
 
-        var count = await dbInstance.Queryable<AuthorEntity>()
+        var count = await db.Queryable<AuthorEntity>()
                                     .CountAsync(a => a.Name == "xxx");
 
         Assert.AreEqual(0, count);
@@ -108,17 +108,17 @@ public class DeletingEntity
             IDs.Add(ObjectId.GenerateNewId().ToString()!);
         }
 
-        await DBInstance.Instance().DeleteAsync<Blank>(IDs);
+        await DB.Instance().DeleteAsync<Blank>(IDs);
     }
 
     [TestCategory("SkipWhenLiveUnitTesting")]
     [TestMethod]
     public async Task high_volume_deletes_with_expressionAsync()
     {
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
         //start with clean collection
-        await dbInstance.DropCollectionAsync<Blank>();
+        await db.DropCollectionAsync<Blank>();
 
         var list = new List<Blank>(100100);
         for (var i = 0; i < 100100; i++)
@@ -127,21 +127,21 @@ public class DeletingEntity
         }
         await list.SaveAsync();
 
-        Assert.AreEqual(100100, dbInstance.Queryable<Blank>().Count());
+        Assert.AreEqual(100100, db.Queryable<Blank>().Count());
 
-        await dbInstance.DeleteAsync<Blank>(_ => true);
+        await db.DeleteAsync<Blank>(_ => true);
 
-        Assert.AreEqual(0, await dbInstance.CountAsync<Blank>());
+        Assert.AreEqual(0, await db.CountAsync<Blank>());
 
         //reclaim disk space
-        await dbInstance.DropCollectionAsync<Blank>();
-        await dbInstance.SaveAsync(new Blank());
+        await db.DropCollectionAsync<Blank>();
+        await db.SaveAsync(new Blank());
     }
 
     [TestMethod]
     public async Task delete_by_ids_with_global_filter()
     {
-        var db = new MyDBEntity();
+        var dbEntity = new MyDBEntity();
 
         var a1 = new AuthorEntity { Age = 10 };
         var a2 = new AuthorEntity { Age = 111 };
@@ -151,11 +151,11 @@ public class DeletingEntity
 
         var IDs = new[] { a1.ID, a2.ID, a3.ID };
 
-        var res = await db.DeleteAsync<AuthorEntity>(IDs);
+        var res = await dbEntity.DeleteAsync<AuthorEntity>(IDs);
         
-        var dbInstance = DBInstance.Instance();
+        var db = DB.Instance();
         
-        var notDeletedIDs = await dbInstance.Find<AuthorEntity, string>()
+        var notDeletedIDs = await db.Find<AuthorEntity, string>()
                                             .Match(a => IDs.Contains(a.ID))
                                             .Project(a => a.ID)
                                             .ExecuteAsync();

@@ -6,7 +6,7 @@ public class _001_rename_field : IMigration
 {
     public async Task UpgradeAsync()
     {
-        await DBInstance.Instance().Update<BookEntity>()
+        await DB.Instance().Update<BookEntity>()
           .Match(_ => true)
           .Modify(b => b.Rename("SellingPrice", "Price"))
           .ExecuteAsync().ConfigureAwait(false);

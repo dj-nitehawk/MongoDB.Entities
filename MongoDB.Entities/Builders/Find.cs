@@ -18,8 +18,8 @@ namespace MongoDB.Entities;
 /// <typeparam name="T">Any class that implements IEntity</typeparam>
 public class Find<T> : Find<T, T> where T : IEntity
 {
-    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DBInstance dbInstance)
-        : base(session, globalFilters, dbInstance) { }
+    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
+        : base(session, globalFilters, db) { }
 }
 
 /// <summary>
@@ -35,15 +35,15 @@ public class Find<T, TProjection> where T : IEntity
     readonly FindOptions<T, TProjection> _options = new();
     readonly IClientSessionHandle? _session;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
     
     bool _ignoreGlobalFilters;
 
-    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DBInstance dbInstance)
+    internal Find(IClientSessionHandle? session, Dictionary<Type, (object filterDef, bool prepend)>? globalFilters, DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
-        _dbInstance = dbInstance;
+        _db = db;
     }
 
     /// <summary>
@@ -458,8 +458,8 @@ public class Find<T, TProjection> where T : IEntity
         var mergedFilter = Logic.MergeWithGlobalFilter(_ignoreGlobalFilters, _globalFilters, _filter);
 
         return _session == null
-                   ? _dbInstance.Collection<T>().FindAsync(mergedFilter, _options, cancellation)
-                   : _dbInstance.Collection<T>().FindAsync(_session, mergedFilter, _options, cancellation);
+                   ? _db.Collection<T>().FindAsync(mergedFilter, _options, cancellation)
+                   : _db.Collection<T>().FindAsync(_session, mergedFilter, _options, cancellation);
     }
 
     void AddTxtScoreToProjection(string propName)

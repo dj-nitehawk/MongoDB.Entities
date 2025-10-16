@@ -6,8 +6,8 @@ public class BookCover : Entity
     public string BookID { get; set; }
     public Many<BookMark, BookCover> BookMarks { get; set; }
 
-    public BookCover(DBInstance? dbInstance = null)
+    public BookCover(DB? db = null)
     {
-        this.InitOneToMany(() => BookMarks, dbInstance);
+        this.InitOneToMany(() => BookMarks, db);
     }
 }

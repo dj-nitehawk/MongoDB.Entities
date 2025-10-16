@@ -14,11 +14,11 @@ public abstract class BenchBase
 
     static BenchBase()
     {
-        DBInstance.InitAsync(DBName).GetAwaiter().GetResult();
-        DBInstance.Instance(DBName).Database().Client.DropDatabase(DBName);
-        Database = DBInstance.Instance().Database();
-        AuthorCollection = DBInstance.Instance().Collection<Author>();
-        BookCollection = DBInstance.Instance().Collection<Book>();
+        DB.InitAsync(DBName).GetAwaiter().GetResult();
+        DB.Instance(DBName).Database().Client.DropDatabase(DBName);
+        Database = DB.Instance().Database();
+        AuthorCollection = DB.Instance().Collection<Author>();
+        BookCollection = DB.Instance().Collection<Book>();
 
         Console.WriteLine();
         Console.WriteLine("SEEDING DATA...");

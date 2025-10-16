@@ -23,20 +23,20 @@ public class Replace<T> where T : IEntity
     readonly ModifiedBy? _modifiedBy;
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<T>? _onSaveAction;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal Replace(IClientSessionHandle? session,
                      ModifiedBy? modifiedBy,
                      Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
                      Action<T>? onSaveAction,
-                     DBInstance dbInstance)
+                     DB db)
     {
         _session = session;
         _modifiedBy = modifiedBy;
         _globalFilters = globalFilters;
         _onSaveAction = onSaveAction;
-        _dbInstance = dbInstance;
+        _db = db;
     }
 
     T? Entity { get; set; }
@@ -259,8 +259,8 @@ public class Replace<T> where T : IEntity
         {
             var bulkWriteResult = await (
                                             _session == null
-                                                ? _dbInstance.Collection<T>().BulkWriteAsync(_models, null, cancellation)
-                                                : _dbInstance.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
+                                                ? _db.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : _db.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
             _models.Clear();
@@ -280,8 +280,8 @@ public class Replace<T> where T : IEntity
         SetModOnAndByValues();
 
         return _session == null
-                   ? await _dbInstance.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, _options, cancellation).ConfigureAwait(false)
-                   : await _dbInstance.Collection<T>().ReplaceOneAsync(_session, mergedFilter, Entity, _options, cancellation).ConfigureAwait(false);
+                   ? await _db.Collection<T>().ReplaceOneAsync(mergedFilter, Entity, _options, cancellation).ConfigureAwait(false)
+                   : await _db.Collection<T>().ReplaceOneAsync(_session, mergedFilter, Entity, _options, cancellation).ConfigureAwait(false);
     }
 
     void SetModOnAndByValues()

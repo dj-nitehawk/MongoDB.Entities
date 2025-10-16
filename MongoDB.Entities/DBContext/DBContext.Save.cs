@@ -24,7 +24,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SaveAsync(entity, Session, cancellation);
+        return _db.SaveAsync(entity, Session, cancellation);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.SaveAsync(entities, Session, cancellation);
+        return _db.SaveAsync(entities, Session, cancellation);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SaveOnlyAsync(entity, members, Session, cancellation);
+        return _db.SaveOnlyAsync(entity, members, Session, cancellation);
     }
 
     /// <summary>
@@ -80,7 +80,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SaveOnlyAsync(entity, propNames, Session, cancellation);
+        return _db.SaveOnlyAsync(entity, propNames, Session, cancellation);
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.SaveOnlyAsync(entities, members, Session, cancellation);
+        return _db.SaveOnlyAsync(entities, members, Session, cancellation);
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.SaveOnlyAsync(entities, propNames, Session, cancellation);
+        return _db.SaveOnlyAsync(entities, propNames, Session, cancellation);
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SaveExceptAsync(entity, members, Session, cancellation);
+        return _db.SaveExceptAsync(entity, members, Session, cancellation);
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SaveExceptAsync(entity, propNames, Session, cancellation);
+        return _db.SaveExceptAsync(entity, propNames, Session, cancellation);
     }
 
     /// <summary>
@@ -191,7 +191,7 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.SaveExceptAsync(entities, members, Session, cancellation);
+        return _db.SaveExceptAsync(entities, members, Session, cancellation);
     }
 
     /// <summary>
@@ -213,7 +213,7 @@ public partial class DBContext
         foreach (var ent in entities)
             OnBeforeSave<T>()?.Invoke(ent);
 
-        return _dbInstance.SaveExceptAsync(entities, propNames, Session, cancellation);
+        return _db.SaveExceptAsync(entities, propNames, Session, cancellation);
     }
 
     /// <summary>
@@ -228,7 +228,7 @@ public partial class DBContext
         SetModifiedBySingle(entity);
         OnBeforeSave<T>()?.Invoke(entity);
 
-        return _dbInstance.SavePreservingAsync(entity, Session, cancellation);
+        return _db.SavePreservingAsync(entity, Session, cancellation);
     }
 
     void SetModifiedBySingle<T>(T entity) where T : IEntity

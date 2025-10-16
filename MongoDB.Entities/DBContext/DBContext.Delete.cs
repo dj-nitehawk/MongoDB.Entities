@@ -19,7 +19,7 @@ public partial class DBContext
     /// <param name="cancellation">An optional cancellation token</param>
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(object ID, CancellationToken cancellation = default, bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.DeleteAsync(
+        => _db.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Eq(Cache<T>.IdPropName, ID)),
             Session,
             cancellation);
@@ -36,7 +36,7 @@ public partial class DBContext
     /// <param name="ignoreGlobalFilters">Set to true if you'd like to ignore any global filters for this operation</param>
     public Task<DeleteResult> DeleteAsync<T>(IEnumerable<object> IDs, CancellationToken cancellation = default, bool ignoreGlobalFilters = false)
         where T : IEntity
-        => _dbInstance.DeleteAsync(
+        => _db.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.In(Cache<T>.IdPropName, IDs)),
             Session,
             cancellation);
@@ -55,7 +55,7 @@ public partial class DBContext
                                              CancellationToken cancellation = default,
                                              Collation? collation = null,
                                              bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.DeleteAsync(
+        => _db.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, Builders<T>.Filter.Where(expression)),
             Session,
             cancellation,
@@ -75,7 +75,7 @@ public partial class DBContext
                                              CancellationToken cancellation = default,
                                              Collation? collation = null,
                                              bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.DeleteAsync(
+        => _db.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter(Builders<T>.Filter)),
             Session,
             cancellation,
@@ -95,7 +95,7 @@ public partial class DBContext
                                              CancellationToken cancellation = default,
                                              Collation? collation = null,
                                              bool ignoreGlobalFilters = false) where T : IEntity
-        => _dbInstance.DeleteAsync(
+        => _db.DeleteAsync(
             Logic.MergeWithGlobalFilter(ignoreGlobalFilters, _globalFilters, filter),
             Session,
             cancellation,

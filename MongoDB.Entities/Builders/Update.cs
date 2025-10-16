@@ -68,17 +68,17 @@ public class Update<T> : UpdateBase<T> where T : IEntity
     readonly List<UpdateManyModel<T>> _models = [];
     readonly Dictionary<Type, (object filterDef, bool prepend)>? _globalFilters;
     readonly Action<UpdateBase<T>>? _onUpdateAction;
-    readonly DBInstance _dbInstance;
+    readonly DB _db;
     bool _ignoreGlobalFilters;
 
     internal Update(IClientSessionHandle? session,
                     Dictionary<Type, (object filterDef, bool prepend)>? globalFilters,
-                    Action<UpdateBase<T>>? onUpdateAction, DBInstance dbInstance)
+                    Action<UpdateBase<T>>? onUpdateAction, DB db)
     {
         _session = session;
         _globalFilters = globalFilters;
         _onUpdateAction = onUpdateAction;
-        _dbInstance = dbInstance;
+        _db = db;
     }
 
     /// <summary>
@@ -447,8 +447,8 @@ public class Update<T> : UpdateBase<T> where T : IEntity
         {
             var bulkWriteResult = await (
                                             _session == null
-                                                ? _dbInstance.Collection<T>().BulkWriteAsync(_models, null, cancellation)
-                                                : _dbInstance.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
+                                                ? _db.Collection<T>().BulkWriteAsync(_models, null, cancellation)
+                                                : _db.Collection<T>().BulkWriteAsync(_session, _models, null, cancellation)
                                         ).ConfigureAwait(false);
 
             _models.Clear();
@@ -519,6 +519,6 @@ public class Update<T> : UpdateBase<T> where T : IEntity
                                           IClientSessionHandle? session = null,
                                           CancellationToken cancellation = default)
         => session == null
-               ? _dbInstance.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
-               : _dbInstance.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
+               ? _db.Collection<T>().UpdateManyAsync(filter, definition, options, cancellation)
+               : _db.Collection<T>().UpdateManyAsync(session, filter, definition, options, cancellation);
 }
