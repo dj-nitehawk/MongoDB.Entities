@@ -132,7 +132,7 @@ public class MultiDbObjectId
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, "localhost", modifiedBy: new());
+        var db = new DBContext(dbName, null, modifiedBy: new());
 
         var author = new AuthorObjectId { Name = "test" };
         await db.SaveAsync(author);

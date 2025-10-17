@@ -132,7 +132,7 @@ public class MultiDbInt64
     [TestMethod]
     public async Task dbcontext_ctor_connections()
     {
-        var db = new DBContext(dbName, "localhost", modifiedBy: new());
+        var db = new DBContext(dbName, null, modifiedBy: new());
 
         var author = new AuthorInt64 { Name = "test" };
         await db.SaveAsync(author);

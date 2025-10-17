@@ -30,26 +30,6 @@ public partial class DBContext
     /// <para>TIP: network connection is deferred until the first actual operation.</para>
     /// </summary>
     /// <param name="database">Name of the database</param>
-    /// <param name="host">Address of the MongoDB server</param>
-    /// <param name="port">Port number of the server</param>
-    /// <param name="modifiedBy">
-    /// An optional ModifiedBy instance.
-    /// When supplied, all save/update operations performed via this DBContext instance will set the value on entities that has a property of type ModifiedBy.
-    /// You can even inherit from the ModifiedBy class and add your own properties to it.
-    /// Only one ModifiedBy property is allowed on a single entity type.
-    /// </param>
-    public DBContext(string database, string host = "127.0.0.1", int port = 27017, ModifiedBy? modifiedBy = null)
-    {
-        _db = DB.InitAsync(database, host, port).GetAwaiter().GetResult();
-
-        ModifiedBy = modifiedBy;
-    }
-
-    /// <summary>
-    /// Initializes a DBContext instance with the given connection parameters.
-    /// <para>TIP: network connection is deferred until the first actual operation.</para>
-    /// </summary>
-    /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
     /// <param name="modifiedBy">
     /// An optional ModifiedBy instance.
@@ -57,7 +37,7 @@ public partial class DBContext
     /// You can even inherit from the ModifiedBy class and add your own properties to it.
     /// Only one ModifiedBy property is allowed on a single entity type.
     /// </param>
-    public DBContext(string database, MongoClientSettings settings, ModifiedBy? modifiedBy = null)
+    public DBContext(string database, MongoClientSettings? settings=null, ModifiedBy? modifiedBy = null)
     {
         _db = DB.InitAsync(database, settings).GetAwaiter().GetResult();
 
