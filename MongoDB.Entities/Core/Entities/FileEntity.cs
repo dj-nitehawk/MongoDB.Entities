@@ -77,7 +77,6 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     static readonly HashSet<string> _indexedDBs = [];
 
     readonly FileEntity<T> _parent;
-    readonly Type _parentType;
     readonly IMongoDatabase _mongoDatabase;
     readonly DB _db;
     readonly IMongoCollection<FileChunk> _chunkCollection;
@@ -85,7 +84,6 @@ public class DataStreamer<T> where T : FileEntity<T>, new()
     internal DataStreamer(FileEntity<T> parent, DB db)
     {
         _parent = parent;
-        _parentType = parent.GetType();
 
         _db = db;
 

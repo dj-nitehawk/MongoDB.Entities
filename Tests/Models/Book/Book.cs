@@ -1,5 +1,5 @@
-﻿using MongoDB.Entities.Tests.Models;
-using System;
+﻿using System;
+using MongoDB.Entities.Tests.Models;
 
 namespace MongoDB.Entities.Tests;
 

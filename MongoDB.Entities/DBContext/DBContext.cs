@@ -15,7 +15,7 @@ namespace MongoDB.Entities;
 /// </summary>
 public partial class DBContext
 {
-    DB _db;
+    readonly DB _db;
     
     /// <summary>
     /// The value of this property will be automatically set on entities when saving/updating if the entity has a ModifiedBy property

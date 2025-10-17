@@ -9,7 +9,7 @@ using MongoDB.Driver;
 namespace MongoDB.Entities;
 
 /// <summary>
-/// Base class providing shared state for Many'1 classes
+/// Base class providing shared state for Many classes
 /// </summary>
 public abstract class ManyBase
 {
@@ -20,7 +20,7 @@ public abstract class ManyBase
 
 /// <summary>
 /// Represents a one-to-many/many-to-many relationship between two Entities.
-/// <para>WARNING: You have to initialize all instances of this class before accessing any of it's members.</para>
+/// <para>WARNING: You have to initialize all instances of this class before accessing any of its members.</para>
 /// <para>Initialize from the constructor of the parent entity as follows:</para>
 /// <para>
 ///     <c>this.InitOneToMany(() => Property);</c>

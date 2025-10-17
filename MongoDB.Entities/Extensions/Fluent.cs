@@ -10,7 +10,7 @@ public static partial class Extensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="_"></param>
-    /// <param name="db">The DBInstance to use for this operation</param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">The options for the aggregation. This is not required.</param>
     public static IAggregateFluent<T> Fluent<T>(this T _, DB? db = null, IClientSessionHandle? session = null, AggregateOptions? options = null) where T : IEntity

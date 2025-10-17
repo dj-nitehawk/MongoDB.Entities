@@ -11,7 +11,7 @@ public static partial class Extensions
     /// Inserts a new entity into the collection.
     /// </summary>
     /// <param name="entity"></param>
-    /// <param name="db">The DBInstance to use for this operation</param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task InsertAsync<T>(this T entity, DB? db = null, IClientSessionHandle? session = null, CancellationToken cancellation = default) where T : IEntity
@@ -21,7 +21,7 @@ public static partial class Extensions
     /// Inserts a batch of new entities into the collection.
     /// </summary>
     /// <param name="entities"></param>
-    /// <param name="db">The DBInstance to use for this operation</param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<BulkWriteResult<T>> InsertAsync<T>(this IEnumerable<T> entities,

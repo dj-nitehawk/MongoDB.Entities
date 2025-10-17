@@ -30,7 +30,7 @@ public static partial class Extensions
     /// <param name="parent"></param>
     /// <param name="propertyToInit">() = > PropertyName</param>
     /// <param name="propertyOtherSide">x => x.PropertyName</param>
-    /// <param name="db">The DBInstance to store this relationship</param>
+    /// <param name="db">The DB instance to store this relationship</param>
     public static void InitManyToMany<TChild, TParent>(this IEntity parent,
                                                        Expression<Func<Many<TChild, TParent>?>> propertyToInit,
                                                        Expression<Func<TChild, object>?> propertyOtherSide,

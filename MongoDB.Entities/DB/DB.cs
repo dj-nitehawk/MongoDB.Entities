@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -47,7 +46,7 @@ public partial class DB
     }
 
     /// <summary>
-    /// Returns the cached DBInstance or creates and initializes a new DBInstance with the given connection parameters.
+    /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.
     /// <para>WARNING: will throw an error if server is not reachable!</para>
     /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
     /// duplicated.
@@ -55,19 +54,19 @@ public partial class DB
     /// <param name="database">Name of the database</param>
     /// <param name="host">Address of the MongoDB server</param>
     /// <param name="port">Port number of the server</param>
-    /// <returns>DBInstance</returns>
+    /// <returns>DB instance</returns>
     public static Task<DB> InitAsync(string database, string host = "127.0.0.1", int port = 27017)
         => Initialize(new() { Server = new(host, port) }, database);
 
     /// <summary>
-    /// Returns the cached DBInstance or creates and initializes a new DBInstance with the given connection parameters.
+    /// Returns the cached DB instance or creates and initializes a new DB instance with the given connection parameters.
     /// <para>WARNING: will throw an error if server is not reachable!</para>
     /// You can call this method as many times as you want (such as in serverless functions) with the same parameters and the connections won't get
     /// duplicated.
     /// </summary>
     /// <param name="database">Name of the database</param>
     /// <param name="settings">A MongoClientSettings object</param>
-    /// <returns>DBInstance</returns>
+    /// <returns>DB instance</returns>
     public static Task<DB> InitAsync(string database, MongoClientSettings settings)
                                  => Initialize(settings, database);
 
@@ -132,7 +131,7 @@ public partial class DB
     }
 
     /// <summary>
-    /// Gets the DBInstance for a given database name if it has been previously initialized.
+    /// Gets the DB instance for a given database name if it has been previously initialized.
     /// </summary>
     /// <param name="name">The name of the database to retrieve</param>
     public static DB Instance(string? name=null)
@@ -140,20 +139,20 @@ public partial class DB
         if (string.IsNullOrEmpty(name))
         {
             if (_instances.Count == 0)
-                throw new InvalidOperationException("No DBInstance has been initialized yet. Please call DBInstance.InitAsync() first.");
+                throw new InvalidOperationException("No DB instance has been initialized yet. Please call DB.InitAsync() first.");
 
             return _defaultInstance;
         }
         
         _instances.TryGetValue(name, out var db);
 
-        return db ?? throw new InvalidOperationException($"No DBInstance with the name '{name}' has been initialized yet. Please call DBInstance.InitAsync() first.");
+        return db ?? throw new InvalidOperationException($"No DB instance with the name '{name}' has been initialized yet. Please call DB.InitAsync() first.");
     }
 
     /// <summary>
-    /// returns the default DBInstance if null, otherwise DBInstance
+    /// returns the default DB instance if null, otherwise db
     /// </summary>
-    /// <param name="db">The DBInstance to check</param>
+    /// <param name="db">The DB instance to check</param>
     public static DB InstanceOrDefault(DB? db)
         => db ?? _defaultInstance;
 

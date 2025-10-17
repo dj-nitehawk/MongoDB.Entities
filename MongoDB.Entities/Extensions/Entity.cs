@@ -79,7 +79,7 @@ public static partial class Extensions
     /// An IQueryable collection of sibling Entities.
     /// </summary>
     /// <param name="_"></param>
-    /// <param name="db">The DBInstance to use for this operation</param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="options"></param>
     public static IQueryable<T> Queryable<T>(this T _, DB? db = null, AggregateOptions? options = null) where T : IEntity
         => DB.InstanceOrDefault(db).Queryable<T>(options);
@@ -176,7 +176,7 @@ public static partial class Extensions
     /// Returns an atomically generated sequential number for the given Entity type everytime the method is called
     /// </summary>
     /// <param name="_"></param>
-    /// <param name="db">The DBInstance to use for this operation</param>
+    /// <param name="db">The DB instance to use for this operation</param>
     /// <param name="cancellation">An optional cancellation token</param>
     public static Task<ulong> NextSequentialNumberAsync<T>(this T _, DB? db = null, CancellationToken cancellation = default) where T : IEntity
         => DB.InstanceOrDefault(db).NextSequentialNumberAsync<T>(cancellation);

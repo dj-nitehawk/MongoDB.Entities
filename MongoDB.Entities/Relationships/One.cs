@@ -43,7 +43,7 @@ public class One<TEntity> where TEntity : IEntity
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
     /// </summary>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
@@ -54,7 +54,7 @@ public class One<TEntity> where TEntity : IEntity
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">x => new Test { PropName = x.Prop }</param>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -75,7 +75,7 @@ public class One<TEntity> where TEntity : IEntity
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -135,7 +135,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// <summary>
     /// Fetches the actual entity this reference represents from the database.
     /// </summary>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session</param>
     /// <param name="cancellation">An optional cancellation token</param>
     /// <returns>A Task containing the actual entity</returns>
@@ -146,7 +146,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">x => new Test { PropName = x.Prop }</param>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">
@@ -168,7 +168,7 @@ public class One<TEntity, TIdentity> where TEntity : IEntity where TIdentity : n
     /// Fetches the actual entity this reference represents from the database with a projection.
     /// </summary>
     /// <param name="projection">p=> p.Include("Prop1").Exclude("Prop2")</param>
-    /// <param name="db">The DBInstance where these operations will be performed</param>
+    /// <param name="db">The DB instance where these operations will be performed</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="cancellation"> An optional cancellation token</param>
     /// <exception cref="InvalidOperationException">

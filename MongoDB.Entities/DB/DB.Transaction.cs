@@ -11,7 +11,7 @@ public partial class DB
     /// <param name="database">The name of the database which this transaction is for (not required)</param>
     /// <param name="options">Client session options (not required)</param>
     /// <param name="modifiedBy"></param>
-    public Transaction Transaction(string? database = default, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
+    public Transaction Transaction(string? database = null, ClientSessionOptions? options = null, ModifiedBy? modifiedBy = null)
         => new(database, options, modifiedBy);
 
     /// <summary>

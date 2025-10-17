@@ -64,7 +64,9 @@ public partial class DB
 
         tasks.Add(delResTask);
 
-        if (typeof(T).BaseType.IsGenericType && typeof(T).BaseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
+        var baseType = typeof(T).BaseType;
+
+        if (baseType != null && baseType.IsGenericType && baseType.GetGenericTypeDefinition() == typeof(FileEntity<>))
         {
             tasks.Add(
                 session == null

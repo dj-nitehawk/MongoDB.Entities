@@ -60,7 +60,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(string childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -69,7 +69,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(ObjectId childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -78,7 +78,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(Guid childID, IClientSessionHandle? session = null, AggregateOptions? options = null)
@@ -87,7 +87,7 @@ public sealed partial class Many<TChild, TParent> where TChild : IEntity where T
     /// <summary>
     /// Get an IAggregateFluent of parents matching a single child ID for this relationship.
     /// </summary>
-    /// <param name="childID">An child ID</param>
+    /// <param name="childID">A child ID</param>
     /// <param name="session">An optional session if using within a transaction</param>
     /// <param name="options">An optional AggregateOptions object</param>
     public IAggregateFluent<TParent> ParentsFluent(long childID, IClientSessionHandle? session = null, AggregateOptions? options = null)

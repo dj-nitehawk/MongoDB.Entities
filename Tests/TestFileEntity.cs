@@ -1,13 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Entities.Tests.Models;
-using System;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace MongoDB.Entities.Tests;
 
@@ -28,7 +29,7 @@ public class FileEntities
 
         //https://placekitten.com/g/4000/4000 - 1097221
         //https://djnitehawk.com/test/test.bmp - 69455612
-        using var stream = await new System.Net.Http.HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp").ConfigureAwait(false);
+        using var stream = await new HttpClient().GetStreamAsync("https://djnitehawk.com/test/test.bmp").ConfigureAwait(false);
         await img.Data(db).UploadWithTimeoutAsync(stream, 30, 128).ConfigureAwait(false);
 
         var count = await db.Collection<FileChunk>().AsQueryable()
