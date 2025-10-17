@@ -60,34 +60,38 @@ public partial class DB
     /// duplicated.
     /// </summary>
     /// <param name="dbName">Name of the database</param>
-    /// <param name="settings">A MongoClientSettings object</param>
+    /// <param name="clientSettings">A MongoClientSettings object</param>
+    /// <param name="databaseSettings">The database settings to create the database with</param>
     /// <param name="skipNetworkPing">Should we ping the database</param>
     /// <returns>DB instance</returns>
-    public static async Task<DB> InitAsync(string dbName, MongoClientSettings? settings = null, bool skipNetworkPing = false)
+    public static async Task<DB> InitAsync(string dbName,
+                                           MongoClientSettings? clientSettings = null,
+                                           MongoDatabaseSettings? databaseSettings = null,
+                                           bool skipNetworkPing = false)
     {
-        if (settings == null)
+        if (clientSettings == null)
         {
             if (_clients.Count == 0)
             {
-                settings = new() { Server = new("127.0.0.1", 27017) };
+                clientSettings = new() { Server = new("127.0.0.1", 27017) };
             }
             else
             {
-                settings = _defaultClientSettings;
+                clientSettings = _defaultClientSettings;
             }
         }
         
         if (string.IsNullOrEmpty(dbName))
             throw new ArgumentNullException(nameof(dbName), "Database name cannot be empty!");
         
-        if(!_clients.TryGetValue(settings, out var client))
+        if(!_clients.TryGetValue(clientSettings, out var client))
         {
-            client = new (settings);
-            _clients.TryAdd(settings, client);
+            client = new (clientSettings);
+            _clients.TryAdd(clientSettings, client);
             _clientInstances.TryAdd(client, new ());
 
             if (_clients.Count==1)
-                _defaultClientSettings = settings;
+                _defaultClientSettings = clientSettings;
         }
 
         if (!_clientInstances.TryGetValue(client, out var instances))
@@ -99,10 +103,10 @@ public partial class DB
         {
             try
             {
-                var mongoDatabase = client.GetDatabase(dbName);
+                var mongoDatabase = client.GetDatabase(dbName, databaseSettings);
                 db = new(mongoDatabase);
                 
-                if (settings==_defaultClientSettings && instances.Count==0)
+                if (clientSettings==_defaultClientSettings && instances.Count==0)
                     _defaultInstance = db;
 
                 if (instances.TryAdd(dbName, db) && !skipNetworkPing)
