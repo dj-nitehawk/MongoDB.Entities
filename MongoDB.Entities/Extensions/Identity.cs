@@ -27,42 +27,26 @@ public static partial class Extensions
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
     internal static void SetId<T>(this T entity, object id) where T : IEntity
         => Cache<T>.IdSetter(entity, id);
+    
+    // /// <summary>
+    // /// When saving entities, this method will be called in order to determine if <see cref="GenerateNewID" /> needs to be called.
+    // /// If this method returns <c>'true'</c>, <see cref="GenerateNewID" /> method is called and the ID (primary key) of the entity is populated.
+    // /// If <c>'false'</c> is returned, it is assumed that ID generation is not required and the entity already has a non-default ID value.
+    // /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
+    internal static bool HasDefaultID<T>(this T entity) where T : IEntity
+        => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
 
-    /// <summary>
-    /// Gets the PropertyInfo for the Identity object
-    /// </summary>
-    /// <param name="type">Any class that implements a MongoDB id</param>
-    internal static PropertyInfo? GetIdPropertyInfo(this Type type)
-    {
-        // Let's get the identity Property based on the MongoDB identity rules
-        return Array.Find(
-            type.GetProperties(),
-            p =>
-                p.Name.Equals("_id", StringComparison.OrdinalIgnoreCase) ||
-                p.Name.Equals("id", StringComparison.OrdinalIgnoreCase) ||
-                p.IsDefined(typeof(BsonIdAttribute), true));
-    }
+    // /// <summary>
+    // /// Generate and return a new ID from this method. It will be used when saving new entities that don't have their ID set.
+    // /// I.e. if an entity has a default ID value (determined by calling <see cref="HasDefaultID" /> method),
+    // /// this method will be called for obtaining a new ID value. If you're not doing custom ID generation, simply do
+    // /// <c>return ObjectId.GenerateNewId().ToString()</c>
+    // /// </summary>
+    // internal static object GenerateNewID<T>(this T entity, DB? dbInstance=null) where T : IEntity
+    // {
+    //     return Cache<T>.BsonClassMap.IdMemberMap.IdGenerator.GenerateId(DB.InstanceOrDefault(dbInstance).Collection<T>(),entity);
+    // }
 
-    internal static Func<object, object> GetterForProp(this Type source, string propertyName)
-    {
-        //(object parent, object returnVal) => ((object)((TParent)parent).property);
 
-        var parent = Expression.Parameter(typeof(object));
-        var property = Expression.Property(Expression.Convert(parent, source), propertyName);
-        var convertProp = Expression.Convert(property, typeof(object));
-
-        return Expression.Lambda<Func<object, object>>(convertProp, parent).Compile();
-    }
-
-    internal static Action<object, object> SetterForProp(this Type source, string propertyName)
-    {
-        //(object parent, object value) => ((TParent)parent).property = (TProp)value;
-
-        var parent = Expression.Parameter(typeof(object));
-        var value = Expression.Parameter(typeof(object));
-        var property = Expression.Property(Expression.Convert(parent, source), propertyName);
-        var body = Expression.Assign(property, Expression.Convert(value, property.Type));
-
-        return Expression.Lambda<Action<object, object>>(body, parent, value).Compile();
-    }
 }

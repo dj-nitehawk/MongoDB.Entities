@@ -12,6 +12,7 @@ namespace MongoDB.Entities;
 
 static class Cache<T> where T : IEntity
 {
+    internal static BsonClassMap BsonClassMap { get; private set; } = null!;
     internal static string CollectionName { get; private set; } = null!;
     internal static ConcurrentDictionary<DB, ConcurrentDictionary<string, Watcher<T>>> Watchers { get; private set; } = null!;
     internal static bool HasCreatedOn { get; private set; }
@@ -24,6 +25,7 @@ static class Cache<T> where T : IEntity
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
     internal static Action<object, object> IdSetter { get; private set; } = null!;
     internal static Func<object, object> IdGetter { get; private set; } = null!;
+    internal static object IdDefaultValue { get; private set; } = null!;
 
     static PropertyInfo[] _updatableProps = [];
     static ProjectionDefinition<T>? _requiredPropsProjection;
@@ -37,15 +39,18 @@ static class Cache<T> where T : IEntity
     {
         var type = typeof(T);
 
-        var propertyInfo = type.GetIdPropertyInfo();
-
-        if (propertyInfo != null)
+        BsonClassMap = MapBsonClass(type);
+            
+        var idMap = BsonClassMap.IdMemberMap;
+        
+        if (idMap != null)
         {
-            IdPropName = propertyInfo.Name;
-            IdExpression = SelectIdExpression(propertyInfo);
+            IdPropName = idMap.MemberName;
+            IdExpression = SelectIdExpression(idMap.MemberInfo);
             IdSelector = IdExpression.Compile();
-            IdGetter = type.GetterForProp(IdPropName);
-            IdSetter = type.SetterForProp(IdPropName);
+            IdGetter = idMap.Getter;
+            IdSetter = idMap.Setter;
+            IdDefaultValue = idMap.DefaultValue;
         }
         else
         {
@@ -132,12 +137,31 @@ static class Cache<T> where T : IEntity
         return Builders<T>.Projection.Combine(_requiredPropsProjection, userProj);
     }
 
-    static Expression<Func<T, object?>> SelectIdExpression(PropertyInfo idProp)
+    static Expression<Func<T, object?>> SelectIdExpression(MemberInfo idProp)
     {
         var parameter = Expression.Parameter(typeof(T), "t");
-        var property = Expression.Property(parameter, idProp);
+        var property = Expression.Property(parameter, idProp.Name);
         Expression conversion = Expression.Convert(property, typeof(object));
 
         return Expression.Lambda<Func<T, object?>>(conversion, parameter);
+    }
+
+    static BsonClassMap MapBsonClass(Type type)
+    {
+        if (type.BaseType != typeof(Object) && !BsonClassMap<T>.IsClassMapRegistered(type.BaseType!))
+        {
+            MapBsonClass(type.BaseType!);
+        }
+
+        if (!BsonClassMap<T>.IsClassMapRegistered(type))
+        {
+            var cm = new BsonClassMap(type);
+            cm.AutoMap();
+            cm.SetIgnoreExtraElements(true);
+        
+            BsonClassMap<T>.RegisterClassMap(cm);
+        }
+
+        return BsonClassMap<T>.LookupClassMap(type);
     }
 }

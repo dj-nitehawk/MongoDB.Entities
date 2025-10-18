@@ -87,7 +87,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates an unlinked duplicate of the original IEntity ready for embedding with a blank ID.
     /// </summary>
-    public static T ToDocument<T>(this T entity) where T : IEntity
+    public static T ToDocument<T>(this T entity, DB? dbInstance=null) where T : IEntity
     {
         var res = entity.Duplicate();
         res.SetId(res.GenerateNewID());
@@ -98,7 +98,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static T[] ToDocuments<T>(this T[] entities) where T : IEntity
+    public static T[] ToDocuments<T>(this T[] entities, DB? dbInstance=null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
@@ -110,7 +110,7 @@ public static partial class Extensions
     /// <summary>
     /// Creates unlinked duplicates of the original Entities ready for embedding with blank IDs.
     /// </summary>
-    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities) where T : IEntity
+    public static IEnumerable<T> ToDocuments<T>(this IEnumerable<T> entities, DB? dbInstance=null) where T : IEntity
     {
         var res = entities.Duplicate();
         foreach (var e in res)
