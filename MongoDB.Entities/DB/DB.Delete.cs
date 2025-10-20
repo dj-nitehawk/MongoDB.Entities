@@ -25,28 +25,16 @@ public partial class DB
         //       also make consumers call ThrowIfCancellationNotSupported() before calling this method.
 
         var db = Database<T>();
-        var options = new ListCollectionNamesOptions
-        {
-            Filter = "{$and:[{name:/~/},{name:/" + CollectionName<T>() + "/}]}"
-        };
-
         var tasks = new List<Task>();
-
-        // note: db.listCollections() mongo command does not support transactions.
-        //       so don't add session support here.
-        var collNamesCursor = await db.ListCollectionNamesAsync(options, cancellation).ConfigureAwait(false);
-
-        var list = await collNamesCursor.ToListAsync(cancellation).ConfigureAwait(false);
-
-        for (var i = 0; i < list.Count; i++)
+        
+        foreach (var refCollection in Cache<T>.ReferenceCollections.Values)
         {
-            var cName = list[i];
             tasks.Add(
                 session == null
 
                     // ReSharper disable once MethodSupportsCancellation
-                    ? db.GetCollection<JoinRecord>(cName).DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
-                    : db.GetCollection<JoinRecord>(cName).DeleteManyAsync(
+                    ? refCollection.DeleteManyAsync(r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID))
+                    : refCollection.DeleteManyAsync(
                         session,
                         r => IDs.Contains(r.ChildID) || IDs.Contains(r.ParentID),
                         null,
