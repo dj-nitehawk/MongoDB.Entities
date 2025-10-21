@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
+using BsonSerializationContext = MongoDB.Bson.Serialization.BsonSerializationContext;
 
 namespace MongoDB.Entities;
 
@@ -22,6 +26,16 @@ public static partial class Extensions
         => Cache<T>.IdGetter(entity);
 
     /// <summary>
+    /// Gets stored representation of the Identity object
+    /// </summary>
+    /// <typeparam name="T">Any class that implements a MongoDB id </typeparam>
+    internal static BsonValue GetBsonId<T>(this T entity) where T : IEntity
+    {
+        var bsonEntity = entity.ToBsonDocument();
+        return bsonEntity.GetValue(Cache<T>.IdBsonName);
+    }
+
+    /// <summary>
     /// Sets the Identity object
     /// </summary>
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
@@ -36,17 +50,5 @@ public static partial class Extensions
     /// <typeparam name="T">Any class that implements a MongoDB id</typeparam>
     internal static bool HasDefaultID<T>(this T entity) where T : IEntity
         => Equals(Cache<T>.IdGetter(entity), Cache<T>.IdDefaultValue);
-
-    // /// <summary>
-    // /// Generate and return a new ID from this method. It will be used when saving new entities that don't have their ID set.
-    // /// I.e. if an entity has a default ID value (determined by calling <see cref="HasDefaultID" /> method),
-    // /// this method will be called for obtaining a new ID value. If you're not doing custom ID generation, simply do
-    // /// <c>return ObjectId.GenerateNewId().ToString()</c>
-    // /// </summary>
-    // internal static object GenerateNewID<T>(this T entity, DB? dbInstance=null) where T : IEntity
-    // {
-    //     return Cache<T>.BsonClassMap.IdMemberMap.IdGenerator.GenerateId(DB.InstanceOrDefault(dbInstance).Collection<T>(),entity);
-    // }
-
 
 }

@@ -21,6 +21,7 @@ static class Cache<T> where T : IEntity
     internal static PropertyInfo? ModifiedByProp { get; private set; }
     internal static bool HasIgnoreIfDefaultProps { get; private set; }
     internal static string IdPropName { get; private set; } = null!;
+    internal static string IdBsonName { get; private set; } = null!;
     internal static Expression<Func<T, object?>> IdExpression { get; private set; } = null!;
     internal static Func<T, object?> IdSelector { get; private set; } = null!;
     internal static Action<object, object> IdSetter { get; private set; } = null!;
@@ -48,6 +49,7 @@ static class Cache<T> where T : IEntity
         if (idMap != null)
         {
             IdPropName = idMap.MemberName;
+            IdBsonName = idMap.ElementName;
             IdExpression = SelectIdExpression(idMap.MemberInfo);
             IdSelector = IdExpression.Compile();
             IdGetter = idMap.Getter;
