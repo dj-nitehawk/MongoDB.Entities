@@ -13,9 +13,6 @@ public class FlowerEntity : Flower
     public override object GenerateNewID()
         => ObjectId.GenerateNewId().ToString();
 
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(Id);
-
     public FlowerEntity NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerEntity> Customers { get; set; }
 

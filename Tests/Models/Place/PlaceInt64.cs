@@ -14,7 +14,4 @@ public class PlaceInt64 : Place
 
     public override object GenerateNewID()
         => Interlocked.Decrement(ref nextID);
-
-    public override bool HasDefaultID()
-          => Id == 0;
 }

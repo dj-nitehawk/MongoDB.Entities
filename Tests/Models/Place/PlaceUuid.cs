@@ -11,7 +11,4 @@ public class PlaceUuid : Place
 
     public override object GenerateNewID()
           => Uuid7.NewUuid7().ToString();
-
-    public override bool HasDefaultID()
-          => string.IsNullOrEmpty(Id);
 }

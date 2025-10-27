@@ -16,9 +16,6 @@ public class FlowerObjectId : Flower
     public override object GenerateNewID()
         => ObjectId.GenerateNewId();
 
-    public override bool HasDefaultID()
-        => ObjectId.Empty == Id;
-
     public FlowerObjectId()
     {
         this.InitOneToMany(() => Customers);

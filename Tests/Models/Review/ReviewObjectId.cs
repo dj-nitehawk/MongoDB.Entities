@@ -13,8 +13,5 @@ public class ReviewObjectId : Review
     public override object GenerateNewID()
         => ObjectId.GenerateNewId();
 
-    public override bool HasDefaultID()
-        => ObjectId.Empty == Id;
-
     public Collection<BookObjectId> Books { get; set; }
 }

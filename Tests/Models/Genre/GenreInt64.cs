@@ -15,9 +15,6 @@ public class GenreInt64 : Genre
     public override object GenerateNewID()
         => Interlocked.Decrement(ref nextID);
 
-    public override bool HasDefaultID()
-        => ID == 0;
-
     [InverseSide]
     public Many<BookInt64, GenreInt64> Books { get; set; } = null!;
 

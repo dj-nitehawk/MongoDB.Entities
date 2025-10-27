@@ -11,11 +11,7 @@ public class GenreUuid : Genre
 
     public override object GenerateNewID()
         => Uuid7.NewUuid7().ToString();
-
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
-
-
+    
     [InverseSide]
     public Many<BookUuid, GenreUuid> Books { get; set; } = null!;
 

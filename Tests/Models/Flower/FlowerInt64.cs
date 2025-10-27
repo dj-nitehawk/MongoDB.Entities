@@ -16,9 +16,6 @@ public class FlowerInt64 : Flower
     public override object GenerateNewID()
         => Interlocked.Decrement(ref nextID);
 
-    public override bool HasDefaultID()
-        => Id == 0;
-
     public FlowerInt64 NestedFlower { get; set; }
     public Many<CustomerWithCustomID, FlowerInt64> Customers { get; set; }
 

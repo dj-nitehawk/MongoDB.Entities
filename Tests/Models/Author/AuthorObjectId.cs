@@ -12,9 +12,6 @@ public class AuthorObjectId : Author
     public override object GenerateNewID()
         => ObjectId.GenerateNewId();
 
-    public override bool HasDefaultID()
-        => ObjectId.Empty == ID;
-
     [BsonIgnoreIfDefault]
     public One<BookObjectId, ObjectId> BestSeller { get; set; }
 

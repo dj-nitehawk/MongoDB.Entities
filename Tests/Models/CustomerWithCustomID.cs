@@ -10,7 +10,4 @@ public class CustomerWithCustomID : IEntity
 
     public object GenerateNewID()
         => $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-
-    public bool HasDefaultID()
-        => string.IsNullOrEmpty(ID);
 }

@@ -16,9 +16,6 @@ public class BookInt64 : Book
     public override object GenerateNewID()
         => Interlocked.Decrement(ref nextID);
 
-    public override bool HasDefaultID()
-        => ID == 0;
-
     public ReviewInt64 Review { get; set; }
     public ReviewInt64[] ReviewArray { get; set; }
     public IList<ReviewInt64> ReviewList { get; set; }

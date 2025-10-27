@@ -15,9 +15,6 @@ public class AuthorInt64 : Author
     public override object GenerateNewID()
         => Interlocked.Decrement(ref nextID);
 
-    public override bool HasDefaultID()
-        => ID == 0;
-
     [BsonIgnoreIfDefault]
     public One<BookInt64, long> BestSeller { get; set; }
 

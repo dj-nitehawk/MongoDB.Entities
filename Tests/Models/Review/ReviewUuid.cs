@@ -13,8 +13,5 @@ public class ReviewUuid : Review
     public override object GenerateNewID()
         => Uuid7.NewUuid7().ToString();
 
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(Id);
-
     public Collection<BookUuid> Books { get; set; }
 }

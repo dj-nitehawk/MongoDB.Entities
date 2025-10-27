@@ -13,9 +13,6 @@ public class BookObjectId : Book
     public override object GenerateNewID()
         => ObjectId.GenerateNewId();
 
-    public override bool HasDefaultID()
-        => ObjectId.Empty == ID;
-
     public ReviewObjectId Review { get; set; }
     public ReviewObjectId[] ReviewArray { get; set; }
     public IList<ReviewObjectId> ReviewList { get; set; }

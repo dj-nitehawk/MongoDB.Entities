@@ -16,9 +16,6 @@ public class FlowerUuid : Flower
     public override object GenerateNewID()
         => Uuid7.NewUuid7().ToString();
 
-    public override bool HasDefaultID()
-        => string.IsNullOrEmpty(Id);
-
     public FlowerUuid()
     {
         this.InitOneToMany(() => Customers);

@@ -12,9 +12,6 @@ public class GenreObjectId : Genre
     public override object GenerateNewID()
         => ObjectId.GenerateNewId();
 
-    public override bool HasDefaultID()
-        => ObjectId.Empty == ID;
-
     [InverseSide]
     public Many<BookObjectId, GenreObjectId> Books { get; set; } = null!;
 
